@@ -48,7 +48,7 @@ export interface VoteResult {
   quip: string | null;
 }
 
-export function useDebate(data: DebateData) {
+export function useDebate(data: DebateData, initialRivalry?: string) {
   const ctx = useMemo<DebateContext>(
     () => ({
       catalog: catalogFrom(data),
@@ -65,6 +65,7 @@ export function useDebate(data: DebateData) {
       ctx,
       categoryFromSearch(window.location.search, ctx.catalog),
       restoreDebate(readJson(storage, DEBATE_STORAGE_KEY), ctx),
+      initialRivalry ?? null,
     );
   });
   /** Rivalité affichée : en retard de 120 ms sur le moteur pendant l'animation de sortie. */
@@ -83,14 +84,14 @@ export function useDebate(data: DebateData) {
     writeJson(storage, DEBATE_STORAGE_KEY, state);
   }, [storage, state]);
 
-  // L'URL suit la catégorie, sans recharger la page ni empiler l'historique.
+  // L'adresse suit le débat affiché (/debat/<id>?theme=<catégorie>) : la copier suffit pour le partager.
+  // replaceState : on ne remplit pas l'historique, le bouton « retour » quitte le jeu.
   useEffect(() => {
     const url = new URL(window.location.href);
-    if (url.searchParams.get('theme') !== state.category) {
-      url.searchParams.set('theme', state.category);
-      window.history.replaceState(null, '', url);
-    }
-  }, [state.category]);
+    url.pathname = `/debat/${shown}`;
+    url.searchParams.set('theme', state.category);
+    if (url.href !== window.location.href) window.history.replaceState(null, '', url);
+  }, [shown, state.category]);
 
   /** Applique un nouvel état et fait entrer sa rivalité (après la sortie de l'ancienne). */
   const advance = useCallback((next: DebateState, how: Exclude<Exit, null>) => {

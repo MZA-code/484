@@ -106,7 +106,7 @@ describe('rivalries file', () => {
 
   it('rejects a category with too few rivalries', () => {
     const file = cloneRivalries();
-    file.categories.push({ id: 'vide', label: 'Vide', tagline: 'Rien.' });
+    file.categories.push({ id: 'vide', label: 'Vide', tagline: 'Rien.', icon: 'star' });
     expectError(file, /« vide » a 0 rivalité/);
   });
 
@@ -114,6 +114,12 @@ describe('rivalries file', () => {
     const file = cloneRivalries();
     (file.categories[0] as { id: string }).id = 'mix';
     expectError(file, /réservé/);
+  });
+
+  it('rejects an unknown icon', () => {
+    const file = cloneRivalries();
+    (file.categories[0] as { icon: string }).icon = 'licorne-arc-en-ciel';
+    expectError(file, /icône inconnue/);
   });
 
   it('rejects a line that is too long', () => {

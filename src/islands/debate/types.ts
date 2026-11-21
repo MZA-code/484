@@ -19,6 +19,7 @@ export interface DebateRivalry {
 }
 
 export interface DebateData {
+  universes: { id: string; label: string; categories: string[] }[];
   categories: { id: string; label: string }[];
   rivalries: DebateRivalry[];
   texts: Pick<UiTexts, 'debate' | 'quips' | 'milestones'> & {

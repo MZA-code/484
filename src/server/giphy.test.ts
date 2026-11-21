@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createFileCache, createMemoryCache } from './gif-cache';
-import { createGiphyService, GiphyError, toGif, TTL } from './giphy';
+import { createGiphyService, GiphyError, QUOTA_PAUSE_MS, toGif, TTL } from './giphy';
 
 const KEY = 'secret-key-123';
 
@@ -149,6 +149,27 @@ describe('giphy service', () => {
     expect(error).toBeInstanceOf(GiphyError);
     expect((error as GiphyError).status).toBe(429);
     expect(String((error as Error).message)).not.toContain(KEY);
+  });
+
+  it('stops calling Giphy for a while after a quota error, then retries', async () => {
+    let now = 0;
+    let quota = true;
+    const giphy = fakeFetch(() =>
+      quota ? { status: 429 } : { body: { data: [giphyObject('back')] } },
+    );
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(() => now),
+      fetch: giphy.fetch,
+      now: () => now,
+    });
+    await expect(service.gifFor({ giphyIds: [], giphyQuery: 'one' })).rejects.toThrow();
+    await expect(service.gifFor({ giphyIds: [], giphyQuery: 'two' })).rejects.toThrow();
+    expect(giphy.calls).toHaveLength(1);
+    quota = false;
+    now += QUOTA_PAUSE_MS;
+    expect((await service.gifFor({ giphyIds: [], giphyQuery: 'two' }))?.id).toBe('back');
+    expect(giphy.calls).toHaveLength(2);
   });
 
   it('does not cache failures', async () => {

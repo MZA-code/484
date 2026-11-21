@@ -2,9 +2,10 @@
 /** Hall of Fame : le verdict mondial des débats, d'après les votes de tous les visiteurs. */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HallOfFame, { questionFor, type HallData } from '../islands/hall/HallOfFame';
-import { categories, rivalries, ui } from '../data/content';
+import { categories, rivalries, ui, universes } from '../data/content';
 
 const data: HallData = {
+  universes: universes.map(({ id, label }) => ({ id, label })),
   categories: categories.map(({ id, label }) => ({ id, label })),
   rivalries: rivalries.map((r) => ({
     id: r.id,

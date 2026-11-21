@@ -105,3 +105,9 @@ Copier `.env.example` en `.env` et le remplir. Le fichier `.env` n'est jamais co
 ## À venir
 
 La section « Déployer » sera écrite au moment du déploiement.
+
+## Crédits
+
+- Icônes : [Font Awesome Free](https://fontawesome.com), licence CC BY 4.0.
+- GIF : [GIPHY](https://giphy.com).
+- Polices : Anton, Space Grotesk, Space Mono (licence SIL OFL), via Fontsource.

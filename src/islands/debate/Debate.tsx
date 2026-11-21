@@ -2,8 +2,8 @@
  * Îlot de débat : catégories, rivalité en cours, résultat, palier, « Tes teams » et « Ton profil ».
  * Rendu uniquement côté client (la partie dépend du stockage local et de l'URL).
  */
-import { useEffect, useMemo } from 'preact/hooks';
-import { debateNumber, MIXED_CATEGORY, type Team } from '../../engine';
+import { useEffect, useMemo, useState } from 'preact/hooks';
+import { debateNumber, MIXED_CATEGORY, universeOf, type Team } from '../../engine';
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
 import { useReducedMotion } from '../../lib/motion';
@@ -22,9 +22,37 @@ function shouldIgnoreKey(event: KeyboardEvent): boolean {
   return !!target?.closest('input, textarea, select, [contenteditable="true"]');
 }
 
-export default function Debate({ data }: { data: DebateData }) {
-  const { state, ctx, shown, exit, result, milestone, choose, skip, selectCategory } =
-    useDebate(data);
+/** Partage natif (téléphone) si disponible, sinon copie du lien. Renvoie vrai si le lien a été copié. */
+async function shareDebate(title: string, text: string): Promise<boolean> {
+  const url = window.location.href;
+  if (typeof navigator.share === 'function') {
+    try {
+      await navigator.share({ title, text, url });
+      return false;
+    } catch {
+      // Partage annulé ou refusé : on se rabat sur la copie.
+    }
+  }
+  try {
+    await navigator.clipboard.writeText(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export default function Debate({
+  data,
+  initialRivalry,
+}: {
+  data: DebateData;
+  initialRivalry?: string | undefined;
+}) {
+  const { state, ctx, shown, exit, result, milestone, choose, skip, selectCategory } = useDebate(
+    data,
+    initialRivalry,
+  );
+  const [copied, setCopied] = useState(false);
   const t = data.texts.debate;
   const reducedMotion = useReducedMotion();
 
@@ -33,6 +61,7 @@ export default function Debate({ data }: { data: DebateData }) {
     () =>
       new Map([
         [MIXED_CATEGORY, data.texts.mixedLabel],
+        ...data.universes.map((u) => [u.id, u.label] as const),
         ...data.categories.map((c) => [c.id, c.label] as const),
       ]),
     [data],
@@ -46,6 +75,14 @@ export default function Debate({ data }: { data: DebateData }) {
       preloadGif(teamGifKey(id, 'b'), reducedMotion);
     }
   }, [state.current, state.queue, reducedMotion]);
+
+  // Le titre de l'onglet suit la question affichée (favoris, historique, partage).
+  useEffect(() => {
+    const rivalry = byId.get(shown);
+    if (!rivalry) return;
+    const q = rivalry.question ?? formatText(t.question, { a: rivalry.a.name, b: rivalry.b.name });
+    document.title = `${q} · 484`;
+  }, [shown, byId, t]);
 
   // Clavier : ← team de gauche, → team de droite, Échap retour à l'accueil.
   useEffect(() => {
@@ -62,13 +99,20 @@ export default function Debate({ data }: { data: DebateData }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [choose]);
 
+  const activeUniverse = universeOf(ctx.catalog, state.category);
   const rivalry = byId.get(shown);
   if (!rivalry) return null;
   const colors = teamColors(rivalry.id);
   const lastRivalry = result ? byId.get(result.rivalryId) : undefined;
   const lastColors = result ? teamColors(result.rivalryId) : colors;
-  const question =
-    rivalry.question ?? formatText(t.question, { a: rivalry.a.name, b: rivalry.b.name });
+  const names = { a: rivalry.a.name, b: rivalry.b.name };
+  const question = rivalry.question ?? formatText(t.question, names);
+  const onShare = () => {
+    void shareDebate(question, formatText(t.shareText, names)).then((didCopy) => {
+      setCopied(didCopy);
+      if (didCopy) window.setTimeout(() => setCopied(false), 2500);
+    });
+  };
 
   const card = (side: Team) => (
     <TeamCard
@@ -87,19 +131,38 @@ export default function Debate({ data }: { data: DebateData }) {
 
   return (
     <div class="debate">
-      <nav class="category-tabs" aria-label={t.categoriesLabel}>
-        {ctx.catalog.categoryIds.map((id) => (
+      {/* Premier niveau : « Tout mélangé » et les univers. */}
+      <nav class="category-tabs" aria-label={t.universesLabel}>
+        {[MIXED_CATEGORY, ...ctx.catalog.universes.map((u) => u.id)].map((id) => (
           <button
             key={id}
             type="button"
             class="category-tab"
-            aria-pressed={id === state.category}
+            aria-pressed={
+              id === MIXED_CATEGORY ? state.category === MIXED_CATEGORY : activeUniverse?.id === id
+            }
             onClick={() => selectCategory(id)}
           >
             {labels.get(id)}
           </button>
         ))}
       </nav>
+      {/* Second niveau : tout l'univers, ou une de ses catégories. */}
+      {activeUniverse && (
+        <nav class="category-tabs category-tabs--sub" aria-label={t.categoriesLabel}>
+          {[activeUniverse.id, ...activeUniverse.categories].map((id) => (
+            <button
+              key={id}
+              type="button"
+              class="category-tab category-tab--sub"
+              aria-pressed={state.category === id}
+              onClick={() => selectCategory(id)}
+            >
+              {id === activeUniverse.id ? t.wholeUniverse : labels.get(id)}
+            </button>
+          ))}
+        </nav>
+      )}
 
       <div class="debate-head">
         <p class="debate-number">
@@ -112,7 +175,7 @@ export default function Debate({ data }: { data: DebateData }) {
 
       <div class="debate-stage">
         <div class={`debate-question${exit ? ' is-leaving' : ''}`} key={rivalry.id}>
-          {state.category === MIXED_CATEGORY && (
+          {state.category !== rivalry.category && (
             <p class="debate-category">{labels.get(rivalry.category)}</p>
           )}
           <h1 class="debate-title">{question}</h1>
@@ -130,6 +193,12 @@ export default function Debate({ data }: { data: DebateData }) {
           <button type="button" class="skip-button" onClick={skip}>
             {t.skip}
           </button>
+          <button type="button" class="skip-button share-button" onClick={onShare}>
+            {t.shareButton}
+          </button>
+          <p class="share-feedback" aria-live="polite">
+            {copied && <span class="pop">{t.shareCopied}</span>}
+          </p>
         </div>
 
         <Result
@@ -142,7 +211,12 @@ export default function Debate({ data }: { data: DebateData }) {
         />
       </div>
 
-      <Panels state={state} byId={byId} texts={data.texts} />
+      <Panels
+        state={state}
+        hallScope={activeUniverse?.id ?? MIXED_CATEGORY}
+        byId={byId}
+        texts={data.texts}
+      />
     </div>
   );
 }

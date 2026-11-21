@@ -1,0 +1,20 @@
+---
+/**
+ * /debat/<id> : une page par rivalité, pour pouvoir partager un affrontement précis.
+ * Titre et description sont propres à la rivalité (aperçu soigné sur les réseaux sociaux).
+ */
+import DebatePage from '../../components/DebatePage.astro';
+import { rivalries, ui } from '../../data/content';
+import { formatText } from '../../lib/format';
+
+export function getStaticPaths() {
+  return rivalries.map((r) => ({ params: { id: r.id }, props: { rivalry: r } }));
+}
+
+const { rivalry } = Astro.props;
+const names = { a: rivalry.a.name, b: rivalry.b.name };
+const title = rivalry.question ?? formatText(ui.debate.question, names);
+const description = formatText(ui.debate.shareDescription, names);
+---
+
+<DebatePage title={title} description={description} initialRivalry={rivalry.id} />

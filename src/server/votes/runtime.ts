@@ -3,7 +3,7 @@
  * Les secrets viennent de `astro:env` : fichier .env en local, variables d'environnement en production.
  */
 import { getSecret } from 'astro:env/server';
-import { categories, rivalries } from '../../data/content';
+import { categories, rivalries, universes } from '../../data/content';
 import { createVoteService, type VoteService } from './service';
 import { openSqliteStore } from './store';
 
@@ -23,6 +23,7 @@ export function getVoteService(): VoteService | null {
     salt,
     rivalries,
     categoryIds: categories.map((c) => c.id),
+    universes,
   });
   return service;
 }

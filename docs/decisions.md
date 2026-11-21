@@ -187,3 +187,44 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Durées.** La transition de vote dure 130 ms en sortie et 170 ms en entrée : moins de 300 ms en tout, comme le demande le brief.
 - **Remplissage `backwards`** pour les entrées, et non `both`. Une animation qui garde son état final bloquait les effets de survol (`transform`) des cartes.
 - **Le palier passe dans le bandeau collé en bas de l'écran.** Sous les cartes, il était hors de vue, alors qu'il porte le message aux recruteurs au palier 25.
+
+## D17 — Univers : les catégories regroupées (phase 5)
+
+**Contexte.** Avec une vingtaine de catégories prévues, les onglets et les cartes de l'accueil devenaient illisibles.
+
+**Décisions.**
+
+- **`universes` dans `content/rivalries.json`.** Chaque univers a un identifiant (préfixé `univers-`), un libellé, une accroche et sa liste de catégories. La validation exige que chaque catégorie appartienne à exactement un univers, et qu'un univers ne porte pas l'identifiant d'une catégorie.
+- **Un univers se joue comme une catégorie** (`?theme=univers-ecrans`) : sa file contient toutes les rivalités de ses catégories. L'API de votes accepte un univers comme contexte, et le Hall of Fame se filtre par univers.
+- **Page de débat : deux rangées d'onglets.**
+  - La première : « Tout mélangé » et les univers.
+  - La seconde, plus discrète : « Tout l'univers » et les catégories de l'univers en cours.
+  - En mode mélangé, ou sur un univers, le nom de la catégorie s'affiche au-dessus de la question.
+- **Accueil** : une grande carte « Tout mélangé », puis une section par univers (titre, accroche, lien « Tout l'univers → N rivalités »), avec ses cartes de catégorie.
+- **Hall of Fame** : filtré par « Tout mélangé » et par univers. Il n'y a plus de filtre par catégorie, qui aurait fait 20 boutons.
+
+## D18 — Quota Giphy : disjoncteur, et clé de production avant la mise en ligne (phase 5)
+
+**Constat.** La clé « beta » de Giphy est limitée à 100 appels par heure. Les parties, les 200 nouvelles teams du lot 1 (sans GIF en cache) et mes tests de bout en bout, qui utilisaient la vraie clé, l'ont épuisée.
+
+**Décisions.**
+
+- **Disjoncteur dans le service Giphy.** Après une réponse 429, le serveur n'appelle plus Giphy pendant 15 minutes (`QUOTA_PAUSE_MS`), et les cartes gardent le cadre rayé. Les échecs ne sont toujours pas mis en cache : les GIF reviennent d'eux-mêmes ensuite.
+- **Les tests de bout en bout simulent Giphy** et n'utilisent plus la vraie clé.
+- **Clé de production à demander en phase 6**, une fois le site en ligne sur team484.fr. Elle est gratuite et sans limite horaire, et Giphy l'accorde sur une application en ligne qui affiche l'attribution « Powered by GIPHY ».
+
+## D19 — Une adresse par débat, pour le partage (phase 5)
+
+- **`/debat/<id>` : une page statique par rivalité** (749 pages, environ 11 Ko chacune). Chaque page a son titre (« Team Edward ou team Jacob ? »), sa description et ses balises Open Graph. L'adresse du site est déclarée dans la configuration (`site: 'https://team484.fr'`), et l'adresse canonique n'a ni paramètres ni barre oblique finale.
+- **Les rivalités sont servies dans un seul fichier, `/data/debate.json`**, généré au build et versionné dans l'adresse pour renouveler le cache. Si chaque page avait embarqué toutes les rivalités, le site aurait pesé environ 150 Mo. L'îlot affiche un squelette le temps du chargement, et un message si le fichier ne vient pas.
+- **L'adresse suit le jeu** : `/debat/<rivalité affichée>?theme=<catégorie>`, mise à jour avec `history.replaceState` (le bouton « retour » quitte le jeu au lieu de remonter 50 débats). Copier l'adresse, c'est partager le débat en cours ; recharger la page le réaffiche. Le titre de l'onglet suit aussi la question.
+- **Le moteur sait ouvrir une rivalité précise** (`focusRivalry`). Il change de catégorie si besoin, et la rivalité qui était affichée retourne dans la file.
+- **Bouton « Partager ce débat »** : partage natif quand le téléphone le propose (API Web Share), sinon copie du lien, confirmée par un message.
+
+## D20 — Icônes des catégories (phase 5)
+
+- **Font Awesome Free 7** (`@fortawesome/free-solid-svg-icons`) : icônes sous licence CC BY 4.0, code sous licence MIT. L'attribution figure dans `src/lib/icons.ts` et dans le README.
+- **SVG en ligne, générés au build** (`src/components/Icon.astro`) : pas de police d'icônes ni de script, aucune requête en plus, et seules les icônes listées dans `src/lib/icons.ts` sont embarquées.
+- **L'icône est une donnée du contenu** (champ `icon` des catégories, des univers et de « Tout mélangé »), validée contre la liste disponible : une icône inconnue fait échouer le build, avec la liste des noms possibles.
+- **Sur l'accueil** : icône en filigrane dans le coin de chaque carte (elle gigote au survol), et en jaune devant chaque titre d'univers.
+- Le paquet est une **dépendance de production**, car le serveur valide le contenu au démarrage.

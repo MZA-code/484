@@ -28,11 +28,17 @@
     "footnote": "Durée moyenne d’une visite : on ne sait pas, personne n’est encore reparti.",
     "mixedTheme": {
       "label": "Tout mélangé",
-      "tagline": "Toutes les rivalités, dans le désordre. Batman, puis la raclette. Tu verras bien."
+      "tagline": "Toutes les rivalités, dans le désordre. Batman, puis la raclette. Tu verras bien.",
+      "icon": "shuffle"
     },
     "themesLabel": "Choisis ton arène",
     "themeCount": "{n} rivalités · ∞ débats",
-    "play": "Jouer →"
+    "play": "Jouer →",
+    "playUniverse": "Tout l’univers →",
+    "universeCount": {
+      "one": "{n} rivalité",
+      "other": "{n} rivalités"
+    }
   },
   "debate": {
     "pageTitle": "Débats",
@@ -70,7 +76,14 @@
         "other": "{n} choix rebelles"
       }
     },
-    "hallLink": "Le classement mondial →"
+    "hallLink": "Le classement mondial →",
+    "universesLabel": "Univers",
+    "wholeUniverse": "Tout l’univers",
+    "shareButton": "Partager ce débat",
+    "shareCopied": "Lien copié. Va semer la zizanie.",
+    "shareText": "Tu es plutôt team {a} ou team {b} ? Viens trancher.",
+    "shareDescription": "Team {a} ou team {b} ? Choisis ton camp, et découvre si le reste du monde est d’accord.",
+    "loadError": "Les rivalités n’ont pas voulu sortir. Recharge la page, elles sont un peu timides."
   },
   "quips": {
     "high": [

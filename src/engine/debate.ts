@@ -24,23 +24,43 @@ export const REBEL_BELOW = 40;
 
 export type Team = 'a' | 'b';
 
+export interface CatalogUniverse {
+  id: string;
+  categories: readonly string[];
+}
+
 export interface DebateCatalog {
   /** « Tout mélangé » d'abord, puis les catégories dans l'ordre du fichier. */
   readonly categoryIds: readonly string[];
+  /** Univers : chacun regroupe plusieurs catégories et se joue comme une seule. */
+  readonly universes: readonly CatalogUniverse[];
+  /** Rivalités jouables pour chaque catégorie, chaque univers, et « mix » (toutes). */
   readonly pools: ReadonlyMap<string, readonly string[]>;
 }
 
 export function createDebateCatalog(
   categoryIds: readonly string[],
   rivalries: readonly { id: string; category: string }[],
+  universes: readonly CatalogUniverse[] = [],
 ): DebateCatalog {
   const pools = new Map<string, string[]>(categoryIds.map((id) => [id, []]));
   for (const r of rivalries) pools.get(r.category)?.push(r.id);
+  for (const universe of universes) {
+    pools.set(
+      universe.id,
+      universe.categories.flatMap((c) => pools.get(c) ?? []),
+    );
+  }
   pools.set(
     MIXED_CATEGORY,
     rivalries.map((r) => r.id),
   );
-  return { categoryIds: [MIXED_CATEGORY, ...categoryIds], pools };
+  return { categoryIds: [MIXED_CATEGORY, ...categoryIds], universes, pools };
+}
+
+/** Univers d'une catégorie (ou l'univers lui-même), pour savoir quels onglets afficher. */
+export function universeOf(catalog: DebateCatalog, id: string): CatalogUniverse | undefined {
+  return catalog.universes.find((u) => u.id === id || u.categories.includes(id));
 }
 
 function poolOf(catalog: DebateCatalog, category: string): readonly string[] {
@@ -165,6 +185,37 @@ export function changeCategory(
   const pool = poolOf(ctx.catalog, category);
   const next = drawNext(shuffle(pool, ctx.rng), pool, state.current, ctx.rng);
   return { ...state, category, queue: next.queue, current: next.id };
+}
+
+/** Catégorie d'une rivalité (hors « Tout mélangé » et univers). */
+export function categoryOfRivalry(catalog: DebateCatalog, rivalryId: string): string | undefined {
+  return catalog.categoryIds.find(
+    (id) => id !== MIXED_CATEGORY && catalog.pools.get(id)?.includes(rivalryId),
+  );
+}
+
+/**
+ * Ouvre directement une rivalité (lien partagé). Si elle n'est pas dans la catégorie en cours,
+ * on passe dans la sienne. La rivalité qui était affichée retourne dans la file.
+ */
+export function focusRivalry(
+  state: DebateState,
+  rivalryId: string,
+  ctx: DebateContext,
+): DebateState {
+  if (state.current === rivalryId) return state;
+  let next = state;
+  if (!poolOf(ctx.catalog, state.category).includes(rivalryId)) {
+    const category = categoryOfRivalry(ctx.catalog, rivalryId);
+    if (!category) return state;
+    next = changeCategory(state, category, ctx);
+    if (next.current === rivalryId) return next;
+  }
+  return {
+    ...next,
+    current: rivalryId,
+    queue: [...next.queue.filter((id) => id !== rivalryId), next.current],
+  };
 }
 
 /**

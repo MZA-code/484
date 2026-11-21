@@ -5,6 +5,8 @@ import type { DebateData, DebateRivalry } from './types';
 
 interface Props {
   state: DebateState;
+  /** Filtre du Hall of Fame correspondant à la partie : son univers, ou « mix ». */
+  hallScope: string;
   byId: ReadonlyMap<string, DebateRivalry>;
   texts: DebateData['texts'];
 }
@@ -12,7 +14,7 @@ interface Props {
 /** Nombre de choix affichés dans « Tes teams ». */
 const SHOWN = 5;
 
-export function Panels({ state, byId, texts }: Props) {
+export function Panels({ state, hallScope, byId, texts }: Props) {
   const t = texts.debate;
   const p = profile(state);
   const recent = state.history
@@ -56,7 +58,7 @@ export function Panels({ state, byId, texts }: Props) {
           </li>
           <li>{plural(t.profile.rebels, p.rebels)}</li>
         </ul>
-        <a class="panel-link" href={`/hall-of-fame?theme=${state.category}`}>
+        <a class="panel-link" href={`/hall-of-fame?theme=${hallScope}`}>
           {t.hallLink}
         </a>
       </section>

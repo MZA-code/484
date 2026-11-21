@@ -27,6 +27,8 @@ interface Hall {
 }
 
 export interface HallData {
+  /** Filtres proposés : « Tout mélangé » puis les univers. */
+  universes: { id: string; label: string }[];
   categories: { id: string; label: string }[];
   rivalries: { id: string; category: string; question: string; a: string; b: string }[];
   mixedLabel: string;
@@ -42,9 +44,12 @@ function initialCategory(ids: Set<string>): string {
 
 export default function HallOfFame({ data }: { data: HallData }) {
   const t = data.texts;
-  const tabs = useMemo(() => [{ id: MIXED, label: data.mixedLabel }, ...data.categories], [data]);
+  const tabs = useMemo(() => [{ id: MIXED, label: data.mixedLabel }, ...data.universes], [data]);
   const byId = useMemo(() => new Map(data.rivalries.map((r) => [r.id, r])), [data]);
-  const labels = useMemo(() => new Map(tabs.map((tab) => [tab.id, tab.label])), [tabs]);
+  const labels = useMemo(
+    () => new Map([...tabs, ...data.categories].map((x) => [x.id, x.label])),
+    [tabs, data],
+  );
   const [category, setCategory] = useState(() => initialCategory(new Set(tabs.map((x) => x.id))));
   const [load, setLoad] = useState<Load>({ status: 'loading' });
 
@@ -73,7 +78,7 @@ export default function HallOfFame({ data }: { data: HallData }) {
     const [ca, cb] = teamColors(r.id);
     return (
       <>
-        {category === MIXED && <span class="hall-category">{labels.get(rivalry.category)}</span>}
+        <span class="hall-category">{labels.get(rivalry.category)}</span>
         <span class="hall-question">{rivalry.question}</span>
         <span class="hall-bar" aria-hidden="true">
           <span style={{ width: `${r.aPercent}%`, background: ca }} />

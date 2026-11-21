@@ -101,6 +101,7 @@ function setup(start = Date.UTC(2026, 10, 21, 12)) {
     salt: 'test-salt',
     rivalries,
     categoryIds: ['heros', 'bouffe'],
+    universes: [{ id: 'univers-pop', categories: ['heros'] }],
     now: () => now,
   });
   return {
@@ -196,6 +197,20 @@ describe('vote service', () => {
     expect((service.hallOfFame('heros').body as { totalVotes: number }).totalVotes).toBe(12);
     tick(HALL_TTL_MS + 1);
     expect((service.hallOfFame('heros').body as { totalVotes: number }).totalVotes).toBe(13);
+  });
+
+  it('accepts votes and filters the hall of fame by universe', () => {
+    const { service } = setup();
+    expect(service.vote({ ...batman, category: 'univers-pop' }, '1.1.1.1').status).toBe(200);
+    expect(
+      service.vote(
+        { rivalryId: 'bouffe-chat-chien', team: 'a', category: 'univers-pop' },
+        '2.2.2.2',
+      ),
+    ).toEqual({ status: 400, body: { error: 'category-mismatch' } });
+    service.vote({ rivalryId: 'bouffe-chat-chien', team: 'a', category: 'bouffe' }, '3.3.3.3');
+    expect((service.hallOfFame('univers-pop').body as { totalVotes: number }).totalVotes).toBe(1);
+    expect((service.hallOfFame('mix').body as { totalVotes: number }).totalVotes).toBe(2);
   });
 
   it('rejects an unknown category in the hall of fame', () => {

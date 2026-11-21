@@ -7,4 +7,4 @@ import rawUi from '../../content/ui-texts.fr.json';
 import { parseRivalries, parseUi } from './parse';
 
 export const ui = parseUi(rawUi);
-export const { categories, rivalries } = parseRivalries(rawRivalries);
+export const { universes, categories, rivalries } = parseRivalries(rawRivalries);

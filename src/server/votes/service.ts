@@ -33,6 +33,8 @@ export interface VoteServiceOptions {
   salt: string;
   rivalries: readonly { id: string; category: string }[];
   categoryIds: readonly string[];
+  /** Univers : regroupements de catégories, jouables et filtrables comme une catégorie. */
+  universes?: readonly { id: string; categories: readonly string[] }[];
   now?: () => number;
 }
 
@@ -41,13 +43,19 @@ export function createVoteService({
   salt,
   rivalries,
   categoryIds,
+  universes = [],
   now = Date.now,
 }: VoteServiceOptions) {
   const categoryOf = new Map(rivalries.map((r) => [r.id, r.category]));
-  const categories = new Set(categoryIds);
+  /** Catégories couvertes par chaque filtre possible : une catégorie, un univers, ou tout. */
+  const scopes = new Map<string, ReadonlySet<string>>([
+    ...categoryIds.map((c) => [c, new Set([c])] as const),
+    ...universes.map((u) => [u.id, new Set(u.categories)] as const),
+    [MIXED_CATEGORY, new Set(categoryIds)],
+  ]);
   const hallCache = new Map<string, { expires: number; value: HallOfFame }>();
 
-  const isCategory = (c: string) => c === MIXED_CATEGORY || categories.has(c);
+  const isCategory = (c: string) => scopes.has(c);
 
   return {
     vote(raw: unknown, ip: string): ServiceResponse {
@@ -57,7 +65,7 @@ export function createVoteService({
       const rivalryCategory = categoryOf.get(rivalryId);
       if (!rivalryCategory) return { status: 400, body: { error: 'unknown-rivalry' } };
       if (!isCategory(category)) return { status: 400, body: { error: 'unknown-category' } };
-      if (category !== MIXED_CATEGORY && category !== rivalryCategory) {
+      if (!scopes.get(category)?.has(rivalryCategory)) {
         return { status: 400, body: { error: 'category-mismatch' } };
       }
 
@@ -84,9 +92,12 @@ export function createVoteService({
       const hit = hallCache.get(category);
       if (hit && hit.expires > nowMs) return { status: 200, body: hit.value };
 
-      const prefix = category === MIXED_CATEGORY ? null : `${category}-`;
       // Les rivalités retirées du JSON disparaissent du classement.
-      const rows = store.rivalryCounts(prefix).filter((r) => categoryOf.has(r.id));
+      const scope = scopes.get(category) as ReadonlySet<string>;
+      const rows = store.rivalryCounts(null).filter((r) => {
+        const rivalryCategory = categoryOf.get(r.id);
+        return rivalryCategory !== undefined && scope.has(rivalryCategory);
+      });
       const value: HallOfFame = {
         category,
         totalVotes: rows.reduce((sum, r) => sum + r.aVotes + r.bVotes, 0),

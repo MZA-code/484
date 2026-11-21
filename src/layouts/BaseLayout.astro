@@ -8,13 +8,16 @@ import { ui } from '../data/content';
 
 interface Props {
   /** Titre de l'onglet, avant « · 484 · Lequel tu préfères ? ». Absent sur l'accueil. */
-  title?: string;
-  description?: string;
+  title?: string | undefined;
+  description?: string | undefined;
 }
 
 const { title, description = ui.site.description } = Astro.props;
 const fullTitle = title ? `${title} · ${ui.site.title}` : ui.site.title;
 const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !== '');
+// Adresse canonique, sans paramètres : c'est elle qui circule quand on partage la page.
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonical = new URL(path, Astro.site ?? Astro.url).href;
 ---
 
 <!doctype html>
@@ -24,6 +27,14 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={ui.site.title} />
+    <meta property="og:title" content={title ?? ui.site.title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
     <meta name="theme-color" content="#121212" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>

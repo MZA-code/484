@@ -31,6 +31,21 @@ describe('categoryFromSearch', () => {
 });
 
 describe('initialDebate', () => {
+  it('opens the rivalry of a shared link', () => {
+    expect(initialDebate(ctx(), null, null, 'b3')).toMatchObject({
+      current: 'b3',
+      category: 'mix',
+    });
+    expect(initialDebate(ctx(), 'heros', null, 'b3')).toMatchObject({
+      current: 'b3',
+      category: 'bouffe',
+    });
+    expect(initialDebate(ctx(), 'mix', null, 'h2')).toMatchObject({
+      current: 'h2',
+      category: 'mix',
+    });
+  });
+
   it('starts a mixed debate by default, or on the URL category', () => {
     expect(initialDebate(ctx(), null, null).category).toBe(MIXED_CATEGORY);
     expect(initialDebate(ctx(), 'bouffe', null).category).toBe('bouffe');
