@@ -57,6 +57,9 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
       <a class="footer-projects" href="/projets">
         {ui.footer.projects}
       </a>
+      <a class="footer-hall" href="/hall-of-fame">
+        {ui.footer.hallOfFame}
+      </a>
       <p class="footer-disclaimer">{ui.footer.disclaimer}</p>
       <a class="footer-giphy" href={ui.footer.giphy.url} rel="noopener" target="_blank">
         {ui.footer.giphy.label}
@@ -142,6 +145,16 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
     font-family: var(--font-mono);
     font-weight: 700;
     text-decoration: none;
+  }
+
+  .footer-hall {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    text-underline-offset: 4px;
   }
 
   /* Attribution Giphy obligatoire, mais discrète. */

@@ -70,6 +70,9 @@ export function Panels({ state, ctx, texts, byId }: Props) {
             <dd>{rec.poolSize}</dd>
           </div>
         </dl>
+        <a class="panel-link" href={`/hall-of-fame?theme=${state.theme}`}>
+          {t.records.hallLink}
+        </a>
       </section>
     </div>
   );

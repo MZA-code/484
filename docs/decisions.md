@@ -95,3 +95,14 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Recherches de secours réécrites en anglais, avec l'œuvre** (« Data Star Trek The Next Generation », « Cylon Battlestar Galactica »…). Giphy indexe surtout en anglais, et les noms seuls étaient ambigus. Les noms affichés ne changent pas.
 - **Attribution.** « Powered by GIPHY » dans le pied de page de toutes les pages, en discret.
 - **Curation** (`npm run curate`) : petit serveur local (127.0.0.1 uniquement) avec une page de cases à cocher. Le fichier est validé par le schéma avant d'être réécrit, avec la mise en forme Prettier du projet.
+
+## D12 — Votes mondiaux (phase 4)
+
+- **SQLite via `node:sqlite`**, intégré à Node 24 et plus : aucun module natif à compiler, un simple fichier sur le serveur. Le stockage est derrière l'interface `VoteStore`, pour passer à MySQL si l'hébergement l'exige. Les migrations sont numérotées et suivies par `PRAGMA user_version`. Mode WAL pour lire pendant une écriture.
+- **Schéma du brief** : `pairs(a_id, b_id, a_wins, b_wins)` avec la paire triée (`CHECK a_id < b_id`) et `contenders(id, wins, losses)`. Chaque vote met à jour les deux tables en une seule transaction. Le thème est validé mais pas stocké : les identifiants commencent par leur thème (`robots-…`), ce qui suffit pour filtrer le Hall of Fame.
+- **Limite de débit : seau de jetons** (rafale de 5, un jeton regagné par seconde) plutôt qu'un intervalle strict d'une seconde. Un joueur rapide au clavier enchaîne parfois 2 ou 3 votes en une seconde : avec une règle stricte, il perdrait ses pourcentages. La moyenne reste à 1 vote par seconde, plafonnée à 2 000 par jour.
+- **Empreinte d'IP** : `SHA-256(sel | jour | IP)`, tronquée à 32 caractères. Le jour entre dans l'empreinte, donc deux journées d'un même visiteur ne peuvent pas être reliées. Les empreintes des jours précédents sont effacées.
+- **Un vote limité (429) renvoie quand même les chiffres de la paire** : c'est une lecture sans risque, et l'affichage reste cohérent.
+- **Origine** : un vote envoyé depuis un autre site est refusé (403). La comparaison se fait avec l'hôte demandé (`Host` ou `X-Forwarded-Host`), pas avec l'URL interne, pour fonctionner derrière le proxy d'O2Switch.
+- **Côté client** : le duel suivant s'affiche immédiatement, et le bandeau montre « Tu as choisi X » avec des points de suspension. Le pourcentage, la barre et la remarque arrivent avec la réponse : 30 à 40 ms en local. Au-delà de 1,5 s, ou si l'API est coupée, une remarque neutre s'affiche, mais la requête continue (`keepalive`). Une réponse qui arrive après un autre vote est ignorée.
+- **Classement** : borne basse de l'intervalle de Wilson à 95 % pour le top (il faut au moins une victoire), borne haute pour les mal-aimés (au moins 5 votes), écart relatif pour les duels serrés (au moins 10 votes).

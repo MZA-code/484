@@ -113,8 +113,37 @@
       "bestStreakValue": "{name} · {n}",
       "none": "Personne, pour l’instant",
       "retired": "Retraités invaincus",
-      "pool": "Prétendants dans le thème"
+      "pool": "Prétendants dans le thème",
+      "hallLink": "Le classement mondial →"
     }
+  },
+  "hallOfFame": {
+    "pageTitle": "Hall of Fame",
+    "title": "Hall of Fame",
+    "intro": "Le classement mondial, voté par tous les visiteurs qui avaient sûrement mieux à faire.",
+    "totalVotes": {
+      "one": "{n} vote au compteur",
+      "other": "{n} votes au compteur"
+    },
+    "filterLabel": "Filtrer par thème",
+    "topTitle": "Le top 20",
+    "podium": [
+      "La légende. Les autres se battent pour la deuxième place.",
+      "Éternel second, mais avec panache.",
+      "Le bronze, c’est de l’or qui a eu un contretemps."
+    ],
+    "flopTitle": "Les mal-aimés",
+    "flopIntro": "Ils perdent plus souvent qu’à leur tour. Un peu de compassion.",
+    "closeTitle": "Les duels les plus serrés",
+    "closeIntro": "Si serrés qu’on a recompté deux fois.",
+    "winRate": "{percent} % de victoires",
+    "record": "{wins} V · {losses} D",
+    "versus": "contre",
+    "empty": "Pas encore assez de votes ici. Va jouer, le classement compte sur toi.",
+    "emptyClose": "Aucun duel n’a encore assez de votes pour être serré.",
+    "loading": "On recompte les bulletins…",
+    "error": "Le classement fait la sieste. Les votes, eux, continuent.",
+    "play": "Retour aux duels →"
   },
   "notFound": {
     "pageTitle": "Page introuvable",
@@ -129,7 +158,8 @@
     "giphy": {
       "label": "Powered by GIPHY",
       "url": "https://giphy.com/"
-    }
+    },
+    "hallOfFame": "Hall of Fame"
   },
   "projectsPage": {
     "title": "Mes autres projets",

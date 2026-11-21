@@ -2,7 +2,7 @@
 
 Des duels infinis entre icônes de la pop culture. Tu choisis, le gagnant reste, un nouveau challenger arrive.
 
-> État : **phase 3** (GIF Giphy). Pas encore de votes mondiaux. Prototype local, pas encore déployé.
+> État : **phase 4** (votes mondiaux et Hall of Fame). Prototype local, pas encore déployé. Prototype local, pas encore déployé.
 
 ## Prérequis
 
@@ -94,6 +94,19 @@ npm run curate -- --all              # y compris ceux qui ont déjà des GIF cho
 ```
 
 Ouvrir <http://localhost:4843>. Pour chaque prétendant, 6 propositions s'affichent. On coche ses préférés : s'il y en a plusieurs, le site en tire un au hasard. Le champ de recherche permet de relancer avec d'autres mots. « Enregistrer » réécrit `content/contenders.json` après l'avoir validé. Un prétendant sans case cochée n'est pas modifié.
+
+## Votes mondiaux et Hall of Fame
+
+Chaque vote part en arrière-plan vers `POST /api/vote` : le jeu n'attend jamais la réponse. Les votes sont stockés dans une base SQLite (`data/votes.sqlite`, ignorée par git), avec le module `node:sqlite` intégré à Node : rien à installer.
+
+- Le pourcentage s'affiche dès que l'API répond. Si elle ne répond pas en 1,5 s, une remarque neutre s'affiche à la place.
+- Moins de 5 votes sur une paire : « Tu es le premier à trancher ce duel ».
+- Anti-abus sans cookie : en moyenne 1 vote par seconde (petites rafales tolérées) et 2 000 par jour, par empreinte d'IP. Les IP ne sont jamais stockées en clair.
+- `/hall-of-fame` : top 20, les mal-aimés, les duels les plus serrés, filtrables par thème. Mis en cache 60 s.
+
+Variables (`.env`) : `VOTE_HASH_SALT` (obligatoire pour activer les votes), `VOTES_DB_FILE` (facultatif), `TRUST_PROXY=true` derrière un proxy pour lire l'IP réelle.
+
+Pour repartir de zéro en local : arrêter le serveur et supprimer `data/votes.sqlite*`.
 
 ## Modifier les textes de l'interface
 

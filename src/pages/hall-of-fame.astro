@@ -1,0 +1,59 @@
+---
+/** Hall of Fame : classement mondial des prétendants, d'après les votes de tous les visiteurs. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HallOfFame, { type HallData } from '../islands/hall/HallOfFame';
+import { contenders, themes, ui } from '../data/content';
+
+const data: HallData = {
+  themes: themes.map(({ id, label }) => ({ id, label })),
+  contenders: contenders.map(({ id, name, theme }) => ({ id, name, theme })),
+  mixedLabel: ui.home.mixedTheme.label,
+  texts: ui.hallOfFame,
+};
+---
+
+<BaseLayout title={ui.hallOfFame.pageTitle}>
+  <section class="container hall-page">
+    <h1 class="title">{ui.hallOfFame.title}</h1>
+    <p class="intro">{ui.hallOfFame.intro}</p>
+    <HallOfFame client:only="preact" data={data}>
+      <p slot="fallback" class="fallback">
+        {ui.hallOfFame.loading}
+      </p>
+    </HallOfFame>
+    <a class="block-button back" href="/jouer">
+      {ui.hallOfFame.play}
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hall-page {
+    padding-top: clamp(24px, 5vw, 56px);
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 10vw, 6rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .intro {
+    max-width: 40rem;
+    margin-top: 12px;
+    color: var(--fg-muted);
+    font-size: 1.125rem;
+  }
+
+  .fallback {
+    min-height: 60vh;
+    padding-top: 96px;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+  }
+
+  .back {
+    margin-top: 56px;
+  }
+</style>

@@ -22,11 +22,14 @@ export function Banners({ result, notices, texts, byId }: Props) {
         <div class="banner banner--result pop" key={result.id}>
           <p class="banner-choice">
             <strong>{formatText(texts.duel.choice, { name: winner.name })}</strong>
-            {result.outcome.kind === 'share' && (
-              <span> · {formatText(texts.duel.share, { percent: result.outcome.percent })}</span>
+            {result.outcome?.kind === 'share' && (
+              <span class="banner-share pop">
+                {' · '}
+                {formatText(texts.duel.share, { percent: result.outcome.percent })}
+              </span>
             )}
           </p>
-          {result.outcome.kind === 'share' && (
+          {result.outcome?.kind === 'share' && (
             <span class="banner-bar" aria-hidden="true">
               <span
                 class="banner-bar-fill"
@@ -34,8 +37,16 @@ export function Banners({ result, notices, texts, byId }: Props) {
               />
             </span>
           )}
-          {result.outcome.kind === 'first' && <p>{texts.duel.firstVote}</p>}
-          <p class="banner-quip">{result.quip}</p>
+          {result.outcome?.kind === 'first' && <p class="pop">{texts.duel.firstVote}</p>}
+          {result.quip ? (
+            <p class="banner-quip pop">{result.quip}</p>
+          ) : (
+            <p class="banner-quip banner-pending" aria-hidden="true">
+              <span>.</span>
+              <span>.</span>
+              <span>.</span>
+            </p>
+          )}
         </div>
       ) : (
         <p class="banner-hint">{texts.duel.keysHint}</p>
