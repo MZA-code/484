@@ -35,3 +35,36 @@ Chaque entrée : le contexte, la décision, et pourquoi.
 ## D5 — Télémétrie
 
 La télémétrie d'Astro est désactivée en CI (`ASTRO_TELEMETRY_DISABLED`), dans l'esprit « aucun traceur ». En local : `npx astro telemetry disable`.
+
+## D6 — Typographie française appliquée au build (phase 1)
+
+**Décision.** `frenchTypography()` (`src/lib/typography.ts`) est appliquée à toutes les chaînes des JSON au chargement, sauf aux clés techniques (`id`, `theme`, `url`, `giphyIds`, `giphyQuery`, `version`). Les composants ne voient jamais de texte brut.
+
+**Règles en plus du brief.**
+
+- Espace fine insécable avant `%` (« 75 % »), y compris après un marqueur (« {percent} % »), pour qu'un pourcentage ne soit jamais coupé en fin de ligne.
+- Les URL contenues dans un texte et les heures (« 12:30 ») ne sont pas modifiées.
+- La fonction est idempotente : la relancer sur un texte déjà corrigé ne change rien.
+
+Les espaces spéciales sont écrites `String.fromCharCode(0x202f)` dans le code : un caractère invisible en dur ne se relit pas.
+
+## D7 — Moteur : fonctions pures et hasard injectable (phase 1)
+
+**Décision.** `src/engine/` expose des fonctions pures (`createGame`, `vote`, `skipDuel`, `changeTheme`, `nextQuip`…) qui prennent un état et renvoient le suivant, avec une liste d'événements (`voted`, `retired`, `milestone`) que l'interface affichera. Le hasard est passé en paramètre (`Rng`) : une graine fixe rend une partie reproductible, dans les tests comme dans le mode console.
+
+**Précisions sur les règles.**
+
+- **Compteur de duels.** Il compte les votes. Passer un duel ou changer de thème ne l'incrémente pas, et « Duel n° X » affiche `votes + 1`.
+- **Revanche immédiate.** Après un vote, le perdant n'est pas retiré tout de suite s'il reste assez de prétendants. C'est une exclusion « souple » qui ne bloque jamais un thème de 2 ou 3 prétendants.
+- **Retraite.** À 10 victoires, deux nouveaux prétendants sont tirés en évitant le retraité et son dernier adversaire.
+- **Top 5.** À égalité de victoires, l'ordre est alphabétique par identifiant, donc stable.
+
+## D8 — Pourcentages et remarques (phase 1)
+
+- Le pourcentage affiché est arrondi, et la catégorie de remarque est calculée sur ce chiffre arrondi : 59,5 % s'affiche « 60 % » et donne une remarque `high`, pour que l'écran reste cohérent.
+- Une 4ᵉ catégorie `neutral` sert quand il n'y a pas de pourcentage : API muette, ou moins de 5 votes (où `duel.firstVote` s'affiche à la place du chiffre). Ses textes sont dans `ui-texts.fr.json`.
+- Textes ajoutés pour le moteur : `duel.choice`, `duel.share`, `duel.streakBadge` (singulier et pluriel), `quips.neutral`.
+
+## D9 — État sauvegardé toujours assaini (phase 1)
+
+L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalogue courant. Un prétendant supprimé du JSON, un thème disparu ou une série incohérente ne cassent pas la partie : le duel est retiré au sort, mais le compteur, les victoires et les records sont conservés. Une donnée illisible donne simplement une nouvelle partie.

@@ -12,7 +12,13 @@
     "subtitle": "Ça ne s’arrête jamais. Tu peux partir quand tu veux. Personne ne part.",
     "skip": "Je ne connais aucun des deux",
     "firstVote": "Tu es le premier à trancher ce duel. Pas de pression.",
-    "retired": "{name} prend sa retraite invaincu après {n} victoires. Une page se tourne."
+    "choice": "Tu as choisi {name}",
+    "share": "{percent} % des visiteurs aussi",
+    "retired": "{name} prend sa retraite invaincu après {n} victoires. Une page se tourne.",
+    "streakBadge": {
+      "one": "{n} victoire d’affilée · en tête",
+      "other": "{n} victoires d’affilée · en tête"
+    }
   },
   "quips": {
     "high": [
@@ -32,6 +38,12 @@
       "Tu fais partie d’une élite. Ou d’une secte.",
       "Respect. Ou inquiétude. On hésite.",
       "Les statisticiens sont perplexes."
+    ],
+    "neutral": [
+      "Choix enregistré. L’Histoire jugera.",
+      "Noté. On ne dira rien à personne.",
+      "Décision prise. Pas de retour en arrière.",
+      "C’est toi qui vois. Et tu as vu."
     ]
   },
   "milestones": {

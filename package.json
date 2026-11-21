@@ -18,6 +18,8 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "play": "tsx scripts/play.ts",
+    "content:check": "tsx scripts/check-content.ts",
     "verify": "npm run lint && npm run format:check && npm run check && npm run test && npm run build"
   },
   "dependencies": {
@@ -30,6 +32,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.6",
     "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^3.2.1",
