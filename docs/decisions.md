@@ -187,3 +187,18 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Durées.** La transition de vote dure 130 ms en sortie et 170 ms en entrée : moins de 300 ms en tout, comme le demande le brief.
 - **Remplissage `backwards`** pour les entrées, et non `both`. Une animation qui garde son état final bloquait les effets de survol (`transform`) des cartes.
 - **Le palier passe dans le bandeau collé en bas de l'écran.** Sous les cartes, il était hors de vue, alors qu'il porte le message aux recruteurs au palier 25.
+
+## D17 — Univers : les catégories regroupées (phase 5)
+
+**Contexte.** Avec une vingtaine de catégories prévues, les onglets et les cartes de l'accueil devenaient illisibles.
+
+**Décisions.**
+
+- **`universes` dans `content/rivalries.json`.** Chaque univers a un identifiant (préfixé `univers-`), un libellé, une accroche et sa liste de catégories. La validation exige que chaque catégorie appartienne à exactement un univers, et qu'un univers ne porte pas l'identifiant d'une catégorie.
+- **Un univers se joue comme une catégorie** (`?theme=univers-ecrans`) : sa file contient toutes les rivalités de ses catégories. L'API de votes accepte un univers comme contexte, et le Hall of Fame se filtre par univers.
+- **Page de débat : deux rangées d'onglets.**
+  - La première : « Tout mélangé » et les univers.
+  - La seconde, plus discrète : « Tout l'univers » et les catégories de l'univers en cours.
+  - En mode mélangé, ou sur un univers, le nom de la catégorie s'affiche au-dessus de la question.
+- **Accueil** : une grande carte « Tout mélangé », puis une section par univers (titre, accroche, lien « Tout l'univers → N rivalités »), avec ses cartes de catégorie.
+- **Hall of Fame** : filtré par « Tout mélangé » et par univers. Il n'y a plus de filtre par catégorie, qui aurait fait 20 boutons.

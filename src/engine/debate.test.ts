@@ -14,6 +14,7 @@ import {
   vote,
   type DebateContext,
   type DebateState,
+  universeOf,
 } from './debate';
 import type { QuipBook } from './quips';
 import { seededRng } from './random';
@@ -26,7 +27,9 @@ const rivalries = [
 
 function makeCtx(seed = 1, milestones: number[] = [3, 10]): DebateContext {
   return {
-    catalog: createDebateCatalog(['heros', 'bouffe', 'seule'], rivalries),
+    catalog: createDebateCatalog(['heros', 'bouffe', 'seule'], rivalries, [
+      { id: 'univers-pop', categories: ['heros', 'seule'] },
+    ]),
     rng: seededRng(seed),
     milestones,
   };
@@ -40,6 +43,25 @@ describe('catalog', () => {
     const ctx = makeCtx();
     expect(ctx.catalog.categoryIds).toEqual([MIXED_CATEGORY, 'heros', 'bouffe', 'seule']);
     expect(pool(ctx, MIXED_CATEGORY)).toHaveLength(rivalries.length);
+  });
+});
+
+describe('universes', () => {
+  it('plays a universe as the union of its categories', () => {
+    const ctx = makeCtx();
+    expect([...pool(ctx, 'univers-pop')].sort()).toEqual(['h1', 'h2', 'h3', 'h4', 'h5', 'solo']);
+    let state = createDebate(ctx, 'univers-pop');
+    for (let i = 0; i < 20; i++) {
+      expect(pool(ctx, 'univers-pop')).toContain(state.current);
+      state = vote(state, 'a', ctx).state;
+    }
+  });
+
+  it('finds the universe of a category, or of itself', () => {
+    const ctx = makeCtx();
+    expect(universeOf(ctx.catalog, 'heros')?.id).toBe('univers-pop');
+    expect(universeOf(ctx.catalog, 'univers-pop')?.id).toBe('univers-pop');
+    expect(universeOf(ctx.catalog, 'bouffe')).toBeUndefined();
   });
 });
 

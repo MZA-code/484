@@ -38,6 +38,25 @@
   color: var(--ink);
 }
 
+/* Second niveau (catégories de l'univers) : plus discret, en jaune. */
+.category-tabs--sub {
+  margin-top: -14px;
+}
+
+.category-tab--sub {
+  min-height: 40px;
+  padding: 6px 12px;
+  border-color: #5a5a5a;
+  color: var(--fg-muted);
+  font-size: 0.8125rem;
+}
+
+.category-tab--sub[aria-pressed='true'] {
+  border-color: var(--yellow);
+  background: var(--yellow);
+  color: var(--ink);
+}
+
 /* ─── En-tête : numéro, sous-titre, question ─────────────────────────────── */
 
 .debate-head {

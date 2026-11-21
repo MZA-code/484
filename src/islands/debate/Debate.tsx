@@ -3,7 +3,7 @@
  * Rendu uniquement côté client (la partie dépend du stockage local et de l'URL).
  */
 import { useEffect, useMemo } from 'preact/hooks';
-import { debateNumber, MIXED_CATEGORY, type Team } from '../../engine';
+import { debateNumber, MIXED_CATEGORY, universeOf, type Team } from '../../engine';
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
 import { useReducedMotion } from '../../lib/motion';
@@ -33,6 +33,7 @@ export default function Debate({ data }: { data: DebateData }) {
     () =>
       new Map([
         [MIXED_CATEGORY, data.texts.mixedLabel],
+        ...data.universes.map((u) => [u.id, u.label] as const),
         ...data.categories.map((c) => [c.id, c.label] as const),
       ]),
     [data],
@@ -62,6 +63,7 @@ export default function Debate({ data }: { data: DebateData }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [choose]);
 
+  const activeUniverse = universeOf(ctx.catalog, state.category);
   const rivalry = byId.get(shown);
   if (!rivalry) return null;
   const colors = teamColors(rivalry.id);
@@ -87,19 +89,38 @@ export default function Debate({ data }: { data: DebateData }) {
 
   return (
     <div class="debate">
-      <nav class="category-tabs" aria-label={t.categoriesLabel}>
-        {ctx.catalog.categoryIds.map((id) => (
+      {/* Premier niveau : « Tout mélangé » et les univers. */}
+      <nav class="category-tabs" aria-label={t.universesLabel}>
+        {[MIXED_CATEGORY, ...ctx.catalog.universes.map((u) => u.id)].map((id) => (
           <button
             key={id}
             type="button"
             class="category-tab"
-            aria-pressed={id === state.category}
+            aria-pressed={
+              id === MIXED_CATEGORY ? state.category === MIXED_CATEGORY : activeUniverse?.id === id
+            }
             onClick={() => selectCategory(id)}
           >
             {labels.get(id)}
           </button>
         ))}
       </nav>
+      {/* Second niveau : tout l'univers, ou une de ses catégories. */}
+      {activeUniverse && (
+        <nav class="category-tabs category-tabs--sub" aria-label={t.categoriesLabel}>
+          {[activeUniverse.id, ...activeUniverse.categories].map((id) => (
+            <button
+              key={id}
+              type="button"
+              class="category-tab category-tab--sub"
+              aria-pressed={state.category === id}
+              onClick={() => selectCategory(id)}
+            >
+              {id === activeUniverse.id ? t.wholeUniverse : labels.get(id)}
+            </button>
+          ))}
+        </nav>
+      )}
 
       <div class="debate-head">
         <p class="debate-number">
@@ -112,7 +133,7 @@ export default function Debate({ data }: { data: DebateData }) {
 
       <div class="debate-stage">
         <div class={`debate-question${exit ? ' is-leaving' : ''}`} key={rivalry.id}>
-          {state.category === MIXED_CATEGORY && (
+          {state.category !== rivalry.category && (
             <p class="debate-category">{labels.get(rivalry.category)}</p>
           )}
           <h1 class="debate-title">{question}</h1>
@@ -142,7 +163,12 @@ export default function Debate({ data }: { data: DebateData }) {
         />
       </div>
 
-      <Panels state={state} byId={byId} texts={data.texts} />
+      <Panels
+        state={state}
+        hallScope={activeUniverse?.id ?? MIXED_CATEGORY}
+        byId={byId}
+        texts={data.texts}
+      />
     </div>
   );
 }

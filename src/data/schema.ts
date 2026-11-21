@@ -49,9 +49,18 @@ const pairKey = (a: string, b: string) =>
     .sort()
     .join(' | ');
 
+/** Un univers regroupe plusieurs catégories (« Écrans », « Pop culture »…). */
+export const UniverseSchema = z.object({
+  id: slug.refine((id) => id !== MIXED_THEME, `« ${MIXED_THEME} » est réservé à « Tout mélangé »`),
+  label: text,
+  tagline: text,
+  categories: z.array(slug).min(1, 'un univers doit contenir au moins une catégorie'),
+});
+
 export const RivalriesFileSchema = z
   .object({
     version: z.literal(1),
+    universes: z.array(UniverseSchema).min(1),
     categories: z.array(ThemeSchema).min(1),
     rivalries: z.array(RivalrySchema),
   })
@@ -66,6 +75,45 @@ export const RivalriesFileSchema = z
         });
       }
       categoryIds.add(category.id);
+    });
+
+    // Chaque catégorie appartient à exactement un univers.
+    const universeOf = new Map<string, string>();
+    const universeIds = new Set<string>();
+    file.universes.forEach((universe, i) => {
+      if (universeIds.has(universe.id) || categoryIds.has(universe.id)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['universes', i, 'id'],
+          message: `identifiant d’univers déjà utilisé : ${universe.id}`,
+        });
+      }
+      universeIds.add(universe.id);
+      universe.categories.forEach((category, j) => {
+        if (!categoryIds.has(category)) {
+          ctx.addIssue({
+            code: 'custom',
+            path: ['universes', i, 'categories', j],
+            message: `catégorie inconnue dans l’univers « ${universe.id} » : ${category}`,
+          });
+        } else if (universeOf.has(category)) {
+          ctx.addIssue({
+            code: 'custom',
+            path: ['universes', i, 'categories', j],
+            message: `la catégorie « ${category} » est déjà dans l’univers « ${universeOf.get(category)} »`,
+          });
+        }
+        universeOf.set(category, universe.id);
+      });
+    });
+    file.categories.forEach((category, i) => {
+      if (!universeOf.has(category.id)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['categories', i, 'id'],
+          message: `la catégorie « ${category.id} » n’est dans aucun univers`,
+        });
+      }
     });
 
     const ids = new Set<string>();
@@ -126,6 +174,7 @@ export const RivalriesFileSchema = z
 
 export type Team = z.infer<typeof TeamSchema>;
 export type Rivalry = z.infer<typeof RivalrySchema>;
+export type Universe = z.infer<typeof UniverseSchema>;
 export type RivalriesFile = z.infer<typeof RivalriesFileSchema>;
 
 /** Un texte qui doit contenir certains marqueurs, par exemple `{name}`. */
@@ -163,6 +212,8 @@ export const UiTextsSchema = z.object({
     themesLabel: text,
     themeCount: template('n'),
     play: text,
+    playUniverse: text,
+    universeCount: pluralForms,
   }),
   debate: z.object({
     pageTitle: text,
@@ -170,6 +221,8 @@ export const UiTextsSchema = z.object({
     subtitle: text,
     question: template('a', 'b'),
     categoriesLabel: text,
+    universesLabel: text,
+    wholeUniverse: text,
     team: text,
     vs: text,
     choose: template('name'),

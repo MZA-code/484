@@ -1,12 +1,12 @@
 ---
 /**
- * Accueil : titre géant, chapeau, une carte par catégorie (« Tout mélangé » d'abord).
+ * Accueil : titre géant, chapeau, « Tout mélangé », puis les catégories regroupées par univers.
  * Aucun texte en dur : tout vient de `content/`.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { categories, rivalries, ui } from '../data/content';
+import { categories, rivalries, ui, universes } from '../data/content';
 import { MIXED_CATEGORY } from '../engine/debate';
-import { formatText } from '../lib/format';
+import { formatText, plural } from '../lib/format';
 
 /** Ordre des couleurs du prototype : crème, jaune, rose, bleu, orange, puis le reste de la palette. */
 const HOME_COLORS = [
@@ -20,17 +20,38 @@ const HOME_COLORS = [
   'var(--red)',
 ];
 
-const countFor = (id: string) =>
-  id === MIXED_CATEGORY ? rivalries.length : rivalries.filter((r) => r.category === id).length;
+const countIn = (categoryIds: readonly string[]) =>
+  rivalries.filter((r) => categoryIds.includes(r.category)).length;
+const label = new Map(categories.map((c) => [c.id, c] as const));
 
-const cards = [
-  { id: MIXED_CATEGORY, ...ui.home.mixedTheme },
-  ...categories.map((c) => ({ id: c.id, label: c.label, tagline: c.tagline })),
-].map((card, i) => ({
-  ...card,
-  href: `/jouer?theme=${card.id}`,
-  count: formatText(ui.home.themeCount, { n: countFor(card.id) }),
-  color: HOME_COLORS[i % HOME_COLORS.length],
+/** Les couleurs défilent d'une carte à l'autre sur toute la page ; --i règle la cascade d'entrée. */
+let index = 0;
+const card = (id: string, name: string, tagline: string, n: number) => {
+  const i = index++;
+  return {
+    id,
+    name,
+    tagline,
+    href: `/jouer?theme=${id}`,
+    count: formatText(ui.home.themeCount, { n }),
+    style: `--card: ${HOME_COLORS[i % HOME_COLORS.length]}; --i: ${i}`,
+  };
+};
+
+const mixed = card(
+  MIXED_CATEGORY,
+  ui.home.mixedTheme.label,
+  ui.home.mixedTheme.tagline,
+  rivalries.length,
+);
+const sections = universes.map((u) => ({
+  ...u,
+  href: `/jouer?theme=${u.id}`,
+  count: plural(ui.home.universeCount, countIn(u.categories)),
+  cards: u.categories.map((id) => {
+    const c = label.get(id);
+    return card(id, c?.label ?? id, c?.tagline ?? '', countIn([id]));
+  }),
 }));
 ---
 
@@ -46,18 +67,38 @@ const cards = [
     </div>
 
     <h2 class="visually-hidden">{ui.home.themesLabel}</h2>
-    <ul class="theme-grid">
-      {cards.map((card, i) => (
-        <li>
-          <a class="theme-card" href={card.href} style={`--card: ${card.color}; --i: ${i}`}>
-            <span class="theme-count">{card.count}</span>
-            <span class="theme-name">{card.label}</span>
-            <span class="theme-tagline">{card.tagline}</span>
-            <span class="theme-play">{ui.home.play}</span>
+    <a class="theme-card theme-card--mixed" href={mixed.href} style={mixed.style}>
+      <span class="theme-count">{mixed.count}</span>
+      <span class="theme-name">{mixed.name}</span>
+      <span class="theme-tagline">{mixed.tagline}</span>
+      <span class="theme-play">{ui.home.play}</span>
+    </a>
+
+    {sections.map((section) => (
+      <section class="universe" aria-labelledby={section.id}>
+        <div class="universe-head">
+          <h3 class="universe-title" id={section.id}>
+            {section.label}
+          </h3>
+          <p class="universe-tagline">{section.tagline}</p>
+          <a class="universe-play" href={section.href}>
+            {ui.home.playUniverse} <span class="universe-count">{section.count}</span>
           </a>
-        </li>
-      ))}
-    </ul>
+        </div>
+        <ul class="theme-grid">
+          {section.cards.map((c) => (
+            <li>
+              <a class="theme-card" href={c.href} style={c.style}>
+                <span class="theme-count">{c.count}</span>
+                <span class="theme-name">{c.name}</span>
+                <span class="theme-tagline">{c.tagline}</span>
+                <span class="theme-play">{ui.home.play}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
     <p class="footnote">{ui.home.footnote}</p>
   </section>
 </BaseLayout>
@@ -129,6 +170,58 @@ const cards = [
     animation: rise-in 520ms ease-out 420ms backwards;
   }
 
+  /* « Tout mélangé » : une grande carte en tête, en largeur. */
+  .theme-card.theme-card--mixed {
+    min-height: 0;
+  }
+
+  .theme-card--mixed .theme-name {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .universe {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .universe-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 20px;
+    animation: rise-in 500ms ease-out 400ms backwards;
+  }
+
+  .universe-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .universe-tagline {
+    flex: 1 1 280px;
+    color: var(--fg-muted);
+  }
+
+  .universe-play {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--yellow);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-underline-offset: 4px;
+  }
+
+  .universe-count {
+    margin-left: 0.5em;
+    color: var(--fg-muted);
+    font-weight: 400;
+  }
+
   .theme-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
@@ -154,7 +247,7 @@ const cards = [
       box-shadow 180ms ease;
     /* Les cartes tombent en cascade après le titre. */
     animation: card-drop 520ms cubic-bezier(0.2, 0.9, 0.3, 1.25) backwards;
-    animation-delay: calc(480ms + var(--i) * 70ms);
+    animation-delay: calc(480ms + min(var(--i), 8) * 70ms);
   }
 
   .theme-card:hover {

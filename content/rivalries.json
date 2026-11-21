@@ -1,5 +1,25 @@
 {
   "version": 1,
+  "universes": [
+    {
+      "id": "univers-ecrans",
+      "label": "Écrans",
+      "tagline": "Tout ce qu’on a regardé au lieu de dormir.",
+      "categories": ["ecrans", "cinefr", "dessins", "jeux"]
+    },
+    {
+      "id": "univers-pop",
+      "label": "Pop culture",
+      "tagline": "Héros, tubes, memes et autres obsessions.",
+      "categories": ["heros", "musique", "duos", "internet", "geek"]
+    },
+    {
+      "id": "univers-vie",
+      "label": "La vraie vie",
+      "tagline": "Les débats du quotidien, ceux qui fâchent vraiment.",
+      "categories": ["bouffe", "quotidien"]
+    }
+  ],
   "categories": [
     {
       "id": "heros",

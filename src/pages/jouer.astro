@@ -7,7 +7,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Debate from '../islands/debate/Debate';
 import type { DebateData } from '../islands/debate/types';
-import { categories, rivalries, ui } from '../data/content';
+import { categories, rivalries, ui, universes } from '../data/content';
 
 const team = ({ name, origin, line }: { name: string; origin: string; line: string }) => ({
   name,
@@ -16,6 +16,7 @@ const team = ({ name, origin, line }: { name: string; origin: string; line: stri
 });
 
 const data: DebateData = {
+  universes: universes.map(({ id, label, categories }) => ({ id, label, categories })),
   categories: categories.map(({ id, label }) => ({ id, label })),
   rivalries: rivalries.map((r) => ({
     id: r.id,

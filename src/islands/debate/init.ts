@@ -10,12 +10,14 @@ import {
 } from '../../engine';
 
 export function catalogFrom(data: {
+  universes?: readonly { id: string; categories: readonly string[] }[];
   categories: readonly { id: string }[];
   rivalries: readonly { id: string; category: string }[];
 }): DebateCatalog {
   return createDebateCatalog(
     data.categories.map((c) => c.id),
     data.rivalries,
+    data.universes ?? [],
   );
 }
 

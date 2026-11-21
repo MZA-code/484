@@ -32,7 +32,12 @@
     },
     "themesLabel": "Choisis ton arène",
     "themeCount": "{n} rivalités · ∞ débats",
-    "play": "Jouer →"
+    "play": "Jouer →",
+    "playUniverse": "Tout l’univers →",
+    "universeCount": {
+      "one": "{n} rivalité",
+      "other": "{n} rivalités"
+    }
   },
   "debate": {
     "pageTitle": "Débats",
@@ -70,7 +75,9 @@
         "other": "{n} choix rebelles"
       }
     },
-    "hallLink": "Le classement mondial →"
+    "hallLink": "Le classement mondial →",
+    "universesLabel": "Univers",
+    "wholeUniverse": "Tout l’univers"
   },
   "quips": {
     "high": [

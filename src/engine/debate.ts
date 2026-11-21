@@ -24,23 +24,43 @@ export const REBEL_BELOW = 40;
 
 export type Team = 'a' | 'b';
 
+export interface CatalogUniverse {
+  id: string;
+  categories: readonly string[];
+}
+
 export interface DebateCatalog {
   /** « Tout mélangé » d'abord, puis les catégories dans l'ordre du fichier. */
   readonly categoryIds: readonly string[];
+  /** Univers : chacun regroupe plusieurs catégories et se joue comme une seule. */
+  readonly universes: readonly CatalogUniverse[];
+  /** Rivalités jouables pour chaque catégorie, chaque univers, et « mix » (toutes). */
   readonly pools: ReadonlyMap<string, readonly string[]>;
 }
 
 export function createDebateCatalog(
   categoryIds: readonly string[],
   rivalries: readonly { id: string; category: string }[],
+  universes: readonly CatalogUniverse[] = [],
 ): DebateCatalog {
   const pools = new Map<string, string[]>(categoryIds.map((id) => [id, []]));
   for (const r of rivalries) pools.get(r.category)?.push(r.id);
+  for (const universe of universes) {
+    pools.set(
+      universe.id,
+      universe.categories.flatMap((c) => pools.get(c) ?? []),
+    );
+  }
   pools.set(
     MIXED_CATEGORY,
     rivalries.map((r) => r.id),
   );
-  return { categoryIds: [MIXED_CATEGORY, ...categoryIds], pools };
+  return { categoryIds: [MIXED_CATEGORY, ...categoryIds], universes, pools };
+}
+
+/** Univers d'une catégorie (ou l'univers lui-même), pour savoir quels onglets afficher. */
+export function universeOf(catalog: DebateCatalog, id: string): CatalogUniverse | undefined {
+  return catalog.universes.find((u) => u.id === id || u.categories.includes(id));
 }
 
 function poolOf(catalog: DebateCatalog, category: string): readonly string[] {

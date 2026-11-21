@@ -41,10 +41,11 @@ const readJson = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../content/${file}`, import.meta.url), 'utf8'));
 
 const ui = parseUi(readJson('ui-texts.fr.json'));
-const { categories, rivalries } = parseRivalries(readJson('rivalries.json'));
+const { universes, categories, rivalries } = parseRivalries(readJson('rivalries.json'));
 const byId = new Map(rivalries.map((r) => [r.id, r]));
 const categoryLabels = new Map([
   [MIXED_CATEGORY, ui.home.mixedTheme.label],
+  ...universes.map((u) => [u.id, u.label] as const),
   ...categories.map((c) => [c.id, c.label] as const),
 ]);
 
@@ -69,6 +70,7 @@ const ctx: DebateContext = {
   catalog: createDebateCatalog(
     categories.map((c) => c.id),
     rivalries,
+    universes,
   ),
   rng,
   milestones: Object.keys(ui.milestones).map(Number),
