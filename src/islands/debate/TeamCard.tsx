@@ -4,6 +4,7 @@
  */
 import type { Team } from '../../engine';
 import { formatText } from '../../lib/format';
+import type { Exit } from './useDebate';
 import { GifFrame } from './GifFrame';
 import type { DebateTeam } from './types';
 
@@ -15,10 +16,18 @@ interface Props {
   /** Image fixe au lieu de la vidéo (prefers-reduced-motion). */
   stillOnly: boolean;
   color: string;
-  leaving: boolean;
+  /** Sortie en cours : cette team a gagné, a perdu, ou on passe la rivalité. */
+  exit: Exit;
   label: string;
   chooseLabel: string;
   onChoose: (team: Team) => void;
+}
+
+/** Classe de sortie : la team choisie « gagne », l'autre tombe ; un passage fait tout disparaître. */
+function exitClass(exit: Exit, side: Team): string {
+  if (!exit) return '';
+  if (exit === 'skip') return ' is-leaving';
+  return exit === side ? ' is-chosen' : ' is-rejected';
 }
 
 export function TeamCard({
@@ -27,7 +36,7 @@ export function TeamCard({
   gifKey,
   stillOnly,
   color,
-  leaving,
+  exit,
   label,
   chooseLabel,
   onChoose,
@@ -37,7 +46,7 @@ export function TeamCard({
   return (
     <button
       type="button"
-      class={`team-card team-card--${side}${leaving ? ' is-leaving' : ''}`}
+      class={`team-card team-card--${side}${exitClass(exit, side)}`}
       style={{ '--card': color }}
       aria-label={formatText(chooseLabel, { name: team.name })}
       aria-describedby={`${id('origin')} ${id('line')}`}

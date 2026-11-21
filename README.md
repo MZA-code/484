@@ -29,6 +29,10 @@ npm run play -- --auto 30             # 30 votes automatiques, puis le résumé
 
 Le mode console n'appelle pas l'API : ses pourcentages sont simulés, et signalés comme tels.
 
+## Animations
+
+Le site suit le réglage « réduire les animations » du système : avec ce réglage, les GIF s'affichent en image fixe et les animations sont coupées. L'interrupteur **« Animations : activées / réduites »** de l'en-tête permet de forcer l'un ou l'autre. Le choix est mémorisé dans le navigateur.
+
 ## Commandes
 
 | Commande                 | Rôle                                                             |

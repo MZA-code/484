@@ -161,3 +161,29 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 
 - **Les 160 anciens prétendants (`contenders.json`) sont supprimés**, avec leur schéma et leurs tests. L'outil de curation travaille désormais par team (« rivalité/a ») et réécrit `rivalries.json`.
 - **Bandeau de résultat plus compact** : sur ordinateur, sa taille d'origine cachait le nom et la réplique des cartes suivantes.
+
+## D16 — Animations et interrupteur « Animations » (pivot, après la phase 3)
+
+**Constat.** Sur une machine où Windows a désactivé les « effets d'animation », le navigateur signale `prefers-reduced-motion: reduce`. Le site coupait alors toutes les animations et affichait les GIF en image fixe : il paraissait figé.
+
+**Décisions.**
+
+- **Un interrupteur « Animations : activées / réduites » dans l'en-tête.**
+  - Par défaut, il suit le réglage du système, comme le demande le brief.
+  - Un clic force les animations, ou les coupe. Le choix est gardé dans le stockage local, et posé sur `<html data-motion>` par un petit script en ligne exécuté avant l'affichage (pas de clignotement).
+  - Le CSS et les îlots lisent la préférence via `src/lib/motion.ts` (`prefersReducedMotion`, `useReducedMotion`, événement `484:motionchange`).
+- **Animations ajoutées** (toutes coupées quand les animations sont réduites) :
+  - **Navigation** : fondu entre les pages, avec les View Transitions entre documents (`@view-transition`, aucun JavaScript).
+  - **Accueil** : les trois lignes du titre arrivent l'une après l'autre (la rose avec un rebond), puis le chapeau, puis les cartes de catégorie en cascade.
+  - **Débat, à chaque nouvelle rivalité** : la team A entre par la gauche, la team B par la droite, la pastille VS rebondit, la question glisse et le numéro bascule.
+  - **Débat, au vote** :
+    - la team choisie grossit avec un tampon ✓, et l'autre tombe ;
+    - le bandeau de résultat monte depuis le bas ;
+    - le pourcentage défile de 0 à sa valeur (les lecteurs d'écran n'entendent que la valeur finale) ;
+    - le nouveau choix entre dans « Tes teams ».
+  - **Débat, au survol d'une carte** : le GIF zoome et l'étiquette « TEAM » penche.
+  - **Paliers** : le bandeau se secoue et lâche une gerbe de confettis aux couleurs du site.
+  - **Hall of Fame** : le podium tombe en cascade, et les barres se remplissent.
+- **Durées.** La transition de vote dure 130 ms en sortie et 170 ms en entrée : moins de 300 ms en tout, comme le demande le brief.
+- **Remplissage `backwards`** pour les entrées, et non `both`. Une animation qui garde son état final bloquait les effets de survol (`transform`) des cartes.
+- **Le palier passe dans le bandeau collé en bas de l'écran.** Sous les cartes, il était hors de vue, alors qu'il porte le message aux recruteurs au palier 25.

@@ -31,7 +31,7 @@ export function Panels({ state, byId, texts }: Props) {
         ) : (
           <ul class="teams-list">
             {recent.map(({ v, r }, i) => (
-              <li key={`${v.rivalryId}-${i}`}>
+              <li key={`${v.rivalryId}-${state.count - i}`}>
                 <strong>{r[v.team].name}</strong>
                 <span class="teams-versus">
                   {formatText(t.teams.versus, { name: r[v.team === 'a' ? 'b' : 'a'].name })}

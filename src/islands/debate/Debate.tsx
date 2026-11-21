@@ -2,10 +2,11 @@
  * Îlot de débat : catégories, rivalité en cours, résultat, palier, « Tes teams » et « Ton profil ».
  * Rendu uniquement côté client (la partie dépend du stockage local et de l'URL).
  */
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo } from 'preact/hooks';
 import { debateNumber, MIXED_CATEGORY, type Team } from '../../engine';
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
+import { useReducedMotion } from '../../lib/motion';
 import { preloadGif, teamGifKey } from './gifs';
 import { Panels } from './Panels';
 import { Result } from './Result';
@@ -21,22 +22,8 @@ function shouldIgnoreKey(event: KeyboardEvent): boolean {
   return !!target?.closest('input, textarea, select, [contenteditable="true"]');
 }
 
-/** Suit la préférence système « réduire les animations », y compris si elle change en cours de partie. */
-function useReducedMotion(): boolean {
-  const query = '(prefers-reduced-motion: reduce)';
-  const [reduced, setReduced] = useState(() => window.matchMedia?.(query).matches ?? false);
-  useEffect(() => {
-    const list = window.matchMedia?.(query);
-    if (!list) return;
-    const onChange = () => setReduced(list.matches);
-    list.addEventListener('change', onChange);
-    return () => list.removeEventListener('change', onChange);
-  }, []);
-  return reduced;
-}
-
 export default function Debate({ data }: { data: DebateData }) {
-  const { state, ctx, shown, leaving, result, milestone, choose, skip, selectCategory } =
+  const { state, ctx, shown, exit, result, milestone, choose, skip, selectCategory } =
     useDebate(data);
   const t = data.texts.debate;
   const reducedMotion = useReducedMotion();
@@ -91,7 +78,7 @@ export default function Debate({ data }: { data: DebateData }) {
       gifKey={teamGifKey(rivalry.id, side)}
       stillOnly={reducedMotion}
       color={colors[side === 'a' ? 0 : 1]}
-      leaving={leaving}
+      exit={exit}
       label={t.team}
       chooseLabel={t.choose}
       onChoose={choose}
@@ -115,12 +102,16 @@ export default function Debate({ data }: { data: DebateData }) {
       </nav>
 
       <div class="debate-head">
-        <p class="debate-number">{formatText(t.number, { n: debateNumber(state) })}</p>
+        <p class="debate-number">
+          <span class="debate-number-value" key={state.count}>
+            {formatText(t.number, { n: debateNumber(state) })}
+          </span>
+        </p>
         <p class="debate-subtitle">{t.subtitle}</p>
       </div>
 
       <div class="debate-stage">
-        <div class={`debate-question${leaving ? ' is-leaving' : ''}`} key={rivalry.id}>
+        <div class={`debate-question${exit ? ' is-leaving' : ''}`} key={rivalry.id}>
           {state.category === MIXED_CATEGORY && (
             <p class="debate-category">{labels.get(rivalry.category)}</p>
           )}
@@ -129,7 +120,7 @@ export default function Debate({ data }: { data: DebateData }) {
 
         <div class="arena">
           {card('a')}
-          <span class="vs" aria-hidden="true">
+          <span class="vs" aria-hidden="true" key={`vs-${rivalry.id}`}>
             {t.vs}
           </span>
           {card('b')}
@@ -142,6 +133,7 @@ export default function Debate({ data }: { data: DebateData }) {
         </div>
 
         <Result
+          reducedMotion={reducedMotion}
           result={result}
           rivalry={lastRivalry}
           colors={lastColors}

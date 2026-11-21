@@ -26,6 +26,17 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
     <meta name="description" content={description} />
     <meta name="theme-color" content="#121212" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Préférence d'animations choisie avec l'interrupteur (voir src/lib/motion.ts),
+      // posée avant l'affichage pour éviter tout clignotement.
+      try {
+        const motion = localStorage.getItem('484:motion');
+        if (motion === 'full' || motion === 'reduced')
+          document.documentElement.dataset.motion = motion;
+      } catch {
+        // Stockage indisponible : on suit simplement le réglage du système.
+      }
+    </script>
     <slot name="head" />
   </head>
   <body>
@@ -38,15 +49,27 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
         <span class="brand-logo">{ui.site.logo}</span>
         <span class="brand-name">{ui.site.name}</span>
       </a>
-      {links.length > 0 && (
-        <nav class="social" aria-label={ui.site.socialLabel}>
-          {links.map((link) => (
-            <a href={link.url} rel="me noopener" target="_blank">
-              {link.label} <span aria-hidden="true">↗</span>
-            </a>
-          ))}
-        </nav>
-      )}
+      <div class="header-tools">
+        <button
+          type="button"
+          class="motion-toggle"
+          data-motion-toggle
+          data-on={ui.site.motion.on}
+          data-off={ui.site.motion.off}
+          aria-pressed="true"
+        >
+          {ui.site.motion.label} <span data-motion-state>{ui.site.motion.on}</span>
+        </button>
+        {links.length > 0 && (
+          <nav class="social" aria-label={ui.site.socialLabel}>
+            {links.map((link) => (
+              <a href={link.url} rel="me noopener" target="_blank">
+                {link.label} <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </nav>
+        )}
+      </div>
     </header>
 
     <main id="contenu">
@@ -66,6 +89,36 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
       </a>
       <slot name="footer" />
     </footer>
+    <script is:inline>
+      // Interrupteur « Animations » : bascule la préférence et prévient les îlots.
+      {
+        const root = document.documentElement;
+        const button = document.querySelector('[data-motion-toggle]');
+        const label = button?.querySelector('[data-motion-state]');
+        const reduced = () => {
+          if (root.dataset.motion === 'full') return false;
+          if (root.dataset.motion === 'reduced') return true;
+          return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        };
+        const render = () => {
+          const on = !reduced();
+          button?.setAttribute('aria-pressed', String(on));
+          if (label && button) label.textContent = on ? button.dataset.on : button.dataset.off;
+        };
+        button?.addEventListener('click', () => {
+          const next = reduced() ? 'full' : 'reduced';
+          root.dataset.motion = next;
+          try {
+            localStorage.setItem('484:motion', next);
+          } catch {
+            // Stockage indisponible : le choix vaut pour cette page seulement.
+          }
+          render();
+          window.dispatchEvent(new Event('484:motionchange'));
+        });
+        render();
+      }
+    </script>
   </body>
 </html>
 
@@ -100,6 +153,34 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
 
   .brand-name {
     text-transform: uppercase;
+  }
+
+  .header-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 20px;
+  }
+
+  .motion-toggle {
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    cursor: pointer;
+  }
+
+  .motion-toggle:hover {
+    color: var(--fg);
+  }
+
+  .motion-toggle [data-motion-state] {
+    color: var(--yellow);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .social {

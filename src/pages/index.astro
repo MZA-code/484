@@ -38,8 +38,8 @@ const cards = [
   <section class="hero container">
     <div class="hero-text">
       <h1 class="hero-title">
-        {ui.home.title.map((line) => (
-          <span>{line}</span>
+        {ui.home.title.map((line, i) => (
+          <span style={`--i: ${i}`}>{line}</span>
         ))}
       </h1>
       <p class="hero-intro">{ui.home.intro}</p>
@@ -47,9 +47,9 @@ const cards = [
 
     <h2 class="visually-hidden">{ui.home.themesLabel}</h2>
     <ul class="theme-grid">
-      {cards.map((card) => (
+      {cards.map((card, i) => (
         <li>
-          <a class="theme-card" href={card.href} style={`--card: ${card.color}`}>
+          <a class="theme-card" href={card.href} style={`--card: ${card.color}; --i: ${i}`}>
             <span class="theme-count">{card.count}</span>
             <span class="theme-name">{card.label}</span>
             <span class="theme-tagline">{card.tagline}</span>
@@ -90,17 +90,43 @@ const cards = [
     padding-bottom: 0.08em;
   }
 
+  /* Les trois lignes arrivent l'une après l'autre ; la rose avec un petit rebond. */
   .hero-title span {
     display: block;
+    animation: title-rise 620ms cubic-bezier(0.2, 0.9, 0.3, 1.1) backwards;
+    animation-delay: calc(var(--i) * 120ms);
   }
 
   .hero-title span:last-child {
     color: var(--pink);
+    animation-name: title-pop;
+  }
+
+  @keyframes title-rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.45em) rotate(-1.5deg);
+    }
+  }
+
+  @keyframes title-pop {
+    0% {
+      opacity: 0;
+      transform: translateY(0.45em) scale(0.92) rotate(-4deg);
+    }
+    70% {
+      opacity: 1;
+      transform: translateY(0) scale(1.03) rotate(1deg);
+    }
+    100% {
+      transform: none;
+    }
   }
 
   .hero-intro {
     max-width: 680px;
     font-size: 1.25rem;
+    animation: rise-in 520ms ease-out 420ms backwards;
   }
 
   .theme-grid {
@@ -123,11 +149,28 @@ const cards = [
     color: var(--ink);
     box-shadow: 6px 6px 0 var(--fg);
     text-decoration: none;
-    transition: transform 150ms ease;
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.9, 0.3, 1.4),
+      box-shadow 180ms ease;
+    /* Les cartes tombent en cascade après le titre. */
+    animation: card-drop 520ms cubic-bezier(0.2, 0.9, 0.3, 1.25) backwards;
+    animation-delay: calc(480ms + var(--i) * 70ms);
   }
 
   .theme-card:hover {
     transform: translateY(-6px) rotate(-1deg);
+    box-shadow: 10px 10px 0 var(--fg);
+  }
+
+  .theme-card:hover .theme-play {
+    transform: translateX(6px);
+  }
+
+  @keyframes card-drop {
+    from {
+      opacity: 0;
+      transform: translateY(40px) rotate(-3deg) scale(0.94);
+    }
   }
 
   .theme-count {
@@ -150,6 +193,7 @@ const cards = [
   }
 
   .theme-play {
+    transition: transform 180ms ease;
     margin-top: auto;
     font-family: var(--font-mono);
     font-size: 0.875rem;
@@ -157,6 +201,7 @@ const cards = [
   }
 
   .footnote {
+    animation: rise-in 500ms ease-out 1100ms backwards;
     color: var(--fg-muted);
     font-family: var(--font-mono);
     font-size: 0.875rem;

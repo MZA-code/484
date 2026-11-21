@@ -5,7 +5,12 @@
     "logo": "484",
     "name": "Lequel tu préfères ?",
     "socialLabel": "Ailleurs sur Internet",
-    "skipToContent": "Aller au contenu"
+    "skipToContent": "Aller au contenu",
+    "motion": {
+      "label": "Animations :",
+      "on": "activées",
+      "off": "réduites"
+    }
   },
   "links": {
     "github": {

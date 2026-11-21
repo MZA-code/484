@@ -56,6 +56,19 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Le numéro bascule à chaque débat tranché. */
+.debate-number-value {
+  display: inline-block;
+  animation: number-flip 320ms cubic-bezier(0.2, 0.9, 0.3, 1.4) backwards;
+}
+
+@keyframes number-flip {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4em) rotate(-6deg) scale(1.2);
+  }
+}
+
 .debate-subtitle {
   color: var(--fg-muted);
   font-family: var(--font-mono);
@@ -69,11 +82,25 @@
 }
 
 .debate-question {
-  animation: card-enter 160ms ease-out both;
+  animation: question-in 240ms cubic-bezier(0.2, 0.9, 0.3, 1.2) backwards;
+}
+
+@keyframes question-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) skewX(-6deg);
+  }
 }
 
 .debate-question.is-leaving {
-  animation: card-leave 120ms ease-in forwards;
+  animation: fade-out 130ms ease-in forwards;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 .debate-category {
@@ -115,7 +142,16 @@
   color: var(--ink);
   font-family: var(--font-display);
   font-size: 2.25rem;
-  animation: wiggle 1.2s ease-in-out infinite;
+  /* Rebondit à chaque nouvelle rivalité, puis oscille. */
+  animation:
+    vs-pop 360ms cubic-bezier(0.2, 0.9, 0.3, 1.6) backwards,
+    wiggle 1.2s ease-in-out 360ms infinite;
+}
+
+@keyframes vs-pop {
+  from {
+    transform: scale(0) rotate(-90deg);
+  }
 }
 
 @keyframes wiggle {
@@ -144,38 +180,125 @@
   font-family: var(--font-body);
   text-align: left;
   cursor: pointer;
-  animation: card-enter 160ms ease-out both;
-  transition: transform 150ms ease;
+  /* Chaque team entre de son côté (gauche ou droite), avec un léger rebond. */
+  animation: 170ms cubic-bezier(0.2, 0.9, 0.3, 1.25) backwards;
+  transition:
+    transform 180ms cubic-bezier(0.2, 0.9, 0.3, 1.4),
+    box-shadow 180ms ease;
+}
+
+.team-card--a {
+  animation-name: enter-left;
+}
+
+.team-card--b {
+  animation-name: enter-right;
+}
+
+@keyframes enter-left {
+  from {
+    opacity: 0;
+    transform: translateX(-70px) rotate(-4deg);
+  }
+}
+
+@keyframes enter-right {
+  from {
+    opacity: 0;
+    transform: translateX(70px) rotate(4deg);
+  }
 }
 
 .team-card:hover {
   transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 10px 10px 0 var(--fg);
+}
+
+.team-card--b:hover {
+  transform: translateY(-6px) rotate(1deg);
+}
+
+/* Au survol, le GIF zoome un peu et l'étiquette « TEAM » penche. */
+.team-card:hover .team-gif {
+  transform: scale(1.06);
+}
+
+.team-card:hover .team-tag {
+  transform: rotate(-4deg) scale(1.08);
+}
+
+.team-tag {
+  transition: transform 180ms cubic-bezier(0.2, 0.9, 0.3, 1.6);
 }
 
 .team-card:active {
   transform: translateY(-2px) rotate(-0.5deg) scale(0.99);
 }
 
-.team-card.is-leaving {
-  animation: card-leave 120ms ease-in forwards;
+/* Sorties : la team choisie « gagne » (grossit, tampon ✓), l'autre tombe ; un passage fait tout disparaître. */
+.team-card.is-leaving,
+.team-card.is-chosen,
+.team-card.is-rejected {
   pointer-events: none;
 }
 
-@keyframes card-enter {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.team-card.is-leaving {
+  animation: card-leave 130ms ease-in forwards;
+}
+
+.team-card.is-chosen {
+  position: relative;
+  z-index: 1;
+  animation: card-win 130ms ease-out forwards;
+}
+
+.team-card.is-chosen::after {
+  content: '✓';
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 4px solid var(--ink);
+  border-radius: 50%;
+  background: var(--fg);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  animation: stamp 130ms cubic-bezier(0.2, 0.9, 0.3, 1.8) both;
+}
+
+.team-card.is-rejected {
+  animation: card-fall 130ms ease-in forwards;
 }
 
 @keyframes card-leave {
   to {
     opacity: 0;
-    transform: translateY(10px) scale(0.92) rotate(3deg);
+    transform: translateY(10px) scale(0.92);
+  }
+}
+
+@keyframes card-win {
+  to {
+    transform: scale(1.04) rotate(-1.5deg);
+    box-shadow: 12px 12px 0 var(--pink);
+  }
+}
+
+@keyframes card-fall {
+  to {
+    opacity: 0;
+    transform: translateY(60px) rotate(8deg) scale(0.9);
+  }
+}
+
+@keyframes stamp {
+  from {
+    transform: scale(2.4) rotate(-25deg);
+    opacity: 0;
   }
 }
 
@@ -214,7 +337,9 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 150ms ease;
+  transition:
+    opacity 150ms ease,
+    transform 300ms ease;
 }
 
 .team-gif.is-ready {
@@ -284,7 +409,9 @@
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
+/* Le bandeau glisse depuis le bas à chaque vote. */
 .result {
+  animation: result-up 280ms cubic-bezier(0.2, 0.9, 0.3, 1.15) backwards;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -301,6 +428,17 @@
 
 .result-choice span {
   display: inline-block;
+}
+
+.result-share {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes result-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
 }
 
 .result-bar {
@@ -398,7 +536,12 @@
   }
 }
 
+/* Le palier arrive en secouant un peu, avec des confettis. */
 .milestone {
+  position: relative;
+  margin-bottom: 8px;
+  box-shadow: 0 -12px 32px rgb(0 0 0 / 0.55);
+  animation: milestone-shake 520ms ease-out backwards;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -407,6 +550,55 @@
   padding: 24px;
   background: var(--pink);
   color: var(--ink);
+}
+
+@keyframes milestone-shake {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) rotate(-4deg);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.05) rotate(2deg);
+  }
+  60% {
+    transform: rotate(-1.5deg);
+  }
+  80% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.confetti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+}
+
+.confetti span {
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  opacity: 0;
+  animation: confetti-burst 1100ms cubic-bezier(0.1, 0.8, 0.3, 1) var(--delay) forwards;
+}
+
+@keyframes confetti-burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), calc(var(--dy) + 90px)) rotate(var(--rot));
+  }
 }
 
 .milestone-text {
@@ -464,6 +656,14 @@
     padding: 14px 16px;
   }
 
+  .milestone {
+    padding: 14px 16px;
+  }
+
+  .milestone-text {
+    font-size: 1.25rem;
+  }
+
   .vs {
     width: 64px;
     height: 64px;
@@ -509,11 +709,20 @@
   list-style: none;
 }
 
+/* Chaque nouveau choix entre par la gauche dans « Tes teams ». */
 .teams-list li {
+  animation: slide-in 300ms cubic-bezier(0.2, 0.9, 0.3, 1.2) backwards;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 4px 10px;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
 }
 
 .teams-versus,

@@ -25,12 +25,16 @@ import {
   type ShareOutcome,
   type Team,
 } from '../../engine';
+import { prefersReducedMotion } from '../../lib/motion';
 import { catalogFrom, categoryFromSearch, initialDebate } from './init';
 import type { DebateData } from './types';
 import { sendVote } from './votes';
 
 /** Durée de sortie des cartes avant l'entrée de la rivalité suivante (< 300 ms avec l'entrée). */
-export const EXIT_MS = 120;
+export const EXIT_MS = 130;
+
+/** Comment la rivalité affichée s'en va : une team choisie (elle gagne, l'autre tombe) ou un passage. */
+export type Exit = Team | 'skip' | null;
 /** Clé de l'ancien mode « duels », nettoyée au passage. */
 const LEGACY_STORAGE_KEY = '484:game';
 
@@ -43,10 +47,6 @@ export interface VoteResult {
   outcome: ShareOutcome | null;
   quip: string | null;
 }
-
-const prefersReducedMotion = () =>
-  typeof window.matchMedia === 'function' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function useDebate(data: DebateData) {
   const ctx = useMemo<DebateContext>(
@@ -69,7 +69,7 @@ export function useDebate(data: DebateData) {
   });
   /** Rivalité affichée : en retard de 120 ms sur le moteur pendant l'animation de sortie. */
   const [shown, setShown] = useState(state.current);
-  const [leaving, setLeaving] = useState(false);
+  const [exit, setExit] = useState<Exit>(null);
   const [result, setResult] = useState<VoteResult | null>(null);
   const [milestone, setMilestone] = useState<number | null>(null);
 
@@ -93,17 +93,17 @@ export function useDebate(data: DebateData) {
   }, [state.category]);
 
   /** Applique un nouvel état et fait entrer sa rivalité (après la sortie de l'ancienne). */
-  const advance = useCallback((next: DebateState) => {
+  const advance = useCallback((next: DebateState, how: Exclude<Exit, null>) => {
     setState(next);
     if (prefersReducedMotion()) {
       setShown(next.current);
       return;
     }
     busy.current = true;
-    setLeaving(true);
+    setExit(how);
     window.setTimeout(() => {
       setShown(next.current);
-      setLeaving(false);
+      setExit(null);
       busy.current = false;
     }, EXIT_MS);
   }, []);
@@ -120,7 +120,7 @@ export function useDebate(data: DebateData) {
       setResult({ id, rivalryId, team, outcome: null, quip: null });
       const reached = transition.events.find((e) => e.type === 'milestone');
       setMilestone(reached?.type === 'milestone' ? reached.count : null);
-      advance(transition.state);
+      advance(transition.state, team);
 
       void sendVote({ rivalryId, team, category: current.category }).then((pair) => {
         const outcome = shareOutcome(pair);
@@ -145,7 +145,7 @@ export function useDebate(data: DebateData) {
     pendingVote.current = -1;
     setResult(null);
     setMilestone(null);
-    advance(skipRivalry(stateRef.current, ctx));
+    advance(skipRivalry(stateRef.current, ctx), 'skip');
   }, [ctx, advance]);
 
   const selectCategory = useCallback(
@@ -154,10 +154,10 @@ export function useDebate(data: DebateData) {
       pendingVote.current = -1;
       setResult(null);
       setMilestone(null);
-      advance(changeCategory(stateRef.current, category, ctx));
+      advance(changeCategory(stateRef.current, category, ctx), 'skip');
     },
     [ctx, advance],
   );
 
-  return { state, ctx, shown, leaving, result, milestone, choose, skip, selectCategory };
+  return { state, ctx, shown, exit, result, milestone, choose, skip, selectCategory };
 }

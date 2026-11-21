@@ -151,6 +151,7 @@ export const UiTextsSchema = z.object({
     logo: text,
     name: text,
     socialLabel: text,
+    motion: z.object({ label: text, on: text, off: text }),
     skipToContent: text,
   }),
   links: z.object({ github: optionalLink, linkedin: optionalLink }),
