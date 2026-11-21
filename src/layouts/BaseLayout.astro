@@ -5,19 +5,31 @@
  */
 import '../styles/global.css';
 import { ui } from '../data/content';
+import { OG_HEIGHT, OG_WIDTH, ogImagePath } from '../lib/og-path';
+import { serializeJsonLd } from '../lib/seo';
 
 interface Props {
   /** Titre de l'onglet, avant « · 484 · Lequel tu préfères ? ». Absent sur l'accueil. */
   title?: string | undefined;
   description?: string | undefined;
+  /** Chemin de l'image de partage ; par défaut, l'image générale du site. */
+  image?: string | undefined;
+  /** Données structurées (schema.org) propres à la page. */
+  jsonLd?: readonly unknown[] | undefined;
 }
 
-const { title, description = ui.site.description } = Astro.props;
+const {
+  title,
+  description = ui.site.description,
+  image = ogImagePath(),
+  jsonLd = [],
+} = Astro.props;
 const fullTitle = title ? `${title} · ${ui.site.title}` : ui.site.title;
 const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !== '');
 // Adresse canonique, sans paramètres : c'est elle qui circule quand on partage la page.
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const canonical = new URL(path, Astro.site ?? Astro.url).href;
+const imageUrl = new URL(image, Astro.site ?? Astro.url).href;
 ---
 
 <!doctype html>
@@ -34,7 +46,14 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
     <meta property="og:title" content={title ?? ui.site.title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content={String(OG_WIDTH)} />
+    <meta property="og:image:height" content={String(OG_HEIGHT)} />
+    <meta property="og:image:alt" content={title ?? ui.site.title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd.map((data) => (
+      <script type="application/ld+json" is:inline set:html={serializeJsonLd(data)} />
+    ))}
     <meta name="theme-color" content="#121212" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
@@ -95,6 +114,25 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
         {ui.footer.hallOfFame}
       </a>
       <p class="footer-disclaimer">{ui.footer.disclaimer}</p>
+      <nav class="footer-legal" aria-label={ui.footer.legal.label}>
+        <ul>
+          <li>
+            <a href="/debats">{ui.footer.legal.debates}</a>
+          </li>
+          <li>
+            <a href="/a-propos">{ui.footer.legal.about}</a>
+          </li>
+          <li>
+            <a href="/mentions-legales">{ui.footer.legal.mentions}</a>
+          </li>
+          <li>
+            <a href="/confidentialite">{ui.footer.legal.privacy}</a>
+          </li>
+          <li>
+            <a href="/accessibilite">{ui.footer.legal.accessibility}</a>
+          </li>
+        </ul>
+      </nav>
       <a class="footer-giphy" href={ui.footer.giphy.url} rel="noopener" target="_blank">
         {ui.footer.giphy.label}
       </a>
@@ -254,6 +292,34 @@ const canonical = new URL(path, Astro.site ?? Astro.url).href;
     color: var(--fg);
     font-weight: 700;
     text-underline-offset: 4px;
+  }
+
+  /* Liens d'information : une ligne pleine largeur, qui passe à la ligne sur mobile. */
+  .footer-legal {
+    flex-basis: 100%;
+    order: 10;
+  }
+
+  .footer-legal ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-legal a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--fg-muted);
+    text-underline-offset: 3px;
+  }
+
+  .footer-legal a:hover,
+  .footer-legal a:focus-visible {
+    color: var(--fg);
   }
 
   /* Attribution Giphy obligatoire, mais discrète. */

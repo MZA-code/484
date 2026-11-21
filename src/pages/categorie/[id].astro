@@ -1,0 +1,211 @@
+---
+/** /categorie/<id> : présentation d'une catégorie et liste de tous ses débats, avec leurs liens. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import { categories, ui } from '../../data/content';
+import {
+  categoryById,
+  categoryPath,
+  debatePath,
+  playPath,
+  questionOf,
+  rivalriesOf,
+  universeOfCategory,
+} from '../../data/pages';
+import { formatText } from '../../lib/format';
+import { itemListJsonLd } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({ params: { id: category.id }, props: { category } }));
+}
+
+const { category } = Astro.props;
+const t = ui.categoryPage;
+const debates = rivalriesOf(category.id).map((r) => ({ id: r.id, question: questionOf(r) }));
+const universe = universeOfCategory.get(category.id);
+const siblings = (universe?.categories ?? [])
+  .filter((id) => id !== category.id)
+  .flatMap((id) => {
+    const c = categoryById.get(id);
+    return c ? [c] : [];
+  });
+const title = formatText(t.title, { category: category.label });
+const jsonLd = [
+  itemListJsonLd(
+    title,
+    debates.map((d) => ({ name: d.question, path: debatePath(d.id) })),
+    Astro.site ?? Astro.url,
+  ),
+];
+---
+
+<BaseLayout
+  title={title}
+  description={formatText(t.description, {
+    n: debates.length,
+    category: category.label,
+    tagline: category.tagline,
+  })}
+  jsonLd={jsonLd}
+>
+  <div class="container category">
+    <Breadcrumbs
+      crumbs={[
+        { name: ui.breadcrumb.home, path: '/' },
+        { name: ui.breadcrumb.debates, path: '/debats' },
+        { name: category.label },
+      ]}
+    />
+    <header class="category-head">
+      <Icon name={category.icon} class="category-icon" />
+      <h1 class="category-title">{category.label}</h1>
+      <p class="category-tagline">{category.tagline}</p>
+      <a class="block-button" href={playPath(category.id)}>
+        {t.play}
+      </a>
+    </header>
+
+    <section aria-labelledby="liste">
+      <h2 class="section-title" id="liste">
+        {formatText(t.listTitle, { n: debates.length })}
+      </h2>
+      <ol class="debate-list">
+        {debates.map((d) => (
+          <li>
+            <a href={debatePath(d.id)}>{d.question}</a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    {universe && siblings.length > 0 && (
+      <section aria-labelledby="univers">
+        <h2 class="section-title" id="univers">
+          {formatText(t.others, { universe: universe.label })}
+        </h2>
+        <ul class="siblings">
+          {siblings.map((c) => (
+            <li>
+              <a href={categoryPath(c.id)}>
+                <Icon name={c.icon} class="sibling-icon" />
+                {c.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .category {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .category-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    animation: rise-in 700ms var(--ease-out) backwards;
+  }
+
+  .category-head :global(.category-icon) {
+    width: 56px;
+    height: 56px;
+    color: var(--yellow);
+  }
+
+  .category-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .category-tagline {
+    max-width: 680px;
+    font-size: 1.25rem;
+  }
+
+  .section-title {
+    margin-bottom: 16px;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .debate-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: 0 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .debate-list li {
+    border-bottom: 1px solid #2c2c2c;
+  }
+
+  .debate-list a {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 8px 0;
+    color: var(--fg);
+    font-size: 1.0625rem;
+    text-decoration: none;
+    transition:
+      color 200ms var(--ease-out),
+      transform 200ms var(--ease-out);
+  }
+
+  .debate-list a:hover,
+  .debate-list a:focus-visible {
+    color: var(--yellow);
+    transform: translateX(6px);
+  }
+
+  .siblings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .siblings a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 2px solid var(--fg);
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      background-color 200ms var(--ease-out),
+      color 200ms var(--ease-out);
+  }
+
+  .siblings a:hover,
+  .siblings a:focus-visible {
+    background: var(--fg);
+    color: var(--ink);
+  }
+
+  .siblings :global(.sibling-icon) {
+    width: 18px;
+    height: 18px;
+  }
+</style>

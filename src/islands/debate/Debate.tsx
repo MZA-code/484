@@ -124,7 +124,6 @@ export default function Debate({
       color={colors[side === 'a' ? 0 : 1]}
       exit={exit}
       label={t.team}
-      chooseLabel={t.choose}
       onChoose={choose}
     />
   );

@@ -1,9 +1,12 @@
 /**
  * Une team : un <button> entier, cliquable, avec l'étiquette « TEAM », le cadre du GIF,
  * l'origine, le nom en très grand et la réplique.
+ *
+ * Le bouton tire son nom de son propre texte (critère WCAG 2.5.3 : le nom accessible contient
+ * le texte visible). Le nom suit l'étiquette dans le code, pour être lu « Team Edward, Twilight… » ;
+ * le CSS (order) le replace sous l'origine à l'écran.
  */
 import type { Team } from '../../engine';
-import { formatText } from '../../lib/format';
 import type { Exit } from './useDebate';
 import { GifFrame } from './GifFrame';
 import type { DebateTeam } from './types';
@@ -19,7 +22,6 @@ interface Props {
   /** Sortie en cours : cette team a gagné, a perdu, ou on passe la rivalité. */
   exit: Exit;
   label: string;
-  chooseLabel: string;
   onChoose: (team: Team) => void;
 }
 
@@ -30,41 +32,17 @@ function exitClass(exit: Exit, side: Team): string {
   return exit === side ? ' is-chosen' : ' is-rejected';
 }
 
-export function TeamCard({
-  team,
-  side,
-  gifKey,
-  stillOnly,
-  color,
-  exit,
-  label,
-  chooseLabel,
-  onChoose,
-}: Props) {
-  // Description lue après « Choisir team X » : origine et réplique, sans répéter le nom.
-  const id = (part: string) => `team-${side}-${part}`;
+export function TeamCard({ team, side, gifKey, stillOnly, color, exit, label, onChoose }: Props) {
   return (
     <button
       type="button"
       class={`team-card team-card--${side}${exitClass(exit, side)}`}
       style={{ '--card': color }}
-      aria-label={formatText(chooseLabel, { name: team.name })}
-      aria-describedby={`${id('origin')} ${id('line')}`}
       onClick={() => onChoose(side)}
     >
-      <span class="team-tag" aria-hidden="true">
-        {label}
-      </span>
+      <span class="team-tag">{label}</span> <span class="team-name">{team.name}</span>{' '}
       <GifFrame gifKey={gifKey} name={team.name} stillOnly={stillOnly} />
-      <span class="team-origin" id={id('origin')}>
-        {team.origin}
-      </span>
-      <span class="team-name" aria-hidden="true">
-        {team.name}
-      </span>
-      <span class="team-line" id={id('line')}>
-        {team.line}
-      </span>
+      <span class="team-origin">{team.origin}</span> <span class="team-line">{team.line}</span>
     </button>
   );
 }

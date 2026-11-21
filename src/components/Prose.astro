@@ -1,0 +1,24 @@
+---
+/** Texte long écrit dans `content/` : liens `[libellé](adresse)` et variables (voir src/lib/inline.ts). */
+import { parseInline } from '../lib/inline';
+
+interface Props {
+  text: string;
+  vars: Readonly<Record<string, string>>;
+}
+
+const { text, vars } = Astro.props;
+const segments = parseInline(text, vars);
+---
+
+{segments.map((s) =>
+  s.kind === 'text' ? (
+    s.text
+  ) : s.external ? (
+    <a href={s.href} rel="noopener" target="_blank">
+      {s.text}
+    </a>
+  ) : (
+    <a href={s.href}>{s.text}</a>
+  ),
+)}

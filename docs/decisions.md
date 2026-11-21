@@ -228,3 +228,22 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **L'icône est une donnée du contenu** (champ `icon` des catégories, des univers et de « Tout mélangé »), validée contre la liste disponible : une icône inconnue fait échouer le build, avec la liste des noms possibles.
 - **Sur l'accueil** : icône en filigrane dans le coin de chaque carte (elle gigote au survol), et en jaune devant chaque titre d'univers.
 - Le paquet est une **dépendance de production**, car le serveur valide le contenu au démarrage.
+
+## D21 — Conformité : mentions légales, RGPD, cookies, RGAA (phase 6)
+
+- **Éditeur anonyme** : site non professionnel, l'éditeur garde l'anonymat permis par la LCEN ; ses coordonnées sont connues de l'hébergeur. Contact public : `contact@team484.fr` (`ui.site.email`).
+- **Hébergeur** : o2switch, coordonnées vérifiées le 21/11/2026 (siège transféré chemin des Pardiaux en 2022 ; l'ancienne adresse du boulevard Gustave Flaubert est périmée).
+- **Pas de bandeau cookies** : aucun cookie, aucune mesure d'audience. Le stockage local (progression, préférence d'animations) sert des fonctions demandées par l'utilisateur : exempté de consentement (art. 82 loi Informatique et Libertés).
+- **GIPHY** : seul tiers. Le serveur fait les recherches ; le navigateur télécharge les vidéos depuis le CDN de GIPHY, qui ne pose aucun cookie (vérifié le 21/11/2026 ; seul giphy.com en pose, et il n'est jamais chargé).
+- **RGAA** : déclaration « partiellement conforme » (auto-évaluation) : axe-core sans erreur sur les pages types, clavier, contrastes, zoom 200 %, animations réduites. Tests lecteurs d'écran à faire.
+- Les cartes de team tirent leur nom accessible de leur texte visible (WCAG 2.5.3) ; le nom suit l'étiquette « TEAM » dans le code et le CSS (`order`) rétablit l'ordre visuel.
+- Pages d'information construites depuis `ui.pages` (`src/layouts/InfoPage.astro`), avec une syntaxe minimale `[libellé](adresse)` et des variables (`{email}`, `{rivalries}`…) validées par le schéma.
+
+## D22 — SEO et GEO (phase 6)
+
+- **Contenu lisible sans JavaScript** : sur `/debat/<id>`, le contenu d'attente de l'îlot est la version statique du débat (catégorie, question en `h1`, deux teams avec origine et réplique). Moteurs et robots IA, qui souvent n'exécutent pas JavaScript, lisent le débat complet.
+- **Maillage interne** : accueil → `/debats` → `/categorie/<id>` (les 50 débats) → `/debat/<id>` (fil d'Ariane, 8 débats voisins, lien vers la catégorie). Les pages fixes sont liées depuis le pied de page.
+- **Données structurées** : `WebSite` (accueil), `BreadcrumbList` (fil d'Ariane), `ItemList` (liste des débats, catégories). Sérialisées avec `<` échappé.
+- **`sitemap.xml`, `robots.txt`, `llms.txt`** générés au build depuis le contenu. Tous les robots sont admis (y compris les robots IA, condition du GEO), sauf `/api/`. `/jouer` n'est pas dans le plan du site : son contenu change à chaque visite.
+- **Images de partage** (`/og/<id>.png`, 1200 × 630) : satori + resvg en WebAssembly (aucun binaire natif à installer chez l'hébergeur). Dessinées à la demande, rangées sur disque sous l'empreinte de leur mise en page (`OG_CACHE_DIR`), gardées en mémoire (64 dernières). Une image par débat, une image générale pour le reste du site.
+- **Couleurs des teams** : `teamColors` utilisait seulement 8 des 56 paires possibles (la couleur B dépendait entièrement de A) ; un brassage du hachage les répartit désormais sur toutes les paires.

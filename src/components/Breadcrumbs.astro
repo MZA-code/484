@@ -1,0 +1,66 @@
+---
+/** Fil d'Ariane visible, et sa version schema.org pour les moteurs de recherche. */
+import { ui } from '../data/content';
+import { breadcrumbJsonLd, serializeJsonLd, type Crumb } from '../lib/seo';
+
+interface Props {
+  crumbs: Crumb[];
+}
+
+const { crumbs } = Astro.props;
+const jsonLd = serializeJsonLd(
+  breadcrumbJsonLd(crumbs, Astro.url.pathname, Astro.site ?? Astro.url),
+);
+---
+
+<nav class="breadcrumbs" aria-label={ui.breadcrumb.label}>
+  <ol>
+    {crumbs.map((crumb) => (
+      <li>
+        {crumb.path ? (
+          <a href={crumb.path}>{crumb.name}</a>
+        ) : (
+          <span aria-current="page">{crumb.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={jsonLd} is:inline />
+<style>
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+
+  /* Séparateur décoratif, ignoré par les lecteurs d'écran. */
+  .breadcrumbs li + li::before {
+    content: '/' / '';
+    margin: 0 10px;
+    color: #5a5a5a;
+  }
+
+  .breadcrumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--fg-muted);
+    text-underline-offset: 3px;
+  }
+
+  .breadcrumbs a:hover,
+  .breadcrumbs a:focus-visible {
+    color: var(--fg);
+  }
+
+  .breadcrumbs [aria-current] {
+    color: var(--fg);
+  }
+</style>

@@ -1,0 +1,194 @@
+---
+/**
+ * Page d'information (mentions légales, confidentialité, accessibilité, à propos),
+ * entièrement construite depuis `ui.pages` : titre, date de mise à jour, sommaire, sections.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Prose from '../components/Prose.astro';
+import { ui } from '../data/content';
+import { proseVars } from '../data/prose-vars';
+import { parseInline } from '../lib/inline';
+import { slugify } from '../lib/slug';
+
+interface Props {
+  page: keyof typeof ui.pages;
+}
+
+const page = ui.pages[Astro.props.page];
+const description = parseInline(page.description, proseVars)
+  .map((s) => s.text)
+  .join('');
+const sections = page.sections.map((s) => ({ ...s, id: slugify(s.title) }));
+/** Sommaire seulement pour les pages longues. */
+const withToc = sections.length >= 5;
+---
+
+<BaseLayout title={page.title} description={description}>
+  <article class="container info">
+    <header class="info-head">
+      <h1 class="info-title">{page.title}</h1>
+      <p class="info-updated">{page.updated}</p>
+    </header>
+
+    {withToc && (
+      <nav class="info-toc" aria-label={ui.site.toc}>
+        <ol>
+          {sections.map((s) => (
+            <li>
+              <a href={`#${s.id}`}>{s.title}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+
+    {sections.map((section) => (
+      <section class="info-section" aria-labelledby={section.id}>
+        <h2 class="info-section-title" id={section.id}>
+          {section.title}
+        </h2>
+        {section.blocks.map((block) =>
+          typeof block === 'string' ? (
+            <p>
+              <Prose text={block} vars={proseVars} />
+            </p>
+          ) : (
+            <ul>
+              {block.map((item) => (
+                <li>
+                  <Prose text={item} vars={proseVars} />
+                </li>
+              ))}
+            </ul>
+          ),
+        )}
+      </section>
+    ))}
+  </article>
+</BaseLayout>
+
+<style>
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    padding-top: 8px;
+  }
+
+  .info-head {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: rise-in 700ms var(--ease-out) backwards;
+  }
+
+  .info-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .info-updated {
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+
+  /* Sommaire : pastilles cliquables, sur plusieurs lignes si besoin. */
+  .info-toc ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .info-toc a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 2px solid var(--fg);
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      background-color 200ms var(--ease-out),
+      color 200ms var(--ease-out);
+  }
+
+  .info-toc a:hover,
+  .info-toc a:focus-visible {
+    background: var(--fg);
+    color: var(--ink);
+  }
+
+  .info-section,
+  .info-toc {
+    max-width: 880px;
+  }
+
+  .info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 24px;
+    border-top: 1px solid #3a3a3a;
+    scroll-margin-top: 24px;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .info-section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.625rem, 3.2vw, 2.25rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  .info-section p,
+  .info-section ul {
+    max-width: 70ch;
+  }
+
+  .info-section ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Puces carrées jaunes, dans l'esprit des pavés du site. */
+  .info-section li {
+    position: relative;
+    padding-left: 22px;
+  }
+
+  .info-section li::before {
+    content: '';
+    position: absolute;
+    top: 0.62em;
+    left: 2px;
+    width: 8px;
+    height: 8px;
+    background: var(--yellow);
+  }
+
+  /* Les liens viennent du composant Prose : style global, limité aux sections. */
+  .info-section :global(a) {
+    color: var(--yellow);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+
+  .info-section :global(a:hover) {
+    color: #fff;
+  }
+</style>

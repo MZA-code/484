@@ -5,6 +5,7 @@
 import { z } from 'zod';
 import { MIXED_CATEGORY as MIXED_THEME } from '../engine/debate';
 import { ICON_NAMES } from '../lib/icons';
+import { brokenLinks, inlineVariables } from '../lib/inline';
 
 /** Nom d'une icône intégrée (voir src/lib/icons.ts). */
 const icon = z.enum(ICON_NAMES, {
@@ -201,6 +202,42 @@ const optionalLink = z.object({ label: text, url: z.union([z.url(), z.literal(''
 
 const pluralForms = z.object({ one: text, other: template('n') });
 
+/** Variables utilisables dans les pages d'information (voir src/lib/inline.ts). */
+export const PROSE_VARIABLES = ['email', 'domain', 'rivalries', 'categories', 'universes'] as const;
+
+/** Texte long : liens `[libellé](adresse)` internes ou https, et variables connues seulement. */
+const proseText = text.superRefine((value, ctx) => {
+  for (const broken of brokenLinks(value)) {
+    ctx.addIssue({
+      code: 'custom',
+      message: `lien mal formé : ${broken} (attendu : [libellé](/page) ou [libellé](https://…))`,
+    });
+  }
+  for (const name of inlineVariables(value)) {
+    if (!(PROSE_VARIABLES as readonly string[]).includes(name)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `variable inconnue : {${name}} ; variables possibles : ${PROSE_VARIABLES.join(', ')}`,
+      });
+    }
+  }
+});
+
+/** Page d'information : sections faites de paragraphes (texte) et de listes (tableau de textes). */
+const prosePage = z.object({
+  title: text,
+  description: proseText,
+  updated: text,
+  sections: z
+    .array(
+      z.object({
+        title: text,
+        blocks: z.array(z.union([proseText, z.array(proseText).min(1)])).min(1),
+      }),
+    )
+    .min(1),
+});
+
 export const UiTextsSchema = z.object({
   site: z.object({
     title: text,
@@ -210,6 +247,9 @@ export const UiTextsSchema = z.object({
     socialLabel: text,
     motion: z.object({ label: text, on: text, off: text }),
     skipToContent: text,
+    toc: text,
+    email: z.email('adresse email invalide'),
+    domain: text,
   }),
   links: z.object({ github: optionalLink, linkedin: optionalLink }),
   home: z.object({
@@ -233,7 +273,6 @@ export const UiTextsSchema = z.object({
     wholeUniverse: text,
     team: text,
     vs: text,
-    choose: template('name'),
     skip: text,
     keysHint: text,
     pickHint: text,
@@ -289,8 +328,49 @@ export const UiTextsSchema = z.object({
     hallOfFame: text,
     disclaimer: text,
     giphy: z.object({ label: text, url: z.url() }),
+    legal: z.object({
+      label: text,
+      debates: text,
+      about: text,
+      mentions: text,
+      privacy: text,
+      accessibility: text,
+    }),
+  }),
+  pages: z.object({
+    mentions: prosePage,
+    privacy: prosePage,
+    accessibility: prosePage,
+    about: prosePage,
   }),
   projectsPage: z.object({ title: text, intro: text, back: text }),
+  og: z.object({ cta: template('domain') }),
+  breadcrumb: z.object({ label: text, home: text, debates: text }),
+  llms: z.object({
+    intro: text,
+    pagesTitle: text,
+    categoriesTitle: text,
+    infoTitle: text,
+    debatesCount: template('n'),
+  }),
+  debatesPage: z.object({
+    title: text,
+    description: template('rivalries'),
+    intro: template('rivalries', 'categories'),
+    mixed: text,
+    count: pluralForms,
+  }),
+  categoryPage: z.object({
+    title: template('category'),
+    description: template('n', 'category', 'tagline'),
+    play: text,
+    listTitle: template('n'),
+    others: template('universe'),
+  }),
+  debateAbout: z.object({
+    related: template('category'),
+    categoryLink: template('n', 'category'),
+  }),
   projects: z.array(z.object({ kind: text, title: text, text, url: z.url(), cta: text })),
 });
 

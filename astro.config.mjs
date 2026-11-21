@@ -23,6 +23,7 @@ export default defineConfig({
         access: 'secret',
         default: 'data/gif-cache.json',
       }),
+      OG_CACHE_DIR: envField.string({ context: 'server', access: 'secret', default: 'data/og' }),
       VOTE_HASH_SALT: envField.string({ context: 'server', access: 'secret', optional: true }),
       VOTES_DB_FILE: envField.string({
         context: 'server',

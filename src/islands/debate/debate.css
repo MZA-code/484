@@ -376,6 +376,27 @@
   text-transform: uppercase;
 }
 
+/* Ordre d'affichage : étiquette, GIF, origine, nom, réplique (le nom vient en 2e dans le code). */
+.team-tag {
+  order: 0;
+}
+
+.team-media {
+  order: 1;
+}
+
+.team-origin {
+  order: 2;
+}
+
+.team-name {
+  order: 3;
+}
+
+.team-line {
+  order: 4;
+}
+
 .team-origin {
   font-family: var(--font-mono);
   font-size: 0.8125rem;

@@ -1,0 +1,194 @@
+---
+/**
+ * /debats : toutes les catégories, rangées par univers. Point d'entrée du maillage interne :
+ * accueil → débats → catégorie → débat.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Icon from '../components/Icon.astro';
+import { categories, rivalries, ui, universes } from '../data/content';
+import { categoryById, categoryPath, rivalriesOf } from '../data/pages';
+import { proseVars } from '../data/prose-vars';
+import { formatText, plural } from '../lib/format';
+import { itemListJsonLd } from '../lib/seo';
+
+const t = ui.debatesPage;
+const sections = universes.map((u) => ({
+  ...u,
+  categories: u.categories.flatMap((id) => {
+    const c = categoryById.get(id);
+    return c ? [{ ...c, count: plural(t.count, rivalriesOf(id).length) }] : [];
+  }),
+}));
+const site = Astro.site ?? Astro.url;
+const jsonLd = [
+  itemListJsonLd(
+    t.title,
+    categories.map((c) => ({ name: c.label, path: categoryPath(c.id) })),
+    site,
+  ),
+];
+---
+
+<BaseLayout
+  title={t.title}
+  description={formatText(t.description, { rivalries: proseVars.rivalries })}
+  jsonLd={jsonLd}
+>
+  <div class="container debates">
+    <Breadcrumbs crumbs={[{ name: ui.breadcrumb.home, path: '/' }, { name: t.title }]} />
+    <header class="debates-head">
+      <h1 class="debates-title">{t.title}</h1>
+      <p class="debates-intro">
+        {formatText(t.intro, { rivalries: proseVars.rivalries, categories: categories.length })}
+      </p>
+      <a class="block-button" href="/jouer">
+        {t.mixed}
+      </a>
+    </header>
+
+    {sections.map((section) => (
+      <section class="universe" aria-labelledby={section.id}>
+        <h2 class="universe-title" id={section.id}>
+          <Icon name={section.icon} class="universe-icon" />
+          {section.label}
+        </h2>
+        <p class="universe-tagline">{section.tagline}</p>
+        <ul class="category-list">
+          {section.categories.map((c) => (
+            <li>
+              <a class="category-link" href={categoryPath(c.id)}>
+                <Icon name={c.icon} class="category-icon" />
+                <span class="category-name">{c.label}</span>
+                <span class="category-count">{c.count}</span>
+                <span class="category-tagline">{c.tagline}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+    <p class="debates-total">{plural(t.count, rivalries.length)}</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .debates {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .debates-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    animation: rise-in 700ms var(--ease-out) backwards;
+  }
+
+  .debates-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .debates-intro {
+    max-width: 680px;
+    font-size: 1.25rem;
+  }
+
+  .universe {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .universe-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .universe-title :global(.universe-icon) {
+    width: 0.8em;
+    height: 0.8em;
+    color: var(--yellow);
+  }
+
+  .universe-tagline {
+    color: var(--fg-muted);
+  }
+
+  .category-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    gap: 16px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Carte sobre : contour clair, se remplit au survol. */
+  .category-link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 14px;
+    align-items: center;
+    height: 100%;
+    padding: 18px;
+    border: 2px solid #3a3a3a;
+    color: var(--fg);
+    text-decoration: none;
+    transition:
+      border-color 220ms var(--ease-out),
+      background-color 220ms var(--ease-out),
+      transform 220ms var(--ease-out);
+  }
+
+  .category-link:hover,
+  .category-link:focus-visible {
+    border-color: var(--yellow);
+    background: #1c1c1c;
+    transform: translateY(-3px);
+  }
+
+  .category-link :global(.category-icon) {
+    grid-row: span 2;
+    width: 36px;
+    height: 36px;
+    color: var(--yellow);
+  }
+
+  .category-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  .category-count {
+    color: var(--yellow);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .category-tagline {
+    grid-column: 1 / -1;
+    margin-top: 6px;
+    color: var(--fg-muted);
+    font-size: 0.9375rem;
+  }
+
+  .debates-total {
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+</style>
