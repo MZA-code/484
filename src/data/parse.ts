@@ -11,6 +11,7 @@ const TECHNICAL_KEYS = new Set([
   'id',
   'theme',
   'category',
+  'icon',
   'url',
   'giphyIds',
   'giphyQuery',

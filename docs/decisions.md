@@ -220,3 +220,11 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **L'adresse suit le jeu** : `/debat/<rivalité affichée>?theme=<catégorie>`, mise à jour avec `history.replaceState` (le bouton « retour » quitte le jeu au lieu de remonter 50 débats). Copier l'adresse, c'est partager le débat en cours ; recharger la page le réaffiche. Le titre de l'onglet suit aussi la question.
 - **Le moteur sait ouvrir une rivalité précise** (`focusRivalry`). Il change de catégorie si besoin, et la rivalité qui était affichée retourne dans la file.
 - **Bouton « Partager ce débat »** : partage natif quand le téléphone le propose (API Web Share), sinon copie du lien, confirmée par un message.
+
+## D20 — Icônes des catégories (phase 5)
+
+- **Font Awesome Free 7** (`@fortawesome/free-solid-svg-icons`) : icônes sous licence CC BY 4.0, code sous licence MIT. L'attribution figure dans `src/lib/icons.ts` et dans le README.
+- **SVG en ligne, générés au build** (`src/components/Icon.astro`) : pas de police d'icônes ni de script, aucune requête en plus, et seules les icônes listées dans `src/lib/icons.ts` sont embarquées.
+- **L'icône est une donnée du contenu** (champ `icon` des catégories, des univers et de « Tout mélangé »), validée contre la liste disponible : une icône inconnue fait échouer le build, avec la liste des noms possibles.
+- **Sur l'accueil** : icône en filigrane dans le coin de chaque carte (elle gigote au survol), et en jaune devant chaque titre d'univers.
+- Le paquet est une **dépendance de production**, car le serveur valide le contenu au démarrage.

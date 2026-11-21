@@ -4,6 +4,8 @@
  * Aucun texte en dur : tout vient de `content/`.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../lib/icons';
 import { categories, rivalries, ui, universes } from '../data/content';
 import { MIXED_CATEGORY } from '../engine/debate';
 import { formatText, plural } from '../lib/format';
@@ -26,12 +28,13 @@ const label = new Map(categories.map((c) => [c.id, c] as const));
 
 /** Les couleurs défilent d'une carte à l'autre sur toute la page ; --i règle la cascade d'entrée. */
 let index = 0;
-const card = (id: string, name: string, tagline: string, n: number) => {
+const card = (id: string, name: string, tagline: string, icon: IconName, n: number) => {
   const i = index++;
   return {
     id,
     name,
     tagline,
+    icon,
     href: `/jouer?theme=${id}`,
     count: formatText(ui.home.themeCount, { n }),
     style: `--card: ${HOME_COLORS[i % HOME_COLORS.length]}; --i: ${i}`,
@@ -42,6 +45,7 @@ const mixed = card(
   MIXED_CATEGORY,
   ui.home.mixedTheme.label,
   ui.home.mixedTheme.tagline,
+  ui.home.mixedTheme.icon,
   rivalries.length,
 );
 const sections = universes.map((u) => ({
@@ -50,7 +54,7 @@ const sections = universes.map((u) => ({
   count: plural(ui.home.universeCount, countIn(u.categories)),
   cards: u.categories.map((id) => {
     const c = label.get(id);
-    return card(id, c?.label ?? id, c?.tagline ?? '', countIn([id]));
+    return card(id, c?.label ?? id, c?.tagline ?? '', c?.icon ?? 'star', countIn([id]));
   }),
 }));
 ---
@@ -68,6 +72,7 @@ const sections = universes.map((u) => ({
 
     <h2 class="visually-hidden">{ui.home.themesLabel}</h2>
     <a class="theme-card theme-card--mixed" href={mixed.href} style={mixed.style}>
+      <Icon name={mixed.icon} class="theme-icon" />
       <span class="theme-count">{mixed.count}</span>
       <span class="theme-name">{mixed.name}</span>
       <span class="theme-tagline">{mixed.tagline}</span>
@@ -78,6 +83,7 @@ const sections = universes.map((u) => ({
       <section class="universe" aria-labelledby={section.id}>
         <div class="universe-head">
           <h3 class="universe-title" id={section.id}>
+            <Icon name={section.icon} class="universe-icon" />
             {section.label}
           </h3>
           <p class="universe-tagline">{section.tagline}</p>
@@ -89,6 +95,7 @@ const sections = universes.map((u) => ({
           {section.cards.map((c) => (
             <li>
               <a class="theme-card" href={c.href} style={c.style}>
+                <Icon name={c.icon} class="theme-icon" />
                 <span class="theme-count">{c.count}</span>
                 <span class="theme-name">{c.name}</span>
                 <span class="theme-tagline">{c.tagline}</span>
@@ -257,6 +264,53 @@ const sections = universes.map((u) => ({
 
   .theme-card:hover .theme-play {
     transform: translateX(6px);
+  }
+
+  /* Icône en filigrane dans le coin de la carte ; elle gigote au survol. */
+  .theme-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .theme-card :global(.theme-icon) {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 52px;
+    height: 52px;
+    opacity: 0.85;
+    transform: rotate(8deg);
+    transition: transform 220ms cubic-bezier(0.2, 0.9, 0.3, 1.6);
+  }
+
+  .theme-card:hover :global(.theme-icon) {
+    transform: rotate(-10deg) scale(1.18);
+  }
+
+  .theme-card--mixed :global(.theme-icon) {
+    width: clamp(64px, 9vw, 110px);
+    height: clamp(64px, 9vw, 110px);
+    top: 50%;
+    right: clamp(20px, 4vw, 48px);
+    margin-top: calc(clamp(64px, 9vw, 110px) / -2);
+  }
+
+  /* Le nom ne passe pas sous l'icône. */
+  .theme-card .theme-count,
+  .theme-card .theme-name {
+    padding-right: 64px;
+  }
+
+  .universe-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .universe-title :global(.universe-icon) {
+    width: 0.8em;
+    height: 0.8em;
+    color: var(--yellow);
   }
 
   @keyframes card-drop {

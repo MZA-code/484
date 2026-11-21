@@ -4,6 +4,12 @@
  */
 import { z } from 'zod';
 import { MIXED_CATEGORY as MIXED_THEME } from '../engine/debate';
+import { ICON_NAMES } from '../lib/icons';
+
+/** Nom d'une icône intégrée (voir src/lib/icons.ts). */
+const icon = z.enum(ICON_NAMES, {
+  message: `icône inconnue ; icônes disponibles : ${ICON_NAMES.join(', ')}`,
+});
 
 const slug = z
   .string()
@@ -18,6 +24,7 @@ export const ThemeSchema = z.object({
   id: slug.refine((id) => id !== MIXED_THEME, `« ${MIXED_THEME} » est réservé à « Tout mélangé »`),
   label: text,
   tagline: text,
+  icon,
 });
 
 // ─── Rivalités « Team X ou Team Y ? » ───────────────────────────────────────
@@ -54,6 +61,7 @@ export const UniverseSchema = z.object({
   id: slug.refine((id) => id !== MIXED_THEME, `« ${MIXED_THEME} » est réservé à « Tout mélangé »`),
   label: text,
   tagline: text,
+  icon,
   categories: z.array(slug).min(1, 'un univers doit contenir au moins une catégorie'),
 });
 
@@ -208,7 +216,7 @@ export const UiTextsSchema = z.object({
     title: z.tuple([text, text, text]),
     intro: text,
     footnote: text,
-    mixedTheme: z.object({ label: text, tagline: text }),
+    mixedTheme: z.object({ label: text, tagline: text, icon }),
     themesLabel: text,
     themeCount: template('n'),
     play: text,

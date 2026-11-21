@@ -28,7 +28,8 @@
     "footnote": "Durée moyenne d’une visite : on ne sait pas, personne n’est encore reparti.",
     "mixedTheme": {
       "label": "Tout mélangé",
-      "tagline": "Toutes les rivalités, dans le désordre. Batman, puis la raclette. Tu verras bien."
+      "tagline": "Toutes les rivalités, dans le désordre. Batman, puis la raclette. Tu verras bien.",
+      "icon": "shuffle"
     },
     "themesLabel": "Choisis ton arène",
     "themeCount": "{n} rivalités · ∞ débats",

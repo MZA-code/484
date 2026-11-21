@@ -1,0 +1,16 @@
+---
+/** Icône SVG en ligne (Font Awesome Free, CC BY 4.0), décorative : masquée aux lecteurs d'écran. */
+import { iconSvg, type IconName } from '../lib/icons';
+
+interface Props {
+  name: IconName;
+  class?: string | undefined;
+}
+
+const { name, class: className } = Astro.props;
+const { viewBox, path } = iconSvg(name);
+---
+
+<svg class={className} viewBox={viewBox} aria-hidden="true" focusable="false" fill="currentColor">
+  <path d={path}></path>
+</svg>

@@ -5,24 +5,28 @@
       "id": "univers-ecrans",
       "label": "Écrans",
       "tagline": "Tout ce qu’on a regardé au lieu de dormir.",
+      "icon": "video",
       "categories": ["ecrans", "cinefr", "dessins", "jeux"]
     },
     {
       "id": "univers-pop",
       "label": "Pop culture",
       "tagline": "Héros, tubes, memes et autres obsessions.",
+      "icon": "star",
       "categories": ["heros", "musique", "duos", "internet", "geek", "nostalgie"]
     },
     {
       "id": "univers-vie",
       "label": "La vraie vie",
       "tagline": "Les débats du quotidien, ceux qui fâchent vraiment.",
+      "icon": "house",
       "categories": ["bouffe", "quotidien", "mots", "sport", "mode", "autos"]
     },
     {
       "id": "univers-imaginaire",
       "label": "Imaginaire",
       "tagline": "Monstres, superpouvoirs et dilemmes impossibles.",
+      "icon": "wand-magic-sparkles",
       "categories": ["dilemmes", "pouvoirs", "monstres", "animaux"]
     }
   ],
@@ -30,102 +34,122 @@
     {
       "id": "heros",
       "label": "Héros et vilains",
-      "tagline": "Des capes, des masques, et des egos surdimensionnés."
+      "tagline": "Des capes, des masques, et des egos surdimensionnés.",
+      "icon": "mask"
     },
     {
       "id": "bouffe",
       "label": "Bouffe qui divise",
-      "tagline": "Ces débats ont gâché plus de repas de famille que la politique."
+      "tagline": "Ces débats ont gâché plus de repas de famille que la politique.",
+      "icon": "pizza-slice"
     },
     {
       "id": "geek",
       "label": "Tech et geek",
-      "tagline": "Les guerres saintes de l’informatique. Aucun survivant."
+      "tagline": "Les guerres saintes de l’informatique. Aucun survivant.",
+      "icon": "laptop-code"
     },
     {
       "id": "jeux",
       "label": "Jeux vidéo",
-      "tagline": "Manette en main, amitiés en jeu."
+      "tagline": "Manette en main, amitiés en jeu.",
+      "icon": "gamepad"
     },
     {
       "id": "ecrans",
       "label": "Ciné et séries",
-      "tagline": "Pop-corn, canapé, et des avis très tranchés."
+      "tagline": "Pop-corn, canapé, et des avis très tranchés.",
+      "icon": "film"
     },
     {
       "id": "duos",
       "label": "Duos à départager",
-      "tagline": "Ils sont inséparables. Toi, tu vas devoir choisir."
+      "tagline": "Ils sont inséparables. Toi, tu vas devoir choisir.",
+      "icon": "user-group"
     },
     {
       "id": "quotidien",
       "label": "Vie quotidienne",
-      "tagline": "Les petites guerres de tous les jours."
+      "tagline": "Les petites guerres de tous les jours.",
+      "icon": "mug-hot"
     },
     {
       "id": "musique",
       "label": "Musique",
-      "tagline": "Ces débats ont fini plus de soirées que la police."
+      "tagline": "Ces débats ont fini plus de soirées que la police.",
+      "icon": "guitar"
     },
     {
       "id": "dessins",
       "label": "Dessins animés",
-      "tagline": "Le samedi matin, devant la télé, en pyjama. Choisis ton camp."
+      "tagline": "Le samedi matin, devant la télé, en pyjama. Choisis ton camp.",
+      "icon": "tv"
     },
     {
       "id": "cinefr",
       "label": "Ciné français",
-      "tagline": "Des répliques que ton oncle cite encore à chaque repas."
+      "tagline": "Des répliques que ton oncle cite encore à chaque repas.",
+      "icon": "clapperboard"
     },
     {
       "id": "internet",
       "label": "Internet et memes",
-      "tagline": "Le savoir de toute l’humanité, utilisé surtout pour regarder des chats."
+      "tagline": "Le savoir de toute l’humanité, utilisé surtout pour regarder des chats.",
+      "icon": "hashtag"
     },
     {
       "id": "mots",
       "label": "Mots de chez nous",
-      "tagline": "La France, la Belgique, la Suisse et le Québec ne parlent pas tout à fait la même langue."
+      "tagline": "La France, la Belgique, la Suisse et le Québec ne parlent pas tout à fait la même langue.",
+      "icon": "comments"
     },
     {
       "id": "nostalgie",
       "label": "Nostalgie années 90",
-      "tagline": "Avant les smartphones, il y avait ça. Et on était heureux."
+      "tagline": "Avant les smartphones, il y avait ça. Et on était heureux.",
+      "icon": "compact-disc"
     },
     {
       "id": "sport",
       "label": "Sport",
-      "tagline": "Des débats plus tendus qu’une finale aux tirs au but."
+      "tagline": "Des débats plus tendus qu’une finale aux tirs au but.",
+      "icon": "futbol"
     },
     {
       "id": "mode",
       "label": "Mode et looks",
-      "tagline": "Le miroir n’a jamais menti. Toi, peut-être."
+      "tagline": "Le miroir n’a jamais menti. Toi, peut-être.",
+      "icon": "shirt"
     },
     {
       "id": "autos",
       "label": "Autos et motos",
-      "tagline": "Des marques, des moteurs, et des clubs de fans prêts à en découdre."
+      "tagline": "Des marques, des moteurs, et des clubs de fans prêts à en découdre.",
+      "icon": "car-side"
     },
     {
       "id": "dilemmes",
       "label": "Dilemmes absurdes",
-      "tagline": "Aucune bonne réponse. Seulement des mauvaises, et des pires."
+      "tagline": "Aucune bonne réponse. Seulement des mauvaises, et des pires.",
+      "icon": "scale-balanced"
     },
     {
       "id": "pouvoirs",
       "label": "Superpouvoirs",
-      "tagline": "Choisis bien : aucun remboursement, aucun échange."
+      "tagline": "Choisis bien : aucun remboursement, aucun échange.",
+      "icon": "bolt"
     },
     {
       "id": "monstres",
       "label": "Monstres et créatures",
-      "tagline": "Ils vivent sous ton lit. Et ils ont un avis."
+      "tagline": "Ils vivent sous ton lit. Et ils ont un avis.",
+      "icon": "dragon"
     },
     {
       "id": "animaux",
       "label": "Animaux",
-      "tagline": "Ils ne savent pas qu’on les compare. Heureusement."
+      "tagline": "Ils ne savent pas qu’on les compare. Heureusement.",
+      "icon": "paw"
     }
   ],
   "rivalries": [
