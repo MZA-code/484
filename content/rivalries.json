@@ -35,6 +35,26 @@
       "id": "quotidien",
       "label": "Vie quotidienne",
       "tagline": "Les petites guerres de tous les jours."
+    },
+    {
+      "id": "musique",
+      "label": "Musique",
+      "tagline": "Ces débats ont fini plus de soirées que la police."
+    },
+    {
+      "id": "dessins",
+      "label": "Dessins animés",
+      "tagline": "Le samedi matin, devant la télé, en pyjama. Choisis ton camp."
+    },
+    {
+      "id": "cinefr",
+      "label": "Ciné français",
+      "tagline": "Des répliques que ton oncle cite encore à chaque repas."
+    },
+    {
+      "id": "internet",
+      "label": "Internet et memes",
+      "tagline": "Le savoir de toute l’humanité, utilisé surtout pour regarder des chats."
     }
   ],
   "rivalries": [
@@ -1829,6 +1849,3610 @@
         "line": "On a vu sur place. C’était bien, finalement.",
         "giphyIds": [],
         "giphyQuery": "road trip adventure"
+      }
+    },
+    {
+      "id": "musique-the-beatles-the-rolling-stones",
+      "category": "musique",
+      "a": {
+        "name": "The Beatles",
+        "origin": "Liverpool · 1960",
+        "line": "Quatre garçons dans le vent, et dans tous les hit-parades.",
+        "giphyIds": [],
+        "giphyQuery": "The Beatles"
+      },
+      "b": {
+        "name": "The Rolling Stones",
+        "origin": "Londres · 1962",
+        "line": "Toujours en tournée. Probablement pour l’éternité.",
+        "giphyIds": [],
+        "giphyQuery": "Rolling Stones"
+      }
+    },
+    {
+      "id": "musique-blur-oasis",
+      "category": "musique",
+      "a": {
+        "name": "Blur",
+        "origin": "Londres · 1988",
+        "line": "La britpop version école d’art.",
+        "giphyIds": [],
+        "giphyQuery": "Blur band"
+      },
+      "b": {
+        "name": "Oasis",
+        "origin": "Manchester · 1991",
+        "line": "Deux frères, beaucoup de guitares, et des disputes légendaires.",
+        "giphyIds": [],
+        "giphyQuery": "Oasis band Gallagher"
+      }
+    },
+    {
+      "id": "musique-vinyle-streaming",
+      "category": "musique",
+      "a": {
+        "name": "Vinyle",
+        "origin": "La platine du salon",
+        "line": "Craque un peu, coûte cher, sonne mieux. Paraît-il.",
+        "giphyIds": [],
+        "giphyQuery": "vinyl record player"
+      },
+      "b": {
+        "name": "Streaming",
+        "origin": "Ton téléphone",
+        "line": "Cent millions de titres, et tu écoutes la même playlist.",
+        "giphyIds": [],
+        "giphyQuery": "headphones music phone"
+      }
+    },
+    {
+      "id": "musique-daft-punk-justice",
+      "category": "musique",
+      "a": {
+        "name": "Daft Punk",
+        "origin": "Paris · 1993",
+        "line": "Deux casques, zéro visage.",
+        "giphyIds": [],
+        "giphyQuery": "Daft Punk"
+      },
+      "b": {
+        "name": "Justice",
+        "origin": "Paris · 2003",
+        "line": "Une croix lumineuse et beaucoup de basse.",
+        "giphyIds": [],
+        "giphyQuery": "Justice band electro"
+      }
+    },
+    {
+      "id": "musique-madonna-kylie-minogue",
+      "category": "musique",
+      "a": {
+        "name": "Madonna",
+        "origin": "Pop · 1982",
+        "line": "Reine de la pop, réinventée tous les dix ans.",
+        "giphyIds": [],
+        "giphyQuery": "Madonna"
+      },
+      "b": {
+        "name": "Kylie Minogue",
+        "origin": "Pop · 1987",
+        "line": "La pop australienne, paillettes illimitées.",
+        "giphyIds": [],
+        "giphyQuery": "Kylie Minogue"
+      }
+    },
+    {
+      "id": "musique-johnny-hallyday-eddy-mitchell",
+      "category": "musique",
+      "a": {
+        "name": "Johnny Hallyday",
+        "origin": "Rock français · 1960",
+        "line": "Cinquante ans de scène, et toujours l’idole des jeunes.",
+        "giphyIds": [],
+        "giphyQuery": "Johnny Hallyday"
+      },
+      "b": {
+        "name": "Eddy Mitchell",
+        "origin": "Les Chaussettes noires · 1961",
+        "line": "Du rock, du cinéma, et une dernière séance.",
+        "giphyIds": [],
+        "giphyQuery": "Eddy Mitchell"
+      }
+    },
+    {
+      "id": "musique-celine-dion-mylene-farmer",
+      "category": "musique",
+      "a": {
+        "name": "Céline Dion",
+        "origin": "Québec · 1981",
+        "line": "Une voix qui a traversé le Titanic.",
+        "giphyIds": [],
+        "giphyQuery": "Celine Dion"
+      },
+      "b": {
+        "name": "Mylène Farmer",
+        "origin": "France · 1984",
+        "line": "Rousse, mystérieuse, et des clips qui font peur.",
+        "giphyIds": [],
+        "giphyQuery": "Mylene Farmer"
+      }
+    },
+    {
+      "id": "musique-metal-rap",
+      "category": "musique",
+      "a": {
+        "name": "Metal",
+        "origin": "Les années 1970",
+        "line": "Des cheveux longs et des guitares saturées.",
+        "giphyIds": [],
+        "giphyQuery": "heavy metal headbang"
+      },
+      "b": {
+        "name": "Rap",
+        "origin": "Le Bronx · années 1970",
+        "line": "Des rimes, des beats et des punchlines.",
+        "giphyIds": [],
+        "giphyQuery": "rap hip hop"
+      }
+    },
+    {
+      "id": "musique-rock-electro",
+      "category": "musique",
+      "a": {
+        "name": "Rock",
+        "origin": "Trois accords",
+        "line": "Trois accords et la vérité.",
+        "giphyIds": [],
+        "giphyQuery": "rock guitar"
+      },
+      "b": {
+        "name": "Électro",
+        "origin": "Un ordinateur portable",
+        "line": "Un ordinateur, un casque, et des milliers de bras levés.",
+        "giphyIds": [],
+        "giphyQuery": "electronic music dj"
+      }
+    },
+    {
+      "id": "musique-ntm-iam",
+      "category": "musique",
+      "a": {
+        "name": "NTM",
+        "origin": "Saint-Denis · 1988",
+        "line": "Le 93, et le volume à fond.",
+        "giphyIds": [],
+        "giphyQuery": "Supreme NTM"
+      },
+      "b": {
+        "name": "IAM",
+        "origin": "Marseille · 1989",
+        "line": "Marseille, l’Égypte ancienne et des textes ciselés.",
+        "giphyIds": [],
+        "giphyQuery": "IAM rap Marseille"
+      }
+    },
+    {
+      "id": "musique-mozart-beethoven",
+      "category": "musique",
+      "a": {
+        "name": "Mozart",
+        "origin": "Salzbourg · 1756",
+        "line": "Compose à cinq ans. Toi, tu apprenais à lacer tes chaussures.",
+        "giphyIds": [],
+        "giphyQuery": "Mozart"
+      },
+      "b": {
+        "name": "Beethoven",
+        "origin": "Bonn · 1770",
+        "line": "Compose sourd, et ça reste génial.",
+        "giphyIds": [],
+        "giphyQuery": "Beethoven"
+      }
+    },
+    {
+      "id": "musique-guitare-piano",
+      "category": "musique",
+      "a": {
+        "name": "Guitare",
+        "origin": "Le feu de camp",
+        "line": "Trois accords, une soirée entière.",
+        "giphyIds": [],
+        "giphyQuery": "acoustic guitar campfire"
+      },
+      "b": {
+        "name": "Piano",
+        "origin": "Le salon de ta grand-mère",
+        "line": "Quatre-vingt-huit touches et beaucoup de gammes.",
+        "giphyIds": [],
+        "giphyQuery": "piano playing"
+      }
+    },
+    {
+      "id": "musique-eurovision-grammy-awards",
+      "category": "musique",
+      "a": {
+        "name": "Eurovision",
+        "origin": "Depuis 1956",
+        "line": "Des costumes, des paillettes, et « douze points ».",
+        "giphyIds": [],
+        "giphyQuery": "Eurovision"
+      },
+      "b": {
+        "name": "Grammy Awards",
+        "origin": "Depuis 1959",
+        "line": "Des robes, des discours, et des oubliés.",
+        "giphyIds": [],
+        "giphyQuery": "Grammy Awards"
+      }
+    },
+    {
+      "id": "musique-karaoke-blind-test",
+      "category": "musique",
+      "a": {
+        "name": "Karaoké",
+        "origin": "Le bar du coin",
+        "line": "Tu chantes faux, mais avec conviction.",
+        "giphyIds": [],
+        "giphyQuery": "karaoke"
+      },
+      "b": {
+        "name": "Blind test",
+        "origin": "La soirée entre amis",
+        "line": "Tu reconnais tout en deux notes. Tu es insupportable.",
+        "giphyIds": [],
+        "giphyQuery": "quiz buzzer"
+      }
+    },
+    {
+      "id": "musique-concert-festival",
+      "category": "musique",
+      "a": {
+        "name": "Concert",
+        "origin": "La salle de spectacle",
+        "line": "Un artiste, une salle, et des acouphènes.",
+        "giphyIds": [],
+        "giphyQuery": "concert crowd"
+      },
+      "b": {
+        "name": "Festival",
+        "origin": "Un champ, trois jours",
+        "line": "Trois jours, de la boue, et une tente inondée.",
+        "giphyIds": [],
+        "giphyQuery": "music festival mud"
+      }
+    },
+    {
+      "id": "musique-elvis-presley-frank-sinatra",
+      "category": "musique",
+      "a": {
+        "name": "Elvis Presley",
+        "origin": "Memphis · 1954",
+        "line": "Le King, les déhanchés, les rouflaquettes.",
+        "giphyIds": [],
+        "giphyQuery": "Elvis Presley"
+      },
+      "b": {
+        "name": "Frank Sinatra",
+        "origin": "New York · années 1940",
+        "line": "La voix, le smoking, et la classe.",
+        "giphyIds": [],
+        "giphyQuery": "Frank Sinatra"
+      }
+    },
+    {
+      "id": "musique-abba-bee-gees",
+      "category": "musique",
+      "a": {
+        "name": "ABBA",
+        "origin": "Suède · 1972",
+        "line": "Des paillettes, des pattes d’eph, et l’Eurovision 1974.",
+        "giphyIds": [],
+        "giphyQuery": "ABBA"
+      },
+      "b": {
+        "name": "Bee Gees",
+        "origin": "Australie · 1958",
+        "line": "Trois frères, des voix aiguës, et la fièvre du samedi soir.",
+        "giphyIds": [],
+        "giphyQuery": "Bee Gees"
+      }
+    },
+    {
+      "id": "musique-nirvana-pearl-jam",
+      "category": "musique",
+      "a": {
+        "name": "Nirvana",
+        "origin": "Seattle · 1987",
+        "line": "Un pull rayé, des guitares saturées, une génération.",
+        "giphyIds": [],
+        "giphyQuery": "Nirvana band"
+      },
+      "b": {
+        "name": "Pearl Jam",
+        "origin": "Seattle · 1990",
+        "line": "Seattle aussi, mais avec encore plus de cheveux.",
+        "giphyIds": [],
+        "giphyQuery": "Pearl Jam"
+      }
+    },
+    {
+      "id": "musique-queen-led-zeppelin",
+      "category": "musique",
+      "a": {
+        "name": "Queen",
+        "origin": "Londres · 1970",
+        "line": "Un stade entier qui tape des mains en rythme.",
+        "giphyIds": [],
+        "giphyQuery": "Queen band"
+      },
+      "b": {
+        "name": "Led Zeppelin",
+        "origin": "Londres · 1968",
+        "line": "Un dirigeable, des riffs, et un escalier vers le ciel.",
+        "giphyIds": [],
+        "giphyQuery": "Led Zeppelin"
+      }
+    },
+    {
+      "id": "musique-spotify-deezer",
+      "category": "musique",
+      "a": {
+        "name": "Spotify",
+        "origin": "Suède · 2008",
+        "line": "Le récap de fin d’année qui te juge.",
+        "giphyIds": [],
+        "giphyQuery": "Spotify"
+      },
+      "b": {
+        "name": "Deezer",
+        "origin": "Paris · 2007",
+        "line": "Le streaming à la française, cocorico.",
+        "giphyIds": [],
+        "giphyQuery": "music streaming app"
+      }
+    },
+    {
+      "id": "musique-casque-ecouteurs",
+      "category": "musique",
+      "a": {
+        "name": "Casque",
+        "origin": "Sur la tête",
+        "line": "Isolé du monde, et les cheveux écrasés.",
+        "giphyIds": [],
+        "giphyQuery": "headphones"
+      },
+      "b": {
+        "name": "Écouteurs",
+        "origin": "Dans les oreilles",
+        "line": "Un dans chaque oreille, puis un seul, puis zéro.",
+        "giphyIds": [],
+        "giphyQuery": "earbuds"
+      }
+    },
+    {
+      "id": "musique-air-guitar-air-batterie",
+      "category": "musique",
+      "a": {
+        "name": "Air guitar",
+        "origin": "Ta chambre",
+        "line": "Une guitare invisible et un talent certain.",
+        "giphyIds": [],
+        "giphyQuery": "air guitar"
+      },
+      "b": {
+        "name": "Air batterie",
+        "origin": "Le volant de ta voiture",
+        "line": "Tu frappes l’air avec la précision d’un métronome.",
+        "giphyIds": [],
+        "giphyQuery": "air drums"
+      }
+    },
+    {
+      "id": "musique-shakira-beyonce",
+      "category": "musique",
+      "a": {
+        "name": "Shakira",
+        "origin": "Colombie · 1991",
+        "line": "Les hanches ne mentent pas.",
+        "giphyIds": [],
+        "giphyQuery": "Shakira"
+      },
+      "b": {
+        "name": "Beyoncé",
+        "origin": "Houston · 1997",
+        "line": "Une armée de fans et des chorégraphies millimétrées.",
+        "giphyIds": [],
+        "giphyQuery": "Beyonce"
+      }
+    },
+    {
+      "id": "musique-britney-spears-christina-aguilera",
+      "category": "musique",
+      "a": {
+        "name": "Britney Spears",
+        "origin": "Le Mickey Mouse Club · 1993",
+        "line": "Une écolière, un serpent, et des tubes.",
+        "giphyIds": [],
+        "giphyQuery": "Britney Spears"
+      },
+      "b": {
+        "name": "Christina Aguilera",
+        "origin": "Le Mickey Mouse Club · 1993",
+        "line": "Un génie dans une bouteille, et une voix énorme.",
+        "giphyIds": [],
+        "giphyQuery": "Christina Aguilera"
+      }
+    },
+    {
+      "id": "musique-sex-pistols-the-clash",
+      "category": "musique",
+      "a": {
+        "name": "Sex Pistols",
+        "origin": "Londres · 1975",
+        "line": "Trois ans de carrière, tout le punk dedans.",
+        "giphyIds": [],
+        "giphyQuery": "Sex Pistols"
+      },
+      "b": {
+        "name": "The Clash",
+        "origin": "Londres · 1976",
+        "line": "Le punk qui avait des choses à dire.",
+        "giphyIds": [],
+        "giphyQuery": "The Clash band"
+      }
+    },
+    {
+      "id": "musique-bob-marley-bob-dylan",
+      "category": "musique",
+      "a": {
+        "name": "Bob Marley",
+        "origin": "Jamaïque · 1963",
+        "line": "Le reggae, le soleil, et beaucoup de sérénité.",
+        "giphyIds": [],
+        "giphyQuery": "Bob Marley"
+      },
+      "b": {
+        "name": "Bob Dylan",
+        "origin": "New York · 1961",
+        "line": "Un harmonica, une voix nasillarde, un prix Nobel.",
+        "giphyIds": [],
+        "giphyQuery": "Bob Dylan"
+      }
+    },
+    {
+      "id": "musique-taylor-swift-adele",
+      "category": "musique",
+      "a": {
+        "name": "Taylor Swift",
+        "origin": "Nashville · 2006",
+        "line": "Un album par ère, et des fans qui décodent tout.",
+        "giphyIds": [],
+        "giphyQuery": "Taylor Swift"
+      },
+      "b": {
+        "name": "Adele",
+        "origin": "Londres · 2008",
+        "line": "Une voix, un piano, et des mouchoirs.",
+        "giphyIds": [],
+        "giphyQuery": "Adele"
+      }
+    },
+    {
+      "id": "musique-stromae-angele",
+      "category": "musique",
+      "a": {
+        "name": "Stromae",
+        "origin": "Bruxelles · 2009",
+        "line": "Alors on danse. Et après, on réfléchit.",
+        "giphyIds": [],
+        "giphyQuery": "Stromae"
+      },
+      "b": {
+        "name": "Angèle",
+        "origin": "Bruxelles · 2018",
+        "line": "La pop belge, avec un sourire en coin.",
+        "giphyIds": [],
+        "giphyQuery": "Angele singer"
+      }
+    },
+    {
+      "id": "musique-serge-gainsbourg-georges-brassens",
+      "category": "musique",
+      "a": {
+        "name": "Serge Gainsbourg",
+        "origin": "Paris · 1958",
+        "line": "Une Gitane, un piano, et de la provocation.",
+        "giphyIds": [],
+        "giphyQuery": "Serge Gainsbourg"
+      },
+      "b": {
+        "name": "Georges Brassens",
+        "origin": "Sète · 1952",
+        "line": "Une moustache, une guitare, une pipe.",
+        "giphyIds": [],
+        "giphyQuery": "Georges Brassens"
+      }
+    },
+    {
+      "id": "musique-edith-piaf-dalida",
+      "category": "musique",
+      "a": {
+        "name": "Édith Piaf",
+        "origin": "Paris · 1935",
+        "line": "Un mètre quarante-sept et une voix immense.",
+        "giphyIds": [],
+        "giphyQuery": "Edith Piaf"
+      },
+      "b": {
+        "name": "Dalida",
+        "origin": "Paris · 1956",
+        "line": "Des paillettes, des tubes, et « Paroles, paroles ».",
+        "giphyIds": [],
+        "giphyQuery": "Dalida"
+      }
+    },
+    {
+      "id": "musique-musique-classique-jazz",
+      "category": "musique",
+      "a": {
+        "name": "Musique classique",
+        "origin": "La salle de concert",
+        "line": "On ne tousse pas entre les mouvements.",
+        "giphyIds": [],
+        "giphyQuery": "orchestra conductor"
+      },
+      "b": {
+        "name": "Jazz",
+        "origin": "Le club enfumé",
+        "line": "On improvise, et c’est fait exprès.",
+        "giphyIds": [],
+        "giphyQuery": "jazz saxophone"
+      }
+    },
+    {
+      "id": "musique-radio-playlist",
+      "category": "musique",
+      "a": {
+        "name": "Radio",
+        "origin": "L’autoradio",
+        "line": "Des pubs, des infos, et parfois ta chanson préférée.",
+        "giphyIds": [],
+        "giphyQuery": "radio vintage"
+      },
+      "b": {
+        "name": "Playlist",
+        "origin": "Ton téléphone",
+        "line": "Que tes chansons préférées, et aucune surprise.",
+        "giphyIds": [],
+        "giphyQuery": "playlist music"
+      }
+    },
+    {
+      "id": "musique-air-phoenix",
+      "category": "musique",
+      "a": {
+        "name": "Air",
+        "origin": "Versailles · 1995",
+        "line": "Une musique pour voyager en apesanteur.",
+        "giphyIds": [],
+        "giphyQuery": "Air french band"
+      },
+      "b": {
+        "name": "Phoenix",
+        "origin": "Versailles · 1995",
+        "line": "Versailles aussi, mais en guitares.",
+        "giphyIds": [],
+        "giphyQuery": "Phoenix band"
+      }
+    },
+    {
+      "id": "musique-indochine-telephone",
+      "category": "musique",
+      "a": {
+        "name": "Indochine",
+        "origin": "Paris · 1981",
+        "line": "Quarante ans de concerts et toujours en noir.",
+        "giphyIds": [],
+        "giphyQuery": "Indochine band"
+      },
+      "b": {
+        "name": "Téléphone",
+        "origin": "Paris · 1976",
+        "line": "Quatre rockeurs, et un téléphone qui sonne.",
+        "giphyIds": [],
+        "giphyQuery": "telephone ringing vintage"
+      }
+    },
+    {
+      "id": "musique-lady-gaga-katy-perry",
+      "category": "musique",
+      "a": {
+        "name": "Lady Gaga",
+        "origin": "New York · 2008",
+        "line": "Une robe en viande, et une voix énorme.",
+        "giphyIds": [],
+        "giphyQuery": "Lady Gaga"
+      },
+      "b": {
+        "name": "Katy Perry",
+        "origin": "Californie · 2008",
+        "line": "Des bonbons, des feux d’artifice, et un requin qui danse.",
+        "giphyIds": [],
+        "giphyQuery": "Katy Perry"
+      }
+    },
+    {
+      "id": "musique-eminem-snoop-dogg",
+      "category": "musique",
+      "a": {
+        "name": "Eminem",
+        "origin": "Detroit · 1996",
+        "line": "Débite plus vite que son ombre.",
+        "giphyIds": [],
+        "giphyQuery": "Eminem"
+      },
+      "b": {
+        "name": "Snoop Dogg",
+        "origin": "Long Beach · 1992",
+        "line": "Calme, cool, et une émission de cuisine.",
+        "giphyIds": [],
+        "giphyQuery": "Snoop Dogg"
+      }
+    },
+    {
+      "id": "musique-gorillaz-alvin-et-les-chipmunks",
+      "category": "musique",
+      "a": {
+        "name": "Gorillaz",
+        "origin": "Damon Albarn · 1998",
+        "line": "Un groupe de dessin animé, avec de vrais tubes.",
+        "giphyIds": [],
+        "giphyQuery": "Gorillaz"
+      },
+      "b": {
+        "name": "Alvin et les Chipmunks",
+        "origin": "États-Unis · 1958",
+        "line": "Trois écureuils, et des voix en accéléré.",
+        "giphyIds": [],
+        "giphyQuery": "Alvin and the Chipmunks"
+      }
+    },
+    {
+      "id": "musique-chanter-sous-la-douche-chanter-en-voiture",
+      "category": "musique",
+      "a": {
+        "name": "Chanter sous la douche",
+        "origin": "La salle de bains",
+        "line": "Acoustique parfaite, public absent.",
+        "giphyIds": [],
+        "giphyQuery": "singing in the shower"
+      },
+      "b": {
+        "name": "Chanter en voiture",
+        "origin": "Le périphérique",
+        "line": "Concert privé, jusqu’au feu rouge.",
+        "giphyIds": [],
+        "giphyQuery": "singing in the car"
+      }
+    },
+    {
+      "id": "musique-batterie-basse",
+      "category": "musique",
+      "a": {
+        "name": "Batterie",
+        "origin": "Le garage",
+        "line": "Tape fort, compte jusqu’à quatre.",
+        "giphyIds": [],
+        "giphyQuery": "drummer"
+      },
+      "b": {
+        "name": "Basse",
+        "origin": "Le fond de la scène",
+        "line": "Personne ne l’entend, tout le monde la sent.",
+        "giphyIds": [],
+        "giphyQuery": "bass guitar"
+      }
+    },
+    {
+      "id": "musique-kiss-ac-dc",
+      "category": "musique",
+      "a": {
+        "name": "Kiss",
+        "origin": "New York · 1973",
+        "line": "Du maquillage, des flammes, et une très longue langue.",
+        "giphyIds": [],
+        "giphyQuery": "Kiss band"
+      },
+      "b": {
+        "name": "AC/DC",
+        "origin": "Sydney · 1973",
+        "line": "Un uniforme d’écolier et des riffs éternels.",
+        "giphyIds": [],
+        "giphyQuery": "ACDC Angus Young"
+      }
+    },
+    {
+      "id": "musique-metallica-iron-maiden",
+      "category": "musique",
+      "a": {
+        "name": "Metallica",
+        "origin": "Los Angeles · 1981",
+        "line": "Le metal, version stade.",
+        "giphyIds": [],
+        "giphyQuery": "Metallica"
+      },
+      "b": {
+        "name": "Iron Maiden",
+        "origin": "Londres · 1975",
+        "line": "Une mascotte zombie et des solos interminables.",
+        "giphyIds": [],
+        "giphyQuery": "Iron Maiden Eddie"
+      }
+    },
+    {
+      "id": "musique-rihanna-dua-lipa",
+      "category": "musique",
+      "a": {
+        "name": "Rihanna",
+        "origin": "Barbade · 2005",
+        "line": "Sous son parapluie, à la tête d’un empire.",
+        "giphyIds": [],
+        "giphyQuery": "Rihanna"
+      },
+      "b": {
+        "name": "Dua Lipa",
+        "origin": "Londres · 2015",
+        "line": "De nouvelles règles, et des tubes disco.",
+        "giphyIds": [],
+        "giphyQuery": "Dua Lipa"
+      }
+    },
+    {
+      "id": "musique-billie-eilish-olivia-rodrigo",
+      "category": "musique",
+      "a": {
+        "name": "Billie Eilish",
+        "origin": "Los Angeles · 2015",
+        "line": "Chuchote, et le monde entier écoute.",
+        "giphyIds": [],
+        "giphyQuery": "Billie Eilish"
+      },
+      "b": {
+        "name": "Olivia Rodrigo",
+        "origin": "Californie · 2021",
+        "line": "Un permis de conduire, et un cœur brisé en chanson.",
+        "giphyIds": [],
+        "giphyQuery": "Olivia Rodrigo"
+      }
+    },
+    {
+      "id": "musique-ed-sheeran-bruno-mars",
+      "category": "musique",
+      "a": {
+        "name": "Ed Sheeran",
+        "origin": "Royaume-Uni · 2011",
+        "line": "Une guitare, une pédale de boucle, et des stades.",
+        "giphyIds": [],
+        "giphyQuery": "Ed Sheeran"
+      },
+      "b": {
+        "name": "Bruno Mars",
+        "origin": "Hawaï · 2010",
+        "line": "Le groove, le chapeau, et la danse.",
+        "giphyIds": [],
+        "giphyQuery": "Bruno Mars"
+      }
+    },
+    {
+      "id": "musique-musique-d-ascenseur-musique-d-attente",
+      "category": "musique",
+      "a": {
+        "name": "Musique d’ascenseur",
+        "origin": "L’ascenseur",
+        "line": "Apaisante, et pourtant on veut sortir.",
+        "giphyIds": [],
+        "giphyQuery": "elevator music"
+      },
+      "b": {
+        "name": "Musique d’attente",
+        "origin": "Le service client",
+        "line": "« Votre appel est important pour nous. » Depuis quarante minutes.",
+        "giphyIds": [],
+        "giphyQuery": "on hold phone waiting"
+      }
+    },
+    {
+      "id": "musique-tube-de-l-ete-chanson-de-noel",
+      "category": "musique",
+      "a": {
+        "name": "Tube de l’été",
+        "origin": "Juillet-août",
+        "line": "Dansé en juillet, détesté en septembre.",
+        "giphyIds": [],
+        "giphyQuery": "summer dance party"
+      },
+      "b": {
+        "name": "Chanson de Noël",
+        "origin": "Décembre",
+        "line": "Revient chaque année, que tu le veuilles ou non.",
+        "giphyIds": [],
+        "giphyQuery": "christmas song"
+      }
+    },
+    {
+      "id": "musique-rap-francais-rap-americain",
+      "category": "musique",
+      "a": {
+        "name": "Rap français",
+        "origin": "France",
+        "line": "Des punchlines et beaucoup de verlan.",
+        "giphyIds": [],
+        "giphyQuery": "french rap"
+      },
+      "b": {
+        "name": "Rap américain",
+        "origin": "États-Unis",
+        "line": "Des chaînes en or et de très grosses voitures.",
+        "giphyIds": [],
+        "giphyQuery": "rapper gold chain"
+      }
+    },
+    {
+      "id": "musique-playback-live",
+      "category": "musique",
+      "a": {
+        "name": "Playback",
+        "origin": "Le plateau télé",
+        "line": "Zéro fausse note, zéro risque.",
+        "giphyIds": [],
+        "giphyQuery": "lip sync"
+      },
+      "b": {
+        "name": "Live",
+        "origin": "La scène",
+        "line": "Des fausses notes, et c’est ça qui est beau.",
+        "giphyIds": [],
+        "giphyQuery": "live concert singer"
+      }
+    },
+    {
+      "id": "musique-freddie-mercury-david-bowie",
+      "category": "musique",
+      "a": {
+        "name": "Freddie Mercury",
+        "origin": "Queen · 1970",
+        "line": "Une moustache, un débardeur, et quatre octaves.",
+        "giphyIds": [],
+        "giphyQuery": "Freddie Mercury"
+      },
+      "b": {
+        "name": "David Bowie",
+        "origin": "Londres · 1964",
+        "line": "Un éclair sur le visage, et mille personnages.",
+        "giphyIds": [],
+        "giphyQuery": "David Bowie"
+      }
+    },
+    {
+      "id": "musique-les-enfoires-star-academy",
+      "category": "musique",
+      "a": {
+        "name": "Les Enfoirés",
+        "origin": "Depuis 1989",
+        "line": "Des stars, des chansons, et des costumes improbables.",
+        "giphyIds": [],
+        "giphyQuery": "Les Enfoires"
+      },
+      "b": {
+        "name": "Star Academy",
+        "origin": "TF1 · 2001",
+        "line": "Un château, des cours de chant, et des larmes.",
+        "giphyIds": [],
+        "giphyQuery": "Star Academy"
+      }
+    },
+    {
+      "id": "dessins-les-simpson-les-griffin",
+      "category": "dessins",
+      "a": {
+        "name": "Les Simpson",
+        "origin": "Matt Groening · 1989",
+        "line": "Plus de trente saisons et ils ont toujours le même âge.",
+        "giphyIds": [],
+        "giphyQuery": "The Simpsons"
+      },
+      "b": {
+        "name": "Les Griffin",
+        "origin": "Seth MacFarlane · 1999",
+        "line": "Des digressions, un chien qui parle, un bébé qui complote.",
+        "giphyIds": [],
+        "giphyQuery": "Family Guy"
+      }
+    },
+    {
+      "id": "dessins-bip-bip-vil-coyote",
+      "category": "dessins",
+      "a": {
+        "name": "Bip Bip",
+        "origin": "Warner · 1949",
+        "line": "Bip bip. Et il est déjà loin.",
+        "giphyIds": [],
+        "giphyQuery": "Road Runner"
+      },
+      "b": {
+        "name": "Vil Coyote",
+        "origin": "Warner · 1949",
+        "line": "Client fidèle de la marque ACME.",
+        "giphyIds": [],
+        "giphyQuery": "Wile E Coyote"
+      }
+    },
+    {
+      "id": "dessins-titi-grosminet",
+      "category": "dessins",
+      "a": {
+        "name": "Titi",
+        "origin": "Warner · 1942",
+        "line": "« J’ai cru voir un rominet ! »",
+        "giphyIds": [],
+        "giphyQuery": "Tweety bird"
+      },
+      "b": {
+        "name": "Grosminet",
+        "origin": "Warner · 1945",
+        "line": "Toujours affamé, jamais rassasié.",
+        "giphyIds": [],
+        "giphyQuery": "Sylvester cat"
+      }
+    },
+    {
+      "id": "dessins-bugs-bunny-daffy-duck",
+      "category": "dessins",
+      "a": {
+        "name": "Bugs Bunny",
+        "origin": "Warner · 1940",
+        "line": "« Quoi de neuf, docteur ? »",
+        "giphyIds": [],
+        "giphyQuery": "Bugs Bunny"
+      },
+      "b": {
+        "name": "Daffy Duck",
+        "origin": "Warner · 1937",
+        "line": "Un canard qui postillonne et qui perd toujours.",
+        "giphyIds": [],
+        "giphyQuery": "Daffy Duck"
+      }
+    },
+    {
+      "id": "dessins-mickey-donald",
+      "category": "dessins",
+      "a": {
+        "name": "Mickey",
+        "origin": "Disney · 1928",
+        "line": "Le patron de l’empire, en short rouge.",
+        "giphyIds": [],
+        "giphyQuery": "Mickey Mouse"
+      },
+      "b": {
+        "name": "Donald",
+        "origin": "Disney · 1934",
+        "line": "Râle tout le temps, et personne ne comprend ce qu’il dit.",
+        "giphyIds": [],
+        "giphyQuery": "Donald Duck angry"
+      }
+    },
+    {
+      "id": "dessins-pokemon-digimon",
+      "category": "dessins",
+      "a": {
+        "name": "Pokémon",
+        "origin": "Anime · 1997",
+        "line": "Attrapez-les tous.",
+        "giphyIds": [],
+        "giphyQuery": "Pokemon anime"
+      },
+      "b": {
+        "name": "Digimon",
+        "origin": "Anime · 1999",
+        "line": "Ils évoluent aussi, mais en criant plus fort.",
+        "giphyIds": [],
+        "giphyQuery": "Digimon"
+      }
+    },
+    {
+      "id": "dessins-dragon-ball-one-piece",
+      "category": "dessins",
+      "a": {
+        "name": "Dragon Ball",
+        "origin": "Akira Toriyama · 1984",
+        "line": "Sept boules, un dragon, et des cris qui durent trois épisodes.",
+        "giphyIds": [],
+        "giphyQuery": "Dragon Ball"
+      },
+      "b": {
+        "name": "One Piece",
+        "origin": "Eiichiro Oda · 1997",
+        "line": "Un chapeau de paille et plus de mille épisodes.",
+        "giphyIds": [],
+        "giphyQuery": "One Piece Luffy"
+      }
+    },
+    {
+      "id": "dessins-disney-studio-ghibli",
+      "category": "dessins",
+      "a": {
+        "name": "Disney",
+        "origin": "Blanche-Neige · 1937",
+        "line": "Une souris, un château, et une chanson qui ne sort plus de ta tête.",
+        "giphyIds": [],
+        "giphyQuery": "Disney animation"
+      },
+      "b": {
+        "name": "Studio Ghibli",
+        "origin": "Tokyo · 1985",
+        "line": "Des esprits, du vent dans les herbes, et des repas qui donnent faim.",
+        "giphyIds": [],
+        "giphyQuery": "Studio Ghibli"
+      }
+    },
+    {
+      "id": "dessins-totoro-le-chatbus",
+      "category": "dessins",
+      "a": {
+        "name": "Totoro",
+        "origin": "Mon voisin Totoro · 1988",
+        "line": "Une grosse boule de poils qui attend le bus.",
+        "giphyIds": [],
+        "giphyQuery": "Totoro"
+      },
+      "b": {
+        "name": "Le Chatbus",
+        "origin": "Mon voisin Totoro · 1988",
+        "line": "Un bus. Un chat. Douze pattes.",
+        "giphyIds": [],
+        "giphyQuery": "Catbus Totoro"
+      }
+    },
+    {
+      "id": "dessins-goldorak-albator",
+      "category": "dessins",
+      "a": {
+        "name": "Goldorak",
+        "origin": "Go Nagai · 1975",
+        "line": "« Fulguropoing ! »",
+        "giphyIds": [],
+        "giphyQuery": "Grendizer"
+      },
+      "b": {
+        "name": "Albator",
+        "origin": "Leiji Matsumoto · 1977",
+        "line": "Une cape, une balafre, et un vaisseau à tête de mort.",
+        "giphyIds": [],
+        "giphyQuery": "Captain Harlock"
+      }
+    },
+    {
+      "id": "dessins-les-schtroumpfs-les-bisounours",
+      "category": "dessins",
+      "a": {
+        "name": "Les Schtroumpfs",
+        "origin": "Peyo · 1958",
+        "line": "Tout bleus, et schtroumpfement joyeux.",
+        "giphyIds": [],
+        "giphyQuery": "Smurfs"
+      },
+      "b": {
+        "name": "Les Bisounours",
+        "origin": "États-Unis · 1981",
+        "line": "Un câlin, et un arc-en-ciel sur le ventre.",
+        "giphyIds": [],
+        "giphyQuery": "Care Bears"
+      }
+    },
+    {
+      "id": "dessins-scooby-doo-inspecteur-gadget",
+      "category": "dessins",
+      "a": {
+        "name": "Scooby-Doo",
+        "origin": "Hanna-Barbera · 1969",
+        "line": "Mène l’enquête pour des biscuits.",
+        "giphyIds": [],
+        "giphyQuery": "Scooby Doo"
+      },
+      "b": {
+        "name": "Inspecteur Gadget",
+        "origin": "DIC · 1983",
+        "line": "« Go go gadgeto ! »",
+        "giphyIds": [],
+        "giphyQuery": "Inspector Gadget"
+      }
+    },
+    {
+      "id": "dessins-ulysse-31-les-mysterieuses-cites-d-or",
+      "category": "dessins",
+      "a": {
+        "name": "Ulysse 31",
+        "origin": "Série animée · 1981",
+        "line": "L’Odyssée, dans l’espace, avec un robot.",
+        "giphyIds": [],
+        "giphyQuery": "Ulysses 31"
+      },
+      "b": {
+        "name": "Les Mystérieuses Cités d’or",
+        "origin": "Série animée · 1982",
+        "line": "Esteban, Zia, Tao, et un condor en or.",
+        "giphyIds": [],
+        "giphyQuery": "Mysterious Cities of Gold"
+      }
+    },
+    {
+      "id": "dessins-il-etait-une-fois-la-vie-il-etait-une-fois-l-homme",
+      "category": "dessins",
+      "a": {
+        "name": "Il était une fois… la vie",
+        "origin": "Albert Barillé · 1987",
+        "line": "Des globules blancs en uniforme.",
+        "giphyIds": [],
+        "giphyQuery": "Once Upon a Time Life"
+      },
+      "b": {
+        "name": "Il était une fois… l’homme",
+        "origin": "Albert Barillé · 1978",
+        "line": "Maestro et sa très longue barbe.",
+        "giphyIds": [],
+        "giphyQuery": "Once Upon a Time Man"
+      }
+    },
+    {
+      "id": "dessins-les-tortues-ninja-musclor",
+      "category": "dessins",
+      "a": {
+        "name": "Les Tortues Ninja",
+        "origin": "Série animée · 1987",
+        "line": "Quatre tortues, des pizzas, et les égouts.",
+        "giphyIds": [],
+        "giphyQuery": "Teenage Mutant Ninja Turtles"
+      },
+      "b": {
+        "name": "Musclor",
+        "origin": "Les Maîtres de l’univers · 1983",
+        "line": "« Par le pouvoir du crâne ancestral ! »",
+        "giphyIds": [],
+        "giphyQuery": "He-Man"
+      }
+    },
+    {
+      "id": "dessins-totally-spies-les-supers-nanas",
+      "category": "dessins",
+      "a": {
+        "name": "Totally Spies",
+        "origin": "Marathon · 2001",
+        "line": "Trois espionnes et des gadgets déguisés en sèche-cheveux.",
+        "giphyIds": [],
+        "giphyQuery": "Totally Spies"
+      },
+      "b": {
+        "name": "Les Supers Nanas",
+        "origin": "Cartoon Network · 1998",
+        "line": "Du sucre, des épices, et l’ingrédient X.",
+        "giphyIds": [],
+        "giphyQuery": "Powerpuff Girls"
+      }
+    },
+    {
+      "id": "dessins-oggy-et-les-cafards-zig-et-sharko",
+      "category": "dessins",
+      "a": {
+        "name": "Oggy et les Cafards",
+        "origin": "Xilam · 1998",
+        "line": "Un chat bleu, trois cafards, zéro répit.",
+        "giphyIds": [],
+        "giphyQuery": "Oggy and the Cockroaches"
+      },
+      "b": {
+        "name": "Zig et Sharko",
+        "origin": "Xilam · 2010",
+        "line": "Une hyène, un requin, une sirène, et des plans foireux.",
+        "giphyIds": [],
+        "giphyQuery": "Zig and Sharko"
+      }
+    },
+    {
+      "id": "dessins-les-razmoket-doug",
+      "category": "dessins",
+      "a": {
+        "name": "Les Razmoket",
+        "origin": "Nickelodeon · 1991",
+        "line": "Des bébés qui en savent plus que les adultes.",
+        "giphyIds": [],
+        "giphyQuery": "Rugrats"
+      },
+      "b": {
+        "name": "Doug",
+        "origin": "Nickelodeon · 1991",
+        "line": "Un journal intime, un chien, et beaucoup d’angoisse.",
+        "giphyIds": [],
+        "giphyQuery": "Doug Funnie"
+      }
+    },
+    {
+      "id": "dessins-batman-la-serie-animee-spider-man-la-serie-animee",
+      "category": "dessins",
+      "a": {
+        "name": "Batman, la série animée",
+        "origin": "Warner · 1992",
+        "line": "Gotham, la nuit, et un générique génial.",
+        "giphyIds": [],
+        "giphyQuery": "Batman animated series"
+      },
+      "b": {
+        "name": "Spider-Man, la série animée",
+        "origin": "Marvel · 1994",
+        "line": "Le tisseur, version années 90.",
+        "giphyIds": [],
+        "giphyQuery": "Spider-Man animated series 1994"
+      }
+    },
+    {
+      "id": "dessins-avatar-le-dernier-maitre-de-l-ai-la-legende-de-korra",
+      "category": "dessins",
+      "a": {
+        "name": "Avatar, le dernier maître de l’air",
+        "origin": "Nickelodeon · 2005",
+        "line": "Quatre éléments, et une flèche sur le crâne.",
+        "giphyIds": [],
+        "giphyQuery": "Avatar Aang"
+      },
+      "b": {
+        "name": "La Légende de Korra",
+        "origin": "Nickelodeon · 2012",
+        "line": "Plus âgée, plus rapide, plus têtue.",
+        "giphyIds": [],
+        "giphyQuery": "Legend of Korra"
+      }
+    },
+    {
+      "id": "dessins-futurama-south-park",
+      "category": "dessins",
+      "a": {
+        "name": "Futurama",
+        "origin": "Matt Groening · 1999",
+        "line": "L’an 3000, et toujours des livreurs mal payés.",
+        "giphyIds": [],
+        "giphyQuery": "Futurama"
+      },
+      "b": {
+        "name": "South Park",
+        "origin": "Comedy Central · 1997",
+        "line": "Quatre gamins, beaucoup de gros mots.",
+        "giphyIds": [],
+        "giphyQuery": "South Park"
+      }
+    },
+    {
+      "id": "dessins-gravity-falls-adventure-time",
+      "category": "dessins",
+      "a": {
+        "name": "Gravity Falls",
+        "origin": "Disney · 2012",
+        "line": "Des mystères, des codes secrets, un été bizarre.",
+        "giphyIds": [],
+        "giphyQuery": "Gravity Falls"
+      },
+      "b": {
+        "name": "Adventure Time",
+        "origin": "Cartoon Network · 2010",
+        "line": "Un chien élastique et un garçon au bonnet.",
+        "giphyIds": [],
+        "giphyQuery": "Adventure Time"
+      }
+    },
+    {
+      "id": "dessins-les-aristochats-les-101-dalmatiens",
+      "category": "dessins",
+      "a": {
+        "name": "Les Aristochats",
+        "origin": "Disney · 1970",
+        "line": "Tout le monde veut devenir un chat.",
+        "giphyIds": [],
+        "giphyQuery": "Aristocats"
+      },
+      "b": {
+        "name": "Les 101 Dalmatiens",
+        "origin": "Disney · 1961",
+        "line": "Beaucoup de taches, et Cruella.",
+        "giphyIds": [],
+        "giphyQuery": "101 Dalmatians"
+      }
+    },
+    {
+      "id": "dessins-le-roi-lion-le-livre-de-la-jungle",
+      "category": "dessins",
+      "a": {
+        "name": "Le Roi lion",
+        "origin": "Disney · 1994",
+        "line": "« Hakuna matata. »",
+        "giphyIds": [],
+        "giphyQuery": "Lion King"
+      },
+      "b": {
+        "name": "Le Livre de la jungle",
+        "origin": "Disney · 1967",
+        "line": "Il en faut peu pour être heureux.",
+        "giphyIds": [],
+        "giphyQuery": "Jungle Book Baloo"
+      }
+    },
+    {
+      "id": "dessins-aladdin-la-belle-et-la-bete",
+      "category": "dessins",
+      "a": {
+        "name": "Aladdin",
+        "origin": "Disney · 1992",
+        "line": "Un tapis, une lampe, trois vœux.",
+        "giphyIds": [],
+        "giphyQuery": "Aladdin Disney"
+      },
+      "b": {
+        "name": "La Belle et la Bête",
+        "origin": "Disney · 1991",
+        "line": "Une bibliothèque immense, et un chandelier bavard.",
+        "giphyIds": [],
+        "giphyQuery": "Beauty and the Beast Disney"
+      }
+    },
+    {
+      "id": "dessins-mulan-vaiana",
+      "category": "dessins",
+      "a": {
+        "name": "Mulan",
+        "origin": "Disney · 1998",
+        "line": "Sauve la Chine, déguisée en soldat.",
+        "giphyIds": [],
+        "giphyQuery": "Mulan Disney"
+      },
+      "b": {
+        "name": "Vaiana",
+        "origin": "Disney · 2016",
+        "line": "Traverse l’océan avec un coq pas très malin.",
+        "giphyIds": [],
+        "giphyQuery": "Moana"
+      }
+    },
+    {
+      "id": "dessins-elsa-anna",
+      "category": "dessins",
+      "a": {
+        "name": "Elsa",
+        "origin": "La Reine des neiges · 2013",
+        "line": "« Libérée, délivrée. »",
+        "giphyIds": [],
+        "giphyQuery": "Elsa Frozen"
+      },
+      "b": {
+        "name": "Anna",
+        "origin": "La Reine des neiges · 2013",
+        "line": "Tombe amoureuse en une chanson.",
+        "giphyIds": [],
+        "giphyQuery": "Anna Frozen"
+      }
+    },
+    {
+      "id": "dessins-l-age-de-glace-madagascar",
+      "category": "dessins",
+      "a": {
+        "name": "L’Âge de glace",
+        "origin": "Blue Sky · 2002",
+        "line": "Un écureuil, un gland, et une obsession.",
+        "giphyIds": [],
+        "giphyQuery": "Ice Age Scrat"
+      },
+      "b": {
+        "name": "Madagascar",
+        "origin": "DreamWorks · 2005",
+        "line": "Des animaux du zoo, et des pingouins très organisés.",
+        "giphyIds": [],
+        "giphyQuery": "Madagascar penguins"
+      }
+    },
+    {
+      "id": "dessins-monstres-et-cie-le-monde-de-nemo",
+      "category": "dessins",
+      "a": {
+        "name": "Monstres et Cie",
+        "origin": "Pixar · 2001",
+        "line": "Ils font peur aux enfants. Pour l’électricité.",
+        "giphyIds": [],
+        "giphyQuery": "Monsters Inc"
+      },
+      "b": {
+        "name": "Le Monde de Nemo",
+        "origin": "Pixar · 2003",
+        "line": "« Continue de nager. »",
+        "giphyIds": [],
+        "giphyQuery": "Finding Nemo Dory"
+      }
+    },
+    {
+      "id": "dessins-les-indestructibles-ratatouille",
+      "category": "dessins",
+      "a": {
+        "name": "Les Indestructibles",
+        "origin": "Pixar · 2004",
+        "line": "« Pas de cape ! »",
+        "giphyIds": [],
+        "giphyQuery": "The Incredibles"
+      },
+      "b": {
+        "name": "Ratatouille",
+        "origin": "Pixar · 2007",
+        "line": "Un rat chef cuisinier, à Paris.",
+        "giphyIds": [],
+        "giphyQuery": "Ratatouille"
+      }
+    },
+    {
+      "id": "dessins-chicken-run-shaun-le-mouton",
+      "category": "dessins",
+      "a": {
+        "name": "Chicken Run",
+        "origin": "Aardman · 2000",
+        "line": "Des poules qui préparent la grande évasion.",
+        "giphyIds": [],
+        "giphyQuery": "Chicken Run"
+      },
+      "b": {
+        "name": "Shaun le mouton",
+        "origin": "Aardman · 2007",
+        "line": "Un mouton plus malin que le fermier.",
+        "giphyIds": [],
+        "giphyQuery": "Shaun the Sheep"
+      }
+    },
+    {
+      "id": "dessins-les-minions-les-lapins-cretins",
+      "category": "dessins",
+      "a": {
+        "name": "Les Minions",
+        "origin": "Moi, moche et méchant · 2010",
+        "line": "Jaunes, en salopette, fous de bananes.",
+        "giphyIds": [],
+        "giphyQuery": "Minions"
+      },
+      "b": {
+        "name": "Les Lapins Crétins",
+        "origin": "Ubisoft · 2006",
+        "line": "« Bwaaaah ! »",
+        "giphyIds": [],
+        "giphyQuery": "Rabbids"
+      }
+    },
+    {
+      "id": "dessins-kirikou-les-triplettes-de-belleville",
+      "category": "dessins",
+      "a": {
+        "name": "Kirikou",
+        "origin": "Michel Ocelot · 1998",
+        "line": "Petit, rapide, et plus malin que la sorcière.",
+        "giphyIds": [],
+        "giphyQuery": "Kirikou"
+      },
+      "b": {
+        "name": "Les Triplettes de Belleville",
+        "origin": "Sylvain Chomet · 2003",
+        "line": "Trois chanteuses, un chien, et le Tour de France.",
+        "giphyIds": [],
+        "giphyQuery": "Triplets of Belleville"
+      }
+    },
+    {
+      "id": "dessins-peppa-pig-t-choupi",
+      "category": "dessins",
+      "a": {
+        "name": "Peppa Pig",
+        "origin": "Royaume-Uni · 2004",
+        "line": "Saute dans les flaques de boue. Toujours.",
+        "giphyIds": [],
+        "giphyQuery": "Peppa Pig"
+      },
+      "b": {
+        "name": "T’choupi",
+        "origin": "France · 1992",
+        "line": "Un petit pingouin qui découvre la vie, tranquillement.",
+        "giphyIds": [],
+        "giphyQuery": "Tchoupi penguin"
+      }
+    },
+    {
+      "id": "dessins-la-pat-patrouille-pyjamasques",
+      "category": "dessins",
+      "a": {
+        "name": "La Pat’ Patrouille",
+        "origin": "Nickelodeon · 2013",
+        "line": "Six chiots, et un budget illimité.",
+        "giphyIds": [],
+        "giphyQuery": "Paw Patrol"
+      },
+      "b": {
+        "name": "Pyjamasques",
+        "origin": "Série animée · 2015",
+        "line": "Super-héros la nuit, élèves fatigués le jour.",
+        "giphyIds": [],
+        "giphyQuery": "PJ Masks"
+      }
+    },
+    {
+      "id": "dessins-garfield-snoopy",
+      "category": "dessins",
+      "a": {
+        "name": "Garfield",
+        "origin": "Jim Davis · 1978",
+        "line": "Déteste les lundis, adore les lasagnes.",
+        "giphyIds": [],
+        "giphyQuery": "Garfield"
+      },
+      "b": {
+        "name": "Snoopy",
+        "origin": "Charles Schulz · 1950",
+        "line": "Dort sur le toit de sa niche.",
+        "giphyIds": [],
+        "giphyQuery": "Snoopy"
+      }
+    },
+    {
+      "id": "dessins-lucky-luke-rantanplan",
+      "category": "dessins",
+      "a": {
+        "name": "Lucky Luke",
+        "origin": "Morris · 1946",
+        "line": "Tire plus vite que son ombre.",
+        "giphyIds": [],
+        "giphyQuery": "Lucky Luke"
+      },
+      "b": {
+        "name": "Rantanplan",
+        "origin": "Morris · 1960",
+        "line": "Le chien le plus bête de l’Ouest.",
+        "giphyIds": [],
+        "giphyQuery": "Rantanplan dog"
+      }
+    },
+    {
+      "id": "dessins-barbapapa-casimir",
+      "category": "dessins",
+      "a": {
+        "name": "Barbapapa",
+        "origin": "Annette Tison et Talus Taylor · 1970",
+        "line": "Change de forme, mais reste rose.",
+        "giphyIds": [],
+        "giphyQuery": "Barbapapa"
+      },
+      "b": {
+        "name": "Casimir",
+        "origin": "L’Île aux enfants · 1974",
+        "line": "Un dinosaure orange, et du gloubi-boulga.",
+        "giphyIds": [],
+        "giphyQuery": "Casimir dinosaur"
+      }
+    },
+    {
+      "id": "dessins-kung-fu-panda-dragons",
+      "category": "dessins",
+      "a": {
+        "name": "Kung Fu Panda",
+        "origin": "DreamWorks · 2008",
+        "line": "Un panda, des raviolis, et le kung-fu.",
+        "giphyIds": [],
+        "giphyQuery": "Kung Fu Panda"
+      },
+      "b": {
+        "name": "Dragons",
+        "origin": "DreamWorks · 2010",
+        "line": "Un Viking, et son dragon noir, Krokmou.",
+        "giphyIds": [],
+        "giphyQuery": "How to Train Your Dragon Toothless"
+      }
+    },
+    {
+      "id": "dessins-he-arnold-daria",
+      "category": "dessins",
+      "a": {
+        "name": "Hé Arnold !",
+        "origin": "Nickelodeon · 1996",
+        "line": "Une tête en forme de ballon de rugby.",
+        "giphyIds": [],
+        "giphyQuery": "Hey Arnold"
+      },
+      "b": {
+        "name": "Daria",
+        "origin": "MTV · 1997",
+        "line": "Blasée, lucide, et des lunettes rondes.",
+        "giphyIds": [],
+        "giphyQuery": "Daria"
+      }
+    },
+    {
+      "id": "dessins-ben-10-danny-fantome",
+      "category": "dessins",
+      "a": {
+        "name": "Ben 10",
+        "origin": "Cartoon Network · 2005",
+        "line": "Une montre, dix aliens.",
+        "giphyIds": [],
+        "giphyQuery": "Ben 10"
+      },
+      "b": {
+        "name": "Danny Fantôme",
+        "origin": "Nickelodeon · 2004",
+        "line": "Moitié ado, moitié fantôme.",
+        "giphyIds": [],
+        "giphyQuery": "Danny Phantom"
+      }
+    },
+    {
+      "id": "dessins-code-lyoko-wakfu",
+      "category": "dessins",
+      "a": {
+        "name": "Code Lyoko",
+        "origin": "France · 2003",
+        "line": "Sauver le monde virtuel après les cours.",
+        "giphyIds": [],
+        "giphyQuery": "Code Lyoko"
+      },
+      "b": {
+        "name": "Wakfu",
+        "origin": "Ankama · 2008",
+        "line": "Un chapeau, des portails, et des larmes.",
+        "giphyIds": [],
+        "giphyQuery": "Wakfu"
+      }
+    },
+    {
+      "id": "dessins-sailor-moon-card-captor-sakura",
+      "category": "dessins",
+      "a": {
+        "name": "Sailor Moon",
+        "origin": "Naoko Takeuchi · 1992",
+        "line": "« Au nom de la Lune, je vais te punir ! »",
+        "giphyIds": [],
+        "giphyQuery": "Sailor Moon"
+      },
+      "b": {
+        "name": "Card Captor Sakura",
+        "origin": "CLAMP · 1996",
+        "line": "Des cartes magiques et une meilleure amie couturière.",
+        "giphyIds": [],
+        "giphyQuery": "Cardcaptor Sakura"
+      }
+    },
+    {
+      "id": "dessins-hamtaro-doraemon",
+      "category": "dessins",
+      "a": {
+        "name": "Hamtaro",
+        "origin": "Ritsuko Kawai · 1997",
+        "line": "Un hamster, des graines de tournesol, des copains.",
+        "giphyIds": [],
+        "giphyQuery": "Hamtaro"
+      },
+      "b": {
+        "name": "Doraemon",
+        "origin": "Fujiko F. Fujio · 1969",
+        "line": "Un chat-robot avec une poche magique.",
+        "giphyIds": [],
+        "giphyQuery": "Doraemon"
+      }
+    },
+    {
+      "id": "dessins-nicky-larson-cobra",
+      "category": "dessins",
+      "a": {
+        "name": "Nicky Larson",
+        "origin": "Tsukasa Hojo · 1985",
+        "line": "Détective de génie, dragueur catastrophique.",
+        "giphyIds": [],
+        "giphyQuery": "City Hunter"
+      },
+      "b": {
+        "name": "Cobra",
+        "origin": "Buichi Terasawa · 1978",
+        "line": "Un rayon psychique caché dans le bras gauche.",
+        "giphyIds": [],
+        "giphyQuery": "Space Adventure Cobra"
+      }
+    },
+    {
+      "id": "dessins-les-chevaliers-du-zodiaque-ken-le-survivant",
+      "category": "dessins",
+      "a": {
+        "name": "Les Chevaliers du Zodiaque",
+        "origin": "Masami Kurumada · 1986",
+        "line": "Des armures, des constellations, et beaucoup de cris.",
+        "giphyIds": [],
+        "giphyQuery": "Saint Seiya"
+      },
+      "b": {
+        "name": "Ken le Survivant",
+        "origin": "Buronson et Tetsuo Hara · 1983",
+        "line": "« Tu ne le sais pas encore, mais tu es déjà mort. »",
+        "giphyIds": [],
+        "giphyQuery": "Fist of the North Star"
+      }
+    },
+    {
+      "id": "dessins-candy-princesse-sarah",
+      "category": "dessins",
+      "a": {
+        "name": "Candy",
+        "origin": "Kyoko Mizuki · 1975",
+        "line": "Pleure beaucoup, se relève toujours.",
+        "giphyIds": [],
+        "giphyQuery": "Candy Candy"
+      },
+      "b": {
+        "name": "Princesse Sarah",
+        "origin": "Série animée · 1985",
+        "line": "Riche, puis pauvre, puis riche. Courage.",
+        "giphyIds": [],
+        "giphyQuery": "Princess Sarah anime"
+      }
+    },
+    {
+      "id": "dessins-olive-et-tom-jeanne-et-serge",
+      "category": "dessins",
+      "a": {
+        "name": "Olive et Tom",
+        "origin": "Yoichi Takahashi · 1981",
+        "line": "Un terrain de foot de dix kilomètres de long.",
+        "giphyIds": [],
+        "giphyQuery": "Captain Tsubasa"
+      },
+      "b": {
+        "name": "Jeanne et Serge",
+        "origin": "Série animée · 1984",
+        "line": "Le volley, version passion.",
+        "giphyIds": [],
+        "giphyQuery": "Attacker You"
+      }
+    },
+    {
+      "id": "dessins-bambi-dumbo",
+      "category": "dessins",
+      "a": {
+        "name": "Bambi",
+        "origin": "Disney · 1942",
+        "line": "Apprend à marcher sur la glace. Puis le drame.",
+        "giphyIds": [],
+        "giphyQuery": "Bambi"
+      },
+      "b": {
+        "name": "Dumbo",
+        "origin": "Disney · 1941",
+        "line": "De grandes oreilles, et un grand destin.",
+        "giphyIds": [],
+        "giphyQuery": "Dumbo"
+      }
+    },
+    {
+      "id": "dessins-coraline-l-etrange-noel-de-m-jack",
+      "category": "dessins",
+      "a": {
+        "name": "Coraline",
+        "origin": "Henry Selick · 2009",
+        "line": "Une autre mère, avec des boutons à la place des yeux.",
+        "giphyIds": [],
+        "giphyQuery": "Coraline"
+      },
+      "b": {
+        "name": "L’Étrange Noël de M. Jack",
+        "origin": "Henry Selick · 1993",
+        "line": "Halloween veut faire Noël. Ça se passe moyennement.",
+        "giphyIds": [],
+        "giphyQuery": "Nightmare Before Christmas Jack"
+      }
+    },
+    {
+      "id": "cinefr-louis-de-funes-bourvil",
+      "category": "cinefr",
+      "a": {
+        "name": "Louis de Funès",
+        "origin": "Le Corniaud · 1965",
+        "line": "Mille grimaces à la minute.",
+        "giphyIds": [],
+        "giphyQuery": "Louis de Funes"
+      },
+      "b": {
+        "name": "Bourvil",
+        "origin": "La Grande Vadrouille · 1966",
+        "line": "Le gentil qui s’en sort quand même.",
+        "giphyIds": [],
+        "giphyQuery": "Bourvil"
+      }
+    },
+    {
+      "id": "cinefr-les-bronzes-le-pere-noel-est-une-ordure",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Bronzés",
+        "origin": "Patrice Leconte · 1978",
+        "line": "Le Club Med, version catastrophe.",
+        "giphyIds": [],
+        "giphyQuery": "Les Bronzes"
+      },
+      "b": {
+        "name": "Le Père Noël est une ordure",
+        "origin": "Jean-Marie Poiré · 1982",
+        "line": "Un réveillon de Noël qui tourne mal. Très mal.",
+        "giphyIds": [],
+        "giphyQuery": "Le Pere Noel est une ordure"
+      }
+    },
+    {
+      "id": "cinefr-oss-117-le-caire-nid-d-espions-asterix-mission-cleopatre",
+      "category": "cinefr",
+      "a": {
+        "name": "OSS 117, Le Caire nid d’espions",
+        "origin": "Michel Hazanavicius · 2006",
+        "line": "Un espion sûr de lui, et très souvent à côté.",
+        "giphyIds": [],
+        "giphyQuery": "OSS 117 Dujardin"
+      },
+      "b": {
+        "name": "Astérix, Mission Cléopâtre",
+        "origin": "Alain Chabat · 2002",
+        "line": "« C’est une bonne situation, ça, scribe ? »",
+        "giphyIds": [],
+        "giphyQuery": "Asterix Mission Cleopatre"
+      }
+    },
+    {
+      "id": "cinefr-le-diner-de-cons-la-cite-de-la-peur",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Dîner de cons",
+        "origin": "Francis Veber · 1998",
+        "line": "« Il s’appelle Juste Leblanc. »",
+        "giphyIds": [],
+        "giphyQuery": "Le Diner de cons"
+      },
+      "b": {
+        "name": "La Cité de la peur",
+        "origin": "Les Nuls · 1994",
+        "line": "Un festival de Cannes et un tueur au marteau et à la faucille.",
+        "giphyIds": [],
+        "giphyQuery": "La Cite de la peur"
+      }
+    },
+    {
+      "id": "cinefr-les-visiteurs-les-bronzes-font-du-ski",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Visiteurs",
+        "origin": "Jean-Marie Poiré · 1993",
+        "line": "Un chevalier et son écuyer perdus en 1993.",
+        "giphyIds": [],
+        "giphyQuery": "Les Visiteurs"
+      },
+      "b": {
+        "name": "Les Bronzés font du ski",
+        "origin": "Patrice Leconte · 1979",
+        "line": "Le ski, la fondue, et la survie en montagne.",
+        "giphyIds": [],
+        "giphyQuery": "Les Bronzes font du ski"
+      }
+    },
+    {
+      "id": "cinefr-intouchables-bienvenue-chez-les-ch-tis",
+      "category": "cinefr",
+      "a": {
+        "name": "Intouchables",
+        "origin": "Olivier Nakache et Éric Toledano · 2011",
+        "line": "Un milliardaire, un aide à domicile, et beaucoup de rires.",
+        "giphyIds": [],
+        "giphyQuery": "Intouchables"
+      },
+      "b": {
+        "name": "Bienvenue chez les Ch’tis",
+        "origin": "Dany Boon · 2008",
+        "line": "« Biloute ! »",
+        "giphyIds": [],
+        "giphyQuery": "Bienvenue chez les Chtis"
+      }
+    },
+    {
+      "id": "cinefr-le-fabuleux-destin-d-amelie-poul-la-haine",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Fabuleux Destin d’Amélie Poulain",
+        "origin": "Jean-Pierre Jeunet · 2001",
+        "line": "Casser la croûte des crèmes brûlées.",
+        "giphyIds": [],
+        "giphyQuery": "Amelie Poulain"
+      },
+      "b": {
+        "name": "La Haine",
+        "origin": "Mathieu Kassovitz · 1995",
+        "line": "« Jusqu’ici, tout va bien. »",
+        "giphyIds": [],
+        "giphyQuery": "La Haine"
+      }
+    },
+    {
+      "id": "cinefr-le-grand-bleu-leon",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Grand Bleu",
+        "origin": "Luc Besson · 1988",
+        "line": "Plonger toujours plus profond, avec des dauphins.",
+        "giphyIds": [],
+        "giphyQuery": "Le Grand Bleu dolphin"
+      },
+      "b": {
+        "name": "Léon",
+        "origin": "Luc Besson · 1994",
+        "line": "Un tueur, une plante verte, et un verre de lait.",
+        "giphyIds": [],
+        "giphyQuery": "Leon the Professional"
+      }
+    },
+    {
+      "id": "cinefr-le-cinquieme-element-taxi",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Cinquième Élément",
+        "origin": "Luc Besson · 1997",
+        "line": "« Multipass ! »",
+        "giphyIds": [],
+        "giphyQuery": "Fifth Element multipass"
+      },
+      "b": {
+        "name": "Taxi",
+        "origin": "Gérard Pirès · 1998",
+        "line": "Marseille en mode turbo.",
+        "giphyIds": [],
+        "giphyQuery": "Taxi film Marseille"
+      }
+    },
+    {
+      "id": "cinefr-jean-dujardin-jean-reno",
+      "category": "cinefr",
+      "a": {
+        "name": "Jean Dujardin",
+        "origin": "Brice de Nice, OSS 117",
+        "line": "Des grimaces, des répliques, et un Oscar.",
+        "giphyIds": [],
+        "giphyQuery": "Jean Dujardin"
+      },
+      "b": {
+        "name": "Jean Reno",
+        "origin": "Léon, Les Visiteurs",
+        "line": "Un regard grave et une voix encore plus grave.",
+        "giphyIds": [],
+        "giphyQuery": "Jean Reno"
+      }
+    },
+    {
+      "id": "cinefr-les-tontons-flingueurs-la-grande-vadrouille",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Tontons flingueurs",
+        "origin": "Georges Lautner · 1963",
+        "line": "Des truands, une cuisine, et des dialogues d’Audiard.",
+        "giphyIds": [],
+        "giphyQuery": "Les Tontons flingueurs"
+      },
+      "b": {
+        "name": "La Grande Vadrouille",
+        "origin": "Gérard Oury · 1966",
+        "line": "Deux Français, des aviateurs anglais, et une course-poursuite.",
+        "giphyIds": [],
+        "giphyQuery": "La Grande Vadrouille"
+      }
+    },
+    {
+      "id": "cinefr-la-soupe-aux-choux-le-gendarme-de-saint-tropez",
+      "category": "cinefr",
+      "a": {
+        "name": "La Soupe aux choux",
+        "origin": "Jean Girault · 1981",
+        "line": "Un extraterrestre fan de soupe.",
+        "giphyIds": [],
+        "giphyQuery": "La Soupe aux choux"
+      },
+      "b": {
+        "name": "Le Gendarme de Saint-Tropez",
+        "origin": "Jean Girault · 1964",
+        "line": "Des gendarmes, la plage, et beaucoup d’agitation.",
+        "giphyIds": [],
+        "giphyQuery": "Gendarme de Saint-Tropez"
+      }
+    },
+    {
+      "id": "cinefr-brice-de-nice-les-tuche",
+      "category": "cinefr",
+      "a": {
+        "name": "Brice de Nice",
+        "origin": "James Huth · 2005",
+        "line": "« Cassé ! »",
+        "giphyIds": [],
+        "giphyQuery": "Brice de Nice"
+      },
+      "b": {
+        "name": "Les Tuche",
+        "origin": "Olivier Baroux · 2011",
+        "line": "Une famille qui gagne au loto et reste fidèle à elle-même.",
+        "giphyIds": [],
+        "giphyQuery": "Les Tuche"
+      }
+    },
+    {
+      "id": "cinefr-camping-la-verite-si-je-mens",
+      "category": "cinefr",
+      "a": {
+        "name": "Camping",
+        "origin": "Fabien Onteniente · 2006",
+        "line": "Patrick Chirac, au camping des Flots bleus, tous les étés.",
+        "giphyIds": [],
+        "giphyQuery": "Camping film Franck Dubosc"
+      },
+      "b": {
+        "name": "La Vérité si je mens !",
+        "origin": "Thomas Gilou · 1997",
+        "line": "Le Sentier, des costumes, et des embrouilles.",
+        "giphyIds": [],
+        "giphyQuery": "La Verite si je mens"
+      }
+    },
+    {
+      "id": "cinefr-jacques-tati-pierre-richard",
+      "category": "cinefr",
+      "a": {
+        "name": "Jacques Tati",
+        "origin": "Mon oncle · 1958",
+        "line": "Un imper, une pipe, et des gags au millimètre.",
+        "giphyIds": [],
+        "giphyQuery": "Jacques Tati"
+      },
+      "b": {
+        "name": "Pierre Richard",
+        "origin": "Le Grand Blond · 1972",
+        "line": "Une chaussure noire et beaucoup de maladresse.",
+        "giphyIds": [],
+        "giphyQuery": "Pierre Richard"
+      }
+    },
+    {
+      "id": "cinefr-christian-clavier-thierry-lhermitte",
+      "category": "cinefr",
+      "a": {
+        "name": "Christian Clavier",
+        "origin": "Le Splendid · 1974",
+        "line": "Jacquouille, Napoléon, et beaucoup de cris.",
+        "giphyIds": [],
+        "giphyQuery": "Christian Clavier"
+      },
+      "b": {
+        "name": "Thierry Lhermitte",
+        "origin": "Le Splendid · 1974",
+        "line": "Le séducteur des Bronzés.",
+        "giphyIds": [],
+        "giphyQuery": "Thierry Lhermitte"
+      }
+    },
+    {
+      "id": "cinefr-les-choristes-le-petit-nicolas",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Choristes",
+        "origin": "Christophe Barratier · 2004",
+        "line": "Une chorale, un internat, et des frissons.",
+        "giphyIds": [],
+        "giphyQuery": "Les Choristes"
+      },
+      "b": {
+        "name": "Le Petit Nicolas",
+        "origin": "Laurent Tirard · 2009",
+        "line": "L’école, les copains, et des bêtises.",
+        "giphyIds": [],
+        "giphyQuery": "Le Petit Nicolas"
+      }
+    },
+    {
+      "id": "cinefr-le-pacte-des-loups-les-rivieres-pourpres",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Pacte des loups",
+        "origin": "Christophe Gans · 2001",
+        "line": "Une bête mystérieuse et du kung-fu en 1764.",
+        "giphyIds": [],
+        "giphyQuery": "Brotherhood of the Wolf"
+      },
+      "b": {
+        "name": "Les Rivières pourpres",
+        "origin": "Mathieu Kassovitz · 2000",
+        "line": "Deux flics, un glacier, et des frissons.",
+        "giphyIds": [],
+        "giphyQuery": "Crimson Rivers"
+      }
+    },
+    {
+      "id": "cinefr-jean-paul-belmondo-alain-delon",
+      "category": "cinefr",
+      "a": {
+        "name": "Jean-Paul Belmondo",
+        "origin": "À bout de souffle · 1960",
+        "line": "Des cascades sans doublure et un sourire en coin.",
+        "giphyIds": [],
+        "giphyQuery": "Jean-Paul Belmondo"
+      },
+      "b": {
+        "name": "Alain Delon",
+        "origin": "Le Samouraï · 1967",
+        "line": "Le regard bleu, et la classe.",
+        "giphyIds": [],
+        "giphyQuery": "Alain Delon"
+      }
+    },
+    {
+      "id": "cinefr-les-demoiselles-de-rochefort-les-parapluies-de-cherbourg",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Demoiselles de Rochefort",
+        "origin": "Jacques Demy · 1967",
+        "line": "Des jumelles, des chansons, et des marins.",
+        "giphyIds": [],
+        "giphyQuery": "Les Demoiselles de Rochefort"
+      },
+      "b": {
+        "name": "Les Parapluies de Cherbourg",
+        "origin": "Jacques Demy · 1964",
+        "line": "Tout le film est chanté. Tout.",
+        "giphyIds": [],
+        "giphyQuery": "Umbrellas of Cherbourg"
+      }
+    },
+    {
+      "id": "cinefr-la-vache-et-le-prisonnier-don-camillo",
+      "category": "cinefr",
+      "a": {
+        "name": "La Vache et le Prisonnier",
+        "origin": "Henri Verneuil · 1959",
+        "line": "Fernandel s’évade avec une vache.",
+        "giphyIds": [],
+        "giphyQuery": "La Vache et le Prisonnier Fernandel"
+      },
+      "b": {
+        "name": "Don Camillo",
+        "origin": "Julien Duvivier · 1952",
+        "line": "Un curé qui parle au crucifix.",
+        "giphyIds": [],
+        "giphyQuery": "Don Camillo Fernandel"
+      }
+    },
+    {
+      "id": "cinefr-les-sous-doues-les-profs",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Sous-doués",
+        "origin": "Claude Zidi · 1980",
+        "line": "Le bac, et beaucoup de triche.",
+        "giphyIds": [],
+        "giphyQuery": "Les Sous-doues"
+      },
+      "b": {
+        "name": "Les Profs",
+        "origin": "Pierre-François Martin-Laval · 2013",
+        "line": "Les pires profs de France pour les pires élèves.",
+        "giphyIds": [],
+        "giphyQuery": "Les Profs film"
+      }
+    },
+    {
+      "id": "cinefr-rrrrrr-didier",
+      "category": "cinefr",
+      "a": {
+        "name": "RRRrrr !!!",
+        "origin": "Alain Chabat · 2004",
+        "line": "La préhistoire, et le secret du shampoing.",
+        "giphyIds": [],
+        "giphyQuery": "RRRrrr film"
+      },
+      "b": {
+        "name": "Didier",
+        "origin": "Alain Chabat · 1997",
+        "line": "Un chien qui devient homme et joue au foot.",
+        "giphyIds": [],
+        "giphyQuery": "Didier Chabat"
+      }
+    },
+    {
+      "id": "cinefr-la-classe-americaine-les-trois-freres",
+      "category": "cinefr",
+      "a": {
+        "name": "La Classe américaine",
+        "origin": "Michel Hazanavicius · 1993",
+        "line": "Des classiques d’Hollywood, entièrement redoublés.",
+        "giphyIds": [],
+        "giphyQuery": "La Classe americaine"
+      },
+      "b": {
+        "name": "Les Trois Frères",
+        "origin": "Les Inconnus · 1995",
+        "line": "Trois frères, un héritage, et aucun argent à la fin.",
+        "giphyIds": [],
+        "giphyQuery": "Les Trois Freres"
+      }
+    },
+    {
+      "id": "cinefr-le-prenom-un-air-de-famille",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Prénom",
+        "origin": "Alexandre de La Patellière · 2012",
+        "line": "Un dîner, un prénom, et tout explose.",
+        "giphyIds": [],
+        "giphyQuery": "Le Prenom film"
+      },
+      "b": {
+        "name": "Un air de famille",
+        "origin": "Cédric Klapisch · 1996",
+        "line": "Un vendredi soir au café, et des rancœurs.",
+        "giphyIds": [],
+        "giphyQuery": "Un air de famille"
+      }
+    },
+    {
+      "id": "cinefr-l-auberge-espagnole-les-petits-mouchoirs",
+      "category": "cinefr",
+      "a": {
+        "name": "L’Auberge espagnole",
+        "origin": "Cédric Klapisch · 2002",
+        "line": "Erasmus à Barcelone, dans une colocation chaotique.",
+        "giphyIds": [],
+        "giphyQuery": "L'Auberge espagnole"
+      },
+      "b": {
+        "name": "Les Petits Mouchoirs",
+        "origin": "Guillaume Canet · 2010",
+        "line": "Des vacances entre amis, et beaucoup de larmes.",
+        "giphyIds": [],
+        "giphyQuery": "Les Petits Mouchoirs"
+      }
+    },
+    {
+      "id": "cinefr-l-aile-ou-la-cuisse-le-grand-restaurant",
+      "category": "cinefr",
+      "a": {
+        "name": "L’Aile ou la Cuisse",
+        "origin": "Claude Zidi · 1976",
+        "line": "Un critique gastronomique contre la malbouffe.",
+        "giphyIds": [],
+        "giphyQuery": "L'Aile ou la Cuisse"
+      },
+      "b": {
+        "name": "Le Grand Restaurant",
+        "origin": "Jacques Besnard · 1966",
+        "line": "De Funès, maître d’hôtel tyrannique.",
+        "giphyIds": [],
+        "giphyQuery": "Le Grand Restaurant"
+      }
+    },
+    {
+      "id": "cinefr-le-splendid-les-robins-des-bois",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Splendid",
+        "origin": "Troupe · 1974",
+        "line": "Les Bronzés, le Père Noël, et un sens du malaise.",
+        "giphyIds": [],
+        "giphyQuery": "Le Splendid troupe"
+      },
+      "b": {
+        "name": "Les Robins des Bois",
+        "origin": "Canal+ · 1998",
+        "line": "Des sketchs et des personnages absurdes.",
+        "giphyIds": [],
+        "giphyQuery": "Robins des Bois"
+      }
+    },
+    {
+      "id": "cinefr-les-inconnus-les-nuls",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Inconnus",
+        "origin": "Trio · 1990",
+        "line": "Des sketchs et des parodies cultes.",
+        "giphyIds": [],
+        "giphyQuery": "Les Inconnus"
+      },
+      "b": {
+        "name": "Les Nuls",
+        "origin": "Canal+ · 1987",
+        "line": "Des fausses pubs et un sens de l’absurde.",
+        "giphyIds": [],
+        "giphyQuery": "Les Nuls"
+      }
+    },
+    {
+      "id": "cinefr-omar-et-fred-les-guignols",
+      "category": "cinefr",
+      "a": {
+        "name": "Omar et Fred",
+        "origin": "Le SAV · 2005",
+        "line": "Le service après-vente des émissions.",
+        "giphyIds": [],
+        "giphyQuery": "Omar et Fred"
+      },
+      "b": {
+        "name": "Les Guignols",
+        "origin": "Canal+ · 1988",
+        "line": "Des marionnettes qui se moquent de tout le monde.",
+        "giphyIds": [],
+        "giphyQuery": "Les Guignols de l'info"
+      }
+    },
+    {
+      "id": "cinefr-subway-nikita",
+      "category": "cinefr",
+      "a": {
+        "name": "Subway",
+        "origin": "Luc Besson · 1985",
+        "line": "Des cheveux en pétard dans le métro.",
+        "giphyIds": [],
+        "giphyQuery": "Subway film 1985"
+      },
+      "b": {
+        "name": "Nikita",
+        "origin": "Luc Besson · 1990",
+        "line": "Une tueuse au service de l’État.",
+        "giphyIds": [],
+        "giphyQuery": "Nikita film"
+      }
+    },
+    {
+      "id": "cinefr-a-bout-de-souffle-les-quatre-cents-coups",
+      "category": "cinefr",
+      "a": {
+        "name": "À bout de souffle",
+        "origin": "Jean-Luc Godard · 1960",
+        "line": "« New York Herald Tribune ! »",
+        "giphyIds": [],
+        "giphyQuery": "A bout de souffle Godard"
+      },
+      "b": {
+        "name": "Les Quatre Cents Coups",
+        "origin": "François Truffaut · 1959",
+        "line": "Un gamin, une fugue, et la mer.",
+        "giphyIds": [],
+        "giphyQuery": "400 Blows Truffaut"
+      }
+    },
+    {
+      "id": "cinefr-delicatessen-la-cite-des-enfants-perdus",
+      "category": "cinefr",
+      "a": {
+        "name": "Delicatessen",
+        "origin": "Jeunet et Caro · 1991",
+        "line": "Un boucher, un immeuble, et un menu douteux.",
+        "giphyIds": [],
+        "giphyQuery": "Delicatessen film"
+      },
+      "b": {
+        "name": "La Cité des enfants perdus",
+        "origin": "Jeunet et Caro · 1995",
+        "line": "Un savant qui vole les rêves des enfants.",
+        "giphyIds": [],
+        "giphyQuery": "City of Lost Children"
+      }
+    },
+    {
+      "id": "cinefr-les-randonneurs-les-seigneurs",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Randonneurs",
+        "origin": "Philippe Harel · 1997",
+        "line": "Une randonnée en Corse, et pas les plus sportifs.",
+        "giphyIds": [],
+        "giphyQuery": "Les Randonneurs"
+      },
+      "b": {
+        "name": "Les Seigneurs",
+        "origin": "Olivier Dahan · 2012",
+        "line": "D’anciens footballeurs sur une île bretonne.",
+        "giphyIds": [],
+        "giphyQuery": "Les Seigneurs film"
+      }
+    },
+    {
+      "id": "cinefr-mais-ou-est-donc-passee-la-7e-co-papy-fait-de-la-resistance",
+      "category": "cinefr",
+      "a": {
+        "name": "Mais où est donc passée la 7e compagnie ?",
+        "origin": "Robert Lamoureux · 1973",
+        "line": "Trois soldats perdus et un camion.",
+        "giphyIds": [],
+        "giphyQuery": "7eme compagnie"
+      },
+      "b": {
+        "name": "Papy fait de la résistance",
+        "origin": "Jean-Marie Poiré · 1983",
+        "line": "Une famille de résistants, et Super Résistant.",
+        "giphyIds": [],
+        "giphyQuery": "Papy fait de la resistance"
+      }
+    },
+    {
+      "id": "cinefr-jacquouille-godefroy-de-montmirail",
+      "category": "cinefr",
+      "a": {
+        "name": "Jacquouille",
+        "origin": "Les Visiteurs · 1993",
+        "line": "Des dents abîmées et un rire inoubliable.",
+        "giphyIds": [],
+        "giphyQuery": "Jacquouille"
+      },
+      "b": {
+        "name": "Godefroy de Montmirail",
+        "origin": "Les Visiteurs · 1993",
+        "line": "Un comte très noble, très perdu en 1993.",
+        "giphyIds": [],
+        "giphyQuery": "Godefroy de Montmirail"
+      }
+    },
+    {
+      "id": "cinefr-la-boum-diabolo-menthe",
+      "category": "cinefr",
+      "a": {
+        "name": "La Boum",
+        "origin": "Claude Pinoteau · 1980",
+        "line": "Un premier slow et un casque de walkman.",
+        "giphyIds": [],
+        "giphyQuery": "La Boum"
+      },
+      "b": {
+        "name": "Diabolo menthe",
+        "origin": "Diane Kurys · 1977",
+        "line": "Le lycée, les copines, et les années 60.",
+        "giphyIds": [],
+        "giphyQuery": "Diabolo menthe film"
+      }
+    },
+    {
+      "id": "cinefr-le-dernier-metro-cyrano-de-bergerac",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Dernier Métro",
+        "origin": "François Truffaut · 1980",
+        "line": "Un théâtre sous l’Occupation.",
+        "giphyIds": [],
+        "giphyQuery": "Le Dernier Metro"
+      },
+      "b": {
+        "name": "Cyrano de Bergerac",
+        "origin": "Jean-Paul Rappeneau · 1990",
+        "line": "Un nez immense et des tirades.",
+        "giphyIds": [],
+        "giphyQuery": "Cyrano de Bergerac"
+      }
+    },
+    {
+      "id": "cinefr-jean-gabin-lino-ventura",
+      "category": "cinefr",
+      "a": {
+        "name": "Jean Gabin",
+        "origin": "Le Quai des brumes · 1938",
+        "line": "La gueule, la voix, et la casquette.",
+        "giphyIds": [],
+        "giphyQuery": "Jean Gabin"
+      },
+      "b": {
+        "name": "Lino Ventura",
+        "origin": "Les Tontons flingueurs · 1963",
+        "line": "Un regard, et tout le monde se tait.",
+        "giphyIds": [],
+        "giphyQuery": "Lino Ventura"
+      }
+    },
+    {
+      "id": "cinefr-sophie-marceau-isabelle-adjani",
+      "category": "cinefr",
+      "a": {
+        "name": "Sophie Marceau",
+        "origin": "La Boum · 1980",
+        "line": "Le premier slow de toute une génération.",
+        "giphyIds": [],
+        "giphyQuery": "Sophie Marceau"
+      },
+      "b": {
+        "name": "Isabelle Adjani",
+        "origin": "L’Histoire d’Adèle H. · 1975",
+        "line": "Cinq César, un record.",
+        "giphyIds": [],
+        "giphyQuery": "Isabelle Adjani"
+      }
+    },
+    {
+      "id": "cinefr-fantomas-belphegor",
+      "category": "cinefr",
+      "a": {
+        "name": "Fantômas",
+        "origin": "André Hunebelle · 1964",
+        "line": "Un masque bleu et un rire diabolique.",
+        "giphyIds": [],
+        "giphyQuery": "Fantomas"
+      },
+      "b": {
+        "name": "Belphégor",
+        "origin": "Série télé · 1965",
+        "line": "Un fantôme au Louvre.",
+        "giphyIds": [],
+        "giphyQuery": "Belphegor Louvre"
+      }
+    },
+    {
+      "id": "cinefr-la-chevre-les-comperes",
+      "category": "cinefr",
+      "a": {
+        "name": "La Chèvre",
+        "origin": "Francis Veber · 1981",
+        "line": "L’homme le plus malchanceux du monde. Et c’est utile.",
+        "giphyIds": [],
+        "giphyQuery": "La Chevre film"
+      },
+      "b": {
+        "name": "Les Compères",
+        "origin": "Francis Veber · 1983",
+        "line": "Deux pères pour un seul fils. Enfin, en théorie.",
+        "giphyIds": [],
+        "giphyQuery": "Les Comperes"
+      }
+    },
+    {
+      "id": "cinefr-les-ripoux-les-specialistes",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Ripoux",
+        "origin": "Claude Zidi · 1984",
+        "line": "Deux flics, beaucoup d’arrangements.",
+        "giphyIds": [],
+        "giphyQuery": "Les Ripoux"
+      },
+      "b": {
+        "name": "Les Spécialistes",
+        "origin": "Patrice Leconte · 1985",
+        "line": "Un casse impossible et une évasion.",
+        "giphyIds": [],
+        "giphyQuery": "Les Specialistes film"
+      }
+    },
+    {
+      "id": "cinefr-la-mome-the-artist",
+      "category": "cinefr",
+      "a": {
+        "name": "La Môme",
+        "origin": "Olivier Dahan · 2007",
+        "line": "Piaf, et un Oscar pour Marion Cotillard.",
+        "giphyIds": [],
+        "giphyQuery": "La Mome Cotillard"
+      },
+      "b": {
+        "name": "The Artist",
+        "origin": "Michel Hazanavicius · 2011",
+        "line": "Un film muet en noir et blanc, et cinq Oscars.",
+        "giphyIds": [],
+        "giphyQuery": "The Artist movie"
+      }
+    },
+    {
+      "id": "cinefr-l-arnac-ur-hors-de-prix",
+      "category": "cinefr",
+      "a": {
+        "name": "L’Arnacœur",
+        "origin": "Pascal Chaumeil · 2010",
+        "line": "Son métier : briser des couples, avec style.",
+        "giphyIds": [],
+        "giphyQuery": "L'Arnacoeur"
+      },
+      "b": {
+        "name": "Hors de prix",
+        "origin": "Pierre Salvadori · 2006",
+        "line": "Une croqueuse de diamants et un barman.",
+        "giphyIds": [],
+        "giphyQuery": "Hors de prix"
+      }
+    },
+    {
+      "id": "cinefr-babysitting-alibi-com",
+      "category": "cinefr",
+      "a": {
+        "name": "Babysitting",
+        "origin": "Philippe Lacheau · 2014",
+        "line": "Une soirée de baby-sitting qui dérape. Beaucoup.",
+        "giphyIds": [],
+        "giphyQuery": "Babysitting film"
+      },
+      "b": {
+        "name": "Alibi.com",
+        "origin": "Philippe Lacheau · 2017",
+        "line": "Une agence qui fabrique des alibis. Ça tourne mal.",
+        "giphyIds": [],
+        "giphyQuery": "Alibi.com film"
+      }
+    },
+    {
+      "id": "cinefr-le-grand-bain-le-sens-de-la-fete",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Grand Bain",
+        "origin": "Gilles Lellouche · 2018",
+        "line": "Des hommes en crise qui font de la natation synchronisée.",
+        "giphyIds": [],
+        "giphyQuery": "Le Grand Bain"
+      },
+      "b": {
+        "name": "Le Sens de la fête",
+        "origin": "Olivier Nakache et Éric Toledano · 2017",
+        "line": "Un mariage dans un château, et tout ce qui peut rater rate.",
+        "giphyIds": [],
+        "giphyQuery": "Le Sens de la fete"
+      }
+    },
+    {
+      "id": "cinefr-les-trois-mousquetaires-le-bossu",
+      "category": "cinefr",
+      "a": {
+        "name": "Les Trois Mousquetaires",
+        "origin": "Alexandre Dumas · 1844",
+        "line": "Un pour tous, tous pour un.",
+        "giphyIds": [],
+        "giphyQuery": "Three Musketeers"
+      },
+      "b": {
+        "name": "Le Bossu",
+        "origin": "Paul Féval · 1857",
+        "line": "« Si tu ne viens pas à Lagardère, Lagardère ira à toi ! »",
+        "giphyIds": [],
+        "giphyQuery": "Le Bossu Lagardere"
+      }
+    },
+    {
+      "id": "cinefr-fanfan-la-tulipe-angelique-marquise-des-anges",
+      "category": "cinefr",
+      "a": {
+        "name": "Fanfan la Tulipe",
+        "origin": "Christian-Jaque · 1952",
+        "line": "Un soldat, des duels, et des cascades.",
+        "giphyIds": [],
+        "giphyQuery": "Fanfan la Tulipe"
+      },
+      "b": {
+        "name": "Angélique, marquise des anges",
+        "origin": "Bernard Borderie · 1964",
+        "line": "Des robes, des intrigues, et des suites.",
+        "giphyIds": [],
+        "giphyQuery": "Angelique marquise des anges"
+      }
+    },
+    {
+      "id": "cinefr-le-pari-mais-qui-a-tue-pamela-rose",
+      "category": "cinefr",
+      "a": {
+        "name": "Le Pari",
+        "origin": "Didier Bourdon et Bernard Campan · 1997",
+        "line": "Deux beaux-frères qui parient d’arrêter de fumer.",
+        "giphyIds": [],
+        "giphyQuery": "Le Pari film"
+      },
+      "b": {
+        "name": "Mais qui a tué Pamela Rose ?",
+        "origin": "Éric Lartigau · 2003",
+        "line": "Deux agents du FBI très, très approximatifs.",
+        "giphyIds": [],
+        "giphyQuery": "Pamela Rose Kad Olivier"
+      }
+    },
+    {
+      "id": "internet-gif-jif",
+      "category": "internet",
+      "question": "Ça se prononce comment : GIF ou JIF ?",
+      "a": {
+        "name": "GIF",
+        "origin": "Comme dans « gare »",
+        "line": "Le « G » de « graphique ». Logique.",
+        "giphyIds": [],
+        "giphyQuery": "GIF"
+      },
+      "b": {
+        "name": "JIF",
+        "origin": "Comme dans « girafe »",
+        "line": "C’est ce que voulait son inventeur. Personne n’écoute.",
+        "giphyIds": [],
+        "giphyQuery": "jif peanut butter"
+      }
+    },
+    {
+      "id": "internet-rickroll-nyan-cat",
+      "category": "internet",
+      "a": {
+        "name": "Rickroll",
+        "origin": "Rick Astley · 1987",
+        "line": "Tu ne l’as pas vu venir. Encore.",
+        "giphyIds": [],
+        "giphyQuery": "Rick Astley rickroll"
+      },
+      "b": {
+        "name": "Nyan Cat",
+        "origin": "YouTube · 2011",
+        "line": "Un chat-gâteau qui laisse un arc-en-ciel derrière lui.",
+        "giphyIds": [],
+        "giphyQuery": "Nyan Cat"
+      }
+    },
+    {
+      "id": "internet-tiktok-youtube",
+      "category": "internet",
+      "a": {
+        "name": "TikTok",
+        "origin": "Chine · 2016",
+        "line": "Trente secondes, puis trois heures.",
+        "giphyIds": [],
+        "giphyQuery": "TikTok dance"
+      },
+      "b": {
+        "name": "YouTube",
+        "origin": "Californie · 2005",
+        "line": "« N’oubliez pas de liker et de vous abonner. »",
+        "giphyIds": [],
+        "giphyQuery": "YouTube subscribe"
+      }
+    },
+    {
+      "id": "internet-twitter-facebook",
+      "category": "internet",
+      "a": {
+        "name": "Twitter",
+        "origin": "Californie · 2006",
+        "line": "Des débats en 280 caractères.",
+        "giphyIds": [],
+        "giphyQuery": "Twitter bird"
+      },
+      "b": {
+        "name": "Facebook",
+        "origin": "Harvard · 2004",
+        "line": "Les anniversaires de gens que tu as perdus de vue.",
+        "giphyIds": [],
+        "giphyQuery": "Facebook like"
+      }
+    },
+    {
+      "id": "internet-instagram-snapchat",
+      "category": "internet",
+      "a": {
+        "name": "Instagram",
+        "origin": "Californie · 2010",
+        "line": "Des filtres, des brunchs et des couchers de soleil.",
+        "giphyIds": [],
+        "giphyQuery": "Instagram filter"
+      },
+      "b": {
+        "name": "Snapchat",
+        "origin": "Californie · 2011",
+        "line": "Des photos qui disparaissent. En théorie.",
+        "giphyIds": [],
+        "giphyQuery": "Snapchat ghost"
+      }
+    },
+    {
+      "id": "internet-doge-grumpy-cat",
+      "category": "internet",
+      "a": {
+        "name": "Doge",
+        "origin": "Japon · 2013",
+        "line": "Much meme. Very wow.",
+        "giphyIds": [],
+        "giphyQuery": "Doge shiba"
+      },
+      "b": {
+        "name": "Grumpy Cat",
+        "origin": "Arizona · 2012",
+        "line": "Ne sourit jamais. Gagne quand même.",
+        "giphyIds": [],
+        "giphyQuery": "Grumpy Cat"
+      }
+    },
+    {
+      "id": "internet-this-is-fine-le-petit-ami-distrait",
+      "category": "internet",
+      "a": {
+        "name": "« This is fine »",
+        "origin": "KC Green · 2013",
+        "line": "Tout va bien. Tout brûle.",
+        "giphyIds": [],
+        "giphyQuery": "this is fine dog"
+      },
+      "b": {
+        "name": "Le petit ami distrait",
+        "origin": "Photo de stock · 2015",
+        "line": "Regarde ailleurs, et Internet en a fait une saga.",
+        "giphyIds": [],
+        "giphyQuery": "distracted boyfriend meme"
+      }
+    },
+    {
+      "id": "internet-wikipedia-google",
+      "category": "internet",
+      "a": {
+        "name": "Wikipédia",
+        "origin": "Internet · 2001",
+        "line": "Tu cherchais un détail, tu lis sur les manchots à trois heures du matin.",
+        "giphyIds": [],
+        "giphyQuery": "Wikipedia"
+      },
+      "b": {
+        "name": "Google",
+        "origin": "Californie · 1998",
+        "line": "Toutes les réponses, et quelques pubs au passage.",
+        "giphyIds": [],
+        "giphyQuery": "Google search"
+      }
+    },
+    {
+      "id": "internet-les-captcha-mot-de-passe-oublie",
+      "category": "internet",
+      "a": {
+        "name": "Les CAPTCHA",
+        "origin": "Les formulaires",
+        "line": "Coche les feux de signalisation. Encore.",
+        "giphyIds": [],
+        "giphyQuery": "captcha robot"
+      },
+      "b": {
+        "name": "Mot de passe oublié",
+        "origin": "L’écran de connexion",
+        "line": "Le nouveau ne peut pas être l’ancien.",
+        "giphyIds": [],
+        "giphyQuery": "forgot password"
+      }
+    },
+    {
+      "id": "internet-ctrl-c-ctrl-v-ctrl-z",
+      "category": "internet",
+      "a": {
+        "name": "Ctrl+C, Ctrl+V",
+        "origin": "Ton clavier",
+        "line": "La base de toute carrière.",
+        "giphyIds": [],
+        "giphyQuery": "copy paste"
+      },
+      "b": {
+        "name": "Ctrl+Z",
+        "origin": "Ton clavier",
+        "line": "Le bouton qu’on voudrait dans la vraie vie.",
+        "giphyIds": [],
+        "giphyQuery": "undo"
+      }
+    },
+    {
+      "id": "internet-les-chats-d-internet-les-chiens-d-internet",
+      "category": "internet",
+      "a": {
+        "name": "Les chats d’Internet",
+        "origin": "YouTube",
+        "line": "Font tomber des objets et règnent sur le Web.",
+        "giphyIds": [],
+        "giphyQuery": "cat knocking things off table"
+      },
+      "b": {
+        "name": "Les chiens d’Internet",
+        "origin": "YouTube",
+        "line": "Font des têtes surprises et attendrissent tout le monde.",
+        "giphyIds": [],
+        "giphyQuery": "surprised dog"
+      }
+    },
+    {
+      "id": "internet-msn-messenger-skyblog",
+      "category": "internet",
+      "a": {
+        "name": "MSN Messenger",
+        "origin": "Microsoft · 1999",
+        "line": "Le wizz, les pseudos à rallonge, et « apparaître hors ligne ».",
+        "giphyIds": [],
+        "giphyQuery": "MSN Messenger"
+      },
+      "b": {
+        "name": "Skyblog",
+        "origin": "Skyrock · 2002",
+        "line": "Des paillettes, et « lâchez vos com’s ».",
+        "giphyIds": [],
+        "giphyQuery": "glitter text 2000s"
+      }
+    },
+    {
+      "id": "internet-netflix-disney",
+      "category": "internet",
+      "a": {
+        "name": "Netflix",
+        "origin": "Streaming · 2007",
+        "line": "« Êtes-vous toujours en train de regarder ? »",
+        "giphyIds": [],
+        "giphyQuery": "Netflix"
+      },
+      "b": {
+        "name": "Disney+",
+        "origin": "Streaming · 2019",
+        "line": "Des princesses, Star Wars et Marvel au même endroit.",
+        "giphyIds": [],
+        "giphyQuery": "Disney Plus"
+      }
+    },
+    {
+      "id": "internet-amazon-leboncoin",
+      "category": "internet",
+      "a": {
+        "name": "Amazon",
+        "origin": "Seattle · 1994",
+        "line": "Livré demain, même ce dont tu n’avais pas besoin.",
+        "giphyIds": [],
+        "giphyQuery": "Amazon package delivery"
+      },
+      "b": {
+        "name": "Leboncoin",
+        "origin": "France · 2006",
+        "line": "« Toujours disponible ? »",
+        "giphyIds": [],
+        "giphyQuery": "garage sale"
+      }
+    },
+    {
+      "id": "internet-discord-slack",
+      "category": "internet",
+      "a": {
+        "name": "Discord",
+        "origin": "Internet · 2015",
+        "line": "Des serveurs pour tout, et même pour rien.",
+        "giphyIds": [],
+        "giphyQuery": "Discord"
+      },
+      "b": {
+        "name": "Slack",
+        "origin": "Internet · 2013",
+        "line": "Le bureau, avec des notifications en plus.",
+        "giphyIds": [],
+        "giphyQuery": "Slack notification"
+      }
+    },
+    {
+      "id": "internet-twitch-la-tele",
+      "category": "internet",
+      "a": {
+        "name": "Twitch",
+        "origin": "Internet · 2011",
+        "line": "Regarder des gens jouer. Et c’est génial.",
+        "giphyIds": [],
+        "giphyQuery": "Twitch streamer"
+      },
+      "b": {
+        "name": "La télé",
+        "origin": "Ton salon · années 1950",
+        "line": "Un programme imposé, et le zapping libre.",
+        "giphyIds": [],
+        "giphyQuery": "vintage television"
+      }
+    },
+    {
+      "id": "internet-commentaires-youtube-avis-google",
+      "category": "internet",
+      "a": {
+        "name": "Commentaires YouTube",
+        "origin": "Sous la vidéo",
+        "line": "« Qui écoute encore ça en 2025 ? »",
+        "giphyIds": [],
+        "giphyQuery": "youtube comments"
+      },
+      "b": {
+        "name": "Avis Google",
+        "origin": "Sur la carte",
+        "line": "Une étoile, parce qu’il pleuvait.",
+        "giphyIds": [],
+        "giphyQuery": "one star review"
+      }
+    },
+    {
+      "id": "internet-chuck-norris-facts-jean-claude-van-damme",
+      "category": "internet",
+      "a": {
+        "name": "Chuck Norris Facts",
+        "origin": "Internet · 2005",
+        "line": "Chuck Norris a compté jusqu’à l’infini. Deux fois.",
+        "giphyIds": [],
+        "giphyQuery": "Chuck Norris"
+      },
+      "b": {
+        "name": "Jean-Claude Van Damme",
+        "origin": "Interviews · années 2000",
+        "line": "« Aware. »",
+        "giphyIds": [],
+        "giphyQuery": "Jean-Claude Van Damme"
+      }
+    },
+    {
+      "id": "internet-wi-fi-gratuit-batterie-a-100",
+      "category": "internet",
+      "a": {
+        "name": "Wi-Fi gratuit",
+        "origin": "Le café du coin",
+        "line": "Le vrai luxe des temps modernes.",
+        "giphyIds": [],
+        "giphyQuery": "free wifi"
+      },
+      "b": {
+        "name": "Batterie à 100 %",
+        "origin": "Ton téléphone, le matin",
+        "line": "Un état qui ne dure jamais.",
+        "giphyIds": [],
+        "giphyQuery": "phone battery full"
+      }
+    },
+    {
+      "id": "internet-la-banniere-cookies-la-pub-avant-la-video",
+      "category": "internet",
+      "a": {
+        "name": "La bannière cookies",
+        "origin": "Tous les sites",
+        "line": "Accepter, refuser, ou paramétrer pendant dix minutes.",
+        "giphyIds": [],
+        "giphyQuery": "cookies"
+      },
+      "b": {
+        "name": "La pub avant la vidéo",
+        "origin": "YouTube",
+        "line": "« Ignorer dans 5 secondes. »",
+        "giphyIds": [],
+        "giphyQuery": "skip ad"
+      }
+    },
+    {
+      "id": "internet-je-lis-tout-j-accepte-direct",
+      "category": "internet",
+      "question": "Les conditions d’utilisation : tu lis ou tu acceptes ?",
+      "a": {
+        "name": "Je lis tout",
+        "origin": "Les conditions d’utilisation",
+        "line": "Il y a forcément quelqu’un qui le fait.",
+        "giphyIds": [],
+        "giphyQuery": "reading terms and conditions"
+      },
+      "b": {
+        "name": "J’accepte direct",
+        "origin": "Les conditions d’utilisation",
+        "line": "Tu as peut-être cédé ton âme. Pas grave.",
+        "giphyIds": [],
+        "giphyQuery": "I agree button"
+      }
+    },
+    {
+      "id": "internet-repondre-a-tous-copie-cachee",
+      "category": "internet",
+      "a": {
+        "name": "Répondre à tous",
+        "origin": "Ta boîte mail",
+        "line": "La catastrophe en un clic.",
+        "giphyIds": [],
+        "giphyQuery": "reply all email"
+      },
+      "b": {
+        "name": "Copie cachée",
+        "origin": "Ta boîte mail",
+        "line": "La discrétion. Ou le coup bas.",
+        "giphyIds": [],
+        "giphyQuery": "secret email"
+      }
+    },
+    {
+      "id": "internet-accuse-de-lecture-active-accuse-de-lecture-desactive",
+      "category": "internet",
+      "a": {
+        "name": "Accusé de lecture activé",
+        "origin": "Ta messagerie",
+        "line": "Tu sais qu’il a lu. Il sait que tu sais.",
+        "giphyIds": [],
+        "giphyQuery": "seen message"
+      },
+      "b": {
+        "name": "Accusé de lecture désactivé",
+        "origin": "Ta messagerie",
+        "line": "Le doute, pour l’éternité.",
+        "giphyIds": [],
+        "giphyQuery": "waiting for reply"
+      }
+    },
+    {
+      "id": "internet-notes-vocales-messages-ecrits",
+      "category": "internet",
+      "a": {
+        "name": "Notes vocales",
+        "origin": "Ta messagerie",
+        "line": "Cinq minutes d’audio pour dire « oui ».",
+        "giphyIds": [],
+        "giphyQuery": "voice message"
+      },
+      "b": {
+        "name": "Messages écrits",
+        "origin": "Ta messagerie",
+        "line": "Lus en trois secondes, réponse en trois jours.",
+        "giphyIds": [],
+        "giphyQuery": "texting"
+      }
+    },
+    {
+      "id": "internet-lol-mdr",
+      "category": "internet",
+      "a": {
+        "name": "LOL",
+        "origin": "L’anglais",
+        "line": "International et sobre.",
+        "giphyIds": [],
+        "giphyQuery": "lol laughing"
+      },
+      "b": {
+        "name": "MDR",
+        "origin": "Le français",
+        "line": "Mort de rire. Vraiment ?",
+        "giphyIds": [],
+        "giphyQuery": "laughing hard"
+      }
+    },
+    {
+      "id": "internet-les-chaines-de-mails-les-images-bon-mercredi",
+      "category": "internet",
+      "a": {
+        "name": "Les chaînes de mails",
+        "origin": "Années 2000",
+        "line": "Envoie-la à dix personnes, sinon malheur.",
+        "giphyIds": [],
+        "giphyQuery": "chain email"
+      },
+      "b": {
+        "name": "Les images « Bon mercredi »",
+        "origin": "Le groupe WhatsApp de la famille",
+        "line": "Des fleurs, des paillettes, et beaucoup d’amour.",
+        "giphyIds": [],
+        "giphyQuery": "good morning flowers"
+      }
+    },
+    {
+      "id": "internet-keep-calm-winter-is-coming",
+      "category": "internet",
+      "a": {
+        "name": "« Keep calm »",
+        "origin": "Internet · 2009",
+        "line": "Garder son calme, sur tous les mugs du monde.",
+        "giphyIds": [],
+        "giphyQuery": "keep calm"
+      },
+      "b": {
+        "name": "« Winter is coming »",
+        "origin": "Game of Thrones · 2011",
+        "line": "Pour annoncer n’importe quoi.",
+        "giphyIds": [],
+        "giphyQuery": "winter is coming"
+      }
+    },
+    {
+      "id": "internet-ice-bucket-challenge-harlem-shake",
+      "category": "internet",
+      "a": {
+        "name": "Ice Bucket Challenge",
+        "origin": "Internet · 2014",
+        "line": "Un seau d’eau glacée, pour la bonne cause.",
+        "giphyIds": [],
+        "giphyQuery": "ice bucket challenge"
+      },
+      "b": {
+        "name": "Harlem Shake",
+        "origin": "Internet · 2013",
+        "line": "Trente secondes, un casque, puis le chaos.",
+        "giphyIds": [],
+        "giphyQuery": "Harlem Shake"
+      }
+    },
+    {
+      "id": "internet-gangnam-style-despacito",
+      "category": "internet",
+      "a": {
+        "name": "Gangnam Style",
+        "origin": "Psy · 2012",
+        "line": "La première vidéo à un milliard de vues.",
+        "giphyIds": [],
+        "giphyQuery": "Gangnam Style"
+      },
+      "b": {
+        "name": "Despacito",
+        "origin": "Luis Fonsi · 2017",
+        "line": "Le record suivant, en plus lent.",
+        "giphyIds": [],
+        "giphyQuery": "Despacito"
+      }
+    },
+    {
+      "id": "internet-keyboard-cat-dramatic-chipmunk",
+      "category": "internet",
+      "a": {
+        "name": "Keyboard Cat",
+        "origin": "Internet · 2007",
+        "line": "Un chat en t-shirt qui joue du clavier.",
+        "giphyIds": [],
+        "giphyQuery": "Keyboard Cat"
+      },
+      "b": {
+        "name": "Dramatic Chipmunk",
+        "origin": "Internet · 2007",
+        "line": "Ce n’est même pas un écureuil. C’est un chien de prairie.",
+        "giphyIds": [],
+        "giphyQuery": "dramatic chipmunk"
+      }
+    },
+    {
+      "id": "internet-trollface-forever-alone",
+      "category": "internet",
+      "a": {
+        "name": "Trollface",
+        "origin": "Internet · 2008",
+        "line": "Un sourire, une provocation.",
+        "giphyIds": [],
+        "giphyQuery": "trollface"
+      },
+      "b": {
+        "name": "Forever Alone",
+        "origin": "Internet · 2010",
+        "line": "Un visage, et toute la solitude du monde.",
+        "giphyIds": [],
+        "giphyQuery": "forever alone"
+      }
+    },
+    {
+      "id": "internet-erreur-404-l-ecran-bleu",
+      "category": "internet",
+      "a": {
+        "name": "Erreur 404",
+        "origin": "Le Web",
+        "line": "La page a perdu son débat.",
+        "giphyIds": [],
+        "giphyQuery": "404 error"
+      },
+      "b": {
+        "name": "L’écran bleu",
+        "origin": "Windows",
+        "line": "Un problème a été rencontré. Encore.",
+        "giphyIds": [],
+        "giphyQuery": "blue screen of death"
+      }
+    },
+    {
+      "id": "internet-le-wi-fi-du-voisin-le-partage-de-connexion",
+      "category": "internet",
+      "a": {
+        "name": "Le Wi-Fi du voisin",
+        "origin": "L’immeuble",
+        "line": "Le mot de passe, c’est « 12345678 ».",
+        "giphyIds": [],
+        "giphyQuery": "wifi signal"
+      },
+      "b": {
+        "name": "Le partage de connexion",
+        "origin": "Ton téléphone",
+        "line": "Ton forfait pleure en silence.",
+        "giphyIds": [],
+        "giphyQuery": "phone hotspot"
+      }
+    },
+    {
+      "id": "internet-le-prince-heritier-par-mail-le-colis-en-attente",
+      "category": "internet",
+      "a": {
+        "name": "Le prince héritier par mail",
+        "origin": "Années 2000",
+        "line": "Un héritage de dix millions, contre tes coordonnées bancaires.",
+        "giphyIds": [],
+        "giphyQuery": "scam email"
+      },
+      "b": {
+        "name": "Le colis en attente",
+        "origin": "Ton SMS",
+        "line": "Votre colis attend. Il attend toujours.",
+        "giphyIds": [],
+        "giphyQuery": "package delivery waiting"
+      }
+    },
+    {
+      "id": "internet-among-us-fall-guys",
+      "category": "internet",
+      "a": {
+        "name": "Among Us",
+        "origin": "InnerSloth · 2018",
+        "line": "« Imposteur ! »",
+        "giphyIds": [],
+        "giphyQuery": "Among Us"
+      },
+      "b": {
+        "name": "Fall Guys",
+        "origin": "Mediatonic · 2020",
+        "line": "Des bonbons sur pattes qui tombent.",
+        "giphyIds": [],
+        "giphyQuery": "Fall Guys"
+      }
+    },
+    {
+      "id": "internet-encore-une-video-dodo",
+      "category": "internet",
+      "question": "Il est minuit : tu scrolles ou tu dors ?",
+      "a": {
+        "name": "Encore une vidéo",
+        "origin": "Ton lit, minuit",
+        "line": "Il est deux heures. Tu ne sais pas comment.",
+        "giphyIds": [],
+        "giphyQuery": "scrolling phone bed"
+      },
+      "b": {
+        "name": "Dodo",
+        "origin": "Ton lit, minuit",
+        "line": "Le téléphone posé loin, et la sagesse.",
+        "giphyIds": [],
+        "giphyQuery": "sleeping"
+      }
+    },
+    {
+      "id": "internet-clubhouse-bereal",
+      "category": "internet",
+      "a": {
+        "name": "Clubhouse",
+        "origin": "Internet · 2020",
+        "line": "Le réseau social vocal qui a fait pschitt.",
+        "giphyIds": [],
+        "giphyQuery": "podcast microphone"
+      },
+      "b": {
+        "name": "BeReal",
+        "origin": "Internet · 2020",
+        "line": "Deux minutes pour poster, toujours au mauvais moment.",
+        "giphyIds": [],
+        "giphyQuery": "selfie camera"
+      }
+    },
+    {
+      "id": "internet-wordle-2048",
+      "category": "internet",
+      "a": {
+        "name": "Wordle",
+        "origin": "Internet · 2021",
+        "line": "Cinq lettres, six essais, une obsession.",
+        "giphyIds": [],
+        "giphyQuery": "Wordle"
+      },
+      "b": {
+        "name": "2048",
+        "origin": "Internet · 2014",
+        "line": "Des tuiles qui fusionnent, jusqu’à 2048.",
+        "giphyIds": [],
+        "giphyQuery": "2048 game"
+      }
+    },
+    {
+      "id": "internet-pokemon-go-geocaching",
+      "category": "internet",
+      "a": {
+        "name": "Pokémon GO",
+        "origin": "Niantic · 2016",
+        "line": "Tout le monde dans les parcs, téléphone à la main.",
+        "giphyIds": [],
+        "giphyQuery": "Pokemon Go"
+      },
+      "b": {
+        "name": "Geocaching",
+        "origin": "Internet · 2000",
+        "line": "Une chasse au trésor, avec un GPS.",
+        "giphyIds": [],
+        "giphyQuery": "treasure hunt"
+      }
+    },
+    {
+      "id": "internet-woman-yelling-at-a-cat-le-meme-drake",
+      "category": "internet",
+      "a": {
+        "name": "« Woman yelling at a cat »",
+        "origin": "Internet · 2019",
+        "line": "Une femme qui crie, un chat qui s’en fiche.",
+        "giphyIds": [],
+        "giphyQuery": "woman yelling at cat"
+      },
+      "b": {
+        "name": "Le mème Drake",
+        "origin": "Internet · 2015",
+        "line": "Non à ça. Oui à ça.",
+        "giphyIds": [],
+        "giphyQuery": "Drake hotline bling"
+      }
+    },
+    {
+      "id": "internet-asmr-les-videos-satisfaisantes",
+      "category": "internet",
+      "a": {
+        "name": "ASMR",
+        "origin": "Internet · 2010",
+        "line": "Des chuchotements qui donnent des frissons.",
+        "giphyIds": [],
+        "giphyQuery": "ASMR"
+      },
+      "b": {
+        "name": "Les vidéos satisfaisantes",
+        "origin": "Internet",
+        "line": "Du sable coloré coupé en tranches.",
+        "giphyIds": [],
+        "giphyQuery": "oddly satisfying"
+      }
+    },
+    {
+      "id": "internet-unboxing-videos-de-reaction",
+      "category": "internet",
+      "a": {
+        "name": "Unboxing",
+        "origin": "YouTube",
+        "line": "Ouvrir un carton, devant des millions de gens.",
+        "giphyIds": [],
+        "giphyQuery": "unboxing"
+      },
+      "b": {
+        "name": "Vidéos de réaction",
+        "origin": "YouTube",
+        "line": "Regarder quelqu’un regarder une vidéo.",
+        "giphyIds": [],
+        "giphyQuery": "reaction face"
+      }
+    },
+    {
+      "id": "internet-navigation-privee-historique-complet",
+      "category": "internet",
+      "a": {
+        "name": "Navigation privée",
+        "origin": "Ton navigateur",
+        "line": "Personne ne saura. À part ton fournisseur d’accès.",
+        "giphyIds": [],
+        "giphyQuery": "incognito"
+      },
+      "b": {
+        "name": "Historique complet",
+        "origin": "Ton navigateur",
+        "line": "Toutes tes recherches de trois heures du matin, archivées.",
+        "giphyIds": [],
+        "giphyQuery": "browser history"
+      }
+    },
+    {
+      "id": "internet-le-modem-56k-la-fibre",
+      "category": "internet",
+      "a": {
+        "name": "Le modem 56k",
+        "origin": "Années 1990",
+        "line": "Des bruits stridents et une image qui charge ligne par ligne.",
+        "giphyIds": [],
+        "giphyQuery": "dial up modem"
+      },
+      "b": {
+        "name": "La fibre",
+        "origin": "Années 2010",
+        "line": "Tout télécharger en dix secondes, sauf la patience.",
+        "giphyIds": [],
+        "giphyQuery": "fast internet"
+      }
+    },
+    {
+      "id": "internet-les-forums-reddit",
+      "category": "internet",
+      "a": {
+        "name": "Les forums",
+        "origin": "Années 2000",
+        "line": "« Up ! », et des débats sans fin.",
+        "giphyIds": [],
+        "giphyQuery": "old forum"
+      },
+      "b": {
+        "name": "Reddit",
+        "origin": "Internet · 2005",
+        "line": "Une communauté pour tout. Vraiment tout.",
+        "giphyIds": [],
+        "giphyQuery": "Reddit"
+      }
+    },
+    {
+      "id": "internet-les-emoticones-les-emojis",
+      "category": "internet",
+      "a": {
+        "name": "Les émoticônes",
+        "origin": "Ton clavier",
+        "line": "Deux points, un tiret, une parenthèse. L’élégance.",
+        "giphyIds": [],
+        "giphyQuery": "smiley face text"
+      },
+      "b": {
+        "name": "Les emojis",
+        "origin": "Ton téléphone",
+        "line": "Un dessin pour chaque émotion, et trop de cœurs.",
+        "giphyIds": [],
+        "giphyQuery": "emoji"
+      }
+    },
+    {
+      "id": "internet-le-wi-fi-du-tgv-la-4g-dans-un-tunnel",
+      "category": "internet",
+      "a": {
+        "name": "Le Wi-Fi du TGV",
+        "origin": "Le train",
+        "line": "Connecté. Puis plus. Puis connecté.",
+        "giphyIds": [],
+        "giphyQuery": "train wifi"
+      },
+      "b": {
+        "name": "La 4G dans un tunnel",
+        "origin": "Le tunnel",
+        "line": "Un concept.",
+        "giphyIds": [],
+        "giphyQuery": "no signal"
+      }
+    },
+    {
+      "id": "internet-la-capture-d-ecran-le-lien",
+      "category": "internet",
+      "a": {
+        "name": "La capture d’écran",
+        "origin": "Ton téléphone",
+        "line": "La preuve éternelle de ce que tu as dit.",
+        "giphyIds": [],
+        "giphyQuery": "screenshot"
+      },
+      "b": {
+        "name": "Le lien",
+        "origin": "Ton navigateur",
+        "line": "Page introuvable, deux ans plus tard.",
+        "giphyIds": [],
+        "giphyQuery": "broken link"
+      }
+    },
+    {
+      "id": "internet-bug-fonctionnalite",
+      "category": "internet",
+      "question": "Ce comportement bizarre : bug ou fonctionnalité ?",
+      "a": {
+        "name": "Bug",
+        "origin": "Le code",
+        "line": "Un comportement inattendu.",
+        "giphyIds": [],
+        "giphyQuery": "computer bug"
+      },
+      "b": {
+        "name": "Fonctionnalité",
+        "origin": "Le code",
+        "line": "Un bug, avec une bonne attitude.",
+        "giphyIds": [],
+        "giphyQuery": "feature not a bug"
+      }
+    },
+    {
+      "id": "internet-selfie-photo-de-paysage",
+      "category": "internet",
+      "a": {
+        "name": "Selfie",
+        "origin": "Bras tendu",
+        "line": "Le bon angle, au quinzième essai.",
+        "giphyIds": [],
+        "giphyQuery": "selfie"
+      },
+      "b": {
+        "name": "Photo de paysage",
+        "origin": "Le belvédère",
+        "line": "Ça rendait mieux en vrai.",
+        "giphyIds": [],
+        "giphyQuery": "landscape photo"
       }
     }
   ]
