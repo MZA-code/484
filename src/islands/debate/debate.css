@@ -1,0 +1,506 @@
+/* Îlot de débat, au design du prototype. Les variables (--bg, --pink…) viennent de global.css. */
+
+.debate {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ─── Onglets de catégorie (carrés, bordure crème) ───────────────────────── */
+
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-tab {
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 2px solid var(--fg);
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    color 120ms ease;
+}
+
+.category-tab:hover {
+  background: rgb(245 241 232 / 0.12);
+}
+
+.category-tab[aria-pressed='true'] {
+  background: var(--fg);
+  color: var(--ink);
+}
+
+/* ─── En-tête : numéro, sous-titre, question ─────────────────────────────── */
+
+.debate-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+.debate-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  line-height: 1;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.debate-subtitle {
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.debate-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.debate-question {
+  animation: card-enter 160ms ease-out both;
+}
+
+.debate-question.is-leaving {
+  animation: card-leave 120ms ease-in forwards;
+}
+
+.debate-category {
+  margin-bottom: 6px;
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.debate-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4.4vw, 3.5rem);
+  line-height: 1;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+}
+
+/* ─── Arène : deux teams et la pastille VS ───────────────────────────────── */
+
+.arena {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.vs {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--fg);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  animation: wiggle 1.2s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+.team-card {
+  flex: 1 1 340px;
+  min-width: 0;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  border: 0;
+  border-radius: 0;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 8px 8px 0 var(--fg);
+  font-family: var(--font-body);
+  text-align: left;
+  cursor: pointer;
+  animation: card-enter 160ms ease-out both;
+  transition: transform 150ms ease;
+}
+
+.team-card:hover {
+  transform: translateY(-6px) rotate(-1deg);
+}
+
+.team-card:active {
+  transform: translateY(-2px) rotate(-0.5deg) scale(0.99);
+}
+
+.team-card.is-leaving {
+  animation: card-leave 120ms ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes card-leave {
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.92) rotate(3deg);
+  }
+}
+
+.team-tag {
+  align-self: flex-start;
+  padding: 4px 10px;
+  background: var(--ink);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Cadre 16:9 du GIF : rayé, avec le nom, tant qu'il n'y a pas de GIF. */
+.team-media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  background: repeating-linear-gradient(
+    45deg,
+    rgb(0 0 0 / 0.1) 0 14px,
+    rgb(0 0 0 / 0.02) 14px 28px
+  );
+}
+
+.team-media-name {
+  max-width: 90%;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.team-origin {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.team-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.125rem, 4.2vw, 3.375rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.team-line {
+  font-size: 1.125rem;
+  font-style: italic;
+}
+
+/* ─── Bouton « Je ne connais aucun des deux » ────────────────────────────── */
+
+.debate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.skip-button {
+  min-height: 48px;
+  padding: 8px 20px;
+  border: 2px solid var(--fg);
+  background: none;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.skip-button:hover {
+  background: rgb(245 241 232 / 0.12);
+}
+
+/* ─── Résultat et palier ─────────────────────────────────────────────────── */
+
+.result-dock.is-docked {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  background: #1e1e1e;
+  border-top: 2px solid #3a3a3a;
+  box-shadow: 0 -12px 32px rgb(0 0 0 / 0.55);
+}
+
+.result-choice {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.result-choice span {
+  display: inline-block;
+}
+
+.result-bar {
+  display: flex;
+  height: 14px;
+  background: #3a3a3a;
+}
+
+.result-bar-fill {
+  display: block;
+  height: 100%;
+  transform-origin: left;
+  animation: bar-grow 400ms ease-out both;
+}
+
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.result-first {
+  color: var(--fg-muted);
+}
+
+.result-quip {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 3vw, 2.25rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* Points de suspension animés pendant l'attente du pourcentage. */
+.result-pending span {
+  display: inline-block;
+  animation: pending-dot 900ms ease-in-out infinite;
+}
+
+.result-pending span:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.result-pending span:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+@keyframes pending-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+.result-hint {
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+.hint-touch {
+  display: none;
+}
+
+/* Sur écran tactile, l'aide clavier ne sert à rien : on invite plutôt à choisir. */
+@media (hover: none) {
+  .hint-keys {
+    display: none;
+  }
+
+  .hint-touch {
+    display: inline;
+  }
+}
+
+.milestone {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 24px;
+  background: var(--pink);
+  color: var(--ink);
+}
+
+.milestone-text {
+  flex: 1 1 420px;
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 3vw, 2.375rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.milestone-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 18px;
+  background: var(--ink);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/*
+ * Mobile : les cartes s'empilent, et les onglets tiennent sur une seule ligne
+ * qu'on fait défiler, pour que la première team reste visible sans défiler.
+ */
+@media (max-width: 720px) {
+  .category-tabs {
+    flex-wrap: nowrap;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 2px var(--gutter) 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .category-tab {
+    flex: none;
+  }
+
+  .debate {
+    gap: 16px;
+  }
+
+  .debate-number {
+    font-size: 2rem;
+  }
+
+  .team-card {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .result {
+    padding: 14px 16px;
+  }
+
+  .vs {
+    width: 64px;
+    height: 64px;
+    font-size: 1.75rem;
+  }
+}
+
+/* ─── Panneaux ───────────────────────────────────────────────────────────── */
+
+.panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.panel {
+  padding: 20px;
+  border: 2px solid #3a3a3a;
+}
+
+.panel-title {
+  margin-bottom: 12px;
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.panel-empty {
+  color: var(--fg-muted);
+  font-size: 0.9375rem;
+}
+
+.teams-list,
+.profile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.teams-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+
+.teams-versus,
+.teams-percent {
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.teams-percent {
+  margin-left: auto;
+}
+
+.panel-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 12px;
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-underline-offset: 4px;
+}

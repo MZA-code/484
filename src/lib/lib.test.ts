@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CARD_COLORS, colorFor } from './color';
+import { CARD_COLORS, colorFor, teamColors } from './color';
 import { formatText, plural } from './format';
 
 describe('colorFor', () => {
@@ -16,6 +16,16 @@ describe('colorFor', () => {
   it('spreads ids across the palette', () => {
     const used = new Set(Array.from({ length: 200 }, (_, i) => colorFor(`id-${i}`)));
     expect(used.size).toBe(CARD_COLORS.length);
+  });
+});
+
+describe('teamColors', () => {
+  it('gives two different, stable colors for every rivalry', () => {
+    for (let i = 0; i < 500; i++) {
+      const [a, b] = teamColors(`rivalry-${i}`);
+      expect(a).not.toBe(b);
+      expect(teamColors(`rivalry-${i}`)).toEqual([a, b]);
+    }
   });
 });
 

@@ -1,49 +1,56 @@
 ---
 /**
- * Accueil : titre géant, chapeau, cinq cartes de thème (« Tout mélangé » d'abord).
+ * Accueil : titre géant, chapeau, une carte par catégorie (« Tout mélangé » d'abord).
  * Aucun texte en dur : tout vient de `content/`.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { contenders, themes, ui } from '../data/content';
-import { MIXED_THEME } from '../engine/catalog';
-import { CARD_COLORS } from '../lib/color';
+import { categories, rivalries, ui } from '../data/content';
+import { MIXED_CATEGORY } from '../engine/debate';
 import { formatText } from '../lib/format';
 
-const countFor = (themeId: string) =>
-  themeId === MIXED_THEME
-    ? contenders.length
-    : contenders.filter((c) => c.theme === themeId).length;
+/** Ordre des couleurs du prototype : crème, jaune, rose, bleu, orange, puis le reste de la palette. */
+const HOME_COLORS = [
+  'var(--cream)',
+  'var(--yellow)',
+  'var(--pink)',
+  'var(--blue)',
+  'var(--orange)',
+  'var(--green)',
+  'var(--purple)',
+  'var(--red)',
+];
+
+const countFor = (id: string) =>
+  id === MIXED_CATEGORY ? rivalries.length : rivalries.filter((r) => r.category === id).length;
 
 const cards = [
-  { id: MIXED_THEME, ...ui.home.mixedTheme },
-  ...themes.map((t) => ({ id: t.id, label: t.label, tagline: t.tagline })),
+  { id: MIXED_CATEGORY, ...ui.home.mixedTheme },
+  ...categories.map((c) => ({ id: c.id, label: c.label, tagline: c.tagline })),
 ].map((card, i) => ({
   ...card,
   href: `/jouer?theme=${card.id}`,
   count: formatText(ui.home.themeCount, { n: countFor(card.id) }),
-  color: CARD_COLORS[i % CARD_COLORS.length],
+  color: HOME_COLORS[i % HOME_COLORS.length],
 }));
 ---
 
 <BaseLayout>
   <section class="hero container">
-    <h1 class="hero-title">
-      {ui.home.title.map((line) => (
-        <span>{line}</span>
-      ))}
-    </h1>
-    <p class="hero-intro">{ui.home.intro}</p>
-  </section>
+    <div class="hero-text">
+      <h1 class="hero-title">
+        {ui.home.title.map((line) => (
+          <span>{line}</span>
+        ))}
+      </h1>
+      <p class="hero-intro">{ui.home.intro}</p>
+    </div>
 
-  <section class="themes container" aria-labelledby="themes-title">
-    <h2 id="themes-title" class="label themes-title">
-      {ui.home.themesLabel}
-    </h2>
+    <h2 class="visually-hidden">{ui.home.themesLabel}</h2>
     <ul class="theme-grid">
       {cards.map((card) => (
         <li>
           <a class="theme-card" href={card.href} style={`--card: ${card.color}`}>
-            <span class="label theme-count">{card.count}</span>
+            <span class="theme-count">{card.count}</span>
             <span class="theme-name">{card.label}</span>
             <span class="theme-tagline">{card.tagline}</span>
             <span class="theme-play">{ui.home.play}</span>
@@ -57,18 +64,30 @@ const cards = [
 
 <style>
   .hero {
-    padding-top: clamp(24px, 6vw, 72px);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-top: 24px;
   }
 
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /*
+   * La phrase du prototype, en Anton géant ; la troisième ligne en rose.
+   * Taille calculée pour que « un portfolio sérieux. » tienne sur une ligne de 360 à 1280 px.
+   */
   .hero-title {
     font-family: var(--font-display);
-    /* Taille calculée pour que la ligne la plus longue (« un portfolio sérieux. ») tienne
-       sur une ligne, de 360 px à 1280 px ; interligne de 1 pour que les accents respirent. */
-    font-size: clamp(2rem, 9.2vw, 7.5rem);
-    line-height: 1;
+    font-size: clamp(2rem, 9.4vw, 8rem);
+    /* Assez d'interligne pour que les accents (É) et la cédille (Ç) ne mordent pas sur les lignes voisines. */
+    line-height: 1.1;
     text-transform: uppercase;
-    letter-spacing: 0.005em;
-    overflow-wrap: break-word;
+    /* Place pour la cédille de « ÇA » au-dessus du chapeau. */
+    padding-bottom: 0.08em;
   }
 
   .hero-title span {
@@ -80,25 +99,14 @@ const cards = [
   }
 
   .hero-intro {
-    max-width: 40rem;
-    margin-top: clamp(20px, 3vw, 32px);
-    color: var(--fg-muted);
-    font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
-  }
-
-  .themes {
-    margin-top: clamp(40px, 7vw, 88px);
-  }
-
-  .themes-title {
-    margin-bottom: 20px;
-    color: var(--fg-muted);
+    max-width: 680px;
+    font-size: 1.25rem;
   }
 
   .theme-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    gap: 16px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -107,16 +115,15 @@ const cards = [
   .theme-card {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     height: 100%;
-    min-height: 220px;
+    min-height: 250px;
     padding: 22px;
-    border-radius: var(--radius);
     background: var(--card);
     color: var(--ink);
-    box-shadow: var(--shadow);
+    box-shadow: 6px 6px 0 var(--fg);
     text-decoration: none;
-    transition: transform 160ms ease;
+    transition: transform 150ms ease;
   }
 
   .theme-card:hover {
@@ -124,30 +131,34 @@ const cards = [
   }
 
   .theme-count {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
     font-weight: 700;
+    text-transform: uppercase;
   }
 
   .theme-name {
     font-family: var(--font-display);
-    font-size: clamp(1.875rem, 3.4vw, 2.5rem);
+    font-size: 2.125rem;
     line-height: 1;
     text-transform: uppercase;
   }
 
   .theme-tagline {
-    flex: 1;
     font-size: 0.9375rem;
+    line-height: 1.4;
   }
 
   .theme-play {
+    margin-top: auto;
     font-family: var(--font-mono);
+    font-size: 0.875rem;
     font-weight: 700;
   }
 
   .footnote {
-    margin-top: 40px;
     color: var(--fg-muted);
     font-family: var(--font-mono);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
 </style>

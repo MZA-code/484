@@ -2,7 +2,7 @@
 
 Team Batman ou team Superman ? Chat ou chien ? Pain au chocolat ou chocolatine ? Des rivalités écrites à la main, tu choisis ton camp, et tu découvres si le reste du monde est d’accord.
 
-> État : **pivot « Team X ou Team Y », phase 1** (moteur, contenu et mode console des débats). L’interface web affiche encore l’ancien mode « duels » jusqu’à la phase 2 du pivot. Prototype local, pas encore déployé. Prototype local, pas encore déployé.
+> État : **pivot « Team X ou Team Y », phase 2** (interface des débats au design du prototype). Les votes mondiaux, le Hall of Fame et les GIF des teams sont adaptés en phase 3 : d’ici là, pas de pourcentage ni de GIF sur les débats. Prototype local, pas encore déployé.
 
 ## Prérequis
 

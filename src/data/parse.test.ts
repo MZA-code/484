@@ -95,8 +95,8 @@ describe('invalid content is rejected', () => {
 
   it('UI template missing its placeholder', () => {
     const ui = structuredClone(rawUi);
-    ui.duel.retired = 'Il prend sa retraite.';
-    expect(() => parseContent(rawContenders, ui)).toThrow(/\{name\}/);
+    ui.debate.choice = 'Tu es team quelqu’un';
+    expect(() => parseContent(rawContenders, ui)).toThrow(/{name}/);
   });
 
   it('a quip category with a single entry', () => {

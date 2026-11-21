@@ -19,42 +19,39 @@
   },
   "home": {
     "title": ["Il aurait pu faire", "un portfolio sérieux.", "Il a préféré ça."],
-    "intro": "Des duels entre légendes de la pop culture. Tu choisis, le gagnant reste, un nouveau challenger arrive. Ça ne s’arrête jamais. C’est voulu, et c’est un peu inquiétant.",
+    "intro": "Batman ou Superman. Chat ou chien. Pain au chocolat ou chocolatine. Tu choisis ton camp, tu découvres si le reste du monde est d’accord. Ça ne s’arrête jamais. C’est voulu, et c’est un peu inquiétant.",
     "footnote": "Durée moyenne d’une visite : on ne sait pas, personne n’est encore reparti.",
     "mixedTheme": {
       "label": "Tout mélangé",
-      "tagline": "Le chaos total. HAL 9000 contre la 4L. Tu verras bien."
+      "tagline": "Toutes les rivalités, dans le désordre. Batman, puis la raclette. Tu verras bien."
     },
     "themesLabel": "Choisis ton arène",
-    "themeCount": "{n} prétendants · ∞ duels",
+    "themeCount": "{n} rivalités · ∞ débats",
     "play": "Jouer →"
   },
-  "duel": {
-    "pageTitle": "Duels",
-    "number": "Duel n° {n}",
-    "themesLabel": "Thèmes",
-    "vs": "VS",
-    "choose": "Choisir {name}",
-    "keysHint": "← et → pour choisir · Échap pour revenir à l’accueil",
-    "loading": "On sort les prétendants du placard…",
-    "noscript": "Ce jeu a besoin de JavaScript. Comme la plupart des robots de ce site.",
-    "milestoneLink": "On en parle sur LinkedIn →",
-    "subtitle": "Ça ne s’arrête jamais. Tu peux partir quand tu veux. Personne ne part.",
-    "skip": "Je ne connais aucun des deux",
-    "firstVote": "Tu es le premier à trancher ce duel. Pas de pression.",
-    "choice": "Tu as choisi {name}",
-    "share": "{percent} % des visiteurs aussi",
-    "retired": "{name} prend sa retraite invaincu après {n} victoires. Une page se tourne.",
-    "streakBadge": {
-      "one": "{n} victoire d’affilée · en tête",
-      "other": "{n} victoires d’affilée · en tête"
-    }
-  },
   "debate": {
+    "pageTitle": "Débats",
     "number": "Débat n° {n}",
+    "subtitle": "Ça ne s’arrête jamais. Tu peux partir quand tu veux. Personne ne part.",
     "question": "Team {a} ou team {b} ?",
+    "categoriesLabel": "Catégories",
+    "team": "Team",
+    "vs": "VS",
+    "choose": "Choisir team {name}",
+    "skip": "Je ne connais aucun des deux",
+    "keysHint": "← et → pour choisir · Échap pour revenir à l’accueil",
+    "pickHint": "Choisis ton camp. Le reste du monde attend ton verdict.",
+    "loading": "On sort les rivalités du placard…",
+    "noscript": "Ce jeu a besoin de JavaScript. Comme la plupart des robots de ce site.",
     "choice": "Tu es team {name}",
     "share": "{percent} % des visiteurs aussi",
+    "firstVote": "Tu es le premier à trancher ce débat. Pas de pression.",
+    "milestoneLink": "On en parle sur LinkedIn →",
+    "teams": {
+      "title": "Tes teams",
+      "empty": "Aucune team pour l’instant. Choisis ton camp.",
+      "versus": "contre {name}"
+    },
     "profile": {
       "title": "Ton profil",
       "count": {
@@ -68,10 +65,7 @@
         "other": "{n} choix rebelles"
       }
     },
-    "teams": {
-      "title": "Tes teams",
-      "empty": "Aucune team pour l’instant. Choisis ton camp."
-    }
+    "hallLink": "Le classement mondial →"
   },
   "quips": {
     "high": [
@@ -121,25 +115,6 @@
       "link": true
     }
   },
-  "panels": {
-    "top": {
-      "title": "Ton top 5",
-      "empty": "Encore personne. Vote, on verra bien.",
-      "wins": {
-        "one": "{n} victoire",
-        "other": "{n} victoires"
-      }
-    },
-    "records": {
-      "title": "Records",
-      "bestStreak": "Plus longue série",
-      "bestStreakValue": "{name} · {n}",
-      "none": "Personne, pour l’instant",
-      "retired": "Retraités invaincus",
-      "pool": "Prétendants dans le thème",
-      "hallLink": "Le classement mondial →"
-    }
-  },
   "hallOfFame": {
     "pageTitle": "Hall of Fame",
     "title": "Hall of Fame",
@@ -171,13 +146,13 @@
   "notFound": {
     "pageTitle": "Page introuvable",
     "code": "404",
-    "title": "Cette page a perdu son duel.",
+    "title": "Cette page a perdu le débat.",
     "text": "Elle affrontait une page qui existe. Le public a tranché, sans appel.",
-    "back": "Retour aux duels →"
+    "back": "Retour aux débats →"
   },
   "footer": {
     "projects": "Voir mes autres projets →",
-    "disclaimer": "Aucun personnage n’a été blessé pendant les duels. Leur ego, si.",
+    "disclaimer": "Aucune team n’a été blessée pendant les débats. Leur ego, si.",
     "giphy": {
       "label": "Powered by GIPHY",
       "url": "https://giphy.com/"
@@ -187,7 +162,7 @@
   "projectsPage": {
     "title": "Mes autres projets",
     "intro": "Aucun n’a été élu par vote populaire.",
-    "back": "Retour aux duels →"
+    "back": "Retour aux débats →"
   },
   "projects": [
     {

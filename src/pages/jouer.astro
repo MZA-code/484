@@ -1,80 +1,79 @@
 ---
 /**
- * Page des duels. Le jeu est un îlot Preact rendu côté client uniquement :
- * le thème vient de l'URL (?theme=) et la partie du stockage local.
+ * Page des débats. Le jeu est un îlot Preact rendu côté client uniquement :
+ * la catégorie vient de l'URL (?theme=) et la partie du stockage local.
  * Un squelette de même taille s'affiche pendant le chargement, pour éviter les sauts.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Game from '../islands/game/Game';
-import type { GameData } from '../islands/game/types';
-import { contenders, themes, ui } from '../data/content';
+import Debate from '../islands/debate/Debate';
+import type { DebateData } from '../islands/debate/types';
+import { categories, rivalries, ui } from '../data/content';
 
-const data: GameData = {
-  themes: themes.map(({ id, label }) => ({ id, label })),
-  contenders: contenders.map(({ id, theme, name, origin, line }) => ({
-    id,
-    theme,
-    name,
-    origin,
-    line,
+const team = ({ name, origin, line }: { name: string; origin: string; line: string }) => ({
+  name,
+  origin,
+  line,
+});
+
+const data: DebateData = {
+  categories: categories.map(({ id, label }) => ({ id, label })),
+  rivalries: rivalries.map((r) => ({
+    id: r.id,
+    category: r.category,
+    question: r.question,
+    a: team(r.a),
+    b: team(r.b),
   })),
   texts: {
-    duel: ui.duel,
+    debate: ui.debate,
     quips: ui.quips,
     milestones: ui.milestones,
-    panels: ui.panels,
     mixedLabel: ui.home.mixedTheme.label,
     linkedinUrl: ui.links.linkedin.url,
   },
 };
 ---
 
-<BaseLayout title={ui.duel.pageTitle}>
+<BaseLayout title={ui.debate.pageTitle}>
   <div class="container">
-    <Game client:only="preact" data={data}>
+    <Debate client:only="preact" data={data}>
       <div slot="fallback" class="skeleton" aria-busy="true">
-        <p class="skeleton-text">{ui.duel.loading}</p>
+        <p class="skeleton-text">{ui.debate.loading}</p>
         <div class="skeleton-arena">
           <div class="skeleton-card"></div>
           <div class="skeleton-card"></div>
         </div>
       </div>
-    </Game>
+    </Debate>
     <noscript>
-      <p class="noscript">{ui.duel.noscript}</p>
+      <p class="noscript">{ui.debate.noscript}</p>
     </noscript>
   </div>
 </BaseLayout>
 
 <style>
-  .skeleton {
-    padding-top: 8px;
-  }
-
   .skeleton-text {
-    min-height: 60px;
-    padding-top: 80px;
+    min-height: 220px;
+    padding-top: 120px;
     color: var(--fg-muted);
     font-family: var(--font-mono);
   }
 
   .skeleton-arena {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 124px;
-    margin-top: 160px;
   }
 
   .skeleton-card {
-    min-height: 420px;
-    border-radius: var(--radius);
+    flex: 1 1 340px;
+    min-height: 400px;
     background: #1c1c1c;
   }
 
   @media (max-width: 720px) {
     .skeleton-arena {
-      grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 84px;
     }
   }
 

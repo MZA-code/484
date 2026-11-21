@@ -26,3 +26,12 @@ export function hashString(value: string): number {
 export function colorFor(contenderId: string): CardColor {
   return CARD_COLORS[hashString(contenderId) % CARD_COLORS.length] as CardColor;
 }
+
+/** Couleurs des deux teams d'une rivalité : stables, et toujours différentes l'une de l'autre. */
+export function teamColors(rivalryId: string): [CardColor, CardColor] {
+  const n = CARD_COLORS.length;
+  const a = hashString(`${rivalryId}:a`) % n;
+  let b = hashString(`${rivalryId}:b`) % n;
+  if (b === a) b = (b + 1) % n;
+  return [CARD_COLORS[a] as CardColor, CARD_COLORS[b] as CardColor];
+}

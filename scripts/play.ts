@@ -138,20 +138,20 @@ function render(state: DebateState, banner: string[]): void {
   const out = [
     `${ansi.card('#FFD23F', ansi.bold('484'))} ${ansi.bold('LEQUEL TU PRÉFÈRES ?')}   ${ansi.dim(`[${categoryLabels.get(state.category)}]`)}`,
     '',
-    `${ansi.bold(formatText(ui.debate.number, { n: debateNumber(state) }).toUpperCase())}  ${ansi.dim(ui.duel.subtitle)}`,
+    `${ansi.bold(formatText(ui.debate.number, { n: debateNumber(state) }).toUpperCase())}  ${ansi.dim(ui.debate.subtitle)}`,
     '',
     `${ansi.bold(question(r))}${category}`,
     '',
     ...renderTeam(r, 'a'),
     '',
-    `      ${ansi.pink(ansi.bold(ui.duel.vs))}`,
+    `      ${ansi.pink(ansi.bold(ui.debate.vs))}`,
     '',
     ...renderTeam(r, 'b'),
     '',
     ...banner,
     ...renderPanels(state),
     '',
-    ansi.dim(`← / → choisir · S « ${ui.duel.skip} » · C changer de catégorie · Q quitter`),
+    ansi.dim(`← / → choisir · S « ${ui.debate.skip} » · C changer de catégorie · Q quitter`),
   ];
   console.clear();
   console.log(out.join('\n'));
@@ -189,7 +189,7 @@ function play(state: DebateState, team: Team): { state: DebateState; banner: str
       : ansi.bold(choice),
   ];
   if (outcome.kind === 'share') banner.push(bar(outcome.percent, colorFor(`${r.id}:${team}`)));
-  if (outcome.kind === 'first') banner.push(ui.duel.firstVote);
+  if (outcome.kind === 'first') banner.push(ui.debate.firstVote);
   banner.push(ansi.italic(quip.text));
   for (const event of result.events) {
     if (event.type !== 'milestone') continue;

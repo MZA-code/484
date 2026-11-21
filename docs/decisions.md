@@ -129,3 +129,20 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 
 - **Contenu de départ : 99 rivalités en 7 catégories**, dont beaucoup recyclées depuis les anciens prétendants (Tom ou Jerry, R2-D2 ou C-3PO, DeLorean ou TARDIS…).
 - **Paliers** : « 25 duels » devient « 25 débats ».
+
+## D14 — Interface des débats (pivot, phase 2)
+
+- **Design calé sur le prototype validé** :
+  - logo « 484 LEQUEL TU PRÉFÈRES ? » en Anton, liens en jaune ;
+  - onglets carrés à bordure crème ;
+  - cartes à ombre crème de 8 px, avec une étiquette « TEAM » en haut ;
+  - pastille VS crème qui oscille ;
+  - résultat sur fond #1E1E1E, remarque en Anton capitales ;
+  - palier sur fond rose, panneaux titrés en Space Mono jaune ;
+  - gros bouton jaune « Retour aux débats → ».
+- **Le résultat se colle en bas de l'écran** (`position: sticky`). Dans le prototype, il est sous les cartes : sur un écran de 1280×860 comme sur un téléphone, il était hors de vue, alors que c'est le cœur du jeu. Collé en bas, il reste visible sans défiler, ne décale jamais les cartes, et reprend sa place quand on descend. Le palier, plus rare et plus grand, reste dans le flux, sous les cartes.
+- **Sur mobile, les onglets de catégorie défilent sur une seule ligne.** Sur plusieurs lignes, les 8 catégories poussaient la première team sous l'écran.
+- **Pas de décalage d'état pendant l'animation.** L'état du moteur change immédiatement, et seule la rivalité _affichée_ attend la fin de la sortie (120 ms). Un pourcentage qui arrive pendant l'animation ne peut donc pas être écrasé.
+- **Les deux teams d'une rivalité ont toujours des couleurs différentes** (`teamColors`).
+- **« Tes teams »** liste les 5 derniers choix, avec le pourcentage quand il est connu. **« Ton profil »** affiche les débats tranchés, l'accord avec la majorité et les choix rebelles. Le top 5 et les records de l'ancien mode disparaissent.
+- **L'ancien moteur de duels et son îlot sont supprimés.** Le stockage local est regroupé dans `engine/storage.ts`, et l'ancienne sauvegarde (`484:game`) est effacée au passage. `contenders.json` reste en place jusqu'à la phase 3, car l'API de votes, l'API GIF et le Hall of Fame s'en servent encore.

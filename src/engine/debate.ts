@@ -11,11 +11,11 @@
  *   d'accord avec la majorité (plus de 50 %), ou choix rebelle (moins de 40 %).
  */
 import { z } from 'zod';
-import { MIXED_THEME } from './catalog';
 import { pickQuip, quipCategory, type QuipBook, type ShareOutcome } from './quips';
 import { shuffle, type Rng } from './random';
 
-export const MIXED_CATEGORY = MIXED_THEME;
+/** Identifiant réservé au mode « Tout mélangé » (union de toutes les catégories). */
+export const MIXED_CATEGORY = 'mix';
 export const DEBATE_STATE_VERSION = 1;
 /** Nombre de choix gardés dans l'historique (« Tes teams »). */
 export const HISTORY_SIZE = 30;

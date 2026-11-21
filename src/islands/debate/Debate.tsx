@@ -1,0 +1,129 @@
+/**
+ * Îlot de débat : catégories, rivalité en cours, résultat, palier, « Tes teams » et « Ton profil ».
+ * Rendu uniquement côté client (la partie dépend du stockage local et de l'URL).
+ */
+import { useEffect, useMemo } from 'preact/hooks';
+import { debateNumber, MIXED_CATEGORY, type Team } from '../../engine';
+import { teamColors } from '../../lib/color';
+import { formatText } from '../../lib/format';
+import { Panels } from './Panels';
+import { Result } from './Result';
+import { TeamCard } from './TeamCard';
+import type { DebateData } from './types';
+import { useDebate } from './useDebate';
+import './debate.css';
+
+/** Ne pas détourner les flèches quand on tape du texte ou avec un raccourci système. */
+function shouldIgnoreKey(event: KeyboardEvent): boolean {
+  if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return true;
+  const target = event.target as HTMLElement | null;
+  return !!target?.closest('input, textarea, select, [contenteditable="true"]');
+}
+
+export default function Debate({ data }: { data: DebateData }) {
+  const { state, ctx, shown, leaving, result, milestone, choose, skip, selectCategory } =
+    useDebate(data);
+  const t = data.texts.debate;
+
+  const byId = useMemo(() => new Map(data.rivalries.map((r) => [r.id, r])), [data]);
+  const labels = useMemo(
+    () =>
+      new Map([
+        [MIXED_CATEGORY, data.texts.mixedLabel],
+        ...data.categories.map((c) => [c.id, c.label] as const),
+      ]),
+    [data],
+  );
+
+  // Clavier : ← team de gauche, → team de droite, Échap retour à l'accueil.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (shouldIgnoreKey(event)) return;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        if (!event.repeat) choose(event.key === 'ArrowLeft' ? 'a' : 'b');
+      } else if (event.key === 'Escape') {
+        window.location.assign('/');
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [choose]);
+
+  const rivalry = byId.get(shown);
+  if (!rivalry) return null;
+  const colors = teamColors(rivalry.id);
+  const lastRivalry = result ? byId.get(result.rivalryId) : undefined;
+  const lastColor = result ? teamColors(result.rivalryId)[result.team === 'a' ? 0 : 1] : '';
+  const question =
+    rivalry.question ?? formatText(t.question, { a: rivalry.a.name, b: rivalry.b.name });
+
+  const card = (side: Team) => (
+    <TeamCard
+      key={`${rivalry.id}-${side}`}
+      team={rivalry[side]}
+      side={side}
+      color={colors[side === 'a' ? 0 : 1]}
+      leaving={leaving}
+      label={t.team}
+      chooseLabel={t.choose}
+      onChoose={choose}
+    />
+  );
+
+  return (
+    <div class="debate">
+      <nav class="category-tabs" aria-label={t.categoriesLabel}>
+        {ctx.catalog.categoryIds.map((id) => (
+          <button
+            key={id}
+            type="button"
+            class="category-tab"
+            aria-pressed={id === state.category}
+            onClick={() => selectCategory(id)}
+          >
+            {labels.get(id)}
+          </button>
+        ))}
+      </nav>
+
+      <div class="debate-head">
+        <p class="debate-number">{formatText(t.number, { n: debateNumber(state) })}</p>
+        <p class="debate-subtitle">{t.subtitle}</p>
+      </div>
+
+      <div class="debate-stage">
+        <div class={`debate-question${leaving ? ' is-leaving' : ''}`} key={rivalry.id}>
+          {state.category === MIXED_CATEGORY && (
+            <p class="debate-category">{labels.get(rivalry.category)}</p>
+          )}
+          <h1 class="debate-title">{question}</h1>
+        </div>
+
+        <div class="arena">
+          {card('a')}
+          <span class="vs" aria-hidden="true">
+            {t.vs}
+          </span>
+          {card('b')}
+        </div>
+
+        <div class="debate-actions">
+          <button type="button" class="skip-button" onClick={skip}>
+            {t.skip}
+          </button>
+        </div>
+
+        <Result
+          result={result}
+          rivalry={lastRivalry}
+          color={lastColor}
+          milestone={milestone}
+          texts={data.texts}
+        />
+      </div>
+
+      <Panels state={state} byId={byId} texts={data.texts} />
+    </div>
+  );
+}

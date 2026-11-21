@@ -3,7 +3,7 @@
  * une erreur dans un JSON fait échouer le build avec un message lisible.
  */
 import { z } from 'zod';
-import { MIXED_THEME } from '../engine/catalog';
+import { MIXED_CATEGORY as MIXED_THEME } from '../engine/debate';
 
 const slug = z
   .string()
@@ -234,29 +234,25 @@ export const UiTextsSchema = z.object({
     themeCount: template('n'),
     play: text,
   }),
-  duel: z.object({
+  debate: z.object({
     pageTitle: text,
     number: template('n'),
-    themesLabel: text,
+    subtitle: text,
+    question: template('a', 'b'),
+    categoriesLabel: text,
+    team: text,
     vs: text,
     choose: template('name'),
+    skip: text,
     keysHint: text,
+    pickHint: text,
     loading: text,
     noscript: text,
-    milestoneLink: text,
-    subtitle: text,
-    skip: text,
+    choice: template('name'),
+    share: template('percent'),
     firstVote: text,
-    choice: template('name'),
-    share: template('percent'),
-    retired: template('name', 'n'),
-    streakBadge: pluralForms,
-  }),
-  debate: z.object({
-    number: template('n'),
-    question: template('a', 'b'),
-    choice: template('name'),
-    share: template('percent'),
+    milestoneLink: text,
+    teams: z.object({ title: text, empty: text, versus: template('name') }),
     profile: z.object({
       title: text,
       count: pluralForms,
@@ -264,25 +260,13 @@ export const UiTextsSchema = z.object({
       agreementUnknown: text,
       rebels: pluralForms,
     }),
-    teams: z.object({ title: text, empty: text }),
+    hallLink: text,
   }),
   quips: z.object({ high: quipList, mid: quipList, low: quipList, neutral: quipList }),
   milestones: z.record(
-    z.string().regex(/^[1-9]\d*$/, 'la clé d’un palier doit être un nombre de duels'),
+    z.string().regex(/^[1-9]\d*$/, 'la clé d’un palier doit être un nombre de débats'),
     z.object({ text, link: z.boolean().optional() }),
   ),
-  panels: z.object({
-    top: z.object({ title: text, empty: text, wins: pluralForms }),
-    records: z.object({
-      title: text,
-      bestStreak: text,
-      bestStreakValue: template('name', 'n'),
-      none: text,
-      retired: text,
-      pool: text,
-      hallLink: text,
-    }),
-  }),
   hallOfFame: z.object({
     pageTitle: text,
     title: text,

@@ -1,8 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { createGame, nextQuip } from './game';
 import { pickQuip, quipCategory, shareOutcome, type QuipBook } from './quips';
 import { seededRng } from './random';
-import { makeContext } from './test-helpers';
 
 const book: QuipBook = {
   high: ['h0', 'h1', 'h2'],
@@ -90,19 +88,5 @@ describe('pickQuip', () => {
     const single: QuipBook = { ...book, low: ['only'] };
     const first = pickQuip(single, 'low', null, seededRng(1));
     expect(pickQuip(single, 'low', first.key, seededRng(1)).text).toBe('only');
-  });
-});
-
-describe('nextQuip', () => {
-  it('remembers the last quip in the game state', () => {
-    const ctx = makeContext();
-    let state = createGame(ctx, 'a');
-    let lastText = '';
-    for (let i = 0; i < 50; i++) {
-      const result = nextQuip(state, book, { kind: 'unavailable' }, ctx.rng);
-      expect(result.text).not.toBe(lastText);
-      lastText = result.text;
-      state = result.state;
-    }
   });
 });

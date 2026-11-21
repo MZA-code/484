@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { readPairResult, sendVote } from './votes';
 
-const payload = { winnerId: 'a', loserId: 'b', theme: 'mix' };
+const payload = { rivalryId: 'heros-batman-superman', team: 'a', category: 'mix' } as const;
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status });
 
 describe('readPairResult', () => {

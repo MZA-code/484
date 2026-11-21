@@ -5,14 +5,15 @@
  * en moins de `DISPLAY_TIMEOUT_MS`, on affiche le pourcentage. Sinon, ou si l'API est muette,
  * on renvoie null (remarque neutre). La requête, elle, continue sa route (`keepalive`).
  */
-import type { PairResult } from '../../engine';
+import type { PairResult, Team } from '../../engine';
 
 export const DISPLAY_TIMEOUT_MS = 1500;
 
 export interface VotePayload {
-  winnerId: string;
-  loserId: string;
-  theme: string;
+  rivalryId: string;
+  team: Team;
+  /** Catégorie jouée (« mix » ou une catégorie), pour la validation côté serveur. */
+  category: string;
 }
 
 const isCount = (v: unknown): v is number => typeof v === 'number' && Number.isInteger(v) && v >= 0;

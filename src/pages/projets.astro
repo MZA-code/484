@@ -1,43 +1,36 @@
 ---
-/** Mes autres projets : grille de cartes colorées construite depuis `ui.projects`. */
+/** Mes autres projets : grille de cartes colorées construite depuis `ui.projects` (style du prototype). */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ui } from '../data/content';
 import { CARD_COLORS } from '../lib/color';
 
-// On commence au rose : le jaune est déjà pris par le logo.
 const projects = ui.projects.map((project, i) => ({
   ...project,
-  color: CARD_COLORS[(i + 1) % CARD_COLORS.length],
+  color: CARD_COLORS[i % CARD_COLORS.length],
 }));
 ---
 
 <BaseLayout title={ui.projectsPage.title}>
   <section class="container projects">
-    <h1 class="title">{ui.projectsPage.title}</h1>
-    <p class="intro">{ui.projectsPage.intro}</p>
+    <div class="head">
+      <h1 class="title">{ui.projectsPage.title}</h1>
+      <p class="intro">{ui.projectsPage.intro}</p>
+    </div>
 
     <ul class="grid">
       {projects.map((project) => (
-        <li>
-          <a
-            class="card"
-            href={project.url}
-            target="_blank"
-            rel="noopener"
-            style={`--card: ${project.color}`}
-          >
-            <span class="label kind">{project.kind}</span>
-            <span class="name">{project.title}</span>
-            <span class="text">{project.text}</span>
-            <span class="cta">
-              {project.cta} <span aria-hidden="true">↗</span>
-            </span>
+        <li class="card" style={`--card: ${project.color}`}>
+          <span class="kind">{project.kind}</span>
+          <h2 class="name">{project.title}</h2>
+          <p class="text">{project.text}</p>
+          <a class="cta" href={project.url} target="_blank" rel="noopener">
+            {project.cta} <span aria-hidden="true">↗</span>
           </a>
         </li>
       ))}
     </ul>
 
-    <a class="block-button back" href="/jouer">
+    <a class="back" href="/jouer">
       {ui.projectsPage.back}
     </a>
   </section>
@@ -45,27 +38,35 @@ const projects = ui.projects.map((project, i) => ({
 
 <style>
   .projects {
-    padding-top: clamp(24px, 5vw, 56px);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-top: 8px;
+  }
+
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .title {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 8vw, 5.5rem);
-    line-height: 1;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 0.95;
     text-transform: uppercase;
   }
 
   .intro {
-    margin-top: 12px;
-    color: var(--fg-muted);
+    max-width: 640px;
     font-size: 1.125rem;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-    gap: 28px;
-    margin: 40px 0 48px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 16px;
+    margin: 0;
     padding: 0;
     list-style: none;
   }
@@ -73,39 +74,60 @@ const projects = ui.projects.map((project, i) => ({
   .card {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    height: 100%;
-    padding: 22px;
-    border-radius: var(--radius);
+    gap: 12px;
+    min-height: 260px;
+    padding: 24px;
     background: var(--card);
     color: var(--ink);
-    box-shadow: var(--shadow);
-    text-decoration: none;
-    transition: transform 160ms ease;
-  }
-
-  .card:hover {
-    transform: translateY(-6px) rotate(-1deg);
   }
 
   .kind {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
     font-weight: 700;
   }
 
   .name {
     font-family: var(--font-display);
-    font-size: 2rem;
-    line-height: 1.05;
+    font-size: 2.25rem;
+    line-height: 1;
     text-transform: uppercase;
   }
 
   .text {
-    flex: 1;
+    font-size: 1rem;
   }
 
   .cta {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    min-height: 44px;
+    margin-top: auto;
+    color: var(--ink);
     font-family: var(--font-mono);
+    font-size: 0.875rem;
     font-weight: 700;
     overflow-wrap: anywhere;
+  }
+
+  /* Le gros bouton jaune « Retour aux débats → » du prototype. */
+  .back {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    min-height: 56px;
+    padding: 12px 28px;
+    background: var(--yellow);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .back:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--fg);
   }
 </style>
