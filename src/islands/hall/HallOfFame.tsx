@@ -151,7 +151,7 @@ export default function HallOfFame({ data }: { data: HallData }) {
                   <p class="hall-intro">{t.popularIntro}</p>
                   <ol class="podium">
                     {load.hall.popular.slice(0, 3).map((r, i) => (
-                      <li key={r.id} class="podium-card pop">
+                      <li key={r.id} class="podium-card">
                         <span class="podium-rank">{i + 1}</span>
                         {debate(r)}
                         <span class="podium-quip">{t.podium[i]}</span>

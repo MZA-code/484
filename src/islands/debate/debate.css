@@ -75,16 +75,16 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Le numéro bascule à chaque débat tranché. */
+/* Le numéro défile comme un compteur à chaque débat tranché. */
 .debate-number-value {
   display: inline-block;
-  animation: number-flip 320ms cubic-bezier(0.2, 0.9, 0.3, 1.4) backwards;
+  animation: number-roll 360ms var(--ease-out) backwards;
 }
 
-@keyframes number-flip {
+@keyframes number-roll {
   from {
     opacity: 0;
-    transform: translateY(-0.4em) rotate(-6deg) scale(1.2);
+    transform: translateY(-0.5em);
   }
 }
 
@@ -101,18 +101,19 @@
 }
 
 .debate-question {
-  animation: question-in 240ms cubic-bezier(0.2, 0.9, 0.3, 1.2) backwards;
+  animation: question-in 420ms var(--ease-out) backwards;
 }
 
 @keyframes question-in {
   from {
     opacity: 0;
-    transform: translateY(18px) skewX(-6deg);
+    transform: translateY(14px);
+    filter: blur(8px);
   }
 }
 
 .debate-question.is-leaving {
-  animation: fade-out 130ms ease-in forwards;
+  animation: fade-out 130ms var(--ease-in) forwards;
 }
 
 @keyframes fade-out {
@@ -161,25 +162,26 @@
   color: var(--ink);
   font-family: var(--font-display);
   font-size: 2.25rem;
-  /* Rebondit à chaque nouvelle rivalité, puis oscille. */
+  /* Apparaît à chaque nouvelle rivalité, puis une onde pulse autour, comme un signal. */
   animation:
-    vs-pop 360ms cubic-bezier(0.2, 0.9, 0.3, 1.6) backwards,
-    wiggle 1.2s ease-in-out 360ms infinite;
+    vs-in 420ms var(--ease-out) backwards,
+    vs-pulse 2.4s var(--ease-out) 420ms infinite;
 }
 
-@keyframes vs-pop {
+@keyframes vs-in {
   from {
-    transform: scale(0) rotate(-90deg);
+    opacity: 0;
+    transform: scale(0.6);
   }
 }
 
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(-6deg);
+@keyframes vs-pulse {
+  from {
+    box-shadow: 0 0 0 0 rgb(255 255 255 / 0.35);
   }
-  50% {
-    transform: rotate(6deg);
+  70%,
+  to {
+    box-shadow: 0 0 0 18px rgb(255 255 255 / 0);
   }
 }
 
@@ -199,11 +201,11 @@
   font-family: var(--font-body);
   text-align: left;
   cursor: pointer;
-  /* Chaque team entre de son côté (gauche ou droite), avec un léger rebond. */
-  animation: 170ms cubic-bezier(0.2, 0.9, 0.3, 1.25) backwards;
+  /* Chaque team glisse de son côté (gauche ou droite) en fondu. */
+  animation: 380ms var(--ease-out) backwards;
   transition:
-    transform 180ms cubic-bezier(0.2, 0.9, 0.3, 1.4),
-    box-shadow 180ms ease;
+    transform 260ms var(--ease-out),
+    box-shadow 260ms var(--ease-out);
 }
 
 .team-card--a {
@@ -217,44 +219,44 @@
 @keyframes enter-left {
   from {
     opacity: 0;
-    transform: translateX(-70px) rotate(-4deg);
+    transform: translateX(-32px);
   }
 }
 
 @keyframes enter-right {
   from {
     opacity: 0;
-    transform: translateX(70px) rotate(4deg);
+    transform: translateX(32px);
   }
 }
 
-.team-card:hover {
-  transform: translateY(-6px) rotate(-1deg);
-  box-shadow: 10px 10px 0 var(--fg);
+/* Survol : la carte se décolle vers son ombre ; au clic, elle s'y enfonce. */
+.team-card:hover,
+.team-card:focus-visible {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 var(--fg);
 }
 
-.team-card--b:hover {
-  transform: translateY(-6px) rotate(1deg);
+.team-card:active {
+  transform: translate(3px, 3px);
+  box-shadow: 4px 4px 0 var(--fg);
+  transition-duration: 80ms;
 }
 
-/* Au survol, le GIF zoome un peu et l'étiquette « TEAM » penche. */
+/* Au survol, le GIF zoome un peu et l'étiquette « TEAM » glisse vers la droite. */
 .team-card:hover .team-gif {
   transform: scale(1.06);
 }
 
 .team-card:hover .team-tag {
-  transform: rotate(-4deg) scale(1.08);
+  transform: translateX(6px);
 }
 
 .team-tag {
-  transition: transform 180ms cubic-bezier(0.2, 0.9, 0.3, 1.6);
+  transition: transform 260ms var(--ease-out);
 }
 
-.team-card:active {
-  transform: translateY(-2px) rotate(-0.5deg) scale(0.99);
-}
-
-/* Sorties : la team choisie « gagne » (grossit, tampon ✓), l'autre tombe ; un passage fait tout disparaître. */
+/* Sorties : la team choisie se soulève (ombre rose, tampon ✓), l'autre s'efface ; un passage fait tout disparaître. */
 .team-card.is-leaving,
 .team-card.is-chosen,
 .team-card.is-rejected {
@@ -262,13 +264,13 @@
 }
 
 .team-card.is-leaving {
-  animation: card-leave 130ms ease-in forwards;
+  animation: card-leave 130ms var(--ease-in) forwards;
 }
 
 .team-card.is-chosen {
   position: relative;
   z-index: 1;
-  animation: card-win 130ms ease-out forwards;
+  animation: card-win 130ms var(--ease-out) forwards;
 }
 
 .team-card.is-chosen::after {
@@ -286,37 +288,37 @@
   color: var(--ink);
   font-family: var(--font-display);
   font-size: 2.25rem;
-  animation: stamp 130ms cubic-bezier(0.2, 0.9, 0.3, 1.8) both;
+  animation: stamp 160ms var(--ease-out) both;
 }
 
 .team-card.is-rejected {
-  animation: card-fall 130ms ease-in forwards;
+  animation: card-fall 130ms var(--ease-in) forwards;
 }
 
 @keyframes card-leave {
   to {
     opacity: 0;
-    transform: translateY(10px) scale(0.92);
+    transform: translateY(10px) scale(0.97);
   }
 }
 
 @keyframes card-win {
   to {
-    transform: scale(1.04) rotate(-1.5deg);
-    box-shadow: 12px 12px 0 var(--pink);
+    transform: translate(-6px, -6px);
+    box-shadow: 14px 14px 0 var(--pink);
   }
 }
 
 @keyframes card-fall {
   to {
     opacity: 0;
-    transform: translateY(60px) rotate(8deg) scale(0.9);
+    transform: translateY(24px) scale(0.97);
   }
 }
 
 @keyframes stamp {
   from {
-    transform: scale(2.4) rotate(-25deg);
+    transform: scale(1.6);
     opacity: 0;
   }
 }
@@ -464,7 +466,7 @@
 
 /* Le bandeau glisse depuis le bas à chaque vote. */
 .result {
-  animation: result-up 280ms cubic-bezier(0.2, 0.9, 0.3, 1.15) backwards;
+  animation: result-up 420ms var(--ease-out) backwards;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -505,7 +507,7 @@
   display: block;
   height: 100%;
   transform-origin: left;
-  animation: bar-grow 400ms ease-out both;
+  animation: bar-grow 600ms var(--ease-out) both;
 }
 
 .result-bar-b {
@@ -589,12 +591,12 @@
   }
 }
 
-/* Le palier arrive en secouant un peu, avec des confettis. */
+/* Le palier glisse en douceur, avec des confettis. */
 .milestone {
   position: relative;
   margin-bottom: 8px;
   box-shadow: 0 -12px 32px rgb(0 0 0 / 0.55);
-  animation: milestone-shake 520ms ease-out backwards;
+  animation: milestone-in 520ms var(--ease-out) backwards;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -605,23 +607,10 @@
   color: var(--ink);
 }
 
-@keyframes milestone-shake {
-  0% {
+@keyframes milestone-in {
+  from {
     opacity: 0;
-    transform: scale(0.7) rotate(-4deg);
-  }
-  40% {
-    opacity: 1;
-    transform: scale(1.05) rotate(2deg);
-  }
-  60% {
-    transform: rotate(-1.5deg);
-  }
-  80% {
-    transform: rotate(1deg);
-  }
-  100% {
-    transform: none;
+    transform: translateY(16px) scale(0.98);
   }
 }
 
@@ -764,7 +753,7 @@
 
 /* Chaque nouveau choix entre par la gauche dans « Tes teams ». */
 .teams-list li {
-  animation: slide-in 300ms cubic-bezier(0.2, 0.9, 0.3, 1.2) backwards;
+  animation: slide-in 360ms var(--ease-out) backwards;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
