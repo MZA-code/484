@@ -250,23 +250,57 @@ const sections = universes.map((u) => ({
     box-shadow: 6px 6px 0 var(--fg);
     text-decoration: none;
     transition:
-      transform 180ms cubic-bezier(0.2, 0.9, 0.3, 1.4),
-      box-shadow 180ms ease;
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1);
     /* Les cartes tombent en cascade après le titre. */
     animation: card-drop 520ms cubic-bezier(0.2, 0.9, 0.3, 1.25) backwards;
     animation-delay: calc(480ms + min(var(--i), 8) * 70ms);
   }
 
-  .theme-card:hover {
-    transform: translateY(-6px) rotate(-1deg);
+  /*
+   * Survol : la carte se décolle en diagonale, son ombre s'allonge, et un reflet la balaie.
+   * Au clic, elle s'enfonce dans son ombre, comme un bouton qu'on presse.
+   */
+  .theme-card:hover,
+  .theme-card:focus-visible {
+    transform: translate(-4px, -4px);
     box-shadow: 10px 10px 0 var(--fg);
   }
 
-  .theme-card:hover .theme-play {
+  .theme-card:active {
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0 var(--fg);
+    transition-duration: 80ms;
+  }
+
+  .theme-card:hover .theme-play,
+  .theme-card:focus-visible .theme-play {
     transform: translateX(6px);
   }
 
-  /* Icône en filigrane dans le coin de la carte ; elle gigote au survol. */
+  .theme-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgb(255 255 255 / 0.45) 48%,
+      rgb(255 255 255 / 0.15) 54%,
+      transparent 70%
+    );
+    transform: translateX(-110%);
+    pointer-events: none;
+  }
+
+  /* Le reflet ne passe qu'à l'entrée : à la sortie, il revient sans transition. */
+  .theme-card:hover::after,
+  .theme-card:focus-visible::after {
+    transform: translateX(110%);
+    transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Icône dans le coin de la carte ; elle flotte au survol. */
   .theme-card {
     position: relative;
     overflow: hidden;
@@ -279,12 +313,17 @@ const sections = universes.map((u) => ({
     width: 52px;
     height: 52px;
     opacity: 0.85;
-    transform: rotate(8deg);
-    transition: transform 220ms cubic-bezier(0.2, 0.9, 0.3, 1.6);
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 320ms ease,
+      filter 320ms ease;
   }
 
-  .theme-card:hover :global(.theme-icon) {
-    transform: rotate(-10deg) scale(1.18);
+  .theme-card:hover :global(.theme-icon),
+  .theme-card:focus-visible :global(.theme-icon) {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.12);
+    filter: drop-shadow(3px 5px 0 rgb(0 0 0 / 0.18));
   }
 
   .theme-card--mixed :global(.theme-icon) {
