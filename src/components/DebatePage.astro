@@ -1,0 +1,77 @@
+---
+/**
+ * Page de débat : utilisée par /jouer (rivalité au hasard) et par /debat/<id> (lien partagé).
+ * L'îlot est rendu côté client ; il charge les rivalités depuis /data/debate.json.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DebateApp from '../islands/debate/DebateApp';
+import { DEBATE_DATA_URL } from '../data/debate-data';
+import { ui } from '../data/content';
+
+interface Props {
+  title: string;
+  description?: string;
+  initialRivalry?: string;
+}
+
+const { title, description, initialRivalry } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container">
+    <DebateApp
+      client:only="preact"
+      dataUrl={DEBATE_DATA_URL}
+      initialRivalry={initialRivalry}
+      loadingText={ui.debate.loading}
+      errorText={ui.debate.loadError}
+    >
+      <div slot="fallback" class="skeleton" aria-busy="true">
+        <p class="skeleton-text">{ui.debate.loading}</p>
+        <div class="skeleton-arena">
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+      </div>
+    </DebateApp>
+    <noscript>
+      <p class="noscript">{ui.debate.noscript}</p>
+    </noscript>
+  </div>
+</BaseLayout>
+
+<style>
+  .skeleton-text {
+    min-height: 220px;
+    padding-top: 120px;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+  }
+
+  .skeleton-arena {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 124px;
+  }
+
+  .skeleton-card {
+    flex: 1 1 340px;
+    min-height: 400px;
+    background: #1c1c1c;
+  }
+
+  @media (max-width: 720px) {
+    .skeleton-arena {
+      gap: 84px;
+    }
+  }
+
+  .noscript {
+    margin-top: 32px;
+    padding: 16px;
+    background: var(--yellow);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+</style>

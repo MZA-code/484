@@ -212,3 +212,11 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Disjoncteur dans le service Giphy.** Après une réponse 429, le serveur n'appelle plus Giphy pendant 15 minutes (`QUOTA_PAUSE_MS`), et les cartes gardent le cadre rayé. Les échecs ne sont toujours pas mis en cache : les GIF reviennent d'eux-mêmes ensuite.
 - **Les tests de bout en bout simulent Giphy** et n'utilisent plus la vraie clé.
 - **Clé de production à demander en phase 6**, une fois le site en ligne sur team484.fr. Elle est gratuite et sans limite horaire, et Giphy l'accorde sur une application en ligne qui affiche l'attribution « Powered by GIPHY ».
+
+## D19 — Une adresse par débat, pour le partage (phase 5)
+
+- **`/debat/<id>` : une page statique par rivalité** (749 pages, environ 11 Ko chacune). Chaque page a son titre (« Team Edward ou team Jacob ? »), sa description et ses balises Open Graph. L'adresse du site est déclarée dans la configuration (`site: 'https://team484.fr'`), et l'adresse canonique n'a ni paramètres ni barre oblique finale.
+- **Les rivalités sont servies dans un seul fichier, `/data/debate.json`**, généré au build et versionné dans l'adresse pour renouveler le cache. Si chaque page avait embarqué toutes les rivalités, le site aurait pesé environ 150 Mo. L'îlot affiche un squelette le temps du chargement, et un message si le fichier ne vient pas.
+- **L'adresse suit le jeu** : `/debat/<rivalité affichée>?theme=<catégorie>`, mise à jour avec `history.replaceState` (le bouton « retour » quitte le jeu au lieu de remonter 50 débats). Copier l'adresse, c'est partager le débat en cours ; recharger la page le réaffiche. Le titre de l'onglet suit aussi la question.
+- **Le moteur sait ouvrir une rivalité précise** (`focusRivalry`). Il change de catégorie si besoin, et la rivalité qui était affichée retourne dans la file.
+- **Bouton « Partager ce débat »** : partage natif quand le téléphone le propose (API Web Share), sinon copie du lien, confirmée par un message.

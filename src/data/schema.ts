@@ -244,6 +244,11 @@ export const UiTextsSchema = z.object({
       rebels: pluralForms,
     }),
     hallLink: text,
+    shareButton: text,
+    shareCopied: text,
+    shareText: template('a', 'b'),
+    shareDescription: template('a', 'b'),
+    loadError: text,
   }),
   quips: z.object({ high: quipList, mid: quipList, low: quipList, neutral: quipList }),
   milestones: z.record(

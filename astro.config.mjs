@@ -6,6 +6,8 @@ import node from '@astrojs/node';
 // Pages statiques pré-rendues par défaut ; seules les routes `/api/*`
 // (marquées `prerender = false`) sont servies par le serveur Node.
 export default defineConfig({
+  // Adresse publique du site : liens canoniques et aperçus de partage (Open Graph).
+  site: 'https://team484.fr',
   output: 'static',
   adapter: node({ mode: 'standalone' }),
   integrations: [preact()],

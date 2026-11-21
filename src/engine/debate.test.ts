@@ -14,6 +14,8 @@ import {
   vote,
   type DebateContext,
   type DebateState,
+  categoryOfRivalry,
+  focusRivalry,
   universeOf,
 } from './debate';
 import type { QuipBook } from './quips';
@@ -62,6 +64,35 @@ describe('universes', () => {
     expect(universeOf(ctx.catalog, 'heros')?.id).toBe('univers-pop');
     expect(universeOf(ctx.catalog, 'univers-pop')?.id).toBe('univers-pop');
     expect(universeOf(ctx.catalog, 'bouffe')).toBeUndefined();
+  });
+});
+
+describe('focusRivalry (shared links)', () => {
+  it('opens a rivalry of the current pool and keeps the previous one for later', () => {
+    const ctx = makeCtx();
+    const state = createDebate(ctx, 'heros');
+    const target = pool(ctx, 'heros').find((id) => id !== state.current) as string;
+    const next = focusRivalry(state, target, ctx);
+    expect(next.current).toBe(target);
+    expect(next.queue).not.toContain(target);
+    expect(next.queue).toContain(state.current);
+    expect(next.category).toBe('heros');
+  });
+
+  it('switches to the rivalry’s category when needed, keeping counters', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'heros');
+    state = vote(state, 'a', ctx).state;
+    const next = focusRivalry(state, 'b2', ctx);
+    expect(next).toMatchObject({ current: 'b2', category: 'bouffe', count: 1 });
+    expect(next.queue).not.toContain('b2');
+  });
+
+  it('ignores unknown rivalries', () => {
+    const ctx = makeCtx();
+    const state = createDebate(ctx, 'heros');
+    expect(focusRivalry(state, 'nope', ctx)).toBe(state);
+    expect(categoryOfRivalry(ctx.catalog, 'b1')).toBe('bouffe');
   });
 });
 

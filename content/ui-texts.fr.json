@@ -77,7 +77,12 @@
     },
     "hallLink": "Le classement mondial →",
     "universesLabel": "Univers",
-    "wholeUniverse": "Tout l’univers"
+    "wholeUniverse": "Tout l’univers",
+    "shareButton": "Partager ce débat",
+    "shareCopied": "Lien copié. Va semer la zizanie.",
+    "shareText": "Tu es plutôt team {a} ou team {b} ? Viens trancher.",
+    "shareDescription": "Team {a} ou team {b} ? Choisis ton camp, et découvre si le reste du monde est d’accord.",
+    "loadError": "Les rivalités n’ont pas voulu sortir. Recharge la page, elles sont un peu timides."
   },
   "quips": {
     "high": [

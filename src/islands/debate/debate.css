@@ -419,6 +419,40 @@
   background: rgb(245 241 232 / 0.12);
 }
 
+.share-button {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.share-feedback {
+  flex-basis: 100%;
+  min-height: 1.5em;
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+/* Chargement des données du jeu (même gabarit que le squelette de la page). */
+.debate-status {
+  min-height: 220px;
+  padding-top: 120px;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+}
+
+.debate-skeleton-arena {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 124px;
+}
+
+.debate-skeleton-card {
+  flex: 1 1 340px;
+  min-height: 400px;
+  background: #1c1c1c;
+}
+
 /* ─── Résultat et palier ─────────────────────────────────────────────────── */
 
 .result-dock.is-docked {

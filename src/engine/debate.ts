@@ -187,6 +187,37 @@ export function changeCategory(
   return { ...state, category, queue: next.queue, current: next.id };
 }
 
+/** Catégorie d'une rivalité (hors « Tout mélangé » et univers). */
+export function categoryOfRivalry(catalog: DebateCatalog, rivalryId: string): string | undefined {
+  return catalog.categoryIds.find(
+    (id) => id !== MIXED_CATEGORY && catalog.pools.get(id)?.includes(rivalryId),
+  );
+}
+
+/**
+ * Ouvre directement une rivalité (lien partagé). Si elle n'est pas dans la catégorie en cours,
+ * on passe dans la sienne. La rivalité qui était affichée retourne dans la file.
+ */
+export function focusRivalry(
+  state: DebateState,
+  rivalryId: string,
+  ctx: DebateContext,
+): DebateState {
+  if (state.current === rivalryId) return state;
+  let next = state;
+  if (!poolOf(ctx.catalog, state.category).includes(rivalryId)) {
+    const category = categoryOfRivalry(ctx.catalog, rivalryId);
+    if (!category) return state;
+    next = changeCategory(state, category, ctx);
+    if (next.current === rivalryId) return next;
+  }
+  return {
+    ...next,
+    current: rivalryId,
+    queue: [...next.queue.filter((id) => id !== rivalryId), next.current],
+  };
+}
+
 /**
  * Le pourcentage mondial d'un vote est arrivé : on le range dans l'historique et le profil.
  * Sans effet si ce vote a déjà son pourcentage ou n'est plus dans l'historique.

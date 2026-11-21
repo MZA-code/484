@@ -3,6 +3,7 @@ import {
   changeCategory,
   createDebate,
   createDebateCatalog,
+  focusRivalry,
   MIXED_CATEGORY,
   type DebateCatalog,
   type DebateContext,
@@ -37,7 +38,13 @@ export function initialDebate(
   ctx: DebateContext,
   urlCategory: string | null,
   stored: DebateState | null,
+  /** Rivalité demandée par un lien partagé (/debat/<id>), affichée en premier. */
+  rivalryId: string | null = null,
 ): DebateState {
-  if (stored) return urlCategory ? changeCategory(stored, urlCategory, ctx) : stored;
-  return createDebate(ctx, urlCategory ?? MIXED_CATEGORY);
+  const base = stored
+    ? urlCategory
+      ? changeCategory(stored, urlCategory, ctx)
+      : stored
+    : createDebate(ctx, urlCategory ?? MIXED_CATEGORY);
+  return rivalryId ? focusRivalry(base, rivalryId, ctx) : base;
 }
