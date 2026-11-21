@@ -18,6 +18,12 @@
       "label": "La vraie vie",
       "tagline": "Les débats du quotidien, ceux qui fâchent vraiment.",
       "categories": ["bouffe", "quotidien", "mots", "sport", "mode", "autos"]
+    },
+    {
+      "id": "univers-imaginaire",
+      "label": "Imaginaire",
+      "tagline": "Monstres, superpouvoirs et dilemmes impossibles.",
+      "categories": ["dilemmes", "pouvoirs", "monstres", "animaux"]
     }
   ],
   "categories": [
@@ -100,6 +106,26 @@
       "id": "autos",
       "label": "Autos et motos",
       "tagline": "Des marques, des moteurs, et des clubs de fans prêts à en découdre."
+    },
+    {
+      "id": "dilemmes",
+      "label": "Dilemmes absurdes",
+      "tagline": "Aucune bonne réponse. Seulement des mauvaises, et des pires."
+    },
+    {
+      "id": "pouvoirs",
+      "label": "Superpouvoirs",
+      "tagline": "Choisis bien : aucun remboursement, aucun échange."
+    },
+    {
+      "id": "monstres",
+      "label": "Monstres et créatures",
+      "tagline": "Ils vivent sous ton lit. Et ils ont un avis."
+    },
+    {
+      "id": "animaux",
+      "label": "Animaux",
+      "tagline": "Ils ne savent pas qu’on les compare. Heureusement."
     }
   ],
   "rivalries": [
@@ -10009,6 +10035,3662 @@
         "line": "Elles disparaissent. Dans la chaussure, et dans la machine.",
         "giphyIds": [],
         "giphyQuery": "ankle socks"
+      }
+    },
+    {
+      "id": "dilemmes-plus-jamais-dormir-plus-jamais-manger",
+      "category": "dilemmes",
+      "question": "Tu préfères ne plus jamais dormir, ou ne plus jamais manger ?",
+      "a": {
+        "name": "Plus jamais dormir",
+        "origin": "Les nuits blanches",
+        "line": "Vingt-quatre heures par jour pour tout faire. Et regarder des séries.",
+        "giphyIds": [],
+        "giphyQuery": "insomnia awake"
+      },
+      "b": {
+        "name": "Plus jamais manger",
+        "origin": "La cuisine vide",
+        "line": "Plus de courses, plus de vaisselle, plus de raclette.",
+        "giphyIds": [],
+        "giphyQuery": "empty plate"
+      }
+    },
+    {
+      "id": "dilemmes-des-mains-aux-pieds-des-pieds-aux-mains",
+      "category": "dilemmes",
+      "question": "Tu préfères avoir des mains à la place des pieds, ou des pieds à la place des mains ?",
+      "a": {
+        "name": "Des mains aux pieds",
+        "origin": "La salle de gym",
+        "line": "Tu marches à quatre pattes, mais tu applaudis avec les pieds.",
+        "giphyIds": [],
+        "giphyQuery": "hands walking"
+      },
+      "b": {
+        "name": "Des pieds aux mains",
+        "origin": "Le bureau",
+        "line": "Tu tapes au clavier avec des orteils. Bon courage.",
+        "giphyIds": [],
+        "giphyQuery": "feet typing"
+      }
+    },
+    {
+      "id": "dilemmes-toujours-en-retard-toujours-en-avance",
+      "category": "dilemmes",
+      "question": "Tu préfères être toujours en retard de 10 minutes, ou en avance de 20 minutes ?",
+      "a": {
+        "name": "Toujours en retard",
+        "origin": "Dix minutes, chaque fois",
+        "line": "Tu rates le début de tous les films.",
+        "giphyIds": [],
+        "giphyQuery": "running late"
+      },
+      "b": {
+        "name": "Toujours en avance",
+        "origin": "Vingt minutes, chaque fois",
+        "line": "Tu attends tout le monde, devant la porte, dans le froid.",
+        "giphyIds": [],
+        "giphyQuery": "waiting early"
+      }
+    },
+    {
+      "id": "dilemmes-chanter-danser",
+      "category": "dilemmes",
+      "question": "Tu préfères chanter tout ce que tu dis, ou danser partout où tu marches ?",
+      "a": {
+        "name": "Chanter",
+        "origin": "Ta voix, en permanence",
+        "line": "Chaque phrase devient une comédie musicale.",
+        "giphyIds": [],
+        "giphyQuery": "singing"
+      },
+      "b": {
+        "name": "Danser",
+        "origin": "Tes jambes, en permanence",
+        "line": "Chaque déplacement devient un clip.",
+        "giphyIds": [],
+        "giphyQuery": "dancing walk"
+      }
+    },
+    {
+      "id": "dilemmes-toujours-trop-chaud-toujours-trop-froid",
+      "category": "dilemmes",
+      "question": "Tu préfères avoir toujours trop chaud, ou toujours trop froid ?",
+      "a": {
+        "name": "Toujours trop chaud",
+        "origin": "Ta peau",
+        "line": "Tu transpires même en janvier.",
+        "giphyIds": [],
+        "giphyQuery": "sweating hot"
+      },
+      "b": {
+        "name": "Toujours trop froid",
+        "origin": "Ta peau",
+        "line": "Tu portes une écharpe même en août.",
+        "giphyIds": [],
+        "giphyQuery": "freezing cold"
+      }
+    },
+    {
+      "id": "dilemmes-un-bouton-pause-un-bouton-retour",
+      "category": "dilemmes",
+      "question": "Pour ta vie, tu préfères un bouton pause, ou un bouton retour arrière ?",
+      "a": {
+        "name": "Un bouton pause",
+        "origin": "Ta vie",
+        "line": "Tout s’arrête, sauf toi.",
+        "giphyIds": [],
+        "giphyQuery": "pause button"
+      },
+      "b": {
+        "name": "Un bouton retour",
+        "origin": "Ta vie",
+        "line": "Tu peux défaire ta dernière bêtise.",
+        "giphyIds": [],
+        "giphyQuery": "rewind button"
+      }
+    },
+    {
+      "id": "dilemmes-la-meme-journee-une-annee-sautee",
+      "category": "dilemmes",
+      "question": "Tu préfères revivre sans fin la même journée, ou sauter une année entière ?",
+      "a": {
+        "name": "La même journée",
+        "origin": "Un jour sans fin",
+        "line": "Revivre le même jour, encore et encore.",
+        "giphyIds": [],
+        "giphyQuery": "groundhog day"
+      },
+      "b": {
+        "name": "Une année sautée",
+        "origin": "Le futur",
+        "line": "Tu te réveilles un an plus tard, sans rien avoir vu.",
+        "giphyIds": [],
+        "giphyQuery": "time skip"
+      }
+    },
+    {
+      "id": "dilemmes-sans-musique-sans-films",
+      "category": "dilemmes",
+      "question": "Tu préfères vivre sans musique, ou sans films ?",
+      "a": {
+        "name": "Sans musique",
+        "origin": "Le silence",
+        "line": "Plus aucune chanson, jamais.",
+        "giphyIds": [],
+        "giphyQuery": "silence"
+      },
+      "b": {
+        "name": "Sans films",
+        "origin": "L’écran noir",
+        "line": "Plus aucun film, jamais.",
+        "giphyIds": [],
+        "giphyQuery": "black screen"
+      }
+    },
+    {
+      "id": "dilemmes-sans-internet-sans-telephone",
+      "category": "dilemmes",
+      "question": "Tu préfères vivre sans Internet, ou sans téléphone ?",
+      "a": {
+        "name": "Sans Internet",
+        "origin": "La vie d’avant",
+        "line": "Plus de vidéos, plus de messages, plus de cartes.",
+        "giphyIds": [],
+        "giphyQuery": "no internet"
+      },
+      "b": {
+        "name": "Sans téléphone",
+        "origin": "La vie d’avant aussi",
+        "line": "Plus d’appels, plus d’alarme, plus de photos.",
+        "giphyIds": [],
+        "giphyQuery": "no phone"
+      }
+    },
+    {
+      "id": "dilemmes-celebre-et-fauche-riche-et-inconnu",
+      "category": "dilemmes",
+      "question": "Tu préfères être célèbre et fauché, ou riche et inconnu ?",
+      "a": {
+        "name": "Célèbre et fauché",
+        "origin": "Les tapis rouges",
+        "line": "Tout le monde te connaît, personne ne te paie.",
+        "giphyIds": [],
+        "giphyQuery": "famous red carpet"
+      },
+      "b": {
+        "name": "Riche et inconnu",
+        "origin": "Le compte en banque",
+        "line": "Personne ne te connaît, tout le monde te sert.",
+        "giphyIds": [],
+        "giphyQuery": "rich money"
+      }
+    },
+    {
+      "id": "dilemmes-toujours-le-meme-plat-jamais-deux-fois",
+      "category": "dilemmes",
+      "question": "Tu préfères manger toujours le même plat, ou jamais deux fois le même ?",
+      "a": {
+        "name": "Toujours le même plat",
+        "origin": "Ta cuisine",
+        "line": "Ton plat préféré, à chaque repas, pour toujours.",
+        "giphyIds": [],
+        "giphyQuery": "same food every day"
+      },
+      "b": {
+        "name": "Jamais deux fois",
+        "origin": "Ta cuisine aussi",
+        "line": "Un plat différent à chaque repas, même les ratés.",
+        "giphyIds": [],
+        "giphyQuery": "trying new food"
+      }
+    },
+    {
+      "id": "dilemmes-toujours-dire-la-verite-ne-plus-jamais-parler",
+      "category": "dilemmes",
+      "question": "Tu préfères dire toujours la vérité, ou ne plus jamais parler ?",
+      "a": {
+        "name": "Toujours dire la vérité",
+        "origin": "Ta bouche",
+        "line": "Même au dîner de famille. Surtout au dîner de famille.",
+        "giphyIds": [],
+        "giphyQuery": "honest"
+      },
+      "b": {
+        "name": "Ne plus jamais parler",
+        "origin": "Ta bouche, fermée",
+        "line": "Plus de gaffes, plus de discours.",
+        "giphyIds": [],
+        "giphyQuery": "silent zip mouth"
+      }
+    },
+    {
+      "id": "dilemmes-un-nez-de-clown-une-voix-d-helium",
+      "category": "dilemmes",
+      "question": "Tu préfères un nez de clown permanent, ou une voix d’hélium à vie ?",
+      "a": {
+        "name": "Un nez de clown",
+        "origin": "Ton visage",
+        "line": "Rouge, rond, et ça fait « pouet ».",
+        "giphyIds": [],
+        "giphyQuery": "clown nose"
+      },
+      "b": {
+        "name": "Une voix d’hélium",
+        "origin": "Ta gorge",
+        "line": "Toutes tes phrases deviennent drôles. Même les tristes.",
+        "giphyIds": [],
+        "giphyQuery": "helium voice"
+      }
+    },
+    {
+      "id": "dilemmes-noir-et-blanc-en-8-bits",
+      "category": "dilemmes",
+      "question": "Tu préfères un monde en noir et blanc, ou un monde en 8 bits ?",
+      "a": {
+        "name": "Noir et blanc",
+        "origin": "Le monde",
+        "line": "Tout devient un vieux film.",
+        "giphyIds": [],
+        "giphyQuery": "black and white film"
+      },
+      "b": {
+        "name": "En 8 bits",
+        "origin": "Le monde",
+        "line": "Tout devient un vieux jeu vidéo.",
+        "giphyIds": [],
+        "giphyQuery": "8 bit pixel"
+      }
+    },
+    {
+      "id": "dilemmes-le-genie-qu-on-ne-croit-pas-l-idiot-qu-on-croit",
+      "category": "dilemmes",
+      "question": "Tu préfères être un génie que personne ne croit, ou un idiot que tout le monde croit ?",
+      "a": {
+        "name": "Le génie qu’on ne croit pas",
+        "origin": "La réunion",
+        "line": "Tu as toujours raison, personne ne t’écoute.",
+        "giphyIds": [],
+        "giphyQuery": "ignored genius"
+      },
+      "b": {
+        "name": "L’idiot qu’on croit",
+        "origin": "La réunion aussi",
+        "line": "Tu as toujours tort, tout le monde t’applaudit.",
+        "giphyIds": [],
+        "giphyQuery": "applause"
+      }
+    },
+    {
+      "id": "dilemmes-rougir-quand-tu-mens-eternuer-quand-tu-mens",
+      "category": "dilemmes",
+      "question": "Tu préfères rougir à chaque mensonge, ou éternuer à chaque mensonge ?",
+      "a": {
+        "name": "Rougir quand tu mens",
+        "origin": "Tes joues",
+        "line": "Impossible de cacher un mensonge.",
+        "giphyIds": [],
+        "giphyQuery": "blushing"
+      },
+      "b": {
+        "name": "Éternuer quand tu mens",
+        "origin": "Ton nez",
+        "line": "Impossible de cacher un mensonge, et c’est bruyant.",
+        "giphyIds": [],
+        "giphyQuery": "sneezing"
+      }
+    },
+    {
+      "id": "dilemmes-une-queue-de-chat-des-oreilles-de-lapin",
+      "category": "dilemmes",
+      "question": "Tu préfères avoir une queue de chat, ou des oreilles de lapin ?",
+      "a": {
+        "name": "Une queue de chat",
+        "origin": "Ton dos",
+        "line": "Elle trahit toutes tes émotions.",
+        "giphyIds": [],
+        "giphyQuery": "cat tail"
+      },
+      "b": {
+        "name": "Des oreilles de lapin",
+        "origin": "Ta tête",
+        "line": "Elles trahissent toutes tes émotions, en plus haut.",
+        "giphyIds": [],
+        "giphyQuery": "bunny ears"
+      }
+    },
+    {
+      "id": "dilemmes-que-du-jaune-que-des-pyjamas",
+      "category": "dilemmes",
+      "question": "Tu préfères ne porter que du jaune, ou que des pyjamas ?",
+      "a": {
+        "name": "Que du jaune",
+        "origin": "Ta garde-robe",
+        "line": "Tous tes vêtements, en jaune, pour toujours.",
+        "giphyIds": [],
+        "giphyQuery": "yellow outfit"
+      },
+      "b": {
+        "name": "Que des pyjamas",
+        "origin": "Ta garde-robe aussi",
+        "line": "Confortable au mariage, moins au bureau.",
+        "giphyIds": [],
+        "giphyQuery": "pajamas work"
+      }
+    },
+    {
+      "id": "dilemmes-un-generique-des-rires-enregistres",
+      "category": "dilemmes",
+      "question": "Tu préfères un générique quand tu entres, ou des rires enregistrés quand tu parles ?",
+      "a": {
+        "name": "Un générique",
+        "origin": "Ton entrée",
+        "line": "Une musique de série quand tu entres dans une pièce.",
+        "giphyIds": [],
+        "giphyQuery": "entrance music"
+      },
+      "b": {
+        "name": "Des rires enregistrés",
+        "origin": "Tes phrases",
+        "line": "Le public rit après chacune de tes phrases.",
+        "giphyIds": [],
+        "giphyQuery": "laugh track sitcom"
+      }
+    },
+    {
+      "id": "dilemmes-une-musique-de-film-un-narrateur",
+      "category": "dilemmes",
+      "question": "Tu préfères une musique de film qui te suit partout, ou un narrateur qui commente ta vie ?",
+      "a": {
+        "name": "Une musique de film",
+        "origin": "Ta vie",
+        "line": "Une bande-son épique, même pour sortir les poubelles.",
+        "giphyIds": [],
+        "giphyQuery": "epic music walking"
+      },
+      "b": {
+        "name": "Un narrateur",
+        "origin": "Ta vie",
+        "line": "Une voix qui commente tout ce que tu fais.",
+        "giphyIds": [],
+        "giphyQuery": "narrator documentary"
+      }
+    },
+    {
+      "id": "dilemmes-tes-pensees-affichees-ton-historique-public",
+      "category": "dilemmes",
+      "question": "Tu préfères tes pensées affichées au-dessus de ta tête, ou ton historique Internet public ?",
+      "a": {
+        "name": "Tes pensées affichées",
+        "origin": "Au-dessus de ta tête",
+        "line": "Une bulle de bande dessinée, visible par tous.",
+        "giphyIds": [],
+        "giphyQuery": "thought bubble"
+      },
+      "b": {
+        "name": "Ton historique public",
+        "origin": "Internet",
+        "line": "Toutes tes recherches, lisibles par tous.",
+        "giphyIds": [],
+        "giphyQuery": "browser history panic"
+      }
+    },
+    {
+      "id": "dilemmes-des-doigts-en-spaghettis-des-cheveux-en-spaghettis",
+      "category": "dilemmes",
+      "question": "Tu préfères des doigts en spaghettis, ou des cheveux en spaghettis ?",
+      "a": {
+        "name": "Des doigts en spaghettis",
+        "origin": "Tes mains",
+        "line": "Mous, longs, et très pratiques pour rien.",
+        "giphyIds": [],
+        "giphyQuery": "spaghetti"
+      },
+      "b": {
+        "name": "Des cheveux en spaghettis",
+        "origin": "Ta tête",
+        "line": "Al dente, et parfumés à la tomate.",
+        "giphyIds": [],
+        "giphyQuery": "spaghetti hair"
+      }
+    },
+    {
+      "id": "dilemmes-un-canard-geant-cent-chevaux-miniatures",
+      "category": "dilemmes",
+      "question": "Tu préfères affronter un canard de la taille d’un cheval, ou cent chevaux de la taille d’un canard ?",
+      "a": {
+        "name": "Un canard géant",
+        "origin": "L’arène",
+        "line": "Un seul canard, de la taille d’un cheval.",
+        "giphyIds": [],
+        "giphyQuery": "giant duck"
+      },
+      "b": {
+        "name": "Cent chevaux miniatures",
+        "origin": "L’arène",
+        "line": "Cent chevaux, de la taille d’un canard.",
+        "giphyIds": [],
+        "giphyQuery": "tiny horse"
+      }
+    },
+    {
+      "id": "dilemmes-plus-de-wi-fi-plus-d-eau-chaude",
+      "category": "dilemmes",
+      "question": "Tu préfères ne plus jamais avoir de Wi-Fi, ou ne plus jamais avoir d’eau chaude ?",
+      "a": {
+        "name": "Plus de Wi-Fi",
+        "origin": "La maison",
+        "line": "Plus jamais de connexion à la maison.",
+        "giphyIds": [],
+        "giphyQuery": "no wifi"
+      },
+      "b": {
+        "name": "Plus d’eau chaude",
+        "origin": "La douche",
+        "line": "Plus jamais de douche chaude.",
+        "giphyIds": [],
+        "giphyQuery": "cold shower"
+      }
+    },
+    {
+      "id": "dilemmes-avec-ton-ex-avec-ton-patron",
+      "category": "dilemmes",
+      "question": "Coincé deux heures dans un ascenseur : avec ton ex, ou avec ton patron ?",
+      "a": {
+        "name": "Avec ton ex",
+        "origin": "L’ascenseur en panne",
+        "line": "Deux heures, et beaucoup de souvenirs.",
+        "giphyIds": [],
+        "giphyQuery": "awkward elevator"
+      },
+      "b": {
+        "name": "Avec ton patron",
+        "origin": "L’ascenseur en panne aussi",
+        "line": "Deux heures, et un entretien annuel imprévu.",
+        "giphyIds": [],
+        "giphyQuery": "boss awkward"
+      }
+    },
+    {
+      "id": "dilemmes-du-sable-dans-les-chaussures-une-chaussette-mouillee",
+      "category": "dilemmes",
+      "question": "Tu préfères toujours avoir du sable dans les chaussures, ou une chaussette mouillée ?",
+      "a": {
+        "name": "Du sable dans les chaussures",
+        "origin": "Tes pieds",
+        "line": "Toujours, partout, même en hiver.",
+        "giphyIds": [],
+        "giphyQuery": "sand shoes"
+      },
+      "b": {
+        "name": "Une chaussette mouillée",
+        "origin": "Ton pied gauche",
+        "line": "Toujours, partout, et tu ne sais jamais pourquoi.",
+        "giphyIds": [],
+        "giphyQuery": "wet socks"
+      }
+    },
+    {
+      "id": "dilemmes-plus-de-fromage-plus-de-chocolat",
+      "category": "dilemmes",
+      "question": "Tu préfères renoncer pour toujours au fromage, ou au chocolat ?",
+      "a": {
+        "name": "Plus de fromage",
+        "origin": "Le plateau",
+        "line": "Adieu raclette, adieu fondue, adieu camembert.",
+        "giphyIds": [],
+        "giphyQuery": "cheese"
+      },
+      "b": {
+        "name": "Plus de chocolat",
+        "origin": "La tablette",
+        "line": "Adieu desserts, adieu Pâques, adieu réconfort.",
+        "giphyIds": [],
+        "giphyQuery": "chocolate"
+      }
+    },
+    {
+      "id": "dilemmes-batterie-a-1-ecran-fissure",
+      "category": "dilemmes",
+      "question": "Pour toujours : ton téléphone à 1 %, ou ton écran fissuré ?",
+      "a": {
+        "name": "Batterie à 1 %",
+        "origin": "Ton téléphone",
+        "line": "Pour toujours. Il ne s’éteint jamais, mais il te fait peur.",
+        "giphyIds": [],
+        "giphyQuery": "low battery"
+      },
+      "b": {
+        "name": "Écran fissuré",
+        "origin": "Ton téléphone",
+        "line": "Pour toujours. Il marche, mais il pique.",
+        "giphyIds": [],
+        "giphyQuery": "cracked screen"
+      }
+    },
+    {
+      "id": "dilemmes-toujours-faim-toujours-sommeil",
+      "category": "dilemmes",
+      "question": "Tu préfères avoir toujours faim, ou toujours sommeil ?",
+      "a": {
+        "name": "Toujours faim",
+        "origin": "Ton ventre",
+        "line": "Un petit creux, en permanence.",
+        "giphyIds": [],
+        "giphyQuery": "hungry"
+      },
+      "b": {
+        "name": "Toujours sommeil",
+        "origin": "Tes paupières",
+        "line": "Un petit coup de barre, en permanence.",
+        "giphyIds": [],
+        "giphyQuery": "sleepy yawn"
+      }
+    },
+    {
+      "id": "dilemmes-suivi-par-un-pigeon-suivi-par-un-mime",
+      "category": "dilemmes",
+      "question": "Tu préfères être suivi toute ta vie par un pigeon, ou par un mime ?",
+      "a": {
+        "name": "Suivi par un pigeon",
+        "origin": "La rue",
+        "line": "Il ne te lâche jamais, et il roucoule.",
+        "giphyIds": [],
+        "giphyQuery": "pigeon following"
+      },
+      "b": {
+        "name": "Suivi par un mime",
+        "origin": "La rue aussi",
+        "line": "Il imite tout ce que tu fais, en silence.",
+        "giphyIds": [],
+        "giphyQuery": "mime"
+      }
+    },
+    {
+      "id": "dilemmes-en-rimes-en-questions",
+      "category": "dilemmes",
+      "question": "Tu préfères ne parler qu’en rimes, ou qu’en questions ?",
+      "a": {
+        "name": "En rimes",
+        "origin": "Ta bouche",
+        "line": "Tout ce que tu dis rime. Même tes excuses.",
+        "giphyIds": [],
+        "giphyQuery": "poetry"
+      },
+      "b": {
+        "name": "En questions",
+        "origin": "Ta bouche aussi",
+        "line": "Tout ce que tu dis est une question. Pourquoi ?",
+        "giphyIds": [],
+        "giphyQuery": "confused question"
+      }
+    },
+    {
+      "id": "dilemmes-en-schtroumpf-comme-yoda",
+      "category": "dilemmes",
+      "question": "Tu préfères parler en schtroumpf, ou parler comme Yoda ?",
+      "a": {
+        "name": "En schtroumpf",
+        "origin": "Ton vocabulaire",
+        "line": "Tu schtroumpfes tous les mots importants.",
+        "giphyIds": [],
+        "giphyQuery": "Smurfs"
+      },
+      "b": {
+        "name": "Comme Yoda",
+        "origin": "Ta grammaire",
+        "line": "À l’envers, tes phrases tu construis.",
+        "giphyIds": [],
+        "giphyQuery": "Yoda"
+      }
+    },
+    {
+      "id": "dilemmes-la-voix-de-dark-vador-la-voix-de-donald",
+      "category": "dilemmes",
+      "question": "Tu préfères la voix de Dark Vador, ou celle de Donald ?",
+      "a": {
+        "name": "La voix de Dark Vador",
+        "origin": "Ta gorge",
+        "line": "Une respiration lourde à chaque phrase.",
+        "giphyIds": [],
+        "giphyQuery": "Darth Vader breathing"
+      },
+      "b": {
+        "name": "La voix de Donald",
+        "origin": "Ta gorge aussi",
+        "line": "Personne ne comprend, mais tout le monde rit.",
+        "giphyIds": [],
+        "giphyQuery": "Donald Duck talking"
+      }
+    },
+    {
+      "id": "dilemmes-une-comedie-musicale-un-film-d-horreur",
+      "category": "dilemmes",
+      "question": "Tu préfères que ta vie soit une comédie musicale, ou un film d’horreur ?",
+      "a": {
+        "name": "Une comédie musicale",
+        "origin": "Ta vie",
+        "line": "Tout le monde chante, tout le temps.",
+        "giphyIds": [],
+        "giphyQuery": "musical"
+      },
+      "b": {
+        "name": "Un film d’horreur",
+        "origin": "Ta vie",
+        "line": "Tout le monde crie, tout le temps.",
+        "giphyIds": [],
+        "giphyQuery": "horror movie scream"
+      }
+    },
+    {
+      "id": "dilemmes-un-million-en-24-heures-1-000-par-mois",
+      "category": "dilemmes",
+      "question": "Tu préfères un million à dépenser en 24 heures, ou 1 000 € par mois à vie ?",
+      "a": {
+        "name": "Un million en 24 heures",
+        "origin": "Ton compte en banque",
+        "line": "Tout dépenser avant demain, sinon tout disparaît.",
+        "giphyIds": [],
+        "giphyQuery": "spending money fast"
+      },
+      "b": {
+        "name": "1 000 € par mois",
+        "origin": "Ton compte en banque",
+        "line": "À vie, sans rien faire.",
+        "giphyIds": [],
+        "giphyQuery": "monthly paycheck"
+      }
+    },
+    {
+      "id": "dilemmes-rencontrer-ton-sosie-rencontrer-ton-toi-du-futur",
+      "category": "dilemmes",
+      "question": "Tu préfères rencontrer ton sosie, ou ton toi du futur ?",
+      "a": {
+        "name": "Rencontrer ton sosie",
+        "origin": "La rue",
+        "line": "Il a ta tête, mais pas ta vie.",
+        "giphyIds": [],
+        "giphyQuery": "doppelganger"
+      },
+      "b": {
+        "name": "Rencontrer ton toi du futur",
+        "origin": "La rue aussi",
+        "line": "Il a ta tête, avec des rides et des conseils.",
+        "giphyIds": [],
+        "giphyQuery": "old self"
+      }
+    },
+    {
+      "id": "dilemmes-annuler-une-erreur-connaitre-une-reponse",
+      "category": "dilemmes",
+      "question": "Tu préfères annuler une erreur de ton passé, ou connaître une réponse sur ton futur ?",
+      "a": {
+        "name": "Annuler une erreur",
+        "origin": "Ton passé",
+        "line": "Une seule. Choisis bien.",
+        "giphyIds": [],
+        "giphyQuery": "undo mistake"
+      },
+      "b": {
+        "name": "Connaître une réponse",
+        "origin": "Ton futur",
+        "line": "Une seule question, une seule réponse.",
+        "giphyIds": [],
+        "giphyQuery": "crystal ball"
+      }
+    },
+    {
+      "id": "dilemmes-des-mains-qui-collent-un-cheveu-sur-la-langue",
+      "category": "dilemmes",
+      "question": "Tu préfères avoir toujours les mains qui collent, ou un cheveu sur la langue ?",
+      "a": {
+        "name": "Des mains qui collent",
+        "origin": "Tes doigts",
+        "line": "Comme après une barbe à papa. Pour toujours.",
+        "giphyIds": [],
+        "giphyQuery": "sticky hands"
+      },
+      "b": {
+        "name": "Un cheveu sur la langue",
+        "origin": "Ta bouche",
+        "line": "Tu ne le trouves jamais. Pour toujours.",
+        "giphyIds": [],
+        "giphyQuery": "hair on tongue"
+      }
+    },
+    {
+      "id": "dilemmes-des-films-de-3-heures-des-videos-de-30-secondes",
+      "category": "dilemmes",
+      "question": "Tu préfères ne regarder que des films de 3 heures, ou que des vidéos de 30 secondes ?",
+      "a": {
+        "name": "Des films de 3 heures",
+        "origin": "Le cinéma",
+        "line": "Que des épopées, pas de format court.",
+        "giphyIds": [],
+        "giphyQuery": "long movie"
+      },
+      "b": {
+        "name": "Des vidéos de 30 secondes",
+        "origin": "Ton téléphone",
+        "line": "Que des vidéos courtes, pas de film.",
+        "giphyIds": [],
+        "giphyQuery": "short videos scrolling"
+      }
+    },
+    {
+      "id": "dilemmes-un-dragon-mini-un-chat-geant",
+      "category": "dilemmes",
+      "question": "Tu préfères un dragon de la taille d’un chat, ou un chat de la taille d’un dragon ?",
+      "a": {
+        "name": "Un dragon mini",
+        "origin": "Ton salon",
+        "line": "Un dragon de la taille d’un chat. Il crache sur le canapé.",
+        "giphyIds": [],
+        "giphyQuery": "tiny dragon"
+      },
+      "b": {
+        "name": "Un chat géant",
+        "origin": "Ton jardin",
+        "line": "Un chat de la taille d’un dragon. Il ronronne comme un tremblement de terre.",
+        "giphyIds": [],
+        "giphyQuery": "giant cat"
+      }
+    },
+    {
+      "id": "dilemmes-vivre-dans-harry-potter-vivre-dans-star-wars",
+      "category": "dilemmes",
+      "question": "Tu préfères vivre dans le monde d’Harry Potter, ou dans celui de Star Wars ?",
+      "a": {
+        "name": "Vivre dans Harry Potter",
+        "origin": "Poudlard",
+        "line": "Des sorts, des hiboux, et des examens.",
+        "giphyIds": [],
+        "giphyQuery": "Hogwarts"
+      },
+      "b": {
+        "name": "Vivre dans Star Wars",
+        "origin": "Une galaxie lointaine",
+        "line": "Des sabres laser, des vaisseaux, et l’Empire.",
+        "giphyIds": [],
+        "giphyQuery": "Star Wars lightsaber"
+      }
+    },
+    {
+      "id": "dilemmes-une-nuit-au-louvre-une-nuit-au-supermarche",
+      "category": "dilemmes",
+      "question": "Enfermé une nuit : au Louvre, ou dans un supermarché ?",
+      "a": {
+        "name": "Une nuit au Louvre",
+        "origin": "Le musée",
+        "line": "La Joconde, rien que pour toi.",
+        "giphyIds": [],
+        "giphyQuery": "Louvre night"
+      },
+      "b": {
+        "name": "Une nuit au supermarché",
+        "origin": "Le rayon gâteaux",
+        "line": "Les chips, rien que pour toi.",
+        "giphyIds": [],
+        "giphyQuery": "supermarket night"
+      }
+    },
+    {
+      "id": "dilemmes-ton-premier-jour-d-ecole-ton-premier-rendez-vous",
+      "category": "dilemmes",
+      "question": "Tu préfères revivre ton premier jour d’école, ou ton premier rendez-vous amoureux ?",
+      "a": {
+        "name": "Ton premier jour d’école",
+        "origin": "Le cartable",
+        "line": "Le cartable trop grand et la peur au ventre.",
+        "giphyIds": [],
+        "giphyQuery": "first day of school"
+      },
+      "b": {
+        "name": "Ton premier rendez-vous",
+        "origin": "Le café",
+        "line": "Les mains moites et la peur au ventre aussi.",
+        "giphyIds": [],
+        "giphyQuery": "first date nervous"
+      }
+    },
+    {
+      "id": "dilemmes-eternuer-en-public-le-hoquet-en-reunion",
+      "category": "dilemmes",
+      "question": "Tu préfères éternuer bruyamment en public, ou avoir le hoquet en réunion ?",
+      "a": {
+        "name": "Éternuer en public",
+        "origin": "Le métro",
+        "line": "Fort, et au pire moment.",
+        "giphyIds": [],
+        "giphyQuery": "loud sneeze"
+      },
+      "b": {
+        "name": "Le hoquet en réunion",
+        "origin": "La salle de réunion",
+        "line": "Discret au début. Puis plus du tout.",
+        "giphyIds": [],
+        "giphyQuery": "hiccups"
+      }
+    },
+    {
+      "id": "dilemmes-un-rire-de-dauphin-un-rire-de-cochon",
+      "category": "dilemmes",
+      "question": "Tu préfères un rire de dauphin, ou un rire de cochon ?",
+      "a": {
+        "name": "Un rire de dauphin",
+        "origin": "Tes éclats de rire",
+        "line": "Des petits cris aigus, à chaque blague.",
+        "giphyIds": [],
+        "giphyQuery": "dolphin laugh"
+      },
+      "b": {
+        "name": "Un rire de cochon",
+        "origin": "Tes éclats de rire aussi",
+        "line": "Des grognements, à chaque blague.",
+        "giphyIds": [],
+        "giphyQuery": "pig snort laugh"
+      }
+    },
+    {
+      "id": "dilemmes-toujours-debout-toujours-assis",
+      "category": "dilemmes",
+      "question": "Tu préfères ne plus jamais pouvoir t’asseoir, ou ne plus jamais pouvoir te lever ?",
+      "a": {
+        "name": "Toujours debout",
+        "origin": "Tes jambes",
+        "line": "Plus jamais de chaise, de canapé, de siège.",
+        "giphyIds": [],
+        "giphyQuery": "standing"
+      },
+      "b": {
+        "name": "Toujours assis",
+        "origin": "Ton fauteuil",
+        "line": "Plus jamais debout. Tu te déplaces en chaise de bureau.",
+        "giphyIds": [],
+        "giphyQuery": "office chair rolling"
+      }
+    },
+    {
+      "id": "dilemmes-la-vie-de-ton-chat-la-vie-de-ton-poisson-rouge",
+      "category": "dilemmes",
+      "question": "Tu préfères vivre la vie de ton chat, ou celle de ton poisson rouge ?",
+      "a": {
+        "name": "La vie de ton chat",
+        "origin": "Le canapé",
+        "line": "Seize heures de sieste et des croquettes.",
+        "giphyIds": [],
+        "giphyQuery": "cat sleeping"
+      },
+      "b": {
+        "name": "La vie de ton poisson rouge",
+        "origin": "Le bocal",
+        "line": "Des tours de bocal, et zéro souvenir.",
+        "giphyIds": [],
+        "giphyQuery": "goldfish"
+      }
+    },
+    {
+      "id": "dilemmes-retrouver-tes-10-ans-sauter-a-tes-80-ans",
+      "category": "dilemmes",
+      "question": "Tu préfères revenir à tes 10 ans, ou sauter directement à tes 80 ans ?",
+      "a": {
+        "name": "Retrouver tes 10 ans",
+        "origin": "Le passé",
+        "line": "Avec tout ce que tu sais aujourd’hui.",
+        "giphyIds": [],
+        "giphyQuery": "kid again"
+      },
+      "b": {
+        "name": "Sauter à tes 80 ans",
+        "origin": "Le futur",
+        "line": "Avec tout ce que tu sais aujourd’hui aussi.",
+        "giphyIds": [],
+        "giphyQuery": "old person"
+      }
+    },
+    {
+      "id": "dilemmes-jamais-non-jamais-oui",
+      "category": "dilemmes",
+      "question": "Tu préfères ne plus jamais pouvoir dire non, ou ne plus jamais pouvoir dire oui ?",
+      "a": {
+        "name": "Jamais « non »",
+        "origin": "Ta bouche",
+        "line": "Tu acceptes tout. Absolument tout.",
+        "giphyIds": [],
+        "giphyQuery": "yes man"
+      },
+      "b": {
+        "name": "Jamais « oui »",
+        "origin": "Ta bouche aussi",
+        "line": "Tu refuses tout. Même les desserts.",
+        "giphyIds": [],
+        "giphyQuery": "no no no"
+      }
+    },
+    {
+      "id": "dilemmes-cereales-infinies-chocolat-qui-repousse",
+      "category": "dilemmes",
+      "question": "Tu préfères une boîte de céréales infinie, ou une tablette de chocolat qui se reconstitue ?",
+      "a": {
+        "name": "Céréales infinies",
+        "origin": "Le placard",
+        "line": "Une boîte qui ne se vide jamais.",
+        "giphyIds": [],
+        "giphyQuery": "cereal bowl"
+      },
+      "b": {
+        "name": "Chocolat qui repousse",
+        "origin": "Le placard aussi",
+        "line": "Une tablette qui se reconstitue toute seule.",
+        "giphyIds": [],
+        "giphyQuery": "chocolate bar"
+      }
+    },
+    {
+      "id": "pouvoirs-voler-etre-invisible",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Voler",
+        "origin": "Le ciel",
+        "line": "Plus de bouchons, mais des moustiques dans les dents.",
+        "giphyIds": [],
+        "giphyQuery": "flying superhero"
+      },
+      "b": {
+        "name": "Être invisible",
+        "origin": "Partout",
+        "line": "Personne ne te voit. Même quand tu as besoin d’aide.",
+        "giphyIds": [],
+        "giphyQuery": "invisible"
+      }
+    },
+    {
+      "id": "pouvoirs-lire-dans-les-pensees-voir-l-avenir",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Lire dans les pensées",
+        "origin": "Les autres",
+        "line": "Tu sais tout. Même ce que tu n’aurais pas voulu savoir.",
+        "giphyIds": [],
+        "giphyQuery": "mind reading"
+      },
+      "b": {
+        "name": "Voir l’avenir",
+        "origin": "Demain",
+        "line": "Tu sais tout ce qui va arriver. Plus aucune surprise.",
+        "giphyIds": [],
+        "giphyQuery": "crystal ball future"
+      }
+    },
+    {
+      "id": "pouvoirs-se-teleporter-arreter-le-temps",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Se téléporter",
+        "origin": "N’importe où",
+        "line": "Paris-Tokyo en une seconde. Adieu les avions.",
+        "giphyIds": [],
+        "giphyQuery": "teleport"
+      },
+      "b": {
+        "name": "Arrêter le temps",
+        "origin": "N’importe quand",
+        "line": "Tout s’arrête, sauf toi. La sieste éternelle.",
+        "giphyIds": [],
+        "giphyQuery": "time freeze"
+      }
+    },
+    {
+      "id": "pouvoirs-super-force-super-vitesse",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Super-force",
+        "origin": "Tes bras",
+        "line": "Soulever une voiture, ouvrir tous les bocaux.",
+        "giphyIds": [],
+        "giphyQuery": "super strength"
+      },
+      "b": {
+        "name": "Super-vitesse",
+        "origin": "Tes jambes",
+        "line": "Arriver avant même d’être parti.",
+        "giphyIds": [],
+        "giphyQuery": "super speed"
+      }
+    },
+    {
+      "id": "pouvoirs-respirer-sous-l-eau-ne-jamais-avoir-froid",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Respirer sous l’eau",
+        "origin": "L’océan",
+        "line": "Explorer les fonds marins, sans bouteille.",
+        "giphyIds": [],
+        "giphyQuery": "breathing underwater"
+      },
+      "b": {
+        "name": "Ne jamais avoir froid",
+        "origin": "La banquise",
+        "line": "Le pôle Nord en t-shirt.",
+        "giphyIds": [],
+        "giphyQuery": "snow t-shirt"
+      }
+    },
+    {
+      "id": "pouvoirs-parler-aux-animaux-parler-toutes-les-langues",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Parler aux animaux",
+        "origin": "La nature",
+        "line": "Enfin savoir ce que pense ton chat.",
+        "giphyIds": [],
+        "giphyQuery": "talking to animals"
+      },
+      "b": {
+        "name": "Parler toutes les langues",
+        "origin": "Le monde",
+        "line": "Enfin comprendre ce que disent les touristes.",
+        "giphyIds": [],
+        "giphyQuery": "translator languages"
+      }
+    },
+    {
+      "id": "pouvoirs-guerir-les-autres-ne-jamais-tomber-malade",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Guérir les autres",
+        "origin": "Tes mains",
+        "line": "Un rhume, une fracture, un cœur brisé.",
+        "giphyIds": [],
+        "giphyQuery": "healing hands"
+      },
+      "b": {
+        "name": "Ne jamais tomber malade",
+        "origin": "Ton corps",
+        "line": "Plus jamais de rhume, plus jamais de vaccin raté.",
+        "giphyIds": [],
+        "giphyQuery": "healthy strong"
+      }
+    },
+    {
+      "id": "pouvoirs-controler-la-meteo-controler-les-feux-rouges",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Contrôler la météo",
+        "origin": "Le ciel",
+        "line": "Du soleil pour tes vacances, de la neige pour Noël.",
+        "giphyIds": [],
+        "giphyQuery": "weather control"
+      },
+      "b": {
+        "name": "Contrôler les feux rouges",
+        "origin": "La ville",
+        "line": "Vert, à chaque fois, partout.",
+        "giphyIds": [],
+        "giphyQuery": "green traffic light"
+      }
+    },
+    {
+      "id": "pouvoirs-voyager-dans-le-passe-voyager-dans-le-futur",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Voyager dans le passé",
+        "origin": "Hier, et avant",
+        "line": "Voir les dinosaures, et éviter tes erreurs.",
+        "giphyIds": [],
+        "giphyQuery": "time travel past"
+      },
+      "b": {
+        "name": "Voyager dans le futur",
+        "origin": "Demain, et après",
+        "line": "Voir les voitures volantes, et les résultats du loto.",
+        "giphyIds": [],
+        "giphyQuery": "futuristic city"
+      }
+    },
+    {
+      "id": "pouvoirs-copier-les-pouvoirs-effacer-les-pouvoirs",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Copier les pouvoirs",
+        "origin": "Les autres héros",
+        "line": "Tous les pouvoirs, à condition de les toucher.",
+        "giphyIds": [],
+        "giphyQuery": "copy powers"
+      },
+      "b": {
+        "name": "Effacer les pouvoirs",
+        "origin": "Les autres héros",
+        "line": "Plus personne n’a de pouvoir. Sauf toi.",
+        "giphyIds": [],
+        "giphyQuery": "power absorb"
+      }
+    },
+    {
+      "id": "pouvoirs-retrecir-grandir",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Rétrécir",
+        "origin": "La taille d’une fourmi",
+        "line": "Passer sous les portes, et rester en vie.",
+        "giphyIds": [],
+        "giphyQuery": "Ant-Man"
+      },
+      "b": {
+        "name": "Grandir",
+        "origin": "La taille d’un immeuble",
+        "line": "Voir par-dessus les foules, et les toits.",
+        "giphyIds": [],
+        "giphyQuery": "giant"
+      }
+    },
+    {
+      "id": "pouvoirs-changer-d-apparence-changer-de-voix",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Changer d’apparence",
+        "origin": "Ton visage",
+        "line": "Devenir n’importe qui, en un instant.",
+        "giphyIds": [],
+        "giphyQuery": "shapeshifter"
+      },
+      "b": {
+        "name": "Changer de voix",
+        "origin": "Ta gorge",
+        "line": "Imiter n’importe qui, à la perfection.",
+        "giphyIds": [],
+        "giphyQuery": "voice impression"
+      }
+    },
+    {
+      "id": "pouvoirs-telekinesie-controler-le-feu",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Télékinésie",
+        "origin": "Ton esprit",
+        "line": "Déplacer les objets par la pensée. La télécommande vient toute seule.",
+        "giphyIds": [],
+        "giphyQuery": "telekinesis"
+      },
+      "b": {
+        "name": "Contrôler le feu",
+        "origin": "Tes mains",
+        "line": "Allumer le barbecue d’un regard.",
+        "giphyIds": [],
+        "giphyQuery": "fire powers"
+      }
+    },
+    {
+      "id": "pouvoirs-maitriser-l-eau-maitriser-l-air",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Maîtriser l’eau",
+        "origin": "Les océans",
+        "line": "Faire des vagues, littéralement.",
+        "giphyIds": [],
+        "giphyQuery": "water bending"
+      },
+      "b": {
+        "name": "Maîtriser l’air",
+        "origin": "Le vent",
+        "line": "Sécher tes cheveux, et voler les chapeaux.",
+        "giphyIds": [],
+        "giphyQuery": "air bending"
+      }
+    },
+    {
+      "id": "pouvoirs-vision-laser-vision-a-rayons-x",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Vision laser",
+        "origin": "Tes yeux",
+        "line": "Découper n’importe quoi, d’un regard.",
+        "giphyIds": [],
+        "giphyQuery": "laser eyes"
+      },
+      "b": {
+        "name": "Vision à rayons X",
+        "origin": "Tes yeux aussi",
+        "line": "Voir à travers les murs, et dans les cadeaux de Noël.",
+        "giphyIds": [],
+        "giphyQuery": "x-ray vision"
+      }
+    },
+    {
+      "id": "pouvoirs-super-ouie-super-odorat",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Super-ouïe",
+        "origin": "Tes oreilles",
+        "line": "Entendre tous les secrets, même au fond de la salle.",
+        "giphyIds": [],
+        "giphyQuery": "super hearing"
+      },
+      "b": {
+        "name": "Super-odorat",
+        "origin": "Ton nez",
+        "line": "Sentir les croissants à trois kilomètres.",
+        "giphyIds": [],
+        "giphyQuery": "smelling"
+      }
+    },
+    {
+      "id": "pouvoirs-memoire-photographique-apprendre-en-une-nuit",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Mémoire photographique",
+        "origin": "Ton cerveau",
+        "line": "Tu te souviens de tout. Même de ce que tu voudrais oublier.",
+        "giphyIds": [],
+        "giphyQuery": "photographic memory"
+      },
+      "b": {
+        "name": "Apprendre en une nuit",
+        "origin": "Ton oreiller",
+        "line": "Un livre sous l’oreiller, et tu le sais par cœur.",
+        "giphyIds": [],
+        "giphyQuery": "learning fast"
+      }
+    },
+    {
+      "id": "pouvoirs-ne-jamais-vieillir-guerir-de-tout",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Ne jamais vieillir",
+        "origin": "Le temps",
+        "line": "Toujours le même âge, toujours la même tête.",
+        "giphyIds": [],
+        "giphyQuery": "forever young"
+      },
+      "b": {
+        "name": "Guérir de tout",
+        "origin": "Ton corps",
+        "line": "Toutes les blessures disparaissent en une seconde.",
+        "giphyIds": [],
+        "giphyQuery": "Wolverine healing"
+      }
+    },
+    {
+      "id": "pouvoirs-parler-aux-plantes-faire-pousser-n-importe-quoi",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Parler aux plantes",
+        "origin": "Ton jardin",
+        "line": "Enfin savoir pourquoi ton cactus déprime.",
+        "giphyIds": [],
+        "giphyQuery": "talking to plants"
+      },
+      "b": {
+        "name": "Faire pousser n’importe quoi",
+        "origin": "Ta main verte",
+        "line": "Une forêt en dix minutes.",
+        "giphyIds": [],
+        "giphyQuery": "growing plants fast"
+      }
+    },
+    {
+      "id": "pouvoirs-une-place-de-parking-la-caisse-la-plus-rapide",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Une place de parking",
+        "origin": "Partout",
+        "line": "Toujours libre, toujours devant la porte.",
+        "giphyIds": [],
+        "giphyQuery": "parking spot"
+      },
+      "b": {
+        "name": "La caisse la plus rapide",
+        "origin": "Le supermarché",
+        "line": "Toujours la bonne file, toujours la première.",
+        "giphyIds": [],
+        "giphyQuery": "supermarket checkout"
+      }
+    },
+    {
+      "id": "pouvoirs-ne-jamais-perdre-tes-cles-ne-jamais-oublier-un-nom",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Ne jamais perdre tes clés",
+        "origin": "Ta poche",
+        "line": "Elles sont toujours là où tu les cherches.",
+        "giphyIds": [],
+        "giphyQuery": "keys"
+      },
+      "b": {
+        "name": "Ne jamais oublier un nom",
+        "origin": "Ta mémoire",
+        "line": "Plus jamais de « euh… toi ! ».",
+        "giphyIds": [],
+        "giphyQuery": "name tag"
+      }
+    },
+    {
+      "id": "pouvoirs-recharger-ton-telephone-du-wi-fi-partout",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Recharger ton téléphone",
+        "origin": "Ta main",
+        "line": "Une pression du doigt, et 100 %.",
+        "giphyIds": [],
+        "giphyQuery": "phone charging"
+      },
+      "b": {
+        "name": "Du Wi-Fi partout",
+        "origin": "Toi",
+        "line": "Tu es un routeur ambulant.",
+        "giphyIds": [],
+        "giphyQuery": "wifi"
+      }
+    },
+    {
+      "id": "pouvoirs-grimper-aux-murs-respirer-dans-l-espace",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Grimper aux murs",
+        "origin": "Les immeubles",
+        "line": "Comme une araignée, sans les huit pattes.",
+        "giphyIds": [],
+        "giphyQuery": "Spider-Man climbing"
+      },
+      "b": {
+        "name": "Respirer dans l’espace",
+        "origin": "La Lune",
+        "line": "Une balade sans combinaison.",
+        "giphyIds": [],
+        "giphyQuery": "astronaut space"
+      }
+    },
+    {
+      "id": "pouvoirs-traverser-les-murs-marcher-sur-l-eau",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Traverser les murs",
+        "origin": "Les murs",
+        "line": "Plus besoin de clés, plus besoin de portes.",
+        "giphyIds": [],
+        "giphyQuery": "walking through walls"
+      },
+      "b": {
+        "name": "Marcher sur l’eau",
+        "origin": "Le lac",
+        "line": "Traverser la rivière sans se mouiller.",
+        "giphyIds": [],
+        "giphyQuery": "walking on water"
+      }
+    },
+    {
+      "id": "pouvoirs-cri-supersonique-regard-petrifiant",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Cri supersonique",
+        "origin": "Ta voix",
+        "line": "Un cri, et toutes les vitres tremblent.",
+        "giphyIds": [],
+        "giphyQuery": "sonic scream"
+      },
+      "b": {
+        "name": "Regard pétrifiant",
+        "origin": "Tes yeux",
+        "line": "Un regard, et plus personne ne bouge.",
+        "giphyIds": [],
+        "giphyQuery": "Medusa stare"
+      }
+    },
+    {
+      "id": "pouvoirs-commander-aux-insectes-commander-aux-oiseaux",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Commander aux insectes",
+        "origin": "Les fourmis",
+        "line": "Une armée de fourmis à tes ordres.",
+        "giphyIds": [],
+        "giphyQuery": "ant army"
+      },
+      "b": {
+        "name": "Commander aux oiseaux",
+        "origin": "Les pigeons",
+        "line": "Une escadrille de pigeons à tes ordres.",
+        "giphyIds": [],
+        "giphyQuery": "flock of birds"
+      }
+    },
+    {
+      "id": "pouvoirs-controler-l-electricite-controler-le-metal",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Contrôler l’électricité",
+        "origin": "Les éclairs",
+        "line": "Recharger la ville, ou tout faire sauter.",
+        "giphyIds": [],
+        "giphyQuery": "electricity powers"
+      },
+      "b": {
+        "name": "Contrôler le métal",
+        "origin": "Le magnétisme",
+        "line": "Plier les voitures, et retrouver tes clés.",
+        "giphyIds": [],
+        "giphyQuery": "Magneto"
+      }
+    },
+    {
+      "id": "pouvoirs-se-dupliquer-quatre-bras",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Se dupliquer",
+        "origin": "Toi, en double",
+        "line": "Un toi au travail, un toi à la sieste.",
+        "giphyIds": [],
+        "giphyQuery": "clones"
+      },
+      "b": {
+        "name": "Quatre bras",
+        "origin": "Ton torse",
+        "line": "Tout faire en même temps, et bien.",
+        "giphyIds": [],
+        "giphyQuery": "four arms"
+      }
+    },
+    {
+      "id": "pouvoirs-le-sens-de-l-orientation-toujours-savoir-quoi-dire",
+      "category": "pouvoirs",
+      "question": "Tu préfères ne jamais te perdre, ou toujours savoir quoi dire ?",
+      "a": {
+        "name": "Le sens de l’orientation",
+        "origin": "Ton GPS intérieur",
+        "line": "Ne jamais te perdre, nulle part.",
+        "giphyIds": [],
+        "giphyQuery": "compass"
+      },
+      "b": {
+        "name": "Toujours savoir quoi dire",
+        "origin": "Ta répartie",
+        "line": "La bonne réplique, au bon moment.",
+        "giphyIds": [],
+        "giphyQuery": "mic drop"
+      }
+    },
+    {
+      "id": "pouvoirs-rembobiner-dix-secondes-mettre-pause-une-minute",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Rembobiner dix secondes",
+        "origin": "Ta montre",
+        "line": "Dire autre chose, refaire le geste raté.",
+        "giphyIds": [],
+        "giphyQuery": "rewind"
+      },
+      "b": {
+        "name": "Mettre pause une minute",
+        "origin": "Ta montre aussi",
+        "line": "Le temps de trouver la réplique parfaite.",
+        "giphyIds": [],
+        "giphyQuery": "pause time"
+      }
+    },
+    {
+      "id": "pouvoirs-voir-dans-le-noir-voir-a-des-kilometres",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Voir dans le noir",
+        "origin": "Tes yeux, la nuit",
+        "line": "Plus jamais de petit orteil contre le meuble.",
+        "giphyIds": [],
+        "giphyQuery": "night vision"
+      },
+      "b": {
+        "name": "Voir à des kilomètres",
+        "origin": "Tes yeux, le jour",
+        "line": "Lire le panneau de l’autoroute depuis la maison.",
+        "giphyIds": [],
+        "giphyQuery": "binoculars"
+      }
+    },
+    {
+      "id": "pouvoirs-lancer-des-toiles-lancer-des-eclairs",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Lancer des toiles",
+        "origin": "Tes poignets",
+        "line": "Se balancer entre les immeubles.",
+        "giphyIds": [],
+        "giphyQuery": "web shooting"
+      },
+      "b": {
+        "name": "Lancer des éclairs",
+        "origin": "Tes mains",
+        "line": "Un orage personnel, sur commande.",
+        "giphyIds": [],
+        "giphyQuery": "lightning hands"
+      }
+    },
+    {
+      "id": "pouvoirs-invoquer-n-importe-quel-plat-invoquer-n-importe-quelle-boisso",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Invoquer n’importe quel plat",
+        "origin": "Ta table",
+        "line": "Une raclette, en été, en deux secondes.",
+        "giphyIds": [],
+        "giphyQuery": "food appearing"
+      },
+      "b": {
+        "name": "Invoquer n’importe quelle boisson",
+        "origin": "Ton verre",
+        "line": "Un chocolat chaud, en randonnée, en deux secondes.",
+        "giphyIds": [],
+        "giphyQuery": "drink appearing"
+      }
+    },
+    {
+      "id": "pouvoirs-chance-aux-jeux-gagner-tous-les-debats",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Chance aux jeux",
+        "origin": "Le loto",
+        "line": "Gagner à tous les jeux de hasard.",
+        "giphyIds": [],
+        "giphyQuery": "winning lottery"
+      },
+      "b": {
+        "name": "Gagner tous les débats",
+        "origin": "Le repas de famille",
+        "line": "Avoir toujours raison, et que tout le monde le reconnaisse.",
+        "giphyIds": [],
+        "giphyQuery": "winning argument"
+      }
+    },
+    {
+      "id": "pouvoirs-se-transformer-en-animal-se-transformer-en-objet",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Se transformer en animal",
+        "origin": "La forêt",
+        "line": "Devenir loup, aigle, ou chat de canapé.",
+        "giphyIds": [],
+        "giphyQuery": "animal transformation"
+      },
+      "b": {
+        "name": "Se transformer en objet",
+        "origin": "Le salon",
+        "line": "Devenir lampe, chaise, ou grille-pain. Discret.",
+        "giphyIds": [],
+        "giphyQuery": "object transformation"
+      }
+    },
+    {
+      "id": "pouvoirs-super-elasticite-peau-d-acier",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Super-élasticité",
+        "origin": "Ton corps",
+        "line": "S’étirer, s’enrouler, passer partout.",
+        "giphyIds": [],
+        "giphyQuery": "elastic powers"
+      },
+      "b": {
+        "name": "Peau d’acier",
+        "origin": "Ton corps aussi",
+        "line": "Rien ne te blesse. Même pas les pièces de Lego.",
+        "giphyIds": [],
+        "giphyQuery": "steel skin"
+      }
+    },
+    {
+      "id": "pouvoirs-controler-les-reves-effacer-les-mauvais-souvenirs",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Contrôler les rêves",
+        "origin": "Tes nuits",
+        "line": "Des rêves sur mesure, chaque nuit.",
+        "giphyIds": [],
+        "giphyQuery": "dreaming"
+      },
+      "b": {
+        "name": "Effacer les mauvais souvenirs",
+        "origin": "Ta mémoire",
+        "line": "Le pire moment de ta vie, supprimé.",
+        "giphyIds": [],
+        "giphyQuery": "memory erase"
+      }
+    },
+    {
+      "id": "pouvoirs-creer-des-illusions-detecter-les-mensonges",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Créer des illusions",
+        "origin": "Les yeux des autres",
+        "line": "Faire voir n’importe quoi à n’importe qui.",
+        "giphyIds": [],
+        "giphyQuery": "illusion magic"
+      },
+      "b": {
+        "name": "Détecter les mensonges",
+        "origin": "Tes oreilles",
+        "line": "Personne ne peut plus te mentir.",
+        "giphyIds": [],
+        "giphyQuery": "lie detector"
+      }
+    },
+    {
+      "id": "pouvoirs-souffle-de-dragon-toucher-glace",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Souffle de dragon",
+        "origin": "Ta bouche",
+        "line": "Du feu, quand tu veux. Attention aux bougies.",
+        "giphyIds": [],
+        "giphyQuery": "fire breathing"
+      },
+      "b": {
+        "name": "Toucher glacé",
+        "origin": "Tes mains",
+        "line": "Tout ce que tu touches gèle. Pratique pour les boissons.",
+        "giphyIds": [],
+        "giphyQuery": "ice powers"
+      }
+    },
+    {
+      "id": "pouvoirs-voler-avec-une-cape-voler-avec-des-reacteurs",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Voler avec une cape",
+        "origin": "Le ciel",
+        "line": "Comme Superman, les bras en avant.",
+        "giphyIds": [],
+        "giphyQuery": "Superman flying"
+      },
+      "b": {
+        "name": "Voler avec des réacteurs",
+        "origin": "Le ciel aussi",
+        "line": "Comme Iron Man, avec du bruit.",
+        "giphyIds": [],
+        "giphyQuery": "Iron Man flying"
+      }
+    },
+    {
+      "id": "pouvoirs-parler-aux-fantomes-parler-aux-extraterrestres",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Parler aux fantômes",
+        "origin": "L’au-delà",
+        "line": "Des conversations très, très anciennes.",
+        "giphyIds": [],
+        "giphyQuery": "ghosts"
+      },
+      "b": {
+        "name": "Parler aux extraterrestres",
+        "origin": "L’espace",
+        "line": "Des conversations très, très lointaines.",
+        "giphyIds": [],
+        "giphyQuery": "alien talking"
+      }
+    },
+    {
+      "id": "pouvoirs-ralentir-le-temps-accelerer-le-temps",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Ralentir le temps",
+        "origin": "Les balles",
+        "line": "Le monde au ralenti, comme dans Matrix.",
+        "giphyIds": [],
+        "giphyQuery": "bullet time"
+      },
+      "b": {
+        "name": "Accélérer le temps",
+        "origin": "Les files d’attente",
+        "line": "Les réunions passent en dix secondes.",
+        "giphyIds": [],
+        "giphyQuery": "fast forward"
+      }
+    },
+    {
+      "id": "pouvoirs-comprendre-les-bebes-comprendre-les-chats",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Comprendre les bébés",
+        "origin": "La crèche",
+        "line": "Enfin savoir pourquoi il pleure.",
+        "giphyIds": [],
+        "giphyQuery": "baby crying"
+      },
+      "b": {
+        "name": "Comprendre les chats",
+        "origin": "Le canapé",
+        "line": "Enfin savoir pourquoi il renverse ton verre.",
+        "giphyIds": [],
+        "giphyQuery": "cat pushing glass"
+      }
+    },
+    {
+      "id": "pouvoirs-ouvrir-toutes-les-portes-ouvrir-tous-les-bocaux",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Ouvrir toutes les portes",
+        "origin": "Les serrures",
+        "line": "Plus besoin de clés, nulle part.",
+        "giphyIds": [],
+        "giphyQuery": "unlocking door"
+      },
+      "b": {
+        "name": "Ouvrir tous les bocaux",
+        "origin": "La cuisine",
+        "line": "Plus besoin d’appeler à l’aide.",
+        "giphyIds": [],
+        "giphyQuery": "opening jar"
+      }
+    },
+    {
+      "id": "pouvoirs-ne-jamais-transpirer-ne-jamais-rougir",
+      "category": "pouvoirs",
+      "question": "Tu préfères ne jamais transpirer, ou ne jamais rougir ?",
+      "a": {
+        "name": "Ne jamais transpirer",
+        "origin": "Ton corps",
+        "line": "Même en plein été, même au sport.",
+        "giphyIds": [],
+        "giphyQuery": "dry"
+      },
+      "b": {
+        "name": "Ne jamais rougir",
+        "origin": "Tes joues",
+        "line": "Même quand on te fait un compliment.",
+        "giphyIds": [],
+        "giphyQuery": "poker face"
+      }
+    },
+    {
+      "id": "pouvoirs-les-pouvoirs-de-superman-les-pouvoirs-de-batman",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Les pouvoirs de Superman",
+        "origin": "Krypton",
+        "line": "Voler, la force, les yeux laser.",
+        "giphyIds": [],
+        "giphyQuery": "Superman"
+      },
+      "b": {
+        "name": "Les pouvoirs de Batman",
+        "origin": "Wayne Enterprises",
+        "line": "Beaucoup d’argent, et des gadgets.",
+        "giphyIds": [],
+        "giphyQuery": "Batman gadgets"
+      }
+    },
+    {
+      "id": "pouvoirs-la-force-de-hulk-le-cerveau-de-tony-stark",
+      "category": "pouvoirs",
+      "a": {
+        "name": "La force de Hulk",
+        "origin": "Tes muscles",
+        "line": "Tout casser, mais en vert.",
+        "giphyIds": [],
+        "giphyQuery": "Hulk smash"
+      },
+      "b": {
+        "name": "Le cerveau de Tony Stark",
+        "origin": "Ton crâne",
+        "line": "Tout inventer, mais pas l’humilité.",
+        "giphyIds": [],
+        "giphyQuery": "Tony Stark genius"
+      }
+    },
+    {
+      "id": "pouvoirs-une-baguette-magique-une-lampe-a-genie",
+      "category": "pouvoirs",
+      "a": {
+        "name": "Une baguette magique",
+        "origin": "Poudlard",
+        "line": "Tous les sorts, à condition de bien prononcer.",
+        "giphyIds": [],
+        "giphyQuery": "magic wand"
+      },
+      "b": {
+        "name": "Une lampe à génie",
+        "origin": "Agrabah",
+        "line": "Trois vœux, et pas un de plus.",
+        "giphyIds": [],
+        "giphyQuery": "genie lamp"
+      }
+    },
+    {
+      "id": "pouvoirs-voler-lentement-courir-vite-a-reculons",
+      "category": "pouvoirs",
+      "question": "Tu préfères voler, mais très lentement, ou courir très vite, mais seulement à reculons ?",
+      "a": {
+        "name": "Voler lentement",
+        "origin": "Le ciel",
+        "line": "Tu peux voler, mais à quatre kilomètres-heure.",
+        "giphyIds": [],
+        "giphyQuery": "slow flying"
+      },
+      "b": {
+        "name": "Courir vite à reculons",
+        "origin": "Le trottoir",
+        "line": "Tu cours à cent kilomètres-heure, mais seulement en arrière.",
+        "giphyIds": [],
+        "giphyQuery": "running backwards"
+      }
+    },
+    {
+      "id": "pouvoirs-invisible-si-personne-ne-regarde-lire-les-pensees-des-pigeons",
+      "category": "pouvoirs",
+      "question": "Tu préfères être invisible seulement quand personne ne regarde, ou lire dans les pensées des pigeons ?",
+      "a": {
+        "name": "Invisible si personne ne regarde",
+        "origin": "Le néant",
+        "line": "Invisible, à condition que personne ne te regarde.",
+        "giphyIds": [],
+        "giphyQuery": "invisible joke"
+      },
+      "b": {
+        "name": "Lire les pensées des pigeons",
+        "origin": "Le parc",
+        "line": "Tu entends tout ce que pensent les pigeons. C’est surtout « miettes ».",
+        "giphyIds": [],
+        "giphyQuery": "pigeon thinking"
+      }
+    },
+    {
+      "id": "monstres-vampires-loups-garous",
+      "category": "monstres",
+      "a": {
+        "name": "Vampires",
+        "origin": "Transylvanie",
+        "line": "Des capes, des crocs, et une allergie à l’ail.",
+        "giphyIds": [],
+        "giphyQuery": "vampire"
+      },
+      "b": {
+        "name": "Loups-garous",
+        "origin": "La pleine lune",
+        "line": "Des poils, des griffes, et des nuits agitées.",
+        "giphyIds": [],
+        "giphyQuery": "werewolf"
+      }
+    },
+    {
+      "id": "monstres-zombies-aliens",
+      "category": "monstres",
+      "a": {
+        "name": "Zombies",
+        "origin": "L’apocalypse",
+        "line": "Lents, nombreux, et toujours affamés.",
+        "giphyIds": [],
+        "giphyQuery": "zombies"
+      },
+      "b": {
+        "name": "Aliens",
+        "origin": "L’espace",
+        "line": "Grands yeux, soucoupes, et sondes.",
+        "giphyIds": [],
+        "giphyQuery": "aliens ufo"
+      }
+    },
+    {
+      "id": "monstres-godzilla-king-kong",
+      "category": "monstres",
+      "a": {
+        "name": "Godzilla",
+        "origin": "Tokyo · 1954",
+        "line": "Un lézard géant qui détruit des villes.",
+        "giphyIds": [],
+        "giphyQuery": "Godzilla"
+      },
+      "b": {
+        "name": "King Kong",
+        "origin": "Skull Island · 1933",
+        "line": "Un gorille géant qui escalade des gratte-ciel.",
+        "giphyIds": [],
+        "giphyQuery": "King Kong"
+      }
+    },
+    {
+      "id": "monstres-dragon-licorne",
+      "category": "monstres",
+      "a": {
+        "name": "Dragon",
+        "origin": "Les légendes",
+        "line": "Des écailles, des ailes, et un trésor.",
+        "giphyIds": [],
+        "giphyQuery": "dragon"
+      },
+      "b": {
+        "name": "Licorne",
+        "origin": "Les légendes aussi",
+        "line": "Une corne, des paillettes, et un arc-en-ciel.",
+        "giphyIds": [],
+        "giphyQuery": "unicorn"
+      }
+    },
+    {
+      "id": "monstres-fantome-esprit-frappeur",
+      "category": "monstres",
+      "a": {
+        "name": "Fantôme",
+        "origin": "Le grenier",
+        "line": "Un drap blanc, et des chaînes qui grincent.",
+        "giphyIds": [],
+        "giphyQuery": "ghost sheet"
+      },
+      "b": {
+        "name": "Esprit frappeur",
+        "origin": "La cuisine",
+        "line": "Il fait voler les assiettes.",
+        "giphyIds": [],
+        "giphyQuery": "poltergeist"
+      }
+    },
+    {
+      "id": "monstres-la-creature-de-frankenstein-dracula",
+      "category": "monstres",
+      "a": {
+        "name": "La créature de Frankenstein",
+        "origin": "Mary Shelley · 1818",
+        "line": "Des boulons dans le cou, et un grand cœur.",
+        "giphyIds": [],
+        "giphyQuery": "Frankenstein monster"
+      },
+      "b": {
+        "name": "Dracula",
+        "origin": "Bram Stoker · 1897",
+        "line": "Un château, un cercueil, et beaucoup de classe.",
+        "giphyIds": [],
+        "giphyQuery": "Dracula"
+      }
+    },
+    {
+      "id": "monstres-le-kraken-le-monstre-du-loch-ness",
+      "category": "monstres",
+      "a": {
+        "name": "Le Kraken",
+        "origin": "Les mers du Nord",
+        "line": "Des tentacules gigantesques, et des navires engloutis.",
+        "giphyIds": [],
+        "giphyQuery": "Kraken"
+      },
+      "b": {
+        "name": "Le monstre du loch Ness",
+        "origin": "L’Écosse",
+        "line": "Toujours flou sur les photos.",
+        "giphyIds": [],
+        "giphyQuery": "Loch Ness monster"
+      }
+    },
+    {
+      "id": "monstres-yeti-bigfoot",
+      "category": "monstres",
+      "a": {
+        "name": "Yéti",
+        "origin": "L’Himalaya",
+        "line": "Une grande empreinte dans la neige.",
+        "giphyIds": [],
+        "giphyQuery": "Yeti"
+      },
+      "b": {
+        "name": "Bigfoot",
+        "origin": "Les forêts américaines",
+        "line": "Une silhouette floue dans les bois.",
+        "giphyIds": [],
+        "giphyQuery": "Bigfoot"
+      }
+    },
+    {
+      "id": "monstres-gremlins-critters",
+      "category": "monstres",
+      "a": {
+        "name": "Gremlins",
+        "origin": "Joe Dante · 1984",
+        "line": "Pas d’eau, pas de lumière, pas de repas après minuit.",
+        "giphyIds": [],
+        "giphyQuery": "Gremlins"
+      },
+      "b": {
+        "name": "Critters",
+        "origin": "Stephen Herek · 1986",
+        "line": "Des boules de poils affamées venues de l’espace.",
+        "giphyIds": [],
+        "giphyQuery": "Critters"
+      }
+    },
+    {
+      "id": "monstres-sirene-centaure",
+      "category": "monstres",
+      "a": {
+        "name": "Sirène",
+        "origin": "Les océans",
+        "line": "Une queue de poisson, et une voix envoûtante.",
+        "giphyIds": [],
+        "giphyQuery": "mermaid"
+      },
+      "b": {
+        "name": "Centaure",
+        "origin": "La Grèce antique",
+        "line": "Un buste d’homme, un corps de cheval.",
+        "giphyIds": [],
+        "giphyQuery": "centaur"
+      }
+    },
+    {
+      "id": "monstres-le-minotaure-meduse",
+      "category": "monstres",
+      "a": {
+        "name": "Le Minotaure",
+        "origin": "Le labyrinthe",
+        "line": "Une tête de taureau, et un très mauvais sens de l’orientation.",
+        "giphyIds": [],
+        "giphyQuery": "Minotaur"
+      },
+      "b": {
+        "name": "Méduse",
+        "origin": "La Grèce antique",
+        "line": "Des serpents à la place des cheveux, et un regard qui pétrifie.",
+        "giphyIds": [],
+        "giphyQuery": "Medusa"
+      }
+    },
+    {
+      "id": "monstres-cyclope-hydre",
+      "category": "monstres",
+      "a": {
+        "name": "Cyclope",
+        "origin": "L’Odyssée",
+        "line": "Un seul œil, et un gros caractère.",
+        "giphyIds": [],
+        "giphyQuery": "Cyclops"
+      },
+      "b": {
+        "name": "Hydre",
+        "origin": "Lerne",
+        "line": "Tu coupes une tête, il en repousse deux.",
+        "giphyIds": [],
+        "giphyQuery": "Hydra"
+      }
+    },
+    {
+      "id": "monstres-gobelins-trolls",
+      "category": "monstres",
+      "a": {
+        "name": "Gobelins",
+        "origin": "Les cavernes",
+        "line": "Petits, verts, et fous d’or.",
+        "giphyIds": [],
+        "giphyQuery": "goblin"
+      },
+      "b": {
+        "name": "Trolls",
+        "origin": "Sous les ponts",
+        "line": "Grands, lents, et ils réclament un péage.",
+        "giphyIds": [],
+        "giphyQuery": "troll"
+      }
+    },
+    {
+      "id": "monstres-elfes-nains",
+      "category": "monstres",
+      "a": {
+        "name": "Elfes",
+        "origin": "Le Seigneur des anneaux",
+        "line": "Grands, élégants, et des oreilles pointues.",
+        "giphyIds": [],
+        "giphyQuery": "Legolas elf"
+      },
+      "b": {
+        "name": "Nains",
+        "origin": "Le Seigneur des anneaux",
+        "line": "Petits, barbus, et fous de mines.",
+        "giphyIds": [],
+        "giphyQuery": "Gimli dwarf"
+      }
+    },
+    {
+      "id": "monstres-hobbits-ents",
+      "category": "monstres",
+      "a": {
+        "name": "Hobbits",
+        "origin": "La Comté",
+        "line": "Deux petits-déjeuners, et des pieds poilus.",
+        "giphyIds": [],
+        "giphyQuery": "hobbit"
+      },
+      "b": {
+        "name": "Ents",
+        "origin": "La forêt de Fangorn",
+        "line": "Des arbres qui parlent, très, très lentement.",
+        "giphyIds": [],
+        "giphyQuery": "Ents Treebeard"
+      }
+    },
+    {
+      "id": "monstres-gollum-dobby",
+      "category": "monstres",
+      "a": {
+        "name": "Gollum",
+        "origin": "Le Seigneur des anneaux",
+        "line": "« Mon précieux. »",
+        "giphyIds": [],
+        "giphyQuery": "Gollum"
+      },
+      "b": {
+        "name": "Dobby",
+        "origin": "Harry Potter",
+        "line": "« Dobby est un elfe libre ! »",
+        "giphyIds": [],
+        "giphyQuery": "Dobby"
+      }
+    },
+    {
+      "id": "monstres-le-grinch-krampus",
+      "category": "monstres",
+      "a": {
+        "name": "Le Grinch",
+        "origin": "Dr. Seuss · 1957",
+        "line": "Vert, grincheux, et voleur de Noël.",
+        "giphyIds": [],
+        "giphyQuery": "Grinch"
+      },
+      "b": {
+        "name": "Krampus",
+        "origin": "Les Alpes",
+        "line": "Le compagnon terrifiant de saint Nicolas.",
+        "giphyIds": [],
+        "giphyQuery": "Krampus"
+      }
+    },
+    {
+      "id": "monstres-e-t-stitch",
+      "category": "monstres",
+      "a": {
+        "name": "E.T.",
+        "origin": "Steven Spielberg · 1982",
+        "line": "« E.T. téléphone maison. »",
+        "giphyIds": [],
+        "giphyQuery": "ET phone home"
+      },
+      "b": {
+        "name": "Stitch",
+        "origin": "Disney · 2002",
+        "line": "Expérience 626, petit monstre adorable.",
+        "giphyIds": [],
+        "giphyQuery": "Stitch"
+      }
+    },
+    {
+      "id": "monstres-les-martiens-de-mars-attacks-les-petits-gris",
+      "category": "monstres",
+      "a": {
+        "name": "Les Martiens de Mars Attacks!",
+        "origin": "Tim Burton · 1996",
+        "line": "« Ack ack ! »",
+        "giphyIds": [],
+        "giphyQuery": "Mars Attacks"
+      },
+      "b": {
+        "name": "Les petits gris",
+        "origin": "Les ovnis",
+        "line": "Grands yeux noirs, et soucoupe volante.",
+        "giphyIds": [],
+        "giphyQuery": "grey alien"
+      }
+    },
+    {
+      "id": "monstres-chupacabra-mothman",
+      "category": "monstres",
+      "a": {
+        "name": "Chupacabra",
+        "origin": "L’Amérique latine",
+        "line": "Le suceur de chèvres.",
+        "giphyIds": [],
+        "giphyQuery": "Chupacabra"
+      },
+      "b": {
+        "name": "Mothman",
+        "origin": "La Virginie-Occidentale",
+        "line": "Un homme-papillon aux yeux rouges.",
+        "giphyIds": [],
+        "giphyQuery": "Mothman"
+      }
+    },
+    {
+      "id": "monstres-phenix-griffon",
+      "category": "monstres",
+      "a": {
+        "name": "Phénix",
+        "origin": "Les légendes",
+        "line": "Il meurt en flammes, et renaît de ses cendres.",
+        "giphyIds": [],
+        "giphyQuery": "phoenix bird"
+      },
+      "b": {
+        "name": "Griffon",
+        "origin": "Les légendes aussi",
+        "line": "Moitié aigle, moitié lion.",
+        "giphyIds": [],
+        "giphyQuery": "griffin"
+      }
+    },
+    {
+      "id": "monstres-pegase-hippogriffe",
+      "category": "monstres",
+      "a": {
+        "name": "Pégase",
+        "origin": "La Grèce antique",
+        "line": "Un cheval ailé, tout blanc.",
+        "giphyIds": [],
+        "giphyQuery": "Pegasus"
+      },
+      "b": {
+        "name": "Hippogriffe",
+        "origin": "Harry Potter",
+        "line": "Moitié aigle, moitié cheval, et très susceptible.",
+        "giphyIds": [],
+        "giphyQuery": "Buckbeak hippogriff"
+      }
+    },
+    {
+      "id": "monstres-golem-gargouille",
+      "category": "monstres",
+      "a": {
+        "name": "Golem",
+        "origin": "La tradition juive",
+        "line": "Un géant d’argile, obéissant.",
+        "giphyIds": [],
+        "giphyQuery": "golem"
+      },
+      "b": {
+        "name": "Gargouille",
+        "origin": "Les cathédrales",
+        "line": "Elle garde les toits, et crache l’eau de pluie.",
+        "giphyIds": [],
+        "giphyQuery": "gargoyle"
+      }
+    },
+    {
+      "id": "monstres-kitsune-tanuki",
+      "category": "monstres",
+      "a": {
+        "name": "Kitsune",
+        "origin": "Le Japon",
+        "line": "Un renard à neuf queues, rusé.",
+        "giphyIds": [],
+        "giphyQuery": "kitsune"
+      },
+      "b": {
+        "name": "Tanuki",
+        "origin": "Le Japon aussi",
+        "line": "Un raton malicieux qui change de forme.",
+        "giphyIds": [],
+        "giphyQuery": "tanuki"
+      }
+    },
+    {
+      "id": "monstres-banshee-feu-follet",
+      "category": "monstres",
+      "a": {
+        "name": "Banshee",
+        "origin": "L’Irlande",
+        "line": "Son cri annonce les mauvaises nouvelles.",
+        "giphyIds": [],
+        "giphyQuery": "banshee"
+      },
+      "b": {
+        "name": "Feu follet",
+        "origin": "Les marais",
+        "line": "Une petite flamme qui égare les voyageurs.",
+        "giphyIds": [],
+        "giphyQuery": "will o wisp"
+      }
+    },
+    {
+      "id": "monstres-le-monstre-du-placard-le-monstre-sous-le-lit",
+      "category": "monstres",
+      "a": {
+        "name": "Le monstre du placard",
+        "origin": "Ta chambre",
+        "line": "Il attend que tu fermes les yeux.",
+        "giphyIds": [],
+        "giphyQuery": "monster closet"
+      },
+      "b": {
+        "name": "Le monstre sous le lit",
+        "origin": "Ta chambre aussi",
+        "line": "Il attend que tu poses un pied par terre.",
+        "giphyIds": [],
+        "giphyQuery": "monster under bed"
+      }
+    },
+    {
+      "id": "monstres-le-croque-mitaine-la-dame-blanche",
+      "category": "monstres",
+      "a": {
+        "name": "Le Croque-mitaine",
+        "origin": "Les histoires du soir",
+        "line": "Il vient chercher les enfants qui ne dorment pas.",
+        "giphyIds": [],
+        "giphyQuery": "boogeyman"
+      },
+      "b": {
+        "name": "La Dame blanche",
+        "origin": "Les routes de campagne",
+        "line": "Elle fait de l’auto-stop la nuit.",
+        "giphyIds": [],
+        "giphyQuery": "ghost woman"
+      }
+    },
+    {
+      "id": "monstres-la-bete-du-gevaudan-le-grand-mechant-loup",
+      "category": "monstres",
+      "a": {
+        "name": "La Bête du Gévaudan",
+        "origin": "Lozère · 1764",
+        "line": "Une bête mystérieuse, jamais vraiment identifiée.",
+        "giphyIds": [],
+        "giphyQuery": "wolf beast"
+      },
+      "b": {
+        "name": "Le grand méchant loup",
+        "origin": "Les contes",
+        "line": "Il souffle sur les maisons, et mange les grands-mères.",
+        "giphyIds": [],
+        "giphyQuery": "big bad wolf"
+      }
+    },
+    {
+      "id": "monstres-moby-dick-les-dents-de-la-mer",
+      "category": "monstres",
+      "a": {
+        "name": "Moby Dick",
+        "origin": "Herman Melville · 1851",
+        "line": "Une baleine blanche, et une obsession.",
+        "giphyIds": [],
+        "giphyQuery": "Moby Dick whale"
+      },
+      "b": {
+        "name": "Les Dents de la mer",
+        "origin": "Steven Spielberg · 1975",
+        "line": "Deux notes de musique, et plus personne ne se baigne.",
+        "giphyIds": [],
+        "giphyQuery": "Jaws shark"
+      }
+    },
+    {
+      "id": "monstres-sulli-bob-razowski",
+      "category": "monstres",
+      "a": {
+        "name": "Sulli",
+        "origin": "Monstres et Cie · 2001",
+        "line": "Bleu, poilu, et finalement très doux.",
+        "giphyIds": [],
+        "giphyQuery": "Sulley Monsters Inc"
+      },
+      "b": {
+        "name": "Bob Razowski",
+        "origin": "Monstres et Cie · 2001",
+        "line": "Un seul œil, et beaucoup d’humour.",
+        "giphyIds": [],
+        "giphyQuery": "Mike Wazowski"
+      }
+    },
+    {
+      "id": "monstres-macaron-le-glouton-oscar-le-grincheux",
+      "category": "monstres",
+      "a": {
+        "name": "Macaron le glouton",
+        "origin": "1, rue Sésame",
+        "line": "« C’est moi Macaron ! » Et des biscuits partout.",
+        "giphyIds": [],
+        "giphyQuery": "Cookie Monster"
+      },
+      "b": {
+        "name": "Oscar le grincheux",
+        "origin": "1, rue Sésame",
+        "line": "Il vit dans une poubelle, et il en est fier.",
+        "giphyIds": [],
+        "giphyQuery": "Oscar the Grouch"
+      }
+    },
+    {
+      "id": "monstres-casper-bouffe-tout",
+      "category": "monstres",
+      "a": {
+        "name": "Casper",
+        "origin": "Le fantôme gentil · 1945",
+        "line": "Un fantôme qui veut juste des amis.",
+        "giphyIds": [],
+        "giphyQuery": "Casper"
+      },
+      "b": {
+        "name": "Bouffe-tout",
+        "origin": "SOS Fantômes · 1984",
+        "line": "Vert, gluant, et affamé.",
+        "giphyIds": [],
+        "giphyQuery": "Slimer Ghostbusters"
+      }
+    },
+    {
+      "id": "monstres-le-bonhomme-chamallow-bibendum",
+      "category": "monstres",
+      "a": {
+        "name": "Le bonhomme Chamallow",
+        "origin": "SOS Fantômes · 1984",
+        "line": "Un géant de guimauve qui marche sur New York.",
+        "giphyIds": [],
+        "giphyQuery": "Stay Puft marshmallow"
+      },
+      "b": {
+        "name": "Bibendum",
+        "origin": "Michelin · 1898",
+        "line": "Un bonhomme en pneus, très souriant.",
+        "giphyIds": [],
+        "giphyQuery": "Michelin man"
+      }
+    },
+    {
+      "id": "monstres-pennywise-chucky",
+      "category": "monstres",
+      "a": {
+        "name": "Pennywise",
+        "origin": "Stephen King · 1986",
+        "line": "Un clown, un ballon rouge, et une bouche d’égout.",
+        "giphyIds": [],
+        "giphyQuery": "Pennywise"
+      },
+      "b": {
+        "name": "Chucky",
+        "origin": "Jeu d’enfant · 1988",
+        "line": "Une poupée qui n’est pas du tout un jouet.",
+        "giphyIds": [],
+        "giphyQuery": "Chucky doll"
+      }
+    },
+    {
+      "id": "monstres-detraqueurs-nazguls",
+      "category": "monstres",
+      "a": {
+        "name": "Détraqueurs",
+        "origin": "Harry Potter",
+        "line": "Ils aspirent toute la joie. Mangez du chocolat.",
+        "giphyIds": [],
+        "giphyQuery": "Dementors"
+      },
+      "b": {
+        "name": "Nazgûls",
+        "origin": "Le Seigneur des anneaux",
+        "line": "Neuf cavaliers noirs, et des cris perçants.",
+        "giphyIds": [],
+        "giphyQuery": "Nazgul"
+      }
+    },
+    {
+      "id": "monstres-smaug-drogon",
+      "category": "monstres",
+      "a": {
+        "name": "Smaug",
+        "origin": "Le Hobbit · 1937",
+        "line": "Un dragon allongé sur une montagne d’or.",
+        "giphyIds": [],
+        "giphyQuery": "Smaug"
+      },
+      "b": {
+        "name": "Drogon",
+        "origin": "Game of Thrones · 2011",
+        "line": "Le plus grand des dragons de Daenerys.",
+        "giphyIds": [],
+        "giphyQuery": "Drogon"
+      }
+    },
+    {
+      "id": "monstres-kaijus-jaegers",
+      "category": "monstres",
+      "a": {
+        "name": "Kaijus",
+        "origin": "Pacific Rim · 2013",
+        "line": "Des monstres géants sortis de l’océan.",
+        "giphyIds": [],
+        "giphyQuery": "Pacific Rim kaiju"
+      },
+      "b": {
+        "name": "Jaegers",
+        "origin": "Pacific Rim · 2013",
+        "line": "Des robots géants pilotés à deux.",
+        "giphyIds": [],
+        "giphyQuery": "Pacific Rim jaeger"
+      }
+    },
+    {
+      "id": "monstres-la-fee-clochette-le-genie",
+      "category": "monstres",
+      "a": {
+        "name": "La fée Clochette",
+        "origin": "Peter Pan · 1904",
+        "line": "Petite, jalouse, et de la poudre de fée.",
+        "giphyIds": [],
+        "giphyQuery": "Tinker Bell"
+      },
+      "b": {
+        "name": "Le Génie",
+        "origin": "Aladdin · 1992",
+        "line": "Trois vœux, et beaucoup d’imitations.",
+        "giphyIds": [],
+        "giphyQuery": "Genie Aladdin"
+      }
+    },
+    {
+      "id": "monstres-loup-garou-villageois",
+      "category": "monstres",
+      "a": {
+        "name": "Loup-garou",
+        "origin": "Le jeu de société",
+        "line": "La nuit, il dévore un villageois.",
+        "giphyIds": [],
+        "giphyQuery": "werewolf game"
+      },
+      "b": {
+        "name": "Villageois",
+        "origin": "Le jeu de société aussi",
+        "line": "Le jour, il accuse son voisin.",
+        "giphyIds": [],
+        "giphyQuery": "villagers mob"
+      }
+    },
+    {
+      "id": "monstres-malefique-ursula",
+      "category": "monstres",
+      "a": {
+        "name": "Maléfique",
+        "origin": "La Belle au bois dormant · 1959",
+        "line": "Des cornes, un corbeau, et une rancune tenace.",
+        "giphyIds": [],
+        "giphyQuery": "Maleficent"
+      },
+      "b": {
+        "name": "Ursula",
+        "origin": "La Petite Sirène · 1989",
+        "line": "Des tentacules, et des contrats douteux.",
+        "giphyIds": [],
+        "giphyQuery": "Ursula"
+      }
+    },
+    {
+      "id": "monstres-lutins-farfadets",
+      "category": "monstres",
+      "a": {
+        "name": "Lutins",
+        "origin": "Le pôle Nord",
+        "line": "Ils fabriquent les jouets du père Noël.",
+        "giphyIds": [],
+        "giphyQuery": "elves christmas"
+      },
+      "b": {
+        "name": "Farfadets",
+        "origin": "Les forêts",
+        "line": "Ils jouent des tours aux voyageurs.",
+        "giphyIds": [],
+        "giphyQuery": "leprechaun mischief"
+      }
+    },
+    {
+      "id": "monstres-djinn-leprechaun",
+      "category": "monstres",
+      "a": {
+        "name": "Djinn",
+        "origin": "Les Mille et Une Nuits",
+        "line": "Un génie puissant, et capricieux.",
+        "giphyIds": [],
+        "giphyQuery": "djinn"
+      },
+      "b": {
+        "name": "Leprechaun",
+        "origin": "L’Irlande",
+        "line": "Un petit homme vert, et un chaudron d’or.",
+        "giphyIds": [],
+        "giphyQuery": "leprechaun gold"
+      }
+    },
+    {
+      "id": "monstres-le-sphinx-la-chimere",
+      "category": "monstres",
+      "a": {
+        "name": "Le Sphinx",
+        "origin": "Thèbes",
+        "line": "Une énigme, et gare à la mauvaise réponse.",
+        "giphyIds": [],
+        "giphyQuery": "sphinx"
+      },
+      "b": {
+        "name": "La Chimère",
+        "origin": "La Grèce antique",
+        "line": "Lion, chèvre et serpent, en une seule bête.",
+        "giphyIds": [],
+        "giphyQuery": "chimera"
+      }
+    },
+    {
+      "id": "monstres-basilic-acromentule",
+      "category": "monstres",
+      "a": {
+        "name": "Basilic",
+        "origin": "Harry Potter",
+        "line": "Un serpent géant, et un regard mortel.",
+        "giphyIds": [],
+        "giphyQuery": "basilisk"
+      },
+      "b": {
+        "name": "Acromentule",
+        "origin": "Harry Potter",
+        "line": "Une araignée géante, et des enfants très nombreux.",
+        "giphyIds": [],
+        "giphyQuery": "Aragog spider"
+      }
+    },
+    {
+      "id": "monstres-baba-yaga-la-reine-de-blanche-neige",
+      "category": "monstres",
+      "a": {
+        "name": "Baba Yaga",
+        "origin": "Les contes russes",
+        "line": "Une maison sur pattes de poulet.",
+        "giphyIds": [],
+        "giphyQuery": "Baba Yaga"
+      },
+      "b": {
+        "name": "La Reine de Blanche-Neige",
+        "origin": "Disney · 1937",
+        "line": "« Miroir, mon beau miroir… »",
+        "giphyIds": [],
+        "giphyQuery": "Evil Queen Snow White"
+      }
+    },
+    {
+      "id": "monstres-zombie-lent-zombie-rapide",
+      "category": "monstres",
+      "a": {
+        "name": "Zombie lent",
+        "origin": "La Nuit des morts-vivants · 1968",
+        "line": "Il marche doucement. On a le temps.",
+        "giphyIds": [],
+        "giphyQuery": "slow zombie"
+      },
+      "b": {
+        "name": "Zombie rapide",
+        "origin": "28 jours plus tard · 2002",
+        "line": "Il sprinte. On n’a plus le temps.",
+        "giphyIds": [],
+        "giphyQuery": "fast zombie"
+      }
+    },
+    {
+      "id": "monstres-vampire-qui-brille-vampire-classique",
+      "category": "monstres",
+      "a": {
+        "name": "Vampire qui brille",
+        "origin": "Twilight · 2008",
+        "line": "Il scintille au soleil.",
+        "giphyIds": [],
+        "giphyQuery": "Edward sparkle"
+      },
+      "b": {
+        "name": "Vampire classique",
+        "origin": "Dracula · 1897",
+        "line": "Il brûle au soleil.",
+        "giphyIds": [],
+        "giphyQuery": "classic vampire"
+      }
+    },
+    {
+      "id": "monstres-les-tribbles-les-ewoks",
+      "category": "monstres",
+      "a": {
+        "name": "Les Tribbles",
+        "origin": "Star Trek · 1967",
+        "line": "Des boules de poils qui se multiplient.",
+        "giphyIds": [],
+        "giphyQuery": "Tribbles"
+      },
+      "b": {
+        "name": "Les Ewoks",
+        "origin": "Star Wars · 1983",
+        "line": "Des oursons qui battent l’Empire.",
+        "giphyIds": [],
+        "giphyQuery": "Ewoks"
+      }
+    },
+    {
+      "id": "monstres-la-momie-le-fantome-de-l-opera",
+      "category": "monstres",
+      "a": {
+        "name": "La Momie",
+        "origin": "Les pyramides",
+        "line": "Des bandelettes, et une malédiction.",
+        "giphyIds": [],
+        "giphyQuery": "mummy"
+      },
+      "b": {
+        "name": "Le Fantôme de l’Opéra",
+        "origin": "Gaston Leroux · 1910",
+        "line": "Un masque blanc, et un lustre qui tombe.",
+        "giphyIds": [],
+        "giphyQuery": "Phantom of the Opera"
+      }
+    },
+    {
+      "id": "animaux-panda-koala",
+      "category": "animaux",
+      "a": {
+        "name": "Panda",
+        "origin": "La Chine",
+        "line": "Mange du bambou quatorze heures par jour.",
+        "giphyIds": [],
+        "giphyQuery": "panda"
+      },
+      "b": {
+        "name": "Koala",
+        "origin": "L’Australie",
+        "line": "Dort vingt heures par jour.",
+        "giphyIds": [],
+        "giphyQuery": "koala"
+      }
+    },
+    {
+      "id": "animaux-requin-crocodile",
+      "category": "animaux",
+      "a": {
+        "name": "Requin",
+        "origin": "L’océan",
+        "line": "Des dents qui repoussent toute sa vie.",
+        "giphyIds": [],
+        "giphyQuery": "shark"
+      },
+      "b": {
+        "name": "Crocodile",
+        "origin": "La rivière",
+        "line": "Inchangé depuis les dinosaures, et ça lui va.",
+        "giphyIds": [],
+        "giphyQuery": "crocodile"
+      }
+    },
+    {
+      "id": "animaux-loutre-capybara",
+      "category": "animaux",
+      "a": {
+        "name": "Loutre",
+        "origin": "La rivière",
+        "line": "Elle dort en tenant la main de ses amies.",
+        "giphyIds": [],
+        "giphyQuery": "otter"
+      },
+      "b": {
+        "name": "Capybara",
+        "origin": "L’Amérique du Sud",
+        "line": "Le plus gros rongeur du monde, et le plus calme.",
+        "giphyIds": [],
+        "giphyQuery": "capybara"
+      }
+    },
+    {
+      "id": "animaux-pingouin-manchot",
+      "category": "animaux",
+      "a": {
+        "name": "Pingouin",
+        "origin": "L’Atlantique Nord",
+        "line": "Il vole. Si, si.",
+        "giphyIds": [],
+        "giphyQuery": "puffin flying"
+      },
+      "b": {
+        "name": "Manchot",
+        "origin": "L’Antarctique",
+        "line": "Il ne vole pas. Mais il nage très bien.",
+        "giphyIds": [],
+        "giphyQuery": "penguin swimming"
+      }
+    },
+    {
+      "id": "animaux-lion-tigre",
+      "category": "animaux",
+      "a": {
+        "name": "Lion",
+        "origin": "La savane",
+        "line": "Le roi de la jungle, qui vit dans la savane.",
+        "giphyIds": [],
+        "giphyQuery": "lion"
+      },
+      "b": {
+        "name": "Tigre",
+        "origin": "L’Asie",
+        "line": "Le plus grand de tous les félins.",
+        "giphyIds": [],
+        "giphyQuery": "tiger"
+      }
+    },
+    {
+      "id": "animaux-dauphin-orque",
+      "category": "animaux",
+      "a": {
+        "name": "Dauphin",
+        "origin": "L’océan",
+        "line": "Intelligent, joueur, et toujours souriant.",
+        "giphyIds": [],
+        "giphyQuery": "dolphin"
+      },
+      "b": {
+        "name": "Orque",
+        "origin": "L’océan aussi",
+        "line": "En fait, c’est le plus grand des dauphins.",
+        "giphyIds": [],
+        "giphyQuery": "orca"
+      }
+    },
+    {
+      "id": "animaux-hibou-chouette",
+      "category": "animaux",
+      "a": {
+        "name": "Hibou",
+        "origin": "La forêt",
+        "line": "Il a des aigrettes sur la tête.",
+        "giphyIds": [],
+        "giphyQuery": "owl"
+      },
+      "b": {
+        "name": "Chouette",
+        "origin": "La forêt aussi",
+        "line": "Elle n’en a pas. C’est tout.",
+        "giphyIds": [],
+        "giphyQuery": "barn owl"
+      }
+    },
+    {
+      "id": "animaux-lapin-cochon-d-inde",
+      "category": "animaux",
+      "a": {
+        "name": "Lapin",
+        "origin": "Le clapier",
+        "line": "Des oreilles, des carottes, et des sauts de joie.",
+        "giphyIds": [],
+        "giphyQuery": "bunny"
+      },
+      "b": {
+        "name": "Cochon d’Inde",
+        "origin": "La cage",
+        "line": "Des petits cris dès qu’on ouvre le frigo.",
+        "giphyIds": [],
+        "giphyQuery": "guinea pig"
+      }
+    },
+    {
+      "id": "animaux-paresseux-tortue",
+      "category": "animaux",
+      "a": {
+        "name": "Paresseux",
+        "origin": "La canopée",
+        "line": "Descend de son arbre une fois par semaine.",
+        "giphyIds": [],
+        "giphyQuery": "sloth"
+      },
+      "b": {
+        "name": "Tortue",
+        "origin": "Le jardin",
+        "line": "Elle a tout son temps. Vraiment tout.",
+        "giphyIds": [],
+        "giphyQuery": "tortoise"
+      }
+    },
+    {
+      "id": "animaux-girafe-elephant",
+      "category": "animaux",
+      "a": {
+        "name": "Girafe",
+        "origin": "La savane",
+        "line": "Un cou immense, avec seulement sept vertèbres.",
+        "giphyIds": [],
+        "giphyQuery": "giraffe"
+      },
+      "b": {
+        "name": "Éléphant",
+        "origin": "La savane aussi",
+        "line": "Une trompe, et une mémoire d’éléphant.",
+        "giphyIds": [],
+        "giphyQuery": "elephant"
+      }
+    },
+    {
+      "id": "animaux-pieuvre-calamar-geant",
+      "category": "animaux",
+      "a": {
+        "name": "Pieuvre",
+        "origin": "Les fonds marins",
+        "line": "Huit bras, trois cœurs, du sang bleu.",
+        "giphyIds": [],
+        "giphyQuery": "octopus"
+      },
+      "b": {
+        "name": "Calamar géant",
+        "origin": "Les abysses",
+        "line": "Des yeux grands comme des assiettes.",
+        "giphyIds": [],
+        "giphyQuery": "giant squid"
+      }
+    },
+    {
+      "id": "animaux-abeille-papillon",
+      "category": "animaux",
+      "a": {
+        "name": "Abeille",
+        "origin": "La ruche",
+        "line": "Elle danse pour indiquer les fleurs.",
+        "giphyIds": [],
+        "giphyQuery": "bee"
+      },
+      "b": {
+        "name": "Papillon",
+        "origin": "Le jardin",
+        "line": "Il goûte avec ses pattes.",
+        "giphyIds": [],
+        "giphyQuery": "butterfly"
+      }
+    },
+    {
+      "id": "animaux-pigeon-mouette",
+      "category": "animaux",
+      "a": {
+        "name": "Pigeon",
+        "origin": "La place de la mairie",
+        "line": "Il connaît la ville mieux que toi.",
+        "giphyIds": [],
+        "giphyQuery": "pigeon"
+      },
+      "b": {
+        "name": "Mouette",
+        "origin": "Le port",
+        "line": "Elle te vole tes frites, sans remords.",
+        "giphyIds": [],
+        "giphyQuery": "seagull stealing fries"
+      }
+    },
+    {
+      "id": "animaux-raton-laveur-opossum",
+      "category": "animaux",
+      "a": {
+        "name": "Raton laveur",
+        "origin": "La poubelle",
+        "line": "Il lave sa nourriture, et fouille tes poubelles.",
+        "giphyIds": [],
+        "giphyQuery": "raccoon"
+      },
+      "b": {
+        "name": "Opossum",
+        "origin": "La route",
+        "line": "Il fait le mort quand il a peur.",
+        "giphyIds": [],
+        "giphyQuery": "opossum"
+      }
+    },
+    {
+      "id": "animaux-chat-noir-chat-roux",
+      "category": "animaux",
+      "a": {
+        "name": "Chat noir",
+        "origin": "Le perron",
+        "line": "Porte-bonheur ou malheur, selon les pays.",
+        "giphyIds": [],
+        "giphyQuery": "black cat"
+      },
+      "b": {
+        "name": "Chat roux",
+        "origin": "Le canapé",
+        "line": "Une seule cellule grise, selon Internet.",
+        "giphyIds": [],
+        "giphyQuery": "orange cat"
+      }
+    },
+    {
+      "id": "animaux-golden-retriever-teckel",
+      "category": "animaux",
+      "a": {
+        "name": "Golden retriever",
+        "origin": "Le jardin",
+        "line": "Aime absolument tout le monde.",
+        "giphyIds": [],
+        "giphyQuery": "golden retriever"
+      },
+      "b": {
+        "name": "Teckel",
+        "origin": "Le canapé",
+        "line": "Un saucisson sur pattes, très fier.",
+        "giphyIds": [],
+        "giphyQuery": "dachshund"
+      }
+    },
+    {
+      "id": "animaux-lama-alpaga",
+      "category": "animaux",
+      "a": {
+        "name": "Lama",
+        "origin": "Les Andes",
+        "line": "Il crache quand il n’est pas content.",
+        "giphyIds": [],
+        "giphyQuery": "llama"
+      },
+      "b": {
+        "name": "Alpaga",
+        "origin": "Les Andes aussi",
+        "line": "Une laine douce, et une coupe de cheveux ridicule.",
+        "giphyIds": [],
+        "giphyQuery": "alpaca"
+      }
+    },
+    {
+      "id": "animaux-ornithorynque-axolotl",
+      "category": "animaux",
+      "a": {
+        "name": "Ornithorynque",
+        "origin": "L’Australie",
+        "line": "Un bec de canard, il pond des œufs, et il est venimeux.",
+        "giphyIds": [],
+        "giphyQuery": "platypus"
+      },
+      "b": {
+        "name": "Axolotl",
+        "origin": "Le Mexique",
+        "line": "Il fait repousser ses membres, et il sourit tout le temps.",
+        "giphyIds": [],
+        "giphyQuery": "axolotl"
+      }
+    },
+    {
+      "id": "animaux-ours-polaire-grizzly",
+      "category": "animaux",
+      "a": {
+        "name": "Ours polaire",
+        "origin": "La banquise",
+        "line": "Une fourrure blanche sur une peau noire.",
+        "giphyIds": [],
+        "giphyQuery": "polar bear"
+      },
+      "b": {
+        "name": "Grizzly",
+        "origin": "Les Rocheuses",
+        "line": "Il pêche le saumon à la main.",
+        "giphyIds": [],
+        "giphyQuery": "grizzly bear fishing"
+      }
+    },
+    {
+      "id": "animaux-la-fourmi-la-cigale",
+      "category": "animaux",
+      "a": {
+        "name": "La Fourmi",
+        "origin": "La Fontaine · 1668",
+        "line": "Elle travaille tout l’été.",
+        "giphyIds": [],
+        "giphyQuery": "ant working"
+      },
+      "b": {
+        "name": "La Cigale",
+        "origin": "La Fontaine · 1668",
+        "line": "Elle chante tout l’été.",
+        "giphyIds": [],
+        "giphyQuery": "cicada singing"
+      }
+    },
+    {
+      "id": "animaux-le-lievre-la-tortue",
+      "category": "animaux",
+      "a": {
+        "name": "Le Lièvre",
+        "origin": "La Fontaine · 1668",
+        "line": "Rapide, mais trop sûr de lui.",
+        "giphyIds": [],
+        "giphyQuery": "hare running"
+      },
+      "b": {
+        "name": "La Tortue",
+        "origin": "La Fontaine · 1668",
+        "line": "Lente, mais elle arrive la première.",
+        "giphyIds": [],
+        "giphyQuery": "turtle slow"
+      }
+    },
+    {
+      "id": "animaux-le-corbeau-le-renard",
+      "category": "animaux",
+      "a": {
+        "name": "Le Corbeau",
+        "origin": "La Fontaine · 1668",
+        "line": "Un fromage dans le bec, et un ego fragile.",
+        "giphyIds": [],
+        "giphyQuery": "crow"
+      },
+      "b": {
+        "name": "Le Renard",
+        "origin": "La Fontaine · 1668",
+        "line": "Un compliment, et le fromage est à lui.",
+        "giphyIds": [],
+        "giphyQuery": "fox"
+      }
+    },
+    {
+      "id": "animaux-chevre-mouton",
+      "category": "animaux",
+      "a": {
+        "name": "Chèvre",
+        "origin": "La montagne",
+        "line": "Elle grimpe aux arbres. Si, si.",
+        "giphyIds": [],
+        "giphyQuery": "goat climbing tree"
+      },
+      "b": {
+        "name": "Mouton",
+        "origin": "Le pré",
+        "line": "Il suit le troupeau, sans se poser de questions.",
+        "giphyIds": [],
+        "giphyQuery": "sheep"
+      }
+    },
+    {
+      "id": "animaux-vache-cochon",
+      "category": "animaux",
+      "a": {
+        "name": "Vache",
+        "origin": "Le pré",
+        "line": "Quatre estomacs et beaucoup de patience.",
+        "giphyIds": [],
+        "giphyQuery": "cow"
+      },
+      "b": {
+        "name": "Cochon",
+        "origin": "La ferme",
+        "line": "Plus intelligent que la plupart des chiens.",
+        "giphyIds": [],
+        "giphyQuery": "pig"
+      }
+    },
+    {
+      "id": "animaux-poisson-rouge-tortue-d-eau",
+      "category": "animaux",
+      "a": {
+        "name": "Poisson rouge",
+        "origin": "Le bocal",
+        "line": "Trois secondes de mémoire, paraît-il. C’est faux.",
+        "giphyIds": [],
+        "giphyQuery": "goldfish"
+      },
+      "b": {
+        "name": "Tortue d’eau",
+        "origin": "L’aquarium",
+        "line": "Elle bronze sur son rocher.",
+        "giphyIds": [],
+        "giphyQuery": "turtle basking"
+      }
+    },
+    {
+      "id": "animaux-gorille-orang-outan",
+      "category": "animaux",
+      "a": {
+        "name": "Gorille",
+        "origin": "La forêt tropicale",
+        "line": "Le plus grand des primates.",
+        "giphyIds": [],
+        "giphyQuery": "gorilla"
+      },
+      "b": {
+        "name": "Orang-outan",
+        "origin": "Bornéo",
+        "line": "Des cheveux roux, et une vie dans les arbres.",
+        "giphyIds": [],
+        "giphyQuery": "orangutan"
+      }
+    },
+    {
+      "id": "animaux-zebre-cheval",
+      "category": "animaux",
+      "a": {
+        "name": "Zèbre",
+        "origin": "La savane",
+        "line": "Un cheval en pyjama.",
+        "giphyIds": [],
+        "giphyQuery": "zebra"
+      },
+      "b": {
+        "name": "Cheval",
+        "origin": "Le pré",
+        "line": "Un zèbre sans pyjama.",
+        "giphyIds": [],
+        "giphyQuery": "horse"
+      }
+    },
+    {
+      "id": "animaux-flamant-rose-paon",
+      "category": "animaux",
+      "a": {
+        "name": "Flamant rose",
+        "origin": "Le lac salé",
+        "line": "Rose grâce à ce qu’il mange.",
+        "giphyIds": [],
+        "giphyQuery": "flamingo"
+      },
+      "b": {
+        "name": "Paon",
+        "origin": "Le château",
+        "line": "Une roue de plumes, et beaucoup de frime.",
+        "giphyIds": [],
+        "giphyQuery": "peacock"
+      }
+    },
+    {
+      "id": "animaux-herisson-porc-epic",
+      "category": "animaux",
+      "a": {
+        "name": "Hérisson",
+        "origin": "Le jardin",
+        "line": "Il se roule en boule, et mange les limaces.",
+        "giphyIds": [],
+        "giphyQuery": "hedgehog"
+      },
+      "b": {
+        "name": "Porc-épic",
+        "origin": "La forêt",
+        "line": "Des piquants bien plus longs, et pas de câlins.",
+        "giphyIds": [],
+        "giphyQuery": "porcupine"
+      }
+    },
+    {
+      "id": "animaux-kangourou-autruche",
+      "category": "animaux",
+      "a": {
+        "name": "Kangourou",
+        "origin": "L’Australie",
+        "line": "Il ne sait pas reculer.",
+        "giphyIds": [],
+        "giphyQuery": "kangaroo"
+      },
+      "b": {
+        "name": "Autruche",
+        "origin": "L’Afrique",
+        "line": "Le plus gros œuf du monde, et une course à 70 km/h.",
+        "giphyIds": [],
+        "giphyQuery": "ostrich running"
+      }
+    },
+    {
+      "id": "animaux-chameau-dromadaire",
+      "category": "animaux",
+      "a": {
+        "name": "Chameau",
+        "origin": "L’Asie",
+        "line": "Deux bosses.",
+        "giphyIds": [],
+        "giphyQuery": "camel"
+      },
+      "b": {
+        "name": "Dromadaire",
+        "origin": "L’Afrique",
+        "line": "Une seule bosse. Retiens-le enfin.",
+        "giphyIds": [],
+        "giphyQuery": "dromedary"
+      }
+    },
+    {
+      "id": "animaux-baleine-bleue-cachalot",
+      "category": "animaux",
+      "a": {
+        "name": "Baleine bleue",
+        "origin": "L’océan",
+        "line": "Le plus grand animal de tous les temps.",
+        "giphyIds": [],
+        "giphyQuery": "blue whale"
+      },
+      "b": {
+        "name": "Cachalot",
+        "origin": "Les profondeurs",
+        "line": "Il plonge à deux mille mètres.",
+        "giphyIds": [],
+        "giphyQuery": "sperm whale"
+      }
+    },
+    {
+      "id": "animaux-colibri-aigle",
+      "category": "animaux",
+      "a": {
+        "name": "Colibri",
+        "origin": "Les fleurs",
+        "line": "Il vole en marche arrière.",
+        "giphyIds": [],
+        "giphyQuery": "hummingbird"
+      },
+      "b": {
+        "name": "Aigle",
+        "origin": "Les montagnes",
+        "line": "Il voit un lapin à trois kilomètres.",
+        "giphyIds": [],
+        "giphyQuery": "eagle"
+      }
+    },
+    {
+      "id": "animaux-moustique-guepe",
+      "category": "animaux",
+      "question": "Le pire de l’été : le moustique ou la guêpe ?",
+      "a": {
+        "name": "Moustique",
+        "origin": "La chambre, la nuit",
+        "line": "Un bzzz dans l’oreille à trois heures du matin.",
+        "giphyIds": [],
+        "giphyQuery": "mosquito"
+      },
+      "b": {
+        "name": "Guêpe",
+        "origin": "La terrasse",
+        "line": "Elle veut ta limonade, et elle l’aura.",
+        "giphyIds": [],
+        "giphyQuery": "wasp"
+      }
+    },
+    {
+      "id": "animaux-araignee-serpent",
+      "category": "animaux",
+      "question": "Ta plus grande peur : l’araignée ou le serpent ?",
+      "a": {
+        "name": "Araignée",
+        "origin": "Le coin du plafond",
+        "line": "Huit pattes, et elle te regarde.",
+        "giphyIds": [],
+        "giphyQuery": "spider"
+      },
+      "b": {
+        "name": "Serpent",
+        "origin": "Les hautes herbes",
+        "line": "Pas de pattes, et il te regarde aussi.",
+        "giphyIds": [],
+        "giphyQuery": "snake"
+      }
+    },
+    {
+      "id": "animaux-chihuahua-dogue-allemand",
+      "category": "animaux",
+      "a": {
+        "name": "Chihuahua",
+        "origin": "Le sac à main",
+        "line": "Le plus petit chien, le plus grand caractère.",
+        "giphyIds": [],
+        "giphyQuery": "chihuahua"
+      },
+      "b": {
+        "name": "Dogue allemand",
+        "origin": "Le canapé entier",
+        "line": "Un poney qui se croit chien de salon.",
+        "giphyIds": [],
+        "giphyQuery": "great dane"
+      }
+    },
+    {
+      "id": "animaux-husky-corgi",
+      "category": "animaux",
+      "a": {
+        "name": "Husky",
+        "origin": "Le Grand Nord",
+        "line": "Des yeux bleus, et des hurlements dramatiques.",
+        "giphyIds": [],
+        "giphyQuery": "husky howling"
+      },
+      "b": {
+        "name": "Corgi",
+        "origin": "Buckingham",
+        "line": "Des pattes courtes, et des fesses célèbres.",
+        "giphyIds": [],
+        "giphyQuery": "corgi"
+      }
+    },
+    {
+      "id": "animaux-sphynx-persan",
+      "category": "animaux",
+      "a": {
+        "name": "Sphynx",
+        "origin": "Le radiateur",
+        "line": "Un chat sans poils, toujours au chaud.",
+        "giphyIds": [],
+        "giphyQuery": "sphynx cat"
+      },
+      "b": {
+        "name": "Persan",
+        "origin": "Le coussin",
+        "line": "Un chat très poilu, à la tête aplatie.",
+        "giphyIds": [],
+        "giphyQuery": "persian cat"
+      }
+    },
+    {
+      "id": "animaux-tortue-de-mer-hippocampe",
+      "category": "animaux",
+      "a": {
+        "name": "Tortue de mer",
+        "origin": "Les océans",
+        "line": "Elle revient pondre sur la plage où elle est née.",
+        "giphyIds": [],
+        "giphyQuery": "sea turtle"
+      },
+      "b": {
+        "name": "Hippocampe",
+        "origin": "Les herbiers",
+        "line": "Ce sont les papas qui portent les bébés.",
+        "giphyIds": [],
+        "giphyQuery": "seahorse"
+      }
+    },
+    {
+      "id": "animaux-fennec-renard-polaire",
+      "category": "animaux",
+      "a": {
+        "name": "Fennec",
+        "origin": "Le Sahara",
+        "line": "Des oreilles géantes pour rester au frais.",
+        "giphyIds": [],
+        "giphyQuery": "fennec fox"
+      },
+      "b": {
+        "name": "Renard polaire",
+        "origin": "L’Arctique",
+        "line": "Il devient tout blanc en hiver.",
+        "giphyIds": [],
+        "giphyQuery": "arctic fox"
+      }
+    },
+    {
+      "id": "animaux-panda-roux-suricate",
+      "category": "animaux",
+      "a": {
+        "name": "Panda roux",
+        "origin": "L’Himalaya",
+        "line": "Une queue rayée, et une tête de peluche.",
+        "giphyIds": [],
+        "giphyQuery": "red panda"
+      },
+      "b": {
+        "name": "Suricate",
+        "origin": "Le Kalahari",
+        "line": "Toujours de garde, debout sur ses pattes arrière.",
+        "giphyIds": [],
+        "giphyQuery": "meerkat"
+      }
+    },
+    {
+      "id": "animaux-perroquet-mainate",
+      "category": "animaux",
+      "a": {
+        "name": "Perroquet",
+        "origin": "La jungle",
+        "line": "Il répète tout. Surtout ce qu’il ne faut pas.",
+        "giphyIds": [],
+        "giphyQuery": "parrot talking"
+      },
+      "b": {
+        "name": "Mainate",
+        "origin": "L’Asie",
+        "line": "Il imite les voix mieux que ton cousin.",
+        "giphyIds": [],
+        "giphyQuery": "mynah bird"
+      }
+    },
+    {
+      "id": "animaux-taupe-castor",
+      "category": "animaux",
+      "a": {
+        "name": "Taupe",
+        "origin": "Le jardin",
+        "line": "Elle creuse des galeries, et elle ne voit presque rien.",
+        "giphyIds": [],
+        "giphyQuery": "mole"
+      },
+      "b": {
+        "name": "Castor",
+        "origin": "La rivière",
+        "line": "Il construit des barrages, et il est très doué.",
+        "giphyIds": [],
+        "giphyQuery": "beaver"
+      }
+    },
+    {
+      "id": "animaux-grenouille-crapaud",
+      "category": "animaux",
+      "a": {
+        "name": "Grenouille",
+        "origin": "La mare",
+        "line": "Elle saute, elle coasse, elle attend un prince.",
+        "giphyIds": [],
+        "giphyQuery": "frog"
+      },
+      "b": {
+        "name": "Crapaud",
+        "origin": "La mare aussi",
+        "line": "Plus de pustules, et autant de charme.",
+        "giphyIds": [],
+        "giphyQuery": "toad"
+      }
+    },
+    {
+      "id": "animaux-escargot-limace",
+      "category": "animaux",
+      "a": {
+        "name": "Escargot",
+        "origin": "Le jardin après la pluie",
+        "line": "Il transporte sa maison.",
+        "giphyIds": [],
+        "giphyQuery": "snail"
+      },
+      "b": {
+        "name": "Limace",
+        "origin": "Le jardin aussi",
+        "line": "Pareil, sans la maison.",
+        "giphyIds": [],
+        "giphyQuery": "slug"
+      }
+    },
+    {
+      "id": "animaux-otarie-phoque",
+      "category": "animaux",
+      "a": {
+        "name": "Otarie",
+        "origin": "Le port",
+        "line": "Elle a de petites oreilles, et elle marche sur ses nageoires.",
+        "giphyIds": [],
+        "giphyQuery": "sea lion"
+      },
+      "b": {
+        "name": "Phoque",
+        "origin": "La banquise",
+        "line": "Pas d’oreilles visibles, et il rampe sur le ventre.",
+        "giphyIds": [],
+        "giphyQuery": "seal"
+      }
+    },
+    {
+      "id": "animaux-narval-requin-marteau",
+      "category": "animaux",
+      "a": {
+        "name": "Narval",
+        "origin": "L’Arctique",
+        "line": "Une corne qui est en fait une dent.",
+        "giphyIds": [],
+        "giphyQuery": "narwhal"
+      },
+      "b": {
+        "name": "Requin-marteau",
+        "origin": "Les mers chaudes",
+        "line": "Une tête en forme de marteau, et une vue panoramique.",
+        "giphyIds": [],
+        "giphyQuery": "hammerhead shark"
+      }
+    },
+    {
+      "id": "animaux-tyrannosaure-velociraptor",
+      "category": "animaux",
+      "a": {
+        "name": "Tyrannosaure",
+        "origin": "Le Crétacé",
+        "line": "Une mâchoire énorme, et des bras minuscules.",
+        "giphyIds": [],
+        "giphyQuery": "T-rex arms"
+      },
+      "b": {
+        "name": "Vélociraptor",
+        "origin": "Le Crétacé aussi",
+        "line": "En vrai, il avait la taille d’une dinde, et des plumes.",
+        "giphyIds": [],
+        "giphyQuery": "velociraptor"
+      }
+    },
+    {
+      "id": "animaux-mammouth-tigre-a-dents-de-sabre",
+      "category": "animaux",
+      "a": {
+        "name": "Mammouth",
+        "origin": "L’ère glaciaire",
+        "line": "Une fourrure épaisse, et des défenses immenses.",
+        "giphyIds": [],
+        "giphyQuery": "mammoth"
+      },
+      "b": {
+        "name": "Tigre à dents de sabre",
+        "origin": "L’ère glaciaire aussi",
+        "line": "Deux crocs immenses, et un sale caractère.",
+        "giphyIds": [],
+        "giphyQuery": "saber tooth tiger"
+      }
+    },
+    {
+      "id": "animaux-cheval-poney",
+      "category": "animaux",
+      "a": {
+        "name": "Cheval",
+        "origin": "L’écurie",
+        "line": "Grand, puissant, et élégant.",
+        "giphyIds": [],
+        "giphyQuery": "horse galloping"
+      },
+      "b": {
+        "name": "Poney",
+        "origin": "Le club hippique",
+        "line": "Petit, têtu, et adorable.",
+        "giphyIds": [],
+        "giphyQuery": "pony"
+      }
+    },
+    {
+      "id": "monstres-la-fee-carabosse-la-bonne-fee",
+      "category": "monstres",
+      "a": {
+        "name": "La fée Carabosse",
+        "origin": "Les contes",
+        "line": "Pas invitée au baptême, et elle s’en souvient.",
+        "giphyIds": [],
+        "giphyQuery": "evil fairy"
+      },
+      "b": {
+        "name": "La bonne fée",
+        "origin": "Cendrillon · 1950",
+        "line": "Une citrouille, une baguette, et jusqu’à minuit.",
+        "giphyIds": [],
+        "giphyQuery": "fairy godmother"
       }
     }
   ]
