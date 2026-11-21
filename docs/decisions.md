@@ -79,3 +79,19 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **LinkedIn masqué tant que l'URL est vide** (`links.linkedin.url` dans `ui-texts.fr.json`). Cela vaut pour l'en-tête comme pour le bouton des paliers 25 et 484. Aucune fausse URL n'est publiée.
 - **Polices** : sous-ensemble latin de Fontsource (accents, œ, ’ et espaces fines inclus). Les symboles → et ∞, absents de ce sous-ensemble, s'affichent avec la police système.
 - **Playwright** est installé dès cette phase, pour les captures de contrôle (360 px et 1280 px). Le parcours de bout en bout complet reste prévu en phase 6.
+
+## D11 — GIF Giphy (phase 3)
+
+- **Le serveur appelle l'API Giphy, le navigateur n'y touche jamais.** `GET /api/gif/:id` renvoie seulement les URL des médias (rendu `fixed_height` : MP4 et WebP de 200 px de haut, plus l'image fixe). La clé passe par `astro:env` (secret côté serveur) et n'apparaît dans aucun message d'erreur.
+- **Cache à deux niveaux.**
+  - Serveur : en mémoire, plus un fichier JSON (`data/gif-cache.json`) qui survit aux redémarrages. Durées : 30 jours pour un GIF choisi, 7 jours pour une recherche, 1 jour pour une recherche vide.
+  - Navigateur : `Cache-Control` d'un jour (une heure si plusieurs GIF sont choisis, pour garder un peu de variété).
+
+  Deux demandes simultanées du même GIF ne déclenchent qu'un seul appel à Giphy. La clé gratuite est limitée à environ 100 appels par heure, d'où ces précautions.
+
+- **Préchargement en mémoire.** Les médias de Giphy autorisent CORS. Le MP4 des deux prochains prétendants de la file est donc téléchargé à l'avance et gardé sous forme d'URL `blob:` (10 au maximum, jamais celles affichées). Mesure avec un Giphy simulé : le GIF du challenger s'affiche environ 30 ms après l'entrée de sa carte.
+- **Repli.** Le cadre rayé avec le nom reste sous la vidéo. Il se voit pendant le chargement et en cas d'échec (pas de clé, Giphy en panne, quota atteint, média introuvable). Le jeu ne bloque jamais.
+- **Mouvement réduit.** Avec `prefers-reduced-motion`, on affiche l'image fixe de Giphy au lieu de la vidéo.
+- **Recherches de secours réécrites en anglais, avec l'œuvre** (« Data Star Trek The Next Generation », « Cylon Battlestar Galactica »…). Giphy indexe surtout en anglais, et les noms seuls étaient ambigus. Les noms affichés ne changent pas.
+- **Attribution.** « Powered by GIPHY » dans le pied de page de toutes les pages, en discret.
+- **Curation** (`npm run curate`) : petit serveur local (127.0.0.1 uniquement) avec une page de cases à cocher. Le fichier est validé par le schéma avant d'être réécrit, avec la mise en forme Prettier du projet.

@@ -5,6 +5,7 @@
 import type { Side } from '../../engine';
 import { colorFor } from '../../lib/color';
 import { formatText } from '../../lib/format';
+import { GifFrame } from './GifFrame';
 import type { GameContender } from './types';
 
 interface Props {
@@ -16,6 +17,8 @@ interface Props {
   badge: string | null;
   leaving: boolean;
   chooseLabel: string;
+  /** Image fixe au lieu de la vidéo (prefers-reduced-motion). */
+  stillOnly: boolean;
   onChoose: (side: Side) => void;
 }
 
@@ -26,6 +29,7 @@ export function DuelCard({
   badge,
   leaving,
   chooseLabel,
+  stillOnly,
   onChoose,
 }: Props) {
   // Description lue après « Choisir X » : origine, réplique et badge, sans répéter le nom.
@@ -42,10 +46,7 @@ export function DuelCard({
       aria-describedby={describedBy}
       onClick={() => onChoose(side)}
     >
-      {/* Cadre du GIF : rayé en attendant la phase 3 (Giphy). */}
-      <span class="duel-media" aria-hidden="true">
-        <span class="duel-media-name">{contender.name}</span>
-      </span>
+      <GifFrame contenderId={contender.id} name={contender.name} stillOnly={stillOnly} />
       <span class="duel-body">
         <span class="duel-origin" id={id('origin')}>
           {themePrefix && <span class="duel-theme">{themePrefix} · </span>}

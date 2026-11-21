@@ -2,11 +2,12 @@
  * Îlot de jeu : onglets de thème, duel en cours, bandeaux et panneaux.
  * Rendu uniquement côté client (la partie dépend du stockage local et de l'URL).
  */
-import { useEffect, useMemo } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 import { championSide, duelNumber, MIXED_THEME, type Side } from '../../engine';
 import { formatText, plural } from '../../lib/format';
 import { Banners } from './Banners';
 import { DuelCard } from './DuelCard';
+import { preloadGif } from './gifs';
 import { Panels } from './Panels';
 import type { GameData } from './types';
 import { useGame } from './useGame';
@@ -19,9 +20,24 @@ function shouldIgnoreKey(event: KeyboardEvent): boolean {
   return !!target?.closest('input, textarea, select, [contenteditable="true"]');
 }
 
+/** Suit la préférence système « réduire les animations », y compris si elle change en cours de partie. */
+function useReducedMotion(): boolean {
+  const query = '(prefers-reduced-motion: reduce)';
+  const [reduced, setReduced] = useState(() => window.matchMedia?.(query).matches ?? false);
+  useEffect(() => {
+    const list = window.matchMedia?.(query);
+    if (!list) return;
+    const onChange = () => setReduced(list.matches);
+    list.addEventListener('change', onChange);
+    return () => list.removeEventListener('change', onChange);
+  }, []);
+  return reduced;
+}
+
 export default function Game({ data }: { data: GameData }) {
   const { state, ctx, result, notices, leaving, choose, skip, selectTheme } = useGame(data);
   const { texts } = data;
+  const reducedMotion = useReducedMotion();
 
   const byId = useMemo(() => new Map(data.contenders.map((c) => [c.id, c])), [data]);
   const themeLabels = useMemo(
@@ -32,6 +48,11 @@ export default function Game({ data }: { data: GameData }) {
       ]),
     [data, texts],
   );
+
+  // Préchargement : les deux prochains de la file (un vote en remplace un, une retraite deux).
+  useEffect(() => {
+    for (const id of state.queue.slice(0, 2)) preloadGif(id, reducedMotion);
+  }, [state.queue, reducedMotion]);
 
   // Clavier : ← gauche, → droite, Échap retour à l'accueil.
   useEffect(() => {
@@ -63,6 +84,7 @@ export default function Game({ data }: { data: GameData }) {
         badge={held === side ? plural(texts.duel.streakBadge, state.streak) : null}
         leaving={leaving.includes(side)}
         chooseLabel={texts.duel.choose}
+        stillOnly={reducedMotion}
         onChoose={choose}
       />
     );

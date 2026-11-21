@@ -58,6 +58,9 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
         {ui.footer.projects}
       </a>
       <p class="footer-disclaimer">{ui.footer.disclaimer}</p>
+      <a class="footer-giphy" href={ui.footer.giphy.url} rel="noopener" target="_blank">
+        {ui.footer.giphy.label}
+      </a>
       <slot name="footer" />
     </footer>
   </body>
@@ -139,6 +142,22 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
     font-family: var(--font-mono);
     font-weight: 700;
     text-decoration: none;
+  }
+
+  /* Attribution Giphy obligatoire, mais discrète. */
+  .footer-giphy {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  .footer-giphy:hover {
+    color: var(--fg);
   }
 
   .footer-projects:hover {

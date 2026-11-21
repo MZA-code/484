@@ -125,7 +125,11 @@
   },
   "footer": {
     "projects": "Voir mes autres projets →",
-    "disclaimer": "Aucun personnage n’a été blessé pendant les duels. Leur ego, si."
+    "disclaimer": "Aucun personnage n’a été blessé pendant les duels. Leur ego, si.",
+    "giphy": {
+      "label": "Powered by GIPHY",
+      "url": "https://giphy.com/"
+    }
   },
   "projectsPage": {
     "title": "Mes autres projets",

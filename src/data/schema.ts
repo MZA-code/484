@@ -161,7 +161,11 @@ export const UiTextsSchema = z.object({
     }),
   }),
   notFound: z.object({ pageTitle: text, code: text, title: text, text, back: text }),
-  footer: z.object({ projects: text, disclaimer: text }),
+  footer: z.object({
+    projects: text,
+    disclaimer: text,
+    giphy: z.object({ label: text, url: z.url() }),
+  }),
   projectsPage: z.object({ title: text, intro: text, back: text }),
   projects: z.array(z.object({ kind: text, title: text, text, url: z.url(), cta: text })),
 });

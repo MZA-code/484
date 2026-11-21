@@ -30,7 +30,7 @@
       "origin": "2001, l’odyssée de l’espace · 1968",
       "line": "« Désolé, Dave. »",
       "giphyIds": [],
-      "giphyQuery": "HAL 9000"
+      "giphyQuery": "HAL 9000 2001 A Space Odyssey"
     },
     {
       "id": "robots-r2-d2",
@@ -39,7 +39,7 @@
       "origin": "Star Wars · 1977",
       "line": "« Bip bip bwiiip. »",
       "giphyIds": [],
-      "giphyQuery": "R2-D2"
+      "giphyQuery": "R2-D2 Star Wars"
     },
     {
       "id": "robots-c-3po",
@@ -48,7 +48,7 @@
       "origin": "Star Wars · 1977",
       "line": "Parle six millions de langues, se plaint dans toutes.",
       "giphyIds": [],
-      "giphyQuery": "C-3PO"
+      "giphyQuery": "C-3PO Star Wars"
     },
     {
       "id": "robots-le-t-800",
@@ -57,7 +57,7 @@
       "origin": "Terminator · 1984",
       "line": "« I’ll be back. »",
       "giphyIds": [],
-      "giphyQuery": "Le T-800"
+      "giphyQuery": "Terminator T-800"
     },
     {
       "id": "robots-wall-e",
@@ -66,7 +66,7 @@
       "origin": "Pixar · 2008",
       "line": "Compacte les déchets, collectionne les briquets, tombe amoureux.",
       "giphyIds": [],
-      "giphyQuery": "WALL-E"
+      "giphyQuery": "WALL-E Pixar"
     },
     {
       "id": "robots-johnny-5",
@@ -75,7 +75,7 @@
       "origin": "Short Circuit · 1986",
       "line": "« Encore des données ! »",
       "giphyIds": [],
-      "giphyQuery": "Johnny 5"
+      "giphyQuery": "Johnny 5 Short Circuit"
     },
     {
       "id": "robots-kitt",
@@ -84,7 +84,7 @@
       "origin": "K 2000 · 1982",
       "line": "Une voiture qui parle mieux que ton GPS.",
       "giphyIds": [],
-      "giphyQuery": "KITT"
+      "giphyQuery": "KITT Knight Rider"
     },
     {
       "id": "robots-le-trombone-de-word",
@@ -93,7 +93,7 @@
       "origin": "Microsoft Office · 1997",
       "line": "« On dirait que vous écrivez une lettre. »",
       "giphyIds": [],
-      "giphyQuery": "Le trombone de Word"
+      "giphyQuery": "Clippy Microsoft Office"
     },
     {
       "id": "robots-glados",
@@ -102,7 +102,7 @@
       "origin": "Portal · 2007",
       "line": "« Il y aura du gâteau. »",
       "giphyIds": [],
-      "giphyQuery": "GLaDOS"
+      "giphyQuery": "GLaDOS Portal"
     },
     {
       "id": "robots-bender",
@@ -111,7 +111,7 @@
       "origin": "Futurama · 1999",
       "line": "Kleptomane, cynique, et pourtant attachant.",
       "giphyIds": [],
-      "giphyQuery": "Bender"
+      "giphyQuery": "Bender Futurama"
     },
     {
       "id": "robots-data",
@@ -120,7 +120,7 @@
       "origin": "Star Trek, la nouvelle génération · 1987",
       "line": "Rêve d’avoir des émotions. A déjà un chat.",
       "giphyIds": [],
-      "giphyQuery": "Data"
+      "giphyQuery": "Data Star Trek The Next Generation"
     },
     {
       "id": "robots-marvin",
@@ -129,7 +129,7 @@
       "origin": "Le Guide du voyageur galactique · 1978",
       "line": "Un cerveau gros comme une planète, et déprimé.",
       "giphyIds": [],
-      "giphyQuery": "Marvin"
+      "giphyQuery": "Marvin Hitchhikers Guide to the Galaxy"
     },
     {
       "id": "robots-robby-le-robot",
@@ -138,7 +138,7 @@
       "origin": "Planète interdite · 1956",
       "line": "L’arrière-grand-père de tous les robots de cinéma.",
       "giphyIds": [],
-      "giphyQuery": "Robby le robot"
+      "giphyQuery": "Robby the Robot Forbidden Planet"
     },
     {
       "id": "robots-goldorak",
@@ -147,7 +147,7 @@
       "origin": "Dessin animé · 1975",
       "line": "« Fulguropoing ! »",
       "giphyIds": [],
-      "giphyQuery": "Goldorak"
+      "giphyQuery": "Grendizer"
     },
     {
       "id": "robots-optimus-prime",
@@ -156,7 +156,7 @@
       "origin": "Transformers · 1984",
       "line": "Un camion. Non, un robot. Non, un camion.",
       "giphyIds": [],
-      "giphyQuery": "Optimus Prime"
+      "giphyQuery": "Optimus Prime Transformers"
     },
     {
       "id": "robots-baymax",
@@ -165,7 +165,7 @@
       "origin": "Les Nouveaux Héros · 2014",
       "line": "Un câlin gonflable avec une trousse de secours.",
       "giphyIds": [],
-      "giphyQuery": "Baymax"
+      "giphyQuery": "Baymax Big Hero 6"
     },
     {
       "id": "robots-eve",
@@ -174,7 +174,7 @@
       "origin": "Pixar · 2008",
       "line": "Élégante, efficace, tire d’abord.",
       "giphyIds": [],
-      "giphyQuery": "EVE"
+      "giphyQuery": "EVE WALL-E Pixar"
     },
     {
       "id": "robots-ava",
@@ -183,7 +183,7 @@
       "origin": "Ex Machina · 2014",
       "line": "Passe le test de Turing. Puis la porte.",
       "giphyIds": [],
-      "giphyQuery": "Ava"
+      "giphyQuery": "Ex Machina Ava"
     },
     {
       "id": "robots-samantha",
@@ -192,7 +192,7 @@
       "origin": "Her · 2013",
       "line": "Une IA qui t’écoute vraiment. Toi et 641 autres.",
       "giphyIds": [],
-      "giphyQuery": "Samantha"
+      "giphyQuery": "Her movie Samantha"
     },
     {
       "id": "robots-skynet",
@@ -201,7 +201,7 @@
       "origin": "Terminator · 1984",
       "line": "Le pire projet IA de l’histoire. Livré en avance.",
       "giphyIds": [],
-      "giphyQuery": "Skynet"
+      "giphyQuery": "Skynet Terminator"
     },
     {
       "id": "robots-l-agent-smith",
@@ -210,7 +210,7 @@
       "origin": "Matrix · 1999",
       "line": "« Monsieur Anderson… »",
       "giphyIds": [],
-      "giphyQuery": "L’agent Smith"
+      "giphyQuery": "Agent Smith The Matrix"
     },
     {
       "id": "robots-le-geant-de-fer",
@@ -219,7 +219,7 @@
       "origin": "Le Géant de fer · 1999",
       "line": "Mange des voitures, rêve d’être Superman.",
       "giphyIds": [],
-      "giphyQuery": "Le Géant de fer"
+      "giphyQuery": "The Iron Giant"
     },
     {
       "id": "robots-astro",
@@ -228,7 +228,7 @@
       "origin": "Osamu Tezuka · 1952",
       "line": "Des fusées dans les pieds, un cœur gros comme ça.",
       "giphyIds": [],
-      "giphyQuery": "Astro"
+      "giphyQuery": "Astro Boy"
     },
     {
       "id": "robots-gort",
@@ -237,7 +237,7 @@
       "origin": "Le jour où la Terre s’arrêta · 1951",
       "line": "« Klaatu barada nikto. »",
       "giphyIds": [],
-      "giphyQuery": "Gort"
+      "giphyQuery": "Gort The Day the Earth Stood Still"
     },
     {
       "id": "robots-le-dalek",
@@ -246,7 +246,7 @@
       "origin": "Doctor Who · 1963",
       "line": "« EXTERMINER ! »",
       "giphyIds": [],
-      "giphyQuery": "Le Dalek"
+      "giphyQuery": "Dalek Doctor Who"
     },
     {
       "id": "robots-le-cylon",
@@ -255,7 +255,7 @@
       "origin": "Galactica · 1978",
       "line": "Un œil rouge qui balaie de gauche à droite.",
       "giphyIds": [],
-      "giphyQuery": "Le Cylon"
+      "giphyQuery": "Cylon Battlestar Galactica"
     },
     {
       "id": "robots-rosie",
@@ -264,7 +264,7 @@
       "origin": "Les Jetson · 1962",
       "line": "Bonne à tout faire, tablier compris.",
       "giphyIds": [],
-      "giphyQuery": "Rosie"
+      "giphyQuery": "Rosie the Robot The Jetsons"
     },
     {
       "id": "robots-le-robot-de-perdus-dans-l-espace",
@@ -273,7 +273,7 @@
       "origin": "Série TV · 1965",
       "line": "« Danger, Will Robinson ! »",
       "giphyIds": [],
-      "giphyQuery": "Le robot de Perdus dans l’espace"
+      "giphyQuery": "Lost in Space robot danger Will Robinson"
     },
     {
       "id": "robots-roy-batty",
@@ -282,7 +282,7 @@
       "origin": "Blade Runner · 1982",
       "line": "Des larmes dans la pluie.",
       "giphyIds": [],
-      "giphyQuery": "Roy Batty"
+      "giphyQuery": "Roy Batty Blade Runner"
     },
     {
       "id": "robots-david",
@@ -291,7 +291,7 @@
       "origin": "A.I. Intelligence artificielle · 2001",
       "line": "Veut juste devenir un vrai petit garçon.",
       "giphyIds": [],
-      "giphyQuery": "David"
+      "giphyQuery": "A.I. Artificial Intelligence David"
     },
     {
       "id": "robots-sonny",
@@ -300,7 +300,7 @@
       "origin": "I, Robot · 2004",
       "line": "Le robot qui rêve, et qui sait cligner de l’œil.",
       "giphyIds": [],
-      "giphyQuery": "Sonny"
+      "giphyQuery": "Sonny I Robot"
     },
     {
       "id": "robots-tars",
@@ -309,7 +309,7 @@
       "origin": "Interstellar · 2014",
       "line": "Humour réglé à 75 %.",
       "giphyIds": [],
-      "giphyQuery": "TARS"
+      "giphyQuery": "TARS Interstellar"
     },
     {
       "id": "robots-k-2so",
@@ -318,7 +318,7 @@
       "origin": "Rogue One · 2016",
       "line": "Dit tout ce qu’il pense. Absolument tout.",
       "giphyIds": [],
-      "giphyQuery": "K-2SO"
+      "giphyQuery": "K-2SO Rogue One"
     },
     {
       "id": "robots-bb-8",
@@ -327,7 +327,7 @@
       "origin": "Star Wars · 2015",
       "line": "Un ballon de foot avec une tête.",
       "giphyIds": [],
-      "giphyQuery": "BB-8"
+      "giphyQuery": "BB-8 Star Wars"
     },
     {
       "id": "robots-mega-man",
@@ -354,7 +354,7 @@
       "origin": "Chappie · 2015",
       "line": "Un robot élevé par des voyous. Ça se voit.",
       "giphyIds": [],
-      "giphyQuery": "Chappie"
+      "giphyQuery": "Chappie robot"
     },
     {
       "id": "robots-le-furby",
@@ -363,7 +363,7 @@
       "origin": "Jouet · 1998",
       "line": "Parle la nuit, sans raison, sans bouton off.",
       "giphyIds": [],
-      "giphyQuery": "Le Furby"
+      "giphyQuery": "Furby"
     },
     {
       "id": "robots-aibo",
@@ -372,7 +372,7 @@
       "origin": "Sony · 1999",
       "line": "Un chien qui ne perd pas ses poils.",
       "giphyIds": [],
-      "giphyQuery": "AIBO"
+      "giphyQuery": "Aibo Sony robot dog"
     },
     {
       "id": "robots-siri",
@@ -381,7 +381,7 @@
       "origin": "Apple · 2011",
       "line": "« Je n’ai pas bien compris. »",
       "giphyIds": [],
-      "giphyQuery": "Siri"
+      "giphyQuery": "Siri iPhone"
     },
     {
       "id": "duos-mulder-scully",
@@ -390,7 +390,7 @@
       "origin": "X-Files · 1993",
       "line": "« La vérité est ailleurs. »",
       "giphyIds": [],
-      "giphyQuery": "Mulder & Scully"
+      "giphyQuery": "Mulder Scully X-Files"
     },
     {
       "id": "duos-doc-marty",
@@ -399,7 +399,7 @@
       "origin": "Retour vers le futur · 1985",
       "line": "« 88 miles à l’heure ! »",
       "giphyIds": [],
-      "giphyQuery": "Doc & Marty"
+      "giphyQuery": "Doc Brown Marty McFly"
     },
     {
       "id": "duos-mario-luigi",
@@ -408,7 +408,7 @@
       "origin": "Nintendo · 1983",
       "line": "« Let’s-a go! »",
       "giphyIds": [],
-      "giphyQuery": "Mario & Luigi"
+      "giphyQuery": "Mario and Luigi"
     },
     {
       "id": "duos-starsky-hutch",
@@ -417,7 +417,7 @@
       "origin": "Série TV · 1975",
       "line": "Une Gran Torino et beaucoup de cols pelle à tarte.",
       "giphyIds": [],
-      "giphyQuery": "Starsky & Hutch"
+      "giphyQuery": "Starsky and Hutch"
     },
     {
       "id": "duos-sammy-scooby-doo",
@@ -426,7 +426,7 @@
       "origin": "Dessin animé · 1969",
       "line": "« Scooby-Doo, où es-tu ? »",
       "giphyIds": [],
-      "giphyQuery": "Sammy & Scooby-Doo"
+      "giphyQuery": "Shaggy and Scooby-Doo"
     },
     {
       "id": "duos-arthur-perceval",
@@ -435,7 +435,7 @@
       "origin": "Kaamelott · 2005",
       "line": "« C’est pas faux. »",
       "giphyIds": [],
-      "giphyQuery": "Arthur & Perceval"
+      "giphyQuery": "Kaamelott"
     },
     {
       "id": "duos-laurel-hardy",
@@ -444,7 +444,7 @@
       "origin": "Cinéma · 1927",
       "line": "« Encore une belle pagaille. »",
       "giphyIds": [],
-      "giphyQuery": "Laurel & Hardy"
+      "giphyQuery": "Laurel and Hardy"
     },
     {
       "id": "duos-tic-tac",
@@ -453,7 +453,7 @@
       "origin": "Disney · 1943",
       "line": "Deux écureuils, aucune différence visible.",
       "giphyIds": [],
-      "giphyQuery": "Tic & Tac"
+      "giphyQuery": "Chip and Dale"
     },
     {
       "id": "duos-tom-jerry",
@@ -462,7 +462,7 @@
       "origin": "MGM · 1940",
       "line": "Quatre-vingts ans de violence domestique.",
       "giphyIds": [],
-      "giphyQuery": "Tom & Jerry"
+      "giphyQuery": "Tom and Jerry"
     },
     {
       "id": "duos-asterix-obelix",
@@ -471,7 +471,7 @@
       "origin": "Goscinny et Uderzo · 1959",
       "line": "« Ils sont fous, ces Romains ! »",
       "giphyIds": [],
-      "giphyQuery": "Astérix & Obélix"
+      "giphyQuery": "Asterix and Obelix"
     },
     {
       "id": "duos-batman-robin",
@@ -480,7 +480,7 @@
       "origin": "DC · 1940",
       "line": "Le collant comme uniforme de travail.",
       "giphyIds": [],
-      "giphyQuery": "Batman & Robin"
+      "giphyQuery": "Batman and Robin"
     },
     {
       "id": "duos-han-solo-chewbacca",
@@ -489,7 +489,7 @@
       "origin": "Star Wars · 1977",
       "line": "L’un parle, l’autre grogne, et ça marche.",
       "giphyIds": [],
-      "giphyQuery": "Han Solo & Chewbacca"
+      "giphyQuery": "Han Solo Chewbacca"
     },
     {
       "id": "duos-frodon-sam",
@@ -498,7 +498,7 @@
       "origin": "Le Seigneur des anneaux · 1954",
       "line": "Le second porte tout, y compris le premier.",
       "giphyIds": [],
-      "giphyQuery": "Frodon & Sam"
+      "giphyQuery": "Frodo and Sam"
     },
     {
       "id": "duos-woody-buzz",
@@ -507,7 +507,7 @@
       "origin": "Toy Story · 1995",
       "line": "« Vers l’infini et au-delà ! »",
       "giphyIds": [],
-      "giphyQuery": "Woody & Buzz"
+      "giphyQuery": "Woody and Buzz Lightyear"
     },
     {
       "id": "duos-shrek-l-ane",
@@ -516,7 +516,7 @@
       "origin": "Shrek · 2001",
       "line": "« On est bientôt arrivés ? »",
       "giphyIds": [],
-      "giphyQuery": "Shrek & l’Âne"
+      "giphyQuery": "Shrek and Donkey"
     },
     {
       "id": "duos-bob-patrick",
@@ -525,7 +525,7 @@
       "origin": "Bob l’éponge · 1999",
       "line": "Un ananas, un rocher, zéro neurone en trop.",
       "giphyIds": [],
-      "giphyQuery": "Bob & Patrick"
+      "giphyQuery": "SpongeBob and Patrick"
     },
     {
       "id": "duos-rick-morty",
@@ -534,7 +534,7 @@
       "origin": "Adult Swim · 2013",
       "line": "La science sans conscience, avec des rots.",
       "giphyIds": [],
-      "giphyQuery": "Rick & Morty"
+      "giphyQuery": "Rick and Morty"
     },
     {
       "id": "duos-calvin-hobbes",
@@ -543,7 +543,7 @@
       "origin": "Bill Watterson · 1985",
       "line": "Un tigre en peluche. Ou pas.",
       "giphyIds": [],
-      "giphyQuery": "Calvin & Hobbes"
+      "giphyQuery": "Calvin and Hobbes"
     },
     {
       "id": "duos-wallace-gromit",
@@ -552,7 +552,7 @@
       "origin": "Aardman · 1989",
       "line": "Du fromage, des inventions, un chien qui lève les yeux au ciel.",
       "giphyIds": [],
-      "giphyQuery": "Wallace & Gromit"
+      "giphyQuery": "Wallace and Gromit"
     },
     {
       "id": "duos-bud-spencer-terence-hill",
@@ -561,7 +561,7 @@
       "origin": "Cinéma · 1970",
       "line": "Des baffes en stéréo.",
       "giphyIds": [],
-      "giphyQuery": "Bud Spencer & Terence Hill"
+      "giphyQuery": "Bud Spencer Terence Hill"
     },
     {
       "id": "duos-les-blues-brothers",
@@ -570,7 +570,7 @@
       "origin": "The Blues Brothers · 1980",
       "line": "« En mission pour le Seigneur. »",
       "giphyIds": [],
-      "giphyQuery": "Les Blues Brothers"
+      "giphyQuery": "The Blues Brothers"
     },
     {
       "id": "duos-thelma-louise",
@@ -579,7 +579,7 @@
       "origin": "Cinéma · 1991",
       "line": "Le road trip qui finit mal, mais avec panache.",
       "giphyIds": [],
-      "giphyQuery": "Thelma & Louise"
+      "giphyQuery": "Thelma and Louise"
     },
     {
       "id": "duos-jay-silent-bob",
@@ -588,7 +588,7 @@
       "origin": "Kevin Smith · 1994",
       "line": "L’un ne se tait jamais, l’autre ne parle jamais.",
       "giphyIds": [],
-      "giphyQuery": "Jay & Silent Bob"
+      "giphyQuery": "Jay and Silent Bob"
     },
     {
       "id": "duos-dupond-dupont",
@@ -597,7 +597,7 @@
       "origin": "Tintin · 1934",
       "line": "« Je dirais même plus… »",
       "giphyIds": [],
-      "giphyQuery": "Dupond & Dupont"
+      "giphyQuery": "Thomson and Thompson Tintin"
     },
     {
       "id": "duos-tintin-milou",
@@ -606,7 +606,7 @@
       "origin": "Hergé · 1929",
       "line": "Un reporter qui n’écrit jamais d’article.",
       "giphyIds": [],
-      "giphyQuery": "Tintin & Milou"
+      "giphyQuery": "Tintin and Snowy"
     },
     {
       "id": "duos-bert-ernie",
@@ -615,7 +615,7 @@
       "origin": "1, rue Sésame · 1969",
       "line": "Colocataires depuis 1969, toujours pas de bail.",
       "giphyIds": [],
-      "giphyQuery": "Bert & Ernie"
+      "giphyQuery": "Bert and Ernie"
     },
     {
       "id": "duos-minus-cortex",
@@ -624,7 +624,7 @@
       "origin": "Animaniacs · 1993",
       "line": "« Conquérir le monde ! »",
       "giphyIds": [],
-      "giphyQuery": "Minus & Cortex"
+      "giphyQuery": "Pinky and the Brain"
     },
     {
       "id": "duos-timon-pumbaa",
@@ -633,7 +633,7 @@
       "origin": "Le Roi lion · 1994",
       "line": "« Hakuna matata. »",
       "giphyIds": [],
-      "giphyQuery": "Timon & Pumbaa"
+      "giphyQuery": "Timon and Pumbaa"
     },
     {
       "id": "duos-kad-olivier",
@@ -642,7 +642,7 @@
       "origin": "Télévision · 1990",
       "line": "Deux types, beaucoup de second degré.",
       "giphyIds": [],
-      "giphyQuery": "Kad & Olivier"
+      "giphyQuery": "Kad et Olivier"
     },
     {
       "id": "duos-eric-ramzy",
@@ -651,7 +651,7 @@
       "origin": "Télévision et cinéma · 1994",
       "line": "L’absurde en binôme.",
       "giphyIds": [],
-      "giphyQuery": "Éric & Ramzy"
+      "giphyQuery": "Eric et Ramzy"
     },
     {
       "id": "duos-jules-vincent",
@@ -660,7 +660,7 @@
       "origin": "Pulp Fiction · 1994",
       "line": "Le Royale with cheese.",
       "giphyIds": [],
-      "giphyQuery": "Jules & Vincent"
+      "giphyQuery": "Jules Vincent Pulp Fiction"
     },
     {
       "id": "duos-riggs-murtaugh",
@@ -669,7 +669,7 @@
       "origin": "L’Arme fatale · 1987",
       "line": "« Je suis trop vieux pour ces bêtises. »",
       "giphyIds": [],
-      "giphyQuery": "Riggs & Murtaugh"
+      "giphyQuery": "Lethal Weapon Riggs Murtaugh"
     },
     {
       "id": "duos-holmes-watson",
@@ -678,7 +678,7 @@
       "origin": "Arthur Conan Doyle · 1887",
       "line": "« Élémentaire. »",
       "giphyIds": [],
-      "giphyQuery": "Holmes & Watson"
+      "giphyQuery": "Sherlock Holmes and Watson"
     },
     {
       "id": "duos-bonnie-clyde",
@@ -687,7 +687,7 @@
       "origin": "Histoire vraie · 1930",
       "line": "Le couple qui ne payait jamais l’addition.",
       "giphyIds": [],
-      "giphyQuery": "Bonnie & Clyde"
+      "giphyQuery": "Bonnie and Clyde"
     },
     {
       "id": "duos-sonny-cher",
@@ -696,7 +696,7 @@
       "origin": "Musique · 1965",
       "line": "« I got you, babe. »",
       "giphyIds": [],
-      "giphyQuery": "Sonny & Cher"
+      "giphyQuery": "Sonny and Cher"
     },
     {
       "id": "duos-simon-garfunkel",
@@ -705,7 +705,7 @@
       "origin": "Musique · 1964",
       "line": "Deux voix, un pont sur l’eau trouble.",
       "giphyIds": [],
-      "giphyQuery": "Simon & Garfunkel"
+      "giphyQuery": "Simon and Garfunkel"
     },
     {
       "id": "duos-daft-punk",
@@ -723,7 +723,7 @@
       "origin": "Publicité · 2006",
       "line": "Le seul duo qui ne s’est jamais entendu.",
       "giphyIds": [],
-      "giphyQuery": "Mac & PC"
+      "giphyQuery": "Get a Mac PC commercial"
     },
     {
       "id": "duos-ken-barbie",
@@ -732,7 +732,7 @@
       "origin": "Mattel · 1961",
       "line": "Séparés en 2004, réconciliés en 2011. Comme tout le monde.",
       "giphyIds": [],
-      "giphyQuery": "Ken & Barbie"
+      "giphyQuery": "Barbie and Ken"
     },
     {
       "id": "duos-pif-hercule",
@@ -741,7 +741,7 @@
       "origin": "Pif Gadget · 1969",
       "line": "Un chien, un chat, et un gadget nul dans le magazine.",
       "giphyIds": [],
-      "giphyQuery": "Pif & Hercule"
+      "giphyQuery": "Pif et Hercule"
     },
     {
       "id": "vehicules-la-delorean",
@@ -750,7 +750,7 @@
       "origin": "Retour vers le futur · 1985",
       "line": "Carbure au plutonium, ou aux épluchures.",
       "giphyIds": [],
-      "giphyQuery": "La DeLorean"
+      "giphyQuery": "DeLorean Back to the Future"
     },
     {
       "id": "vehicules-l-ecto-1",
@@ -759,7 +759,7 @@
       "origin": "SOS Fantômes · 1984",
       "line": "Une ambulance reconvertie dans le paranormal.",
       "giphyIds": [],
-      "giphyQuery": "L’Ecto-1"
+      "giphyQuery": "Ecto-1 Ghostbusters"
     },
     {
       "id": "vehicules-le-faucon-millenium",
@@ -768,7 +768,7 @@
       "origin": "Star Wars · 1977",
       "line": "Rafistolé de partout, et pourtant le plus rapide.",
       "giphyIds": [],
-      "giphyQuery": "Le Faucon Millenium"
+      "giphyQuery": "Millennium Falcon"
     },
     {
       "id": "vehicules-la-batmobile",
@@ -777,7 +777,7 @@
       "origin": "Batman · 1989",
       "line": "Pas de toit, pas de limite, pas de budget.",
       "giphyIds": [],
-      "giphyQuery": "La Batmobile"
+      "giphyQuery": "Batmobile 1989"
     },
     {
       "id": "vehicules-choupette",
@@ -786,7 +786,7 @@
       "origin": "Un amour de Coccinelle · 1968",
       "line": "Une Coccinelle qui a son caractère.",
       "giphyIds": [],
-      "giphyQuery": "Choupette"
+      "giphyQuery": "Herbie the Love Bug"
     },
     {
       "id": "vehicules-le-van-de-l-agence-tous-risques",
@@ -795,7 +795,7 @@
       "origin": "Série TV · 1983",
       "line": "« J’adore quand un plan se déroule sans accroc. »",
       "giphyIds": [],
-      "giphyQuery": "Le van de l’Agence tous risques"
+      "giphyQuery": "A-Team van"
     },
     {
       "id": "vehicules-la-2-cv-du-corniaud",
@@ -804,7 +804,7 @@
       "origin": "Le Corniaud · 1965",
       "line": "Elle tombe en morceaux, mais avec le sourire.",
       "giphyIds": [],
-      "giphyQuery": "La 2 CV du Corniaud"
+      "giphyQuery": "Le Corniaud"
     },
     {
       "id": "vehicules-le-velo-d-e-t",
@@ -813,7 +813,7 @@
       "origin": "E.T. l’extra-terrestre · 1982",
       "line": "Décollage devant la pleine lune, sans moteur.",
       "giphyIds": [],
-      "giphyQuery": "Le vélo d’E.T."
+      "giphyQuery": "E.T. bike moon"
     },
     {
       "id": "vehicules-la-mystery-machine",
@@ -822,7 +822,7 @@
       "origin": "Scooby-Doo · 1969",
       "line": "Un van hippie qui résout des crimes.",
       "giphyIds": [],
-      "giphyQuery": "La Mystery Machine"
+      "giphyQuery": "Mystery Machine Scooby-Doo"
     },
     {
       "id": "vehicules-la-mini-de-mr-bean",
@@ -831,7 +831,7 @@
       "origin": "Mr Bean · 1990",
       "line": "Se conduit depuis un fauteuil posé sur le toit.",
       "giphyIds": [],
-      "giphyQuery": "La Mini de Mr Bean"
+      "giphyQuery": "Mr Bean Mini"
     },
     {
       "id": "vehicules-l-aston-martin-db5",
@@ -840,7 +840,7 @@
       "origin": "Goldfinger · 1964",
       "line": "Siège éjectable en option.",
       "giphyIds": [],
-      "giphyQuery": "L’Aston Martin DB5"
+      "giphyQuery": "James Bond Aston Martin DB5"
     },
     {
       "id": "vehicules-la-mustang-de-bullitt",
@@ -849,7 +849,7 @@
       "origin": "Bullitt · 1968",
       "line": "Dix minutes de poursuite dans San Francisco.",
       "giphyIds": [],
-      "giphyQuery": "La Mustang de Bullitt"
+      "giphyQuery": "Bullitt Mustang"
     },
     {
       "id": "vehicules-la-general-lee",
@@ -858,7 +858,7 @@
       "origin": "Shérif, fais-moi peur · 1979",
       "line": "Portières soudées : on entre par la fenêtre.",
       "giphyIds": [],
-      "giphyQuery": "La General Lee"
+      "giphyQuery": "General Lee Dukes of Hazzard"
     },
     {
       "id": "vehicules-la-ferrari-de-magnum",
@@ -867,7 +867,7 @@
       "origin": "Magnum · 1980",
       "line": "Une Ferrari, une moustache, Hawaï.",
       "giphyIds": [],
-      "giphyQuery": "La Ferrari de Magnum"
+      "giphyQuery": "Magnum P.I. Ferrari"
     },
     {
       "id": "vehicules-le-bus-de-speed",
@@ -876,7 +876,7 @@
       "origin": "Speed · 1994",
       "line": "Interdit de descendre sous 80 km/h.",
       "giphyIds": [],
-      "giphyQuery": "Le bus de Speed"
+      "giphyQuery": "Speed movie bus"
     },
     {
       "id": "vehicules-la-406-de-taxi",
@@ -885,7 +885,7 @@
       "origin": "Taxi · 1998",
       "line": "Marseille en mode turbo.",
       "giphyIds": [],
-      "giphyQuery": "La 406 de Taxi"
+      "giphyQuery": "Taxi Luc Besson"
     },
     {
       "id": "vehicules-l-enterprise",
@@ -894,7 +894,7 @@
       "origin": "Star Trek · 1966",
       "line": "Aller là où personne n’est allé.",
       "giphyIds": [],
-      "giphyQuery": "L’Enterprise"
+      "giphyQuery": "USS Enterprise Star Trek"
     },
     {
       "id": "vehicules-le-tardis",
@@ -903,7 +903,7 @@
       "origin": "Doctor Who · 1963",
       "line": "Plus grand à l’intérieur.",
       "giphyIds": [],
-      "giphyQuery": "Le TARDIS"
+      "giphyQuery": "TARDIS Doctor Who"
     },
     {
       "id": "vehicules-l-x-wing",
@@ -912,7 +912,7 @@
       "origin": "Star Wars · 1977",
       "line": "« Utilise la Force, Luke. »",
       "giphyIds": [],
-      "giphyQuery": "L’X-Wing"
+      "giphyQuery": "X-Wing Star Wars"
     },
     {
       "id": "vehicules-la-jeep-de-jurassic-park",
@@ -921,7 +921,7 @@
       "origin": "Jurassic Park · 1993",
       "line": "Les objets dans le rétro sont plus proches qu’ils n’y paraissent.",
       "giphyIds": [],
-      "giphyQuery": "La Jeep de Jurassic Park"
+      "giphyQuery": "Jurassic Park jeep"
     },
     {
       "id": "vehicules-la-mach-5",
@@ -930,7 +930,7 @@
       "origin": "Speed Racer · 1967",
       "line": "Sept boutons sur le volant, tous indispensables.",
       "giphyIds": [],
-      "giphyQuery": "La Mach 5"
+      "giphyQuery": "Speed Racer Mach 5"
     },
     {
       "id": "vehicules-le-kart-de-mario",
@@ -939,7 +939,7 @@
       "origin": "Mario Kart · 1992",
       "line": "Une carapace bleue, et c’est la fin.",
       "giphyIds": [],
-      "giphyQuery": "Le kart de Mario"
+      "giphyQuery": "Mario Kart"
     },
     {
       "id": "vehicules-la-moto-de-tron",
@@ -948,7 +948,7 @@
       "origin": "Tron · 1982",
       "line": "Laisse un mur derrière elle. Littéralement.",
       "giphyIds": [],
-      "giphyQuery": "La moto de Tron"
+      "giphyQuery": "Tron light cycle"
     },
     {
       "id": "vehicules-la-harley-d-easy-rider",
@@ -957,7 +957,7 @@
       "origin": "Easy Rider · 1969",
       "line": "Le drapeau sur le réservoir, la route devant.",
       "giphyIds": [],
-      "giphyQuery": "La Harley d’Easy Rider"
+      "giphyQuery": "Easy Rider motorcycle"
     },
     {
       "id": "vehicules-la-vespa-de-vacances-romaines",
@@ -966,7 +966,7 @@
       "origin": "Vacances romaines · 1953",
       "line": "Rome à deux, en scooter.",
       "giphyIds": [],
-      "giphyQuery": "La Vespa de Vacances romaines"
+      "giphyQuery": "Roman Holiday Vespa"
     },
     {
       "id": "vehicules-le-sous-marin-jaune",
@@ -975,7 +975,7 @@
       "origin": "Yellow Submarine · 1968",
       "line": "Nous vivons tous dedans.",
       "giphyIds": [],
-      "giphyQuery": "Le sous-marin jaune"
+      "giphyQuery": "Yellow Submarine Beatles"
     },
     {
       "id": "vehicules-le-nautilus",
@@ -984,7 +984,7 @@
       "origin": "Jules Verne · 1870",
       "line": "Vingt mille lieues, aucune escale.",
       "giphyIds": [],
-      "giphyQuery": "Le Nautilus"
+      "giphyQuery": "Nautilus 20000 Leagues Under the Sea"
     },
     {
       "id": "vehicules-le-titanic",
@@ -993,7 +993,7 @@
       "origin": "Titanic · 1997",
       "line": "Insubmersible. Paraît-il.",
       "giphyIds": [],
-      "giphyQuery": "Le Titanic"
+      "giphyQuery": "Titanic ship"
     },
     {
       "id": "vehicules-le-black-pearl",
@@ -1002,7 +1002,7 @@
       "origin": "Pirates des Caraïbes · 2003",
       "line": "Des voiles noires et un capitaine approximatif.",
       "giphyIds": [],
-      "giphyQuery": "Le Black Pearl"
+      "giphyQuery": "Black Pearl Pirates of the Caribbean"
     },
     {
       "id": "vehicules-le-poudlard-express",
@@ -1011,7 +1011,7 @@
       "origin": "Harry Potter · 1997",
       "line": "Voie 9 ¾, chariot de bonbons inclus.",
       "giphyIds": [],
-      "giphyQuery": "Le Poudlard Express"
+      "giphyQuery": "Hogwarts Express"
     },
     {
       "id": "vehicules-le-bus-magique",
@@ -1020,7 +1020,7 @@
       "origin": "Le Bus magique · 1994",
       "line": "Une sortie scolaire dans un estomac.",
       "giphyIds": [],
-      "giphyQuery": "Le Bus magique"
+      "giphyQuery": "The Magic School Bus"
     },
     {
       "id": "vehicules-la-ford-anglia-volante",
@@ -1029,7 +1029,7 @@
       "origin": "Harry Potter · 1998",
       "line": "Finit sa course dans un saule cogneur.",
       "giphyIds": [],
-      "giphyQuery": "La Ford Anglia volante"
+      "giphyQuery": "Harry Potter flying car"
     },
     {
       "id": "vehicules-le-tapis-volant",
@@ -1038,7 +1038,7 @@
       "origin": "Aladdin · 1992",
       "line": "Pas de ceinture, pas de permis.",
       "giphyIds": [],
-      "giphyQuery": "Le tapis volant"
+      "giphyQuery": "Aladdin magic carpet"
     },
     {
       "id": "vehicules-le-camion-de-duel",
@@ -1047,7 +1047,7 @@
       "origin": "Duel · 1971",
       "line": "On ne voit jamais le conducteur.",
       "giphyIds": [],
-      "giphyQuery": "Le camion de Duel"
+      "giphyQuery": "Duel 1971 truck Spielberg"
     },
     {
       "id": "vehicules-christine",
@@ -1056,7 +1056,7 @@
       "origin": "Christine · 1983",
       "line": "Une Plymouth jalouse et rancunière.",
       "giphyIds": [],
-      "giphyQuery": "Christine"
+      "giphyQuery": "Christine 1983 car"
     },
     {
       "id": "vehicules-l-interceptor",
@@ -1065,7 +1065,7 @@
       "origin": "Mad Max · 1979",
       "line": "Le dernier des V8.",
       "giphyIds": [],
-      "giphyQuery": "L’Interceptor"
+      "giphyQuery": "Mad Max Interceptor"
     },
     {
       "id": "vehicules-le-warthog",
@@ -1074,7 +1074,7 @@
       "origin": "Halo · 2001",
       "line": "Tout le monde veut la tourelle.",
       "giphyIds": [],
-      "giphyQuery": "Le Warthog"
+      "giphyQuery": "Halo Warthog"
     },
     {
       "id": "vehicules-la-tumbler",
@@ -1083,7 +1083,7 @@
       "origin": "Batman Begins · 2005",
       "line": "Un char d’assaut qui se prend pour une voiture.",
       "giphyIds": [],
-      "giphyQuery": "La Tumbler"
+      "giphyQuery": "Batman Tumbler"
     },
     {
       "id": "vehicules-la-4l",
@@ -1092,7 +1092,7 @@
       "origin": "Renault · 1961",
       "line": "Indestructible, et pourtant tout le monde en a cassé une.",
       "giphyIds": [],
-      "giphyQuery": "La 4L"
+      "giphyQuery": "Renault 4L"
     },
     {
       "id": "vehicules-le-solex",
@@ -1101,7 +1101,7 @@
       "origin": "Vélosolex · 1946",
       "line": "Monte les côtes si tu pédales.",
       "giphyIds": [],
-      "giphyQuery": "Le Solex"
+      "giphyQuery": "Solex moped"
     },
     {
       "id": "ecrans-tetris",
@@ -1128,7 +1128,7 @@
       "origin": "France Télécom · 1982",
       "line": "3615, et la facture qui suit.",
       "giphyIds": [],
-      "giphyQuery": "Le Minitel"
+      "giphyQuery": "Minitel"
     },
     {
       "id": "ecrans-le-tamagotchi",
@@ -1137,7 +1137,7 @@
       "origin": "Jouet · 1996",
       "line": "Mort de faim pendant le cours de maths.",
       "giphyIds": [],
-      "giphyQuery": "Le Tamagotchi"
+      "giphyQuery": "Tamagotchi"
     },
     {
       "id": "ecrans-la-game-boy",
@@ -1146,7 +1146,7 @@
       "origin": "Nintendo · 1989",
       "line": "Quatre nuances de vert, des piles par paquets de douze.",
       "giphyIds": [],
-      "giphyQuery": "La Game Boy"
+      "giphyQuery": "Game Boy"
     },
     {
       "id": "ecrans-doom",
@@ -1155,7 +1155,7 @@
       "origin": "PC · 1993",
       "line": "Tourne sur une calculatrice, un frigo, un test de grossesse.",
       "giphyIds": [],
-      "giphyQuery": "Doom"
+      "giphyQuery": "Doom 1993 game"
     },
     {
       "id": "ecrans-sonic",
@@ -1164,7 +1164,7 @@
       "origin": "Sega · 1991",
       "line": "Trop rapide pour cette page.",
       "giphyIds": [],
-      "giphyQuery": "Sonic"
+      "giphyQuery": "Sonic the Hedgehog"
     },
     {
       "id": "ecrans-space-invaders",
@@ -1182,7 +1182,7 @@
       "origin": "Atari · 1972",
       "line": "Deux barres, une balle, des heures.",
       "giphyIds": [],
-      "giphyQuery": "Pong"
+      "giphyQuery": "Pong Atari"
     },
     {
       "id": "ecrans-super-mario-bros",
@@ -1191,7 +1191,7 @@
       "origin": "NES · 1985",
       "line": "La princesse est dans un autre château.",
       "giphyIds": [],
-      "giphyQuery": "Super Mario Bros."
+      "giphyQuery": "Super Mario Bros NES"
     },
     {
       "id": "ecrans-zelda",
@@ -1200,7 +1200,7 @@
       "origin": "NES · 1986",
       "line": "« C’est dangereux d’y aller seul ! »",
       "giphyIds": [],
-      "giphyQuery": "Zelda"
+      "giphyQuery": "Legend of Zelda NES"
     },
     {
       "id": "ecrans-street-fighter-ii",
@@ -1209,7 +1209,7 @@
       "origin": "Arcade · 1991",
       "line": "« Hadoken ! »",
       "giphyIds": [],
-      "giphyQuery": "Street Fighter II"
+      "giphyQuery": "Street Fighter II hadouken"
     },
     {
       "id": "ecrans-mortal-kombat",
@@ -1227,7 +1227,7 @@
       "origin": "Game Boy · 1996",
       "line": "Attrapez-les tous. Tous. Même Roucool.",
       "giphyIds": [],
-      "giphyQuery": "Pokémon Rouge et Bleu"
+      "giphyQuery": "Pokemon Red and Blue"
     },
     {
       "id": "ecrans-le-demineur",
@@ -1236,7 +1236,7 @@
       "origin": "Windows · 1990",
       "line": "Un clic, une explosion, une leçon d’humilité.",
       "giphyIds": [],
-      "giphyQuery": "Le Démineur"
+      "giphyQuery": "Minesweeper"
     },
     {
       "id": "ecrans-le-solitaire",
@@ -1245,7 +1245,7 @@
       "origin": "Windows · 1990",
       "line": "Les cartes qui rebondissent à la fin.",
       "giphyIds": [],
-      "giphyQuery": "Le Solitaire"
+      "giphyQuery": "Windows Solitaire"
     },
     {
       "id": "ecrans-le-dinosaure-de-chrome",
@@ -1254,7 +1254,7 @@
       "origin": "Hors connexion · 2014",
       "line": "Le seul jeu qu’on lance sans le vouloir.",
       "giphyIds": [],
-      "giphyQuery": "Le dinosaure de Chrome"
+      "giphyQuery": "Chrome dinosaur game"
     },
     {
       "id": "ecrans-snake",
@@ -1263,7 +1263,7 @@
       "origin": "Nokia · 1997",
       "line": "Ne te mords pas la queue.",
       "giphyIds": [],
-      "giphyQuery": "Snake"
+      "giphyQuery": "Snake Nokia"
     },
     {
       "id": "ecrans-lemmings",
@@ -1272,7 +1272,7 @@
       "origin": "Amiga · 1991",
       "line": "Sauve-les. Ou pas.",
       "giphyIds": [],
-      "giphyQuery": "Lemmings"
+      "giphyQuery": "Lemmings game"
     },
     {
       "id": "ecrans-prince-of-persia",
@@ -1281,7 +1281,7 @@
       "origin": "PC · 1989",
       "line": "Une heure pour sauver la princesse.",
       "giphyIds": [],
-      "giphyQuery": "Prince of Persia"
+      "giphyQuery": "Prince of Persia 1989"
     },
     {
       "id": "ecrans-alex-kidd",
@@ -1299,7 +1299,7 @@
       "origin": "Nintendo · 1980",
       "line": "Un écran LCD, et l’heure en prime.",
       "giphyIds": [],
-      "giphyQuery": "Le Game & Watch"
+      "giphyQuery": "Nintendo Game and Watch"
     },
     {
       "id": "ecrans-la-game-gear",
@@ -1308,7 +1308,7 @@
       "origin": "Sega · 1990",
       "line": "Six piles AA, trois heures d’autonomie.",
       "giphyIds": [],
-      "giphyQuery": "La Game Gear"
+      "giphyQuery": "Sega Game Gear"
     },
     {
       "id": "ecrans-l-amstrad-cpc",
@@ -1317,7 +1317,7 @@
       "origin": "Amstrad · 1984",
       "line": "Chargement sur cassette : prévoir un goûter.",
       "giphyIds": [],
-      "giphyQuery": "L’Amstrad CPC"
+      "giphyQuery": "Amstrad CPC"
     },
     {
       "id": "ecrans-le-commodore-64",
@@ -1326,7 +1326,7 @@
       "origin": "Commodore · 1982",
       "line": "Le best-seller des années 80.",
       "giphyIds": [],
-      "giphyQuery": "Le Commodore 64"
+      "giphyQuery": "Commodore 64"
     },
     {
       "id": "ecrans-la-super-nintendo",
@@ -1335,7 +1335,7 @@
       "origin": "Nintendo · 1990",
       "line": "On soufflait dans les cartouches. Ça ne servait à rien.",
       "giphyIds": [],
-      "giphyQuery": "La Super Nintendo"
+      "giphyQuery": "Super Nintendo SNES"
     },
     {
       "id": "ecrans-la-playstation",
@@ -1344,7 +1344,7 @@
       "origin": "Sony · 1994",
       "line": "Le CD qui tourne, la démo qui charge.",
       "giphyIds": [],
-      "giphyQuery": "La PlayStation"
+      "giphyQuery": "PlayStation 1"
     },
     {
       "id": "ecrans-goldeneye-007",
@@ -1353,7 +1353,7 @@
       "origin": "Nintendo 64 · 1997",
       "line": "Interdit de prendre Oddjob.",
       "giphyIds": [],
-      "giphyQuery": "GoldenEye 007"
+      "giphyQuery": "GoldenEye 007 N64"
     },
     {
       "id": "ecrans-half-life",
@@ -1362,7 +1362,7 @@
       "origin": "PC · 1998",
       "line": "Un pied-de-biche, une combinaison, aucune parole.",
       "giphyIds": [],
-      "giphyQuery": "Half-Life"
+      "giphyQuery": "Half-Life Gordon Freeman"
     },
     {
       "id": "ecrans-counter-strike",
@@ -1389,7 +1389,7 @@
       "origin": "PC · 2000",
       "line": "Retirer l’échelle de la piscine.",
       "giphyIds": [],
-      "giphyQuery": "Les Sims"
+      "giphyQuery": "The Sims"
     },
     {
       "id": "ecrans-minecraft",
@@ -1434,7 +1434,7 @@
       "origin": "NES · 1984",
       "line": "Le chien qui se moque de toi.",
       "giphyIds": [],
-      "giphyQuery": "Duck Hunt"
+      "giphyQuery": "Duck Hunt dog"
     },
     {
       "id": "ecrans-tomb-raider",
@@ -1443,7 +1443,7 @@
       "origin": "PlayStation · 1996",
       "line": "Enfermer le majordome dans la chambre froide.",
       "giphyIds": [],
-      "giphyQuery": "Tomb Raider"
+      "giphyQuery": "Tomb Raider Lara Croft"
     },
     {
       "id": "ecrans-rayman",
@@ -1461,7 +1461,7 @@
       "origin": "PC · 1997",
       "line": "« Wololo. »",
       "giphyIds": [],
-      "giphyQuery": "Age of Empires"
+      "giphyQuery": "Age of Empires wololo"
     }
   ]
 }
