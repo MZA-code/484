@@ -1,0 +1,24 @@
+# Dépendances et builds
+node_modules/
+dist/
+.astro/
+
+# Données locales (base SQLite du prototype, caches)
+data/
+*.sqlite
+*.sqlite-journal
+
+# Secrets : jamais dans le dépôt
+.env
+.env.*
+!.env.example
+
+# Tests
+coverage/
+test-results/
+playwright-report/
+
+# Divers
+.DS_Store
+Thumbs.db
+*.log

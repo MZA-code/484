@@ -1,0 +1,48 @@
+---
+// Page provisoire de la phase 0 : elle prouve que le build lit bien `content/`.
+// Elle sera remplacée par la vraie page d'accueil en phase 2.
+import ui from '../../content/ui-texts.fr.json';
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>484 · Lequel tu préfères ?</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        padding: 2rem;
+        background: #121212;
+        color: #f5f1e8;
+        font-family: system-ui, sans-serif;
+      }
+      h1 {
+        font-size: clamp(2rem, 8vw, 5rem);
+        line-height: 1;
+        text-transform: uppercase;
+        margin: 0 0 1.5rem;
+      }
+      h1 span:last-child {
+        color: #ff6fa8;
+      }
+      p {
+        max-width: 40rem;
+        color: #cfcac0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>
+        {ui.home.title.map((line) => (
+          <span style="display:block">{line}</span>
+        ))}
+      </h1>
+      <p>{ui.home.intro}</p>
+    </main>
+  </body>
+</html>

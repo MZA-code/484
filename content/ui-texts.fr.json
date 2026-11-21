@@ -1,0 +1,112 @@
+{
+  "home": {
+    "title": ["Il aurait pu faire", "un portfolio sérieux.", "Il a préféré ça."],
+    "intro": "Des duels entre légendes de la pop culture. Tu choisis, le gagnant reste, un nouveau challenger arrive. Ça ne s’arrête jamais. C’est voulu, et c’est un peu inquiétant.",
+    "footnote": "Durée moyenne d’une visite : on ne sait pas, personne n’est encore reparti.",
+    "mixedTheme": {
+      "label": "Tout mélangé",
+      "tagline": "Le chaos total. HAL 9000 contre la 4L. Tu verras bien."
+    }
+  },
+  "duel": {
+    "subtitle": "Ça ne s’arrête jamais. Tu peux partir quand tu veux. Personne ne part.",
+    "skip": "Je ne connais aucun des deux",
+    "firstVote": "Tu es le premier à trancher ce duel. Pas de pression.",
+    "retired": "{name} prend sa retraite invaincu après {n} victoires. Une page se tourne."
+  },
+  "quips": {
+    "high": [
+      "Tu es dans la norme. C’est rassurant, et un peu triste.",
+      "Choix validé par la majorité. Le comité approuve.",
+      "Comme tout le monde. Mais avec conviction.",
+      "Sans surprise. On t’aime quand même."
+    ],
+    "mid": [
+      "Ça s’est joué à un poil de moustache.",
+      "Le public est divisé. Toi, non.",
+      "Match serré. Les deux camps font appel.",
+      "Un choix défendable devant un tribunal."
+    ],
+    "low": [
+      "Choix audacieux. On te surveille.",
+      "Tu fais partie d’une élite. Ou d’une secte.",
+      "Respect. Ou inquiétude. On hésite.",
+      "Les statisticiens sont perplexes."
+    ]
+  },
+  "milestones": {
+    "10": {
+      "text": "10 duels. Tu avais sûrement autre chose à faire. Non ? Parfait."
+    },
+    "25": {
+      "text": "25 duels. Si tu es recruteur, on devrait sérieusement se parler.",
+      "link": true
+    },
+    "50": {
+      "text": "50 duels. À ce stade, ce n’est plus un site, c’est une relation."
+    },
+    "100": {
+      "text": "100 duels. Tu as vu passer plus de pop culture qu’un vidéoclub en 1995."
+    },
+    "200": {
+      "text": "200 duels. Ton patron pense que tu travailles. D’une certaine façon, oui."
+    },
+    "484": {
+      "text": "484 duels. Le nombre fétiche de ce site. Tu as gagné notre respect éternel.",
+      "link": true
+    }
+  },
+  "footer": {
+    "projects": "Voir mes autres projets →",
+    "disclaimer": "Aucun personnage n’a été blessé pendant les duels. Leur ego, si."
+  },
+  "projectsPage": {
+    "title": "Mes autres projets",
+    "intro": "Aucun n’a été élu par vote populaire.",
+    "back": "Retour aux duels →"
+  },
+  "projects": [
+    {
+      "kind": "JEU · 2026",
+      "title": "LATENCE",
+      "text": "Escape game de plus d’une heure, joué sur un Minitel recréé dans le navigateur, quelque part entre la Terre et Mars.",
+      "url": "https://latence-game.com/",
+      "cta": "latence-game.com"
+    },
+    {
+      "kind": "PLATEFORME · 2026",
+      "title": "Emballé, c’est pesé",
+      "text": "Enchères à l’envers : l’acheteur fixe son prix, les marchands baissent les leurs pour remporter la vente.",
+      "url": "https://emballecestpese.fr/",
+      "cta": "emballecestpese.fr"
+    },
+    {
+      "kind": "DONNÉES · 2026",
+      "title": "Baromètre démocratique",
+      "text": "21 indicateurs sourcés sur la démocratie en France, recalculés chaque jour, sans note ni opinion.",
+      "url": "https://barometre-democratique.fr/",
+      "cta": "barometre-democratique.fr"
+    },
+    {
+      "kind": "EXTENSION CHROME · 2026",
+      "title": "Lunettes de vérité",
+      "text": "D’après Invasion Los Angeles (1988) : chausse-les, et les publicités révèlent enfin leur vrai message.",
+      "url": "https://github.com/MZA-code/truth-glasses",
+      "cta": "GitHub"
+    },
+    {
+      "kind": "MATÉRIEL · 2026",
+      "title": "Rondo",
+      "text": "Compteur moto open source sur écran rond ESP32-S3, avec GPS. Conçu pour une KDX 125 préparée rallye.",
+      "url": "https://github.com/MZA-code/rondo",
+      "cta": "GitHub"
+    },
+    {
+      "kind": "ET LE RESTE",
+      "title": "Les réserves",
+      "text": "Prototypes, essais et projets en cours dorment sur GitHub.",
+      "url": "https://github.com/MZA-code",
+      "cta": "github.com/MZA-code"
+    }
+  ]
+}

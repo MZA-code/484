@@ -1,0 +1,7 @@
+dist/
+.astro/
+node_modules/
+coverage/
+package-lock.json
+# Le brief d'origine est conservé tel quel.
+docs/BRIEF-484-DUELS.md
