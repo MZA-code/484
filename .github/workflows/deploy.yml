@@ -1,0 +1,61 @@
+# Construit le site sur GitHub et range le résultat dans la branche `production`.
+# L'hébergement (o2switch) récupère cette branche avec `git pull` : il n'a rien à construire,
+# ce qui est trop lent sur un hébergement mutualisé (plus de 1 000 pages).
+# Voir docs/deploiement.md.
+name: Deploy
+
+on:
+  push:
+    branches: [main, phase-6]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Une publication à la fois, dans l'ordre des envois.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+env:
+  ASTRO_TELEMETRY_DISABLED: '1'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run test
+      - run: npm run build
+
+      - name: Publish to the production branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          deploy="$RUNNER_TEMP/deploy"
+          # On repart de la branche existante : son historique reste linéaire, `git pull` suffit côté serveur.
+          if git ls-remote --exit-code --heads origin production > /dev/null; then
+            git clone --depth 1 --branch production "$repo" "$deploy"
+          else
+            git init -b production "$deploy"
+            git -C "$deploy" remote add origin "$repo"
+          fi
+          find "$deploy" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -r dist app.cjs package.json package-lock.json "$deploy/"
+          cd "$deploy"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau à publier."
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "deploy: ${GITHUB_SHA::7} from ${GITHUB_REF_NAME}"
+          git push origin production
