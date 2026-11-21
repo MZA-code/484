@@ -1,0 +1,1835 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "heros",
+      "label": "Héros et vilains",
+      "tagline": "Des capes, des masques, et des egos surdimensionnés."
+    },
+    {
+      "id": "bouffe",
+      "label": "Bouffe qui divise",
+      "tagline": "Ces débats ont gâché plus de repas de famille que la politique."
+    },
+    {
+      "id": "geek",
+      "label": "Tech et geek",
+      "tagline": "Les guerres saintes de l’informatique. Aucun survivant."
+    },
+    {
+      "id": "jeux",
+      "label": "Jeux vidéo",
+      "tagline": "Manette en main, amitiés en jeu."
+    },
+    {
+      "id": "ecrans",
+      "label": "Ciné et séries",
+      "tagline": "Pop-corn, canapé, et des avis très tranchés."
+    },
+    {
+      "id": "duos",
+      "label": "Duos à départager",
+      "tagline": "Ils sont inséparables. Toi, tu vas devoir choisir."
+    },
+    {
+      "id": "quotidien",
+      "label": "Vie quotidienne",
+      "tagline": "Les petites guerres de tous les jours."
+    }
+  ],
+  "rivalries": [
+    {
+      "id": "heros-batman-superman",
+      "category": "heros",
+      "a": {
+        "name": "Batman",
+        "origin": "DC · 1939",
+        "line": "Pas de super-pouvoir, juste un excellent comptable.",
+        "giphyIds": [],
+        "giphyQuery": "Batman"
+      },
+      "b": {
+        "name": "Superman",
+        "origin": "DC · 1938",
+        "line": "Invincible, sauf face à un caillou vert.",
+        "giphyIds": [],
+        "giphyQuery": "Superman"
+      }
+    },
+    {
+      "id": "heros-marvel-dc",
+      "category": "heros",
+      "a": {
+        "name": "Marvel",
+        "origin": "Comics · 1939",
+        "line": "Des héros qui ont des problèmes de loyer.",
+        "giphyIds": [],
+        "giphyQuery": "Marvel Avengers"
+      },
+      "b": {
+        "name": "DC",
+        "origin": "Comics · 1934",
+        "line": "Des dieux qui ont des problèmes de cape.",
+        "giphyIds": [],
+        "giphyQuery": "Justice League DC"
+      }
+    },
+    {
+      "id": "heros-iron-man-captain-america",
+      "category": "heros",
+      "a": {
+        "name": "Iron Man",
+        "origin": "Marvel · 1963",
+        "line": "Génie, milliardaire, et pas du tout modeste.",
+        "giphyIds": [],
+        "giphyQuery": "Iron Man Tony Stark"
+      },
+      "b": {
+        "name": "Captain America",
+        "origin": "Marvel · 1941",
+        "line": "Congelé soixante-dix ans, toujours aussi poli.",
+        "giphyIds": [],
+        "giphyQuery": "Captain America"
+      }
+    },
+    {
+      "id": "heros-jedi-sith",
+      "category": "heros",
+      "a": {
+        "name": "Les Jedi",
+        "origin": "Star Wars",
+        "line": "La Force, la sagesse, et de très longues robes beiges.",
+        "giphyIds": [],
+        "giphyQuery": "Jedi lightsaber"
+      },
+      "b": {
+        "name": "Les Sith",
+        "origin": "Star Wars",
+        "line": "Le côté obscur, des sabres rouges, et des cookies.",
+        "giphyIds": [],
+        "giphyQuery": "Sith Darth Sidious"
+      }
+    },
+    {
+      "id": "heros-dark-vador-voldemort",
+      "category": "heros",
+      "a": {
+        "name": "Dark Vador",
+        "origin": "Star Wars · 1977",
+        "line": "Respire fort, parle fort, père absent.",
+        "giphyIds": [],
+        "giphyQuery": "Darth Vader"
+      },
+      "b": {
+        "name": "Voldemort",
+        "origin": "Harry Potter · 1997",
+        "line": "Pas de nez, pas d’amis, beaucoup d’horcruxes.",
+        "giphyIds": [],
+        "giphyQuery": "Voldemort"
+      }
+    },
+    {
+      "id": "heros-joker-thanos",
+      "category": "heros",
+      "a": {
+        "name": "Le Joker",
+        "origin": "DC · 1940",
+        "line": "« Pourquoi tant de sérieux ? »",
+        "giphyIds": [],
+        "giphyQuery": "Joker Batman"
+      },
+      "b": {
+        "name": "Thanos",
+        "origin": "Marvel · 1973",
+        "line": "Un claquement de doigts, et la moitié de l’univers en moins.",
+        "giphyIds": [],
+        "giphyQuery": "Thanos snap"
+      }
+    },
+    {
+      "id": "heros-spider-man-deadpool",
+      "category": "heros",
+      "a": {
+        "name": "Spider-Man",
+        "origin": "Marvel · 1962",
+        "line": "Un grand pouvoir, un petit salaire de photographe.",
+        "giphyIds": [],
+        "giphyQuery": "Spider-Man"
+      },
+      "b": {
+        "name": "Deadpool",
+        "origin": "Marvel · 1991",
+        "line": "Parle à la caméra, se régénère, ne s’excuse jamais.",
+        "giphyIds": [],
+        "giphyQuery": "Deadpool"
+      }
+    },
+    {
+      "id": "heros-wolverine-hulk",
+      "category": "heros",
+      "a": {
+        "name": "Wolverine",
+        "origin": "Marvel · 1974",
+        "line": "Des griffes, des rouflaquettes, et un sale caractère.",
+        "giphyIds": [],
+        "giphyQuery": "Wolverine X-Men"
+      },
+      "b": {
+        "name": "Hulk",
+        "origin": "Marvel · 1962",
+        "line": "Toujours en colère. Le pantalon tient, on ne sait pas comment.",
+        "giphyIds": [],
+        "giphyQuery": "Hulk smash"
+      }
+    },
+    {
+      "id": "heros-goku-vegeta",
+      "category": "heros",
+      "a": {
+        "name": "Goku",
+        "origin": "Dragon Ball · 1984",
+        "line": "Sauve l’univers entre deux repas.",
+        "giphyIds": [],
+        "giphyQuery": "Goku Dragon Ball"
+      },
+      "b": {
+        "name": "Vegeta",
+        "origin": "Dragon Ball · 1988",
+        "line": "Prince d’une planète qui n’existe plus. Et il le fait savoir.",
+        "giphyIds": [],
+        "giphyQuery": "Vegeta Dragon Ball"
+      }
+    },
+    {
+      "id": "heros-naruto-sasuke",
+      "category": "heros",
+      "a": {
+        "name": "Naruto",
+        "origin": "Naruto · 1999",
+        "line": "Veut devenir Hokage. Le répète toutes les cinq minutes.",
+        "giphyIds": [],
+        "giphyQuery": "Naruto Uzumaki"
+      },
+      "b": {
+        "name": "Sasuke",
+        "origin": "Naruto · 1999",
+        "line": "Boude pendant des centaines d’épisodes.",
+        "giphyIds": [],
+        "giphyQuery": "Sasuke Uchiha"
+      }
+    },
+    {
+      "id": "heros-gandalf-dumbledore",
+      "category": "heros",
+      "a": {
+        "name": "Gandalf",
+        "origin": "Le Hobbit · 1937",
+        "line": "« Vous ne passerez pas ! »",
+        "giphyIds": [],
+        "giphyQuery": "Gandalf you shall not pass"
+      },
+      "b": {
+        "name": "Dumbledore",
+        "origin": "Harry Potter · 1997",
+        "line": "Sage, puissant, et très avare d’explications.",
+        "giphyIds": [],
+        "giphyQuery": "Dumbledore"
+      }
+    },
+    {
+      "id": "heros-sherlock-holmes-hercule-poirot",
+      "category": "heros",
+      "a": {
+        "name": "Sherlock Holmes",
+        "origin": "Arthur Conan Doyle · 1887",
+        "line": "Un violon, une pipe, et aucun ami. Sauf un.",
+        "giphyIds": [],
+        "giphyQuery": "Sherlock Holmes"
+      },
+      "b": {
+        "name": "Hercule Poirot",
+        "origin": "Agatha Christie · 1920",
+        "line": "Les petites cellules grises, et une moustache impeccable.",
+        "giphyIds": [],
+        "giphyQuery": "Hercule Poirot"
+      }
+    },
+    {
+      "id": "heros-robin-des-bois-zorro",
+      "category": "heros",
+      "a": {
+        "name": "Robin des Bois",
+        "origin": "Légende anglaise",
+        "line": "Vole aux riches, donne aux pauvres, porte des collants.",
+        "giphyIds": [],
+        "giphyQuery": "Robin Hood Disney"
+      },
+      "b": {
+        "name": "Zorro",
+        "origin": "Johnston McCulley · 1919",
+        "line": "Signe tous ses exploits d’un Z. Très discret.",
+        "giphyIds": [],
+        "giphyQuery": "Zorro"
+      }
+    },
+    {
+      "id": "heros-james-bond-oss-117",
+      "category": "heros",
+      "a": {
+        "name": "James Bond",
+        "origin": "Ian Fleming · 1953",
+        "line": "Au service de Sa Majesté, et des marques de voitures.",
+        "giphyIds": [],
+        "giphyQuery": "James Bond 007"
+      },
+      "b": {
+        "name": "OSS 117",
+        "origin": "Jean Bruce · 1949",
+        "line": "« Comment est votre blanquette ? »",
+        "giphyIds": [],
+        "giphyQuery": "OSS 117 Jean Dujardin"
+      }
+    },
+    {
+      "id": "bouffe-pain-au-chocolat-chocolatine",
+      "category": "bouffe",
+      "a": {
+        "name": "Pain au chocolat",
+        "origin": "La moitié nord de la France",
+        "line": "Deux barres de chocolat, zéro débat. Enfin presque.",
+        "giphyIds": [],
+        "giphyQuery": "pain au chocolat"
+      },
+      "b": {
+        "name": "Chocolatine",
+        "origin": "Le Sud-Ouest, fièrement",
+        "line": "Le Sud-Ouest n’a jamais cédé. Il ne cédera pas.",
+        "giphyIds": [],
+        "giphyQuery": "chocolate croissant bakery"
+      }
+    },
+    {
+      "id": "bouffe-pizza-ananas",
+      "category": "bouffe",
+      "question": "Pizza : avec ou sans ananas ?",
+      "a": {
+        "name": "Avec ananas",
+        "origin": "Canada · 1962",
+        "line": "Inventée au Canada. Hawaï n’a rien demandé.",
+        "giphyIds": [],
+        "giphyQuery": "pineapple pizza"
+      },
+      "b": {
+        "name": "Sans ananas",
+        "origin": "Naples, depuis toujours",
+        "line": "Quelque part en Italie, une grand-mère approuve.",
+        "giphyIds": [],
+        "giphyQuery": "pizza margherita"
+      }
+    },
+    {
+      "id": "bouffe-nutella-confiture",
+      "category": "bouffe",
+      "a": {
+        "name": "Nutella",
+        "origin": "Ferrero · 1964",
+        "line": "Une cuillère. Puis le pot entier.",
+        "giphyIds": [],
+        "giphyQuery": "Nutella"
+      },
+      "b": {
+        "name": "Confiture",
+        "origin": "Chez ta grand-mère",
+        "line": "Faite maison, étiquetée au feutre, datée de 2019.",
+        "giphyIds": [],
+        "giphyQuery": "jam toast"
+      }
+    },
+    {
+      "id": "bouffe-coca-cola-pepsi",
+      "category": "bouffe",
+      "a": {
+        "name": "Coca-Cola",
+        "origin": "Atlanta · 1886",
+        "line": "La recette est secrète. Le sucre, beaucoup moins.",
+        "giphyIds": [],
+        "giphyQuery": "Coca-Cola"
+      },
+      "b": {
+        "name": "Pepsi",
+        "origin": "Caroline du Nord · 1893",
+        "line": "L’éternel challenger. Il gagne les tests à l’aveugle, paraît-il.",
+        "giphyIds": [],
+        "giphyQuery": "Pepsi"
+      }
+    },
+    {
+      "id": "bouffe-cafe-the",
+      "category": "bouffe",
+      "a": {
+        "name": "Café",
+        "origin": "Éthiopie, selon la légende",
+        "line": "Le carburant officiel des open spaces.",
+        "giphyIds": [],
+        "giphyQuery": "coffee"
+      },
+      "b": {
+        "name": "Thé",
+        "origin": "Chine, selon la légende",
+        "line": "Pour ceux qui ont le temps de laisser infuser.",
+        "giphyIds": [],
+        "giphyQuery": "tea cup"
+      }
+    },
+    {
+      "id": "bouffe-sucre-sale",
+      "category": "bouffe",
+      "a": {
+        "name": "Sucré",
+        "origin": "Team goûter",
+        "line": "Le dessert d’abord. La vie est courte.",
+        "giphyIds": [],
+        "giphyQuery": "dessert cake"
+      },
+      "b": {
+        "name": "Salé",
+        "origin": "Team apéro",
+        "line": "Une chips. Puis le paquet entier.",
+        "giphyIds": [],
+        "giphyQuery": "chips snack"
+      }
+    },
+    {
+      "id": "bouffe-ketchup-mayonnaise",
+      "category": "bouffe",
+      "a": {
+        "name": "Ketchup",
+        "origin": "États-Unis · 1876",
+        "line": "Va sur tout. Surtout là où il ne devrait pas.",
+        "giphyIds": [],
+        "giphyQuery": "ketchup"
+      },
+      "b": {
+        "name": "Mayonnaise",
+        "origin": "Port-Mahon · 1756, paraît-il",
+        "line": "Montée à la main, ratée une fois sur deux.",
+        "giphyIds": [],
+        "giphyQuery": "mayonnaise"
+      }
+    },
+    {
+      "id": "bouffe-frites-puree",
+      "category": "bouffe",
+      "a": {
+        "name": "Frites",
+        "origin": "Belgique ou France, on se dispute encore",
+        "line": "Croustillantes dehors, fondantes dedans, disputées partout.",
+        "giphyIds": [],
+        "giphyQuery": "french fries"
+      },
+      "b": {
+        "name": "Purée",
+        "origin": "La cantine, pour toujours",
+        "line": "Le doudou de la gastronomie.",
+        "giphyIds": [],
+        "giphyQuery": "mashed potatoes"
+      }
+    },
+    {
+      "id": "bouffe-mcdonalds-burger-king",
+      "category": "bouffe",
+      "a": {
+        "name": "McDonald’s",
+        "origin": "Californie · 1940",
+        "line": "Le M jaune, et des frites froides en trois minutes.",
+        "giphyIds": [],
+        "giphyQuery": "McDonalds fries"
+      },
+      "b": {
+        "name": "Burger King",
+        "origin": "Miami · 1954",
+        "line": "Grillé à la flamme, couronné en carton.",
+        "giphyIds": [],
+        "giphyQuery": "Burger King"
+      }
+    },
+    {
+      "id": "bouffe-raclette-fondue",
+      "category": "bouffe",
+      "a": {
+        "name": "Raclette",
+        "origin": "Valais",
+        "line": "Un appareil, huit poêlons, zéro légume.",
+        "giphyIds": [],
+        "giphyQuery": "raclette cheese"
+      },
+      "b": {
+        "name": "Fondue",
+        "origin": "Suisse",
+        "line": "Qui perd son pain dans le caquelon paie sa tournée.",
+        "giphyIds": [],
+        "giphyQuery": "cheese fondue"
+      }
+    },
+    {
+      "id": "bouffe-crepe-gaufre",
+      "category": "bouffe",
+      "a": {
+        "name": "Crêpe",
+        "origin": "Bretagne",
+        "line": "Fine, pliée en quatre, et toujours une de trop.",
+        "giphyIds": [],
+        "giphyQuery": "crepe"
+      },
+      "b": {
+        "name": "Gaufre",
+        "origin": "Belgique",
+        "line": "Des petits carreaux conçus pour retenir le sucre glace.",
+        "giphyIds": [],
+        "giphyQuery": "waffle"
+      }
+    },
+    {
+      "id": "bouffe-chocolat-noir-chocolat-au-lait",
+      "category": "bouffe",
+      "a": {
+        "name": "Chocolat noir",
+        "origin": "Rayon « adultes »",
+        "line": "Amer, élégant, plein d’antioxydants. Il te le rappelle.",
+        "giphyIds": [],
+        "giphyQuery": "dark chocolate"
+      },
+      "b": {
+        "name": "Chocolat au lait",
+        "origin": "Rayon « réconfort »",
+        "line": "Doux, régressif, et parfaitement assumé.",
+        "giphyIds": [],
+        "giphyQuery": "milk chocolate bar"
+      }
+    },
+    {
+      "id": "bouffe-pates-riz",
+      "category": "bouffe",
+      "a": {
+        "name": "Pâtes",
+        "origin": "Italie",
+        "line": "Au pesto, à la carbonara, ou à deux heures du matin.",
+        "giphyIds": [],
+        "giphyQuery": "pasta spaghetti"
+      },
+      "b": {
+        "name": "Riz",
+        "origin": "Asie",
+        "line": "Le fidèle compagnon de tous les plats en sauce.",
+        "giphyIds": [],
+        "giphyQuery": "rice bowl"
+      }
+    },
+    {
+      "id": "bouffe-kebab-burger",
+      "category": "bouffe",
+      "a": {
+        "name": "Kebab",
+        "origin": "Berlin · années 1970",
+        "line": "Salade, tomate, oignon. Et la sauce qui coule sur le poignet.",
+        "giphyIds": [],
+        "giphyQuery": "kebab doner"
+      },
+      "b": {
+        "name": "Burger",
+        "origin": "États-Unis",
+        "line": "Deux pains, un steak, aucune chance de rester propre.",
+        "giphyIds": [],
+        "giphyQuery": "burger"
+      }
+    },
+    {
+      "id": "geek-mac-pc",
+      "category": "geek",
+      "a": {
+        "name": "Mac",
+        "origin": "Apple · 1984",
+        "line": "Ça marche. Ne demande pas pourquoi.",
+        "giphyIds": [],
+        "giphyQuery": "Mac computer Apple"
+      },
+      "b": {
+        "name": "PC",
+        "origin": "IBM · 1981",
+        "line": "Tu peux tout changer. Tu vas tout changer.",
+        "giphyIds": [],
+        "giphyQuery": "PC gaming setup"
+      }
+    },
+    {
+      "id": "geek-iphone-android",
+      "category": "geek",
+      "a": {
+        "name": "iPhone",
+        "origin": "Apple · 2007",
+        "line": "Des bulles bleues, et un chargeur jamais compatible.",
+        "giphyIds": [],
+        "giphyQuery": "iPhone"
+      },
+      "b": {
+        "name": "Android",
+        "origin": "Google · 2008",
+        "line": "La liberté totale, et quatorze applis préinstallées.",
+        "giphyIds": [],
+        "giphyQuery": "Android robot"
+      }
+    },
+    {
+      "id": "geek-playstation-xbox",
+      "category": "geek",
+      "a": {
+        "name": "PlayStation",
+        "origin": "Sony · 1994",
+        "line": "Le CD qui tourne, la démo qui charge.",
+        "giphyIds": [],
+        "giphyQuery": "PlayStation"
+      },
+      "b": {
+        "name": "Xbox",
+        "origin": "Microsoft · 2001",
+        "line": "Une manette énorme, et Halo dedans.",
+        "giphyIds": [],
+        "giphyQuery": "Xbox"
+      }
+    },
+    {
+      "id": "geek-tabulations-espaces",
+      "category": "geek",
+      "question": "Pour indenter ton code : tabulations ou espaces ?",
+      "a": {
+        "name": "Tabulations",
+        "origin": "Ton éditeur de code",
+        "line": "Une touche, toute l’indentation. Efficace.",
+        "giphyIds": [],
+        "giphyQuery": "keyboard typing fast"
+      },
+      "b": {
+        "name": "Espaces",
+        "origin": "Ton éditeur de code",
+        "line": "Quatre appuis, zéro ambiguïté. Paraît-il.",
+        "giphyIds": [],
+        "giphyQuery": "space bar keyboard"
+      }
+    },
+    {
+      "id": "geek-vim-emacs",
+      "category": "geek",
+      "a": {
+        "name": "Vim",
+        "origin": "Bram Moolenaar · 1991",
+        "line": "Facile à ouvrir. Impossible à quitter.",
+        "giphyIds": [],
+        "giphyQuery": "vim exit"
+      },
+      "b": {
+        "name": "Emacs",
+        "origin": "Richard Stallman · 1976",
+        "line": "Un éditeur de texte. Et un système d’exploitation. Et un mode de vie.",
+        "giphyIds": [],
+        "giphyQuery": "programmer hacker"
+      }
+    },
+    {
+      "id": "geek-mode-sombre-mode-clair",
+      "category": "geek",
+      "a": {
+        "name": "Mode sombre",
+        "origin": "Les réglages, tout en bas",
+        "line": "Pour coder la nuit et avoir l’air mystérieux.",
+        "giphyIds": [],
+        "giphyQuery": "dark mode"
+      },
+      "b": {
+        "name": "Mode clair",
+        "origin": "Les réglages par défaut",
+        "line": "Pour ceux qui codent en terrasse.",
+        "giphyIds": [],
+        "giphyQuery": "sunglasses bright light"
+      }
+    },
+    {
+      "id": "geek-windows-linux",
+      "category": "geek",
+      "a": {
+        "name": "Windows",
+        "origin": "Microsoft · 1985",
+        "line": "Une mise à jour s’installe. Ne pas éteindre.",
+        "giphyIds": [],
+        "giphyQuery": "Windows update"
+      },
+      "b": {
+        "name": "Linux",
+        "origin": "Linus Torvalds · 1991",
+        "line": "Gratuit, libre, il suffit de recompiler le noyau.",
+        "giphyIds": [],
+        "giphyQuery": "Linux penguin Tux"
+      }
+    },
+    {
+      "id": "geek-chrome-firefox",
+      "category": "geek",
+      "a": {
+        "name": "Chrome",
+        "origin": "Google · 2008",
+        "line": "Rapide, efficace, et affamé de mémoire vive.",
+        "giphyIds": [],
+        "giphyQuery": "Google Chrome"
+      },
+      "b": {
+        "name": "Firefox",
+        "origin": "Mozilla · 2004",
+        "line": "Un renard, une conscience, et des extensions partout.",
+        "giphyIds": [],
+        "giphyQuery": "Firefox fox"
+      }
+    },
+    {
+      "id": "geek-star-wars-star-trek",
+      "category": "geek",
+      "a": {
+        "name": "Star Wars",
+        "origin": "George Lucas · 1977",
+        "line": "« Que la Force soit avec toi. »",
+        "giphyIds": [],
+        "giphyQuery": "Star Wars"
+      },
+      "b": {
+        "name": "Star Trek",
+        "origin": "Gene Roddenberry · 1966",
+        "line": "« Longue vie et prospérité. »",
+        "giphyIds": [],
+        "giphyQuery": "Star Trek Spock"
+      }
+    },
+    {
+      "id": "geek-livre-papier-liseuse",
+      "category": "geek",
+      "a": {
+        "name": "Livre papier",
+        "origin": "Gutenberg · vers 1450",
+        "line": "L’odeur, le poids, et le marque-page oublié dedans.",
+        "giphyIds": [],
+        "giphyQuery": "reading book"
+      },
+      "b": {
+        "name": "Liseuse",
+        "origin": "Ta poche",
+        "line": "Mille livres dans la poche, aucune odeur.",
+        "giphyIds": [],
+        "giphyQuery": "e-reader kindle"
+      }
+    },
+    {
+      "id": "geek-merge-rebase",
+      "category": "geek",
+      "question": "Sur Git : merge ou rebase ?",
+      "a": {
+        "name": "Merge",
+        "origin": "Git · 2005",
+        "line": "L’histoire telle qu’elle s’est passée.",
+        "giphyIds": [],
+        "giphyQuery": "merge traffic"
+      },
+      "b": {
+        "name": "Rebase",
+        "origin": "Git · 2005",
+        "line": "L’histoire telle qu’on aurait voulu qu’elle se passe.",
+        "giphyIds": [],
+        "giphyQuery": "rewrite history"
+      }
+    },
+    {
+      "id": "geek-azerty-qwerty",
+      "category": "geek",
+      "a": {
+        "name": "AZERTY",
+        "origin": "Les claviers français",
+        "line": "Le point en majuscule. On s’y est fait.",
+        "giphyIds": [],
+        "giphyQuery": "keyboard typing"
+      },
+      "b": {
+        "name": "QWERTY",
+        "origin": "Machine à écrire · 1873",
+        "line": "Le standard mondial. Sauf ici.",
+        "giphyIds": [],
+        "giphyQuery": "typewriter"
+      }
+    },
+    {
+      "id": "geek-wi-fi-cable",
+      "category": "geek",
+      "a": {
+        "name": "Wi-Fi",
+        "origin": "Partout",
+        "line": "Ça capte partout. Sauf dans ta chambre.",
+        "giphyIds": [],
+        "giphyQuery": "wifi signal"
+      },
+      "b": {
+        "name": "Câble Ethernet",
+        "origin": "Derrière le meuble télé",
+        "line": "Moche, mais jamais en panne.",
+        "giphyIds": [],
+        "giphyQuery": "ethernet cable"
+      }
+    },
+    {
+      "id": "geek-clippy-siri",
+      "category": "geek",
+      "a": {
+        "name": "Le trombone de Word",
+        "origin": "Microsoft Office · 1997",
+        "line": "« On dirait que vous écrivez une lettre. »",
+        "giphyIds": [],
+        "giphyQuery": "Clippy Microsoft Office"
+      },
+      "b": {
+        "name": "Siri",
+        "origin": "Apple · 2011",
+        "line": "« Je n’ai pas bien compris. »",
+        "giphyIds": [],
+        "giphyQuery": "Siri iPhone"
+      }
+    },
+    {
+      "id": "jeux-mario-sonic",
+      "category": "jeux",
+      "a": {
+        "name": "Mario",
+        "origin": "Nintendo · 1981",
+        "line": "Plombier, pilote, médecin, tennisman. Aucun diplôme.",
+        "giphyIds": [],
+        "giphyQuery": "Super Mario"
+      },
+      "b": {
+        "name": "Sonic",
+        "origin": "Sega · 1991",
+        "line": "Trop rapide pour cette page.",
+        "giphyIds": [],
+        "giphyQuery": "Sonic the Hedgehog"
+      }
+    },
+    {
+      "id": "jeux-nintendo-sega",
+      "category": "jeux",
+      "a": {
+        "name": "Nintendo",
+        "origin": "Kyoto · 1889",
+        "line": "Ça a commencé par des cartes à jouer. Vraiment.",
+        "giphyIds": [],
+        "giphyQuery": "Nintendo retro"
+      },
+      "b": {
+        "name": "Sega",
+        "origin": "Japon · 1960",
+        "line": "« Sega, c’est plus fort que toi. »",
+        "giphyIds": [],
+        "giphyQuery": "Sega Mega Drive"
+      }
+    },
+    {
+      "id": "jeux-tetris-snake",
+      "category": "jeux",
+      "a": {
+        "name": "Tetris",
+        "origin": "Alexeï Pajitnov · 1984",
+        "line": "Toujours pas de barre droite.",
+        "giphyIds": [],
+        "giphyQuery": "Tetris"
+      },
+      "b": {
+        "name": "Snake",
+        "origin": "Nokia · 1997",
+        "line": "Ne te mords pas la queue.",
+        "giphyIds": [],
+        "giphyQuery": "Snake Nokia"
+      }
+    },
+    {
+      "id": "jeux-link-zelda",
+      "category": "jeux",
+      "a": {
+        "name": "Link",
+        "origin": "Nintendo · 1986",
+        "line": "Le héros. Tout le monde l’appelle Zelda.",
+        "giphyIds": [],
+        "giphyQuery": "Link Legend of Zelda"
+      },
+      "b": {
+        "name": "Zelda",
+        "origin": "Nintendo · 1986",
+        "line": "La princesse. Le jeu porte son nom, ce n’est pas sa faute.",
+        "giphyIds": [],
+        "giphyQuery": "Princess Zelda"
+      }
+    },
+    {
+      "id": "jeux-pikachu-rondoudou",
+      "category": "jeux",
+      "a": {
+        "name": "Pikachu",
+        "origin": "Pokémon · 1996",
+        "line": "« Pika pika ! »",
+        "giphyIds": [],
+        "giphyQuery": "Pikachu"
+      },
+      "b": {
+        "name": "Rondoudou",
+        "origin": "Pokémon · 1996",
+        "line": "Chante, tout le monde s’endort, et il le prend très mal.",
+        "giphyIds": [],
+        "giphyQuery": "Jigglypuff"
+      }
+    },
+    {
+      "id": "jeux-street-fighter-mortal-kombat",
+      "category": "jeux",
+      "a": {
+        "name": "Street Fighter II",
+        "origin": "Capcom · 1991",
+        "line": "« Hadoken ! »",
+        "giphyIds": [],
+        "giphyQuery": "Street Fighter II hadouken"
+      },
+      "b": {
+        "name": "Mortal Kombat",
+        "origin": "Midway · 1992",
+        "line": "« Finish him ! »",
+        "giphyIds": [],
+        "giphyQuery": "Mortal Kombat"
+      }
+    },
+    {
+      "id": "jeux-minecraft-les-sims",
+      "category": "jeux",
+      "a": {
+        "name": "Minecraft",
+        "origin": "Mojang · 2011",
+        "line": "Des cubes à perte de vue, et un creeper derrière toi.",
+        "giphyIds": [],
+        "giphyQuery": "Minecraft"
+      },
+      "b": {
+        "name": "Les Sims",
+        "origin": "Maxis · 2000",
+        "line": "Retirer l’échelle de la piscine.",
+        "giphyIds": [],
+        "giphyQuery": "The Sims"
+      }
+    },
+    {
+      "id": "jeux-lara-croft-nathan-drake",
+      "category": "jeux",
+      "a": {
+        "name": "Lara Croft",
+        "origin": "Tomb Raider · 1996",
+        "line": "Pille des tombeaux depuis avant que ce soit cool.",
+        "giphyIds": [],
+        "giphyQuery": "Lara Croft Tomb Raider"
+      },
+      "b": {
+        "name": "Nathan Drake",
+        "origin": "Uncharted · 2007",
+        "line": "Tombe de partout, s’en sort toujours, avec une blague.",
+        "giphyIds": [],
+        "giphyQuery": "Nathan Drake Uncharted"
+      }
+    },
+    {
+      "id": "jeux-crash-bandicoot-spyro",
+      "category": "jeux",
+      "a": {
+        "name": "Crash Bandicoot",
+        "origin": "PlayStation · 1996",
+        "line": "Une toupie, des caisses, et beaucoup de cris.",
+        "giphyIds": [],
+        "giphyQuery": "Crash Bandicoot"
+      },
+      "b": {
+        "name": "Spyro",
+        "origin": "PlayStation · 1998",
+        "line": "Un petit dragon violet qui crache du feu sur des moutons.",
+        "giphyIds": [],
+        "giphyQuery": "Spyro the Dragon"
+      }
+    },
+    {
+      "id": "jeux-manette-clavier-souris",
+      "category": "jeux",
+      "a": {
+        "name": "Manette",
+        "origin": "Le canapé",
+        "line": "Les potes, les chips, et le câble toujours trop court.",
+        "giphyIds": [],
+        "giphyQuery": "gamepad controller"
+      },
+      "b": {
+        "name": "Clavier-souris",
+        "origin": "Le bureau",
+        "line": "Une précision chirurgicale, et le dos en compote.",
+        "giphyIds": [],
+        "giphyQuery": "gaming keyboard mouse"
+      }
+    },
+    {
+      "id": "jeux-pac-man-space-invaders",
+      "category": "jeux",
+      "a": {
+        "name": "Pac-Man",
+        "origin": "Namco · 1980",
+        "line": "Waka waka waka waka.",
+        "giphyIds": [],
+        "giphyQuery": "Pac-Man"
+      },
+      "b": {
+        "name": "Space Invaders",
+        "origin": "Taito · 1978",
+        "line": "Ils descendent. Lentement. Puis très vite.",
+        "giphyIds": [],
+        "giphyQuery": "Space Invaders"
+      }
+    },
+    {
+      "id": "jeux-game-boy-game-gear",
+      "category": "jeux",
+      "a": {
+        "name": "Game Boy",
+        "origin": "Nintendo · 1989",
+        "line": "Quatre nuances de vert, des piles par paquets de douze.",
+        "giphyIds": [],
+        "giphyQuery": "Game Boy"
+      },
+      "b": {
+        "name": "Game Gear",
+        "origin": "Sega · 1990",
+        "line": "En couleur ! Six piles, à peine trois heures d’autonomie.",
+        "giphyIds": [],
+        "giphyQuery": "Sega Game Gear"
+      }
+    },
+    {
+      "id": "jeux-goldeneye-mario-kart-64",
+      "category": "jeux",
+      "question": "Soirée Nintendo 64 : GoldenEye ou Mario Kart ?",
+      "a": {
+        "name": "GoldenEye 007",
+        "origin": "Nintendo 64 · 1997",
+        "line": "Interdit de prendre Oddjob.",
+        "giphyIds": [],
+        "giphyQuery": "GoldenEye 007 N64"
+      },
+      "b": {
+        "name": "Mario Kart 64",
+        "origin": "Nintendo 64 · 1996",
+        "line": "Une carapace bleue, et une amitié brisée.",
+        "giphyIds": [],
+        "giphyQuery": "Mario Kart 64"
+      }
+    },
+    {
+      "id": "jeux-bowser-ganon",
+      "category": "jeux",
+      "a": {
+        "name": "Bowser",
+        "origin": "Nintendo · 1985",
+        "line": "Enlève la même princesse depuis 1985. Persévérant.",
+        "giphyIds": [],
+        "giphyQuery": "Bowser"
+      },
+      "b": {
+        "name": "Ganon",
+        "origin": "Nintendo · 1986",
+        "line": "Revient à chaque épisode, perd à chaque épisode.",
+        "giphyIds": [],
+        "giphyQuery": "Ganondorf"
+      }
+    },
+    {
+      "id": "ecrans-edward-jacob",
+      "category": "ecrans",
+      "a": {
+        "name": "Edward",
+        "origin": "Twilight · 2008",
+        "line": "Brille au soleil et te regarde dormir.",
+        "giphyIds": [],
+        "giphyQuery": "Edward Cullen Twilight"
+      },
+      "b": {
+        "name": "Jacob",
+        "origin": "Twilight · 2008",
+        "line": "Toujours torse nu, toujours en avance.",
+        "giphyIds": [],
+        "giphyQuery": "Jacob Black Twilight"
+      }
+    },
+    {
+      "id": "ecrans-harry-potter-seigneur-des-anneaux",
+      "category": "ecrans",
+      "a": {
+        "name": "Harry Potter",
+        "origin": "J. K. Rowling · 1997",
+        "line": "Une baguette, une cicatrice, sept tomes.",
+        "giphyIds": [],
+        "giphyQuery": "Harry Potter"
+      },
+      "b": {
+        "name": "Le Seigneur des anneaux",
+        "origin": "J. R. R. Tolkien · 1954",
+        "line": "Neuf compagnons, un anneau, énormément de marche.",
+        "giphyIds": [],
+        "giphyQuery": "Lord of the Rings fellowship"
+      }
+    },
+    {
+      "id": "ecrans-gryffondor-serpentard",
+      "category": "ecrans",
+      "a": {
+        "name": "Gryffondor",
+        "origin": "Harry Potter · 1997",
+        "line": "Courage, loyauté, et règlement intérieur facultatif.",
+        "giphyIds": [],
+        "giphyQuery": "Gryffindor"
+      },
+      "b": {
+        "name": "Serpentard",
+        "origin": "Harry Potter · 1997",
+        "line": "Ambition, ruse, et une salle commune sous un lac.",
+        "giphyIds": [],
+        "giphyQuery": "Slytherin"
+      }
+    },
+    {
+      "id": "ecrans-friends-the-office",
+      "category": "ecrans",
+      "a": {
+        "name": "Friends",
+        "origin": "NBC · 1994",
+        "line": "Six amis, un canapé orange, un loyer impossible.",
+        "giphyIds": [],
+        "giphyQuery": "Friends TV show"
+      },
+      "b": {
+        "name": "The Office",
+        "origin": "NBC · 2005",
+        "line": "Un patron gênant, et des regards caméra.",
+        "giphyIds": [],
+        "giphyQuery": "The Office Michael Scott"
+      }
+    },
+    {
+      "id": "ecrans-stark-lannister",
+      "category": "ecrans",
+      "a": {
+        "name": "Les Stark",
+        "origin": "Game of Thrones · 2011",
+        "line": "« L’hiver vient. »",
+        "giphyIds": [],
+        "giphyQuery": "Jon Snow Stark"
+      },
+      "b": {
+        "name": "Les Lannister",
+        "origin": "Game of Thrones · 2011",
+        "line": "Un Lannister paie toujours ses dettes.",
+        "giphyIds": [],
+        "giphyQuery": "Tyrion Lannister"
+      }
+    },
+    {
+      "id": "ecrans-rocky-rambo",
+      "category": "ecrans",
+      "a": {
+        "name": "Rocky",
+        "origin": "Rocky · 1976",
+        "line": "Court dans les escaliers, crie « Adrian ! ».",
+        "giphyIds": [],
+        "giphyQuery": "Rocky Balboa"
+      },
+      "b": {
+        "name": "Rambo",
+        "origin": "Rambo · 1982",
+        "line": "C’est pas lui qui a commencé.",
+        "giphyIds": [],
+        "giphyQuery": "Rambo"
+      }
+    },
+    {
+      "id": "ecrans-indiana-jones-han-solo",
+      "category": "ecrans",
+      "a": {
+        "name": "Indiana Jones",
+        "origin": "Les Aventuriers de l’arche perdue · 1981",
+        "line": "Un chapeau, un fouet, et une sainte horreur des serpents.",
+        "giphyIds": [],
+        "giphyQuery": "Indiana Jones"
+      },
+      "b": {
+        "name": "Han Solo",
+        "origin": "Star Wars · 1977",
+        "line": "A tiré le premier. On en débat encore.",
+        "giphyIds": [],
+        "giphyQuery": "Han Solo"
+      }
+    },
+    {
+      "id": "ecrans-alien-predator",
+      "category": "ecrans",
+      "a": {
+        "name": "Alien",
+        "origin": "Alien · 1979",
+        "line": "Dans l’espace, personne ne t’entend crier.",
+        "giphyIds": [],
+        "giphyQuery": "Alien xenomorph"
+      },
+      "b": {
+        "name": "Predator",
+        "origin": "Predator · 1987",
+        "line": "Invisible, chasseur, et franchement pas photogénique.",
+        "giphyIds": [],
+        "giphyQuery": "Predator movie"
+      }
+    },
+    {
+      "id": "ecrans-terminator-robocop",
+      "category": "ecrans",
+      "a": {
+        "name": "Terminator",
+        "origin": "Terminator · 1984",
+        "line": "« I’ll be back. »",
+        "giphyIds": [],
+        "giphyQuery": "Terminator T-800"
+      },
+      "b": {
+        "name": "RoboCop",
+        "origin": "RoboCop · 1987",
+        "line": "Mi-homme, mi-machine, entièrement flic.",
+        "giphyIds": [],
+        "giphyQuery": "RoboCop"
+      }
+    },
+    {
+      "id": "ecrans-r2-d2-c-3po",
+      "category": "ecrans",
+      "a": {
+        "name": "R2-D2",
+        "origin": "Star Wars · 1977",
+        "line": "« Bip bip bwiiip. »",
+        "giphyIds": [],
+        "giphyQuery": "R2-D2 Star Wars"
+      },
+      "b": {
+        "name": "C-3PO",
+        "origin": "Star Wars · 1977",
+        "line": "Parle six millions de langues, se plaint dans toutes.",
+        "giphyIds": [],
+        "giphyQuery": "C-3PO Star Wars"
+      }
+    },
+    {
+      "id": "ecrans-wall-e-eve",
+      "category": "ecrans",
+      "a": {
+        "name": "WALL-E",
+        "origin": "Pixar · 2008",
+        "line": "Compacte les déchets, collectionne les briquets, tombe amoureux.",
+        "giphyIds": [],
+        "giphyQuery": "WALL-E Pixar"
+      },
+      "b": {
+        "name": "EVE",
+        "origin": "Pixar · 2008",
+        "line": "Élégante, efficace, tire d’abord.",
+        "giphyIds": [],
+        "giphyQuery": "EVE WALL-E Pixar"
+      }
+    },
+    {
+      "id": "ecrans-disney-pixar",
+      "category": "ecrans",
+      "a": {
+        "name": "Disney",
+        "origin": "Blanche-Neige · 1937",
+        "line": "Des princesses, des chansons, et des parents qui disparaissent tôt.",
+        "giphyIds": [],
+        "giphyQuery": "Disney castle"
+      },
+      "b": {
+        "name": "Pixar",
+        "origin": "Toy Story · 1995",
+        "line": "Des jouets, des robots, et toi qui pleures à la fin.",
+        "giphyIds": [],
+        "giphyQuery": "Pixar lamp"
+      }
+    },
+    {
+      "id": "ecrans-kaamelott-les-visiteurs",
+      "category": "ecrans",
+      "a": {
+        "name": "Kaamelott",
+        "origin": "M6 · 2005",
+        "line": "« C’est pas faux. »",
+        "giphyIds": [],
+        "giphyQuery": "Kaamelott"
+      },
+      "b": {
+        "name": "Les Visiteurs",
+        "origin": "Jean-Marie Poiré · 1993",
+        "line": "« Okayyy ! »",
+        "giphyIds": [],
+        "giphyQuery": "Les Visiteurs Jacquouille"
+      }
+    },
+    {
+      "id": "ecrans-delorean-tardis",
+      "category": "ecrans",
+      "question": "Pour voyager dans le temps : DeLorean ou TARDIS ?",
+      "a": {
+        "name": "La DeLorean",
+        "origin": "Retour vers le futur · 1985",
+        "line": "Carbure au plutonium, ou aux épluchures.",
+        "giphyIds": [],
+        "giphyQuery": "DeLorean Back to the Future"
+      },
+      "b": {
+        "name": "Le TARDIS",
+        "origin": "Doctor Who · 1963",
+        "line": "Plus grand à l’intérieur.",
+        "giphyIds": [],
+        "giphyQuery": "TARDIS Doctor Who"
+      }
+    },
+    {
+      "id": "duos-tom-jerry",
+      "category": "duos",
+      "a": {
+        "name": "Tom",
+        "origin": "MGM · 1940",
+        "line": "Perd depuis 1940. N’abandonne jamais.",
+        "giphyIds": [],
+        "giphyQuery": "Tom cat Tom and Jerry"
+      },
+      "b": {
+        "name": "Jerry",
+        "origin": "MGM · 1940",
+        "line": "Petit, malin, et franchement sadique.",
+        "giphyIds": [],
+        "giphyQuery": "Jerry mouse Tom and Jerry"
+      }
+    },
+    {
+      "id": "duos-mulder-scully",
+      "category": "duos",
+      "a": {
+        "name": "Mulder",
+        "origin": "X-Files · 1993",
+        "line": "Veut croire.",
+        "giphyIds": [],
+        "giphyQuery": "Fox Mulder X-Files"
+      },
+      "b": {
+        "name": "Scully",
+        "origin": "X-Files · 1993",
+        "line": "Veut des preuves.",
+        "giphyIds": [],
+        "giphyQuery": "Dana Scully X-Files"
+      }
+    },
+    {
+      "id": "duos-doc-marty",
+      "category": "duos",
+      "a": {
+        "name": "Doc",
+        "origin": "Retour vers le futur · 1985",
+        "line": "« Nom de Zeus ! »",
+        "giphyIds": [],
+        "giphyQuery": "Doc Brown great Scott"
+      },
+      "b": {
+        "name": "Marty",
+        "origin": "Retour vers le futur · 1985",
+        "line": "Un skate, une guitare, et un retard chronique.",
+        "giphyIds": [],
+        "giphyQuery": "Marty McFly"
+      }
+    },
+    {
+      "id": "duos-asterix-obelix",
+      "category": "duos",
+      "a": {
+        "name": "Astérix",
+        "origin": "Goscinny et Uderzo · 1959",
+        "line": "Petit, rusé, et carburant à la potion.",
+        "giphyIds": [],
+        "giphyQuery": "Asterix"
+      },
+      "b": {
+        "name": "Obélix",
+        "origin": "Goscinny et Uderzo · 1959",
+        "line": "Pas gros. Tombé dedans quand il était petit.",
+        "giphyIds": [],
+        "giphyQuery": "Obelix"
+      }
+    },
+    {
+      "id": "duos-laurel-hardy",
+      "category": "duos",
+      "a": {
+        "name": "Laurel",
+        "origin": "Cinéma · 1927",
+        "line": "Se gratte la tête, pleure, et rate tout.",
+        "giphyIds": [],
+        "giphyQuery": "Stan Laurel"
+      },
+      "b": {
+        "name": "Hardy",
+        "origin": "Cinéma · 1927",
+        "line": "« Encore une belle pagaille. »",
+        "giphyIds": [],
+        "giphyQuery": "Oliver Hardy"
+      }
+    },
+    {
+      "id": "duos-bert-ernie",
+      "category": "duos",
+      "a": {
+        "name": "Bert",
+        "origin": "1, rue Sésame · 1969",
+        "line": "Aime les pigeons, les trombones, et le calme.",
+        "giphyIds": [],
+        "giphyQuery": "Bert Sesame Street"
+      },
+      "b": {
+        "name": "Ernie",
+        "origin": "1, rue Sésame · 1969",
+        "line": "Aime son canard en caoutchouc, et réveiller Bert.",
+        "giphyIds": [],
+        "giphyQuery": "Ernie rubber duckie"
+      }
+    },
+    {
+      "id": "duos-woody-buzz",
+      "category": "duos",
+      "a": {
+        "name": "Woody",
+        "origin": "Toy Story · 1995",
+        "line": "« Il y a un serpent dans ma botte ! »",
+        "giphyIds": [],
+        "giphyQuery": "Woody Toy Story"
+      },
+      "b": {
+        "name": "Buzz l’Éclair",
+        "origin": "Toy Story · 1995",
+        "line": "« Vers l’infini et au-delà ! »",
+        "giphyIds": [],
+        "giphyQuery": "Buzz Lightyear"
+      }
+    },
+    {
+      "id": "duos-rick-morty",
+      "category": "duos",
+      "a": {
+        "name": "Rick",
+        "origin": "Adult Swim · 2013",
+        "line": "Le plus grand génie de l’univers. Et le plus pénible.",
+        "giphyIds": [],
+        "giphyQuery": "Rick Sanchez"
+      },
+      "b": {
+        "name": "Morty",
+        "origin": "Adult Swim · 2013",
+        "line": "Quatorze ans, et déjà trop de traumatismes.",
+        "giphyIds": [],
+        "giphyQuery": "Morty Smith"
+      }
+    },
+    {
+      "id": "duos-bob-patrick",
+      "category": "duos",
+      "a": {
+        "name": "Bob l’éponge",
+        "origin": "Nickelodeon · 1999",
+        "line": "Adore son travail au Crabe Croustillant. Sincèrement.",
+        "giphyIds": [],
+        "giphyQuery": "SpongeBob"
+      },
+      "b": {
+        "name": "Patrick",
+        "origin": "Nickelodeon · 1999",
+        "line": "Vit sous un rocher. Littéralement.",
+        "giphyIds": [],
+        "giphyQuery": "Patrick Star"
+      }
+    },
+    {
+      "id": "duos-timon-pumbaa",
+      "category": "duos",
+      "a": {
+        "name": "Timon",
+        "origin": "Le Roi lion · 1994",
+        "line": "Le cerveau du duo. Selon lui.",
+        "giphyIds": [],
+        "giphyQuery": "Timon Lion King"
+      },
+      "b": {
+        "name": "Pumbaa",
+        "origin": "Le Roi lion · 1994",
+        "line": "Le cœur du duo. Et les flatulences.",
+        "giphyIds": [],
+        "giphyQuery": "Pumbaa Lion King"
+      }
+    },
+    {
+      "id": "duos-dupond-dupont",
+      "category": "duos",
+      "a": {
+        "name": "Dupond",
+        "origin": "Tintin · 1934",
+        "line": "Avec un d, comme dans « détective ».",
+        "giphyIds": [],
+        "giphyQuery": "Thomson and Thompson Tintin"
+      },
+      "b": {
+        "name": "Dupont",
+        "origin": "Tintin · 1934",
+        "line": "Avec un t. « Je dirais même plus… »",
+        "giphyIds": [],
+        "giphyQuery": "Thomson Thompson twins"
+      }
+    },
+    {
+      "id": "duos-minus-cortex",
+      "category": "duos",
+      "a": {
+        "name": "Minus",
+        "origin": "Animaniacs · 1993",
+        "line": "Ne comprend rien, mais avec enthousiasme.",
+        "giphyIds": [],
+        "giphyQuery": "Pinky Pinky and the Brain"
+      },
+      "b": {
+        "name": "Cortex",
+        "origin": "Animaniacs · 1993",
+        "line": "« Conquérir le monde ! »",
+        "giphyIds": [],
+        "giphyQuery": "Brain Pinky and the Brain"
+      }
+    },
+    {
+      "id": "duos-shrek-l-ane",
+      "category": "duos",
+      "a": {
+        "name": "Shrek",
+        "origin": "Shrek · 2001",
+        "line": "Les ogres, c’est comme les oignons : il y a des couches.",
+        "giphyIds": [],
+        "giphyQuery": "Shrek"
+      },
+      "b": {
+        "name": "L’Âne",
+        "origin": "Shrek · 2001",
+        "line": "« On est bientôt arrivés ? »",
+        "giphyIds": [],
+        "giphyQuery": "Donkey Shrek"
+      }
+    },
+    {
+      "id": "duos-holmes-watson",
+      "category": "duos",
+      "a": {
+        "name": "Holmes",
+        "origin": "Arthur Conan Doyle · 1887",
+        "line": "« Élémentaire. »",
+        "giphyIds": [],
+        "giphyQuery": "Sherlock Holmes deduction"
+      },
+      "b": {
+        "name": "Watson",
+        "origin": "Arthur Conan Doyle · 1887",
+        "line": "Écrit toutes les enquêtes. Aucune reconnaissance.",
+        "giphyIds": [],
+        "giphyQuery": "Dr Watson Sherlock"
+      }
+    },
+    {
+      "id": "duos-mario-luigi",
+      "category": "duos",
+      "a": {
+        "name": "Mario",
+        "origin": "Nintendo · 1981",
+        "line": "La casquette rouge, la gloire, les produits dérivés.",
+        "giphyIds": [],
+        "giphyQuery": "Mario Nintendo"
+      },
+      "b": {
+        "name": "Luigi",
+        "origin": "Nintendo · 1983",
+        "line": "Plus grand, saute plus haut, toujours deuxième.",
+        "giphyIds": [],
+        "giphyQuery": "Luigi"
+      }
+    },
+    {
+      "id": "quotidien-chat-chien",
+      "category": "quotidien",
+      "a": {
+        "name": "Chat",
+        "origin": "Égypte antique",
+        "line": "Te tolère. Parfois.",
+        "giphyIds": [],
+        "giphyQuery": "funny cat"
+      },
+      "b": {
+        "name": "Chien",
+        "origin": "Le Paléolithique",
+        "line": "T’adore, même après cinq minutes d’absence.",
+        "giphyIds": [],
+        "giphyQuery": "happy dog"
+      }
+    },
+    {
+      "id": "quotidien-mer-montagne",
+      "category": "quotidien",
+      "a": {
+        "name": "Mer",
+        "origin": "La plage la plus proche",
+        "line": "Du sable partout, jusqu’en décembre.",
+        "giphyIds": [],
+        "giphyQuery": "beach waves"
+      },
+      "b": {
+        "name": "Montagne",
+        "origin": "Le refuge le plus haut",
+        "line": "Des randonnées, des refuges, et des mollets en béton.",
+        "giphyIds": [],
+        "giphyQuery": "mountain hiking"
+      }
+    },
+    {
+      "id": "quotidien-ete-hiver",
+      "category": "quotidien",
+      "a": {
+        "name": "Été",
+        "origin": "Juillet-août",
+        "line": "Apéros en terrasse et coups de soleil.",
+        "giphyIds": [],
+        "giphyQuery": "summer sun"
+      },
+      "b": {
+        "name": "Hiver",
+        "origin": "Décembre-février",
+        "line": "Plaids, chocolat chaud, et excuses pour ne pas sortir.",
+        "giphyIds": [],
+        "giphyQuery": "cozy winter blanket"
+      }
+    },
+    {
+      "id": "quotidien-leve-tot-couche-tard",
+      "category": "quotidien",
+      "a": {
+        "name": "Lève-tôt",
+        "origin": "6 h du matin",
+        "line": "Le monde t’appartient. Il est juste encore fermé.",
+        "giphyIds": [],
+        "giphyQuery": "sunrise morning"
+      },
+      "b": {
+        "name": "Couche-tard",
+        "origin": "2 h du matin",
+        "line": "Les meilleures idées arrivent la nuit. Les pires aussi.",
+        "giphyIds": [],
+        "giphyQuery": "night owl"
+      }
+    },
+    {
+      "id": "quotidien-papier-toilette",
+      "category": "quotidien",
+      "question": "Le papier toilette : par-dessus ou par-dessous ?",
+      "a": {
+        "name": "Par-dessus",
+        "origin": "Le brevet de 1891",
+        "line": "Le dessin du brevet original te donne raison.",
+        "giphyIds": [],
+        "giphyQuery": "toilet paper roll"
+      },
+      "b": {
+        "name": "Par-dessous",
+        "origin": "Les rebelles de la salle de bains",
+        "line": "Les chats te remercient.",
+        "giphyIds": [],
+        "giphyQuery": "cat toilet paper"
+      }
+    },
+    {
+      "id": "quotidien-douche-bain",
+      "category": "quotidien",
+      "a": {
+        "name": "Douche",
+        "origin": "Tous les matins",
+        "line": "Cinq minutes, chrono. Concert compris.",
+        "giphyIds": [],
+        "giphyQuery": "shower singing"
+      },
+      "b": {
+        "name": "Bain",
+        "origin": "Le dimanche soir",
+        "line": "Une heure, un livre, et l’eau froide à la fin.",
+        "giphyIds": [],
+        "giphyQuery": "bubble bath"
+      }
+    },
+    {
+      "id": "quotidien-sms-appel",
+      "category": "quotidien",
+      "a": {
+        "name": "SMS",
+        "origin": "Ton pouce",
+        "line": "Écrire, effacer, réécrire, envoyer. Regretter.",
+        "giphyIds": [],
+        "giphyQuery": "texting phone"
+      },
+      "b": {
+        "name": "Appel",
+        "origin": "Ta voix, ce truc oublié",
+        "line": "Personne ne décroche, mais c’est l’intention qui compte.",
+        "giphyIds": [],
+        "giphyQuery": "phone call ringing"
+      }
+    },
+    {
+      "id": "quotidien-ville-campagne",
+      "category": "quotidien",
+      "a": {
+        "name": "Ville",
+        "origin": "Le métro, ligne 13",
+        "line": "Tout est à cinq minutes, sauf le calme.",
+        "giphyIds": [],
+        "giphyQuery": "city traffic"
+      },
+      "b": {
+        "name": "Campagne",
+        "origin": "Le bout du chemin",
+        "line": "Du calme, des vaches, et quinze kilomètres jusqu’au pain.",
+        "giphyIds": [],
+        "giphyQuery": "countryside cows"
+      }
+    },
+    {
+      "id": "quotidien-noel-halloween",
+      "category": "quotidien",
+      "a": {
+        "name": "Noël",
+        "origin": "Le 25 décembre",
+        "line": "Des cadeaux, une dinde, et l’oncle qui parle politique.",
+        "giphyIds": [],
+        "giphyQuery": "Christmas tree"
+      },
+      "b": {
+        "name": "Halloween",
+        "origin": "Le 31 octobre",
+        "line": "Des bonbons, des costumes, aucun repas de famille.",
+        "giphyIds": [],
+        "giphyQuery": "Halloween pumpkin"
+      }
+    },
+    {
+      "id": "quotidien-bureau-range-bazar",
+      "category": "quotidien",
+      "question": "Ton bureau : rangé ou en bazar ?",
+      "a": {
+        "name": "Rangé",
+        "origin": "Un tiroir par catégorie",
+        "line": "Chaque chose à sa place, et des étiquettes partout.",
+        "giphyIds": [],
+        "giphyQuery": "organized desk"
+      },
+      "b": {
+        "name": "En bazar",
+        "origin": "Une pile par semaine",
+        "line": "C’est un désordre organisé. Tu ne comprendrais pas.",
+        "giphyIds": [],
+        "giphyQuery": "messy desk"
+      }
+    },
+    {
+      "id": "quotidien-reveil-snooze",
+      "category": "quotidien",
+      "question": "Le réveil sonne : debout ou encore cinq minutes ?",
+      "a": {
+        "name": "Debout",
+        "origin": "Première sonnerie",
+        "line": "Levé à la première sonnerie. C’est suspect.",
+        "giphyIds": [],
+        "giphyQuery": "wake up alarm"
+      },
+      "b": {
+        "name": "Encore cinq minutes",
+        "origin": "Neuvième sonnerie",
+        "line": "Le bouton snooze est ton meilleur ami. Neuf fois de suite.",
+        "giphyIds": [],
+        "giphyQuery": "snooze alarm bed"
+      }
+    },
+    {
+      "id": "quotidien-cinema-canape",
+      "category": "quotidien",
+      "question": "Un film ce soir : cinéma ou canapé ?",
+      "a": {
+        "name": "Cinéma",
+        "origin": "La salle 3",
+        "line": "Grand écran, pop-corn hors de prix, voisin qui commente.",
+        "giphyIds": [],
+        "giphyQuery": "cinema popcorn"
+      },
+      "b": {
+        "name": "Canapé",
+        "origin": "Ton salon",
+        "line": "Le pyjama, la pause quand tu veux, et la sieste à la moitié.",
+        "giphyIds": [],
+        "giphyQuery": "couch potato tv"
+      }
+    },
+    {
+      "id": "quotidien-pizza-froide-rechauffee",
+      "category": "quotidien",
+      "question": "La pizza du lendemain : froide ou réchauffée ?",
+      "a": {
+        "name": "Froide",
+        "origin": "Le frigo, 8 h du matin",
+        "line": "Le petit-déjeuner des champions.",
+        "giphyIds": [],
+        "giphyQuery": "cold pizza breakfast"
+      },
+      "b": {
+        "name": "Réchauffée",
+        "origin": "La poêle, 8 h 05",
+        "line": "Croustillante, chaude, et civilisée.",
+        "giphyIds": [],
+        "giphyQuery": "hot pizza slice"
+      }
+    },
+    {
+      "id": "quotidien-organise-improvise",
+      "category": "quotidien",
+      "question": "En vacances : tout organisé ou tout improvisé ?",
+      "a": {
+        "name": "Tout organisé",
+        "origin": "Un tableur, onglet « bagages »",
+        "line": "Le planning est prêt. Le planning B aussi.",
+        "giphyIds": [],
+        "giphyQuery": "planning checklist"
+      },
+      "b": {
+        "name": "Tout improvisé",
+        "origin": "« On verra sur place »",
+        "line": "On a vu sur place. C’était bien, finalement.",
+        "giphyIds": [],
+        "giphyQuery": "road trip adventure"
+      }
+    }
+  ]
+}

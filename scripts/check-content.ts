@@ -4,7 +4,7 @@
  *   npm run content:check
  */
 import { readFileSync } from 'node:fs';
-import { ContentError, parseContent } from '../src/data/parse';
+import { ContentError, parseContent, parseRivalries } from '../src/data/parse';
 
 const readJson = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../content/${file}`, import.meta.url), 'utf8'));
@@ -23,6 +23,13 @@ try {
     );
   }
   console.log(`\n  Total : ${contenders.contenders.length} prétendants`);
+  const { categories, rivalries } = parseRivalries(readJson('rivalries.json'));
+  console.log(`
+  Rivalités : ${rivalries.length}`);
+  for (const category of categories) {
+    const n = rivalries.filter((r) => r.category === category.id).length;
+    console.log(`    ${category.label.padEnd(22)} ${String(n).padStart(3)}`);
+  }
   const quips = Object.values(ui.quips).reduce((n, list) => n + list.length, 0);
   console.log(
     `  ${quips} remarques · ${Object.keys(ui.milestones).length} paliers · ${ui.projects.length} projets`,

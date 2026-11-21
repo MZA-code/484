@@ -50,6 +50,29 @@
       "other": "{n} victoires d’affilée · en tête"
     }
   },
+  "debate": {
+    "number": "Débat n° {n}",
+    "question": "Team {a} ou team {b} ?",
+    "choice": "Tu es team {name}",
+    "share": "{percent} % des visiteurs aussi",
+    "profile": {
+      "title": "Ton profil",
+      "count": {
+        "one": "{n} débat tranché",
+        "other": "{n} débats tranchés"
+      },
+      "agreement": "D’accord avec la majorité {percent} % du temps",
+      "agreementUnknown": "D’accord avec la majorité : on ne sait pas encore",
+      "rebels": {
+        "one": "{n} choix rebelle",
+        "other": "{n} choix rebelles"
+      }
+    },
+    "teams": {
+      "title": "Tes teams",
+      "empty": "Aucune team pour l’instant. Choisis ton camp."
+    }
+  },
   "quips": {
     "high": [
       "Tu es dans la norme. C’est rassurant, et un peu triste.",
@@ -78,23 +101,23 @@
   },
   "milestones": {
     "10": {
-      "text": "10 duels. Tu avais sûrement autre chose à faire. Non ? Parfait."
+      "text": "10 débats. Tu avais sûrement autre chose à faire. Non ? Parfait."
     },
     "25": {
-      "text": "25 duels. Si tu es recruteur, on devrait sérieusement se parler.",
+      "text": "25 débats. Si tu es recruteur, on devrait sérieusement se parler.",
       "link": true
     },
     "50": {
-      "text": "50 duels. À ce stade, ce n’est plus un site, c’est une relation."
+      "text": "50 débats. À ce stade, ce n’est plus un site, c’est une relation."
     },
     "100": {
-      "text": "100 duels. Tu as vu passer plus de pop culture qu’un vidéoclub en 1995."
+      "text": "100 débats. Tu as vu passer plus de pop culture qu’un vidéoclub en 1995."
     },
     "200": {
-      "text": "200 duels. Ton patron pense que tu travailles. D’une certaine façon, oui."
+      "text": "200 débats. Ton patron pense que tu travailles. D’une certaine façon, oui."
     },
     "484": {
-      "text": "484 duels. Le nombre fétiche de ce site. Tu as gagné notre respect éternel.",
+      "text": "484 débats. Le nombre fétiche de ce site. Tu as gagné notre respect éternel.",
       "link": true
     }
   },

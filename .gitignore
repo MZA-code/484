@@ -22,3 +22,6 @@ playwright-report/
 .DS_Store
 Thumbs.db
 *.log
+
+# Fiche de relecture générée (npm run content:review)
+docs/relecture-rivalites.md

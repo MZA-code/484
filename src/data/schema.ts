@@ -91,6 +91,114 @@ export const ContendersFileSchema = z
     });
   });
 
+// ─── Rivalités « Team X ou Team Y ? » ───────────────────────────────────────
+
+/** Une team (un camp d'une rivalité). L'origine est libre : une chocolatine n'a pas d'année de sortie. */
+export const TeamSchema = z.object({
+  name: text.max(60, 'doit rester court (60 caractères maximum)'),
+  origin: text.max(80, 'doit rester courte (80 caractères maximum)'),
+  line: text.max(120, 'doit rester courte (120 caractères maximum)'),
+  giphyIds: z.array(text),
+  giphyQuery: text,
+});
+
+export const RivalrySchema = z.object({
+  id: slug,
+  category: slug,
+  /** Question sur mesure ; sinon « Team A ou team B ? ». */
+  question: text.max(120, 'doit rester courte (120 caractères maximum)').optional(),
+  a: TeamSchema,
+  b: TeamSchema,
+});
+
+/** Rivalités minimum par catégorie pour éviter de revoir la même trop vite. */
+export const MIN_RIVALRIES_PER_CATEGORY = 3;
+
+const pairKey = (a: string, b: string) =>
+  [a, b]
+    .map((n) => n.trim().toLowerCase())
+    .sort()
+    .join(' | ');
+
+export const RivalriesFileSchema = z
+  .object({
+    version: z.literal(1),
+    categories: z.array(ThemeSchema).min(1),
+    rivalries: z.array(RivalrySchema),
+  })
+  .superRefine((file, ctx) => {
+    const categoryIds = new Set<string>();
+    file.categories.forEach((category, i) => {
+      if (categoryIds.has(category.id)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['categories', i, 'id'],
+          message: `catégorie en double : ${category.id}`,
+        });
+      }
+      categoryIds.add(category.id);
+    });
+
+    const ids = new Set<string>();
+    const pairs = new Map<string, string>();
+    const perCategory = new Map<string, number>();
+    file.rivalries.forEach((rivalry, i) => {
+      const at = (...path: (string | number)[]) => ['rivalries', i, ...path];
+      if (ids.has(rivalry.id)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: at('id'),
+          message: `identifiant en double : ${rivalry.id}`,
+        });
+      }
+      ids.add(rivalry.id);
+      if (!categoryIds.has(rivalry.category)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: at('category'),
+          message: `catégorie inconnue : ${rivalry.category}`,
+        });
+      } else if (!rivalry.id.startsWith(`${rivalry.category}-`)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: at('id'),
+          message: `l’identifiant doit commencer par « ${rivalry.category}- »`,
+        });
+      }
+      const key = pairKey(rivalry.a.name, rivalry.b.name);
+      if (rivalry.a.name.trim().toLowerCase() === rivalry.b.name.trim().toLowerCase()) {
+        ctx.addIssue({
+          code: 'custom',
+          path: at('b', 'name'),
+          message: 'les deux teams ont le même nom',
+        });
+      } else if (pairs.has(key)) {
+        ctx.addIssue({
+          code: 'custom',
+          path: at('id'),
+          message: `rivalité déjà présente : ${pairs.get(key)}`,
+        });
+      }
+      pairs.set(key, rivalry.id);
+      perCategory.set(rivalry.category, (perCategory.get(rivalry.category) ?? 0) + 1);
+    });
+
+    file.categories.forEach((category, i) => {
+      const count = perCategory.get(category.id) ?? 0;
+      if (count < MIN_RIVALRIES_PER_CATEGORY) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['categories', i],
+          message: `la catégorie « ${category.id} » a ${count} rivalité(s), il en faut au moins ${MIN_RIVALRIES_PER_CATEGORY}`,
+        });
+      }
+    });
+  });
+
+export type Team = z.infer<typeof TeamSchema>;
+export type Rivalry = z.infer<typeof RivalrySchema>;
+export type RivalriesFile = z.infer<typeof RivalriesFileSchema>;
+
 /** Un texte qui doit contenir certains marqueurs, par exemple `{name}`. */
 const template = (...placeholders: string[]) =>
   placeholders.reduce(
@@ -143,6 +251,20 @@ export const UiTextsSchema = z.object({
     share: template('percent'),
     retired: template('name', 'n'),
     streakBadge: pluralForms,
+  }),
+  debate: z.object({
+    number: template('n'),
+    question: template('a', 'b'),
+    choice: template('name'),
+    share: template('percent'),
+    profile: z.object({
+      title: text,
+      count: pluralForms,
+      agreement: template('percent'),
+      agreementUnknown: text,
+      rebels: pluralForms,
+    }),
+    teams: z.object({ title: text, empty: text }),
   }),
   quips: z.object({ high: quipList, mid: quipList, low: quipList, neutral: quipList }),
   milestones: z.record(

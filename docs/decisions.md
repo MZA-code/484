@@ -106,3 +106,26 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Origine** : un vote envoyé depuis un autre site est refusé (403). La comparaison se fait avec l'hôte demandé (`Host` ou `X-Forwarded-Host`), pas avec l'URL interne, pour fonctionner derrière le proxy d'O2Switch.
 - **Côté client** : le duel suivant s'affiche immédiatement, et le bandeau montre « Tu as choisi X » avec des points de suspension. Le pourcentage, la barre et la remarque arrivent avec la réponse : 30 à 40 ms en local. Au-delà de 1,5 s, ou si l'API est coupée, une remarque neutre s'affiche, mais la requête continue (`keepalive`). Une réponse qui arrive après un autre vote est ignorée.
 - **Classement** : borne basse de l'intervalle de Wilson à 95 % pour le top (il faut au moins une victoire), borne haute pour les mal-aimés (au moins 5 votes), écart relatif pour les duels serrés (au moins 10 votes).
+
+## D13 — Pivot « Team X ou Team Y ? » (pivot, phase 1)
+
+**Contexte.** Après la phase 4, décision du propriétaire : le site ne propose plus de duels aléatoires « le gagnant reste », mais des **rivalités écrites à la main** (« Tu es plutôt team Batman ou team Superman ? »), dans l'esprit du running gag « Team Edward ou Team Jacob ». Le design doit coller au prototype validé.
+
+**Décisions.**
+
+- **Nouveau fichier `content/rivalries.json`.** Il contient des catégories, et des rivalités qui portent chacune leurs deux teams (nom, origine libre, réplique, GIF), avec une question sur mesure facultative. Les deux teams sont décrites dans la rivalité elle-même, sans fichier de prétendants partagé : une rivalité se relit et se corrige d'un seul bloc.
+- **Origine libre** (80 caractères au maximum) : « Œuvre · année » quand ça s'applique, mais une chocolatine n'a pas d'année de sortie.
+- **Validation** :
+  - identifiants uniques, préfixés par la catégorie ;
+  - deux teams de noms différents ;
+  - pas de rivalité en double, dans un sens ou dans l'autre ;
+  - au moins 3 rivalités par catégorie.
+- **Nouveau moteur pur `src/engine/debate.ts`** :
+  - tirage sans remise dans une file mélangée, jamais deux fois la même rivalité d'affilée ;
+  - un vote compte un débat ; passer ou changer de catégorie ne compte pas, et garde tout ;
+  - les pourcentages qui arrivent nourrissent le profil : d'accord avec la majorité si plus de 50 %, choix rebelle sous 40 % (le même seuil que les remarques « low »).
+
+  L'ancien moteur (`game.ts`) reste en place tant que l'interface l'utilise. Il sera supprimé avec les 160 prétendants en phase 2 du pivot.
+
+- **Contenu de départ : 99 rivalités en 7 catégories**, dont beaucoup recyclées depuis les anciens prétendants (Tom ou Jerry, R2-D2 ou C-3PO, DeLorean ou TARDIS…).
+- **Paliers** : « 25 duels » devient « 25 débats ».

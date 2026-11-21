@@ -1,8 +1,8 @@
 # 484 · Lequel tu préfères ?
 
-Des duels infinis entre icônes de la pop culture. Tu choisis, le gagnant reste, un nouveau challenger arrive.
+Team Batman ou team Superman ? Chat ou chien ? Pain au chocolat ou chocolatine ? Des rivalités écrites à la main, tu choisis ton camp, et tu découvres si le reste du monde est d’accord.
 
-> État : **phase 4** (votes mondiaux et Hall of Fame). Prototype local, pas encore déployé. Prototype local, pas encore déployé.
+> État : **pivot « Team X ou Team Y », phase 1** (moteur, contenu et mode console des débats). L’interface web affiche encore l’ancien mode « duels » jusqu’à la phase 2 du pivot. Prototype local, pas encore déployé. Prototype local, pas encore déployé.
 
 ## Prérequis
 
@@ -21,31 +21,67 @@ Vérifier que la partie serveur répond : <http://localhost:4840/api/health>.
 ## Jouer dans le terminal
 
 ```sh
-npm run play                       # ← → pour choisir, S pour passer, T pour changer de thème, Q pour quitter
-npm run play -- --theme robots     # thème de départ (mix, robots, duos, vehicules, ecrans)
-npm run play -- --seed 42          # partie reproductible
-npm run play -- --auto 30          # 30 votes automatiques, puis le résumé
+npm run play                          # ← → pour choisir, S pour passer, C pour changer de catégorie, Q pour quitter
+npm run play -- --category bouffe     # catégorie de départ (mix, heros, bouffe, geek, jeux, ecrans, duos, quotidien)
+npm run play -- --seed 42             # partie reproductible
+npm run play -- --auto 30             # 30 votes automatiques, puis le résumé
 ```
 
-Tant que l'API de votes n'existe pas (phase 4), les pourcentages du mode console sont simulés.
+Le mode console n'appelle pas l'API : ses pourcentages sont simulés, et signalés comme tels.
 
 ## Commandes
 
-| Commande                | Rôle                                                       |
-| ----------------------- | ---------------------------------------------------------- |
-| `npm run dev`           | Serveur de développement                                   |
-| `npm run build`         | Build de production dans `dist/`                           |
-| `npm start`             | Lance le build de production (serveur Node autonome)       |
-| `npm run play`          | Mode console : jouer dans le terminal                      |
-| `npm run curate`        | Outil de curation des GIF (page locale)                    |
-| `npm run content:check` | Vérifie les JSON de `content/` et affiche un résumé        |
-| `npm run lint`          | ESLint                                                     |
-| `npm run format`        | Formate tout le code avec Prettier                         |
-| `npm run check`         | Vérification des types (TypeScript + Astro)                |
-| `npm test`              | Tests unitaires (Vitest)                                   |
-| `npm run verify`        | Tout ce que fait la CI : lint, format, types, tests, build |
+| Commande                 | Rôle                                                             |
+| ------------------------ | ---------------------------------------------------------------- |
+| `npm run dev`            | Serveur de développement                                         |
+| `npm run build`          | Build de production dans `dist/`                                 |
+| `npm start`              | Lance le build de production (serveur Node autonome)             |
+| `npm run play`           | Mode console : jouer dans le terminal                            |
+| `npm run curate`         | Outil de curation des GIF (page locale)                          |
+| `npm run content:review` | Fiche de relecture des rivalités (`docs/relecture-rivalites.md`) |
+| `npm run content:check`  | Vérifie les JSON de `content/` et affiche un résumé              |
+| `npm run lint`           | ESLint                                                           |
+| `npm run format`         | Formate tout le code avec Prettier                               |
+| `npm run check`          | Vérification des types (TypeScript + Astro)                      |
+| `npm test`               | Tests unitaires (Vitest)                                         |
+| `npm run verify`         | Tout ce que fait la CI : lint, format, types, tests, build       |
 
-## Ajouter un prétendant
+## Ajouter une rivalité
+
+1. Ouvrir `content/rivalries.json` et ajouter une entrée dans `rivalries` :
+
+   ```json
+   {
+     "id": "bouffe-pain-au-chocolat-chocolatine",
+     "category": "bouffe",
+     "question": "Facultatif : une question sur mesure, sinon « Team A ou team B ? »",
+     "a": {
+       "name": "Pain au chocolat",
+       "origin": "La moitié nord de la France",
+       "line": "…",
+       "giphyIds": [],
+       "giphyQuery": "pain au chocolat"
+     },
+     "b": {
+       "name": "Chocolatine",
+       "origin": "Le Sud-Ouest, fièrement",
+       "line": "…",
+       "giphyIds": [],
+       "giphyQuery": "chocolate croissant bakery"
+     }
+   }
+   ```
+
+2. Règles vérifiées automatiquement :
+   - `id` unique, en minuscules et tirets, qui commence par la catégorie (`bouffe-…`) ;
+   - `category` doit exister dans `categories` ;
+   - deux teams de noms différents, et pas deux fois la même rivalité (dans un sens ou dans l'autre) ;
+   - nom de 60 caractères maximum, origine libre de 80, réplique de 120 ;
+   - au moins 3 rivalités par catégorie.
+
+3. Lancer `npm run content:check`, puis `npm run content:review` pour relire le tout d'un coup d'œil.
+
+## Ajouter un prétendant (ancien mode « duels »)
 
 1. Ouvrir `content/contenders.json` et ajouter une entrée dans `contenders` :
 

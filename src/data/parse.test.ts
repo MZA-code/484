@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import rawContenders from '../../content/contenders.json';
+import rawRivalries from '../../content/rivalries.json';
 import rawUi from '../../content/ui-texts.fr.json';
 import { NARROW_NBSP, NBSP } from '../lib/typography';
-import { ContentError, parseContent } from './parse';
+import { ContentError, parseContent, parseRivalries } from './parse';
 
 type RawContenders = typeof rawContenders;
 
@@ -102,5 +103,78 @@ describe('invalid content is rejected', () => {
     const ui = structuredClone(rawUi);
     ui.quips.low = ['Seule.'];
     expect(() => parseContent(rawContenders, ui)).toThrow(/au moins 2 remarques/);
+  });
+});
+
+// ─── Rivalités ──────────────────────────────────────────────────────────────
+
+type RawRivalries = typeof rawRivalries;
+const cloneRivalries = (): RawRivalries => structuredClone(rawRivalries);
+type RawRivalry = RawRivalries['rivalries'][number];
+
+describe('rivalries file', () => {
+  const parsed = parseRivalries(rawRivalries);
+
+  it('is valid', () => {
+    expect(parsed.rivalries.length).toBeGreaterThanOrEqual(90);
+    expect(parsed.categories.length).toBeGreaterThanOrEqual(5);
+  });
+
+  it('gets French typography applied, except on technical fields', () => {
+    const pizza = parsed.rivalries.find((r) => r.id === 'bouffe-pizza-ananas');
+    expect(pizza?.question).toContain(`${NARROW_NBSP}?`);
+    expect(pizza?.category).toBe('bouffe');
+    expect(JSON.stringify(parsed)).not.toMatch(/ [;!?]|« | »/);
+  });
+
+  const expectError = (file: unknown, message: RegExp) => {
+    expect(() => parseRivalries(file)).toThrow(ContentError);
+    expect(() => parseRivalries(file)).toThrow(message);
+  };
+
+  it('rejects a duplicate id', () => {
+    const file = cloneRivalries();
+    file.rivalries.push(structuredClone(file.rivalries[0] as RawRivalry));
+    expectError(file, /identifiant en double/);
+  });
+
+  it('rejects the same rivalry written twice, in any order', () => {
+    const file = cloneRivalries();
+    const first = file.rivalries[0] as RawRivalry;
+    file.rivalries.push({
+      ...structuredClone(first),
+      id: `${first.category}-bis`,
+      a: first.b,
+      b: first.a,
+    });
+    expectError(file, /rivalité déjà présente/);
+  });
+
+  it('rejects two teams with the same name', () => {
+    const file = cloneRivalries();
+    const first = file.rivalries[0] as RawRivalry;
+    first.b = { ...first.b, name: first.a.name };
+    expectError(file, /même nom/);
+  });
+
+  it('rejects an unknown category and a badly prefixed id', () => {
+    const file = cloneRivalries();
+    (file.rivalries[0] as { category: string }).category = 'pirates';
+    expectError(file, /catégorie inconnue : pirates/);
+    const other = cloneRivalries();
+    (other.rivalries[0] as { id: string }).id = 'batman-superman';
+    expectError(other, /doit commencer par/);
+  });
+
+  it('rejects a category with too few rivalries', () => {
+    const file = cloneRivalries();
+    file.categories.push({ id: 'vide', label: 'Vide', tagline: 'Rien.' });
+    expectError(file, /« vide » a 0 rivalité/);
+  });
+
+  it('rejects a line that is too long', () => {
+    const file = cloneRivalries();
+    (file.rivalries[0] as RawRivalry).a.line = 'x'.repeat(121);
+    expectError(file, /120 caractères/);
   });
 });

@@ -4,10 +4,25 @@
  */
 import { z } from 'zod';
 import { applyTypographyDeep } from '../lib/typography';
-import { ContendersFileSchema, UiTextsSchema, type ContendersFile, type UiTexts } from './schema';
+import {
+  ContendersFileSchema,
+  RivalriesFileSchema,
+  UiTextsSchema,
+  type ContendersFile,
+  type RivalriesFile,
+  type UiTexts,
+} from './schema';
 
 /** Clés dont les valeurs ne sont pas du texte affiché : jamais retouchées. */
-const TECHNICAL_KEYS = new Set(['id', 'theme', 'url', 'giphyIds', 'giphyQuery', 'version']);
+const TECHNICAL_KEYS = new Set([
+  'id',
+  'theme',
+  'category',
+  'url',
+  'giphyIds',
+  'giphyQuery',
+  'version',
+]);
 
 export interface Content {
   contenders: ContendersFile;
@@ -34,4 +49,12 @@ export function parseContent(rawContenders: unknown, rawUi: unknown): Content {
     contenders: applyTypographyDeep(contenders, TECHNICAL_KEYS),
     ui: applyTypographyDeep(ui, TECHNICAL_KEYS),
   };
+}
+
+/** Valide `content/rivalries.json` et applique la typographie française à ses textes. */
+export function parseRivalries(raw: unknown): RivalriesFile {
+  return applyTypographyDeep(
+    validate(RivalriesFileSchema, raw, 'content/rivalries.json'),
+    TECHNICAL_KEYS,
+  );
 }
