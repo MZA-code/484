@@ -14,6 +14,9 @@ interface Entry {
 /** Au-delà, on oublie les entrées les plus anciennes. */
 const MAX_ENTRIES = 5000;
 
+/** Délai de regroupement des écritures sur disque. */
+export const WRITE_DELAY_MS = 300;
+
 export function createMemoryCache(now: () => number = Date.now) {
   const entries = new Map<string, Entry>();
 
@@ -58,6 +61,7 @@ export function createFileCache(file: string, now: () => number = Date.now): Gif
 
   let timer: ReturnType<typeof setTimeout> | null = null;
   const flush = () => {
+    if (timer) clearTimeout(timer);
     timer = null;
     try {
       mkdirSync(dirname(file), { recursive: true });
@@ -69,11 +73,24 @@ export function createFileCache(file: string, now: () => number = Date.now): Gif
     }
   };
 
+  // Arrêt propre du serveur (redémarrage de l'hébergeur, Ctrl+C) : on écrit ce qui reste.
+  const flushPending = () => {
+    if (timer) flush();
+  };
+  process.once('beforeExit', flushPending);
+  for (const signal of ['SIGINT', 'SIGTERM'] as const) {
+    process.once(signal, () => {
+      flushPending();
+      process.exit(0);
+    });
+  }
+
   return {
     get: memory.get,
     set(key, value, ttlMs) {
       memory.set(key, value, ttlMs);
-      timer ??= setTimeout(flush, 2000);
+      // Écriture groupée, mais rapide : un arrêt brutal ne perd qu'une fraction de seconde.
+      timer ??= setTimeout(flush, WRITE_DELAY_MS);
     },
   };
 }
