@@ -41,6 +41,8 @@ function fixSegment(text: string): string {
           return `${NARROW_NBSP}${punct}`;
         },
       )
+      // « n° 12 » : le numéro ne se sépare pas de son nombre.
+      .replace(new RegExp(`(?<=\\bn°)${SPACES}+`, 'g'), NBSP)
       // Pourcentages : « 75 % », y compris après un marqueur (« {percent} % »).
       .replace(new RegExp(`(?<=[\\d}])${SPACES}*%`, 'g'), `${NARROW_NBSP}%`)
   );

@@ -1,48 +1,153 @@
 ---
-// Page provisoire : elle prouve que le build lit, valide et corrige `content/`.
-// Elle sera remplacée par la vraie page d'accueil en phase 2.
-import { ui } from '../data/content';
+/**
+ * Accueil : titre géant, chapeau, cinq cartes de thème (« Tout mélangé » d'abord).
+ * Aucun texte en dur : tout vient de `content/`.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contenders, themes, ui } from '../data/content';
+import { MIXED_THEME } from '../engine/catalog';
+import { CARD_COLORS } from '../lib/color';
+import { formatText } from '../lib/format';
+
+const countFor = (themeId: string) =>
+  themeId === MIXED_THEME
+    ? contenders.length
+    : contenders.filter((c) => c.theme === themeId).length;
+
+const cards = [
+  { id: MIXED_THEME, ...ui.home.mixedTheme },
+  ...themes.map((t) => ({ id: t.id, label: t.label, tagline: t.tagline })),
+].map((card, i) => ({
+  ...card,
+  href: `/jouer?theme=${card.id}`,
+  count: formatText(ui.home.themeCount, { n: countFor(card.id) }),
+  color: CARD_COLORS[i % CARD_COLORS.length],
+}));
 ---
 
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>484 · Lequel tu préfères ?</title>
-    <style>
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-content: center;
-        padding: 2rem;
-        background: #121212;
-        color: #f5f1e8;
-        font-family: system-ui, sans-serif;
-      }
-      h1 {
-        font-size: clamp(2rem, 8vw, 5rem);
-        line-height: 1;
-        text-transform: uppercase;
-        margin: 0 0 1.5rem;
-      }
-      h1 span:last-child {
-        color: #ff6fa8;
-      }
-      p {
-        max-width: 40rem;
-        color: #cfcac0;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>
-        {ui.home.title.map((line) => (
-          <span style="display:block">{line}</span>
-        ))}
-      </h1>
-      <p>{ui.home.intro}</p>
-    </main>
-  </body>
-</html>
+<BaseLayout>
+  <section class="hero container">
+    <h1 class="hero-title">
+      {ui.home.title.map((line) => (
+        <span>{line}</span>
+      ))}
+    </h1>
+    <p class="hero-intro">{ui.home.intro}</p>
+  </section>
+
+  <section class="themes container" aria-labelledby="themes-title">
+    <h2 id="themes-title" class="label themes-title">
+      {ui.home.themesLabel}
+    </h2>
+    <ul class="theme-grid">
+      {cards.map((card) => (
+        <li>
+          <a class="theme-card" href={card.href} style={`--card: ${card.color}`}>
+            <span class="label theme-count">{card.count}</span>
+            <span class="theme-name">{card.label}</span>
+            <span class="theme-tagline">{card.tagline}</span>
+            <span class="theme-play">{ui.home.play}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="footnote">{ui.home.footnote}</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-top: clamp(24px, 6vw, 72px);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    /* Taille calculée pour que la ligne la plus longue (« un portfolio sérieux. ») tienne
+       sur une ligne, de 360 px à 1280 px ; interligne de 1 pour que les accents respirent. */
+    font-size: clamp(2rem, 9.2vw, 7.5rem);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+    overflow-wrap: break-word;
+  }
+
+  .hero-title span {
+    display: block;
+  }
+
+  .hero-title span:last-child {
+    color: var(--pink);
+  }
+
+  .hero-intro {
+    max-width: 40rem;
+    margin-top: clamp(20px, 3vw, 32px);
+    color: var(--fg-muted);
+    font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  }
+
+  .themes {
+    margin-top: clamp(40px, 7vw, 88px);
+  }
+
+  .themes-title {
+    margin-bottom: 20px;
+    color: var(--fg-muted);
+  }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .theme-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    min-height: 220px;
+    padding: 22px;
+    border-radius: var(--radius);
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    transition: transform 160ms ease;
+  }
+
+  .theme-card:hover {
+    transform: translateY(-6px) rotate(-1deg);
+  }
+
+  .theme-count {
+    font-weight: 700;
+  }
+
+  .theme-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 3.4vw, 2.5rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .theme-tagline {
+    flex: 1;
+    font-size: 0.9375rem;
+  }
+
+  .theme-play {
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+
+  .footnote {
+    margin-top: 40px;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+</style>

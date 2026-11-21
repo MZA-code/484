@@ -41,6 +41,11 @@ describe('frenchTypography', () => {
     expect(frenchTypography('{percent} % des visiteurs')).toBe(`{percent}${F}% des visiteurs`);
   });
 
+  it('keeps « n° » attached to its number', () => {
+    expect(frenchTypography('Duel n° {n}')).toBe(`Duel n°${N}{n}`);
+    expect(frenchTypography('Duel n° 12')).toBe(`Duel n°${N}12`);
+  });
+
   it('leaves URLs untouched', () => {
     const text = 'Va voir https://github.com/MZA-code?tab=repos, vraiment !';
     expect(frenchTypography(text)).toBe(

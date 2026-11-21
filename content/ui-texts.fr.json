@@ -1,4 +1,22 @@
 {
+  "site": {
+    "title": "484 · Lequel tu préfères ?",
+    "description": "Des duels infinis entre icônes de la pop culture. Tu choisis, le gagnant reste, un nouveau challenger arrive.",
+    "logo": "484",
+    "name": "Lequel tu préfères ?",
+    "socialLabel": "Ailleurs sur Internet",
+    "skipToContent": "Aller au contenu"
+  },
+  "links": {
+    "github": {
+      "label": "GitHub",
+      "url": "https://github.com/MZA-code"
+    },
+    "linkedin": {
+      "label": "LinkedIn",
+      "url": ""
+    }
+  },
   "home": {
     "title": ["Il aurait pu faire", "un portfolio sérieux.", "Il a préféré ça."],
     "intro": "Des duels entre légendes de la pop culture. Tu choisis, le gagnant reste, un nouveau challenger arrive. Ça ne s’arrête jamais. C’est voulu, et c’est un peu inquiétant.",
@@ -6,9 +24,21 @@
     "mixedTheme": {
       "label": "Tout mélangé",
       "tagline": "Le chaos total. HAL 9000 contre la 4L. Tu verras bien."
-    }
+    },
+    "themesLabel": "Choisis ton arène",
+    "themeCount": "{n} prétendants · ∞ duels",
+    "play": "Jouer →"
   },
   "duel": {
+    "pageTitle": "Duels",
+    "number": "Duel n° {n}",
+    "themesLabel": "Thèmes",
+    "vs": "VS",
+    "choose": "Choisir {name}",
+    "keysHint": "← et → pour choisir · Échap pour revenir à l’accueil",
+    "loading": "On sort les prétendants du placard…",
+    "noscript": "Ce jeu a besoin de JavaScript. Comme la plupart des robots de ce site.",
+    "milestoneLink": "On en parle sur LinkedIn →",
     "subtitle": "Ça ne s’arrête jamais. Tu peux partir quand tu veux. Personne ne part.",
     "skip": "Je ne connais aucun des deux",
     "firstVote": "Tu es le premier à trancher ce duel. Pas de pression.",
@@ -67,6 +97,31 @@
       "text": "484 duels. Le nombre fétiche de ce site. Tu as gagné notre respect éternel.",
       "link": true
     }
+  },
+  "panels": {
+    "top": {
+      "title": "Ton top 5",
+      "empty": "Encore personne. Vote, on verra bien.",
+      "wins": {
+        "one": "{n} victoire",
+        "other": "{n} victoires"
+      }
+    },
+    "records": {
+      "title": "Records",
+      "bestStreak": "Plus longue série",
+      "bestStreakValue": "{name} · {n}",
+      "none": "Personne, pour l’instant",
+      "retired": "Retraités invaincus",
+      "pool": "Prétendants dans le thème"
+    }
+  },
+  "notFound": {
+    "pageTitle": "Page introuvable",
+    "code": "404",
+    "title": "Cette page a perdu son duel.",
+    "text": "Elle affrontait une page qui existe. Le public a tranché, sans appel.",
+    "back": "Retour aux duels →"
   },
   "footer": {
     "projects": "Voir mes autres projets →",

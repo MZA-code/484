@@ -1,0 +1,51 @@
+---
+/** Page 404 : la page a perdu son duel. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ui } from '../data/content';
+---
+
+<BaseLayout title={ui.notFound.pageTitle}>
+  <section class="container lost">
+    <p class="code" aria-hidden="true">
+      {ui.notFound.code}
+    </p>
+    <h1 class="title">{ui.notFound.title}</h1>
+    <p class="text">{ui.notFound.text}</p>
+    <a class="block-button" href="/jouer">
+      {ui.notFound.back}
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost {
+    padding-top: clamp(32px, 8vw, 96px);
+  }
+
+  .code {
+    display: inline-block;
+    padding: 4px 18px;
+    background: var(--red);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 18vw, 10rem);
+    line-height: 1;
+    box-shadow: var(--shadow);
+    transform: rotate(-3deg);
+  }
+
+  .title {
+    margin-top: 40px;
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 7vw, 4.5rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .text {
+    max-width: 36rem;
+    margin: 16px 0 32px;
+    color: var(--fg-muted);
+    font-size: 1.125rem;
+  }
+</style>

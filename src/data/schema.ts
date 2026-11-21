@@ -102,27 +102,65 @@ const template = (...placeholders: string[]) =>
 /** Une liste de remarques : au moins deux, pour ne jamais répéter deux fois de suite. */
 const quipList = z.array(text).min(2, 'il faut au moins 2 remarques pour éviter les répétitions');
 
+/** Lien externe facultatif : une URL vide masque le lien (ex. LinkedIn pas encore renseigné). */
+const optionalLink = z.object({ label: text, url: z.union([z.url(), z.literal('')]) });
+
+const pluralForms = z.object({ one: text, other: template('n') });
+
 export const UiTextsSchema = z.object({
+  site: z.object({
+    title: text,
+    description: text,
+    logo: text,
+    name: text,
+    socialLabel: text,
+    skipToContent: text,
+  }),
+  links: z.object({ github: optionalLink, linkedin: optionalLink }),
   home: z.object({
     title: z.tuple([text, text, text]),
     intro: text,
     footnote: text,
     mixedTheme: z.object({ label: text, tagline: text }),
+    themesLabel: text,
+    themeCount: template('n'),
+    play: text,
   }),
   duel: z.object({
+    pageTitle: text,
+    number: template('n'),
+    themesLabel: text,
+    vs: text,
+    choose: template('name'),
+    keysHint: text,
+    loading: text,
+    noscript: text,
+    milestoneLink: text,
     subtitle: text,
     skip: text,
     firstVote: text,
     choice: template('name'),
     share: template('percent'),
     retired: template('name', 'n'),
-    streakBadge: z.object({ one: text, other: template('n') }),
+    streakBadge: pluralForms,
   }),
   quips: z.object({ high: quipList, mid: quipList, low: quipList, neutral: quipList }),
   milestones: z.record(
     z.string().regex(/^[1-9]\d*$/, 'la clé d’un palier doit être un nombre de duels'),
     z.object({ text, link: z.boolean().optional() }),
   ),
+  panels: z.object({
+    top: z.object({ title: text, empty: text, wins: pluralForms }),
+    records: z.object({
+      title: text,
+      bestStreak: text,
+      bestStreakValue: template('name', 'n'),
+      none: text,
+      retired: text,
+      pool: text,
+    }),
+  }),
+  notFound: z.object({ pageTitle: text, code: text, title: text, text, back: text }),
   footer: z.object({ projects: text, disclaimer: text }),
   projectsPage: z.object({ title: text, intro: text, back: text }),
   projects: z.array(z.object({ kind: text, title: text, text, url: z.url(), cta: text })),

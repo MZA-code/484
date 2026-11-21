@@ -68,3 +68,14 @@ Les espaces spéciales sont écrites `String.fromCharCode(0x202f)` dans le code 
 ## D9 — État sauvegardé toujours assaini (phase 1)
 
 L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalogue courant. Un prétendant supprimé du JSON, un thème disparu ou une série incohérente ne cassent pas la partie : le duel est retiré au sort, mais le compteur, les victoires et les records sont conservés. Une donnée illisible donne simplement une nouvelle partie.
+
+## D10 — Interface (phase 2)
+
+- **Îlot `client:only`.** La partie dépend du stockage local et de l'URL, qui n'existent pas au build. L'îlot n'est donc rendu que dans le navigateur. Un squelette de même taille s'affiche pendant le chargement pour éviter que la page saute, et un message `<noscript>` drôle prend le relais sans JavaScript.
+- **Onglets de thème = boutons à bascule (`aria-pressed`), pas un `tablist` ARIA.** Un `tablist` utilise les flèches du clavier pour naviguer entre onglets, or ← et → servent à voter partout sur la page.
+- **Bandeaux au-dessus des cartes, avec une hauteur réservée.** Le résultat du vote apparaît sans décaler les cartes, ce qui évite les clics ratés quand on enchaîne vite. Les paliers et les retraites, plus rares, agrandissent la zone. Cette zone est une région `aria-live` : chaque résultat est annoncé aux lecteurs d'écran.
+- **Transition de vote : 120 ms de sortie + 160 ms d'entrée** (moins de 300 ms en tout). Les votes sont ignorés pendant ces 120 ms pour éviter les doubles clics. Avec `prefers-reduced-motion`, le remplacement est immédiat.
+- **Cartes de duel.** L'accessibilité passe par `aria-label="Choisir X"` et `aria-describedby` (origine, réplique, badge), pour que le nom ne soit pas lu deux fois.
+- **LinkedIn masqué tant que l'URL est vide** (`links.linkedin.url` dans `ui-texts.fr.json`). Cela vaut pour l'en-tête comme pour le bouton des paliers 25 et 484. Aucune fausse URL n'est publiée.
+- **Polices** : sous-ensemble latin de Fontsource (accents, œ, ’ et espaces fines inclus). Les symboles → et ∞, absents de ce sous-ensemble, s'affichent avec la police système.
+- **Playwright** est installé dès cette phase, pour les captures de contrôle (360 px et 1280 px). Le parcours de bout en bout complet reste prévu en phase 6.

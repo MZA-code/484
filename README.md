@@ -2,7 +2,7 @@
 
 Des duels infinis entre icônes de la pop culture. Tu choisis, le gagnant reste, un nouveau challenger arrive.
 
-> État : **phase 1** (moteur de jeu et contenus validés). Prototype local, pas encore déployé.
+> État : **phase 2** (interface jouable, sans votes mondiaux ni GIF). Prototype local, pas encore déployé.
 
 ## Prérequis
 
