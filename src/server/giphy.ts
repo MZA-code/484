@@ -87,21 +87,32 @@ export interface GiphyServiceOptions {
   cache: GifCache;
   fetch?: typeof fetch;
   random?: () => number;
+  now?: () => number;
 }
+
+/**
+ * Disjoncteur : après un « quota dépassé » (429), on n'appelle plus Giphy pendant ce délai.
+ * Les cartes gardent leur cadre rayé, sans attendre un refus à chaque GIF.
+ */
+export const QUOTA_PAUSE_MS = 15 * 60_000;
 
 export function createGiphyService({
   apiKey,
   cache,
   fetch: doFetch = fetch,
   random = Math.random,
+  now = Date.now,
 }: GiphyServiceOptions) {
+  let pausedUntil = 0;
   // Deux visiteurs qui demandent le même GIF en même temps : un seul appel à Giphy.
   const inFlight = new Map<string, Promise<Gif | null>>();
 
   async function call(path: string, params: Record<string, string>): Promise<unknown> {
+    if (now() < pausedUntil) throw new GiphyError(429, 'Giphy quota exceeded (paused)');
     const url = new URL(`${API}${path}`);
     url.search = new URLSearchParams({ api_key: apiKey, ...params }).toString();
     const response = await doFetch(url, { headers: { accept: 'application/json' } });
+    if (response.status === 429) pausedUntil = now() + QUOTA_PAUSE_MS;
     if (!response.ok) {
       // Le message ne contient jamais l'URL : elle porte la clé.
       throw new GiphyError(response.status, `Giphy responded ${response.status}`);

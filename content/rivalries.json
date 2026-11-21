@@ -11,13 +11,13 @@
       "id": "univers-pop",
       "label": "Pop culture",
       "tagline": "Héros, tubes, memes et autres obsessions.",
-      "categories": ["heros", "musique", "duos", "internet", "geek"]
+      "categories": ["heros", "musique", "duos", "internet", "geek", "nostalgie"]
     },
     {
       "id": "univers-vie",
       "label": "La vraie vie",
       "tagline": "Les débats du quotidien, ceux qui fâchent vraiment.",
-      "categories": ["bouffe", "quotidien"]
+      "categories": ["bouffe", "quotidien", "mots", "sport", "mode", "autos"]
     }
   ],
   "categories": [
@@ -75,6 +75,31 @@
       "id": "internet",
       "label": "Internet et memes",
       "tagline": "Le savoir de toute l’humanité, utilisé surtout pour regarder des chats."
+    },
+    {
+      "id": "mots",
+      "label": "Mots de chez nous",
+      "tagline": "La France, la Belgique, la Suisse et le Québec ne parlent pas tout à fait la même langue."
+    },
+    {
+      "id": "nostalgie",
+      "label": "Nostalgie années 90",
+      "tagline": "Avant les smartphones, il y avait ça. Et on était heureux."
+    },
+    {
+      "id": "sport",
+      "label": "Sport",
+      "tagline": "Des débats plus tendus qu’une finale aux tirs au but."
+    },
+    {
+      "id": "mode",
+      "label": "Mode et looks",
+      "tagline": "Le miroir n’a jamais menti. Toi, peut-être."
+    },
+    {
+      "id": "autos",
+      "label": "Autos et motos",
+      "tagline": "Des marques, des moteurs, et des clubs de fans prêts à en découdre."
     }
   ],
   "rivalries": [
@@ -5473,6 +5498,4517 @@
         "line": "Ça rendait mieux en vrai.",
         "giphyIds": [],
         "giphyQuery": "landscape photo"
+      }
+    },
+    {
+      "id": "mots-serpilliere-wassingue",
+      "category": "mots",
+      "a": {
+        "name": "Serpillière",
+        "origin": "La France entière",
+        "line": "Le nom du dictionnaire.",
+        "giphyIds": [],
+        "giphyQuery": "mop floor"
+      },
+      "b": {
+        "name": "Wassingue",
+        "origin": "Le Nord et la Belgique",
+        "line": "Le même objet, avec l’accent.",
+        "giphyIds": [],
+        "giphyQuery": "mopping floor"
+      }
+    },
+    {
+      "id": "mots-sac-poche",
+      "category": "mots",
+      "a": {
+        "name": "Sac",
+        "origin": "La caisse du supermarché",
+        "line": "Neutre, efficace, universel.",
+        "giphyIds": [],
+        "giphyQuery": "plastic bag"
+      },
+      "b": {
+        "name": "Poche",
+        "origin": "Le Sud-Ouest",
+        "line": "« Vous voulez une poche ? » À Bordeaux, oui.",
+        "giphyIds": [],
+        "giphyQuery": "grocery bag"
+      }
+    },
+    {
+      "id": "mots-crayon-a-papier-crayon-de-bois",
+      "category": "mots",
+      "a": {
+        "name": "Crayon à papier",
+        "origin": "Le nord de la France",
+        "line": "Il écrit sur du papier. Logique.",
+        "giphyIds": [],
+        "giphyQuery": "pencil"
+      },
+      "b": {
+        "name": "Crayon de bois",
+        "origin": "Le sud de la France",
+        "line": "Il est en bois. Logique aussi.",
+        "giphyIds": [],
+        "giphyQuery": "wooden pencil"
+      }
+    },
+    {
+      "id": "mots-soixante-dix-septante",
+      "category": "mots",
+      "a": {
+        "name": "Soixante-dix",
+        "origin": "La France",
+        "line": "Soixante plus dix. On aime le calcul mental.",
+        "giphyIds": [],
+        "giphyQuery": "number 70"
+      },
+      "b": {
+        "name": "Septante",
+        "origin": "La Belgique et la Suisse",
+        "line": "Un seul mot, aucune addition.",
+        "giphyIds": [],
+        "giphyQuery": "Belgium flag"
+      }
+    },
+    {
+      "id": "mots-quatre-vingt-dix-nonante",
+      "category": "mots",
+      "a": {
+        "name": "Quatre-vingt-dix",
+        "origin": "La France",
+        "line": "Quatre fois vingt, plus dix. Simple.",
+        "giphyIds": [],
+        "giphyQuery": "math confused"
+      },
+      "b": {
+        "name": "Nonante",
+        "origin": "La Belgique et la Suisse",
+        "line": "Sept-, huit-, nonante. Logique, enfin.",
+        "giphyIds": [],
+        "giphyQuery": "math genius"
+      }
+    },
+    {
+      "id": "mots-quatre-vingts-huitante",
+      "category": "mots",
+      "a": {
+        "name": "Quatre-vingts",
+        "origin": "La France et la Belgique",
+        "line": "Le nombre qui demande une multiplication.",
+        "giphyIds": [],
+        "giphyQuery": "calculator"
+      },
+      "b": {
+        "name": "Huitante",
+        "origin": "La Suisse romande",
+        "line": "Le canton de Vaud a tout compris.",
+        "giphyIds": [],
+        "giphyQuery": "Switzerland"
+      }
+    },
+    {
+      "id": "mots-tres-gave",
+      "category": "mots",
+      "a": {
+        "name": "Très",
+        "origin": "Le dictionnaire",
+        "line": "Sobre et efficace.",
+        "giphyIds": [],
+        "giphyQuery": "very good"
+      },
+      "b": {
+        "name": "Gavé",
+        "origin": "Toulouse et Bordeaux",
+        "line": "« C’est gavé bien. » Et c’est très bien.",
+        "giphyIds": [],
+        "giphyQuery": "super excited"
+      }
+    },
+    {
+      "id": "mots-personne-degun",
+      "category": "mots",
+      "a": {
+        "name": "Personne",
+        "origin": "Partout",
+        "line": "Il n’y a personne.",
+        "giphyIds": [],
+        "giphyQuery": "empty room"
+      },
+      "b": {
+        "name": "Dégun",
+        "origin": "Marseille",
+        "line": "Il n’y a dégun, et c’est plus chantant.",
+        "giphyIds": [],
+        "giphyQuery": "Marseille"
+      }
+    },
+    {
+      "id": "mots-le-pauvre-peuchere",
+      "category": "mots",
+      "a": {
+        "name": "Le pauvre",
+        "origin": "Partout",
+        "line": "Compatissant, mais sans soleil.",
+        "giphyIds": [],
+        "giphyQuery": "sad face"
+      },
+      "b": {
+        "name": "Peuchère",
+        "origin": "La Provence",
+        "line": "La compassion, avec l’accent du Midi.",
+        "giphyIds": [],
+        "giphyQuery": "Provence lavender"
+      }
+    },
+    {
+      "id": "mots-gant-de-toilette-debarbouillette",
+      "category": "mots",
+      "a": {
+        "name": "Gant de toilette",
+        "origin": "La France",
+        "line": "Une moufle pour se laver.",
+        "giphyIds": [],
+        "giphyQuery": "washcloth"
+      },
+      "b": {
+        "name": "Débarbouillette",
+        "origin": "Le Québec",
+        "line": "Un carré de tissu, et un mot superbe.",
+        "giphyIds": [],
+        "giphyQuery": "Quebec"
+      }
+    },
+    {
+      "id": "mots-voiture-char",
+      "category": "mots",
+      "a": {
+        "name": "Voiture",
+        "origin": "La France",
+        "line": "Quatre roues, un volant.",
+        "giphyIds": [],
+        "giphyQuery": "car driving"
+      },
+      "b": {
+        "name": "Char",
+        "origin": "Le Québec",
+        "line": "Quatre roues, et un petit air de Ben-Hur.",
+        "giphyIds": [],
+        "giphyQuery": "chariot race"
+      }
+    },
+    {
+      "id": "mots-e-mail-courriel",
+      "category": "mots",
+      "a": {
+        "name": "E-mail",
+        "origin": "La France, souvent",
+        "line": "Court, international, un peu anglais.",
+        "giphyIds": [],
+        "giphyQuery": "email"
+      },
+      "b": {
+        "name": "Courriel",
+        "origin": "Le Québec",
+        "line": "Inventé là-bas, adopté par la France.",
+        "giphyIds": [],
+        "giphyQuery": "mail letter"
+      }
+    },
+    {
+      "id": "mots-week-end-fin-de-semaine",
+      "category": "mots",
+      "a": {
+        "name": "Week-end",
+        "origin": "La France",
+        "line": "Deux jours, en anglais.",
+        "giphyIds": [],
+        "giphyQuery": "weekend"
+      },
+      "b": {
+        "name": "Fin de semaine",
+        "origin": "Le Québec",
+        "line": "Les deux mêmes jours, en français.",
+        "giphyIds": [],
+        "giphyQuery": "saturday relax"
+      }
+    },
+    {
+      "id": "mots-faire-du-shopping-magasiner",
+      "category": "mots",
+      "a": {
+        "name": "Faire du shopping",
+        "origin": "La France",
+        "line": "Des magasins et une carte bancaire qui chauffe.",
+        "giphyIds": [],
+        "giphyQuery": "shopping bags"
+      },
+      "b": {
+        "name": "Magasiner",
+        "origin": "Le Québec",
+        "line": "Le même programme, en un seul verbe.",
+        "giphyIds": [],
+        "giphyQuery": "shopping mall"
+      }
+    },
+    {
+      "id": "mots-dejeuner-diner",
+      "category": "mots",
+      "question": "Le repas de midi, tu l’appelles comment ?",
+      "a": {
+        "name": "Déjeuner",
+        "origin": "La France",
+        "line": "Midi, c’est le déjeuner. Point.",
+        "giphyIds": [],
+        "giphyQuery": "lunch"
+      },
+      "b": {
+        "name": "Dîner",
+        "origin": "La Belgique, la Suisse, le Québec",
+        "line": "Midi, c’est le dîner. Et le soir, le souper.",
+        "giphyIds": [],
+        "giphyQuery": "lunchtime"
+      }
+    },
+    {
+      "id": "mots-diner-souper",
+      "category": "mots",
+      "question": "Et le repas du soir ?",
+      "a": {
+        "name": "Dîner",
+        "origin": "La France",
+        "line": "Le soir, on dîne.",
+        "giphyIds": [],
+        "giphyQuery": "dinner table"
+      },
+      "b": {
+        "name": "Souper",
+        "origin": "La Belgique, la Suisse, le Québec",
+        "line": "Le soir, on soupe. Même sans soupe.",
+        "giphyIds": [],
+        "giphyQuery": "soup"
+      }
+    },
+    {
+      "id": "mots-petit-pain-pistolet",
+      "category": "mots",
+      "a": {
+        "name": "Petit pain",
+        "origin": "La France",
+        "line": "Un petit pain, tout simplement.",
+        "giphyIds": [],
+        "giphyQuery": "bread roll"
+      },
+      "b": {
+        "name": "Pistolet",
+        "origin": "La Belgique",
+        "line": "Un petit pain rond, qui ne tire pas.",
+        "giphyIds": [],
+        "giphyQuery": "bakery bread"
+      }
+    },
+    {
+      "id": "mots-averse-drache",
+      "category": "mots",
+      "a": {
+        "name": "Averse",
+        "origin": "Partout",
+        "line": "Il pleut fort, puis ça s’arrête.",
+        "giphyIds": [],
+        "giphyQuery": "rain shower"
+      },
+      "b": {
+        "name": "Drache",
+        "origin": "La Belgique",
+        "line": "Il pleut très fort. Comme souvent.",
+        "giphyIds": [],
+        "giphyQuery": "heavy rain"
+      }
+    },
+    {
+      "id": "mots-cet-apres-midi-tantot",
+      "category": "mots",
+      "a": {
+        "name": "Cet après-midi",
+        "origin": "La France",
+        "line": "Plus tard dans la journée.",
+        "giphyIds": [],
+        "giphyQuery": "afternoon"
+      },
+      "b": {
+        "name": "Tantôt",
+        "origin": "La Belgique",
+        "line": "Tout à l’heure, ou cet après-midi. Ça dépend.",
+        "giphyIds": [],
+        "giphyQuery": "waiting clock"
+      }
+    },
+    {
+      "id": "mots-poignee-de-porte-clenche",
+      "category": "mots",
+      "a": {
+        "name": "Poignée de porte",
+        "origin": "Partout",
+        "line": "On l’abaisse, la porte s’ouvre.",
+        "giphyIds": [],
+        "giphyQuery": "door handle"
+      },
+      "b": {
+        "name": "Clenche",
+        "origin": "Le Nord et la Belgique",
+        "line": "Même geste, plus de caractère.",
+        "giphyIds": [],
+        "giphyQuery": "opening door"
+      }
+    },
+    {
+      "id": "mots-mouchoir-kleenex",
+      "category": "mots",
+      "a": {
+        "name": "Mouchoir",
+        "origin": "Le dictionnaire",
+        "line": "Le nom commun.",
+        "giphyIds": [],
+        "giphyQuery": "tissue"
+      },
+      "b": {
+        "name": "Kleenex",
+        "origin": "La marque",
+        "line": "Une marque devenue un mot.",
+        "giphyIds": [],
+        "giphyQuery": "sneeze"
+      }
+    },
+    {
+      "id": "mots-refrigerateur-frigidaire",
+      "category": "mots",
+      "a": {
+        "name": "Réfrigérateur",
+        "origin": "Le dictionnaire",
+        "line": "Cinq syllabes pour garder le beurre au frais.",
+        "giphyIds": [],
+        "giphyQuery": "fridge"
+      },
+      "b": {
+        "name": "Frigidaire",
+        "origin": "La langue courante",
+        "line": "Une vieille marque américaine, devenue un nom commun.",
+        "giphyIds": [],
+        "giphyQuery": "open fridge"
+      }
+    },
+    {
+      "id": "mots-pain-aux-raisins-escargot",
+      "category": "mots",
+      "a": {
+        "name": "Pain aux raisins",
+        "origin": "La plupart des boulangeries",
+        "line": "Des raisins, de la crème, une spirale.",
+        "giphyIds": [],
+        "giphyQuery": "pastry"
+      },
+      "b": {
+        "name": "Escargot",
+        "origin": "Certaines boulangeries",
+        "line": "La même spirale, avec un nom plus drôle.",
+        "giphyIds": [],
+        "giphyQuery": "snail"
+      }
+    },
+    {
+      "id": "mots-essuie-tout-sopalin",
+      "category": "mots",
+      "a": {
+        "name": "Essuie-tout",
+        "origin": "Le dictionnaire",
+        "line": "Il essuie tout. C’est écrit dessus.",
+        "giphyIds": [],
+        "giphyQuery": "paper towel"
+      },
+      "b": {
+        "name": "Sopalin",
+        "origin": "La marque",
+        "line": "Une marque, devenue la norme.",
+        "giphyIds": [],
+        "giphyQuery": "spill cleaning"
+      }
+    },
+    {
+      "id": "mots-ruban-adhesif-scotch",
+      "category": "mots",
+      "a": {
+        "name": "Ruban adhésif",
+        "origin": "Le dictionnaire",
+        "line": "Le nom officiel, que personne n’utilise.",
+        "giphyIds": [],
+        "giphyQuery": "tape"
+      },
+      "b": {
+        "name": "Scotch",
+        "origin": "La langue courante",
+        "line": "Une marque, devenue un réflexe.",
+        "giphyIds": [],
+        "giphyQuery": "duct tape"
+      }
+    },
+    {
+      "id": "mots-correcteur-tipp-ex",
+      "category": "mots",
+      "a": {
+        "name": "Correcteur",
+        "origin": "Le dictionnaire",
+        "line": "Pour corriger proprement.",
+        "giphyIds": [],
+        "giphyQuery": "correction pen"
+      },
+      "b": {
+        "name": "Tipp-Ex",
+        "origin": "La marque",
+        "line": "Le blanc, l’odeur, et les dessins sur la trousse.",
+        "giphyIds": [],
+        "giphyQuery": "white out"
+      }
+    },
+    {
+      "id": "mots-fermeture-eclair-tirette",
+      "category": "mots",
+      "a": {
+        "name": "Fermeture Éclair",
+        "origin": "La France",
+        "line": "Le nom d’une marque, lui aussi.",
+        "giphyIds": [],
+        "giphyQuery": "zipper"
+      },
+      "b": {
+        "name": "Tirette",
+        "origin": "La Belgique",
+        "line": "On tire, ça se ferme. Imparable.",
+        "giphyIds": [],
+        "giphyQuery": "zip up"
+      }
+    },
+    {
+      "id": "mots-trousse-plumier",
+      "category": "mots",
+      "a": {
+        "name": "Trousse",
+        "origin": "La France",
+        "line": "Des stylos, une gomme, et des copeaux de taille-crayon.",
+        "giphyIds": [],
+        "giphyQuery": "pencil case"
+      },
+      "b": {
+        "name": "Plumier",
+        "origin": "La Belgique",
+        "line": "La même chose, avec un nom d’autrefois.",
+        "giphyIds": [],
+        "giphyQuery": "school supplies"
+      }
+    },
+    {
+      "id": "mots-chewing-gum-chique",
+      "category": "mots",
+      "a": {
+        "name": "Chewing-gum",
+        "origin": "La France",
+        "line": "Le mot anglais, mâché à la française.",
+        "giphyIds": [],
+        "giphyQuery": "chewing gum"
+      },
+      "b": {
+        "name": "Chique",
+        "origin": "La Belgique",
+        "line": "Un mot plus court, pour mâcher plus vite.",
+        "giphyIds": [],
+        "giphyQuery": "bubble gum"
+      }
+    },
+    {
+      "id": "mots-coller-peguer",
+      "category": "mots",
+      "a": {
+        "name": "Coller",
+        "origin": "Le dictionnaire",
+        "line": "Ça colle.",
+        "giphyIds": [],
+        "giphyQuery": "glue"
+      },
+      "b": {
+        "name": "Péguer",
+        "origin": "Le Sud",
+        "line": "Ça pègue. Et c’est plus collant.",
+        "giphyIds": [],
+        "giphyQuery": "sticky"
+      }
+    },
+    {
+      "id": "mots-avoir-hate-se-languir",
+      "category": "mots",
+      "a": {
+        "name": "Avoir hâte",
+        "origin": "Partout",
+        "line": "J’ai hâte de te voir.",
+        "giphyIds": [],
+        "giphyQuery": "excited waiting"
+      },
+      "b": {
+        "name": "Se languir",
+        "origin": "Le Sud",
+        "line": "Je me languis de te voir. C’est plus tendre.",
+        "giphyIds": [],
+        "giphyQuery": "longing"
+      }
+    },
+    {
+      "id": "mots-abimer-escagasser",
+      "category": "mots",
+      "a": {
+        "name": "Abîmer",
+        "origin": "Partout",
+        "line": "C’est abîmé.",
+        "giphyIds": [],
+        "giphyQuery": "broken"
+      },
+      "b": {
+        "name": "Escagasser",
+        "origin": "Marseille",
+        "line": "C’est escagassé. Beaucoup plus grave.",
+        "giphyIds": [],
+        "giphyQuery": "totally destroyed"
+      }
+    },
+    {
+      "id": "mots-fou-fada",
+      "category": "mots",
+      "a": {
+        "name": "Fou",
+        "origin": "Partout",
+        "line": "Le mot de base.",
+        "giphyIds": [],
+        "giphyQuery": "crazy"
+      },
+      "b": {
+        "name": "Fada",
+        "origin": "La Provence",
+        "line": "Fou, mais avec le soleil.",
+        "giphyIds": [],
+        "giphyQuery": "crazy dance"
+      }
+    },
+    {
+      "id": "mots-gone-minot",
+      "category": "mots",
+      "a": {
+        "name": "Gone",
+        "origin": "Lyon",
+        "line": "Le gamin lyonnais, depuis Guignol.",
+        "giphyIds": [],
+        "giphyQuery": "Lyon"
+      },
+      "b": {
+        "name": "Minot",
+        "origin": "Marseille",
+        "line": "Le gamin marseillais, ensoleillé.",
+        "giphyIds": [],
+        "giphyQuery": "kids playing"
+      }
+    },
+    {
+      "id": "mots-deux-bises-quatre-bises",
+      "category": "mots",
+      "question": "Pour dire bonjour : deux bises ou quatre ?",
+      "a": {
+        "name": "Deux bises",
+        "origin": "Paris, et bien d’autres",
+        "line": "Une à droite, une à gauche. On gagne du temps.",
+        "giphyIds": [],
+        "giphyQuery": "cheek kiss"
+      },
+      "b": {
+        "name": "Quatre bises",
+        "origin": "Quelques régions de France",
+        "line": "On s’applique, et on y passe la soirée.",
+        "giphyIds": [],
+        "giphyQuery": "kiss kiss"
+      }
+    },
+    {
+      "id": "mots-la-bise-le-check",
+      "category": "mots",
+      "a": {
+        "name": "La bise",
+        "origin": "La France",
+        "line": "Joue contre joue, et le doute sur le nombre.",
+        "giphyIds": [],
+        "giphyQuery": "french kiss cheek"
+      },
+      "b": {
+        "name": "Le check",
+        "origin": "Les potes",
+        "line": "Poing contre poing, zéro microbe.",
+        "giphyIds": [],
+        "giphyQuery": "fist bump"
+      }
+    },
+    {
+      "id": "mots-tutoyer-vouvoyer",
+      "category": "mots",
+      "question": "Avec un inconnu : tu ou vous ?",
+      "a": {
+        "name": "Tutoyer",
+        "origin": "Les start-up",
+        "line": "« Salut, tu vas bien ? » Direct.",
+        "giphyIds": [],
+        "giphyQuery": "hello friend"
+      },
+      "b": {
+        "name": "Vouvoyer",
+        "origin": "Le reste du monde",
+        "line": "La politesse, et une distance de sécurité.",
+        "giphyIds": [],
+        "giphyQuery": "polite bow"
+      }
+    },
+    {
+      "id": "mots-pain-perdu-pain-dore",
+      "category": "mots",
+      "a": {
+        "name": "Pain perdu",
+        "origin": "La France",
+        "line": "Du pain rassis sauvé avec des œufs.",
+        "giphyIds": [],
+        "giphyQuery": "french toast"
+      },
+      "b": {
+        "name": "Pain doré",
+        "origin": "Le Québec",
+        "line": "Le même, mais il brille.",
+        "giphyIds": [],
+        "giphyQuery": "golden toast"
+      }
+    },
+    {
+      "id": "mots-il-fait-froid-ca-caille",
+      "category": "mots",
+      "a": {
+        "name": "Il fait froid",
+        "origin": "Partout",
+        "line": "La météo, simplement.",
+        "giphyIds": [],
+        "giphyQuery": "cold weather"
+      },
+      "b": {
+        "name": "Ça caille",
+        "origin": "L’argot",
+        "line": "La même météo, avec plus d’émotion.",
+        "giphyIds": [],
+        "giphyQuery": "freezing cold"
+      }
+    },
+    {
+      "id": "mots-la-thune-le-fric",
+      "category": "mots",
+      "a": {
+        "name": "La thune",
+        "origin": "L’argot",
+        "line": "« J’ai plus de thune. »",
+        "giphyIds": [],
+        "giphyQuery": "money"
+      },
+      "b": {
+        "name": "Le fric",
+        "origin": "L’argot aussi",
+        "line": "« Il a plein de fric. »",
+        "giphyIds": [],
+        "giphyQuery": "money rain"
+      }
+    },
+    {
+      "id": "mots-louche-chelou",
+      "category": "mots",
+      "a": {
+        "name": "Louche",
+        "origin": "Le dictionnaire",
+        "line": "Suspect, bizarre.",
+        "giphyIds": [],
+        "giphyQuery": "suspicious"
+      },
+      "b": {
+        "name": "Chelou",
+        "origin": "Le verlan",
+        "line": "Louche, à l’envers. Encore plus suspect.",
+        "giphyIds": [],
+        "giphyQuery": "suspicious look"
+      }
+    },
+    {
+      "id": "mots-lourd-relou",
+      "category": "mots",
+      "a": {
+        "name": "Lourd",
+        "origin": "Le dictionnaire",
+        "line": "Pénible, insistant.",
+        "giphyIds": [],
+        "giphyQuery": "annoying"
+      },
+      "b": {
+        "name": "Relou",
+        "origin": "Le verlan",
+        "line": "Lourd, à l’envers. Encore plus pénible.",
+        "giphyIds": [],
+        "giphyQuery": "eye roll"
+      }
+    },
+    {
+      "id": "mots-salut-wesh",
+      "category": "mots",
+      "a": {
+        "name": "Salut",
+        "origin": "Partout",
+        "line": "Le bonjour décontracté.",
+        "giphyIds": [],
+        "giphyQuery": "hi wave"
+      },
+      "b": {
+        "name": "Wesh",
+        "origin": "La cour de récré",
+        "line": "Le salut des grands frères.",
+        "giphyIds": [],
+        "giphyQuery": "whats up"
+      }
+    },
+    {
+      "id": "mots-bisous-bises",
+      "category": "mots",
+      "question": "Pour finir un message : bisous ou bises ?",
+      "a": {
+        "name": "Bisous",
+        "origin": "Les amis",
+        "line": "Tendre et affectueux.",
+        "giphyIds": [],
+        "giphyQuery": "blowing kiss"
+      },
+      "b": {
+        "name": "Bises",
+        "origin": "Tout le monde",
+        "line": "Affectueux, mais à bonne distance.",
+        "giphyIds": [],
+        "giphyQuery": "air kiss"
+      }
+    },
+    {
+      "id": "mots-cordialement-bien-a-vous",
+      "category": "mots",
+      "a": {
+        "name": "Cordialement",
+        "origin": "Les e-mails pro",
+        "line": "Poli, et un peu froid.",
+        "giphyIds": [],
+        "giphyQuery": "office email"
+      },
+      "b": {
+        "name": "Bien à vous",
+        "origin": "Les e-mails pro aussi",
+        "line": "Poli, et un peu plus chaleureux.",
+        "giphyIds": [],
+        "giphyQuery": "polite smile"
+      }
+    },
+    {
+      "id": "mots-du-coup-donc",
+      "category": "mots",
+      "a": {
+        "name": "Du coup",
+        "origin": "Toutes les conversations",
+        "line": "Le mot qui ne veut rien dire et qui est partout.",
+        "giphyIds": [],
+        "giphyQuery": "so anyway"
+      },
+      "b": {
+        "name": "Donc",
+        "origin": "La grammaire",
+        "line": "Lui, il veut dire quelque chose.",
+        "giphyIds": [],
+        "giphyQuery": "thinking"
+      }
+    },
+    {
+      "id": "mots-slt-cv-salut-ca-va",
+      "category": "mots",
+      "a": {
+        "name": "« Slt cv »",
+        "origin": "Les textos de 2005",
+        "line": "L’économie de caractères.",
+        "giphyIds": [],
+        "giphyQuery": "old phone texting"
+      },
+      "b": {
+        "name": "« Salut, ça va ? »",
+        "origin": "Les textos d’aujourd’hui",
+        "line": "Des mots entiers. Quel luxe.",
+        "giphyIds": [],
+        "giphyQuery": "texting smile"
+      }
+    },
+    {
+      "id": "mots-vin-vinte",
+      "category": "mots",
+      "question": "« Vingt », ça se prononce comment ?",
+      "a": {
+        "name": "« Vin »",
+        "origin": "La plupart des Français",
+        "line": "Le t reste muet.",
+        "giphyIds": [],
+        "giphyQuery": "wine"
+      },
+      "b": {
+        "name": "« Vinte »",
+        "origin": "L’Est et la Belgique",
+        "line": "On prononce le t, et on assume.",
+        "giphyIds": [],
+        "giphyQuery": "number twenty"
+      }
+    },
+    {
+      "id": "mots-moins-moinsse",
+      "category": "mots",
+      "question": "« Moins », tu le prononces comment ?",
+      "a": {
+        "name": "« Moins »",
+        "origin": "Le Nord",
+        "line": "Sans le s.",
+        "giphyIds": [],
+        "giphyQuery": "minus"
+      },
+      "b": {
+        "name": "« Moinsse »",
+        "origin": "Le Sud",
+        "line": "Avec le s, et le soleil.",
+        "giphyIds": [],
+        "giphyQuery": "sunny south"
+      }
+    },
+    {
+      "id": "mots-une-pinte-un-demi",
+      "category": "mots",
+      "question": "Au bar : une pinte ou un demi ?",
+      "a": {
+        "name": "Une pinte",
+        "origin": "Les grandes soifs",
+        "line": "Un demi-litre, ou presque.",
+        "giphyIds": [],
+        "giphyQuery": "pint of beer"
+      },
+      "b": {
+        "name": "Un demi",
+        "origin": "La terrasse",
+        "line": "Vingt-cinq centilitres, et la conscience tranquille.",
+        "giphyIds": [],
+        "giphyQuery": "beer terrace"
+      }
+    },
+    {
+      "id": "nostalgie-walkman-discman",
+      "category": "nostalgie",
+      "a": {
+        "name": "Walkman",
+        "origin": "Sony · 1979",
+        "line": "Une cassette, et un crayon pour la rembobiner.",
+        "giphyIds": [],
+        "giphyQuery": "Walkman cassette"
+      },
+      "b": {
+        "name": "Discman",
+        "origin": "Sony · 1984",
+        "line": "Un CD, qui saute au moindre pas.",
+        "giphyIds": [],
+        "giphyQuery": "Discman"
+      }
+    },
+    {
+      "id": "nostalgie-club-dorothee-les-minikeums",
+      "category": "nostalgie",
+      "a": {
+        "name": "Club Dorothée",
+        "origin": "TF1 · 1987",
+        "line": "Des dessins animés à la chaîne, et Les Musclés.",
+        "giphyIds": [],
+        "giphyQuery": "Club Dorothee"
+      },
+      "b": {
+        "name": "Les Minikeums",
+        "origin": "France 3 · 1993",
+        "line": "Des marionnettes qui présentent les dessins animés.",
+        "giphyIds": [],
+        "giphyQuery": "puppets show"
+      }
+    },
+    {
+      "id": "nostalgie-spice-girls-backstreet-boys",
+      "category": "nostalgie",
+      "a": {
+        "name": "Spice Girls",
+        "origin": "Londres · 1994",
+        "line": "Cinq Spice et du girl power.",
+        "giphyIds": [],
+        "giphyQuery": "Spice Girls"
+      },
+      "b": {
+        "name": "Backstreet Boys",
+        "origin": "Orlando · 1993",
+        "line": "Cinq garçons et des chorégraphies synchronisées.",
+        "giphyIds": [],
+        "giphyQuery": "Backstreet Boys"
+      }
+    },
+    {
+      "id": "nostalgie-tamagotchi-furby",
+      "category": "nostalgie",
+      "a": {
+        "name": "Tamagotchi",
+        "origin": "Bandai · 1996",
+        "line": "Mort de faim pendant le cours de maths.",
+        "giphyIds": [],
+        "giphyQuery": "Tamagotchi"
+      },
+      "b": {
+        "name": "Furby",
+        "origin": "Tiger · 1998",
+        "line": "Parle la nuit, sans raison, sans bouton off.",
+        "giphyIds": [],
+        "giphyQuery": "Furby"
+      }
+    },
+    {
+      "id": "nostalgie-pogs-billes",
+      "category": "nostalgie",
+      "a": {
+        "name": "Pogs",
+        "origin": "Années 90",
+        "line": "Des capsules en carton, et un kini pour tout gagner.",
+        "giphyIds": [],
+        "giphyQuery": "pogs"
+      },
+      "b": {
+        "name": "Billes",
+        "origin": "La cour de récré",
+        "line": "Des agates, des calots, et des procès.",
+        "giphyIds": [],
+        "giphyQuery": "marbles"
+      }
+    },
+    {
+      "id": "nostalgie-polly-pocket-micro-machines",
+      "category": "nostalgie",
+      "a": {
+        "name": "Polly Pocket",
+        "origin": "Bluebird · 1989",
+        "line": "Un monde entier dans une boîte à poudre.",
+        "giphyIds": [],
+        "giphyQuery": "Polly Pocket"
+      },
+      "b": {
+        "name": "Micro Machines",
+        "origin": "Galoob · 1987",
+        "line": "Des voitures minuscules, et une pub qui parlait très vite.",
+        "giphyIds": [],
+        "giphyQuery": "Micro Machines"
+      }
+    },
+    {
+      "id": "nostalgie-les-muscles-helene-et-les-garcons",
+      "category": "nostalgie",
+      "a": {
+        "name": "Les Musclés",
+        "origin": "Club Dorothée · 1989",
+        "line": "Les musiciens les plus énergiques du petit écran.",
+        "giphyIds": [],
+        "giphyQuery": "90s band"
+      },
+      "b": {
+        "name": "Hélène et les Garçons",
+        "origin": "TF1 · 1992",
+        "line": "La cafétéria de la fac, et des histoires d’amour.",
+        "giphyIds": [],
+        "giphyQuery": "90s sitcom"
+      }
+    },
+    {
+      "id": "nostalgie-le-prince-de-bel-air-sauves-par-le-gong",
+      "category": "nostalgie",
+      "a": {
+        "name": "Le Prince de Bel-Air",
+        "origin": "NBC · 1990",
+        "line": "Un ado de Philadelphie chez son oncle très riche.",
+        "giphyIds": [],
+        "giphyQuery": "Fresh Prince of Bel Air"
+      },
+      "b": {
+        "name": "Sauvés par le gong",
+        "origin": "NBC · 1989",
+        "line": "Le lycée, Zack Morris, et un téléphone énorme.",
+        "giphyIds": [],
+        "giphyQuery": "Saved by the Bell"
+      }
+    },
+    {
+      "id": "nostalgie-alerte-a-malibu-buffy-contre-les-vampires",
+      "category": "nostalgie",
+      "a": {
+        "name": "Alerte à Malibu",
+        "origin": "NBC · 1989",
+        "line": "Des sauveteurs qui courent au ralenti.",
+        "giphyIds": [],
+        "giphyQuery": "Baywatch"
+      },
+      "b": {
+        "name": "Buffy contre les vampires",
+        "origin": "The WB · 1997",
+        "line": "Des cours le jour, des vampires la nuit.",
+        "giphyIds": [],
+        "giphyQuery": "Buffy the Vampire Slayer"
+      }
+    },
+    {
+      "id": "nostalgie-minitel-fax",
+      "category": "nostalgie",
+      "a": {
+        "name": "Minitel",
+        "origin": "France Télécom · 1982",
+        "line": "3615, et la facture qui suit.",
+        "giphyIds": [],
+        "giphyQuery": "Minitel"
+      },
+      "b": {
+        "name": "Fax",
+        "origin": "Le bureau",
+        "line": "Une feuille qui sort en couinant.",
+        "giphyIds": [],
+        "giphyQuery": "fax machine"
+      }
+    },
+    {
+      "id": "nostalgie-nokia-3310-tatoo",
+      "category": "nostalgie",
+      "a": {
+        "name": "Nokia 3310",
+        "origin": "Nokia · 2000",
+        "line": "Indestructible, et Snake dedans.",
+        "giphyIds": [],
+        "giphyQuery": "Nokia 3310"
+      },
+      "b": {
+        "name": "Tatoo",
+        "origin": "France Télécom · 1995",
+        "line": "Des messages en chiffres, à décoder.",
+        "giphyIds": [],
+        "giphyQuery": "pager beeper"
+      }
+    },
+    {
+      "id": "nostalgie-vhs-dvd",
+      "category": "nostalgie",
+      "a": {
+        "name": "VHS",
+        "origin": "Années 80-90",
+        "line": "Rembobiner avant de rendre.",
+        "giphyIds": [],
+        "giphyQuery": "VHS tape"
+      },
+      "b": {
+        "name": "DVD",
+        "origin": "1996",
+        "line": "Des bonus, et des menus interminables.",
+        "giphyIds": [],
+        "giphyQuery": "DVD"
+      }
+    },
+    {
+      "id": "nostalgie-videoclub-canal-crypte",
+      "category": "nostalgie",
+      "a": {
+        "name": "Vidéoclub",
+        "origin": "Le quartier",
+        "line": "Une heure à choisir la cassette du samedi soir.",
+        "giphyIds": [],
+        "giphyQuery": "video store"
+      },
+      "b": {
+        "name": "Canal+ crypté",
+        "origin": "Canal+ · 1984",
+        "line": "Plisser les yeux devant une image brouillée.",
+        "giphyIds": [],
+        "giphyQuery": "static tv"
+      }
+    },
+    {
+      "id": "nostalgie-power-rangers-bioman",
+      "category": "nostalgie",
+      "a": {
+        "name": "Power Rangers",
+        "origin": "Fox · 1993",
+        "line": "Cinq ados, des combinaisons, et un robot géant.",
+        "giphyIds": [],
+        "giphyQuery": "Power Rangers"
+      },
+      "b": {
+        "name": "Bioman",
+        "origin": "Japon · 1984",
+        "line": "L’original japonais, encore plus coloré.",
+        "giphyIds": [],
+        "giphyQuery": "Bioman sentai"
+      }
+    },
+    {
+      "id": "nostalgie-chaussures-a-lumieres-buffalo",
+      "category": "nostalgie",
+      "a": {
+        "name": "Chaussures à lumières",
+        "origin": "Années 90",
+        "line": "Elles clignotent à chaque pas.",
+        "giphyIds": [],
+        "giphyQuery": "light up shoes"
+      },
+      "b": {
+        "name": "Buffalo",
+        "origin": "Années 90",
+        "line": "Des semelles de dix centimètres.",
+        "giphyIds": [],
+        "giphyQuery": "platform shoes"
+      }
+    },
+    {
+      "id": "nostalgie-baggy-jean-taille-basse",
+      "category": "nostalgie",
+      "a": {
+        "name": "Baggy",
+        "origin": "Années 90",
+        "line": "Un pantalon taille 48 sur un ado taille 36.",
+        "giphyIds": [],
+        "giphyQuery": "baggy jeans"
+      },
+      "b": {
+        "name": "Jean taille basse",
+        "origin": "Années 2000",
+        "line": "Très, très bas.",
+        "giphyIds": [],
+        "giphyQuery": "low rise jeans"
+      }
+    },
+    {
+      "id": "nostalgie-tazos-cartes-pokemon",
+      "category": "nostalgie",
+      "a": {
+        "name": "Tazos",
+        "origin": "Années 90",
+        "line": "Des disques en plastique, dans les paquets de chips.",
+        "giphyIds": [],
+        "giphyQuery": "Tazos"
+      },
+      "b": {
+        "name": "Cartes Pokémon",
+        "origin": "Japon · 1996",
+        "line": "Le Dracaufeu holographique, le Graal.",
+        "giphyIds": [],
+        "giphyQuery": "Charizard card"
+      }
+    },
+    {
+      "id": "nostalgie-rubik-s-cube-simon",
+      "category": "nostalgie",
+      "a": {
+        "name": "Rubik’s Cube",
+        "origin": "Ernő Rubik · 1974",
+        "line": "Mélangé en trois secondes, résolu jamais.",
+        "giphyIds": [],
+        "giphyQuery": "Rubik's Cube"
+      },
+      "b": {
+        "name": "Simon",
+        "origin": "Milton Bradley · 1978",
+        "line": "Des couleurs, des bips, et une mémoire mise à l’épreuve.",
+        "giphyIds": [],
+        "giphyQuery": "Simon game"
+      }
+    },
+    {
+      "id": "nostalgie-super-nintendo-mega-drive",
+      "category": "nostalgie",
+      "a": {
+        "name": "Super Nintendo",
+        "origin": "Nintendo · 1990",
+        "line": "Mario, Zelda, et des cartouches qu’on soufflait.",
+        "giphyIds": [],
+        "giphyQuery": "Super Nintendo"
+      },
+      "b": {
+        "name": "Mega Drive",
+        "origin": "Sega · 1988",
+        "line": "Sonic, et des pubs qui provoquaient Nintendo.",
+        "giphyIds": [],
+        "giphyQuery": "Sega Genesis"
+      }
+    },
+    {
+      "id": "nostalgie-nintendo-64-playstation",
+      "category": "nostalgie",
+      "a": {
+        "name": "Nintendo 64",
+        "origin": "Nintendo · 1996",
+        "line": "Une manette à trois poignées.",
+        "giphyIds": [],
+        "giphyQuery": "Nintendo 64"
+      },
+      "b": {
+        "name": "PlayStation",
+        "origin": "Sony · 1994",
+        "line": "Des CD, et des cartes mémoire pleines.",
+        "giphyIds": [],
+        "giphyQuery": "PlayStation 1"
+      }
+    },
+    {
+      "id": "nostalgie-titanic-jurassic-park",
+      "category": "nostalgie",
+      "a": {
+        "name": "Titanic",
+        "origin": "James Cameron · 1997",
+        "line": "Un bateau, un iceberg, et une porte assez grande pour deux.",
+        "giphyIds": [],
+        "giphyQuery": "Titanic movie"
+      },
+      "b": {
+        "name": "Jurassic Park",
+        "origin": "Steven Spielberg · 1993",
+        "line": "Des dinosaures, et un verre d’eau qui tremble.",
+        "giphyIds": [],
+        "giphyQuery": "Jurassic Park"
+      }
+    },
+    {
+      "id": "nostalgie-men-in-black-independence-day",
+      "category": "nostalgie",
+      "a": {
+        "name": "Men in Black",
+        "origin": "Barry Sonnenfeld · 1997",
+        "line": "Deux costumes noirs et un neuralyseur.",
+        "giphyIds": [],
+        "giphyQuery": "Men in Black"
+      },
+      "b": {
+        "name": "Independence Day",
+        "origin": "Roland Emmerich · 1996",
+        "line": "Des aliens, et un grand discours du président.",
+        "giphyIds": [],
+        "giphyQuery": "Independence Day"
+      }
+    },
+    {
+      "id": "nostalgie-sabrina-l-apprentie-sorciere-charmed",
+      "category": "nostalgie",
+      "a": {
+        "name": "Sabrina, l’apprentie sorcière",
+        "origin": "ABC · 1996",
+        "line": "Une ado sorcière, et un chat qui parle.",
+        "giphyIds": [],
+        "giphyQuery": "Sabrina Salem"
+      },
+      "b": {
+        "name": "Charmed",
+        "origin": "The WB · 1998",
+        "line": "Trois sœurs sorcières à San Francisco.",
+        "giphyIds": [],
+        "giphyQuery": "Charmed"
+      }
+    },
+    {
+      "id": "nostalgie-2be3-l5",
+      "category": "nostalgie",
+      "a": {
+        "name": "2Be3",
+        "origin": "France · 1996",
+        "line": "Trois garçons, des abdos, et « Partir un jour ».",
+        "giphyIds": [],
+        "giphyQuery": "90s boy band"
+      },
+      "b": {
+        "name": "L5",
+        "origin": "Popstars · 2001",
+        "line": "Cinq filles nées d’un télé-crochet.",
+        "giphyIds": [],
+        "giphyQuery": "girl band"
+      }
+    },
+    {
+      "id": "nostalgie-fort-boyard-intervilles",
+      "category": "nostalgie",
+      "a": {
+        "name": "Fort Boyard",
+        "origin": "France 2 · 1990",
+        "line": "Des clés, des énigmes, et le père Fouras.",
+        "giphyIds": [],
+        "giphyQuery": "Fort Boyard"
+      },
+      "b": {
+        "name": "Intervilles",
+        "origin": "Depuis 1962",
+        "line": "Des vachettes, de la mousse, et des fous rires.",
+        "giphyIds": [],
+        "giphyQuery": "Intervilles"
+      }
+    },
+    {
+      "id": "nostalgie-le-bigdil-le-juste-prix",
+      "category": "nostalgie",
+      "a": {
+        "name": "Le Bigdil",
+        "origin": "TF1 · 1998",
+        "line": "Lagaf’, des cadeaux, et beaucoup de bruit.",
+        "giphyIds": [],
+        "giphyQuery": "game show"
+      },
+      "b": {
+        "name": "Le Juste Prix",
+        "origin": "TF1 · 1988",
+        "line": "« Le juste prix ! »",
+        "giphyIds": [],
+        "giphyQuery": "The Price is Right"
+      }
+    },
+    {
+      "id": "nostalgie-cassette-audio-cd",
+      "category": "nostalgie",
+      "a": {
+        "name": "Cassette audio",
+        "origin": "Années 80-90",
+        "line": "On enregistrait la radio en coupant l’animateur.",
+        "giphyIds": [],
+        "giphyQuery": "cassette tape"
+      },
+      "b": {
+        "name": "CD",
+        "origin": "Années 90",
+        "line": "Brillant, et rayé dès le premier jour.",
+        "giphyIds": [],
+        "giphyQuery": "compact disc"
+      }
+    },
+    {
+      "id": "nostalgie-pin-s-scoubidous",
+      "category": "nostalgie",
+      "a": {
+        "name": "Pin’s",
+        "origin": "Années 90",
+        "line": "Une veste couverte de badges.",
+        "giphyIds": [],
+        "giphyQuery": "pins collection"
+      },
+      "b": {
+        "name": "Scoubidous",
+        "origin": "Années 90",
+        "line": "Des fils en plastique et des porte-clés.",
+        "giphyIds": [],
+        "giphyQuery": "scoubidou"
+      }
+    },
+    {
+      "id": "nostalgie-doc-martens-converse",
+      "category": "nostalgie",
+      "a": {
+        "name": "Doc Martens",
+        "origin": "Années 90",
+        "line": "Des bottes indestructibles.",
+        "giphyIds": [],
+        "giphyQuery": "Doc Martens"
+      },
+      "b": {
+        "name": "Converse",
+        "origin": "Années 90",
+        "line": "Des baskets en toile, toujours délacées.",
+        "giphyIds": [],
+        "giphyQuery": "Converse"
+      }
+    },
+    {
+      "id": "nostalgie-bi-bop-telephone-a-cadran",
+      "category": "nostalgie",
+      "a": {
+        "name": "Bi-Bop",
+        "origin": "France Télécom · 1993",
+        "line": "Le téléphone qui ne marchait que près d’une borne.",
+        "giphyIds": [],
+        "giphyQuery": "old mobile phone"
+      },
+      "b": {
+        "name": "Téléphone à cadran",
+        "origin": "Le salon",
+        "line": "Composer un numéro prenait une minute.",
+        "giphyIds": [],
+        "giphyQuery": "rotary phone"
+      }
+    },
+    {
+      "id": "nostalgie-ally-mcbeal-urgences",
+      "category": "nostalgie",
+      "a": {
+        "name": "Ally McBeal",
+        "origin": "Fox · 1997",
+        "line": "Un cabinet d’avocats et un bébé qui danse.",
+        "giphyIds": [],
+        "giphyQuery": "Ally McBeal dancing baby"
+      },
+      "b": {
+        "name": "Urgences",
+        "origin": "NBC · 1994",
+        "line": "Les urgences de Chicago, et George Clooney en blouse.",
+        "giphyIds": [],
+        "giphyQuery": "ER tv show"
+      }
+    },
+    {
+      "id": "nostalgie-twin-peaks-le-cameleon",
+      "category": "nostalgie",
+      "a": {
+        "name": "Twin Peaks",
+        "origin": "David Lynch · 1990",
+        "line": "« Qui a tué Laura Palmer ? »",
+        "giphyIds": [],
+        "giphyQuery": "Twin Peaks"
+      },
+      "b": {
+        "name": "Le Caméléon",
+        "origin": "NBC · 1996",
+        "line": "Il peut devenir n’importe qui.",
+        "giphyIds": [],
+        "giphyQuery": "The Pretender"
+      }
+    },
+    {
+      "id": "nostalgie-beverly-hills-90210-dawson",
+      "category": "nostalgie",
+      "a": {
+        "name": "Beverly Hills 90210",
+        "origin": "Fox · 1990",
+        "line": "Des ados de Beverly Hills, et des rouflaquettes.",
+        "giphyIds": [],
+        "giphyQuery": "Beverly Hills 90210"
+      },
+      "b": {
+        "name": "Dawson",
+        "origin": "The WB · 1998",
+        "line": "Des ados qui parlent comme des philosophes.",
+        "giphyIds": [],
+        "giphyQuery": "Dawson's Creek"
+      }
+    },
+    {
+      "id": "nostalgie-hit-machine-top-50",
+      "category": "nostalgie",
+      "a": {
+        "name": "Hit Machine",
+        "origin": "M6 · 1994",
+        "line": "Charly, Lulu, et le classement des ventes.",
+        "giphyIds": [],
+        "giphyQuery": "90s pop dance"
+      },
+      "b": {
+        "name": "Top 50",
+        "origin": "Canal+ · 1984",
+        "line": "Le classement de la semaine, chanson par chanson.",
+        "giphyIds": [],
+        "giphyQuery": "music charts"
+      }
+    },
+    {
+      "id": "nostalgie-video-gag-surprise-sur-prise",
+      "category": "nostalgie",
+      "a": {
+        "name": "Vidéo Gag",
+        "origin": "TF1 · 1990",
+        "line": "Des chutes, et des rires enregistrés.",
+        "giphyIds": [],
+        "giphyQuery": "funny fail"
+      },
+      "b": {
+        "name": "Surprise sur prise",
+        "origin": "France · 1987",
+        "line": "Des caméras cachées, et Marcel Béliveau.",
+        "giphyIds": [],
+        "giphyQuery": "hidden camera"
+      }
+    },
+    {
+      "id": "nostalgie-macarena-lambada",
+      "category": "nostalgie",
+      "a": {
+        "name": "Macarena",
+        "origin": "Los del Río · 1993",
+        "line": "Une chorégraphie que tout le monde connaît.",
+        "giphyIds": [],
+        "giphyQuery": "Macarena"
+      },
+      "b": {
+        "name": "Lambada",
+        "origin": "Kaoma · 1989",
+        "line": "Une danse très, très rapprochée.",
+        "giphyIds": [],
+        "giphyQuery": "Lambada"
+      }
+    },
+    {
+      "id": "nostalgie-aqua-eiffel-65",
+      "category": "nostalgie",
+      "a": {
+        "name": "Aqua",
+        "origin": "Danemark · 1997",
+        "line": "Une poupée en plastique et un tube mondial.",
+        "giphyIds": [],
+        "giphyQuery": "Aqua Barbie Girl"
+      },
+      "b": {
+        "name": "Eiffel 65",
+        "origin": "Italie · 1998",
+        "line": "Tout est bleu. Tout.",
+        "giphyIds": [],
+        "giphyQuery": "Eiffel 65 Blue"
+      }
+    },
+    {
+      "id": "nostalgie-les-colos-les-vacances-chez-mamie",
+      "category": "nostalgie",
+      "a": {
+        "name": "Les colos",
+        "origin": "L’été",
+        "line": "Des chansons dans le car, et des lettres aux parents.",
+        "giphyIds": [],
+        "giphyQuery": "summer camp"
+      },
+      "b": {
+        "name": "Les vacances chez mamie",
+        "origin": "L’été",
+        "line": "Des confitures, et la télé à 20 heures.",
+        "giphyIds": [],
+        "giphyQuery": "grandma"
+      }
+    },
+    {
+      "id": "nostalgie-chocapic-miel-pops",
+      "category": "nostalgie",
+      "a": {
+        "name": "Chocapic",
+        "origin": "Nestlé · 1984",
+        "line": "Le chocolat dès le petit-déjeuner.",
+        "giphyIds": [],
+        "giphyQuery": "cereal chocolate"
+      },
+      "b": {
+        "name": "Miel Pops",
+        "origin": "Kellogg’s",
+        "line": "Le miel, et une abeille qui chante.",
+        "giphyIds": [],
+        "giphyQuery": "honey cereal"
+      }
+    },
+    {
+      "id": "nostalgie-kinder-surprise-malabar",
+      "category": "nostalgie",
+      "a": {
+        "name": "Kinder Surprise",
+        "origin": "Ferrero · 1974",
+        "line": "Du chocolat, un jouet, et un dilemme.",
+        "giphyIds": [],
+        "giphyQuery": "Kinder Surprise"
+      },
+      "b": {
+        "name": "Malabar",
+        "origin": "France · 1958",
+        "line": "Un chewing-gum rose, et un tatouage.",
+        "giphyIds": [],
+        "giphyQuery": "bubble gum"
+      }
+    },
+    {
+      "id": "nostalgie-rollers-skate",
+      "category": "nostalgie",
+      "a": {
+        "name": "Rollers",
+        "origin": "Années 90",
+        "line": "Des genouillères, et des chutes en ville.",
+        "giphyIds": [],
+        "giphyQuery": "rollerblading"
+      },
+      "b": {
+        "name": "Skate",
+        "origin": "La rampe",
+        "line": "Un ollie raté, et on recommence.",
+        "giphyIds": [],
+        "giphyQuery": "skateboard"
+      }
+    },
+    {
+      "id": "nostalgie-lego-playmobil",
+      "category": "nostalgie",
+      "a": {
+        "name": "Lego",
+        "origin": "Danemark · 1958",
+        "line": "Une brique, et une douleur sous le pied.",
+        "giphyIds": [],
+        "giphyQuery": "Lego"
+      },
+      "b": {
+        "name": "Playmobil",
+        "origin": "Allemagne · 1974",
+        "line": "Des petits bonshommes au sourire éternel.",
+        "giphyIds": [],
+        "giphyQuery": "Playmobil"
+      }
+    },
+    {
+      "id": "nostalgie-barbie-petshop",
+      "category": "nostalgie",
+      "a": {
+        "name": "Barbie",
+        "origin": "Mattel · 1959",
+        "line": "Mille métiers, un seul sourire.",
+        "giphyIds": [],
+        "giphyQuery": "Barbie"
+      },
+      "b": {
+        "name": "Petshop",
+        "origin": "Kenner · 1992",
+        "line": "Des animaux miniatures à grosse tête.",
+        "giphyIds": [],
+        "giphyQuery": "Littlest Pet Shop"
+      }
+    },
+    {
+      "id": "nostalgie-aol-wanadoo",
+      "category": "nostalgie",
+      "a": {
+        "name": "AOL",
+        "origin": "Années 90",
+        "line": "« Vous avez du courrier ! »",
+        "giphyIds": [],
+        "giphyQuery": "AOL dial up"
+      },
+      "b": {
+        "name": "Wanadoo",
+        "origin": "France Télécom · 1996",
+        "line": "Internet en 56k, et la facture de téléphone.",
+        "giphyIds": [],
+        "giphyQuery": "internet 90s"
+      }
+    },
+    {
+      "id": "nostalgie-cederoms-disquettes",
+      "category": "nostalgie",
+      "a": {
+        "name": "Cédéroms",
+        "origin": "Années 90",
+        "line": "Une encyclopédie entière sur un disque.",
+        "giphyIds": [],
+        "giphyQuery": "CD-ROM"
+      },
+      "b": {
+        "name": "Disquettes",
+        "origin": "Années 80-90",
+        "line": "1,44 Mo, et l’icône « Enregistrer ».",
+        "giphyIds": [],
+        "giphyQuery": "floppy disk"
+      }
+    },
+    {
+      "id": "nostalgie-les-crados-les-stickers-panini",
+      "category": "nostalgie",
+      "a": {
+        "name": "Les Crados",
+        "origin": "France · 1986",
+        "line": "Des autocollants délicieusement dégoûtants.",
+        "giphyIds": [],
+        "giphyQuery": "Garbage Pail Kids"
+      },
+      "b": {
+        "name": "Les stickers Panini",
+        "origin": "Le foot",
+        "line": "Un album, et l’échange des doubles.",
+        "giphyIds": [],
+        "giphyQuery": "Panini stickers"
+      }
+    },
+    {
+      "id": "nostalgie-eurodance-grunge",
+      "category": "nostalgie",
+      "a": {
+        "name": "Eurodance",
+        "origin": "Années 90",
+        "line": "Des synthés, un rappeur, une chanteuse.",
+        "giphyIds": [],
+        "giphyQuery": "eurodance"
+      },
+      "b": {
+        "name": "Grunge",
+        "origin": "Seattle · années 90",
+        "line": "Des chemises à carreaux et des cheveux gras.",
+        "giphyIds": [],
+        "giphyQuery": "grunge"
+      }
+    },
+    {
+      "id": "nostalgie-chair-de-poule-le-club-des-cinq",
+      "category": "nostalgie",
+      "a": {
+        "name": "Chair de poule",
+        "origin": "R. L. Stine · 1992",
+        "line": "Des livres pour se faire peur sous la couette.",
+        "giphyIds": [],
+        "giphyQuery": "Goosebumps"
+      },
+      "b": {
+        "name": "Le Club des Cinq",
+        "origin": "Enid Blyton · 1942",
+        "line": "Quatre enfants, un chien, et des mystères.",
+        "giphyIds": [],
+        "giphyQuery": "Famous Five"
+      }
+    },
+    {
+      "id": "nostalgie-concorde-tgv",
+      "category": "nostalgie",
+      "a": {
+        "name": "Concorde",
+        "origin": "Air France · 1976",
+        "line": "Paris-New York en trois heures et demie.",
+        "giphyIds": [],
+        "giphyQuery": "Concorde"
+      },
+      "b": {
+        "name": "TGV",
+        "origin": "SNCF · 1981",
+        "line": "Le train le plus rapide du pays.",
+        "giphyIds": [],
+        "giphyQuery": "TGV train"
+      }
+    },
+    {
+      "id": "nostalgie-repondeur-cabine-telephonique",
+      "category": "nostalgie",
+      "a": {
+        "name": "Répondeur",
+        "origin": "Le salon",
+        "line": "« Vous êtes bien chez… »",
+        "giphyIds": [],
+        "giphyQuery": "answering machine"
+      },
+      "b": {
+        "name": "Cabine téléphonique",
+        "origin": "La rue",
+        "line": "Une carte à puce et un froid glacial.",
+        "giphyIds": [],
+        "giphyQuery": "phone booth"
+      }
+    },
+    {
+      "id": "sport-lionel-messi-cristiano-ronaldo",
+      "category": "sport",
+      "a": {
+        "name": "Lionel Messi",
+        "origin": "Argentine · 2004",
+        "line": "Un pied gauche magique, et huit Ballons d’or.",
+        "giphyIds": [],
+        "giphyQuery": "Messi"
+      },
+      "b": {
+        "name": "Cristiano Ronaldo",
+        "origin": "Portugal · 2002",
+        "line": "Des abdos, des records, et un célèbre cri de joie.",
+        "giphyIds": [],
+        "giphyQuery": "Cristiano Ronaldo"
+      }
+    },
+    {
+      "id": "sport-roger-federer-rafael-nadal",
+      "category": "sport",
+      "a": {
+        "name": "Roger Federer",
+        "origin": "Suisse · 1998",
+        "line": "Le revers à une main le plus élégant du monde.",
+        "giphyIds": [],
+        "giphyQuery": "Roger Federer"
+      },
+      "b": {
+        "name": "Rafael Nadal",
+        "origin": "Espagne · 2001",
+        "line": "Quatorze Roland-Garros. Quatorze.",
+        "giphyIds": [],
+        "giphyQuery": "Rafael Nadal"
+      }
+    },
+    {
+      "id": "sport-football-rugby",
+      "category": "sport",
+      "a": {
+        "name": "Football",
+        "origin": "Partout",
+        "line": "Vingt-deux joueurs, un ballon, et des débats sans fin.",
+        "giphyIds": [],
+        "giphyQuery": "football goal"
+      },
+      "b": {
+        "name": "Rugby",
+        "origin": "Le Sud-Ouest",
+        "line": "Trente joueurs, un ballon ovale, et une troisième mi-temps.",
+        "giphyIds": [],
+        "giphyQuery": "rugby tackle"
+      }
+    },
+    {
+      "id": "sport-psg-om",
+      "category": "sport",
+      "a": {
+        "name": "PSG",
+        "origin": "Paris · 1970",
+        "line": "Des stars, du budget, et beaucoup d’attentes.",
+        "giphyIds": [],
+        "giphyQuery": "Paris Saint-Germain"
+      },
+      "b": {
+        "name": "OM",
+        "origin": "Marseille · 1899",
+        "line": "Le Vélodrome, la ferveur, et 1993 pour toujours.",
+        "giphyIds": [],
+        "giphyQuery": "Olympique de Marseille"
+      }
+    },
+    {
+      "id": "sport-zinedine-zidane-michel-platini",
+      "category": "sport",
+      "a": {
+        "name": "Zinédine Zidane",
+        "origin": "Cannes · 1989",
+        "line": "Une roulette, une volée, une légende.",
+        "giphyIds": [],
+        "giphyQuery": "Zidane"
+      },
+      "b": {
+        "name": "Michel Platini",
+        "origin": "Nancy · 1972",
+        "line": "Trois Ballons d’or d’affilée.",
+        "giphyIds": [],
+        "giphyQuery": "football legend"
+      }
+    },
+    {
+      "id": "sport-michael-jordan-lebron-james",
+      "category": "sport",
+      "a": {
+        "name": "Michael Jordan",
+        "origin": "Chicago · 1984",
+        "line": "Six bagues, et la langue tirée.",
+        "giphyIds": [],
+        "giphyQuery": "Michael Jordan"
+      },
+      "b": {
+        "name": "LeBron James",
+        "origin": "Cleveland · 2003",
+        "line": "Vingt ans au sommet.",
+        "giphyIds": [],
+        "giphyQuery": "LeBron James"
+      }
+    },
+    {
+      "id": "sport-usain-bolt-carl-lewis",
+      "category": "sport",
+      "a": {
+        "name": "Usain Bolt",
+        "origin": "Jamaïque · 2008",
+        "line": "Neuf secondes cinquante-huit, et la pose de l’éclair.",
+        "giphyIds": [],
+        "giphyQuery": "Usain Bolt"
+      },
+      "b": {
+        "name": "Carl Lewis",
+        "origin": "États-Unis · 1984",
+        "line": "Neuf médailles d’or olympiques.",
+        "giphyIds": [],
+        "giphyQuery": "Carl Lewis"
+      }
+    },
+    {
+      "id": "sport-tour-de-france-roland-garros",
+      "category": "sport",
+      "a": {
+        "name": "Tour de France",
+        "origin": "Depuis 1903",
+        "line": "Trois semaines de vélo, et le maillot jaune.",
+        "giphyIds": [],
+        "giphyQuery": "Tour de France"
+      },
+      "b": {
+        "name": "Roland-Garros",
+        "origin": "Paris · 1928",
+        "line": "La terre battue, et des chaussettes orange.",
+        "giphyIds": [],
+        "giphyQuery": "Roland Garros"
+      }
+    },
+    {
+      "id": "sport-jo-d-ete-jo-d-hiver",
+      "category": "sport",
+      "a": {
+        "name": "JO d’été",
+        "origin": "Tous les quatre ans",
+        "line": "Le 100 mètres, la natation, et des centaines d’épreuves.",
+        "giphyIds": [],
+        "giphyQuery": "Olympics summer"
+      },
+      "b": {
+        "name": "JO d’hiver",
+        "origin": "Tous les quatre ans",
+        "line": "Le ski, le curling, et un froid de canard.",
+        "giphyIds": [],
+        "giphyQuery": "winter olympics curling"
+      }
+    },
+    {
+      "id": "sport-ski-snowboard",
+      "category": "sport",
+      "a": {
+        "name": "Ski",
+        "origin": "La station",
+        "line": "Deux planches, deux bâtons, et un tire-fesses.",
+        "giphyIds": [],
+        "giphyQuery": "skiing"
+      },
+      "b": {
+        "name": "Snowboard",
+        "origin": "La station",
+        "line": "Une planche, et assis au milieu de la piste.",
+        "giphyIds": [],
+        "giphyQuery": "snowboarding"
+      }
+    },
+    {
+      "id": "sport-course-a-pied-velo",
+      "category": "sport",
+      "a": {
+        "name": "Course à pied",
+        "origin": "Le parc",
+        "line": "Juste des baskets, et beaucoup de volonté.",
+        "giphyIds": [],
+        "giphyQuery": "running"
+      },
+      "b": {
+        "name": "Vélo",
+        "origin": "La route",
+        "line": "Des mollets, et un cuissard.",
+        "giphyIds": [],
+        "giphyQuery": "cycling"
+      }
+    },
+    {
+      "id": "sport-muhammad-ali-mike-tyson",
+      "category": "sport",
+      "a": {
+        "name": "Muhammad Ali",
+        "origin": "Louisville · 1960",
+        "line": "Vole comme un papillon, pique comme une abeille.",
+        "giphyIds": [],
+        "giphyQuery": "Muhammad Ali"
+      },
+      "b": {
+        "name": "Mike Tyson",
+        "origin": "New York · 1985",
+        "line": "Le plus jeune champion du monde des lourds.",
+        "giphyIds": [],
+        "giphyQuery": "Mike Tyson"
+      }
+    },
+    {
+      "id": "sport-serena-williams-steffi-graf",
+      "category": "sport",
+      "a": {
+        "name": "Serena Williams",
+        "origin": "États-Unis · 1995",
+        "line": "Vingt-trois titres du Grand Chelem.",
+        "giphyIds": [],
+        "giphyQuery": "Serena Williams"
+      },
+      "b": {
+        "name": "Steffi Graf",
+        "origin": "Allemagne · 1982",
+        "line": "Le Grand Chelem doré, en 1988.",
+        "giphyIds": [],
+        "giphyQuery": "tennis champion"
+      }
+    },
+    {
+      "id": "sport-petanque-molkky",
+      "category": "sport",
+      "a": {
+        "name": "Pétanque",
+        "origin": "La Ciotat · 1907",
+        "line": "Tu tires ou tu pointes ?",
+        "giphyIds": [],
+        "giphyQuery": "petanque"
+      },
+      "b": {
+        "name": "Mölkky",
+        "origin": "Finlande · 1996",
+        "line": "Des quilles en bois, et du calcul mental jusqu’à cinquante.",
+        "giphyIds": [],
+        "giphyQuery": "molkky"
+      }
+    },
+    {
+      "id": "sport-france-98-france-2018",
+      "category": "sport",
+      "a": {
+        "name": "France 98",
+        "origin": "Le Stade de France",
+        "line": "Deux têtes de Zidane, et les Champs-Élysées.",
+        "giphyIds": [],
+        "giphyQuery": "France 1998 world cup"
+      },
+      "b": {
+        "name": "France 2018",
+        "origin": "Moscou",
+        "line": "Une deuxième étoile sur le maillot.",
+        "giphyIds": [],
+        "giphyQuery": "France 2018 world cup"
+      }
+    },
+    {
+      "id": "sport-kylian-mbappe-antoine-griezmann",
+      "category": "sport",
+      "a": {
+        "name": "Kylian Mbappé",
+        "origin": "Bondy · 2015",
+        "line": "Plus rapide que la défense adverse.",
+        "giphyIds": [],
+        "giphyQuery": "Mbappe"
+      },
+      "b": {
+        "name": "Antoine Griezmann",
+        "origin": "Mâcon · 2009",
+        "line": "Des célébrations dansées, et des passes décisives.",
+        "giphyIds": [],
+        "giphyQuery": "Griezmann"
+      }
+    },
+    {
+      "id": "sport-basket-handball",
+      "category": "sport",
+      "a": {
+        "name": "Basket",
+        "origin": "Le playground",
+        "line": "Des dunks, et des paniers à trois points.",
+        "giphyIds": [],
+        "giphyQuery": "basketball dunk"
+      },
+      "b": {
+        "name": "Handball",
+        "origin": "Le gymnase",
+        "line": "Des parades, et des Bleus qui gagnent tout.",
+        "giphyIds": [],
+        "giphyQuery": "handball"
+      }
+    },
+    {
+      "id": "sport-ayrton-senna-alain-prost",
+      "category": "sport",
+      "a": {
+        "name": "Ayrton Senna",
+        "origin": "Brésil · 1984",
+        "line": "La pluie de Monaco, et une vitesse folle.",
+        "giphyIds": [],
+        "giphyQuery": "Ayrton Senna"
+      },
+      "b": {
+        "name": "Alain Prost",
+        "origin": "France · 1980",
+        "line": "Le Professeur, quatre titres mondiaux.",
+        "giphyIds": [],
+        "giphyQuery": "Formula 1 vintage"
+      }
+    },
+    {
+      "id": "sport-lewis-hamilton-michael-schumacher",
+      "category": "sport",
+      "a": {
+        "name": "Lewis Hamilton",
+        "origin": "Royaume-Uni · 2007",
+        "line": "Sept titres mondiaux, et beaucoup de style.",
+        "giphyIds": [],
+        "giphyQuery": "Lewis Hamilton"
+      },
+      "b": {
+        "name": "Michael Schumacher",
+        "origin": "Allemagne · 1991",
+        "line": "Sept titres, et une Ferrari rouge.",
+        "giphyIds": [],
+        "giphyQuery": "Michael Schumacher Ferrari"
+      }
+    },
+    {
+      "id": "sport-tony-parker-victor-wembanyama",
+      "category": "sport",
+      "a": {
+        "name": "Tony Parker",
+        "origin": "San Antonio · 2001",
+        "line": "Quatre bagues avec les Spurs.",
+        "giphyIds": [],
+        "giphyQuery": "Tony Parker"
+      },
+      "b": {
+        "name": "Victor Wembanyama",
+        "origin": "San Antonio · 2023",
+        "line": "Plus de deux mètres vingt, et des bras sans fin.",
+        "giphyIds": [],
+        "giphyQuery": "Wembanyama"
+      }
+    },
+    {
+      "id": "sport-teddy-riner-laure-manaudou",
+      "category": "sport",
+      "a": {
+        "name": "Teddy Riner",
+        "origin": "Judo · 2007",
+        "line": "Le géant du judo, et des titres à la pelle.",
+        "giphyIds": [],
+        "giphyQuery": "Teddy Riner"
+      },
+      "b": {
+        "name": "Laure Manaudou",
+        "origin": "Natation · 2004",
+        "line": "Championne olympique à dix-sept ans.",
+        "giphyIds": [],
+        "giphyQuery": "swimming champion"
+      }
+    },
+    {
+      "id": "sport-leon-marchand-florent-manaudou",
+      "category": "sport",
+      "a": {
+        "name": "Léon Marchand",
+        "origin": "Toulouse · 2024",
+        "line": "Quatre médailles d’or à Paris, en une semaine.",
+        "giphyIds": [],
+        "giphyQuery": "Leon Marchand"
+      },
+      "b": {
+        "name": "Florent Manaudou",
+        "origin": "Natation · 2012",
+        "line": "Champion olympique du 50 mètres.",
+        "giphyIds": [],
+        "giphyQuery": "swimming race"
+      }
+    },
+    {
+      "id": "sport-au-stade-devant-la-tele",
+      "category": "sport",
+      "a": {
+        "name": "Au stade",
+        "origin": "Les tribunes",
+        "line": "Les chants, les écharpes, et la pluie.",
+        "giphyIds": [],
+        "giphyQuery": "stadium crowd"
+      },
+      "b": {
+        "name": "Devant la télé",
+        "origin": "Le canapé",
+        "line": "Le replay, les ralentis, et le chauffage.",
+        "giphyIds": [],
+        "giphyQuery": "watching sports tv"
+      }
+    },
+    {
+      "id": "sport-yoga-crossfit",
+      "category": "sport",
+      "a": {
+        "name": "Yoga",
+        "origin": "Le tapis",
+        "line": "Respirer, s’étirer, et chercher son chakra.",
+        "giphyIds": [],
+        "giphyQuery": "yoga"
+      },
+      "b": {
+        "name": "CrossFit",
+        "origin": "La box",
+        "line": "Soulever, sauter, et en parler à tout le monde.",
+        "giphyIds": [],
+        "giphyQuery": "crossfit"
+      }
+    },
+    {
+      "id": "sport-salle-de-sport-sport-dehors",
+      "category": "sport",
+      "a": {
+        "name": "Salle de sport",
+        "origin": "L’abonnement",
+        "line": "Des machines, des miroirs, et la musique trop fort.",
+        "giphyIds": [],
+        "giphyQuery": "gym workout"
+      },
+      "b": {
+        "name": "Sport dehors",
+        "origin": "Le grand air",
+        "line": "Le soleil, la pluie, et pas d’abonnement.",
+        "giphyIds": [],
+        "giphyQuery": "outdoor workout"
+      }
+    },
+    {
+      "id": "sport-golf-tennis",
+      "category": "sport",
+      "a": {
+        "name": "Golf",
+        "origin": "Le green",
+        "line": "Quatre heures de marche, pour une toute petite balle.",
+        "giphyIds": [],
+        "giphyQuery": "golf swing"
+      },
+      "b": {
+        "name": "Tennis",
+        "origin": "Le court",
+        "line": "Deux joueurs, un filet, et des cris.",
+        "giphyIds": [],
+        "giphyQuery": "tennis"
+      }
+    },
+    {
+      "id": "sport-footing-du-dimanche-grasse-matinee",
+      "category": "sport",
+      "a": {
+        "name": "Footing du dimanche",
+        "origin": "9 heures du matin",
+        "line": "Dix kilomètres, et l’impression d’être un héros.",
+        "giphyIds": [],
+        "giphyQuery": "morning run"
+      },
+      "b": {
+        "name": "Grasse matinée",
+        "origin": "9 heures du matin",
+        "line": "Dix heures de sommeil, et l’impression d’être un héros aussi.",
+        "giphyIds": [],
+        "giphyQuery": "sleeping in"
+      }
+    },
+    {
+      "id": "sport-thierry-henry-david-trezeguet",
+      "category": "sport",
+      "a": {
+        "name": "Thierry Henry",
+        "origin": "Arsenal · 1999",
+        "line": "Le roi d’Highbury.",
+        "giphyIds": [],
+        "giphyQuery": "Thierry Henry"
+      },
+      "b": {
+        "name": "David Trezeguet",
+        "origin": "Juventus · 2000",
+        "line": "Le but en or de l’Euro 2000.",
+        "giphyIds": [],
+        "giphyQuery": "golden goal"
+      }
+    },
+    {
+      "id": "sport-fabien-barthez-hugo-lloris",
+      "category": "sport",
+      "a": {
+        "name": "Fabien Barthez",
+        "origin": "Équipe de France · 1994",
+        "line": "Un crâne embrassé avant chaque match.",
+        "giphyIds": [],
+        "giphyQuery": "goalkeeper save"
+      },
+      "b": {
+        "name": "Hugo Lloris",
+        "origin": "Équipe de France · 2008",
+        "line": "Capitaine, et une Coupe du monde soulevée.",
+        "giphyIds": [],
+        "giphyQuery": "goalkeeper trophy"
+      }
+    },
+    {
+      "id": "sport-coupe-du-monde-ligue-des-champions",
+      "category": "sport",
+      "a": {
+        "name": "Coupe du monde",
+        "origin": "Tous les quatre ans",
+        "line": "Tout le pays devant la télé.",
+        "giphyIds": [],
+        "giphyQuery": "World Cup trophy"
+      },
+      "b": {
+        "name": "Ligue des champions",
+        "origin": "Le mardi soir",
+        "line": "L’hymne, les étoiles, et les grandes soirées.",
+        "giphyIds": [],
+        "giphyQuery": "Champions League"
+      }
+    },
+    {
+      "id": "sport-arbitrage-video-arbitre-seul",
+      "category": "sport",
+      "a": {
+        "name": "Arbitrage vidéo",
+        "origin": "La VAR",
+        "line": "La justice, après quatre minutes d’attente.",
+        "giphyIds": [],
+        "giphyQuery": "VAR referee"
+      },
+      "b": {
+        "name": "Arbitre seul",
+        "origin": "Le terrain",
+        "line": "Une décision immédiate, et des polémiques éternelles.",
+        "giphyIds": [],
+        "giphyQuery": "referee whistle"
+      }
+    },
+    {
+      "id": "sport-pele-diego-maradona",
+      "category": "sport",
+      "a": {
+        "name": "Pelé",
+        "origin": "Brésil · 1956",
+        "line": "Trois Coupes du monde.",
+        "giphyIds": [],
+        "giphyQuery": "Pele"
+      },
+      "b": {
+        "name": "Diego Maradona",
+        "origin": "Argentine · 1976",
+        "line": "La main de Dieu, puis le but du siècle.",
+        "giphyIds": [],
+        "giphyQuery": "Maradona"
+      }
+    },
+    {
+      "id": "sport-valentino-rossi-marc-marquez",
+      "category": "sport",
+      "a": {
+        "name": "Valentino Rossi",
+        "origin": "Italie · 1996",
+        "line": "Le Docteur, neuf titres mondiaux.",
+        "giphyIds": [],
+        "giphyQuery": "Valentino Rossi"
+      },
+      "b": {
+        "name": "Marc Márquez",
+        "origin": "Espagne · 2008",
+        "line": "Le genou par terre, et le coude aussi.",
+        "giphyIds": [],
+        "giphyQuery": "Marc Marquez"
+      }
+    },
+    {
+      "id": "sport-sebastien-loeb-sebastien-ogier",
+      "category": "sport",
+      "a": {
+        "name": "Sébastien Loeb",
+        "origin": "France · 2002",
+        "line": "Neuf titres de champion du monde des rallyes.",
+        "giphyIds": [],
+        "giphyQuery": "Sebastien Loeb"
+      },
+      "b": {
+        "name": "Sébastien Ogier",
+        "origin": "France · 2008",
+        "line": "L’autre Sébastien, tout aussi titré.",
+        "giphyIds": [],
+        "giphyQuery": "rally car"
+      }
+    },
+    {
+      "id": "sport-ceremonie-d-ouverture-ceremonie-de-cloture",
+      "category": "sport",
+      "a": {
+        "name": "Cérémonie d’ouverture",
+        "origin": "Paris · 2024",
+        "line": "La Seine, la pluie, et Céline Dion sur la tour Eiffel.",
+        "giphyIds": [],
+        "giphyQuery": "Paris 2024 opening ceremony"
+      },
+      "b": {
+        "name": "Cérémonie de clôture",
+        "origin": "Paris · 2024",
+        "line": "Tom Cruise, une moto, et le drapeau pour Los Angeles.",
+        "giphyIds": [],
+        "giphyQuery": "Tom Cruise"
+      }
+    },
+    {
+      "id": "sport-sport-d-equipe-sport-individuel",
+      "category": "sport",
+      "a": {
+        "name": "Sport d’équipe",
+        "origin": "Le vestiaire",
+        "line": "On gagne ensemble, on perd ensemble.",
+        "giphyIds": [],
+        "giphyQuery": "team celebration"
+      },
+      "b": {
+        "name": "Sport individuel",
+        "origin": "Toi contre toi",
+        "line": "Toute la gloire, et toute la pression.",
+        "giphyIds": [],
+        "giphyQuery": "solo athlete"
+      }
+    },
+    {
+      "id": "sport-flechettes-billard",
+      "category": "sport",
+      "a": {
+        "name": "Fléchettes",
+        "origin": "Le pub",
+        "line": "Viser le triple 20, toucher le mur.",
+        "giphyIds": [],
+        "giphyQuery": "darts"
+      },
+      "b": {
+        "name": "Billard",
+        "origin": "Le bar",
+        "line": "De la craie, des angles, et un peu de frime.",
+        "giphyIds": [],
+        "giphyQuery": "billiards"
+      }
+    },
+    {
+      "id": "sport-baby-foot-ping-pong",
+      "category": "sport",
+      "a": {
+        "name": "Baby-foot",
+        "origin": "Le café",
+        "line": "Interdit de faire tourner les barres.",
+        "giphyIds": [],
+        "giphyQuery": "foosball"
+      },
+      "b": {
+        "name": "Ping-pong",
+        "origin": "Le garage",
+        "line": "Une raquette, une balle, et la table pliante.",
+        "giphyIds": [],
+        "giphyQuery": "ping pong"
+      }
+    },
+    {
+      "id": "sport-les-bleus-le-xv-de-france",
+      "category": "sport",
+      "a": {
+        "name": "Les Bleus",
+        "origin": "Le foot",
+        "line": "Deux étoiles sur le maillot.",
+        "giphyIds": [],
+        "giphyQuery": "France football team"
+      },
+      "b": {
+        "name": "Le XV de France",
+        "origin": "Le rugby",
+        "line": "Le coq, la Marseillaise, et le Tournoi des Six Nations.",
+        "giphyIds": [],
+        "giphyQuery": "France rugby"
+      }
+    },
+    {
+      "id": "sport-antoine-dupont-sebastien-chabal",
+      "category": "sport",
+      "a": {
+        "name": "Antoine Dupont",
+        "origin": "Toulouse · 2014",
+        "line": "Le meilleur joueur du monde, à quinze et à sept.",
+        "giphyIds": [],
+        "giphyQuery": "Antoine Dupont"
+      },
+      "b": {
+        "name": "Sébastien Chabal",
+        "origin": "France · 1998",
+        "line": "La barbe, les cheveux, et les plaquages.",
+        "giphyIds": [],
+        "giphyQuery": "rugby player beard"
+      }
+    },
+    {
+      "id": "sport-echecs-poker",
+      "category": "sport",
+      "a": {
+        "name": "Échecs",
+        "origin": "L’échiquier",
+        "line": "Soixante-quatre cases et des heures de réflexion.",
+        "giphyIds": [],
+        "giphyQuery": "chess"
+      },
+      "b": {
+        "name": "Poker",
+        "origin": "La table verte",
+        "line": "Des cartes, des jetons, et une tête impassible.",
+        "giphyIds": [],
+        "giphyQuery": "poker face"
+      }
+    },
+    {
+      "id": "sport-magnus-carlsen-garry-kasparov",
+      "category": "sport",
+      "a": {
+        "name": "Magnus Carlsen",
+        "origin": "Norvège · 2004",
+        "line": "Champion du monde, et numéro un depuis une éternité.",
+        "giphyIds": [],
+        "giphyQuery": "Magnus Carlsen"
+      },
+      "b": {
+        "name": "Garry Kasparov",
+        "origin": "Russie · 1985",
+        "line": "Le champion qui a affronté Deep Blue.",
+        "giphyIds": [],
+        "giphyQuery": "chess grandmaster"
+      }
+    },
+    {
+      "id": "sport-escalade-randonnee",
+      "category": "sport",
+      "a": {
+        "name": "Escalade",
+        "origin": "La falaise",
+        "line": "Les doigts dans la magnésie, la tête dans le vide.",
+        "giphyIds": [],
+        "giphyQuery": "rock climbing"
+      },
+      "b": {
+        "name": "Randonnée",
+        "origin": "Le sentier",
+        "line": "Un sac, des chaussures, et un sandwich au sommet.",
+        "giphyIds": [],
+        "giphyQuery": "hiking"
+      }
+    },
+    {
+      "id": "sport-marathon-semi-marathon",
+      "category": "sport",
+      "a": {
+        "name": "Marathon",
+        "origin": "42,195 km",
+        "line": "Des ampoules, et une médaille.",
+        "giphyIds": [],
+        "giphyQuery": "marathon finish"
+      },
+      "b": {
+        "name": "Semi-marathon",
+        "origin": "21,1 km",
+        "line": "La moitié de la souffrance.",
+        "giphyIds": [],
+        "giphyQuery": "running race"
+      }
+    },
+    {
+      "id": "sport-le-sport-a-la-tele-le-sport-en-vrai",
+      "category": "sport",
+      "a": {
+        "name": "Le sport à la télé",
+        "origin": "Le canapé",
+        "line": "Expert en tactique, sans se lever.",
+        "giphyIds": [],
+        "giphyQuery": "armchair coach"
+      },
+      "b": {
+        "name": "Le sport en vrai",
+        "origin": "Le terrain",
+        "line": "Moins d’opinions, plus de courbatures.",
+        "giphyIds": [],
+        "giphyQuery": "sore muscles"
+      }
+    },
+    {
+      "id": "sport-boxe-judo",
+      "category": "sport",
+      "a": {
+        "name": "Boxe",
+        "origin": "Le ring",
+        "line": "Des gants, des rounds, et un protège-dents.",
+        "giphyIds": [],
+        "giphyQuery": "boxing"
+      },
+      "b": {
+        "name": "Judo",
+        "origin": "Le tatami",
+        "line": "Un kimono, une ceinture, et des chutes maîtrisées.",
+        "giphyIds": [],
+        "giphyQuery": "judo"
+      }
+    },
+    {
+      "id": "sport-le-peloton-du-tour-le-velo-du-dimanche",
+      "category": "sport",
+      "a": {
+        "name": "Le peloton du Tour",
+        "origin": "Le Tour de France",
+        "line": "Deux cents kilomètres par jour, à quarante à l’heure.",
+        "giphyIds": [],
+        "giphyQuery": "peloton"
+      },
+      "b": {
+        "name": "Le vélo du dimanche",
+        "origin": "La campagne",
+        "line": "Vingt kilomètres, et une pause à la boulangerie.",
+        "giphyIds": [],
+        "giphyQuery": "sunday bike ride"
+      }
+    },
+    {
+      "id": "sport-gardien-de-but-attaquant",
+      "category": "sport",
+      "a": {
+        "name": "Gardien de but",
+        "origin": "La cage",
+        "line": "Tout le monde t’oublie, sauf quand tu rates.",
+        "giphyIds": [],
+        "giphyQuery": "goalkeeper"
+      },
+      "b": {
+        "name": "Attaquant",
+        "origin": "La surface",
+        "line": "Tout le monde t’aime, surtout quand tu marques.",
+        "giphyIds": [],
+        "giphyQuery": "striker goal celebration"
+      }
+    },
+    {
+      "id": "sport-harlem-globetrotters-washington-generals",
+      "category": "sport",
+      "a": {
+        "name": "Harlem Globetrotters",
+        "origin": "États-Unis · 1926",
+        "line": "Du basket, et des tours de magie avec le ballon.",
+        "giphyIds": [],
+        "giphyQuery": "Harlem Globetrotters"
+      },
+      "b": {
+        "name": "Washington Generals",
+        "origin": "États-Unis · 1952",
+        "line": "L’équipe qui perd tous ses matchs depuis des décennies.",
+        "giphyIds": [],
+        "giphyQuery": "losing team"
+      }
+    },
+    {
+      "id": "sport-la-ola-le-clapping-viking",
+      "category": "sport",
+      "a": {
+        "name": "La ola",
+        "origin": "Le stade",
+        "line": "Tout le stade se lève, puis se rassoit.",
+        "giphyIds": [],
+        "giphyQuery": "stadium wave"
+      },
+      "b": {
+        "name": "Le clapping viking",
+        "origin": "L’Islande · 2016",
+        "line": "Un « hou ! », un clap, et l’Euro 2016.",
+        "giphyIds": [],
+        "giphyQuery": "Iceland thunderclap"
+      }
+    },
+    {
+      "id": "mode-barbe-rase-de-pres",
+      "category": "mode",
+      "a": {
+        "name": "Barbe",
+        "origin": "Le visage",
+        "line": "Trois semaines de patience et un peigne.",
+        "giphyIds": [],
+        "giphyQuery": "beard"
+      },
+      "b": {
+        "name": "Rasé de près",
+        "origin": "La salle de bains",
+        "line": "Lisse, net, et sans miettes de pain.",
+        "giphyIds": [],
+        "giphyQuery": "shaving"
+      }
+    },
+    {
+      "id": "mode-crocs-birkenstock",
+      "category": "mode",
+      "a": {
+        "name": "Crocs",
+        "origin": "Colorado · 2002",
+        "line": "Moches, confortables, et parfaitement assumées.",
+        "giphyIds": [],
+        "giphyQuery": "Crocs shoes"
+      },
+      "b": {
+        "name": "Birkenstock",
+        "origin": "Allemagne · 1774",
+        "line": "Des sandales orthopédiques, devenues cool.",
+        "giphyIds": [],
+        "giphyQuery": "Birkenstock"
+      }
+    },
+    {
+      "id": "mode-jogging-jean",
+      "category": "mode",
+      "a": {
+        "name": "Jogging",
+        "origin": "Le canapé",
+        "line": "Confortable, élastique, et sans jugement.",
+        "giphyIds": [],
+        "giphyQuery": "sweatpants"
+      },
+      "b": {
+        "name": "Jean",
+        "origin": "La garde-robe",
+        "line": "Il va avec tout, sauf avec un deuxième jean.",
+        "giphyIds": [],
+        "giphyQuery": "denim jeans"
+      }
+    },
+    {
+      "id": "mode-pour-contre",
+      "category": "mode",
+      "question": "Les chaussettes dans les sandales : pour ou contre ?",
+      "a": {
+        "name": "Pour",
+        "origin": "Les audacieux",
+        "line": "Des chaussettes, et des sandales. Le confort avant tout.",
+        "giphyIds": [],
+        "giphyQuery": "socks and sandals"
+      },
+      "b": {
+        "name": "Contre",
+        "origin": "Les gardiens du style",
+        "line": "Il y a des règles. Celle-ci en est une.",
+        "giphyIds": [],
+        "giphyQuery": "fashion police"
+      }
+    },
+    {
+      "id": "mode-cheveux-longs-cheveux-courts",
+      "category": "mode",
+      "a": {
+        "name": "Cheveux longs",
+        "origin": "La crinière",
+        "line": "Libres, au vent, et dans la soupe.",
+        "giphyIds": [],
+        "giphyQuery": "long hair flip"
+      },
+      "b": {
+        "name": "Cheveux courts",
+        "origin": "Le coiffeur",
+        "line": "Trois minutes de séchage, et c’est réglé.",
+        "giphyIds": [],
+        "giphyQuery": "short haircut"
+      }
+    },
+    {
+      "id": "mode-lunettes-lentilles",
+      "category": "mode",
+      "a": {
+        "name": "Lunettes",
+        "origin": "Le nez",
+        "line": "On voit bien, sauf quand il pleut.",
+        "giphyIds": [],
+        "giphyQuery": "glasses"
+      },
+      "b": {
+        "name": "Lentilles",
+        "origin": "Les yeux",
+        "line": "On voit bien, et on les cherche sur le lavabo.",
+        "giphyIds": [],
+        "giphyQuery": "contact lenses"
+      }
+    },
+    {
+      "id": "mode-baskets-chaussures-de-ville",
+      "category": "mode",
+      "a": {
+        "name": "Baskets",
+        "origin": "Les pieds",
+        "line": "Confort absolu, pour toutes les occasions.",
+        "giphyIds": [],
+        "giphyQuery": "sneakers"
+      },
+      "b": {
+        "name": "Chaussures de ville",
+        "origin": "Les pieds, le lundi",
+        "line": "Élégantes, et des ampoules en prime.",
+        "giphyIds": [],
+        "giphyQuery": "dress shoes"
+      }
+    },
+    {
+      "id": "mode-costume-tenue-decontractee",
+      "category": "mode",
+      "a": {
+        "name": "Costume",
+        "origin": "Le bureau",
+        "line": "Sérieux, cravaté, et un peu serré.",
+        "giphyIds": [],
+        "giphyQuery": "business suit"
+      },
+      "b": {
+        "name": "Tenue décontractée",
+        "origin": "Le bureau aussi",
+        "line": "Un sweat, et des idées.",
+        "giphyIds": [],
+        "giphyQuery": "casual friday"
+      }
+    },
+    {
+      "id": "mode-pyjama-t-shirt-xxl",
+      "category": "mode",
+      "question": "Pour dormir : pyjama ou vieux t-shirt ?",
+      "a": {
+        "name": "Pyjama",
+        "origin": "La chambre",
+        "line": "Un vrai pyjama, assorti, et repassé.",
+        "giphyIds": [],
+        "giphyQuery": "pajamas"
+      },
+      "b": {
+        "name": "T-shirt XXL",
+        "origin": "La chambre",
+        "line": "Un vieux t-shirt de concert, trois tailles trop grand.",
+        "giphyIds": [],
+        "giphyQuery": "oversized t-shirt"
+      }
+    },
+    {
+      "id": "mode-moustache-bouc",
+      "category": "mode",
+      "a": {
+        "name": "Moustache",
+        "origin": "La lèvre du haut",
+        "line": "Un accessoire, et un caractère.",
+        "giphyIds": [],
+        "giphyQuery": "mustache"
+      },
+      "b": {
+        "name": "Bouc",
+        "origin": "Le menton",
+        "line": "Une petite touche, juste en bas.",
+        "giphyIds": [],
+        "giphyQuery": "goatee"
+      }
+    },
+    {
+      "id": "mode-tatouage-peau-nature",
+      "category": "mode",
+      "a": {
+        "name": "Tatouage",
+        "origin": "La peau",
+        "line": "Une histoire gravée pour toujours.",
+        "giphyIds": [],
+        "giphyQuery": "tattoo"
+      },
+      "b": {
+        "name": "Peau nature",
+        "origin": "La peau aussi",
+        "line": "Une toile vierge, et aucun regret.",
+        "giphyIds": [],
+        "giphyQuery": "clean skin"
+      }
+    },
+    {
+      "id": "mode-bonnet-casquette",
+      "category": "mode",
+      "a": {
+        "name": "Bonnet",
+        "origin": "La tête, en hiver",
+        "line": "Chaud, mais adieu le brushing.",
+        "giphyIds": [],
+        "giphyQuery": "beanie"
+      },
+      "b": {
+        "name": "Casquette",
+        "origin": "La tête, en été",
+        "line": "Protège du soleil, et des mauvais jours de cheveux.",
+        "giphyIds": [],
+        "giphyQuery": "cap"
+      }
+    },
+    {
+      "id": "mode-echarpe-col-roule",
+      "category": "mode",
+      "a": {
+        "name": "Écharpe",
+        "origin": "Le cou",
+        "line": "Trois tours, et on ne voit plus le menton.",
+        "giphyIds": [],
+        "giphyQuery": "scarf"
+      },
+      "b": {
+        "name": "Col roulé",
+        "origin": "Le cou aussi",
+        "line": "L’écharpe intégrée, version philosophe.",
+        "giphyIds": [],
+        "giphyQuery": "turtleneck"
+      }
+    },
+    {
+      "id": "mode-sac-a-dos-sac-en-bandouliere",
+      "category": "mode",
+      "a": {
+        "name": "Sac à dos",
+        "origin": "Le dos",
+        "line": "Les deux bretelles, la posture parfaite.",
+        "giphyIds": [],
+        "giphyQuery": "backpack"
+      },
+      "b": {
+        "name": "Sac en bandoulière",
+        "origin": "L’épaule",
+        "line": "Une seule bretelle, et le style.",
+        "giphyIds": [],
+        "giphyQuery": "crossbody bag"
+      }
+    },
+    {
+      "id": "mode-montre-telephone",
+      "category": "mode",
+      "question": "Pour savoir l’heure : montre ou téléphone ?",
+      "a": {
+        "name": "Montre",
+        "origin": "Le poignet",
+        "line": "Pour savoir l’heure, et pour le style.",
+        "giphyIds": [],
+        "giphyQuery": "wristwatch"
+      },
+      "b": {
+        "name": "Téléphone",
+        "origin": "La poche",
+        "line": "Pour savoir l’heure, et regarder ses messages au passage.",
+        "giphyIds": [],
+        "giphyQuery": "checking phone time"
+      }
+    },
+    {
+      "id": "mode-talons-baskets-plates",
+      "category": "mode",
+      "a": {
+        "name": "Talons",
+        "origin": "Les grandes occasions",
+        "line": "Dix centimètres de plus, et de la prestance.",
+        "giphyIds": [],
+        "giphyQuery": "high heels"
+      },
+      "b": {
+        "name": "Baskets plates",
+        "origin": "Toutes les occasions",
+        "line": "Dix centimètres de moins, et dix kilomètres de plus.",
+        "giphyIds": [],
+        "giphyQuery": "flat sneakers"
+      }
+    },
+    {
+      "id": "mode-cravate-n-ud-papillon",
+      "category": "mode",
+      "a": {
+        "name": "Cravate",
+        "origin": "Le col",
+        "line": "Un nœud classique, et le sérieux.",
+        "giphyIds": [],
+        "giphyQuery": "necktie"
+      },
+      "b": {
+        "name": "Nœud papillon",
+        "origin": "Le col aussi",
+        "line": "Un nœud plus court, et plus de fantaisie.",
+        "giphyIds": [],
+        "giphyQuery": "bow tie"
+      }
+    },
+    {
+      "id": "mode-chemise-rentree-chemise-sortie",
+      "category": "mode",
+      "a": {
+        "name": "Chemise rentrée",
+        "origin": "La ceinture",
+        "line": "Net, propre, réglementaire.",
+        "giphyIds": [],
+        "giphyQuery": "tucked shirt"
+      },
+      "b": {
+        "name": "Chemise sortie",
+        "origin": "La liberté",
+        "line": "Décontracté, et ça cache le dessert.",
+        "giphyIds": [],
+        "giphyQuery": "untucked shirt"
+      }
+    },
+    {
+      "id": "mode-mulet-coupe-au-bol",
+      "category": "mode",
+      "a": {
+        "name": "Mulet",
+        "origin": "Les années 80",
+        "line": "Court devant, long derrière. Business devant, fête derrière.",
+        "giphyIds": [],
+        "giphyQuery": "mullet"
+      },
+      "b": {
+        "name": "Coupe au bol",
+        "origin": "Les années 90",
+        "line": "Un bol, une paire de ciseaux, et le tour est joué.",
+        "giphyIds": [],
+        "giphyQuery": "bowl cut"
+      }
+    },
+    {
+      "id": "mode-doudoune-parka",
+      "category": "mode",
+      "a": {
+        "name": "Doudoune",
+        "origin": "L’hiver",
+        "line": "Gonflée, chaude, et un bruit de froissement.",
+        "giphyIds": [],
+        "giphyQuery": "puffer jacket"
+      },
+      "b": {
+        "name": "Parka",
+        "origin": "L’hiver aussi",
+        "line": "Une capuche en fausse fourrure, et l’air de partir en expédition.",
+        "giphyIds": [],
+        "giphyQuery": "parka"
+      }
+    },
+    {
+      "id": "mode-pull-de-noel-moche-pull-elegant",
+      "category": "mode",
+      "a": {
+        "name": "Pull de Noël moche",
+        "origin": "Décembre",
+        "line": "Un renne qui clignote, et beaucoup d’autodérision.",
+        "giphyIds": [],
+        "giphyQuery": "ugly christmas sweater"
+      },
+      "b": {
+        "name": "Pull élégant",
+        "origin": "Décembre aussi",
+        "line": "Du cachemire, et aucune lumière.",
+        "giphyIds": [],
+        "giphyQuery": "cashmere sweater"
+      }
+    },
+    {
+      "id": "mode-lunettes-rondes-lunettes-aviateur",
+      "category": "mode",
+      "a": {
+        "name": "Lunettes rondes",
+        "origin": "Le nez",
+        "line": "L’air intellectuel, et un peu sorcier.",
+        "giphyIds": [],
+        "giphyQuery": "round glasses"
+      },
+      "b": {
+        "name": "Lunettes aviateur",
+        "origin": "Le nez aussi",
+        "line": "L’air de pilote, même dans le métro.",
+        "giphyIds": [],
+        "giphyQuery": "aviator sunglasses"
+      }
+    },
+    {
+      "id": "mode-couleurs-vives-noir-integral",
+      "category": "mode",
+      "a": {
+        "name": "Couleurs vives",
+        "origin": "La garde-robe",
+        "line": "Du jaune, du rose, et de la bonne humeur.",
+        "giphyIds": [],
+        "giphyQuery": "colorful outfit"
+      },
+      "b": {
+        "name": "Noir intégral",
+        "origin": "La garde-robe aussi",
+        "line": "Élégant, discret, et facile à assortir.",
+        "giphyIds": [],
+        "giphyQuery": "all black outfit"
+      }
+    },
+    {
+      "id": "mode-imprime-leopard-mariniere",
+      "category": "mode",
+      "a": {
+        "name": "Imprimé léopard",
+        "origin": "Le dressing",
+        "line": "Rugissant, et jamais discret.",
+        "giphyIds": [],
+        "giphyQuery": "leopard print"
+      },
+      "b": {
+        "name": "Marinière",
+        "origin": "La Bretagne",
+        "line": "Des rayures, et un air de vacances.",
+        "giphyIds": [],
+        "giphyQuery": "breton stripes"
+      }
+    },
+    {
+      "id": "mode-friperie-neuf",
+      "category": "mode",
+      "a": {
+        "name": "Friperie",
+        "origin": "Le vide-dressing",
+        "line": "Une pièce unique, et une histoire.",
+        "giphyIds": [],
+        "giphyQuery": "thrift shopping"
+      },
+      "b": {
+        "name": "Neuf",
+        "origin": "Le magasin",
+        "line": "Une étiquette, et l’odeur du neuf.",
+        "giphyIds": [],
+        "giphyQuery": "new clothes"
+      }
+    },
+    {
+      "id": "mode-uniforme-tenue-libre",
+      "category": "mode",
+      "a": {
+        "name": "Uniforme",
+        "origin": "L’école",
+        "line": "Tout le monde pareil, aucun débat le matin.",
+        "giphyIds": [],
+        "giphyQuery": "school uniform"
+      },
+      "b": {
+        "name": "Tenue libre",
+        "origin": "L’école aussi",
+        "line": "Chacun son style, et des débats tous les matins.",
+        "giphyIds": [],
+        "giphyQuery": "kids outfit"
+      }
+    },
+    {
+      "id": "mode-kilt-pantalon",
+      "category": "mode",
+      "a": {
+        "name": "Kilt",
+        "origin": "L’Écosse",
+        "line": "Du tartan, et une bonne aération.",
+        "giphyIds": [],
+        "giphyQuery": "kilt"
+      },
+      "b": {
+        "name": "Pantalon",
+        "origin": "Partout",
+        "line": "Deux jambes, et aucune question.",
+        "giphyIds": [],
+        "giphyQuery": "trousers"
+      }
+    },
+    {
+      "id": "mode-beret-chapeau-de-paille",
+      "category": "mode",
+      "a": {
+        "name": "Béret",
+        "origin": "Le Pays basque",
+        "line": "La touche française, version cliché.",
+        "giphyIds": [],
+        "giphyQuery": "beret"
+      },
+      "b": {
+        "name": "Chapeau de paille",
+        "origin": "La plage",
+        "line": "L’été, le soleil, et l’ombre portative.",
+        "giphyIds": [],
+        "giphyQuery": "straw hat"
+      }
+    },
+    {
+      "id": "mode-bretelles-ceinture",
+      "category": "mode",
+      "a": {
+        "name": "Bretelles",
+        "origin": "Les épaules",
+        "line": "Un pantalon qui tient, et du style.",
+        "giphyIds": [],
+        "giphyQuery": "suspenders"
+      },
+      "b": {
+        "name": "Ceinture",
+        "origin": "La taille",
+        "line": "Le grand classique, et des trous à rajouter.",
+        "giphyIds": [],
+        "giphyQuery": "belt"
+      }
+    },
+    {
+      "id": "mode-brushing-coiffe-decoiffe",
+      "category": "mode",
+      "a": {
+        "name": "Brushing",
+        "origin": "Le salon de coiffure",
+        "line": "Parfait, lisse, et interdit de pleuvoir.",
+        "giphyIds": [],
+        "giphyQuery": "blowout hair"
+      },
+      "b": {
+        "name": "Coiffé-décoiffé",
+        "origin": "Le réveil",
+        "line": "Naturel, et parfois vraiment décoiffé.",
+        "giphyIds": [],
+        "giphyQuery": "messy hair"
+      }
+    },
+    {
+      "id": "mode-cheveux-gris-assumes-coloration",
+      "category": "mode",
+      "a": {
+        "name": "Cheveux gris assumés",
+        "origin": "Le temps qui passe",
+        "line": "Le sel, sans le poivre, et avec fierté.",
+        "giphyIds": [],
+        "giphyQuery": "gray hair"
+      },
+      "b": {
+        "name": "Coloration",
+        "origin": "Le salon de coiffure",
+        "line": "Une couleur choisie, et des racines à surveiller.",
+        "giphyIds": [],
+        "giphyQuery": "hair dye"
+      }
+    },
+    {
+      "id": "mode-parfum-discret-parfum-fort",
+      "category": "mode",
+      "a": {
+        "name": "Parfum discret",
+        "origin": "Le cou",
+        "line": "On le sent quand on s’approche.",
+        "giphyIds": [],
+        "giphyQuery": "perfume"
+      },
+      "b": {
+        "name": "Parfum fort",
+        "origin": "Tout l’ascenseur",
+        "line": "On le sent depuis le hall.",
+        "giphyIds": [],
+        "giphyQuery": "perfume spray"
+      }
+    },
+    {
+      "id": "mode-repasse-froisse-assume",
+      "category": "mode",
+      "a": {
+        "name": "Repassé",
+        "origin": "La planche à repasser",
+        "line": "Pas un pli, pas un défaut.",
+        "giphyIds": [],
+        "giphyQuery": "ironing"
+      },
+      "b": {
+        "name": "Froissé assumé",
+        "origin": "Le sèche-linge",
+        "line": "C’est du lin. C’est voulu.",
+        "giphyIds": [],
+        "giphyQuery": "wrinkled shirt"
+      }
+    },
+    {
+      "id": "mode-sandales-tongs",
+      "category": "mode",
+      "a": {
+        "name": "Sandales",
+        "origin": "L’été",
+        "line": "Des lanières, et des marques de bronzage.",
+        "giphyIds": [],
+        "giphyQuery": "sandals"
+      },
+      "b": {
+        "name": "Tongs",
+        "origin": "La plage",
+        "line": "Le clac-clac de l’été.",
+        "giphyIds": [],
+        "giphyQuery": "flip flops"
+      }
+    },
+    {
+      "id": "mode-chaussettes-assorties-chaussettes-depareillees",
+      "category": "mode",
+      "a": {
+        "name": "Chaussettes assorties",
+        "origin": "Le tiroir bien rangé",
+        "line": "Deux chaussettes, une paire.",
+        "giphyIds": [],
+        "giphyQuery": "matching socks"
+      },
+      "b": {
+        "name": "Chaussettes dépareillées",
+        "origin": "Le tiroir en bazar",
+        "line": "Une rayée, une à pois, et une personnalité.",
+        "giphyIds": [],
+        "giphyQuery": "mismatched socks"
+      }
+    },
+    {
+      "id": "mode-pyjama-toute-la-journee-s-habiller-quand-meme",
+      "category": "mode",
+      "a": {
+        "name": "Pyjama toute la journée",
+        "origin": "Le télétravail",
+        "line": "En bas : pyjama. En haut : chemise pour la visio.",
+        "giphyIds": [],
+        "giphyQuery": "pajama day"
+      },
+      "b": {
+        "name": "S’habiller quand même",
+        "origin": "Le télétravail aussi",
+        "line": "Une vraie tenue, même pour le salon.",
+        "giphyIds": [],
+        "giphyQuery": "getting dressed"
+      }
+    },
+    {
+      "id": "mode-doudoune-sans-manches-gilet-en-laine",
+      "category": "mode",
+      "a": {
+        "name": "Doudoune sans manches",
+        "origin": "Le dirigeant de start-up",
+        "line": "Chaud au cœur, froid aux bras.",
+        "giphyIds": [],
+        "giphyQuery": "puffer vest"
+      },
+      "b": {
+        "name": "Gilet en laine",
+        "origin": "Le grand-père cool",
+        "line": "Des boutons, et beaucoup de charme.",
+        "giphyIds": [],
+        "giphyQuery": "cardigan"
+      }
+    },
+    {
+      "id": "mode-tenue-de-sport-en-ville-tenue-de-sport-pour-le-sport",
+      "category": "mode",
+      "a": {
+        "name": "Tenue de sport en ville",
+        "origin": "Le quotidien",
+        "line": "Leggings, baskets, et pas de sport prévu.",
+        "giphyIds": [],
+        "giphyQuery": "athleisure"
+      },
+      "b": {
+        "name": "Tenue de sport pour le sport",
+        "origin": "La salle",
+        "line": "Elle transpire, comme prévu.",
+        "giphyIds": [],
+        "giphyQuery": "gym clothes"
+      }
+    },
+    {
+      "id": "mode-total-look-jean-un-seul-jean",
+      "category": "mode",
+      "a": {
+        "name": "Total look jean",
+        "origin": "La tête aux pieds",
+        "line": "Une veste en jean sur un jean. Audacieux.",
+        "giphyIds": [],
+        "giphyQuery": "denim on denim"
+      },
+      "b": {
+        "name": "Un seul jean",
+        "origin": "La garde-robe",
+        "line": "Un jean, et autre chose. Prudent.",
+        "giphyIds": [],
+        "giphyQuery": "jeans outfit"
+      }
+    },
+    {
+      "id": "mode-moustache-en-guidon-moustache-fine",
+      "category": "mode",
+      "a": {
+        "name": "Moustache en guidon",
+        "origin": "Le barbier",
+        "line": "Recourbée, cirée, et très sérieuse.",
+        "giphyIds": [],
+        "giphyQuery": "handlebar mustache"
+      },
+      "b": {
+        "name": "Moustache fine",
+        "origin": "Le cinéma d’autrefois",
+        "line": "Un trait de crayon, et beaucoup de charme.",
+        "giphyIds": [],
+        "giphyQuery": "thin mustache"
+      }
+    },
+    {
+      "id": "mode-sourcils-fins-sourcils-epais",
+      "category": "mode",
+      "a": {
+        "name": "Sourcils fins",
+        "origin": "Les années 90",
+        "line": "Épilés, très fins, très surpris.",
+        "giphyIds": [],
+        "giphyQuery": "thin eyebrows"
+      },
+      "b": {
+        "name": "Sourcils épais",
+        "origin": "Les années 2010",
+        "line": "Naturels, brossés, et très expressifs.",
+        "giphyIds": [],
+        "giphyQuery": "thick eyebrows"
+      }
+    },
+    {
+      "id": "mode-bob-chapeau-de-cow-boy",
+      "category": "mode",
+      "a": {
+        "name": "Bob",
+        "origin": "Le festival",
+        "line": "Un chapeau mou, et l’été en musique.",
+        "giphyIds": [],
+        "giphyQuery": "bucket hat"
+      },
+      "b": {
+        "name": "Chapeau de cow-boy",
+        "origin": "Le Far West",
+        "line": "Un large bord, et beaucoup d’assurance.",
+        "giphyIds": [],
+        "giphyQuery": "cowboy hat"
+      }
+    },
+    {
+      "id": "mode-bijoux-discrets-gros-bijoux",
+      "category": "mode",
+      "a": {
+        "name": "Bijoux discrets",
+        "origin": "Le quotidien",
+        "line": "Une petite chaîne, et beaucoup de goût.",
+        "giphyIds": [],
+        "giphyQuery": "delicate necklace"
+      },
+      "b": {
+        "name": "Gros bijoux",
+        "origin": "Les soirées",
+        "line": "Des chaînes en or, et on te voit de loin.",
+        "giphyIds": [],
+        "giphyQuery": "gold chains bling"
+      }
+    },
+    {
+      "id": "mode-montre-connectee-montre-a-aiguilles",
+      "category": "mode",
+      "a": {
+        "name": "Montre connectée",
+        "origin": "Le poignet",
+        "line": "Tes pas, ton cœur, tes messages. Et l’heure.",
+        "giphyIds": [],
+        "giphyQuery": "smartwatch"
+      },
+      "b": {
+        "name": "Montre à aiguilles",
+        "origin": "Le poignet aussi",
+        "line": "Juste l’heure, et ça suffit.",
+        "giphyIds": [],
+        "giphyQuery": "analog watch"
+      }
+    },
+    {
+      "id": "mode-faire-les-soldes-eviter-les-soldes",
+      "category": "mode",
+      "a": {
+        "name": "Faire les soldes",
+        "origin": "Janvier et juillet",
+        "line": "Des étiquettes rouges et des coudes bien placés.",
+        "giphyIds": [],
+        "giphyQuery": "sale shopping crowd"
+      },
+      "b": {
+        "name": "Éviter les soldes",
+        "origin": "Janvier et juillet",
+        "line": "Pas de cohue, et pas de remise.",
+        "giphyIds": [],
+        "giphyQuery": "calm shopping"
+      }
+    },
+    {
+      "id": "mode-cabine-d-essayage-commande-en-ligne",
+      "category": "mode",
+      "a": {
+        "name": "Cabine d’essayage",
+        "origin": "Le magasin",
+        "line": "Un miroir, une lumière cruelle, et la vérité.",
+        "giphyIds": [],
+        "giphyQuery": "fitting room"
+      },
+      "b": {
+        "name": "Commande en ligne",
+        "origin": "Le canapé",
+        "line": "Trois tailles commandées, deux renvoyées.",
+        "giphyIds": [],
+        "giphyQuery": "online shopping package"
+      }
+    },
+    {
+      "id": "mode-haute-couture-pret-a-porter",
+      "category": "mode",
+      "a": {
+        "name": "Haute couture",
+        "origin": "Paris",
+        "line": "Des pièces uniques, et des mois de travail.",
+        "giphyIds": [],
+        "giphyQuery": "fashion runway"
+      },
+      "b": {
+        "name": "Prêt-à-porter",
+        "origin": "Partout",
+        "line": "Les mêmes idées, en taille M.",
+        "giphyIds": [],
+        "giphyQuery": "clothing store"
+      }
+    },
+    {
+      "id": "mode-chaussons-pieds-nus",
+      "category": "mode",
+      "a": {
+        "name": "Chaussons",
+        "origin": "La maison",
+        "line": "Doux, chauds, et un peu ridicules.",
+        "giphyIds": [],
+        "giphyQuery": "slippers"
+      },
+      "b": {
+        "name": "Pieds nus",
+        "origin": "La maison aussi",
+        "line": "Libres, et sur la pièce de Lego.",
+        "giphyIds": [],
+        "giphyQuery": "barefoot"
+      }
+    },
+    {
+      "id": "autos-peugeot-renault",
+      "category": "autos",
+      "a": {
+        "name": "Peugeot",
+        "origin": "Sochaux · 1810",
+        "line": "Un lion sur la calandre.",
+        "giphyIds": [],
+        "giphyQuery": "Peugeot"
+      },
+      "b": {
+        "name": "Renault",
+        "origin": "Boulogne-Billancourt · 1898",
+        "line": "Un losange, et la 4L dans le cœur.",
+        "giphyIds": [],
+        "giphyQuery": "Renault"
+      }
+    },
+    {
+      "id": "autos-citroen-volkswagen",
+      "category": "autos",
+      "a": {
+        "name": "Citroën",
+        "origin": "Paris · 1919",
+        "line": "Deux chevrons, la 2 CV et la DS.",
+        "giphyIds": [],
+        "giphyQuery": "Citroen"
+      },
+      "b": {
+        "name": "Volkswagen",
+        "origin": "Wolfsburg · 1937",
+        "line": "La Coccinelle, la Golf, et le Combi.",
+        "giphyIds": [],
+        "giphyQuery": "Volkswagen"
+      }
+    },
+    {
+      "id": "autos-ferrari-lamborghini",
+      "category": "autos",
+      "a": {
+        "name": "Ferrari",
+        "origin": "Maranello · 1947",
+        "line": "Rouge, cheval cabré, et un son inimitable.",
+        "giphyIds": [],
+        "giphyQuery": "Ferrari"
+      },
+      "b": {
+        "name": "Lamborghini",
+        "origin": "Sant’Agata · 1963",
+        "line": "Un taureau, et des portes en ciseaux.",
+        "giphyIds": [],
+        "giphyQuery": "Lamborghini"
+      }
+    },
+    {
+      "id": "autos-porsche-aston-martin",
+      "category": "autos",
+      "a": {
+        "name": "Porsche",
+        "origin": "Stuttgart · 1931",
+        "line": "La 911, toujours la même, toujours parfaite.",
+        "giphyIds": [],
+        "giphyQuery": "Porsche 911"
+      },
+      "b": {
+        "name": "Aston Martin",
+        "origin": "Royaume-Uni · 1913",
+        "line": "La voiture de James Bond.",
+        "giphyIds": [],
+        "giphyQuery": "Aston Martin"
+      }
+    },
+    {
+      "id": "autos-bmw-mercedes-benz",
+      "category": "autos",
+      "a": {
+        "name": "BMW",
+        "origin": "Munich · 1916",
+        "line": "L’hélice, la propulsion, et le plaisir de conduire.",
+        "giphyIds": [],
+        "giphyQuery": "BMW"
+      },
+      "b": {
+        "name": "Mercedes-Benz",
+        "origin": "Stuttgart · 1926",
+        "line": "L’étoile à trois branches, et des taxis increvables.",
+        "giphyIds": [],
+        "giphyQuery": "Mercedes Benz"
+      }
+    },
+    {
+      "id": "autos-audi-volvo",
+      "category": "autos",
+      "a": {
+        "name": "Audi",
+        "origin": "Ingolstadt · 1909",
+        "line": "Quatre anneaux, et la transmission quattro.",
+        "giphyIds": [],
+        "giphyQuery": "Audi quattro"
+      },
+      "b": {
+        "name": "Volvo",
+        "origin": "Göteborg · 1927",
+        "line": "La sécurité avant tout, et des breaks rectangulaires.",
+        "giphyIds": [],
+        "giphyQuery": "Volvo"
+      }
+    },
+    {
+      "id": "autos-tesla-toyota",
+      "category": "autos",
+      "a": {
+        "name": "Tesla",
+        "origin": "Californie · 2003",
+        "line": "Électrique, et des mises à jour à distance.",
+        "giphyIds": [],
+        "giphyQuery": "Tesla"
+      },
+      "b": {
+        "name": "Toyota",
+        "origin": "Japon · 1937",
+        "line": "La Prius, et des voitures qui ne tombent jamais en panne.",
+        "giphyIds": [],
+        "giphyQuery": "Toyota"
+      }
+    },
+    {
+      "id": "autos-fiat-500-mini",
+      "category": "autos",
+      "a": {
+        "name": "Fiat 500",
+        "origin": "Turin · 1957",
+        "line": "Minuscule, ronde, italienne.",
+        "giphyIds": [],
+        "giphyQuery": "Fiat 500"
+      },
+      "b": {
+        "name": "Mini",
+        "origin": "Royaume-Uni · 1959",
+        "line": "Minuscule, carrée, britannique.",
+        "giphyIds": [],
+        "giphyQuery": "Mini Cooper"
+      }
+    },
+    {
+      "id": "autos-jeep-land-rover",
+      "category": "autos",
+      "a": {
+        "name": "Jeep",
+        "origin": "États-Unis · 1941",
+        "line": "Partout, même là où il n’y a pas de route.",
+        "giphyIds": [],
+        "giphyQuery": "Jeep offroad"
+      },
+      "b": {
+        "name": "Land Rover",
+        "origin": "Royaume-Uni · 1948",
+        "line": "Le Defender, indestructible et anglais.",
+        "giphyIds": [],
+        "giphyQuery": "Land Rover Defender"
+      }
+    },
+    {
+      "id": "autos-dacia-skoda",
+      "category": "autos",
+      "a": {
+        "name": "Dacia",
+        "origin": "Roumanie · 1966",
+        "line": "Pas chère, solide, et sans chichis.",
+        "giphyIds": [],
+        "giphyQuery": "Dacia"
+      },
+      "b": {
+        "name": "Škoda",
+        "origin": "Tchéquie · 1895",
+        "line": "Du sérieux, et une flèche à plumes sur le capot.",
+        "giphyIds": [],
+        "giphyQuery": "Skoda"
+      }
+    },
+    {
+      "id": "autos-alpine-bugatti",
+      "category": "autos",
+      "a": {
+        "name": "Alpine",
+        "origin": "Dieppe · 1955",
+        "line": "Bleue, légère, et faite pour les virages.",
+        "giphyIds": [],
+        "giphyQuery": "Alpine A110"
+      },
+      "b": {
+        "name": "Bugatti",
+        "origin": "Molsheim · 1909",
+        "line": "Plus de 400 km/h, et un prix à la hauteur.",
+        "giphyIds": [],
+        "giphyQuery": "Bugatti"
+      }
+    },
+    {
+      "id": "autos-ford-mustang-chevrolet-camaro",
+      "category": "autos",
+      "a": {
+        "name": "Ford Mustang",
+        "origin": "Ford · 1964",
+        "line": "Le muscle car par excellence.",
+        "giphyIds": [],
+        "giphyQuery": "Ford Mustang"
+      },
+      "b": {
+        "name": "Chevrolet Camaro",
+        "origin": "Chevrolet · 1966",
+        "line": "Sa rivale de toujours.",
+        "giphyIds": [],
+        "giphyQuery": "Chevrolet Camaro"
+      }
+    },
+    {
+      "id": "autos-harley-davidson-ducati",
+      "category": "autos",
+      "a": {
+        "name": "Harley-Davidson",
+        "origin": "Milwaukee · 1903",
+        "line": "Un V-twin, du chrome, et la route 66.",
+        "giphyIds": [],
+        "giphyQuery": "Harley Davidson"
+      },
+      "b": {
+        "name": "Ducati",
+        "origin": "Bologne · 1926",
+        "line": "Rouge, italienne, et un bruit unique.",
+        "giphyIds": [],
+        "giphyQuery": "Ducati"
+      }
+    },
+    {
+      "id": "autos-yamaha-honda",
+      "category": "autos",
+      "a": {
+        "name": "Yamaha",
+        "origin": "Japon · 1955",
+        "line": "Des diapasons sur le logo, et des motos sur la piste.",
+        "giphyIds": [],
+        "giphyQuery": "Yamaha motorcycle"
+      },
+      "b": {
+        "name": "Honda",
+        "origin": "Japon · 1948",
+        "line": "Des millions de Super Cub, et la Goldwing.",
+        "giphyIds": [],
+        "giphyQuery": "Honda motorcycle"
+      }
+    },
+    {
+      "id": "autos-kawasaki-suzuki",
+      "category": "autos",
+      "a": {
+        "name": "Kawasaki",
+        "origin": "Japon · années 1950",
+        "line": "Vert, et une réputation de fusée.",
+        "giphyIds": [],
+        "giphyQuery": "Kawasaki Ninja"
+      },
+      "b": {
+        "name": "Suzuki",
+        "origin": "Japon · 1952",
+        "line": "La Hayabusa, le faucon des autoroutes.",
+        "giphyIds": [],
+        "giphyQuery": "Suzuki Hayabusa"
+      }
+    },
+    {
+      "id": "autos-ktm-husqvarna",
+      "category": "autos",
+      "a": {
+        "name": "KTM",
+        "origin": "Autriche · 1953",
+        "line": "Orange, et ça grimpe partout.",
+        "giphyIds": [],
+        "giphyQuery": "KTM dirt bike"
+      },
+      "b": {
+        "name": "Husqvarna",
+        "origin": "Suède · 1903",
+        "line": "Un nom que l’on retrouve aussi sur des tronçonneuses.",
+        "giphyIds": [],
+        "giphyQuery": "Husqvarna motocross"
+      }
+    },
+    {
+      "id": "autos-vespa-lambretta",
+      "category": "autos",
+      "a": {
+        "name": "Vespa",
+        "origin": "Italie · 1946",
+        "line": "Rome, deux roues, et l’élégance.",
+        "giphyIds": [],
+        "giphyQuery": "Vespa"
+      },
+      "b": {
+        "name": "Lambretta",
+        "origin": "Italie · 1947",
+        "line": "L’autre scooter italien, et les mods.",
+        "giphyIds": [],
+        "giphyQuery": "Lambretta scooter"
+      }
+    },
+    {
+      "id": "autos-triumph-royal-enfield",
+      "category": "autos",
+      "a": {
+        "name": "Triumph",
+        "origin": "Royaume-Uni · 1902",
+        "line": "La Bonneville, et la classe anglaise.",
+        "giphyIds": [],
+        "giphyQuery": "Triumph motorcycle"
+      },
+      "b": {
+        "name": "Royal Enfield",
+        "origin": "Royaume-Uni puis Inde · 1901",
+        "line": "L’une des plus anciennes marques de moto encore en vie.",
+        "giphyIds": [],
+        "giphyQuery": "Royal Enfield"
+      }
+    },
+    {
+      "id": "autos-bmw-motorrad-moto-guzzi",
+      "category": "autos",
+      "a": {
+        "name": "BMW Motorrad",
+        "origin": "Munich · 1923",
+        "line": "Le flat-twin, et des GS qui font le tour du monde.",
+        "giphyIds": [],
+        "giphyQuery": "BMW GS adventure"
+      },
+      "b": {
+        "name": "Moto Guzzi",
+        "origin": "Italie · 1921",
+        "line": "Un V-twin en travers, et un aigle.",
+        "giphyIds": [],
+        "giphyQuery": "Moto Guzzi"
+      }
+    },
+    {
+      "id": "autos-peugeot-205-gti-golf-gti",
+      "category": "autos",
+      "a": {
+        "name": "Peugeot 205 GTI",
+        "origin": "Peugeot · 1984",
+        "line": "La GTI que tout le monde voulait.",
+        "giphyIds": [],
+        "giphyQuery": "Peugeot 205 GTI"
+      },
+      "b": {
+        "name": "Golf GTI",
+        "origin": "Volkswagen · 1976",
+        "line": "L’inventrice de la sportive compacte.",
+        "giphyIds": [],
+        "giphyQuery": "Golf GTI"
+      }
+    },
+    {
+      "id": "autos-renault-5-citroen-ax",
+      "category": "autos",
+      "a": {
+        "name": "Renault 5",
+        "origin": "Renault · 1972",
+        "line": "La petite citadine, revenue en électrique.",
+        "giphyIds": [],
+        "giphyQuery": "Renault 5"
+      },
+      "b": {
+        "name": "Citroën AX",
+        "origin": "Citroën · 1986",
+        "line": "Légère, sobre, et des records de consommation.",
+        "giphyIds": [],
+        "giphyQuery": "small car"
+      }
+    },
+    {
+      "id": "autos-2-cv-4l",
+      "category": "autos",
+      "a": {
+        "name": "2 CV",
+        "origin": "Citroën · 1948",
+        "line": "Quatre roues sous un parapluie.",
+        "giphyIds": [],
+        "giphyQuery": "Citroen 2CV"
+      },
+      "b": {
+        "name": "4L",
+        "origin": "Renault · 1961",
+        "line": "Indestructible, et pourtant tout le monde en a cassé une.",
+        "giphyIds": [],
+        "giphyQuery": "Renault 4"
+      }
+    },
+    {
+      "id": "autos-ds-traction-avant",
+      "category": "autos",
+      "a": {
+        "name": "DS",
+        "origin": "Citroën · 1955",
+        "line": "La suspension hydropneumatique, et une ligne de soucoupe.",
+        "giphyIds": [],
+        "giphyQuery": "Citroen DS"
+      },
+      "b": {
+        "name": "Traction Avant",
+        "origin": "Citroën · 1934",
+        "line": "La voiture des gangsters de cinéma.",
+        "giphyIds": [],
+        "giphyQuery": "vintage car gangster"
+      }
+    },
+    {
+      "id": "autos-formule-1-rallye",
+      "category": "autos",
+      "a": {
+        "name": "Formule 1",
+        "origin": "Les circuits",
+        "line": "Des pneus changés en deux secondes.",
+        "giphyIds": [],
+        "giphyQuery": "Formula 1 pit stop"
+      },
+      "b": {
+        "name": "Rallye",
+        "origin": "Les routes de terre",
+        "line": "De la neige, de la boue, et un copilote qui lit des notes.",
+        "giphyIds": [],
+        "giphyQuery": "rally car jump"
+      }
+    },
+    {
+      "id": "autos-24-heures-du-mans-dakar",
+      "category": "autos",
+      "a": {
+        "name": "24 Heures du Mans",
+        "origin": "Le Mans · 1923",
+        "line": "Rouler un jour entier, sans s’arrêter.",
+        "giphyIds": [],
+        "giphyQuery": "Le Mans 24 hours"
+      },
+      "b": {
+        "name": "Dakar",
+        "origin": "Depuis 1978",
+        "line": "Le désert, des dunes, et le GPS qui hésite.",
+        "giphyIds": [],
+        "giphyQuery": "Dakar rally"
+      }
+    },
+    {
+      "id": "autos-boite-automatique-boite-manuelle",
+      "category": "autos",
+      "a": {
+        "name": "Boîte automatique",
+        "origin": "Le levier sur D",
+        "line": "On avance, on freine, c’est tout.",
+        "giphyIds": [],
+        "giphyQuery": "automatic car"
+      },
+      "b": {
+        "name": "Boîte manuelle",
+        "origin": "Le levier et l’embrayage",
+        "line": "Le plaisir de passer les vitesses. Et de caler.",
+        "giphyIds": [],
+        "giphyQuery": "manual gear shift"
+      }
+    },
+    {
+      "id": "autos-diesel-essence",
+      "category": "autos",
+      "a": {
+        "name": "Diesel",
+        "origin": "La pompe noire",
+        "line": "Du couple, et des kilomètres à la pelle.",
+        "giphyIds": [],
+        "giphyQuery": "diesel engine"
+      },
+      "b": {
+        "name": "Essence",
+        "origin": "La pompe verte",
+        "line": "Plus de nervosité, et plus de passages à la pompe.",
+        "giphyIds": [],
+        "giphyQuery": "gas station"
+      }
+    },
+    {
+      "id": "autos-electrique-thermique",
+      "category": "autos",
+      "a": {
+        "name": "Électrique",
+        "origin": "La borne",
+        "line": "Silencieuse, et la course aux bornes de recharge.",
+        "giphyIds": [],
+        "giphyQuery": "electric car charging"
+      },
+      "b": {
+        "name": "Thermique",
+        "origin": "La station-service",
+        "line": "Du bruit, de l’odeur, et le plein en trois minutes.",
+        "giphyIds": [],
+        "giphyQuery": "engine revving"
+      }
+    },
+    {
+      "id": "autos-cabriolet-toit-fixe",
+      "category": "autos",
+      "a": {
+        "name": "Cabriolet",
+        "origin": "Le toit ouvert",
+        "line": "Les cheveux au vent, et les coups de soleil.",
+        "giphyIds": [],
+        "giphyQuery": "convertible car"
+      },
+      "b": {
+        "name": "Toit fixe",
+        "origin": "Le toit fermé",
+        "line": "La pluie dehors, la musique dedans.",
+        "giphyIds": [],
+        "giphyQuery": "car rain"
+      }
+    },
+    {
+      "id": "autos-suv-citadine",
+      "category": "autos",
+      "a": {
+        "name": "SUV",
+        "origin": "La route",
+        "line": "Haut, large, et la vue sur tout le monde.",
+        "giphyIds": [],
+        "giphyQuery": "SUV"
+      },
+      "b": {
+        "name": "Citadine",
+        "origin": "La ville",
+        "line": "Petite, et elle se gare partout.",
+        "giphyIds": [],
+        "giphyQuery": "small car parking"
+      }
+    },
+    {
+      "id": "autos-break-monospace",
+      "category": "autos",
+      "a": {
+        "name": "Break",
+        "origin": "Les vacances",
+        "line": "Le coffre géant et le chien à l’arrière.",
+        "giphyIds": [],
+        "giphyQuery": "station wagon"
+      },
+      "b": {
+        "name": "Monospace",
+        "origin": "Les vacances aussi",
+        "line": "Sept places, et un film sur la tablette.",
+        "giphyIds": [],
+        "giphyQuery": "minivan"
+      }
+    },
+    {
+      "id": "autos-moto-scooter",
+      "category": "autos",
+      "a": {
+        "name": "Moto",
+        "origin": "La route",
+        "line": "Une vraie machine, et des vibrations.",
+        "giphyIds": [],
+        "giphyQuery": "motorcycle ride"
+      },
+      "b": {
+        "name": "Scooter",
+        "origin": "La ville",
+        "line": "Un coffre sous la selle, et zéro bouchon.",
+        "giphyIds": [],
+        "giphyQuery": "scooter city"
+      }
+    },
+    {
+      "id": "autos-sportive-trail",
+      "category": "autos",
+      "a": {
+        "name": "Sportive",
+        "origin": "Le circuit",
+        "line": "Le genou au sol, en théorie.",
+        "giphyIds": [],
+        "giphyQuery": "sport bike"
+      },
+      "b": {
+        "name": "Trail",
+        "origin": "Le chemin",
+        "line": "Partir loin, même sans route.",
+        "giphyIds": [],
+        "giphyQuery": "adventure motorcycle"
+      }
+    },
+    {
+      "id": "autos-custom-roadster",
+      "category": "autos",
+      "a": {
+        "name": "Custom",
+        "origin": "La route 66",
+        "line": "Les pieds en avant, et le temps de vivre.",
+        "giphyIds": [],
+        "giphyQuery": "cruiser motorcycle"
+      },
+      "b": {
+        "name": "Roadster",
+        "origin": "La départementale",
+        "line": "Pas de carénage, et un vrai caractère.",
+        "giphyIds": [],
+        "giphyQuery": "naked bike"
+      }
+    },
+    {
+      "id": "autos-conduite-a-droite-conduite-a-gauche",
+      "category": "autos",
+      "a": {
+        "name": "Conduite à droite",
+        "origin": "La France",
+        "line": "La voie de droite, comme presque partout.",
+        "giphyIds": [],
+        "giphyQuery": "driving car"
+      },
+      "b": {
+        "name": "Conduite à gauche",
+        "origin": "Le Royaume-Uni",
+        "line": "La voie de gauche, avec le flegme en prime.",
+        "giphyIds": [],
+        "giphyQuery": "british driving"
+      }
+    },
+    {
+      "id": "autos-gps-carte-routiere",
+      "category": "autos",
+      "a": {
+        "name": "GPS",
+        "origin": "Le tableau de bord",
+        "line": "« Faites demi-tour dès que possible. »",
+        "giphyIds": [],
+        "giphyQuery": "GPS navigation"
+      },
+      "b": {
+        "name": "Carte routière",
+        "origin": "La boîte à gants",
+        "line": "Impossible à replier, et toujours là quand il n’y a plus de réseau.",
+        "giphyIds": [],
+        "giphyQuery": "road map"
+      }
+    },
+    {
+      "id": "autos-lavage-a-la-main-station-de-lavage",
+      "category": "autos",
+      "a": {
+        "name": "Lavage à la main",
+        "origin": "L’allée",
+        "line": "Un seau, une éponge, et le dimanche après-midi.",
+        "giphyIds": [],
+        "giphyQuery": "washing car"
+      },
+      "b": {
+        "name": "Station de lavage",
+        "origin": "La sortie de ville",
+        "line": "Les rouleaux géants, et la peur de l’antenne.",
+        "giphyIds": [],
+        "giphyQuery": "car wash"
+      }
+    },
+    {
+      "id": "autos-coccinelle-combi",
+      "category": "autos",
+      "a": {
+        "name": "Coccinelle",
+        "origin": "Volkswagen · 1938",
+        "line": "La voiture du peuple, devenue icône.",
+        "giphyIds": [],
+        "giphyQuery": "VW Beetle"
+      },
+      "b": {
+        "name": "Combi",
+        "origin": "Volkswagen · 1950",
+        "line": "Le van des surfeurs et des hippies.",
+        "giphyIds": [],
+        "giphyQuery": "VW camper van"
+      }
+    },
+    {
+      "id": "autos-lada-niva-trabant",
+      "category": "autos",
+      "a": {
+        "name": "Lada Niva",
+        "origin": "URSS · 1977",
+        "line": "Rustique, et elle passe partout.",
+        "giphyIds": [],
+        "giphyQuery": "Lada Niva"
+      },
+      "b": {
+        "name": "Trabant",
+        "origin": "RDA · 1957",
+        "line": "Une carrosserie en plastique, et un moteur deux-temps.",
+        "giphyIds": [],
+        "giphyQuery": "Trabant"
+      }
+    },
+    {
+      "id": "autos-rolls-royce-bentley",
+      "category": "autos",
+      "a": {
+        "name": "Rolls-Royce",
+        "origin": "Royaume-Uni · 1904",
+        "line": "Le silence, et une statuette sur le capot.",
+        "giphyIds": [],
+        "giphyQuery": "Rolls Royce"
+      },
+      "b": {
+        "name": "Bentley",
+        "origin": "Royaume-Uni · 1919",
+        "line": "Le luxe, en plus sportif.",
+        "giphyIds": [],
+        "giphyQuery": "Bentley"
+      }
+    },
+    {
+      "id": "autos-maserati-alfa-romeo",
+      "category": "autos",
+      "a": {
+        "name": "Maserati",
+        "origin": "Bologne · 1914",
+        "line": "Un trident sur la calandre.",
+        "giphyIds": [],
+        "giphyQuery": "Maserati"
+      },
+      "b": {
+        "name": "Alfa Romeo",
+        "origin": "Milan · 1910",
+        "line": "Un serpent, une croix, et du caractère.",
+        "giphyIds": [],
+        "giphyQuery": "Alfa Romeo"
+      }
+    },
+    {
+      "id": "autos-mclaren-lotus",
+      "category": "autos",
+      "a": {
+        "name": "McLaren",
+        "origin": "Royaume-Uni · 1963",
+        "line": "Orange papaye, et la Formule 1 dans le sang.",
+        "giphyIds": [],
+        "giphyQuery": "McLaren"
+      },
+      "b": {
+        "name": "Lotus",
+        "origin": "Royaume-Uni · 1948",
+        "line": "La légèreté avant tout.",
+        "giphyIds": [],
+        "giphyQuery": "Lotus car"
+      }
+    },
+    {
+      "id": "autos-subaru-mitsubishi",
+      "category": "autos",
+      "a": {
+        "name": "Subaru",
+        "origin": "Japon · 1953",
+        "line": "Des Impreza bleues, et des rallyes.",
+        "giphyIds": [],
+        "giphyQuery": "Subaru Impreza rally"
+      },
+      "b": {
+        "name": "Mitsubishi",
+        "origin": "Japon · 1970",
+        "line": "La Lancer Evolution, et des rallyes aussi.",
+        "giphyIds": [],
+        "giphyQuery": "Mitsubishi Lancer Evolution"
+      }
+    },
+    {
+      "id": "autos-nissan-gt-r-toyota-supra",
+      "category": "autos",
+      "a": {
+        "name": "Nissan GT-R",
+        "origin": "Nissan · 2007",
+        "line": "Surnommée Godzilla.",
+        "giphyIds": [],
+        "giphyQuery": "Nissan GT-R"
+      },
+      "b": {
+        "name": "Toyota Supra",
+        "origin": "Toyota · 1978",
+        "line": "Une star de Fast and Furious.",
+        "giphyIds": [],
+        "giphyQuery": "Toyota Supra"
+      }
+    },
+    {
+      "id": "autos-indian-harley-davidson",
+      "category": "autos",
+      "a": {
+        "name": "Indian",
+        "origin": "Springfield · 1901",
+        "line": "La plus ancienne marque de moto américaine.",
+        "giphyIds": [],
+        "giphyQuery": "Indian motorcycle"
+      },
+      "b": {
+        "name": "Harley-Davidson",
+        "origin": "Milwaukee · 1903",
+        "line": "La plus célèbre.",
+        "giphyIds": [],
+        "giphyQuery": "Harley Davidson ride"
+      }
+    },
+    {
+      "id": "autos-deux-temps-quatre-temps",
+      "category": "autos",
+      "a": {
+        "name": "Deux-temps",
+        "origin": "Le moteur qui chante",
+        "line": "Ça fume, ça hurle, et ça sent l’huile.",
+        "giphyIds": [],
+        "giphyQuery": "two stroke dirt bike"
+      },
+      "b": {
+        "name": "Quatre-temps",
+        "origin": "Le moteur sage",
+        "line": "Plus propre, plus coupleux, plus lourd.",
+        "giphyIds": [],
+        "giphyQuery": "four stroke engine"
+      }
+    },
+    {
+      "id": "autos-casque-integral-casque-jet",
+      "category": "autos",
+      "a": {
+        "name": "Casque intégral",
+        "origin": "La tête entière",
+        "line": "Tout protégé, et la visière qui s’embue.",
+        "giphyIds": [],
+        "giphyQuery": "full face helmet"
+      },
+      "b": {
+        "name": "Casque jet",
+        "origin": "Le visage à l’air",
+        "line": "Le vent sur les joues, et les moucherons aussi.",
+        "giphyIds": [],
+        "giphyQuery": "open face helmet"
+      }
+    },
+    {
+      "id": "autos-le-v-de-la-main-le-hochement-de-tete",
+      "category": "autos",
+      "a": {
+        "name": "Le V de la main",
+        "origin": "Les motards",
+        "line": "Deux doigts tendus vers le bas, la fraternité.",
+        "giphyIds": [],
+        "giphyQuery": "motorcycle wave"
+      },
+      "b": {
+        "name": "Le hochement de tête",
+        "origin": "Les motards aussi",
+        "line": "Un petit signe du casque, la même fraternité.",
+        "giphyIds": [],
+        "giphyQuery": "nod"
+      }
+    },
+    {
+      "id": "autos-mehari-mini-moke",
+      "category": "autos",
+      "a": {
+        "name": "Méhari",
+        "origin": "Citroën · 1968",
+        "line": "Une voiture en plastique, faite pour la plage.",
+        "giphyIds": [],
+        "giphyQuery": "Citroen Mehari"
+      },
+      "b": {
+        "name": "Mini Moke",
+        "origin": "Royaume-Uni · 1964",
+        "line": "La jeep de plage britannique.",
+        "giphyIds": [],
+        "giphyQuery": "Mini Moke"
+      }
+    },
+    {
+      "id": "autos-taxi-jaune-black-cab",
+      "category": "autos",
+      "a": {
+        "name": "Taxi jaune",
+        "origin": "New York",
+        "line": "Le klaxon, et un chauffeur pressé.",
+        "giphyIds": [],
+        "giphyQuery": "New York taxi"
+      },
+      "b": {
+        "name": "Black cab",
+        "origin": "Londres",
+        "line": "Noir, rond, et le meilleur plan de la ville.",
+        "giphyIds": [],
+        "giphyQuery": "London black cab"
+      }
+    },
+    {
+      "id": "mode-queue-de-cheval-cheveux-laches",
+      "category": "mode",
+      "a": {
+        "name": "Queue de cheval",
+        "origin": "Le poignet, un élastique toujours prêt",
+        "line": "Pratique, rapide, et les cheveux hors du chemin.",
+        "giphyIds": [],
+        "giphyQuery": "ponytail"
+      },
+      "b": {
+        "name": "Cheveux lâchés",
+        "origin": "Le vent",
+        "line": "Libres, et dans les yeux au premier coup de vent.",
+        "giphyIds": [],
+        "giphyQuery": "hair flip wind"
+      }
+    },
+    {
+      "id": "mode-chaussettes-hautes-socquettes-invisibles",
+      "category": "mode",
+      "a": {
+        "name": "Chaussettes hautes",
+        "origin": "Les mollets",
+        "line": "Remontées jusqu’en haut, et assumées.",
+        "giphyIds": [],
+        "giphyQuery": "high socks"
+      },
+      "b": {
+        "name": "Socquettes invisibles",
+        "origin": "Le fond de la chaussure",
+        "line": "Elles disparaissent. Dans la chaussure, et dans la machine.",
+        "giphyIds": [],
+        "giphyQuery": "ankle socks"
       }
     }
   ]

@@ -202,3 +202,13 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
   - En mode mélangé, ou sur un univers, le nom de la catégorie s'affiche au-dessus de la question.
 - **Accueil** : une grande carte « Tout mélangé », puis une section par univers (titre, accroche, lien « Tout l'univers → N rivalités »), avec ses cartes de catégorie.
 - **Hall of Fame** : filtré par « Tout mélangé » et par univers. Il n'y a plus de filtre par catégorie, qui aurait fait 20 boutons.
+
+## D18 — Quota Giphy : disjoncteur, et clé de production avant la mise en ligne (phase 5)
+
+**Constat.** La clé « beta » de Giphy est limitée à 100 appels par heure. Les parties, les 200 nouvelles teams du lot 1 (sans GIF en cache) et mes tests de bout en bout, qui utilisaient la vraie clé, l'ont épuisée.
+
+**Décisions.**
+
+- **Disjoncteur dans le service Giphy.** Après une réponse 429, le serveur n'appelle plus Giphy pendant 15 minutes (`QUOTA_PAUSE_MS`), et les cartes gardent le cadre rayé. Les échecs ne sont toujours pas mis en cache : les GIF reviennent d'eux-mêmes ensuite.
+- **Les tests de bout en bout simulent Giphy** et n'utilisent plus la vraie clé.
+- **Clé de production à demander en phase 6**, une fois le site en ligne sur team484.fr. Elle est gratuite et sans limite horaire, et Giphy l'accorde sur une application en ligne qui affiche l'attribution « Powered by GIPHY ».
