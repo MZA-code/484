@@ -1,45 +1,47 @@
 # Déploiement sur o2switch
 
 Le site tourne comme une application Node.js dans cPanel (« Setup Node.js App », Phusion Passenger).
-Tout se fait depuis l'interface de cPanel : aucune ligne de commande n'est obligatoire.
+**Le site n'est pas construit sur le serveur** : l'hébergement mutualisé est trop lent pour générer
+plus de 1 000 pages. GitHub le construit (workflow `.github/workflows/deploy.yml`) et publie le
+résultat dans la branche `production`, que le serveur se contente de récupérer.
 
 ## Vue d'ensemble
 
-| Élément              | Valeur                                                                              |
-| -------------------- | ----------------------------------------------------------------------------------- |
-| Version de Node.js   | 24.22.3                                                                             |
-| Code                 | cloné depuis GitHub dans `~/team484` (outil « Git Version Control »)                |
-| Fichier de démarrage | `app.cjs` (lance `dist/server/entry.mjs`)                                           |
-| Domaine              | `team484.fr`                                                                        |
-| Données              | `~/team484/data/` : votes, cache des GIF, images de partage (hors de `public_html`) |
-
-## Première installation
-
-1. **Récupérer le code** : cPanel → « Git Version Control » → « Create ».
-   - Clone a Repository : activé.
-   - Clone URL : `https://github.com/MZA-code/484.git`
-   - Repository Path : `team484`
-   - Repository Name : `484`
-2. **Créer l'application** : cPanel → « Setup Node.js App » → « Create Application ».
-   - Version de Node.js : 24.22.3.
-   - Mode d'application : Production.
-   - Racine de l'application : `team484`.
-   - URL de l'application : `team484.fr` (chemin vide).
-   - Fichier de démarrage : `app.cjs`.
-3. **Variables d'environnement** (même écran, « Add Variable ») :
-   - `GIPHY_API_KEY` : la clé Giphy.
-   - `VOTE_HASH_SALT` : une longue chaîne aléatoire, propre à la production.
-   - `TRUST_PROXY` : `true`.
-4. **Installer et construire** : « Run NPM Install », puis « Run JS script » → `build`.
-5. **Démarrer** : « Restart ».
+| Élément                   | Valeur                                                                                    |
+| ------------------------- | ----------------------------------------------------------------------------------------- |
+| Dossier public du domaine | `~/484` : `.htaccess` (bloc Passenger), `.well-known`, `cgi-bin`. **Jamais de code ici.** |
+| Application               | `~/team484` : clone Git du dépôt, branche `production`                                    |
+| Version de Node.js        | 24.22.3, mode Production                                                                  |
+| Fichier de démarrage      | `app.cjs` (lance `dist/server/entry.mjs`)                                                 |
+| Données                   | `~/team484/data/` : votes, cache des GIF, images de partage                               |
+| Variables (cPanel)        | `GIPHY_API_KEY`, `VOTE_HASH_SALT`, `TRUST_PROXY=true`                                     |
 
 ## Mettre à jour le site
 
-1. cPanel → « Git Version Control » → « Manage » sur `484` → onglet « Pull or Deploy » → « Update from Remote ».
-2. cPanel → « Setup Node.js App » → crayon sur `team484.fr` :
-   - « Run NPM Install » si les dépendances ont changé ;
-   - « Run JS script » → `build` ;
-   - « Restart ».
+1. Pousser sur `main` : GitHub teste, construit et publie la branche `production` (2 à 3 minutes).
+2. Dans le Terminal de cPanel :
+
+   ```sh
+   cd ~/team484 && git pull && touch tmp/restart.txt
+   ```
+
+3. Si les dépendances ont changé, avant le redémarrage :
+
+   ```sh
+   source ~/nodevenv/team484/24/bin/activate && cd ~/team484 && npm install --omit=dev
+   ```
+
+## Première installation (pour mémoire)
+
+1. Git Version Control : cloner `https://github.com/MZA-code/484.git` dans `team484`.
+2. Setup Node.js App : créer l'application (racine `team484`, URL `team484.fr`, démarrage `app.cjs`), puis ajouter les variables et lancer « Run NPM Install ».
+3. Terminal : `cd ~/team484 && git fetch origin && git checkout -f production && touch tmp/restart.txt`.
+
+## Pièges connus
+
+- **Ne pas modifier la racine d'une application** dans cPanel : il déplace les fichiers et casse le `.htaccess` du domaine. Supprimer l'application et la recréer.
+- **La racine du document du domaine doit rester `484`** (cPanel → Domaines). Si elle pointe vers `team484`, le code et les données deviennent publics.
+- Ne pas lancer le build depuis cPanel (« Run JS script ») : il reste bloqué et verrouille l'application (« Can't acquire lock »). En cas de blocage : `pkill -u $USER -f "astro build"`.
 
 ## Sauvegardes
 
