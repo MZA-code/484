@@ -1,14 +1,14 @@
 /**
  * Outil de curation des GIF.
  *
- * Pour chaque prétendant sans `giphyIds`, propose 6 GIF Giphy dans une page HTML locale.
+ * Pour chaque team sans `giphyIds`, propose 6 GIF Giphy dans une page HTML locale.
  * On coche ses préférés (on peut aussi relancer une recherche avec d'autres mots),
- * puis « Enregistrer » réécrit `content/contenders.json`.
+ * puis « Enregistrer » réécrit `content/rivalries.json`.
  *
- *   npm run curate                       les 25 premiers prétendants sans GIF choisi
- *   npm run curate -- --theme robots     un seul thème
- *   npm run curate -- --limit 50         plus de prétendants (attention au quota Giphy)
- *   npm run curate -- --all              y compris ceux qui ont déjà des GIF choisis
+ *   npm run curate                          les 25 premières teams sans GIF choisi
+ *   npm run curate -- --category bouffe     une seule catégorie
+ *   npm run curate -- --limit 50            plus de teams (attention au quota Giphy)
+ *   npm run curate -- --all                 y compris les teams qui ont déjà des GIF choisis
  *
  * Il faut une clé dans `.env` : GIPHY_API_KEY=…  (clé gratuite : ~100 appels par heure,
  * une recherche = un appel).
@@ -18,12 +18,11 @@ import { createServer, type IncomingMessage } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { format, resolveConfig } from 'prettier';
-import { parseContent } from '../src/data/parse';
+import { parseRivalries } from '../src/data/parse';
 import { toGif, type Gif } from '../src/server/giphy';
 
-const CONTENDERS_FILE = new URL('../content/contenders.json', import.meta.url);
-const UI_FILE = new URL('../content/ui-texts.fr.json', import.meta.url);
-const PER_CONTENDER = 6;
+const RIVALRIES_FILE = new URL('../content/rivalries.json', import.meta.url);
+const PER_TEAM = 6;
 
 try {
   process.loadEnvFile('.env');
@@ -38,24 +37,45 @@ if (!apiKey) {
 
 const { values: args } = parseArgs({
   options: {
-    theme: { type: 'string' },
+    category: { type: 'string' },
     limit: { type: 'string', default: '25' },
     all: { type: 'boolean', default: false },
     port: { type: 'string', default: '4843' },
   },
 });
 
-interface RawContender {
-  id: string;
-  theme: string;
+interface RawTeam {
   name: string;
   origin: string;
   giphyIds: string[];
   giphyQuery: string;
 }
 
-const readRaw = () =>
-  JSON.parse(readFileSync(CONTENDERS_FILE, 'utf8')) as { contenders: RawContender[] };
+interface RawRivalry {
+  id: string;
+  category: string;
+  a: RawTeam;
+  b: RawTeam;
+}
+
+type RawFile = { rivalries: RawRivalry[] } & Record<string, unknown>;
+
+const readRaw = () => JSON.parse(readFileSync(RIVALRIES_FILE, 'utf8')) as RawFile;
+
+/** Une team à curer : « rivalité/a » ou « rivalité/b ». */
+interface TeamRef {
+  key: string;
+  category: string;
+  team: RawTeam;
+  opponent: string;
+}
+
+function teamsOf(file: RawFile): TeamRef[] {
+  return file.rivalries.flatMap((r) => [
+    { key: `${r.id}/a`, category: r.category, team: r.a, opponent: r.b.name },
+    { key: `${r.id}/b`, category: r.category, team: r.b, opponent: r.a.name },
+  ]);
+}
 
 // ─── Giphy ──────────────────────────────────────────────────────────────────
 
@@ -64,7 +84,7 @@ async function search(query: string): Promise<Gif[]> {
   url.search = new URLSearchParams({
     api_key: apiKey as string,
     q: query,
-    limit: String(PER_CONTENDER),
+    limit: String(PER_TEAM),
     rating: 'g',
     lang: 'en',
   }).toString();
@@ -78,30 +98,32 @@ async function search(query: string): Promise<Gif[]> {
     .filter((g) => g !== null);
 }
 
-// ─── Sélection des prétendants ──────────────────────────────────────────────
+// ─── Sélection des teams ───────────────────────────────────────────────────
 
-const targets = readRaw()
-  .contenders.filter((c) => !args.theme || c.theme === args.theme)
-  .filter((c) => args.all || c.giphyIds.length === 0)
+const targets = teamsOf(readRaw())
+  .filter((t) => !args.category || t.category === args.category)
+  .filter((t) => args.all || t.team.giphyIds.length === 0)
   .slice(0, Number(args.limit));
 
 if (targets.length === 0) {
-  console.log('Rien à curer : tous les prétendants sélectionnés ont déjà des GIF choisis.');
+  console.log('Rien à curer : toutes les teams sélectionnées ont déjà des GIF choisis.');
   process.exit(0);
 }
 
-console.log(`Recherche de ${PER_CONTENDER} GIF pour ${targets.length} prétendant(s)…`);
+console.log(`Recherche de ${PER_TEAM} GIF pour ${targets.length} team(s)…`);
 const results = new Map<string, Gif[]>();
-for (const contender of targets) {
+for (const target of targets) {
   try {
-    results.set(contender.id, await search(contender.giphyQuery));
+    results.set(target.key, await search(target.team.giphyQuery));
     process.stdout.write('.');
   } catch (error) {
-    console.error(`\n${(error as Error).message}`);
+    console.error(`
+${(error as Error).message}`);
     break;
   }
 }
-console.log(`\n${results.size} prétendant(s) prêts.`);
+console.log(`
+${results.size} team(s) prête(s).`);
 
 // ─── Enregistrement ─────────────────────────────────────────────────────────
 
@@ -111,37 +133,37 @@ interface SavePayload {
 }
 
 async function save({ picks, queries }: SavePayload): Promise<string> {
-  const raw = readRaw() as { contenders: RawContender[] } & Record<string, unknown>;
+  const raw = readRaw();
   let picked = 0;
-  for (const contender of raw.contenders) {
-    const ids = picks[contender.id];
+  for (const { key, team } of teamsOf(raw)) {
+    const ids = picks[key];
     if (ids && ids.length > 0) {
-      contender.giphyIds = ids;
+      team.giphyIds = ids;
       picked++;
     }
-    const query = queries[contender.id]?.trim();
-    if (query) contender.giphyQuery = query;
+    const query = queries[key]?.trim();
+    if (query) team.giphyQuery = query;
   }
   // On valide avant d'écrire : le fichier ne peut pas devenir invalide.
-  parseContent(raw, JSON.parse(readFileSync(UI_FILE, 'utf8')));
+  parseRivalries(raw);
   // Même mise en forme que le reste du dépôt (configuration Prettier du projet).
-  const path = fileURLToPath(CONTENDERS_FILE);
+  const path = fileURLToPath(RIVALRIES_FILE);
   const options = (await resolveConfig(path)) ?? {};
   const text = await format(JSON.stringify(raw), { ...options, filepath: path });
-  writeFileSync(CONTENDERS_FILE, text);
-  return `${picked} prétendant(s) enregistrés dans content/contenders.json.`;
+  writeFileSync(RIVALRIES_FILE, text);
+  return `${picked} team(s) enregistrée(s) dans content/rivalries.json.`;
 }
 
 // ─── Page HTML ──────────────────────────────────────────────────────────────
 
 const escape = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
-function tiles(contenderId: string, gifs: Gif[], chosen: readonly string[]): string {
+function tiles(teamKey: string, gifs: Gif[], chosen: readonly string[]): string {
   if (gifs.length === 0) return '<p class="none">Aucun résultat. Essaie d’autres mots.</p>';
   return gifs
     .map(
       (g) => `<label class="tile">
-        <input type="checkbox" name="${escape(contenderId)}" value="${escape(g.id)}" ${chosen.includes(g.id) ? 'checked' : ''}>
+        <input type="checkbox" name="${escape(teamKey)}" value="${escape(g.id)}" ${chosen.includes(g.id) ? 'checked' : ''}>
         <video src="${escape(g.mp4)}" autoplay muted loop playsinline></video>
       </label>`,
     )
@@ -149,14 +171,14 @@ function tiles(contenderId: string, gifs: Gif[], chosen: readonly string[]): str
 }
 
 function page(): string {
-  const byId = new Map(readRaw().contenders.map((c) => [c.id, c]));
+  const byKey = new Map(teamsOf(readRaw()).map((t) => [t.key, t]));
   const sections = [...results]
-    .map(([id, gifs]) => {
-      const c = byId.get(id) as RawContender;
-      return `<section data-id="${escape(id)}">
-        <h2>${escape(c.name)} <small>${escape(c.origin)}</small></h2>
-        <form class="research"><input name="q" value="${escape(c.giphyQuery)}" aria-label="Recherche Giphy"><button>Rechercher</button></form>
-        <div class="grid">${tiles(id, gifs, c.giphyIds)}</div>
+    .map(([key, gifs]) => {
+      const t = byKey.get(key) as TeamRef;
+      return `<section data-id="${escape(key)}">
+        <h2>Team ${escape(t.team.name)} <small>contre ${escape(t.opponent)} · ${escape(t.team.origin)}</small></h2>
+        <form class="research"><input name="q" value="${escape(t.team.giphyQuery)}" aria-label="Recherche Giphy"><button>Rechercher</button></form>
+        <div class="grid">${tiles(key, gifs, t.team.giphyIds)}</div>
       </section>`;
     })
     .join('');
@@ -177,9 +199,9 @@ function page(): string {
     .none{color:#cfcac0}
   </style></head><body>
   <h1>Curation des GIF</h1>
-  <p class="help">Coche les GIF à garder (plusieurs possibles : le site en tire un au hasard). Un prétendant sans case cochée n’est pas modifié. Une nouvelle recherche remplace la requête de secours si tu enregistres.</p>
+  <p class="help">Coche les GIF à garder (plusieurs possibles : le site en tire un au hasard). Une team sans case cochée n’est pas modifiée. Une nouvelle recherche remplace la requête de secours si tu enregistres.</p>
   ${sections}
-  <div class="bar"><button id="save">Enregistrer dans contenders.json</button><span id="status"></span></div>
+  <div class="bar"><button id="save">Enregistrer dans rivalries.json</button><span id="status"></span></div>
   <script>
     const queries = {};
     document.querySelectorAll('.research').forEach((form) => {

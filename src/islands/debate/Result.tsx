@@ -10,16 +10,24 @@ import type { VoteResult } from './useDebate';
 interface Props {
   result: VoteResult | null;
   rivalry: DebateRivalry | undefined;
-  color: string;
+  /** Couleurs des teams A et B de la rivalité votée. */
+  colors: readonly [string, string];
   milestone: number | null;
   texts: DebateData['texts'];
 }
 
-export function Result({ result, rivalry, color, milestone, texts }: Props) {
+export function Result({ result, rivalry, colors, milestone, texts }: Props) {
   const t = texts.debate;
   const reached = milestone === null ? undefined : texts.milestones[String(milestone)];
   const team = result && rivalry ? rivalry[result.team] : undefined;
   const outcome = result?.outcome;
+  // Part de chaque camp : le pourcentage reçu est celui de la team choisie.
+  const aPercent =
+    outcome?.kind === 'share'
+      ? result?.team === 'a'
+        ? outcome.percent
+        : 100 - outcome.percent
+      : 0;
 
   return (
     <>
@@ -33,13 +41,24 @@ export function Result({ result, rivalry, color, milestone, texts }: Props) {
                 <span class="pop"> · {formatText(t.share, { percent: outcome.percent })}</span>
               )}
             </p>
-            {outcome?.kind === 'share' && (
-              <span class="result-bar" aria-hidden="true">
-                <span
-                  class="result-bar-fill"
-                  style={{ width: `${outcome.percent}%`, background: color }}
-                />
-              </span>
+            {outcome?.kind === 'share' && rivalry && (
+              <>
+                <span class="result-bar" aria-hidden="true">
+                  <span
+                    class="result-bar-a"
+                    style={{ width: `${aPercent}%`, background: colors[0] }}
+                  />
+                  <span class="result-bar-b" style={{ background: colors[1] }} />
+                </span>
+                <span class="result-split" aria-hidden="true">
+                  <span>
+                    {rivalry.a.name} · {aPercent} %
+                  </span>
+                  <span>
+                    {100 - aPercent} % · {rivalry.b.name}
+                  </span>
+                </span>
+              </>
             )}
             {outcome?.kind === 'first' && <p class="result-first pop">{t.firstVote}</p>}
             {result.quip ? (

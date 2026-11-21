@@ -146,3 +146,18 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Les deux teams d'une rivalité ont toujours des couleurs différentes** (`teamColors`).
 - **« Tes teams »** liste les 5 derniers choix, avec le pourcentage quand il est connu. **« Ton profil »** affiche les débats tranchés, l'accord avec la majorité et les choix rebelles. Le top 5 et les records de l'ancien mode disparaissent.
 - **L'ancien moteur de duels et son îlot sont supprimés.** Le stockage local est regroupé dans `engine/storage.ts`, et l'ancienne sauvegarde (`484:game`) est effacée au passage. `contenders.json` reste en place jusqu'à la phase 3, car l'API de votes, l'API GIF et le Hall of Fame s'en servent encore.
+
+## D15 — Votes, GIF et Hall of Fame des débats (pivot, phase 3)
+
+- **Un compteur par rivalité** : `rivalry_votes(rivalry_id, a_votes, b_votes)`. La migration n° 2 supprime les tables de l'ancien mode (`contenders`, `pairs`) et garde `rate_limits`. Il n'y avait que des votes de test en local, donc rien à reprendre. La limite de débit, les empreintes d'IP et la vérification d'origine sont inchangées.
+- **`POST /api/vote { rivalryId, team, category }`.** La rivalité doit exister, `team` vaut `a` ou `b`, et la catégorie est `mix` ou celle de la rivalité. La réponse donne la part de la team choisie : le bandeau affiche « Tu es team X · Y % des visiteurs aussi », puis une **barre à deux camps** avec les deux pourcentages et les deux noms.
+- **Un GIF par team** : `GET /api/gif/:rivalryId/:team`, avec le même service Giphy et le même cache qu'avant. Les GIF de la rivalité en cours et de la suivante sont préchargés.
+- **Hall of Fame des débats** :
+  - **les plus votés**, avec un podium et un commentaire par place ;
+  - **les plus serrés**, triés par écart relatif le plus faible ;
+  - **les plus écrasants**, par écart le plus fort, sans reprendre les plus serrés.
+
+  Il faut au moins 10 votes pour juger un débat serré ou écrasant. Le tout est filtrable par catégorie et mis en cache 60 s.
+
+- **Les 160 anciens prétendants (`contenders.json`) sont supprimés**, avec leur schéma et leurs tests. L'outil de curation travaille désormais par team (« rivalité/a ») et réécrit `rivalries.json`.
+- **Bandeau de résultat plus compact** : sur ordinateur, sa taille d'origine cachait le nom et la réplique des cartes suivantes.

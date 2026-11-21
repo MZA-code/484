@@ -118,30 +118,32 @@
   "hallOfFame": {
     "pageTitle": "Hall of Fame",
     "title": "Hall of Fame",
-    "intro": "Le classement mondial, voté par tous les visiteurs qui avaient sûrement mieux à faire.",
+    "intro": "Le verdict mondial, voté par tous les visiteurs qui avaient sûrement mieux à faire.",
     "totalVotes": {
       "one": "{n} vote au compteur",
       "other": "{n} votes au compteur"
     },
-    "filterLabel": "Filtrer par thème",
-    "topTitle": "Le top 20",
+    "filterLabel": "Filtrer par catégorie",
+    "popularTitle": "Les plus votés",
+    "popularIntro": "Tout le monde a un avis là-dessus. Absolument tout le monde.",
     "podium": [
-      "La légende. Les autres se battent pour la deuxième place.",
-      "Éternel second, mais avec panache.",
-      "Le bronze, c’est de l’or qui a eu un contretemps."
+      "Le débat du siècle. Ou au moins de la semaine.",
+      "Presque aussi clivant. Presque.",
+      "Le bronze du clash. Honorable."
     ],
-    "flopTitle": "Les mal-aimés",
-    "flopIntro": "Ils perdent plus souvent qu’à leur tour. Un peu de compassion.",
-    "closeTitle": "Les duels les plus serrés",
-    "closeIntro": "Si serrés qu’on a recompté deux fois.",
-    "winRate": "{percent} % de victoires",
-    "record": "{wins} V · {losses} D",
-    "versus": "contre",
-    "empty": "Pas encore assez de votes ici. Va jouer, le classement compte sur toi.",
-    "emptyClose": "Aucun duel n’a encore assez de votes pour être serré.",
+    "closeTitle": "Les plus serrés",
+    "closeIntro": "Le pays est coupé en deux. Les repas de famille aussi.",
+    "landslideTitle": "Les plus écrasants",
+    "landslideIntro": "Il n’y a pas eu de débat. Juste une exécution.",
+    "votes": {
+      "one": "{n} vote",
+      "other": "{n} votes"
+    },
+    "empty": "Pas encore de votes ici. Va jouer, le classement compte sur toi.",
+    "emptySection": "Pas encore assez de votes pour juger. Il en faut au moins dix par débat.",
     "loading": "On recompte les bulletins…",
     "error": "Le classement fait la sieste. Les votes, eux, continuent.",
-    "play": "Retour aux duels →"
+    "play": "Retour aux débats →"
   },
   "notFound": {
     "pageTitle": "Page introuvable",

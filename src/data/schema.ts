@@ -9,7 +9,7 @@ const slug = z
   .string()
   .regex(
     /^[a-z0-9]+(-[a-z0-9]+)*$/,
-    'doit être en minuscules, chiffres et tirets (ex. « robots-hal-9000 »)',
+    'doit être en minuscules, chiffres et tirets (ex. « heros-batman-superman »)',
   );
 
 const text = z.string().trim().min(1, 'ne doit pas être vide');
@@ -19,77 +19,6 @@ export const ThemeSchema = z.object({
   label: text,
   tagline: text,
 });
-
-export const ContenderSchema = z.object({
-  id: slug,
-  theme: slug,
-  name: text,
-  origin: z.string().regex(/^.+ · \d{4}$/, 'doit suivre le format « Œuvre · année »'),
-  line: text.max(120, 'doit rester courte (120 caractères maximum)'),
-  giphyIds: z.array(text),
-  giphyQuery: text,
-});
-
-/** Nombre minimum de prétendants par thème pour qu'un duel soit possible. */
-export const MIN_CONTENDERS_PER_THEME = 2;
-
-export const ContendersFileSchema = z
-  .object({
-    version: z.literal(1),
-    themes: z.array(ThemeSchema).min(1),
-    contenders: z.array(ContenderSchema),
-  })
-  .superRefine((file, ctx) => {
-    const themeIds = new Set<string>();
-    file.themes.forEach((theme, i) => {
-      if (themeIds.has(theme.id)) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['themes', i, 'id'],
-          message: `thème en double : ${theme.id}`,
-        });
-      }
-      themeIds.add(theme.id);
-    });
-
-    const ids = new Set<string>();
-    const perTheme = new Map<string, number>();
-    file.contenders.forEach((contender, i) => {
-      if (ids.has(contender.id)) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['contenders', i, 'id'],
-          message: `identifiant en double : ${contender.id}`,
-        });
-      }
-      ids.add(contender.id);
-      if (!themeIds.has(contender.theme)) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['contenders', i, 'theme'],
-          message: `thème inconnu : ${contender.theme}`,
-        });
-      } else if (!contender.id.startsWith(`${contender.theme}-`)) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['contenders', i, 'id'],
-          message: `l’identifiant doit commencer par « ${contender.theme}- »`,
-        });
-      }
-      perTheme.set(contender.theme, (perTheme.get(contender.theme) ?? 0) + 1);
-    });
-
-    file.themes.forEach((theme, i) => {
-      const count = perTheme.get(theme.id) ?? 0;
-      if (count < MIN_CONTENDERS_PER_THEME) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['themes', i],
-          message: `le thème « ${theme.id} » a ${count} prétendant(s), il en faut au moins ${MIN_CONTENDERS_PER_THEME}`,
-        });
-      }
-    });
-  });
 
 // ─── Rivalités « Team X ou Team Y ? » ───────────────────────────────────────
 
@@ -273,17 +202,16 @@ export const UiTextsSchema = z.object({
     intro: text,
     totalVotes: pluralForms,
     filterLabel: text,
-    topTitle: text,
+    popularTitle: text,
+    popularIntro: text,
     podium: z.tuple([text, text, text]),
-    flopTitle: text,
-    flopIntro: text,
     closeTitle: text,
     closeIntro: text,
-    winRate: template('percent'),
-    record: template('wins', 'losses'),
-    versus: text,
+    landslideTitle: text,
+    landslideIntro: text,
+    votes: pluralForms,
     empty: text,
-    emptyClose: text,
+    emptySection: text,
     loading: text,
     error: text,
     play: text,
@@ -300,6 +228,4 @@ export const UiTextsSchema = z.object({
 });
 
 export type Theme = z.infer<typeof ThemeSchema>;
-export type Contender = z.infer<typeof ContenderSchema>;
-export type ContendersFile = z.infer<typeof ContendersFileSchema>;
 export type UiTexts = z.infer<typeof UiTextsSchema>;

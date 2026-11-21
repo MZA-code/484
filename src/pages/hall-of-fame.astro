@@ -1,12 +1,18 @@
 ---
-/** Hall of Fame : classement mondial des prétendants, d'après les votes de tous les visiteurs. */
+/** Hall of Fame : le verdict mondial des débats, d'après les votes de tous les visiteurs. */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HallOfFame, { type HallData } from '../islands/hall/HallOfFame';
-import { contenders, themes, ui } from '../data/content';
+import HallOfFame, { questionFor, type HallData } from '../islands/hall/HallOfFame';
+import { categories, rivalries, ui } from '../data/content';
 
 const data: HallData = {
-  themes: themes.map(({ id, label }) => ({ id, label })),
-  contenders: contenders.map(({ id, name, theme }) => ({ id, name, theme })),
+  categories: categories.map(({ id, label }) => ({ id, label })),
+  rivalries: rivalries.map((r) => ({
+    id: r.id,
+    category: r.category,
+    question: questionFor(r, ui.debate.question),
+    a: r.a.name,
+    b: r.b.name,
+  })),
   mixedLabel: ui.home.mixedTheme.label,
   texts: ui.hallOfFame,
 };
@@ -29,12 +35,12 @@ const data: HallData = {
 
 <style>
   .hall-page {
-    padding-top: clamp(24px, 5vw, 56px);
+    padding-top: 8px;
   }
 
   .title {
     font-family: var(--font-display);
-    font-size: clamp(2.75rem, 10vw, 6rem);
+    font-size: clamp(3rem, 9vw, 6rem);
     line-height: 1;
     text-transform: uppercase;
   }
@@ -42,7 +48,6 @@ const data: HallData = {
   .intro {
     max-width: 40rem;
     margin-top: 12px;
-    color: var(--fg-muted);
     font-size: 1.125rem;
   }
 

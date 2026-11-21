@@ -1,11 +1,10 @@
 /**
- * Hall of Fame : classement mondial établi d'après les votes de tous les visiteurs.
- * Filtre par thème (synchronisé avec ?theme=), top 20 avec podium commenté,
- * les mal-aimés et les duels les plus serrés.
+ * Hall of Fame des débats : le verdict mondial, filtrable par catégorie (synchronisé avec ?theme=).
+ * Les plus votés (podium commenté), les plus serrés, les plus écrasants.
  */
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import type { UiTexts } from '../../data/schema';
-import { colorFor } from '../../lib/color';
+import { teamColors } from '../../lib/color';
 import { formatText, plural } from '../../lib/format';
 import './hall.css';
 
@@ -13,58 +12,50 @@ const MIXED = 'mix';
 
 interface Ranked {
   id: string;
-  wins: number;
-  losses: number;
+  aVotes: number;
+  bVotes: number;
   total: number;
-  winRate: number;
-}
-
-interface CloseDuel {
-  aId: string;
-  bId: string;
-  aWins: number;
-  bWins: number;
-  total: number;
+  aPercent: number;
 }
 
 interface Hall {
-  theme: string;
+  category: string;
   totalVotes: number;
-  top: Ranked[];
-  flop: Ranked[];
-  close: CloseDuel[];
+  popular: Ranked[];
+  closest: Ranked[];
+  landslides: Ranked[];
 }
 
 export interface HallData {
-  themes: { id: string; label: string }[];
-  contenders: { id: string; name: string; theme: string }[];
+  categories: { id: string; label: string }[];
+  rivalries: { id: string; category: string; question: string; a: string; b: string }[];
   mixedLabel: string;
   texts: UiTexts['hallOfFame'];
 }
 
 type Load = { status: 'loading' } | { status: 'error' } | { status: 'ready'; hall: Hall };
 
-function initialTheme(themeIds: Set<string>): string {
-  const theme = new URLSearchParams(window.location.search).get('theme');
-  return theme && themeIds.has(theme) ? theme : MIXED;
+function initialCategory(ids: Set<string>): string {
+  const category = new URLSearchParams(window.location.search).get('theme');
+  return category && ids.has(category) ? category : MIXED;
 }
 
 export default function HallOfFame({ data }: { data: HallData }) {
   const t = data.texts;
-  const tabs = useMemo(() => [{ id: MIXED, label: data.mixedLabel }, ...data.themes], [data]);
-  const names = useMemo(() => new Map(data.contenders.map((c) => [c.id, c])), [data]);
+  const tabs = useMemo(() => [{ id: MIXED, label: data.mixedLabel }, ...data.categories], [data]);
+  const byId = useMemo(() => new Map(data.rivalries.map((r) => [r.id, r])), [data]);
   const labels = useMemo(() => new Map(tabs.map((tab) => [tab.id, tab.label])), [tabs]);
-  const [theme, setTheme] = useState(() => initialTheme(new Set(tabs.map((tab) => tab.id))));
+  const [category, setCategory] = useState(() => initialCategory(new Set(tabs.map((x) => x.id))));
   const [load, setLoad] = useState<Load>({ status: 'loading' });
 
   useEffect(() => {
     const url = new URL(window.location.href);
-    url.searchParams.set('theme', theme);
+    url.searchParams.set('theme', category);
     window.history.replaceState(null, '', url);
 
     let cancelled = false;
     setLoad({ status: 'loading' });
-    fetch(`/api/hall-of-fame?theme=${encodeURIComponent(theme)}`)
+    fetch(`/api/hall-of-fame?theme=${encodeURIComponent(category)}`)
       .then((r) =>
         r.ok ? (r.json() as Promise<Hall>) : Promise.reject(new Error(String(r.status))),
       )
@@ -73,25 +64,52 @@ export default function HallOfFame({ data }: { data: HallData }) {
     return () => {
       cancelled = true;
     };
-  }, [theme]);
+  }, [category]);
 
-  const name = (id: string) => names.get(id)?.name ?? id;
-  const themePrefix = (id: string) => {
-    const c = names.get(id);
-    return theme === MIXED && c ? `${labels.get(c.theme)} · ` : '';
+  /** Une rivalité : la question, la barre à deux camps et les chiffres. */
+  const debate = (r: Ranked) => {
+    const rivalry = byId.get(r.id);
+    if (!rivalry) return null;
+    const [ca, cb] = teamColors(r.id);
+    return (
+      <>
+        {category === MIXED && <span class="hall-category">{labels.get(rivalry.category)}</span>}
+        <span class="hall-question">{rivalry.question}</span>
+        <span class="hall-bar" aria-hidden="true">
+          <span style={{ width: `${r.aPercent}%`, background: ca }} />
+          <span style={{ flex: 1, background: cb }} />
+        </span>
+        <span class="hall-split">
+          <span>
+            {rivalry.a} · {r.aPercent} %
+          </span>
+          <span class="hall-votes">{plural(t.votes, r.total)}</span>
+          <span>
+            {100 - r.aPercent} % · {rivalry.b}
+          </span>
+        </span>
+      </>
+    );
   };
 
-  const row = (r: Ranked, rank: number) => (
-    <li key={r.id} class="hall-row">
-      <span class="hall-rank">{rank}</span>
-      <span class="hall-swatch" style={{ background: colorFor(r.id) }} aria-hidden="true" />
-      <span class="hall-name">
-        {name(r.id)}
-        {themePrefix(r.id) && <span class="hall-theme">{themePrefix(r.id)}</span>}
-      </span>
-      <span class="hall-rate">{formatText(t.winRate, { percent: r.winRate })}</span>
-      <span class="hall-record">{formatText(t.record, { wins: r.wins, losses: r.losses })}</span>
-    </li>
+  const section = (id: string, title: string, intro: string, list: Ranked[]) => (
+    <section class="hall-section" aria-labelledby={id}>
+      <h2 id={id} class="hall-title">
+        {title}
+      </h2>
+      <p class="hall-intro">{intro}</p>
+      {list.length === 0 ? (
+        <p class="hall-status">{t.emptySection}</p>
+      ) : (
+        <ol class="hall-list">
+          {list.map((r) => (
+            <li key={r.id} class="hall-row">
+              {debate(r)}
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
   );
 
   return (
@@ -102,8 +120,8 @@ export default function HallOfFame({ data }: { data: HallData }) {
             key={tab.id}
             type="button"
             class="theme-tab"
-            aria-pressed={tab.id === theme}
-            onClick={() => setTheme(tab.id)}
+            aria-pressed={tab.id === category}
+            onClick={() => setCategory(tab.id)}
           >
             {tab.label}
           </button>
@@ -117,70 +135,54 @@ export default function HallOfFame({ data }: { data: HallData }) {
           <>
             <p class="hall-total">{plural(t.totalVotes, load.hall.totalVotes)}</p>
 
-            {load.hall.top.length === 0 ? (
+            {load.hall.popular.length === 0 ? (
               <p class="hall-status">{t.empty}</p>
             ) : (
               <>
-                <ol class="podium">
-                  {load.hall.top.slice(0, 3).map((r, i) => (
-                    <li key={r.id} class="podium-card pop" style={{ '--card': colorFor(r.id) }}>
-                      <span class="podium-rank">{i + 1}</span>
-                      <span class="podium-name">{name(r.id)}</span>
-                      <span class="podium-stats">
-                        {formatText(t.winRate, { percent: r.winRate })} ·{' '}
-                        {formatText(t.record, { wins: r.wins, losses: r.losses })}
-                      </span>
-                      <span class="podium-quip">{t.podium[i]}</span>
-                    </li>
-                  ))}
-                </ol>
-
-                {load.hall.top.length > 3 && (
-                  <section class="hall-section" aria-labelledby="hall-top">
-                    <h2 id="hall-top" class="hall-title">
-                      {t.topTitle}
-                    </h2>
-                    <ol class="hall-list">{load.hall.top.slice(3).map((r, i) => row(r, i + 4))}</ol>
-                  </section>
+                <section class="hall-section" aria-labelledby="hall-popular">
+                  <h2 id="hall-popular" class="hall-title">
+                    {t.popularTitle}
+                  </h2>
+                  <p class="hall-intro">{t.popularIntro}</p>
+                  <ol class="podium">
+                    {load.hall.popular.slice(0, 3).map((r, i) => (
+                      <li key={r.id} class="podium-card pop">
+                        <span class="podium-rank">{i + 1}</span>
+                        {debate(r)}
+                        <span class="podium-quip">{t.podium[i]}</span>
+                      </li>
+                    ))}
+                  </ol>
+                  {load.hall.popular.length > 3 && (
+                    <ol class="hall-list hall-list--after-podium" start={4}>
+                      {load.hall.popular.slice(3).map((r) => (
+                        <li key={r.id} class="hall-row">
+                          {debate(r)}
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </section>
+                {section('hall-close', t.closeTitle, t.closeIntro, load.hall.closest)}
+                {section(
+                  'hall-landslide',
+                  t.landslideTitle,
+                  t.landslideIntro,
+                  load.hall.landslides,
                 )}
               </>
             )}
-
-            {load.hall.flop.length > 0 && (
-              <section class="hall-section" aria-labelledby="hall-flop">
-                <h2 id="hall-flop" class="hall-title">
-                  {t.flopTitle}
-                </h2>
-                <p class="hall-intro">{t.flopIntro}</p>
-                <ol class="hall-list">{load.hall.flop.map((r, i) => row(r, i + 1))}</ol>
-              </section>
-            )}
-
-            <section class="hall-section" aria-labelledby="hall-close">
-              <h2 id="hall-close" class="hall-title">
-                {t.closeTitle}
-              </h2>
-              <p class="hall-intro">{t.closeIntro}</p>
-              {load.hall.close.length === 0 ? (
-                <p class="hall-status">{t.emptyClose}</p>
-              ) : (
-                <ul class="hall-duels">
-                  {load.hall.close.map((d) => (
-                    <li key={`${d.aId}|${d.bId}`}>
-                      <span class="hall-duel-names">
-                        <strong>{name(d.aId)}</strong> {t.versus} <strong>{name(d.bId)}</strong>
-                      </span>
-                      <span class="hall-duel-score">
-                        {d.aWins} – {d.bWins}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
           </>
         )}
       </div>
     </div>
   );
+}
+
+/** Question affichée pour une rivalité : la question sur mesure, sinon « Team A ou team B ? ». */
+export function questionFor(
+  r: { question?: string | undefined; a: { name: string }; b: { name: string } },
+  template: string,
+): string {
+  return r.question ?? formatText(template, { a: r.a.name, b: r.b.name });
 }

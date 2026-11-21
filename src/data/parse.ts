@@ -4,14 +4,7 @@
  */
 import { z } from 'zod';
 import { applyTypographyDeep } from '../lib/typography';
-import {
-  ContendersFileSchema,
-  RivalriesFileSchema,
-  UiTextsSchema,
-  type ContendersFile,
-  type RivalriesFile,
-  type UiTexts,
-} from './schema';
+import { RivalriesFileSchema, UiTextsSchema, type RivalriesFile, type UiTexts } from './schema';
 
 /** Clés dont les valeurs ne sont pas du texte affiché : jamais retouchées. */
 const TECHNICAL_KEYS = new Set([
@@ -23,11 +16,6 @@ const TECHNICAL_KEYS = new Set([
   'giphyQuery',
   'version',
 ]);
-
-export interface Content {
-  contenders: ContendersFile;
-  ui: UiTexts;
-}
 
 export class ContentError extends Error {
   constructor(file: string, error: z.ZodError) {
@@ -42,13 +30,12 @@ function validate<T>(schema: z.ZodType<T>, raw: unknown, file: string): T {
   return result.data;
 }
 
-export function parseContent(rawContenders: unknown, rawUi: unknown): Content {
-  const contenders = validate(ContendersFileSchema, rawContenders, 'content/contenders.json');
-  const ui = validate(UiTextsSchema, rawUi, 'content/ui-texts.fr.json');
-  return {
-    contenders: applyTypographyDeep(contenders, TECHNICAL_KEYS),
-    ui: applyTypographyDeep(ui, TECHNICAL_KEYS),
-  };
+/** Valide `content/ui-texts.fr.json` et applique la typographie française à ses textes. */
+export function parseUi(raw: unknown): UiTexts {
+  return applyTypographyDeep(
+    validate(UiTextsSchema, raw, 'content/ui-texts.fr.json'),
+    TECHNICAL_KEYS,
+  );
 }
 
 /** Valide `content/rivalries.json` et applique la typographie française à ses textes. */

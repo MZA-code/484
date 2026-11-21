@@ -13,7 +13,7 @@
 import { readFileSync } from 'node:fs';
 import { emitKeypressEvents } from 'node:readline';
 import { parseArgs } from 'node:util';
-import { parseContent, parseRivalries } from '../src/data/parse';
+import { parseUi, parseRivalries } from '../src/data/parse';
 import type { Rivalry } from '../src/data/schema';
 import {
   changeCategory,
@@ -40,7 +40,7 @@ import { formatText, plural } from '../src/lib/format';
 const readJson = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../content/${file}`, import.meta.url), 'utf8'));
 
-const { ui } = parseContent(readJson('contenders.json'), readJson('ui-texts.fr.json'));
+const ui = parseUi(readJson('ui-texts.fr.json'));
 const { categories, rivalries } = parseRivalries(readJson('rivalries.json'));
 const byId = new Map(rivalries.map((r) => [r.id, r]));
 const categoryLabels = new Map([

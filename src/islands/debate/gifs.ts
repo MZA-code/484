@@ -33,17 +33,22 @@ function release(mp4: string): void {
   else inUse.delete(mp4);
 }
 
-/** Métadonnées du GIF d'un prétendant, demandées une seule fois par visite. */
-export function gifInfo(contenderId: string): Promise<GifInfo | null> {
-  let pending = infos.get(contenderId);
+/** Clé du GIF d'une team : « rivalité/a » ou « rivalité/b ». */
+export function teamGifKey(rivalryId: string, team: 'a' | 'b'): string {
+  return `${rivalryId}/${team}`;
+}
+
+/** Métadonnées du GIF d'une team, demandées une seule fois par visite. */
+export function gifInfo(gifKey: string): Promise<GifInfo | null> {
+  let pending = infos.get(gifKey);
   if (!pending) {
-    pending = fetch(`/api/gif/${encodeURIComponent(contenderId)}`)
+    pending = fetch(`/api/gif/${gifKey.split('/').map(encodeURIComponent).join('/')}`)
       .then((r) => (r.ok ? (r.json() as Promise<GifInfo>) : null))
       .catch(() => null);
-    infos.set(contenderId, pending);
+    infos.set(gifKey, pending);
     // Un échec réseau ne doit pas être définitif : on pourra réessayer plus tard.
     void pending.then((info) => {
-      if (!info) infos.delete(contenderId);
+      if (!info) infos.delete(gifKey);
     });
   }
   return pending;
@@ -74,8 +79,8 @@ function videoUrl(mp4: string): Promise<string> {
 }
 
 /** Télécharge à l'avance le GIF d'un prétendant (sans rien afficher). */
-export function preloadGif(contenderId: string, stillOnly: boolean): void {
-  void gifInfo(contenderId).then((info) => {
+export function preloadGif(gifKey: string, stillOnly: boolean): void {
+  void gifInfo(gifKey).then((info) => {
     if (!info) return;
     if (stillOnly) new Image().src = info.still;
     else void videoUrl(info.mp4);
@@ -85,13 +90,13 @@ export function preloadGif(contenderId: string, stillOnly: boolean): void {
 export type GifMedia = { kind: 'video'; src: string } | { kind: 'image'; src: string };
 
 /** Média à afficher pour un prétendant : vidéo, ou image fixe si les animations sont réduites. */
-export function useGif(contenderId: string, stillOnly: boolean): GifMedia | null {
+export function useGif(gifKey: string, stillOnly: boolean): GifMedia | null {
   const [media, setMedia] = useState<GifMedia | null>(null);
   useEffect(() => {
     let cancelled = false;
     let retained: string | null = null;
     setMedia(null);
-    void gifInfo(contenderId).then(async (info) => {
+    void gifInfo(gifKey).then(async (info) => {
       if (!info || cancelled) return;
       if (stillOnly) {
         setMedia({ kind: 'image', src: info.still });
@@ -106,6 +111,6 @@ export function useGif(contenderId: string, stillOnly: boolean): GifMedia | null
       cancelled = true;
       if (retained) release(retained);
     };
-  }, [contenderId, stillOnly]);
+  }, [gifKey, stillOnly]);
   return media;
 }

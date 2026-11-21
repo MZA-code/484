@@ -6,20 +6,20 @@ import { useState } from 'preact/hooks';
 import { useGif } from './gifs';
 
 interface Props {
-  contenderId: string;
+  gifKey: string;
   name: string;
   stillOnly: boolean;
 }
 
-export function GifFrame({ contenderId, name, stillOnly }: Props) {
-  const media = useGif(contenderId, stillOnly);
+export function GifFrame({ gifKey, name, stillOnly }: Props) {
+  const media = useGif(gifKey, stillOnly);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  const cls = `duel-gif${ready ? ' is-ready' : ''}`;
+  const cls = `team-gif${ready ? ' is-ready' : ''}`;
 
   return (
-    <span class="duel-media" aria-hidden="true">
-      <span class="duel-media-name">{name}</span>
+    <span class="team-media" aria-hidden="true">
+      <span class="team-media-name">{name}</span>
       {media && !failed && media.kind === 'video' && (
         <video
           class={cls}

@@ -2,10 +2,11 @@
  * Îlot de débat : catégories, rivalité en cours, résultat, palier, « Tes teams » et « Ton profil ».
  * Rendu uniquement côté client (la partie dépend du stockage local et de l'URL).
  */
-import { useEffect, useMemo } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 import { debateNumber, MIXED_CATEGORY, type Team } from '../../engine';
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
+import { preloadGif, teamGifKey } from './gifs';
 import { Panels } from './Panels';
 import { Result } from './Result';
 import { TeamCard } from './TeamCard';
@@ -20,10 +21,25 @@ function shouldIgnoreKey(event: KeyboardEvent): boolean {
   return !!target?.closest('input, textarea, select, [contenteditable="true"]');
 }
 
+/** Suit la préférence système « réduire les animations », y compris si elle change en cours de partie. */
+function useReducedMotion(): boolean {
+  const query = '(prefers-reduced-motion: reduce)';
+  const [reduced, setReduced] = useState(() => window.matchMedia?.(query).matches ?? false);
+  useEffect(() => {
+    const list = window.matchMedia?.(query);
+    if (!list) return;
+    const onChange = () => setReduced(list.matches);
+    list.addEventListener('change', onChange);
+    return () => list.removeEventListener('change', onChange);
+  }, []);
+  return reduced;
+}
+
 export default function Debate({ data }: { data: DebateData }) {
   const { state, ctx, shown, leaving, result, milestone, choose, skip, selectCategory } =
     useDebate(data);
   const t = data.texts.debate;
+  const reducedMotion = useReducedMotion();
 
   const byId = useMemo(() => new Map(data.rivalries.map((r) => [r.id, r])), [data]);
   const labels = useMemo(
@@ -34,6 +50,15 @@ export default function Debate({ data }: { data: DebateData }) {
       ]),
     [data],
   );
+
+  // Préchargement : les GIF de la rivalité en cours et de la suivante, pour un enchaînement sans attente.
+  useEffect(() => {
+    for (const id of [state.current, state.queue[0]]) {
+      if (!id) continue;
+      preloadGif(teamGifKey(id, 'a'), reducedMotion);
+      preloadGif(teamGifKey(id, 'b'), reducedMotion);
+    }
+  }, [state.current, state.queue, reducedMotion]);
 
   // Clavier : ← team de gauche, → team de droite, Échap retour à l'accueil.
   useEffect(() => {
@@ -54,7 +79,7 @@ export default function Debate({ data }: { data: DebateData }) {
   if (!rivalry) return null;
   const colors = teamColors(rivalry.id);
   const lastRivalry = result ? byId.get(result.rivalryId) : undefined;
-  const lastColor = result ? teamColors(result.rivalryId)[result.team === 'a' ? 0 : 1] : '';
+  const lastColors = result ? teamColors(result.rivalryId) : colors;
   const question =
     rivalry.question ?? formatText(t.question, { a: rivalry.a.name, b: rivalry.b.name });
 
@@ -63,6 +88,8 @@ export default function Debate({ data }: { data: DebateData }) {
       key={`${rivalry.id}-${side}`}
       team={rivalry[side]}
       side={side}
+      gifKey={teamGifKey(rivalry.id, side)}
+      stillOnly={reducedMotion}
       color={colors[side === 'a' ? 0 : 1]}
       leaving={leaving}
       label={t.team}
@@ -117,7 +144,7 @@ export default function Debate({ data }: { data: DebateData }) {
         <Result
           result={result}
           rivalry={lastRivalry}
-          color={lastColor}
+          colors={lastColors}
           milestone={milestone}
           texts={data.texts}
         />

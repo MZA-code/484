@@ -4,11 +4,16 @@
  */
 import type { Team } from '../../engine';
 import { formatText } from '../../lib/format';
+import { GifFrame } from './GifFrame';
 import type { DebateTeam } from './types';
 
 interface Props {
   team: DebateTeam;
   side: Team;
+  /** Clé du GIF (« rivalité/a ») ; voir gifs.ts. */
+  gifKey: string;
+  /** Image fixe au lieu de la vidéo (prefers-reduced-motion). */
+  stillOnly: boolean;
   color: string;
   leaving: boolean;
   label: string;
@@ -16,7 +21,17 @@ interface Props {
   onChoose: (team: Team) => void;
 }
 
-export function TeamCard({ team, side, color, leaving, label, chooseLabel, onChoose }: Props) {
+export function TeamCard({
+  team,
+  side,
+  gifKey,
+  stillOnly,
+  color,
+  leaving,
+  label,
+  chooseLabel,
+  onChoose,
+}: Props) {
   // Description lue après « Choisir team X » : origine et réplique, sans répéter le nom.
   const id = (part: string) => `team-${side}-${part}`;
   return (
@@ -31,10 +46,7 @@ export function TeamCard({ team, side, color, leaving, label, chooseLabel, onCho
       <span class="team-tag" aria-hidden="true">
         {label}
       </span>
-      {/* Cadre du GIF : rayé, avec le nom, en attendant les GIF des teams (phase 3 du pivot). */}
-      <span class="team-media" aria-hidden="true">
-        <span class="team-media-name">{team.name}</span>
-      </span>
+      <GifFrame gifKey={gifKey} name={team.name} stillOnly={stillOnly} />
       <span class="team-origin" id={id('origin')}>
         {team.origin}
       </span>

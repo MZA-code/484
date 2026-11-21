@@ -3,7 +3,7 @@
  * Les secrets viennent de `astro:env` : fichier .env en local, variables d'environnement en production.
  */
 import { getSecret } from 'astro:env/server';
-import { contenders, themes } from '../../data/content';
+import { categories, rivalries } from '../../data/content';
 import { createVoteService, type VoteService } from './service';
 import { openSqliteStore } from './store';
 
@@ -21,8 +21,8 @@ export function getVoteService(): VoteService | null {
   service = createVoteService({
     store: openSqliteStore(getSecret('VOTES_DB_FILE') ?? 'data/votes.sqlite'),
     salt,
-    contenders,
-    themeIds: themes.map((t) => t.id),
+    rivalries,
+    categoryIds: categories.map((c) => c.id),
   });
   return service;
 }
