@@ -7,7 +7,10 @@ import { MIXED_THEME } from '../engine/catalog';
 
 const slug = z
   .string()
-  .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'doit être en minuscules, chiffres et tirets (ex. « robots-hal-9000 »)');
+  .regex(
+    /^[a-z0-9]+(-[a-z0-9]+)*$/,
+    'doit être en minuscules, chiffres et tirets (ex. « robots-hal-9000 »)',
+  );
 
 const text = z.string().trim().min(1, 'ne doit pas être vide');
 
@@ -40,7 +43,11 @@ export const ContendersFileSchema = z
     const themeIds = new Set<string>();
     file.themes.forEach((theme, i) => {
       if (themeIds.has(theme.id)) {
-        ctx.addIssue({ code: 'custom', path: ['themes', i, 'id'], message: `thème en double : ${theme.id}` });
+        ctx.addIssue({
+          code: 'custom',
+          path: ['themes', i, 'id'],
+          message: `thème en double : ${theme.id}`,
+        });
       }
       themeIds.add(theme.id);
     });
@@ -49,11 +56,19 @@ export const ContendersFileSchema = z
     const perTheme = new Map<string, number>();
     file.contenders.forEach((contender, i) => {
       if (ids.has(contender.id)) {
-        ctx.addIssue({ code: 'custom', path: ['contenders', i, 'id'], message: `identifiant en double : ${contender.id}` });
+        ctx.addIssue({
+          code: 'custom',
+          path: ['contenders', i, 'id'],
+          message: `identifiant en double : ${contender.id}`,
+        });
       }
       ids.add(contender.id);
       if (!themeIds.has(contender.theme)) {
-        ctx.addIssue({ code: 'custom', path: ['contenders', i, 'theme'], message: `thème inconnu : ${contender.theme}` });
+        ctx.addIssue({
+          code: 'custom',
+          path: ['contenders', i, 'theme'],
+          message: `thème inconnu : ${contender.theme}`,
+        });
       } else if (!contender.id.startsWith(`${contender.theme}-`)) {
         ctx.addIssue({
           code: 'custom',
@@ -79,7 +94,8 @@ export const ContendersFileSchema = z
 /** Un texte qui doit contenir certains marqueurs, par exemple `{name}`. */
 const template = (...placeholders: string[]) =>
   placeholders.reduce(
-    (schema, p) => schema.refine((value) => value.includes(`{${p}}`), `doit contenir le marqueur {${p}}`),
+    (schema, p) =>
+      schema.refine((value) => value.includes(`{${p}}`), `doit contenir le marqueur {${p}}`),
     text,
   );
 
@@ -109,9 +125,7 @@ export const UiTextsSchema = z.object({
   ),
   footer: z.object({ projects: text, disclaimer: text }),
   projectsPage: z.object({ title: text, intro: text, back: text }),
-  projects: z.array(
-    z.object({ kind: text, title: text, text, url: z.url(), cta: text }),
-  ),
+  projects: z.array(z.object({ kind: text, title: text, text, url: z.url(), cta: text })),
 });
 
 export type Theme = z.infer<typeof ThemeSchema>;

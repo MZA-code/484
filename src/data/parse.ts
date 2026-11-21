@@ -4,12 +4,7 @@
  */
 import { z } from 'zod';
 import { applyTypographyDeep } from '../lib/typography';
-import {
-  ContendersFileSchema,
-  UiTextsSchema,
-  type ContendersFile,
-  type UiTexts,
-} from './schema';
+import { ContendersFileSchema, UiTextsSchema, type ContendersFile, type UiTexts } from './schema';
 
 /** Clés dont les valeurs ne sont pas du texte affiché : jamais retouchées. */
 const TECHNICAL_KEYS = new Set(['id', 'theme', 'url', 'giphyIds', 'giphyQuery', 'version']);
