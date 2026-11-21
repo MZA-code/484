@@ -25,3 +25,6 @@ Thumbs.db
 
 # Fiche de relecture générée (npm run content:review)
 docs/relecture-rivalites.md
+
+# Redémarrage de Passenger (touch tmp/restart.txt)
+/tmp/
