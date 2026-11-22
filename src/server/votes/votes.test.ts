@@ -322,6 +322,25 @@ describe('gif reports', () => {
     expect(service.rejectedGifs('pirates-x', 'a').size).toBe(0);
   });
 
+  it('lets the editor (admin mode) reject a GIF at once, without any limit', () => {
+    const { service } = setup();
+    // Bien au-delà de la limite d'un visiteur, toujours depuis la même adresse.
+    for (let i = 0; i < REPORT_RATE.daily + 5; i++) {
+      const gifId = `gif${i}`;
+      expect(service.reportGif({ ...report, gifId }, '9.9.9.9', true)).toEqual({
+        status: 200,
+        body: { counted: true, rejected: true },
+      });
+      expect(service.rejectedGifs('heros-batman-superman', 'a').has(gifId)).toBe(true);
+    }
+    // Un visiteur ordinaire reste limité, lui.
+    const statuses = Array.from(
+      { length: REPORT_RATE.burst + 1 },
+      (_, i) => service.reportGif({ ...report, gifId: `v${i}` }, '9.9.9.9').status,
+    );
+    expect(statuses.at(-1)).toBe(429);
+  });
+
   it('lists reports only with the right token', () => {
     const { service } = setup();
     service.reportGif(report, '1.1.1.1');

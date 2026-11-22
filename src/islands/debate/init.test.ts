@@ -13,7 +13,6 @@ const data = {
 const ctx = (): DebateContext => ({
   catalog: catalogFrom(data),
   rng: seededRng(1),
-  milestones: [],
 });
 
 describe('categoryFromSearch', () => {

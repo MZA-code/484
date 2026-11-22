@@ -130,6 +130,16 @@ Pour lire les signalements du site en ligne depuis ton poste, choisis un jeton (
 
 Sans jeton sur le serveur, la liste n'est pas consultable (404).
 
+### Mode admin : écarter un GIF d'un clic
+
+Pour l'éditeur seulement. Sur chaque appareil (PC, téléphone), ouvrir une fois :
+
+```
+https://team484.fr/#admin=<GIF_REPORT_TOKEN>
+```
+
+Le navigateur garde le jeton (stockage local) et l'efface de la barre d'adresse ; comme il est après le `#`, il n'est jamais envoyé au serveur dans l'URL ni écrit dans ses journaux. Ensuite, « Mauvais GIF ? » envoie le jeton dans l'en-tête `x-484-admin` : pas de limite de débit, et le GIF est écarté tout de suite (il compte pour `GIF_REJECT_THRESHOLD` signalements). La carte affiche aussitôt le GIF suivant, et le bouton reste disponible pour l'écarter aussi. Pour couper le mode admin : `https://team484.fr/#admin=off`.
+
 ### L'audit : `npm run gif-audit`
 
 ```sh
@@ -151,6 +161,20 @@ Puis il ouvre une page locale (<http://localhost:4843>) avec **6 propositions Gi
 Quota : chaque team de la page coûte une recherche Giphy (clé gratuite : environ 100 par heure). Avance par lots de 25.
 
 `npm run curate` ouvre la même page, sans la priorisation : `--category bouffe` pour une catégorie, `--all` pour inclure les teams déjà curées.
+
+## Achievements
+
+Sous le jeu, le panneau « Tes achievements » montre les objectifs débloqués, ceux à venir (barre de progression) et le prochain à viser ; un bandeau « Achievement débloqué » s'affiche au moment où l'un d'eux est atteint. Tout est calculé dans le navigateur, à partir de la partie gardée en stockage local : aucun compte, rien n'est envoyé.
+
+La liste est dans `content/ui-texts.fr.json` (`achievements.list`) : identifiant, type, objectif, icône, nom, description, phrase du bandeau, et `link: true` pour y ajouter le lien LinkedIn. Types possibles (`src/engine/achievements.ts`) :
+
+| Type         | Compte                                                   |
+| ------------ | -------------------------------------------------------- |
+| `debates`    | débats tranchés                                          |
+| `rebels`     | choix rebelles (team choisie par moins de 40 % du monde) |
+| `streak`     | meilleure série d'accords avec la majorité, d'affilée    |
+| `categories` | catégories où au moins un débat a été tranché            |
+| `universes`  | univers où au moins un débat a été tranché               |
 
 ## Protection contre les robots et le spam
 

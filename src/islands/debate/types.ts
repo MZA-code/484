@@ -18,11 +18,23 @@ export interface DebateRivalry {
   b: DebateTeam;
 }
 
+/** Dessin SVG d'une icône, préparé au build (l'îlot n'embarque pas toute la bibliothèque). */
+export interface IconPath {
+  viewBox: string;
+  path: string;
+}
+
+/** Textes des achievements, chacun avec le dessin de son icône. */
+export type AchievementTexts = Omit<UiTexts['achievements'], 'list'> & {
+  list: (UiTexts['achievements']['list'][number] & { svg: IconPath })[];
+};
+
 export interface DebateData {
   universes: { id: string; label: string; categories: string[] }[];
   categories: { id: string; label: string }[];
   rivalries: DebateRivalry[];
-  texts: Pick<UiTexts, 'debate' | 'quips' | 'milestones'> & {
+  texts: Pick<UiTexts, 'debate' | 'quips'> & {
+    achievements: AchievementTexts;
     mixedLabel: string;
     linkedinUrl: string;
   };

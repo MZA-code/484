@@ -24,7 +24,7 @@ try {
   console.log(`\n  Total : ${rivalries.length} rivalités`);
   const quips = Object.values(ui.quips).reduce((n, list) => n + list.length, 0);
   console.log(
-    `  ${quips} remarques · ${Object.keys(ui.milestones).length} paliers · ${ui.projects.length} projets`,
+    `  ${quips} remarques · ${ui.achievements.list.length} achievements · ${ui.projects.length} projets`,
   );
 } catch (error) {
   if (error instanceof ContentError || error instanceof SyntaxError) {

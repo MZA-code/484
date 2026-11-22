@@ -30,6 +30,7 @@ import {
   type DebateState,
   type Team,
 } from '../src/engine/debate';
+import { unlockedIds } from '../src/engine/achievements';
 import { shareOutcome, type PairResult } from '../src/engine/quips';
 import { defaultRng, randomInt, seededRng } from '../src/engine/random';
 import { colorFor } from '../src/lib/color';
@@ -73,7 +74,6 @@ const ctx: DebateContext = {
     universes,
   ),
   rng,
-  milestones: Object.keys(ui.milestones).map(Number),
 };
 
 if (!ctx.catalog.pools.has(args.category)) {
@@ -193,12 +193,14 @@ function play(state: DebateState, team: Team): { state: DebateState; banner: str
   if (outcome.kind === 'share') banner.push(bar(outcome.percent, colorFor(`${r.id}:${team}`)));
   if (outcome.kind === 'first') banner.push(ui.debate.firstVote);
   banner.push(ansi.italic(quip.text));
-  for (const event of result.events) {
-    if (event.type !== 'milestone') continue;
-    const milestone = ui.milestones[String(event.count)];
-    if (!milestone) continue;
-    banner.push('', ansi.pink(`★ ${milestone.text}`));
-    if (milestone.link) banner.push(ansi.dim('  [bouton LinkedIn sur le site]'));
+  // Achievements débloqués par ce vote (nombre de débats, catégories, série, rebelle…).
+  const before = unlockedIds(state, ui.achievements.list, ctx.catalog);
+  const after = unlockedIds(withOutcome, ui.achievements.list, ctx.catalog);
+  for (const achievement of ui.achievements.list) {
+    if (!after.has(achievement.id) || before.has(achievement.id)) continue;
+    banner.push('', ansi.pink(`★ ${ui.achievements.unlocked} · ${achievement.name}`));
+    banner.push(ansi.pink(`  ${achievement.text}`));
+    if (achievement.link) banner.push(ansi.dim('  [bouton LinkedIn sur le site]'));
   }
   return { state: quip.state, banner };
 }

@@ -27,13 +27,12 @@ const rivalries = [
   { id: 'solo', category: 'seule' },
 ];
 
-function makeCtx(seed = 1, milestones: number[] = [3, 10]): DebateContext {
+function makeCtx(seed = 1): DebateContext {
   return {
     catalog: createDebateCatalog(['heros', 'bouffe', 'seule'], rivalries, [
       { id: 'univers-pop', categories: ['heros', 'seule'] },
     ]),
     rng: seededRng(seed),
-    milestones,
   };
 }
 
@@ -170,16 +169,41 @@ describe('voting', () => {
     expect(state.count).toBe(HISTORY_SIZE + 10);
   });
 
-  it('emits milestones exactly when the counter reaches a step', () => {
-    const ctx = makeCtx(1, [3, 5]);
+  it('remembers the categories where a debate was decided', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'heros');
+    state = vote(state, 'a', ctx).state;
+    state = vote(state, 'b', ctx).state;
+    expect(state.categories).toEqual(['heros']);
+    state = changeCategory(state, 'bouffe', ctx);
+    state = skip(state, ctx);
+    expect(state.categories).toEqual(['heros']);
+    state = vote(state, 'a', ctx).state;
+    expect(state.categories).toEqual(['heros', 'bouffe']);
+  });
+
+  it('counts the agreement streak, and keeps the best one', () => {
+    const ctx = makeCtx();
     let state = createDebate(ctx, MIXED_CATEGORY);
-    const reached: number[] = [];
-    for (let i = 0; i < 6; i++) {
-      const result = vote(state, 'a', ctx);
-      state = result.state;
-      for (const e of result.events) if (e.type === 'milestone') reached.push(e.count);
+    for (const percent of [60, 70, 80, 30, 55]) {
+      state = vote(state, 'a', ctx).state;
+      state = recordOutcome(state, state.history[0]!.rivalryId, share(percent));
     }
-    expect(reached).toEqual([3, 5]);
+    expect(state.streak).toBe(1);
+    expect(state.bestStreak).toBe(3);
+  });
+
+  it('restores older saves without achievements data', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'heros');
+    state = vote(state, 'a', ctx).state;
+    const old: Record<string, unknown> = { ...state };
+    delete old['categories'];
+    delete old['streak'];
+    delete old['bestStreak'];
+    const restored = restoreDebate(JSON.parse(JSON.stringify(old)), ctx);
+    // Les catégories sont retrouvées grâce à l'historique.
+    expect(restored).toMatchObject({ categories: ['heros'], streak: 0, bestStreak: 0 });
   });
 });
 

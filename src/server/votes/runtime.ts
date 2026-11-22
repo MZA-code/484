@@ -5,7 +5,7 @@
 import { getSecret } from 'astro:env/server';
 import { categories, rivalries, universes } from '../../data/content';
 import { checkWriteRequest, pickClientIp, trustedHops } from './guard';
-import { createVoteService, type VoteService } from './service';
+import { createVoteService, sameToken, type VoteService } from './service';
 import { openSqliteStore } from './store';
 
 let service: VoteService | null | undefined;
@@ -48,6 +48,16 @@ export function clientIp(request: Request, clientAddress: () => string): string 
     directAddress(clientAddress),
     trustedHops(getSecret('TRUST_PROXY')),
   );
+}
+
+/** En-tête qui porte le jeton du mode admin (voir src/lib/admin.ts). */
+export const ADMIN_HEADER = 'x-484-admin';
+
+/** La requête vient-elle de l'éditeur (jeton GIF_REPORT_TOKEN dans l'en-tête admin) ? */
+export function isAdminRequest(request: Request): boolean {
+  const token = getSecret('GIF_REPORT_TOKEN');
+  const given = request.headers.get(ADMIN_HEADER);
+  return Boolean(token && given && sameToken(given, token));
 }
 
 /** Filtre anti-abus des routes qui écrivent : null si la requête passe, sinon la réponse de refus. */

@@ -3,6 +3,7 @@
  * une erreur dans un JSON fait échouer le build avec un message lisible.
  */
 import { z } from 'zod';
+import { ACHIEVEMENT_KINDS } from '../engine/achievements';
 import { MIXED_CATEGORY as MIXED_THEME } from '../engine/debate';
 import { ICON_NAMES } from '../lib/icons';
 import { brokenLinks, inlineVariables } from '../lib/inline';
@@ -313,13 +314,51 @@ export const UiTextsSchema = z.object({
       thanks: quipList,
       limited: text,
       error: text,
+      /** Mode admin : le GIF est écarté et remplacé sous tes yeux. */
+      admin: text,
     }),
   }),
   quips: z.object({ high: quipList, mid: quipList, low: quipList, neutral: quipList }),
-  milestones: z.record(
-    z.string().regex(/^[1-9]\d*$/, 'la clé d’un palier doit être un nombre de débats'),
-    z.object({ text, link: z.boolean().optional() }),
-  ),
+  /** Achievements : objectifs à débloquer (voir src/engine/achievements.ts). */
+  achievements: z.object({
+    title: text,
+    unlocked: text,
+    count: template('done', 'total'),
+    next: template('name', 'left'),
+    allDone: text,
+    locked: text,
+    list: z
+      .array(
+        z.object({
+          id: slug,
+          kind: z.enum(ACHIEVEMENT_KINDS, {
+            message: `type inconnu ; types possibles : ${ACHIEVEMENT_KINDS.join(', ')}`,
+          }),
+          goal: z.number().int().positive('l’objectif doit être un nombre positif'),
+          icon,
+          name: text.max(40, 'doit rester court (40 caractères maximum)'),
+          description: text,
+          /** Phrase du bandeau de déblocage. */
+          text,
+          /** Affiche le lien LinkedIn dans le bandeau. */
+          link: z.boolean().optional(),
+        }),
+      )
+      .min(1)
+      .superRefine((list, ctx) => {
+        const seen = new Set<string>();
+        list.forEach((a, i) => {
+          if (seen.has(a.id)) {
+            ctx.addIssue({
+              code: 'custom',
+              path: [i, 'id'],
+              message: `achievement en double : ${a.id}`,
+            });
+          }
+          seen.add(a.id);
+        });
+      }),
+  }),
   hallOfFame: z.object({
     pageTitle: text,
     title: text,

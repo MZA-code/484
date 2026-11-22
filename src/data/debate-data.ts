@@ -4,6 +4,7 @@
  * les 750 pages de débat restent légères au lieu d'embarquer chacune toutes les rivalités.
  */
 import type { DebateData } from '../islands/debate/types';
+import { iconSvg } from '../lib/icons';
 import { categories, rivalries, ui, universes } from './content';
 
 const team = ({ name, origin, line }: { name: string; origin: string; line: string }) => ({
@@ -26,7 +27,10 @@ export function buildDebateData(): DebateData {
     texts: {
       debate: ui.debate,
       quips: ui.quips,
-      milestones: ui.milestones,
+      achievements: {
+        ...ui.achievements,
+        list: ui.achievements.list.map((a) => ({ ...a, svg: iconSvg(a.icon) })),
+      },
       mixedLabel: ui.home.mixedTheme.label,
       linkedinUrl: ui.links.linkedin.url,
     },

@@ -379,6 +379,39 @@
   opacity: 1;
 }
 
+/* Indicateur de chargement du GIF : trois points qui pulsent sous le nom (pas de rotation). */
+.gif-loader {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  display: flex;
+  gap: 6px;
+  transform: translateX(-50%);
+  animation: loader-in 200ms ease backwards;
+}
+
+.gif-loader span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ink);
+  animation: pending-dot 900ms ease-in-out infinite;
+}
+
+.gif-loader span:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.gif-loader span:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+@keyframes loader-in {
+  from {
+    opacity: 0;
+  }
+}
+
 .team-media-name {
   max-width: 90%;
   font-family: var(--font-mono);
@@ -727,8 +760,30 @@
   }
 }
 
-.milestone-text {
+.milestone-body {
+  display: flex;
   flex: 1 1 420px;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.milestone-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.milestone-icon {
+  flex: none;
+  width: 28px;
+  height: 28px;
+}
+
+.milestone-text {
   font-family: var(--font-display);
   font-size: clamp(1.625rem, 3vw, 2.375rem);
   line-height: 1.1;
@@ -891,6 +946,97 @@
 }
 
 /* ─── Panneaux ───────────────────────────────────────────────────────────── */
+
+/* Achievements : toute la largeur, liste sur plusieurs colonnes. */
+.panel--achievements {
+  grid-column: 1 / -1;
+}
+
+.achievements-summary {
+  margin: 0 0 14px;
+  color: var(--fg-muted);
+  font-size: 0.9375rem;
+}
+
+.achievements-summary strong {
+  color: var(--fg);
+}
+
+.achievements-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.achievement {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 2px dashed #3a3a3a;
+  color: var(--fg-muted);
+}
+
+/* Débloqué : fond jaune, comme un badge gagné. */
+.achievement.is-done {
+  border: 2px solid var(--yellow);
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.achievement-icon {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  opacity: 0.45;
+}
+
+.achievement.is-done .achievement-icon {
+  opacity: 1;
+}
+
+.achievement-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.achievement-name {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.achievement-desc {
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+.achievement-bar {
+  height: 4px;
+  margin-top: 4px;
+  background: #2a2a2a;
+}
+
+.achievement-bar span {
+  display: block;
+  height: 100%;
+  background: var(--yellow);
+}
+
+.achievement-progress {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
 
 .panels {
   display: grid;

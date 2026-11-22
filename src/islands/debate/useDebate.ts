@@ -8,6 +8,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import {
   changeCategory,
+  unlockedIds,
   debateQuip,
   DEBATE_STORAGE_KEY,
   defaultRng,
@@ -48,15 +49,15 @@ export interface VoteResult {
   quip: string | null;
 }
 
+/** Un achievement tel que décrit dans les textes du site. */
+export type Achievement = DebateData['texts']['achievements']['list'][number];
+
 export function useDebate(data: DebateData, initialRivalry?: string) {
   const ctx = useMemo<DebateContext>(
-    () => ({
-      catalog: catalogFrom(data),
-      rng: defaultRng,
-      milestones: Object.keys(data.texts.milestones).map(Number),
-    }),
+    () => ({ catalog: catalogFrom(data), rng: defaultRng }),
     [data],
   );
+  const rules = data.texts.achievements.list;
   const storage = useMemo(() => resolveStorage(() => window.localStorage), []);
 
   const [state, setState] = useState<DebateState>(() => {
@@ -72,7 +73,10 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
   const [shown, setShown] = useState(state.current);
   const [exit, setExit] = useState<Exit>(null);
   const [result, setResult] = useState<VoteResult | null>(null);
-  const [milestone, setMilestone] = useState<number | null>(null);
+  /** Achievement qui vient d'être débloqué (bandeau), ou null. */
+  const [achievement, setAchievement] = useState<Achievement | null>(null);
+  /** Achievements déjà débloqués : null avant le premier rendu (ceux d'avant ne s'annoncent pas). */
+  const unlocked = useRef<Set<string> | null>(null);
 
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -83,6 +87,18 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
   useEffect(() => {
     writeJson(storage, DEBATE_STORAGE_KEY, state);
   }, [storage, state]);
+
+  // Achievements : on compare avec ceux déjà débloqués, à chaque changement d'état. Les
+  // déblocages qui dépendent du pourcentage (rebelle, série) arrivent avec la réponse de l'API.
+  useEffect(() => {
+    const now = unlockedIds(state, rules, ctx.catalog);
+    const before = unlocked.current;
+    unlocked.current = now;
+    if (!before) return;
+    const fresh = rules.filter((rule) => now.has(rule.id) && !before.has(rule.id));
+    const last = fresh.at(-1);
+    if (last) setAchievement(last);
+  }, [state, rules, ctx]);
 
   // L'adresse suit le débat affiché (/debat/<id>?theme=<catégorie>) : la copier suffit pour le partager.
   // replaceState : on ne remplit pas l'historique, le bouton « retour » quitte le jeu.
@@ -119,8 +135,7 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
       pendingVote.current = id;
 
       setResult({ id, rivalryId, team, outcome: null, quip: null });
-      const reached = transition.events.find((e) => e.type === 'milestone');
-      setMilestone(reached?.type === 'milestone' ? reached.count : null);
+      setAchievement(null);
       advance(transition.state, team);
 
       void sendVote({ rivalryId, team, category: current.category }).then((pair) => {
@@ -145,7 +160,7 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
     if (busy.current) return;
     pendingVote.current = -1;
     setResult(null);
-    setMilestone(null);
+    setAchievement(null);
     advance(skipRivalry(stateRef.current, ctx), 'skip');
   }, [ctx, advance]);
 
@@ -154,11 +169,11 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
       if (busy.current || category === stateRef.current.category) return;
       pendingVote.current = -1;
       setResult(null);
-      setMilestone(null);
+      setAchievement(null);
       advance(changeCategory(stateRef.current, category, ctx), 'skip');
     },
     [ctx, advance],
   );
 
-  return { state, ctx, shown, exit, result, milestone, choose, skip, selectCategory };
+  return { state, ctx, shown, exit, result, achievement, choose, skip, selectCategory };
 }

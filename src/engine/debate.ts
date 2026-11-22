@@ -8,7 +8,9 @@
  * - voter compte un débat tranché ; passer ou changer de catégorie ne compte pas,
  *   et garde le compteur, l'historique et le profil ;
  * - quand le pourcentage mondial arrive, il alimente le profil du visiteur :
- *   d'accord avec la majorité (plus de 50 %), ou choix rebelle (moins de 40 %).
+ *   d'accord avec la majorité (plus de 50 %), ou choix rebelle (moins de 40 %) ;
+ * - l'état garde aussi de quoi calculer les achievements (achievements.ts) : catégories
+ *   jouées et meilleure série d'accords avec la majorité.
  */
 import { z } from 'zod';
 import { pickQuip, quipCategory, type QuipBook, type ShareOutcome } from './quips';
@@ -89,18 +91,20 @@ export interface DebateState {
   measured: number;
   agreed: number;
   rebels: number;
+  /** Catégories où au moins un débat a été tranché (achievements « Explorateur »). */
+  categories: string[];
+  /** Accords d'affilée avec la majorité : série en cours, et la meilleure. */
+  streak: number;
+  bestStreak: number;
   lastQuipKey: string | null;
 }
 
 export interface DebateContext {
   catalog: DebateCatalog;
   rng: Rng;
-  milestones: readonly number[];
 }
 
-export type DebateEvent =
-  | { type: 'voted'; rivalryId: string; team: Team; category: string }
-  | { type: 'milestone'; count: number };
+export type DebateEvent = { type: 'voted'; rivalryId: string; team: Team; category: string };
 
 // ─── Tirage ─────────────────────────────────────────────────────────────────
 
@@ -137,6 +141,9 @@ export function createDebate(ctx: DebateContext, category: string): DebateState 
     measured: 0,
     agreed: 0,
     rebels: 0,
+    categories: [],
+    streak: 0,
+    bestStreak: 0,
     lastQuipKey: null,
   };
 }
@@ -152,13 +159,16 @@ export function vote(
   const events: DebateEvent[] = [
     { type: 'voted', rivalryId: state.current, team, category: state.category },
   ];
-  if (ctx.milestones.includes(count)) events.push({ type: 'milestone', count });
+  const played = categoryOfRivalry(ctx.catalog, state.current);
+  const categories =
+    played && !state.categories.includes(played) ? [...state.categories, played] : state.categories;
   return {
     state: {
       ...state,
       queue: next.queue,
       current: next.id,
       count,
+      categories,
       history: [{ rivalryId: state.current, team, percent: null }, ...state.history].slice(
         0,
         HISTORY_SIZE,
@@ -231,12 +241,16 @@ export function recordOutcome(
   const index = state.history.findIndex((v) => v.rivalryId === rivalryId && v.percent === null);
   if (index === -1) return state;
   const { percent } = outcome;
+  const agreed = percent > 50;
+  const streak = agreed ? state.streak + 1 : 0;
   return {
     ...state,
     history: state.history.map((v, i) => (i === index ? { ...v, percent } : v)),
     measured: state.measured + 1,
-    agreed: state.agreed + (percent > 50 ? 1 : 0),
+    agreed: state.agreed + (agreed ? 1 : 0),
     rebels: state.rebels + (percent < REBEL_BELOW ? 1 : 0),
+    streak,
+    bestStreak: Math.max(state.bestStreak, streak),
   };
 }
 
@@ -294,6 +308,10 @@ const StoredDebateSchema = z.object({
   measured: count,
   agreed: count,
   rebels: count,
+  // Absents des sauvegardes d'avant les achievements : valeurs par défaut.
+  categories: z.array(z.string()).default([]),
+  streak: count.default(0),
+  bestStreak: count.default(0),
   lastQuipKey: z.string().nullable(),
 });
 
@@ -310,13 +328,24 @@ export function restoreDebate(raw: unknown, ctx: DebateContext): DebateState | n
   const pool = new Set(poolOf(ctx.catalog, stored.category));
   const known = new Set(poolOf(ctx.catalog, MIXED_CATEGORY));
   const measured = Math.max(stored.measured, 0);
+  const history = stored.history.filter((v) => known.has(v.rivalryId)).slice(0, HISTORY_SIZE);
+  // Catégories jouées : celles gardées, plus celles de l'historique (sauvegardes plus anciennes).
+  const categories = [
+    ...new Set([
+      ...stored.categories,
+      ...history.map((v) => categoryOfRivalry(ctx.catalog, v.rivalryId) ?? ''),
+    ]),
+  ].filter((id) => id !== MIXED_CATEGORY && ctx.catalog.pools.has(id));
   const restored: DebateState = {
     ...stored,
     queue: [...new Set(stored.queue)].filter((id) => pool.has(id) && id !== stored.current),
-    history: stored.history.filter((v) => known.has(v.rivalryId)).slice(0, HISTORY_SIZE),
+    history,
     measured,
     agreed: Math.min(stored.agreed, measured),
     rebels: Math.min(stored.rebels, measured),
+    categories,
+    streak: Math.min(stored.streak, measured),
+    bestStreak: Math.min(Math.max(stored.bestStreak, stored.streak), measured),
   };
   if (pool.has(stored.current)) return restored;
   // La rivalité en cours n'existe plus : on en tire une autre.

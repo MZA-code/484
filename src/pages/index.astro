@@ -103,6 +103,11 @@ const sections = universes.map((u) => ({
                     tant qu'elle charge, et pour toujours si elle échoue. */}
                 <span class="theme-media" data-category-gif={c.id} aria-hidden="true">
                   <Icon name={c.icon} class="theme-icon" />
+                  <span class="theme-loader">
+                    <span />
+                    <span />
+                    <span />
+                  </span>
                 </span>
                 <span class="theme-name">{c.name}</span>
                 <span class="theme-tagline">{c.tagline}</span>
@@ -129,6 +134,9 @@ const sections = universes.map((u) => ({
     still: string;
   }
 
+  /** Indicateur de chargement seulement si l'attente dure : une réponse rapide ne clignote pas. */
+  const LOADER_DELAY_MS = 300;
+
   const frames = [...document.querySelectorAll<HTMLElement>('[data-category-gif]')];
   const thumbnails = new Map<HTMLElement, Thumbnail>();
 
@@ -137,7 +145,12 @@ const sections = universes.map((u) => ({
     frame.classList.remove('has-gif');
     const media = prefersReducedMotion() ? new Image() : document.createElement('video');
     media.className = 'theme-gif';
-    const ready = () => frame.classList.add('has-gif');
+    const done = () => frame.classList.remove('is-loading');
+    const ready = () => {
+      done();
+      frame.classList.add('has-gif');
+    };
+    media.addEventListener('error', done, { once: true });
     if (media instanceof HTMLVideoElement) {
       media.muted = true;
       media.loop = true;
@@ -156,16 +169,25 @@ const sections = universes.map((u) => ({
   }
 
   async function load(frame: HTMLElement) {
+    const timer = window.setTimeout(() => frame.classList.add('is-loading'), LOADER_DELAY_MS);
+    // Pas de GIF (Giphy indisponible, quota atteint, rien trouvé) : on retire l'indicateur.
+    const giveUp = () => {
+      window.clearTimeout(timer);
+      frame.classList.remove('is-loading');
+    };
     try {
       const id = encodeURIComponent(frame.dataset['categoryGif'] ?? '');
       const response = await fetch(`/api/category-gif/${id}`);
-      if (!response.ok) return;
+      if (!response.ok) return giveUp();
       const gif = (await response.json()) as Thumbnail | null;
-      if (!gif?.mp4 || !gif.still) return;
+      if (!gif?.mp4 || !gif.still) return giveUp();
       thumbnails.set(frame, gif);
       show(frame, gif);
+      // L'indicateur reste jusqu'à ce que l'image soit prête (voir show).
+      window.clearTimeout(timer);
+      if (!frame.classList.contains('has-gif')) frame.classList.add('is-loading');
     } catch {
-      // Réseau ou Giphy indisponible : l'icône reste affichée.
+      giveUp();
     }
   }
 
@@ -412,6 +434,47 @@ const sections = universes.map((u) => ({
     width: 44px;
     height: 44px;
     opacity: 0.8;
+  }
+
+  /* Chargement : trois points qui pulsent sous l'icône, seulement si l'attente dure. */
+  .theme-loader {
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    display: none;
+    gap: 5px;
+    transform: translateX(-50%);
+  }
+
+  .theme-media:global(.is-loading) .theme-loader {
+    display: flex;
+  }
+
+  .theme-loader span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ink);
+    animation: theme-loader-dot 900ms ease-in-out infinite;
+  }
+
+  .theme-loader span:nth-child(2) {
+    animation-delay: 150ms;
+  }
+
+  .theme-loader span:nth-child(3) {
+    animation-delay: 300ms;
+  }
+
+  @keyframes theme-loader-dot {
+    0%,
+    60%,
+    100% {
+      opacity: 0.25;
+    }
+    30% {
+      opacity: 1;
+    }
   }
 
   /* Le GIF recouvre le cadre une fois prêt (fondu), et zoome un peu au survol de la carte. */

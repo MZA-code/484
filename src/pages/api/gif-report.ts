@@ -2,6 +2,7 @@
  * POST /api/gif-report  { teamId: "rivalité/a", gifId }   bouton « Mauvais GIF ? »
  *
  * - 200 { counted: true }
+ * - 200 { counted: true, rejected: true }   mode admin (en-tête x-484-admin) : GIF écarté aussitôt
  * - 200 { counted: false, reason: 'duplicate' }   déjà signalé aujourd'hui par ce visiteur
  * - 429 { counted: false, reason }   limite de débit atteinte (3 d'affilée, 1 par minute, 30 par jour)
  * - 400 requête invalide · 403 autre origine ou outil automatisé · 415 pas du JSON · 413 trop gros · 503 désactivé (pas de sel)
@@ -12,7 +13,13 @@
  */
 import type { APIRoute } from 'astro';
 import { getSecret } from 'astro:env/server';
-import { clientIp, getVoteService, jsonResponse, rejectWrite } from '../../server/votes/runtime';
+import {
+  clientIp,
+  getVoteService,
+  isAdminRequest,
+  jsonResponse,
+  rejectWrite,
+} from '../../server/votes/runtime';
 
 export const prerender = false;
 
@@ -38,6 +45,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const result = service.reportGif(
       body,
       clientIp(request, () => clientAddress),
+      isAdminRequest(request),
     );
     return jsonResponse(result.body, result.status);
   } catch (error) {

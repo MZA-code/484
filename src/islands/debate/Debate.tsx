@@ -49,7 +49,7 @@ export default function Debate({
   data: DebateData;
   initialRivalry?: string | undefined;
 }) {
-  const { state, ctx, shown, exit, result, milestone, choose, skip, selectCategory } = useDebate(
+  const { state, ctx, shown, exit, result, achievement, choose, skip, selectCategory } = useDebate(
     data,
     initialRivalry,
   );
@@ -213,7 +213,7 @@ export default function Debate({
           result={result}
           rivalry={lastRivalry}
           colors={lastColors}
-          milestone={milestone}
+          achievement={achievement}
           texts={data.texts}
         />
       </div>
@@ -222,6 +222,7 @@ export default function Debate({
         state={state}
         hallScope={activeUniverse?.id ?? MIXED_CATEGORY}
         byId={byId}
+        catalog={ctx.catalog}
         texts={data.texts}
       />
     </div>

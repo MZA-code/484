@@ -110,8 +110,11 @@ export function createVoteService({
       return { status: 429, body: { counted: false, reason: outcome.reason, ...outcome.pair } };
     },
 
-    /** « Mauvais GIF ? » : un signalement de plus pour ce GIF de cette team. */
-    reportGif(raw: unknown, ip: string): ServiceResponse {
+    /**
+     * « Mauvais GIF ? » : un signalement de plus pour ce GIF de cette team.
+     * En mode admin (`admin`), pas de limite, et le GIF est écarté tout de suite.
+     */
+    reportGif(raw: unknown, ip: string, admin = false): ServiceResponse {
       const parsed = GifReportBody.safeParse(raw);
       if (!parsed.success) return { status: 400, body: { error: 'invalid-body' } };
       const [rivalryId, team] = parsed.data.teamId.split('/') as [string, 'a' | 'b'];
@@ -126,8 +129,11 @@ export function createVoteService({
         ipHash: hashIp(ip, salt, day),
         day,
         nowMs,
+        ...(admin ? { trusted: { weight: GIF_REJECT_THRESHOLD } } : {}),
       });
-      if (outcome.status === 'counted') return { status: 200, body: { counted: true } };
+      if (outcome.status === 'counted') {
+        return { status: 200, body: admin ? { counted: true, rejected: true } : { counted: true } };
+      }
       // Déjà signalé aujourd'hui : on remercie quand même, sans compter une deuxième fois.
       if (outcome.status === 'duplicate') {
         return { status: 200, body: { counted: false, reason: 'duplicate' } };

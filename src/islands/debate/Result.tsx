@@ -1,21 +1,22 @@
 /**
- * Bandeau de résultat après un vote, et bandeau de palier.
+ * Bandeau de résultat après un vote, et bandeau « Achievement débloqué ».
  * La zone est une région « live » : les lecteurs d'écran annoncent chaque résultat
  * (la valeur finale seulement, pas le compteur qui défile).
  */
 import { useEffect, useState } from 'preact/hooks';
 import { CARD_COLORS } from '../../lib/color';
 import { formatText } from '../../lib/format';
+import { AchievementIcon } from './AchievementIcon';
 import { fill } from './rich';
 import type { DebateData, DebateRivalry } from './types';
-import type { VoteResult } from './useDebate';
+import type { Achievement, VoteResult } from './useDebate';
 
 interface Props {
   result: VoteResult | null;
   rivalry: DebateRivalry | undefined;
   /** Couleurs des teams A et B de la rivalité votée. */
   colors: readonly [string, string];
-  milestone: number | null;
+  achievement: Achievement | null;
   texts: DebateData['texts'];
   reducedMotion: boolean;
 }
@@ -63,9 +64,9 @@ function Confetti() {
   );
 }
 
-export function Result({ result, rivalry, colors, milestone, texts, reducedMotion }: Props) {
+export function Result({ result, rivalry, colors, achievement, texts, reducedMotion }: Props) {
   const t = texts.debate;
-  const reached = milestone === null ? undefined : texts.milestones[String(milestone)];
+  const reached = achievement;
   const team = result && rivalry ? rivalry[result.team] : undefined;
   const outcome = result?.outcome;
   const share = outcome?.kind === 'share' ? outcome.percent : null;
@@ -82,9 +83,15 @@ export function Result({ result, rivalry, colors, milestone, texts, reducedMotio
       <div class={`result-dock${result && team ? ' is-docked' : ''}`} aria-live="polite">
         {/* Le palier passe dans le bandeau collé : sinon il tomberait sous les cartes, hors de vue. */}
         {reached && (
-          <div class="milestone pop" key={`milestone-${milestone}`}>
+          <div class="milestone pop" key={`achievement-${reached.id}`}>
             {!reducedMotion && <Confetti />}
-            <p class="milestone-text">{reached.text}</p>
+            <div class="milestone-body">
+              <p class="milestone-label">
+                <AchievementIcon svg={reached.svg} class="milestone-icon" />
+                {texts.achievements.unlocked} · <strong>{reached.name}</strong>
+              </p>
+              <p class="milestone-text">{reached.text}</p>
+            </div>
             {reached.link && texts.linkedinUrl && (
               <a class="milestone-link" href={texts.linkedinUrl} target="_blank" rel="noopener">
                 {t.milestoneLink}

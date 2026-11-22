@@ -46,6 +46,11 @@ export interface GifReportInput {
   ipHash: string;
   day: string;
   nowMs: number;
+  /**
+   * Signalement de l'éditeur (mode admin) : ni limite de débit ni dédoublonnage,
+   * et il compte pour `weight` signalements d'un coup.
+   */
+  trusted?: { weight: number };
 }
 
 export type GifReportOutcome =
@@ -192,8 +197,9 @@ export function openSqliteStore(file: string): VoteStore {
     ),
     purgeReports: db.prepare('DELETE FROM report_limits WHERE day < ?'),
     report: db.prepare(
-      `INSERT INTO gif_reports (rivalry_id, team, gif_id, reports, last_ms) VALUES (?, ?, ?, 1, ?)
-       ON CONFLICT(rivalry_id, team, gif_id) DO UPDATE SET reports = reports + 1, last_ms = excluded.last_ms`,
+      `INSERT INTO gif_reports (rivalry_id, team, gif_id, reports, last_ms) VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(rivalry_id, team, gif_id)
+       DO UPDATE SET reports = reports + excluded.reports, last_ms = excluded.last_ms`,
     ),
     reports: db.prepare(
       `SELECT rivalry_id AS rivalryId, team, gif_id AS gifId, reports, last_ms AS lastMs
@@ -256,7 +262,11 @@ export function openSqliteStore(file: string): VoteStore {
       }
     },
 
-    recordGifReport({ rivalryId, team, gifId, ipHash, day, nowMs }) {
+    recordGifReport({ rivalryId, team, gifId, ipHash, day, nowMs, trusted }) {
+      if (trusted) {
+        q.report.run(rivalryId, team, gifId, trusted.weight, nowMs);
+        return { status: 'counted' };
+      }
       db.exec('BEGIN IMMEDIATE');
       try {
         if (lastReportPurgeDay !== day) {
@@ -275,7 +285,7 @@ export function openSqliteStore(file: string): VoteStore {
         );
         const first =
           taken.allowed && Number(q.seeReport.run(rivalryId, team, gifId, ipHash, day).changes) > 0;
-        if (first) q.report.run(rivalryId, team, gifId, nowMs);
+        if (first) q.report.run(rivalryId, team, gifId, 1, nowMs);
         db.exec('COMMIT');
         if (!taken.allowed) return { status: 'rate-limited', reason: taken.reason };
         return first ? { status: 'counted' } : { status: 'duplicate' };

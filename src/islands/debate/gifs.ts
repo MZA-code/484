@@ -8,6 +8,9 @@
  */
 import { useEffect, useState } from 'preact/hooks';
 
+/** Abonnés au rafraîchissement d'un GIF (voir refreshGif). */
+const refreshListeners = new Set<(gifKey: string) => void>();
+
 export interface GifInfo {
   id: string;
   mp4: string;
@@ -38,11 +41,13 @@ export function teamGifKey(rivalryId: string, team: 'a' | 'b'): string {
   return `${rivalryId}/${team}`;
 }
 
-/** Métadonnées du GIF d'une team, demandées une seule fois par visite. */
-export function gifInfo(gifKey: string): Promise<GifInfo | null> {
-  let pending = infos.get(gifKey);
+/** Métadonnées du GIF d'une team, demandées une seule fois par visite (`reload` : redemander). */
+export function gifInfo(gifKey: string, reload = false): Promise<GifInfo | null> {
+  let pending = reload ? undefined : infos.get(gifKey);
   if (!pending) {
-    pending = fetch(`/api/gif/${gifKey.split('/').map(encodeURIComponent).join('/')}`)
+    const url = `/api/gif/${gifKey.split('/').map(encodeURIComponent).join('/')}`;
+    // `reload` contourne aussi le cache du navigateur (une heure) : le serveur a changé de GIF.
+    pending = fetch(url, reload ? { cache: 'reload' } : undefined)
       .then((r) => (r.ok ? (r.json() as Promise<GifInfo>) : null))
       .catch(() => null);
     infos.set(gifKey, pending);
@@ -52,6 +57,27 @@ export function gifInfo(gifKey: string): Promise<GifInfo | null> {
     });
   }
   return pending;
+}
+
+/** Redemande le GIF d'une team (après un signalement en mode admin) et met à jour l'affichage. */
+export function refreshGif(gifKey: string): void {
+  void gifInfo(gifKey, true);
+  refreshListeners.forEach((listener) => listener(gifKey));
+}
+
+/** Change à chaque rafraîchissement du GIF de cette team : à mettre dans les dépendances. */
+export function useGifVersion(gifKey: string): number {
+  const [version, setVersion] = useState(0);
+  useEffect(() => {
+    const listener = (key: string) => {
+      if (key === gifKey) setVersion((v) => v + 1);
+    };
+    refreshListeners.add(listener);
+    return () => {
+      refreshListeners.delete(listener);
+    };
+  }, [gifKey]);
+  return version;
 }
 
 /** URL locale (blob:) de la vidéo, ou l'URL d'origine si le téléchargement échoue. */
@@ -89,28 +115,42 @@ export function preloadGif(gifKey: string, stillOnly: boolean): void {
 
 export type GifMedia = { kind: 'video'; src: string } | { kind: 'image'; src: string };
 
+export interface GifState {
+  media: GifMedia | null;
+  /**
+   * Vrai une fois la réponse du site reçue. `settled` sans `media` : pas de GIF (aucun résultat,
+   * ou Giphy indisponible, quota atteint compris) ; il n'y a rien à attendre.
+   */
+  settled: boolean;
+}
+
 /** Média à afficher pour un prétendant : vidéo, ou image fixe si les animations sont réduites. */
-export function useGif(gifKey: string, stillOnly: boolean): GifMedia | null {
-  const [media, setMedia] = useState<GifMedia | null>(null);
+export function useGif(gifKey: string, stillOnly: boolean): GifState {
+  const version = useGifVersion(gifKey);
+  const [state, setState] = useState<GifState>({ media: null, settled: false });
   useEffect(() => {
     let cancelled = false;
     let retained: string | null = null;
-    setMedia(null);
+    setState({ media: null, settled: false });
     void gifInfo(gifKey).then(async (info) => {
-      if (!info || cancelled) return;
+      if (cancelled) return;
+      if (!info) {
+        setState({ media: null, settled: true });
+        return;
+      }
       if (stillOnly) {
-        setMedia({ kind: 'image', src: info.still });
+        setState({ media: { kind: 'image', src: info.still }, settled: true });
         return;
       }
       retain(info.mp4);
       retained = info.mp4;
       const src = await videoUrl(info.mp4);
-      if (!cancelled) setMedia({ kind: 'video', src });
+      if (!cancelled) setState({ media: { kind: 'video', src }, settled: true });
     });
     return () => {
       cancelled = true;
       if (retained) release(retained);
     };
-  }, [gifKey, stillOnly]);
-  return media;
+  }, [gifKey, stillOnly, version]);
+  return state;
 }
