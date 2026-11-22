@@ -4,10 +4,10 @@
  */
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
-import type { Gif, GifCache } from './giphy';
+import type { CachedGif, GifCache } from './giphy';
 
 interface Entry {
-  value: Gif | null;
+  value: CachedGif;
   expires: number;
 }
 

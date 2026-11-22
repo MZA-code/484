@@ -5,7 +5,8 @@
  * Comme le jour entre dans l'empreinte, deux journées d'un même visiteur ne peuvent pas être reliées.
  *
  * Limites : en moyenne 1 vote par seconde (seau de jetons, petites rafales tolérées pour
- * un joueur rapide au clavier) et 2 000 votes par jour.
+ * un joueur rapide au clavier) et 600 votes par jour. En plus, un visiteur ne compte qu'une fois
+ * par jour pour une même rivalité (voir store.ts).
  */
 import { createHash } from 'node:crypto';
 
@@ -23,7 +24,8 @@ export const RATE: Rate = {
   burst: 5,
   /** Un jeton regagné par seconde, soit 1 vote par seconde en moyenne. */
   refillPerMs: 1 / 1000,
-  daily: 2000,
+  /** Largement assez pour un humain (une partie de 600 débats d'affilée), pas pour un robot. */
+  daily: 600,
 };
 
 /** Signalements de GIF : 3 d'affilée, puis 1 par minute, 30 par jour. Personne n'en fait plus. */

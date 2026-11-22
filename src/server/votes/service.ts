@@ -9,6 +9,13 @@ import { dayOf, hashIp } from './rate-limit';
 import type { VoteStore } from './store';
 
 export const MIXED_CATEGORY = 'mix';
+/**
+ * Un GIF trouvé par la recherche est écarté (remplacé par le suivant) après ce nombre de
+ * signalements. Chaque visiteur ne compte qu'une fois par jour et par GIF : il faut donc
+ * au moins 3 visiteurs, ou 3 jours, pour écarter un GIF.
+ */
+export const GIF_REJECT_THRESHOLD = 3;
+
 /** Durée de cache du Hall of Fame (côté serveur et navigateur). */
 export const HALL_TTL_MS = 60_000;
 
@@ -37,7 +44,7 @@ const GifReportBody = z.object({
 });
 
 /** Comparaison en temps constant : la durée ne trahit pas le jeton attendu. */
-function sameToken(given: string, expected: string): boolean {
+export function sameToken(given: string, expected: string): boolean {
   const a = Buffer.from(given);
   const b = Buffer.from(expected);
   return a.length === b.length && timingSafeEqual(a, b);
@@ -93,10 +100,14 @@ export function createVoteService({
         day,
         nowMs,
       });
-      // Même limité, le visiteur reçoit les chiffres de la rivalité (lecture seule, sans risque).
-      return outcome.status === 'counted'
-        ? { status: 200, body: { counted: true, ...outcome.pair } }
-        : { status: 429, body: { counted: false, reason: outcome.reason, ...outcome.pair } };
+      // Même limité ou en double, le visiteur reçoit les chiffres de la rivalité (lecture seule).
+      if (outcome.status === 'counted') {
+        return { status: 200, body: { counted: true, ...outcome.pair } };
+      }
+      if (outcome.status === 'duplicate') {
+        return { status: 200, body: { counted: false, reason: 'duplicate', ...outcome.pair } };
+      }
+      return { status: 429, body: { counted: false, reason: outcome.reason, ...outcome.pair } };
     },
 
     /** « Mauvais GIF ? » : un signalement de plus pour ce GIF de cette team. */
@@ -116,9 +127,18 @@ export function createVoteService({
         day,
         nowMs,
       });
-      return outcome.status === 'counted'
-        ? { status: 200, body: { counted: true } }
-        : { status: 429, body: { counted: false, reason: outcome.reason } };
+      if (outcome.status === 'counted') return { status: 200, body: { counted: true } };
+      // Déjà signalé aujourd'hui : on remercie quand même, sans compter une deuxième fois.
+      if (outcome.status === 'duplicate') {
+        return { status: 200, body: { counted: false, reason: 'duplicate' } };
+      }
+      return { status: 429, body: { counted: false, reason: outcome.reason } };
+    },
+
+    /** GIF de cette team écartés par les signalements (à remplacer par le suivant). */
+    rejectedGifs(rivalryId: string, team: 'a' | 'b'): Set<string> {
+      if (!categoryOf.has(rivalryId)) return new Set();
+      return new Set(store.reportedGifIds(rivalryId, team, GIF_REJECT_THRESHOLD));
     },
 
     /**

@@ -6,6 +6,8 @@
  * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
  * - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
  * - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
+ * - vote_seen, gif_report_seen : qui (empreinte du jour) a déjà voté pour une rivalité ou signalé
+ *   un GIF aujourd'hui ; un visiteur ne compte qu'une fois par jour. Effacées chaque jour.
  *
  * L'interface `VoteStore` isole le reste du code de SQLite (passage à MySQL possible).
  */
@@ -33,6 +35,8 @@ export interface PairResult {
 
 export type VoteOutcome =
   | { status: 'counted'; pair: PairResult }
+  /** Ce visiteur a déjà voté pour cette rivalité aujourd'hui : rien n'est ajouté. */
+  | { status: 'duplicate'; pair: PairResult }
   | { status: 'rate-limited'; reason: 'burst' | 'daily'; pair: PairResult };
 
 export interface GifReportInput {
@@ -45,7 +49,10 @@ export interface GifReportInput {
 }
 
 export type GifReportOutcome =
-  { status: 'counted' } | { status: 'rate-limited'; reason: 'burst' | 'daily' };
+  | { status: 'counted' }
+  /** Ce visiteur a déjà signalé ce GIF aujourd'hui : rien n'est ajouté. */
+  | { status: 'duplicate' }
+  | { status: 'rate-limited'; reason: 'burst' | 'daily' };
 
 /** Signalements cumulés d'un GIF d'une team. */
 export interface GifReportRow {
@@ -62,6 +69,8 @@ export interface VoteStore {
   recordGifReport(input: GifReportInput): GifReportOutcome;
   /** Tous les signalements, les plus signalés d'abord. */
   gifReports(): GifReportRow[];
+  /** GIF d'une team signalés au moins `minReports` fois. */
+  reportedGifIds(rivalryId: string, team: Team, minReports: number): string[];
   /** Votes par rivalité, filtrés sur un préfixe d'identifiant (« bouffe- ») ou tous. */
   rivalryCounts(idPrefix: string | null): RivalryCounts[];
   close(): void;
@@ -116,6 +125,23 @@ const MIGRATIONS = [
      count INTEGER NOT NULL
    ) STRICT;
    CREATE INDEX report_limits_day ON report_limits(day);`,
+  // 4. Anti-spam : un vote par rivalité et un signalement par GIF, par visiteur et par jour.
+  `CREATE TABLE vote_seen (
+     rivalry_id TEXT NOT NULL,
+     ip_hash TEXT NOT NULL,
+     day TEXT NOT NULL,
+     PRIMARY KEY (rivalry_id, ip_hash)
+   ) STRICT;
+   CREATE INDEX vote_seen_day ON vote_seen(day);
+   CREATE TABLE gif_report_seen (
+     rivalry_id TEXT NOT NULL,
+     team TEXT NOT NULL,
+     gif_id TEXT NOT NULL,
+     ip_hash TEXT NOT NULL,
+     day TEXT NOT NULL,
+     PRIMARY KEY (rivalry_id, team, gif_id, ip_hash)
+   ) STRICT;
+   CREATE INDEX gif_report_seen_day ON gif_report_seen(day);`,
 ];
 
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
@@ -145,6 +171,18 @@ export function openSqliteStore(file: string): VoteStore {
        ON CONFLICT(ip_hash) DO UPDATE SET tokens = excluded.tokens, updated_ms = excluded.updated_ms, count = excluded.count`,
     ),
     purge: db.prepare('DELETE FROM rate_limits WHERE day < ?'),
+    purgeVoteSeen: db.prepare('DELETE FROM vote_seen WHERE day < ?'),
+    seeVote: db.prepare(
+      'INSERT OR IGNORE INTO vote_seen (rivalry_id, ip_hash, day) VALUES (?, ?, ?)',
+    ),
+    purgeReportSeen: db.prepare('DELETE FROM gif_report_seen WHERE day < ?'),
+    seeReport: db.prepare(
+      `INSERT OR IGNORE INTO gif_report_seen (rivalry_id, team, gif_id, ip_hash, day)
+       VALUES (?, ?, ?, ?, ?)`,
+    ),
+    reportedIds: db.prepare(
+      'SELECT gif_id AS gifId FROM gif_reports WHERE rivalry_id = ? AND team = ? AND reports >= ?',
+    ),
     getReportBucket: db.prepare(
       'SELECT tokens, updated_ms AS updatedMs, count FROM report_limits WHERE ip_hash = ?',
     ),
@@ -200,16 +238,18 @@ export function openSqliteStore(file: string): VoteStore {
         // Ménage des empreintes des jours précédents (une fois par jour suffit).
         if (lastPurgeDay !== day) {
           q.purge.run(day);
+          q.purgeVoteSeen.run(day);
           lastPurgeDay = day;
         }
         const taken = takeToken(q.getBucket.get(ipHash) as Bucket | undefined, nowMs);
         q.putBucket.run(ipHash, day, taken.next.tokens, taken.next.updatedMs, taken.next.count);
-        if (taken.allowed) (team === 'a' ? q.voteA : q.voteB).run(rivalryId);
+        // Premier vote du jour de ce visiteur pour cette rivalité ? Sinon, on ne compte rien.
+        const first = taken.allowed && Number(q.seeVote.run(rivalryId, ipHash, day).changes) > 0;
+        if (first) (team === 'a' ? q.voteA : q.voteB).run(rivalryId);
         const pair = pairResult(rivalryId, team);
         db.exec('COMMIT');
-        return taken.allowed
-          ? { status: 'counted', pair }
-          : { status: 'rate-limited', reason: taken.reason, pair };
+        if (!taken.allowed) return { status: 'rate-limited', reason: taken.reason, pair };
+        return first ? { status: 'counted', pair } : { status: 'duplicate', pair };
       } catch (error) {
         db.exec('ROLLBACK');
         throw error;
@@ -221,6 +261,7 @@ export function openSqliteStore(file: string): VoteStore {
       try {
         if (lastReportPurgeDay !== day) {
           q.purgeReports.run(day);
+          q.purgeReportSeen.run(day);
           lastReportPurgeDay = day;
         }
         const bucket = q.getReportBucket.get(ipHash) as Bucket | undefined;
@@ -232,11 +273,12 @@ export function openSqliteStore(file: string): VoteStore {
           taken.next.updatedMs,
           taken.next.count,
         );
-        if (taken.allowed) q.report.run(rivalryId, team, gifId, nowMs);
+        const first =
+          taken.allowed && Number(q.seeReport.run(rivalryId, team, gifId, ipHash, day).changes) > 0;
+        if (first) q.report.run(rivalryId, team, gifId, nowMs);
         db.exec('COMMIT');
-        return taken.allowed
-          ? { status: 'counted' }
-          : { status: 'rate-limited', reason: taken.reason };
+        if (!taken.allowed) return { status: 'rate-limited', reason: taken.reason };
+        return first ? { status: 'counted' } : { status: 'duplicate' };
       } catch (error) {
         db.exec('ROLLBACK');
         throw error;
@@ -251,6 +293,11 @@ export function openSqliteStore(file: string): VoteStore {
         ...row,
         lastReport: new Date(lastMs).toISOString(),
       }));
+    },
+
+    reportedGifIds(rivalryId, team, minReports) {
+      const rows = q.reportedIds.all(rivalryId, team, minReports) as unknown as { gifId: string }[];
+      return rows.map((r) => r.gifId);
     },
 
     rivalryCounts(idPrefix) {

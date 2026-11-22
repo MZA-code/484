@@ -7,6 +7,7 @@ import { keywordsFor, matchesKeywords, normalizeText } from './gif-match';
 import {
   createGiphyService,
   GiphyError,
+  MAX_CANDIDATES,
   QUOTA_PAUSE_MS,
   SEARCH_LIMIT,
   toGif,
@@ -208,6 +209,55 @@ describe('giphy service', () => {
     // Un GIF choisi n'est pas soumis aux mots-clés : un humain l'a validé.
     expect((await service.gifFor(team('x', { giphyIds: ['pick'] })))?.id).toBe('pick');
     expect(giphy.calls.some((u) => u.pathname.endsWith('/search'))).toBe(false);
+  });
+
+  it('replaces a rejected GIF by the next validated one, without calling Giphy again', async () => {
+    const giphy = fakeFetch(() => ({
+      body: {
+        data: [
+          giphyObject('one', 'Batman one'),
+          giphyObject('cat', 'Cat'),
+          giphyObject('two', 'Batman two'),
+          giphyObject('three', 'Batman three'),
+        ],
+      },
+    }));
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(),
+      fetch: giphy.fetch,
+    });
+    expect((await service.gifFor(team('Batman')))?.id).toBe('one');
+    expect((await service.gifFor(team('Batman'), new Set(['one'])))?.id).toBe('two');
+    expect((await service.gifFor(team('Batman'), new Set(['one', 'two'])))?.id).toBe('three');
+    expect(await service.gifFor(team('Batman'), new Set(['one', 'two', 'three']))).toBeNull();
+    expect(giphy.calls).toHaveLength(1);
+  });
+
+  it('keeps at most a few candidates', async () => {
+    const giphy = fakeFetch(() => ({
+      body: { data: Array.from({ length: 20 }, (_, i) => giphyObject(`g${i}`, `Batman ${i}`)) },
+    }));
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(),
+      fetch: giphy.fetch,
+    });
+    const firsts = new Set(Array.from({ length: MAX_CANDIDATES }, (_, i) => `g${i}`));
+    expect(await service.gifFor(team('Batman'), firsts)).toBeNull();
+  });
+
+  it('never rejects a hand-picked GIF automatically', async () => {
+    const giphy = fakeFetch((url) => ({
+      body: { data: giphyObject(url.pathname.split('/').pop() as string) },
+    }));
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(),
+      fetch: giphy.fetch,
+    });
+    const gif = await service.gifFor(team('x', { giphyIds: ['pick'] }), new Set(['pick']));
+    expect(gif?.id).toBe('pick');
   });
 
   it('searches again when the keywords change', async () => {

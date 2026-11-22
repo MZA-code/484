@@ -5,7 +5,8 @@
  * Ordre de priorité pour une team :
  * 1. un des GIF choisis à la main (`giphyIds`), au hasard ;
  * 2. sinon, le premier résultat de la recherche `giphyQuery` (`lang=fr`, `rating=g`) qui passe
- *    la validation par mots-clés (voir gif-match.ts) ;
+ *    la validation par mots-clés (voir gif-match.ts) et n'a pas été écarté par les visiteurs
+ *    (« Mauvais GIF ? » trop souvent signalé : on passe automatiquement au suivant) ;
  * 3. sinon, null : le navigateur garde le cadre rayé avec le nom.
  * Un résultat de recherche non validé n'est jamais renvoyé.
  *
@@ -36,10 +37,13 @@ export const TTL = {
   empty: 24 * 3600_000,
 } as const;
 
+/** Ce que le cache garde : un GIF, une liste de GIF candidats, ou « aucun GIF » (null). */
+export type CachedGif = Gif | readonly Gif[] | null;
+
 export interface GifCache {
   /** `undefined` = absent ; `null` = « aucun GIF » mis en cache. */
-  get(key: string): Gif | null | undefined;
-  set(key: string, value: Gif | null, ttlMs: number): void;
+  get(key: string): CachedGif | undefined;
+  set(key: string, value: CachedGif, ttlMs: number): void;
 }
 
 export class GiphyError extends Error {
@@ -97,6 +101,12 @@ export interface GifSource {
 /** Résultats demandés par recherche : de quoi en trouver un qui passe la validation. */
 export const SEARCH_LIMIT = 25;
 
+/**
+ * Candidats validés gardés en cache par recherche : si le premier est écarté par les
+ * signalements, le suivant prend sa place sans nouvel appel à Giphy.
+ */
+export const MAX_CANDIDATES = 5;
+
 export interface GiphyServiceOptions {
   apiKey: string;
   cache: GifCache;
@@ -120,7 +130,7 @@ export function createGiphyService({
 }: GiphyServiceOptions) {
   let pausedUntil = 0;
   // Deux visiteurs qui demandent le même GIF en même temps : un seul appel à Giphy.
-  const inFlight = new Map<string, Promise<Gif | null>>();
+  const inFlight = new Map<string, Promise<CachedGif>>();
 
   async function call(path: string, params: Record<string, string>): Promise<unknown> {
     if (now() < pausedUntil) throw new GiphyError(429, 'Giphy quota exceeded (paused)');
@@ -135,15 +145,19 @@ export function createGiphyService({
     return response.json();
   }
 
-  function cached(key: string, ttl: (gif: Gif | null) => number, load: () => Promise<Gif | null>) {
+  function cached<T extends CachedGif>(
+    key: string,
+    ttl: (value: T) => number,
+    load: () => Promise<T>,
+  ): Promise<T> {
     const hit = cache.get(key);
-    if (hit !== undefined) return Promise.resolve(hit);
+    if (hit !== undefined) return Promise.resolve(hit as T);
     const pending = inFlight.get(key);
-    if (pending) return pending;
+    if (pending) return pending as Promise<T>;
     const promise = load()
-      .then((gif) => {
-        cache.set(key, gif, ttl(gif));
-        return gif;
+      .then((value) => {
+        cache.set(key, value, ttl(value));
+        return value;
       })
       .finally(() => inFlight.delete(key));
     inFlight.set(key, promise);
@@ -151,7 +165,7 @@ export function createGiphyService({
   }
 
   function byId(id: string) {
-    return cached(
+    return cached<Gif | null>(
       `id:${id}`,
       (gif) => (gif ? TTL.curated : TTL.empty),
       async () => {
@@ -161,12 +175,13 @@ export function createGiphyService({
     );
   }
 
-  function search(query: string, keywords: readonly string[]) {
+  /** Les premiers résultats de la recherche qui passent la validation par mots-clés. */
+  function candidates(query: string, keywords: readonly string[]) {
     // Les mots-clés font partie de la clé : les changer relance une recherche.
-    const key = `q:${query.trim().toLowerCase()}|k:${[...keywords].sort().join(',').toLowerCase()}`;
-    return cached(
+    const key = `s:${query.trim().toLowerCase()}|k:${[...keywords].sort().join(',').toLowerCase()}`;
+    return cached<readonly Gif[]>(
       key,
-      (gif) => (gif ? TTL.search : TTL.empty),
+      (list) => (list.length > 0 ? TTL.search : TTL.empty),
       async () => {
         const body = (await call('/search', {
           q: query,
@@ -174,25 +189,36 @@ export function createGiphyService({
           rating: 'g',
           lang: 'fr',
         })) as { data?: GiphyObject[] };
+        const list: Gif[] = [];
         for (const raw of body.data ?? []) {
+          if (list.length >= MAX_CANDIDATES) break;
           if (!matchesKeywords(raw, keywords)) continue;
           const gif = toGif(raw);
-          if (gif) return gif;
+          if (gif) list.push(gif);
         }
-        return null;
+        return list;
       },
     );
   }
 
   return {
-    /** GIF d'une team : un des GIF choisis, sinon un résultat de recherche validé, sinon null. */
-    async gifFor(source: GifSource): Promise<Gif | null> {
+    /**
+     * GIF d'une team : un des GIF choisis, sinon le premier résultat de recherche validé qui
+     * n'est pas dans `rejected` (GIF trop signalés), sinon null.
+     * Les GIF choisis à la main ne sont jamais écartés automatiquement : c'est à toi d'en juger
+     * (ils apparaissent dans `npm run gif-audit`).
+     */
+    async gifFor(
+      source: GifSource,
+      rejected: ReadonlySet<string> = new Set(),
+    ): Promise<Gif | null> {
       if (source.giphyIds.length > 0) {
         const id = source.giphyIds[Math.floor(random() * source.giphyIds.length)] as string;
         const gif = await byId(id);
         if (gif) return gif;
       }
-      return search(source.giphyQuery, keywordsFor(source));
+      const list = await candidates(source.giphyQuery, keywordsFor(source));
+      return list.find((gif) => !rejected.has(gif.id)) ?? null;
     },
   };
 }

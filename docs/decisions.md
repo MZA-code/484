@@ -260,3 +260,16 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Export protégé par jeton** (`GET /api/gif-report`, `GIF_REPORT_TOKEN`) pour que `npm run gif-audit` lise les signalements de production sans accès au serveur. Sans jeton configuré, la route répond 404.
 - **Bouton à côté de la carte, pas dedans** : la carte est un `<button>`, qui ne peut pas en contenir un autre. Après l'envoi, le focus passe au message de remerciement.
 - **Œuvres françaises** repérées par catégorie (`cinefr`) et par une liste de marqueurs (auteurs, séries, chaînes) dans l'origine : les origines sont du texte libre, aucune règle automatique ne les distingue de façon fiable.
+
+## D24 — Remplacement automatique des GIF signalés, protection anti-robots
+
+**Constats.** Un GIF signalé restait affiché indéfiniment. Surtout, `clientIp` lisait la **première** adresse de `X-Forwarded-For` : un script pouvait en inventer une nouvelle à chaque requête et contourner toute limite de débit. Et un même visiteur pouvait voter jusqu'à 2 000 fois par jour pour la même team.
+
+**Décisions.**
+
+- **Candidats en cache** : une recherche garde jusqu'à 5 GIF validés (`MAX_CANDIDATES`) au lieu d'un seul. Le premier qui n'est pas écarté est servi ; écarter un GIF ne coûte aucun appel à Giphy. Ancien format de cache (`q:`) ignoré, il expire seul.
+- **Écarté à 3 signalements** (`GIF_REJECT_THRESHOLD`), comptés une fois par visiteur et par jour : un seul visiteur ne peut pas faire disparaître un bon GIF. Seuls les résultats de recherche sont concernés, jamais les GIF choisis à la main.
+- **Un vote par rivalité et par jour** et **un signalement par GIF et par jour** pour une même empreinte (tables `vote_seen` et `gif_report_seen`, migration 4, effacées chaque jour). Elles ne contiennent jamais la team choisie. Plafond quotidien des votes ramené de 2 000 à 600. Inconvénient accepté : des visiteurs derrière la même adresse IP (bureau, opérateur mobile) ne comptent qu'une fois par débat et par jour.
+- **IP : l'adresse la plus à droite** de `X-Forwarded-For` (`TRUST_PROXY=true` = 1 proxy, ou un nombre de proxys), la seule écrite par le proxy de l'hébergeur. Diagnostic protégé par le jeton : `GET /api/health?ip`.
+- **Filtre de requête** : `Origin` obligatoire, JSON obligatoire, `User-Agent` d'outil automatisé refusé. Facile à contourner pour un robot déterminé, mais cela écarte les scripts naïfs et les formulaires d'autres sites.
+- **Pas de CAPTCHA** pour l'instant : ce serait un service tiers de plus (cookies, transfert de données), disproportionné tant qu'aucune attaque n'est observée.

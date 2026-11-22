@@ -4,6 +4,7 @@
  */
 import { getSecret } from 'astro:env/server';
 import { categories, rivalries, universes } from '../../data/content';
+import { checkWriteRequest, pickClientIp, trustedHops } from './guard';
 import { createVoteService, type VoteService } from './service';
 import { openSqliteStore } from './store';
 
@@ -28,15 +29,8 @@ export function getVoteService(): VoteService | null {
   return service;
 }
 
-/**
- * Adresse du visiteur. Derrière un proxy (hébergement mutualisé), l'adresse directe est celle
- * du proxy : avec TRUST_PROXY=true, on lit la première adresse de X-Forwarded-For.
- */
-export function clientIp(request: Request, clientAddress: () => string): string {
-  if (getSecret('TRUST_PROXY') === 'true') {
-    const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-    if (forwarded) return forwarded;
-  }
+/** Adresse directe de la connexion (le proxy, derrière un hébergement mutualisé). */
+function directAddress(clientAddress: () => string): string {
   try {
     return clientAddress();
   } catch {
@@ -45,22 +39,34 @@ export function clientIp(request: Request, clientAddress: () => string): string 
 }
 
 /**
- * Le vote vient-il du site lui-même ? Sans en-tête Origin (ancien navigateur, outil), on laisse
- * passer : la limite de débit s'applique de toute façon. On compare à l'hôte demandé par le
- * navigateur (Host, ou X-Forwarded-Host derrière un proxy), pas à l'URL interne du serveur.
+ * Adresse du visiteur. Derrière un proxy (hébergement mutualisé), l'adresse directe est celle
+ * du proxy : avec TRUST_PROXY=true, on lit X-Forwarded-For, en partant de la droite (voir guard.ts).
  */
-export function isSameOrigin(request: Request): boolean {
-  const origin = request.headers.get('origin');
-  if (!origin) return true;
-  const host =
-    request.headers.get('x-forwarded-host') ??
-    request.headers.get('host') ??
-    new URL(request.url).host;
-  try {
-    return new URL(origin).host === host;
-  } catch {
-    return false;
-  }
+export function clientIp(request: Request, clientAddress: () => string): string {
+  return pickClientIp(
+    request.headers.get('x-forwarded-for'),
+    directAddress(clientAddress),
+    trustedHops(getSecret('TRUST_PROXY')),
+  );
+}
+
+/** Filtre anti-abus des routes qui écrivent : null si la requête passe, sinon la réponse de refus. */
+export function rejectWrite(request: Request): Response | null {
+  const rejection = checkWriteRequest(request.headers, request.url);
+  return rejection ? jsonResponse({ error: rejection.error }, rejection.status) : null;
+}
+
+/**
+ * Diagnostic de l'adresse IP (GET /api/health?ip avec le jeton GIF_REPORT_TOKEN) : montre ce que
+ * le serveur reçoit et l'adresse qu'il retient, pour vérifier que X-Forwarded-For est bien lu.
+ */
+export function ipDiagnostic(request: Request, clientAddress: () => string) {
+  return {
+    direct: directAddress(clientAddress),
+    forwardedFor: request.headers.get('x-forwarded-for'),
+    trustProxy: getSecret('TRUST_PROXY') ?? null,
+    chosen: clientIp(request, clientAddress),
+  };
 }
 
 export const jsonResponse = (body: unknown, status: number, cacheControl = 'no-store') =>

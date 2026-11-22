@@ -5,7 +5,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { afterEach, describe, expect, it } from 'vitest';
 import { rankRivalries } from './ranking';
 import { dayOf, hashIp, RATE, REPORT_RATE, takeToken } from './rate-limit';
-import { createVoteService, HALL_TTL_MS } from './service';
+import { createVoteService, GIF_REJECT_THRESHOLD, HALL_TTL_MS } from './service';
 import { openSqliteStore, type VoteStore } from './store';
 
 // ─── Classements ────────────────────────────────────────────────────────────
@@ -161,6 +161,30 @@ describe('vote service', () => {
     }
   });
 
+  it('counts one vote per rivalry, per visitor and per day', () => {
+    const { service, tick } = setup();
+    expect(service.vote(batman, '9.9.9.9').body).toMatchObject({ counted: true, chosenVotes: 1 });
+    tick(10_000);
+    // Le même visiteur insiste : il voit les chiffres, mais rien n'est ajouté.
+    expect(service.vote(batman, '9.9.9.9')).toEqual({
+      status: 200,
+      body: { counted: false, reason: 'duplicate', chosenVotes: 1, totalVotes: 1 },
+    });
+    expect(service.vote({ ...batman, team: 'b' }, '9.9.9.9').body).toMatchObject({
+      counted: false,
+      totalVotes: 1,
+    });
+    // Une autre rivalité, ou un autre visiteur, comptent normalement.
+    expect(
+      service.vote({ rivalryId: 'heros-joker-thanos', team: 'a', category: 'heros' }, '9.9.9.9')
+        .body,
+    ).toMatchObject({ counted: true });
+    expect(service.vote(batman, '8.8.8.8').body).toMatchObject({ counted: true, totalVotes: 2 });
+    // Le lendemain, le visiteur peut revoter.
+    tick(24 * 3600_000);
+    expect(service.vote(batman, '9.9.9.9').body).toMatchObject({ counted: true, totalVotes: 3 });
+  });
+
   it('rate-limits a flood from the same IP but still answers with the numbers', () => {
     const { service } = setup();
     const statuses = Array.from(
@@ -170,7 +194,7 @@ describe('vote service', () => {
     expect(statuses.filter((s) => s === 200)).toHaveLength(RATE.burst);
     expect(service.vote(batman, '9.9.9.9')).toEqual({
       status: 429,
-      body: { counted: false, reason: 'burst', chosenVotes: RATE.burst, totalVotes: RATE.burst },
+      body: { counted: false, reason: 'burst', chosenVotes: 1, totalVotes: 1 },
     });
     expect(service.vote(batman, '8.8.8.8').status).toBe(200);
   });
@@ -267,7 +291,35 @@ describe('gif reports', () => {
     expect(service.vote(batman, '9.9.9.9').status).toBe(200);
     tick(60_000);
     expect(service.reportGif(report, '9.9.9.9').status).toBe(200);
-    expect(store.gifReports()[0]?.reports).toBe(REPORT_RATE.burst + 1);
+    // Un seul signalement compté : c'est toujours le même visiteur, le même jour.
+    expect(store.gifReports()[0]?.reports).toBe(1);
+  });
+
+  it('counts a GIF report once per visitor and per day', () => {
+    const { service, store, tick } = setup();
+    expect(service.reportGif(report, '1.1.1.1').body).toEqual({ counted: true });
+    expect(service.reportGif(report, '1.1.1.1')).toEqual({
+      status: 200,
+      body: { counted: false, reason: 'duplicate' },
+    });
+    service.reportGif(report, '2.2.2.2');
+    tick(24 * 3600_000);
+    service.reportGif(report, '1.1.1.1');
+    expect(store.gifReports()[0]?.reports).toBe(3);
+  });
+
+  it('rejects a GIF only once enough distinct visitors reported it', () => {
+    const { service } = setup();
+    const ips = Array.from({ length: GIF_REJECT_THRESHOLD }, (_, i) => `10.0.0.${i}`);
+    ips.slice(0, -1).forEach((ip) => service.reportGif(report, ip));
+    // Le même visiteur qui insiste ne suffit pas.
+    service.reportGif(report, ips[0] as string);
+    expect(service.rejectedGifs('heros-batman-superman', 'a').size).toBe(0);
+    service.reportGif(report, ips.at(-1) as string);
+    expect(service.rejectedGifs('heros-batman-superman', 'a')).toEqual(new Set([report.gifId]));
+    // Les autres teams ne sont pas touchées.
+    expect(service.rejectedGifs('heros-batman-superman', 'b').size).toBe(0);
+    expect(service.rejectedGifs('pirates-x', 'a').size).toBe(0);
   });
 
   it('lists reports only with the right token', () => {
@@ -353,6 +405,13 @@ describe('sqlite file', () => {
       }[]
     ).map((t) => t.name);
     check.close();
-    expect(tables.sort()).toEqual(['gif_reports', 'rate_limits', 'report_limits', 'rivalry_votes']);
+    expect(tables.sort()).toEqual([
+      'gif_report_seen',
+      'gif_reports',
+      'rate_limits',
+      'report_limits',
+      'rivalry_votes',
+      'vote_seen',
+    ]);
   });
 });

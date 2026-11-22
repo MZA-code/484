@@ -114,7 +114,9 @@ Sans `giphyKeywords`, les mots-clés sont le nom de la team sans son article («
 
 ### Signalements « Mauvais GIF ? »
 
-Sous chaque carte, un bouton discret « Mauvais GIF ? » envoie `POST /api/gif-report { teamId, gifId }`. Le serveur ajoute un signalement au compteur de ce GIF dans la base SQLite des votes (tables `gif_reports` et `report_limits`) : jamais d'IP, seulement l'empreinte quotidienne déjà utilisée pour les votes. Limite : 3 signalements d'affilée, puis 1 par minute, 30 par jour et par visiteur.
+Sous chaque carte, un bouton discret « Mauvais GIF ? » envoie `POST /api/gif-report { teamId, gifId }`. Le serveur ajoute un signalement au compteur de ce GIF dans la base SQLite des votes (tables `gif_reports` et `report_limits`) : jamais d'IP, seulement l'empreinte quotidienne déjà utilisée pour les votes. Limite : 3 signalements d'affilée, puis 1 par minute, 30 par jour et par visiteur. Un visiteur ne compte qu'**une fois par jour pour un même GIF**.
+
+**Remplacement automatique.** La recherche garde en cache jusqu'à 5 GIF validés par team. Dès qu'un GIF trouvé par la recherche atteint **3 signalements** (`GIF_REJECT_THRESHOLD`, donc 3 visiteurs différents, ou 3 jours), le site passe au suivant de la liste, sans nouvel appel à Giphy. Si les 5 sont écartés, la carte garde le cadre rayé. Les GIF choisis à la main (`giphyIds`) ne sont jamais écartés automatiquement : ils apparaissent dans `npm run gif-audit`, et c'est toi qui décides. Le navigateur garde la réponse une heure : un remplacement se voit au plus tard une heure après.
 
 Pour lire les signalements du site en ligne depuis ton poste, choisis un jeton (une longue chaîne aléatoire) et mets-le **aux deux endroits** :
 
@@ -144,6 +146,17 @@ Puis il ouvre une page locale (<http://localhost:4843>) avec **6 propositions Gi
 Quota : chaque team de la page coûte une recherche Giphy (clé gratuite : environ 100 par heure). Avance par lots de 25.
 
 `npm run curate` ouvre la même page, sans la priorisation : `--category bouffe` pour une catégorie, `--all` pour inclure les teams déjà curées.
+
+## Protection contre les robots et le spam
+
+Votes et signalements passent par les mêmes barrières, dans cet ordre :
+
+1. **Filtre de requête** (`src/server/votes/guard.ts`) : en-tête `Origin` obligatoire et égal au site, corps JSON, et `User-Agent` d'un vrai navigateur (curl, Python, navigateurs pilotés et robots déclarés sont refusés).
+2. **Adresse IP fiable** : derrière le proxy d'o2switch (`TRUST_PROXY=true`), on lit l'adresse ajoutée **à droite** de `X-Forwarded-For` par le proxy lui-même. Celles de gauche peuvent être inventées par le visiteur, et ne servent jamais. Diagnostic : `GET /api/health?ip` avec l'en-tête `Authorization: Bearer <GIF_REPORT_TOKEN>`.
+3. **Limite de débit** par empreinte d'IP du jour : votes 5 d'affilée puis 1 par seconde, 600 par jour ; signalements 3 d'affilée puis 1 par minute, 30 par jour.
+4. **Un vote par rivalité, et un signalement par GIF, par visiteur et par jour.** Les suivants reçoivent les chiffres, mais ne comptent pas.
+
+Limite assumée : un réseau de robots qui imite un navigateur et change d'adresse IP peut encore voter. Contre cela, il faudrait un test anti-robot (type Cloudflare Turnstile), qui ajoute un service tiers.
 
 ## Organisation
 
