@@ -770,9 +770,108 @@
     font-size: 2rem;
   }
 
+  /*
+   * Face à face : les deux teams côte à côte, en deux colonnes, et la pastille VS
+   * à cheval entre elles, à hauteur des GIF. Cartes compactes pour tenir sur un écran.
+   */
+  .arena {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 14px;
+    container-type: inline-size;
+  }
+
+  .team-slot {
+    gap: 0;
+  }
+
   .team-card {
+    flex: 1;
     min-height: 0;
-    padding: 18px;
+    gap: 8px;
+    padding: 10px;
+    box-shadow: 4px 4px 0 var(--fg);
+  }
+
+  .team-card:hover,
+  .team-card:focus-visible {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--fg);
+  }
+
+  .team-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--fg);
+  }
+
+  .team-card.is-chosen::after {
+    top: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+    font-size: 1.375rem;
+  }
+
+  .team-tag {
+    padding: 3px 6px;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+  }
+
+  .team-media {
+    aspect-ratio: 4 / 3;
+    border-width: 2px;
+  }
+
+  .team-media-name {
+    font-size: 0.6875rem;
+  }
+
+  .team-origin {
+    font-size: 0.6875rem;
+  }
+
+  .team-name {
+    font-size: clamp(1.25rem, 6.4vw, 1.75rem);
+  }
+
+  .team-line {
+    font-size: 0.8125rem;
+    line-height: 1.3;
+  }
+
+  .vs {
+    position: absolute;
+    z-index: 2;
+    /* Au centre du GIF : marge + étiquette + espace + moitié du cadre 4:3, moins la moitié de la pastille. */
+    top: 72px;
+    top: calc(10px + 22px + 8px + ((100cqw - 14px) / 2 - 20px) * 0.375 - 24px);
+    left: calc(50% - 24px);
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    font-size: 1.375rem;
+  }
+
+  .gif-report {
+    padding-right: 4px;
+  }
+
+  .gif-report-feedback {
+    font-size: 0.6875rem;
+  }
+
+  .debate-skeleton-arena {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .debate-skeleton-card {
+    min-height: 300px;
   }
 
   .result {
@@ -785,12 +884,6 @@
 
   .milestone-text {
     font-size: 1.25rem;
-  }
-
-  .vs {
-    width: 64px;
-    height: 64px;
-    font-size: 1.75rem;
   }
 }
 
