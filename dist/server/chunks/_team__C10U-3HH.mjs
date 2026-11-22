@@ -1,6 +1,6 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { a as getSecret, n as rivalries } from "./content_CdF6cTpI.mjs";
-import { n as getVoteService } from "./runtime_DeuYaHK-.mjs";
+import { a as getSecret, n as rivalries, t as categories } from "./content_BTeWQUTN.mjs";
+import { n as getVoteService } from "./runtime_DXvZ5FsJ.mjs";
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 // src/server/gif-cache.ts
@@ -100,6 +100,40 @@ function matchesKeywords(gif, keywords) {
 		return containsWords(title, keyword) || containsWords(slug, keyword) || username !== "" && username.includes(compact(keyword));
 	});
 }
+/** Mots trop vagues pour valider un GIF à eux seuls. */
+var VAGUE_WORDS = /* @__PURE__ */ new Set([
+	"the",
+	"and",
+	"with",
+	"from",
+	"that",
+	"this",
+	"your",
+	"dans",
+	"pour",
+	"avec",
+	"film",
+	"movie",
+	"show",
+	"series",
+	"cartoon",
+	"anime",
+	"funny",
+	"meme",
+	"reaction",
+	"scene",
+	"cute",
+	"animated"
+]);
+/**
+* Mots significatifs d'une requête (4 lettres ou plus, hors mots vagues) : la validation
+* « mot à mot », pour les teams qui sont des idées (« contrôler la météo » → « weather control »)
+* plutôt que des noms propres, dont Giphy ne reprend jamais la phrase exacte.
+*/
+function queryWords(query) {
+	const words = normalizeText(query).split(" ").filter((w) => w.length >= 4 && !VAGUE_WORDS.has(w));
+	return [...new Set(words)];
+}
 /** Articles retirés en tête du nom : « Les Jedi » doit accepter un GIF titré « Jedi ». */
 var LEADING_ARTICLE = /^(le|la|les|l|un|une|des|du|the)\s+/;
 /**
@@ -118,11 +152,14 @@ function keywordsFor(team) {
 *
 * Ordre de priorité pour une team :
 * 1. un des GIF choisis à la main (`giphyIds`), au hasard ;
-* 2. sinon, le premier résultat de la recherche `giphyQuery` (`lang=fr`, `rating=g`) qui passe
-*    la validation par mots-clés (voir gif-match.ts) et n'a pas été écarté par les visiteurs
-*    (« Mauvais GIF ? » trop souvent signalé : on passe automatiquement au suivant) ;
-* 3. sinon, null : le navigateur garde le cadre rayé avec le nom.
-* Un résultat de recherche non validé n'est jamais renvoyé.
+* 2. sinon, un résultat de la recherche `giphyQuery` (`lang=fr`, `rating=g`) validé :
+*    d'abord ceux qui contiennent un mot-clé entier (nom de la team, requête, `giphyKeywords`),
+*    puis, sans `giphyKeywords`, ceux qui contiennent un mot significatif de la requête
+*    (voir gif-match.ts). Un GIF trop signalé (« Mauvais GIF ? ») est remplacé par le suivant ;
+* 3. sinon, le GIF d'ambiance de la catégorie (ses `giphyIds`, ou sa recherche `giphyQuery`) :
+*    un GIF générique (« difficult choice » pour les dilemmes), jamais présenté comme la team ;
+* 4. sinon, null : le navigateur garde le cadre rayé avec le nom.
+* Un résultat de recherche de team non validé n'est jamais renvoyé.
 *
 * Tout est mis en cache (mémoire + fichier) pour ménager le quota de l'API.
 */
@@ -161,6 +198,12 @@ function toGif(raw) {
 * Les cartes gardent leur cadre rayé, sans attendre un refus à chaque GIF.
 */
 var QUOTA_PAUSE_MS = 9e5;
+/** Index stable (0 ≤ i < n) tiré d'un texte : même team, même choix. */
+function stableIndex(text, n) {
+	let hash = 0;
+	for (const char of text) hash = hash * 31 + (char.codePointAt(0) ?? 0) >>> 0;
+	return n > 0 ? hash % n : 0;
+}
 function createGiphyService({ apiKey, cache, fetch: doFetch = fetch, random = Math.random, now = Date.now }) {
 	let pausedUntil = 0;
 	const inFlight = /* @__PURE__ */ new Map();
@@ -193,25 +236,37 @@ function createGiphyService({ apiKey, cache, fetch: doFetch = fetch, random = Ma
 			return toGif((await call(`/${encodeURIComponent(id)}`, {})).data);
 		});
 	}
-	/** Les premiers résultats de la recherche qui passent la validation par mots-clés. */
-	function candidates(query, keywords) {
-		return cached(`s:${query.trim().toLowerCase()}|k:${[...keywords].sort().join(",").toLowerCase()}`, (list) => list.length > 0 ? TTL.search : TTL.empty, async () => {
-			const body = await call("/search", {
-				q: query,
-				limit: String(25),
-				rating: "g",
-				lang: "fr"
-			});
-			const list = [];
-			for (const raw of body.data ?? []) {
-				if (list.length >= 5) break;
-				if (!matchesKeywords(raw, keywords)) continue;
-				const gif = toGif(raw);
-				if (gif) list.push(gif);
-			}
-			return list;
+	async function searchRaw(query) {
+		return (await call("/search", {
+			q: query,
+			limit: String(25),
+			rating: "g",
+			lang: "fr"
+		})).data ?? [];
+	}
+	/**
+	* Les résultats validés de la recherche, les plus sûrs d'abord : mot-clé entier (`keywords`),
+	* puis mot significatif de la requête (`words`, vide pour ne pas l'utiliser).
+	*/
+	function candidates(query, keywords, words) {
+		const sorted = (list) => [...list].sort().join(",").toLowerCase();
+		const q = query.trim().toLowerCase();
+		const previous = cache.get(`s:${q}|k:${sorted(keywords)}`);
+		if (Array.isArray(previous) && previous.length > 0) return Promise.resolve(previous);
+		const single = cache.get(`q:${q}|k:${sorted(keywords)}`);
+		if (single && !Array.isArray(single)) return Promise.resolve([single]);
+		return cached(`c:${q}|k:${sorted(keywords)}|w:${sorted(words)}`, (list) => list.length > 0 ? TTL.search : TTL.empty, async () => {
+			const results = await searchRaw(query);
+			const strict = results.filter((raw) => matchesKeywords(raw, keywords));
+			const loose = results.filter((raw) => !strict.includes(raw) && matchesKeywords(raw, words));
+			return [...strict, ...loose].map((raw) => toGif(raw)).filter((gif) => gif !== null).slice(0, 5);
 		});
 	}
+	/** GIF d'ambiance d'une catégorie (recherche générique choisie par nous : premiers résultats). */
+	function moodGifs(query) {
+		return cached(`m:${query.trim().toLowerCase()}`, (list) => list.length > 0 ? TTL.search : TTL.empty, async () => (await searchRaw(query)).map((raw) => toGif(raw)).filter((gif) => gif !== null).slice(0, 5));
+	}
+	const pick = (list) => list[Math.floor(random() * list.length)];
 	return { 
 	/**
 	* GIF d'une team : un des GIF choisis, sinon le premier résultat de recherche validé qui
@@ -220,12 +275,23 @@ function createGiphyService({ apiKey, cache, fetch: doFetch = fetch, random = Ma
 	* (ils apparaissent dans `npm run gif-audit`).
 	*/
 async gifFor(source, rejected = /* @__PURE__ */ new Set()) {
-		if (source.giphyIds.length > 0) {
-			const id = source.giphyIds[Math.floor(random() * source.giphyIds.length)];
-			const gif = await byId(id);
+		const curated = pick(source.giphyIds);
+		if (curated) {
+			const gif = await byId(curated);
 			if (gif) return gif;
 		}
-		return (await candidates(source.giphyQuery, keywordsFor(source))).find((gif) => !rejected.has(gif.id)) ?? null;
+		const words = source.giphyKeywords?.length ? [] : queryWords(source.giphyQuery);
+		const found = (await candidates(source.giphyQuery, keywordsFor(source), words)).find((gif) => !rejected.has(gif.id));
+		if (found) return found;
+		const fallback = source.fallback;
+		if (!fallback) return null;
+		const mood = pick(fallback.giphyIds ?? []);
+		if (mood) {
+			const gif = await byId(mood);
+			if (gif) return gif;
+		}
+		const moods = (await moodGifs(fallback.giphyQuery)).filter((gif) => !rejected.has(gif.id));
+		return moods[stableIndex(source.name, moods.length)] ?? null;
 	} };
 }
 // src/pages/api/gif/[rivalry]/[team].ts
@@ -234,6 +300,11 @@ var _team__exports = /* @__PURE__ */ __exportAll({
 	prerender: () => false
 });
 var byId = new Map(rivalries.map((r) => [r.id, r]));
+/** GIF d'ambiance de chaque catégorie, en dernier recours. */
+var moodOf = new Map(categories.map((c) => [c.id, {
+	giphyIds: c.giphyIds,
+	giphyQuery: c.giphyQuery
+}]));
 var service = null;
 function getService(apiKey) {
 	service ??= createGiphyService({
@@ -266,7 +337,10 @@ var GET = async ({ params }) => {
 	const apiKey = getSecret("GIPHY_API_KEY");
 	if (!apiKey) return json({ error: "giphy-not-configured" }, 503, "no-store");
 	try {
-		const gif = await getService(apiKey).gifFor(team, rejectedGifs(rivalry.id, side));
+		const gif = await getService(apiKey).gifFor({
+			...team,
+			fallback: moodOf.get(rivalry.category)
+		}, rejectedGifs(rivalry.id, side));
 		if (!gif) return json(null, 200, "public, max-age=3600");
 		return json(gif, 200, `public, max-age=${team.giphyIds.length === 1 && team.giphyIds[0] === gif.id ? 86400 : 3600}`);
 	} catch (error) {
