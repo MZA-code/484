@@ -284,6 +284,14 @@ export const UiTextsSchema = z.object({
     team: text,
     vs: text,
     skip: text,
+    /** « Aucun des deux » : 3e choix, compté comme un débat tranché. */
+    none: z.object({
+      button: text,
+      choice: text,
+      label: text,
+      between: template('a', 'b'),
+      split: template('percent'),
+    }),
     keysHint: text,
     pickHint: text,
     loading: text,
@@ -373,6 +381,8 @@ export const UiTextsSchema = z.object({
     landslideTitle: text,
     landslideIntro: text,
     votes: pluralForms,
+    /** Part « aucun des deux » d'un débat. */
+    none: template('percent'),
     empty: text,
     emptySection: text,
     loading: text,

@@ -1,7 +1,7 @@
 /**
- * POST /api/vote  { winnerId, loserId, theme }
+ * POST /api/vote  { rivalryId, team: 'a' | 'b' | 'none', category }
  *
- * - 200 { counted: true, chosenVotes, totalVotes }
+ * - 200 { counted: true, chosenVotes, totalVotes, aVotes, bVotes, noneVotes }
  * - 200 { counted: false, reason: 'duplicate', … }   déjà voté pour cette rivalité aujourd'hui
  * - 429 { counted: false, reason, chosenVotes, totalVotes }   limite de débit atteinte
  * - 400 requête invalide · 403 autre origine ou outil automatisé · 415 pas du JSON · 413 trop gros · 503 votes désactivés

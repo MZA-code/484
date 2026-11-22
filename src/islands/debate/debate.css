@@ -633,6 +633,23 @@
   height: 100%;
 }
 
+/* « Aucun des deux » : une part neutre, rayée, entre les deux camps. */
+.result-bar-none {
+  display: block;
+  height: 100%;
+  background: repeating-linear-gradient(45deg, var(--fg-muted) 0 4px, #6b6b6b 4px 8px);
+}
+
+.result-split-none {
+  color: var(--fg);
+}
+
+/* Bouton « Aucun des deux » : même allure que « Je ne connais aucun des deux », en rose. */
+.none-button {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
 .result-split {
   display: flex;
   flex-wrap: wrap;

@@ -7,24 +7,44 @@ export interface RivalryCounts {
   id: string;
   aVotes: number;
   bVotes: number;
+  /** « Aucun des deux ». */
+  noneVotes: number;
 }
 
 export interface RankedRivalry extends RivalryCounts {
+  /** Tous les votes, « aucun des deux » compris. */
   total: number;
-  /** Part de la team A, arrondie, en % (la team B a le reste). */
+  /** Parts arrondies en % du total : team A, « aucun des deux », et team B (le reste). */
   aPercent: number;
+  nonePercent: number;
+  bPercent: number;
 }
 
 /** Votes minimum pour juger qu'un débat est serré ou écrasant (pas sur trois votes). */
 export const MIN_VOTES_TO_RANK = 10;
 
 const ranked = (r: RivalryCounts): RankedRivalry => {
-  const total = r.aVotes + r.bVotes;
-  return { ...r, total, aPercent: total ? Math.round((r.aVotes / total) * 100) : 50 };
+  const total = r.aVotes + r.bVotes + r.noneVotes;
+  if (!total) return { ...r, total, aPercent: 50, nonePercent: 0, bPercent: 50 };
+  const aPercent = Math.round((r.aVotes / total) * 100);
+  const nonePercent = Math.round((r.noneVotes / total) * 100);
+  return {
+    ...r,
+    total,
+    aPercent,
+    nonePercent,
+    bPercent: Math.max(0, 100 - aPercent - nonePercent),
+  };
 };
 
-/** Écart relatif entre les deux teams : 0 = égalité parfaite, 1 = unanimité. */
-const margin = (r: RankedRivalry) => Math.abs(r.aVotes - r.bVotes) / r.total;
+/** Votes pour l'une des deux teams (sans « aucun des deux »). */
+const sided = (r: RivalryCounts) => r.aVotes + r.bVotes;
+
+/**
+ * Écart relatif entre les deux teams, parmi ceux qui ont choisi un camp :
+ * 0 = égalité parfaite, 1 = unanimité. « Aucun des deux » ne rend pas un débat serré.
+ */
+const margin = (r: RankedRivalry) => Math.abs(r.aVotes - r.bVotes) / sided(r);
 
 export interface Rankings {
   /** Les débats les plus serrés : écart le plus faible. */
@@ -40,7 +60,8 @@ export function rankRivalries(
   { limit = 5, popularLimit = 10, minVotes = MIN_VOTES_TO_RANK } = {},
 ): Rankings {
   const all = rows.map(ranked).filter((r) => r.total > 0);
-  const judged = all.filter((r) => r.total >= minVotes);
+  // Serré ou écrasant : jugé sur les votes pour l'une des deux teams.
+  const judged = all.filter((r) => sided(r) >= minVotes);
   const byId = (a: RankedRivalry, b: RankedRivalry) => a.id.localeCompare(b.id);
 
   const closest = [...judged]

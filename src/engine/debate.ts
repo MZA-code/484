@@ -25,6 +25,8 @@ export const HISTORY_SIZE = 30;
 export const REBEL_BELOW = 40;
 
 export type Team = 'a' | 'b';
+/** Choix d'un vote : une des deux teams, ou « aucun des deux » (compte comme un débat tranché). */
+export type Choice = Team | 'none';
 
 export interface CatalogUniverse {
   id: string;
@@ -73,7 +75,7 @@ function poolOf(catalog: DebateCatalog, category: string): readonly string[] {
 
 export interface Verdict {
   rivalryId: string;
-  team: Team;
+  team: Choice;
   /** Part des visiteurs du même avis, quand l'API l'a donnée. */
   percent: number | null;
 }
@@ -104,7 +106,7 @@ export interface DebateContext {
   rng: Rng;
 }
 
-export type DebateEvent = { type: 'voted'; rivalryId: string; team: Team; category: string };
+export type DebateEvent = { type: 'voted'; rivalryId: string; team: Choice; category: string };
 
 // ─── Tirage ─────────────────────────────────────────────────────────────────
 
@@ -150,7 +152,7 @@ export function createDebate(ctx: DebateContext, category: string): DebateState 
 
 export function vote(
   state: DebateState,
-  team: Team,
+  team: Choice,
   ctx: DebateContext,
 ): { state: DebateState; events: DebateEvent[] } {
   const pool = poolOf(ctx.catalog, state.category);
@@ -301,7 +303,7 @@ const StoredDebateSchema = z.object({
   history: z.array(
     z.object({
       rivalryId: z.string(),
-      team: z.enum(['a', 'b']),
+      team: z.enum(['a', 'b', 'none']),
       percent: z.number().min(0).max(100).nullable(),
     }),
   ),

@@ -14,6 +14,8 @@ export const MIN_VOTES_FOR_SHARE = 5;
 export interface PairResult {
   chosenVotes: number;
   totalVotes: number;
+  /** Détail des trois choix (team A, team B, aucun des deux), si l'API le donne. */
+  split?: { a: number; b: number; none: number } | undefined;
 }
 
 export type ShareOutcome =

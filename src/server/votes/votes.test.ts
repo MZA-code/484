@@ -12,12 +12,12 @@ import { openSqliteStore, type VoteStore } from './store';
 
 describe('rankRivalries', () => {
   const rows = [
-    { id: 'tied', aVotes: 50, bVotes: 50 },
-    { id: 'close', aVotes: 6, bVotes: 5 },
-    { id: 'crushed', aVotes: 95, bVotes: 5 },
-    { id: 'clear', aVotes: 30, bVotes: 10 },
-    { id: 'tiny', aVotes: 2, bVotes: 0 },
-    { id: 'empty', aVotes: 0, bVotes: 0 },
+    { id: 'tied', aVotes: 50, bVotes: 50, noneVotes: 0 },
+    { id: 'close', aVotes: 6, bVotes: 5, noneVotes: 0 },
+    { id: 'crushed', aVotes: 95, bVotes: 5, noneVotes: 0 },
+    { id: 'clear', aVotes: 30, bVotes: 10, noneVotes: 0 },
+    { id: 'tiny', aVotes: 2, bVotes: 0, noneVotes: 0 },
+    { id: 'empty', aVotes: 0, bVotes: 0, noneVotes: 0 },
   ];
 
   it('lists the closest debates first, with enough votes', () => {
@@ -36,8 +36,37 @@ describe('rankRivalries', () => {
     expect(popular.map((r) => r.id)).toEqual(['crushed', 'tied', 'clear', 'close', 'tiny']);
   });
 
+  it('splits every debate in three parts that add up to 100 %', () => {
+    const [r] = rankRivalries([{ id: 'x', aVotes: 45, bVotes: 43, noneVotes: 12 }]).popular;
+    expect(r).toMatchObject({ total: 100, aPercent: 45, nonePercent: 12, bPercent: 43 });
+  });
+
+  it('judges close and landslide debates on the two teams only', () => {
+    const { closest, landslides, popular } = rankRivalries([
+      // Beaucoup de « aucun des deux », mais A écrase B : c'est un débat écrasant.
+      { id: 'meh', aVotes: 9, bVotes: 1, noneVotes: 90 },
+      // Que des « aucun des deux » : ni serré ni écrasant, mais bien parmi les plus votés.
+      { id: 'nobody', aVotes: 0, bVotes: 0, noneVotes: 40 },
+      { id: 'tied', aVotes: 20, bVotes: 20, noneVotes: 0 },
+    ]);
+    expect(closest.map((r) => r.id)).toEqual(['tied', 'meh']);
+    expect(landslides).toEqual([]);
+    // À égalité de votes, l'ordre alphabétique départage.
+    expect(popular.map((r) => r.id)).toEqual(['meh', 'nobody', 'tied']);
+    const { landslides: only } = rankRivalries(
+      [
+        { id: 'meh', aVotes: 9, bVotes: 1, noneVotes: 90 },
+        { id: 'tied', aVotes: 20, bVotes: 20, noneVotes: 0 },
+      ],
+      { limit: 1 },
+    );
+    expect(only.map((r) => r.id)).toEqual(['meh']);
+  });
+
   it('never judges a debate on too few votes', () => {
-    const { closest, landslides } = rankRivalries([{ id: 'tiny', aVotes: 2, bVotes: 0 }]);
+    const { closest, landslides } = rankRivalries([
+      { id: 'tiny', aVotes: 2, bVotes: 0, noneVotes: 0 },
+    ]);
     expect(closest).toEqual([]);
     expect(landslides).toEqual([]);
   });
@@ -118,14 +147,21 @@ describe('vote service', () => {
     const { service } = setup();
     expect(service.vote(batman, '1.1.1.1')).toEqual({
       status: 200,
-      body: { counted: true, chosenVotes: 1, totalVotes: 1 },
+      body: {
+        counted: true,
+        chosenVotes: 1,
+        totalVotes: 1,
+        aVotes: 1,
+        bVotes: 0,
+        noneVotes: 0,
+      },
     });
-    expect(service.vote({ ...batman, team: 'b' }, '2.2.2.2').body).toEqual({
+    expect(service.vote({ ...batman, team: 'b' }, '2.2.2.2').body).toMatchObject({
       counted: true,
       chosenVotes: 1,
       totalVotes: 2,
     });
-    expect(service.vote({ ...batman, category: 'mix' }, '3.3.3.3').body).toEqual({
+    expect(service.vote({ ...batman, category: 'mix' }, '3.3.3.3').body).toMatchObject({
       counted: true,
       chosenVotes: 2,
       totalVotes: 3,
@@ -139,8 +175,8 @@ describe('vote service', () => {
     service.vote({ rivalryId: 'bouffe-chat-chien', team: 'b', category: 'bouffe' }, 'c');
     expect(store.rivalryCounts(null)).toEqual(
       expect.arrayContaining([
-        { id: 'heros-batman-superman', aVotes: 1, bVotes: 1 },
-        { id: 'bouffe-chat-chien', aVotes: 0, bVotes: 1 },
+        { id: 'heros-batman-superman', aVotes: 1, bVotes: 1, noneVotes: 0 },
+        { id: 'bouffe-chat-chien', aVotes: 0, bVotes: 1, noneVotes: 0 },
       ]),
     );
     expect(store.rivalryCounts('bouffe-')).toHaveLength(1);
@@ -168,7 +204,12 @@ describe('vote service', () => {
     // Le même visiteur insiste : il voit les chiffres, mais rien n'est ajouté.
     expect(service.vote(batman, '9.9.9.9')).toEqual({
       status: 200,
-      body: { counted: false, reason: 'duplicate', chosenVotes: 1, totalVotes: 1 },
+      body: expect.objectContaining({
+        counted: false,
+        reason: 'duplicate',
+        chosenVotes: 1,
+        totalVotes: 1,
+      }),
     });
     expect(service.vote({ ...batman, team: 'b' }, '9.9.9.9').body).toMatchObject({
       counted: false,
@@ -185,6 +226,29 @@ describe('vote service', () => {
     expect(service.vote(batman, '9.9.9.9').body).toMatchObject({ counted: true, totalVotes: 3 });
   });
 
+  it('counts « aucun des deux » as a third choice', () => {
+    const { service, store } = setup();
+    service.vote(batman, '1.1.1.1');
+    service.vote({ ...batman, team: 'b' }, '2.2.2.2');
+    expect(service.vote({ ...batman, team: 'none' }, '3.3.3.3')).toEqual({
+      status: 200,
+      body: {
+        counted: true,
+        chosenVotes: 1,
+        totalVotes: 3,
+        aVotes: 1,
+        bVotes: 1,
+        noneVotes: 1,
+      },
+    });
+    // Le même visiteur ne peut pas ensuite voter pour une team : un seul choix par jour.
+    expect(service.vote(batman, '3.3.3.3').body).toMatchObject({ counted: false });
+    expect(store.rivalryCounts(null)).toEqual([
+      { id: 'heros-batman-superman', aVotes: 1, bVotes: 1, noneVotes: 1 },
+    ]);
+    expect(service.vote({ ...batman, team: 'c' }, '4.4.4.4').status).toBe(400);
+  });
+
   it('rate-limits a flood from the same IP but still answers with the numbers', () => {
     const { service } = setup();
     const statuses = Array.from(
@@ -194,7 +258,12 @@ describe('vote service', () => {
     expect(statuses.filter((s) => s === 200)).toHaveLength(RATE.burst);
     expect(service.vote(batman, '9.9.9.9')).toEqual({
       status: 429,
-      body: { counted: false, reason: 'burst', chosenVotes: 1, totalVotes: 1 },
+      body: expect.objectContaining({
+        counted: false,
+        reason: 'burst',
+        chosenVotes: 1,
+        totalVotes: 1,
+      }),
     });
     expect(service.vote(batman, '8.8.8.8').status).toBe(200);
   });
@@ -212,7 +281,16 @@ describe('vote service', () => {
     };
     expect(heros.totalVotes).toBe(12);
     expect(heros.closest).toEqual([
-      { id: 'heros-batman-superman', aVotes: 6, bVotes: 6, total: 12, aPercent: 50 },
+      {
+        id: 'heros-batman-superman',
+        aVotes: 6,
+        bVotes: 6,
+        noneVotes: 0,
+        total: 12,
+        aPercent: 50,
+        nonePercent: 0,
+        bPercent: 50,
+      },
     ]);
     expect(heros.popular.map((r) => r.id)).toEqual(['heros-batman-superman']);
     expect((service.hallOfFame(null).body as { totalVotes: number }).totalVotes).toBe(13);
@@ -414,7 +492,7 @@ describe('sqlite file', () => {
       nowMs: 0,
     });
     expect(migrated.rivalryCounts(null)).toEqual([
-      { id: 'heros-batman-superman', aVotes: 0, bVotes: 1 },
+      { id: 'heros-batman-superman', aVotes: 0, bVotes: 1, noneVotes: 0 },
     ]);
     migrated.close();
     const check = new DatabaseSync(file);

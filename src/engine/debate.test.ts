@@ -169,6 +169,18 @@ describe('voting', () => {
     expect(state.count).toBe(HISTORY_SIZE + 10);
   });
 
+  it('counts « aucun des deux » as a decided debate', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'heros');
+    const voted = state.current;
+    state = vote(state, 'none', ctx).state;
+    expect(state.count).toBe(1);
+    expect(state.history[0]).toEqual({ rivalryId: voted, team: 'none', percent: null });
+    expect(state.categories).toEqual(['heros']);
+    // Il survit à la sauvegarde.
+    expect(restoreDebate(JSON.parse(JSON.stringify(state)), ctx)?.history[0]?.team).toBe('none');
+  });
+
   it('remembers the categories where a debate was decided', () => {
     const ctx = makeCtx();
     let state = createDebate(ctx, 'heros');

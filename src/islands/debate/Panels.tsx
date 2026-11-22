@@ -49,10 +49,21 @@ export function Panels({ state, hallScope, byId, catalog, texts }: Props) {
           <ul class="teams-list">
             {recent.map(({ v, r }, i) => (
               <li key={`${v.rivalryId}-${state.count - i}`}>
-                <strong>{r[v.team].name}</strong>
-                <span class="teams-versus">
-                  {formatText(t.teams.versus, { name: r[v.team === 'a' ? 'b' : 'a'].name })}
-                </span>
+                {v.team === 'none' ? (
+                  <>
+                    <strong>{t.none.label}</strong>
+                    <span class="teams-versus">
+                      {formatText(t.none.between, { a: r.a.name, b: r.b.name })}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <strong>{r[v.team].name}</strong>
+                    <span class="teams-versus">
+                      {formatText(t.teams.versus, { name: r[v.team === 'a' ? 'b' : 'a'].name })}
+                    </span>
+                  </>
+                )}
                 {v.percent !== null && <span class="teams-percent">{v.percent} %</span>}
               </li>
             ))}

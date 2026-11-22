@@ -47,7 +47,14 @@
     "team": "Team",
     "vs": "VS",
     "skip": "Je ne connais aucun des deux",
-    "keysHint": "← et → pour choisir · Échap pour revenir à l’accueil",
+    "none": {
+      "button": "Aucun des deux",
+      "choice": "Ni l’un ni l’autre, pour toi",
+      "label": "Aucun des deux",
+      "between": "entre {a} et {b}",
+      "split": "aucun des deux · {percent} %"
+    },
+    "keysHint": "← et → pour choisir · ↓ pour aucun des deux · Échap pour revenir à l’accueil",
     "pickHint": "Choisis ton camp. Le reste du monde attend ton verdict.",
     "loading": "On sort les rivalités du placard…",
     "noscript": "Ce jeu a besoin de JavaScript. Comme la plupart des robots de ce site.",
@@ -257,6 +264,7 @@
       "one": "{n} vote",
       "other": "{n} votes"
     },
+    "none": "{percent} % aucun des deux",
     "empty": "Pas encore de votes ici. Va jouer, le classement compte sur toi.",
     "emptySection": "Pas encore assez de votes pour juger. Il en faut au moins dix par débat.",
     "loading": "On recompte les bulletins…",
@@ -398,7 +406,7 @@
         {
           "title": "Les votes",
           "blocks": [
-            "Quand tu choisis une team, ton navigateur envoie au serveur la rivalité, la team choisie et la catégorie en cours. Rien d’autre : ni identifiant, ni cookie.",
+            "Quand tu choisis une team, ton navigateur envoie au serveur la rivalité, la team choisie (ou « aucun des deux ») et la catégorie en cours. Rien d’autre : ni identifiant, ni cookie.",
             "Le serveur ajoute une voix au compteur de la rivalité. Il ne garde jamais la team que tu as choisie : personne ne peut retrouver ton vote, pas même l’éditeur."
           ]
         },

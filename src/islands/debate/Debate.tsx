@@ -85,13 +85,14 @@ export default function Debate({
     document.title = `${q} · 484`;
   }, [shown, byId, t]);
 
-  // Clavier : ← team de gauche, → team de droite, Échap retour à l'accueil.
+  // Clavier : ← team de gauche, → team de droite, ↓ aucun des deux, Échap retour à l'accueil.
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (shouldIgnoreKey(event)) return;
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowDown') {
         event.preventDefault();
-        if (!event.repeat) choose(event.key === 'ArrowLeft' ? 'a' : 'b');
+        if (event.repeat) return;
+        choose(event.key === 'ArrowLeft' ? 'a' : event.key === 'ArrowRight' ? 'b' : 'none');
       } else if (event.key === 'Escape') {
         window.location.assign('/');
       }
@@ -197,6 +198,9 @@ export default function Debate({
         </div>
 
         <div class="debate-actions">
+          <button type="button" class="skip-button none-button" onClick={() => choose('none')}>
+            {t.none.button}
+          </button>
           <button type="button" class="skip-button" onClick={skip}>
             {t.skip}
           </button>

@@ -29,6 +29,8 @@ interface Props {
 function exitClass(exit: Exit, side: Team): string {
   if (!exit) return '';
   if (exit === 'skip') return ' is-leaving';
+  // « Aucun des deux » : les deux cartes tombent.
+  if (exit === 'none') return ' is-rejected';
   return exit === side ? ' is-chosen' : ' is-rejected';
 }
 

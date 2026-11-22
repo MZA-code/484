@@ -64,17 +64,39 @@ function Confetti() {
   );
 }
 
+/**
+ * Parts de la barre, en % : team A, « aucun des deux », team B (le reste).
+ * Avec le détail des trois choix, on le suit ; sans lui (ancienne réponse), on déduit les deux
+ * camps du pourcentage du choix du visiteur. null si on ne peut rien dessiner de juste.
+ */
+function splitParts(
+  result: VoteResult,
+  share: number,
+): { a: number; none: number; b: number } | null {
+  const split = result.split;
+  const total = split ? split.a + split.b + split.none : 0;
+  if (split && total > 0) {
+    const a = Math.round((split.a / total) * 100);
+    const none = Math.round((split.none / total) * 100);
+    return { a, none, b: Math.max(0, 100 - a - none) };
+  }
+  if (result.team === 'none') return null;
+  const a = result.team === 'a' ? share : 100 - share;
+  return { a, none: 0, b: 100 - a };
+}
+
 export function Result({ result, rivalry, colors, achievement, texts, reducedMotion }: Props) {
   const t = texts.debate;
   const reached = achievement;
-  const team = result && rivalry ? rivalry[result.team] : undefined;
+  const isNone = result?.team === 'none';
+  const team = result && rivalry && result.team !== 'none' ? rivalry[result.team] : undefined;
   const outcome = result?.outcome;
   const share = outcome?.kind === 'share' ? outcome.percent : null;
   const shown = useCountUp(share, reducedMotion);
-  // Part de chaque camp : le pourcentage reçu est celui de la team choisie.
-  const chosenIsA = result?.team === 'a';
-  const aFinal = share === null ? 0 : chosenIsA ? share : 100 - share;
-  const aShown = shown === null ? 0 : chosenIsA ? shown : 100 - shown;
+  const parts = share === null || !result ? null : splitParts(result, share);
+  // Les trois parts défilent avec le pourcentage du choix du visiteur.
+  const progress = share && shown !== null ? shown / share : 1;
+  const counted = (n: number) => Math.round(n * progress);
   const shareText = share === null ? '' : formatText(t.share, { percent: share });
 
   return (
@@ -99,10 +121,10 @@ export function Result({ result, rivalry, colors, achievement, texts, reducedMot
             )}
           </div>
         )}
-        {result && team ? (
+        {result && (team || isNone) ? (
           <div class="result" key={result.id}>
             <p class="result-choice">
-              {fill(t.choice, { name: <strong>{team.name}</strong> })}
+              {team ? fill(t.choice, { name: <strong>{team.name}</strong> }) : t.none.choice}
               {share !== null && (
                 <span class="result-share">
                   {' · '}
@@ -111,21 +133,29 @@ export function Result({ result, rivalry, colors, achievement, texts, reducedMot
                 </span>
               )}
             </p>
-            {share !== null && rivalry && (
+            {parts && rivalry && (
               <>
                 <span class="result-bar" aria-hidden="true">
                   <span
                     class="result-bar-a"
-                    style={{ width: `${aFinal}%`, background: colors[0] }}
+                    style={{ width: `${parts.a}%`, background: colors[0] }}
                   />
+                  {parts.none > 0 && (
+                    <span class="result-bar-none" style={{ width: `${parts.none}%` }} />
+                  )}
                   <span class="result-bar-b" style={{ background: colors[1] }} />
                 </span>
                 <span class="result-split" aria-hidden="true">
                   <span>
-                    {rivalry.a.name} · {aShown} %
+                    {rivalry.a.name} · {counted(parts.a)} %
                   </span>
+                  {parts.none > 0 && (
+                    <span class="result-split-none">
+                      {formatText(t.none.split, { percent: counted(parts.none) })}
+                    </span>
+                  )}
                   <span>
-                    {100 - aShown} % · {rivalry.b.name}
+                    {counted(parts.b)} % · {rivalry.b.name}
                   </span>
                 </span>
               </>

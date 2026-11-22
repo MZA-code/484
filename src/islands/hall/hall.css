@@ -113,6 +113,11 @@
   height: 100%;
 }
 
+/* « Aucun des deux » : part neutre et rayée, comme dans le bandeau du jeu. */
+.hall-bar .hall-bar-none {
+  background: repeating-linear-gradient(45deg, var(--fg-muted) 0 4px, #6b6b6b 4px 8px);
+}
+
 .hall-split {
   display: flex;
   flex-wrap: wrap;

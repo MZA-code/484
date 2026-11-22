@@ -21,7 +21,7 @@ Vérifier que la partie serveur répond : <http://localhost:4840/api/health>.
 ## Jouer dans le terminal
 
 ```sh
-npm run play                          # ← → pour choisir, S pour passer, C pour changer de catégorie, Q pour quitter
+npm run play                          # ← → pour choisir, ↓ aucun des deux, S pour passer, C pour changer de catégorie, Q pour quitter
 npm run play -- --category bouffe     # catégorie de départ (mix, heros, bouffe, geek, jeux, ecrans, duos, quotidien)
 npm run play -- --seed 42             # partie reproductible
 npm run play -- --auto 30             # 30 votes automatiques, puis le résumé

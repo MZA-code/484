@@ -2,7 +2,8 @@
  * Stockage des votes dans SQLite (module `node:sqlite` intégré à Node, rien à installer).
  *
  * Tables :
- * - rivalry_votes(rivalry_id, a_votes, b_votes) : les votes de chaque rivalité
+ * - rivalry_votes(rivalry_id, a_votes, b_votes, none_votes) : les votes de chaque rivalité
+ *   (« aucun des deux » compris)
  * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
  * - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
  * - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
@@ -18,19 +19,24 @@ import type { RivalryCounts } from './ranking';
 import { REPORT_RATE, takeToken, type Bucket } from './rate-limit';
 
 export type Team = 'a' | 'b';
+/** Choix d'un vote : une des deux teams, ou « aucun des deux ». */
+export type Choice = Team | 'none';
 
 export interface VoteInput {
   rivalryId: string;
-  team: Team;
+  team: Choice;
   ipHash: string;
   day: string;
   nowMs: number;
 }
 
-/** Votes de la rivalité, vus depuis le choix du visiteur. */
+/** Votes de la rivalité, vus depuis le choix du visiteur, et le détail des trois choix. */
 export interface PairResult {
   chosenVotes: number;
   totalVotes: number;
+  aVotes: number;
+  bVotes: number;
+  noneVotes: number;
 }
 
 export type VoteOutcome =
@@ -147,6 +153,8 @@ const MIGRATIONS = [
      PRIMARY KEY (rivalry_id, team, gif_id, ip_hash)
    ) STRICT;
    CREATE INDEX gif_report_seen_day ON gif_report_seen(day);`,
+  // 5. « Aucun des deux » : un troisième compteur par rivalité.
+  `ALTER TABLE rivalry_votes ADD COLUMN none_votes INTEGER NOT NULL DEFAULT 0;`,
 ];
 
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
@@ -213,29 +221,40 @@ export function openSqliteStore(file: string): VoteStore {
       `INSERT INTO rivalry_votes (rivalry_id, b_votes) VALUES (?, 1)
        ON CONFLICT(rivalry_id) DO UPDATE SET b_votes = b_votes + 1`,
     ),
+    voteNone: db.prepare(
+      `INSERT INTO rivalry_votes (rivalry_id, none_votes) VALUES (?, 1)
+       ON CONFLICT(rivalry_id) DO UPDATE SET none_votes = none_votes + 1`,
+    ),
     one: db.prepare(
-      'SELECT a_votes AS aVotes, b_votes AS bVotes FROM rivalry_votes WHERE rivalry_id = ?',
+      `SELECT a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+       FROM rivalry_votes WHERE rivalry_id = ?`,
     ),
     all: db.prepare(
-      'SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes FROM rivalry_votes',
+      `SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+       FROM rivalry_votes`,
     ),
     prefix: db.prepare(
-      `SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes FROM rivalry_votes
-       WHERE rivalry_id LIKE ? ESCAPE '\\'`,
+      `SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+       FROM rivalry_votes WHERE rivalry_id LIKE ? ESCAPE '\\'`,
     ),
   };
 
   let lastPurgeDay = '';
   let lastReportPurgeDay = '';
 
-  function pairResult(rivalryId: string, team: Team): PairResult {
-    const row = q.one.get(rivalryId) as { aVotes: number; bVotes: number } | undefined;
-    if (!row) return { chosenVotes: 0, totalVotes: 0 };
+  function pairResult(rivalryId: string, choice: Choice): PairResult {
+    const row = q.one.get(rivalryId) as
+      { aVotes: number; bVotes: number; noneVotes: number } | undefined;
+    const counts = row ?? { aVotes: 0, bVotes: 0, noneVotes: 0 };
+    const chosen = { a: counts.aVotes, b: counts.bVotes, none: counts.noneVotes }[choice];
     return {
-      chosenVotes: team === 'a' ? row.aVotes : row.bVotes,
-      totalVotes: row.aVotes + row.bVotes,
+      chosenVotes: chosen,
+      totalVotes: counts.aVotes + counts.bVotes + counts.noneVotes,
+      ...counts,
     };
   }
+
+  const voteFor = { a: q.voteA, b: q.voteB, none: q.voteNone };
 
   return {
     recordVote({ rivalryId, team, ipHash, day, nowMs }) {
@@ -251,7 +270,7 @@ export function openSqliteStore(file: string): VoteStore {
         q.putBucket.run(ipHash, day, taken.next.tokens, taken.next.updatedMs, taken.next.count);
         // Premier vote du jour de ce visiteur pour cette rivalité ? Sinon, on ne compte rien.
         const first = taken.allowed && Number(q.seeVote.run(rivalryId, ipHash, day).changes) > 0;
-        if (first) (team === 'a' ? q.voteA : q.voteB).run(rivalryId);
+        if (first) voteFor[team].run(rivalryId);
         const pair = pairResult(rivalryId, team);
         db.exec('COMMIT');
         if (!taken.allowed) return { status: 'rate-limited', reason: taken.reason, pair };

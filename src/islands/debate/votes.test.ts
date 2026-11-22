@@ -18,6 +18,18 @@ describe('readPairResult', () => {
     });
   });
 
+  it('reads the three choices when the counts add up', async () => {
+    const body = { chosenVotes: 2, totalVotes: 10, aVotes: 5, bVotes: 3, noneVotes: 2 };
+    expect(await readPairResult(json(body))).toEqual({
+      chosenVotes: 2,
+      totalVotes: 10,
+      split: { a: 5, b: 3, none: 2 },
+    });
+    // Détail incohérent : ignoré, le pourcentage reste utilisable.
+    const wrong = { ...body, noneVotes: 9 };
+    expect(await readPairResult(json(wrong))).toEqual({ chosenVotes: 2, totalVotes: 10 });
+  });
+
   it('returns null for errors and nonsense', async () => {
     expect(await readPairResult(json({ error: 'votes-disabled' }, 503))).toBeNull();
     expect(await readPairResult(json({ chosenVotes: 'x', totalVotes: 2 }))).toBeNull();

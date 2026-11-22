@@ -23,8 +23,8 @@ import {
   writeJson,
   type DebateContext,
   type DebateState,
+  type Choice,
   type ShareOutcome,
-  type Team,
 } from '../../engine';
 import { prefersReducedMotion } from '../../lib/motion';
 import { catalogFrom, categoryFromSearch, initialDebate } from './init';
@@ -35,7 +35,7 @@ import { sendVote } from './votes';
 export const EXIT_MS = 130;
 
 /** Comment la rivalité affichée s'en va : une team choisie (elle gagne, l'autre tombe) ou un passage. */
-export type Exit = Team | 'skip' | null;
+export type Exit = Choice | 'skip' | null;
 /** Clé de l'ancien mode « duels », nettoyée au passage. */
 const LEGACY_STORAGE_KEY = '484:game';
 
@@ -43,9 +43,11 @@ export interface VoteResult {
   /** Change à chaque vote : sert de clé pour rejouer l'animation « pop ». */
   id: number;
   rivalryId: string;
-  team: Team;
+  team: Choice;
   /** null tant que l'API n'a pas répondu (au plus 1,5 s). */
   outcome: ShareOutcome | null;
+  /** Votes des trois choix (barre à trois parts), si l'API les a donnés. */
+  split: { a: number; b: number; none: number } | null;
   quip: string | null;
 }
 
@@ -126,7 +128,7 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
   }, []);
 
   const choose = useCallback(
-    (team: Team) => {
+    (team: Choice) => {
       if (busy.current) return;
       const current = stateRef.current;
       const rivalryId = current.current;
@@ -134,7 +136,7 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
       const id = transition.state.count;
       pendingVote.current = id;
 
-      setResult({ id, rivalryId, team, outcome: null, quip: null });
+      setResult({ id, rivalryId, team, outcome: null, quip: null, split: null });
       setAchievement(null);
       advance(transition.state, team);
 
@@ -150,7 +152,8 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
           ...recordOutcome(s, rivalryId, outcome),
           lastQuipKey: quip.state.lastQuipKey,
         }));
-        setResult((r) => (r && r.id === id ? { ...r, outcome, quip: quip.text } : r));
+        const split = pair?.split ?? null;
+        setResult((r) => (r && r.id === id ? { ...r, outcome, quip: quip.text, split } : r));
       });
     },
     [ctx, data, advance],

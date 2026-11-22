@@ -2,7 +2,7 @@
  * Mode console : jouer aux débats « Team X ou Team Y ? » dans le terminal,
  * avec le vrai moteur et les vrais contenus.
  *
- *   npm run play                       partie interactive (← → S C Q)
+ *   npm run play                       partie interactive (← → ↓ S C Q ; ↓ = aucun des deux)
  *   npm run play -- --category bouffe  choisir la catégorie de départ
  *   npm run play -- --seed 42          partie reproductible
  *   npm run play -- --auto 30          30 votes automatiques, puis le résumé (sans clavier)
@@ -28,6 +28,7 @@ import {
   vote,
   type DebateContext,
   type DebateState,
+  type Choice,
   type Team,
 } from '../src/engine/debate';
 import { unlockedIds } from '../src/engine/achievements';
@@ -116,9 +117,11 @@ function renderPanels(state: DebateState): string[] {
   for (const v of state.history.slice(0, 5)) {
     const r = rivalry(v.rivalryId);
     const percent = v.percent === null ? '' : ansi.dim(` · ${v.percent} %`);
-    lines.push(
-      `  • ${r[v.team].name}${ansi.dim(` (contre ${r[v.team === 'a' ? 'b' : 'a'].name})`)}${percent}`,
-    );
+    const choice =
+      v.team === 'none'
+        ? `${ui.debate.none.label}${ansi.dim(` (${formatText(ui.debate.none.between, { a: r.a.name, b: r.b.name })})`)}`
+        : `${r[v.team].name}${ansi.dim(` (contre ${r[v.team === 'a' ? 'b' : 'a'].name})`)}`;
+    lines.push(`  • ${choice}${percent}`);
   }
   lines.push('', ansi.bold(ui.debate.profile.title.toUpperCase()));
   lines.push(`  ${plural(ui.debate.profile.count, p.count)}`);
@@ -153,7 +156,9 @@ function render(state: DebateState, banner: string[]): void {
     ...banner,
     ...renderPanels(state),
     '',
-    ansi.dim(`← / → choisir · S « ${ui.debate.skip} » · C changer de catégorie · Q quitter`),
+    ansi.dim(
+      `← / → choisir · ↓ « ${ui.debate.none.button} » · S « ${ui.debate.skip} » · C changer de catégorie · Q quitter`,
+    ),
   ];
   console.clear();
   console.log(out.join('\n'));
@@ -177,14 +182,15 @@ function bar(percent: number, hex: string): string {
   return done + ansi.dim('░'.repeat(width - (filled >= 2 ? filled : 0)));
 }
 
-function play(state: DebateState, team: Team): { state: DebateState; banner: string[] } {
+function play(state: DebateState, team: Choice): { state: DebateState; banner: string[] } {
   const r = rivalry(state.current);
   const result = vote(state, team, ctx);
   const outcome = shareOutcome(simulatePair());
   const withOutcome = recordOutcome(result.state, r.id, outcome);
   const quip = debateQuip(withOutcome, ui.quips, outcome, rng);
 
-  const choice = formatText(ui.debate.choice, { name: r[team].name });
+  const choice =
+    team === 'none' ? ui.debate.none.choice : formatText(ui.debate.choice, { name: r[team].name });
   const banner = [
     outcome.kind === 'share'
       ? `${ansi.bold(choice)} · ${formatText(ui.debate.share, { percent: outcome.percent })} ${ansi.dim('(simulé)')}`
@@ -241,8 +247,9 @@ process.stdin.on('keypress', (_str: string | undefined, key: { name?: string; ct
     console.log(`\n${ui.footer.disclaimer}\n`);
     process.exit(0);
   }
-  if (key.name === 'left' || key.name === 'right') {
-    ({ state, banner } = play(state, key.name === 'left' ? 'a' : 'b'));
+  if (key.name === 'left' || key.name === 'right' || key.name === 'down') {
+    const choice = key.name === 'left' ? 'a' : key.name === 'right' ? 'b' : 'none';
+    ({ state, banner } = play(state, choice));
   } else if (key.name === 's') {
     state = skip(state, ctx);
     banner = [];

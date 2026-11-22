@@ -16,6 +16,9 @@ interface Ranked {
   bVotes: number;
   total: number;
   aPercent: number;
+  /** Absents des réponses d'avant « aucun des deux » : 0, et B prend le reste. */
+  nonePercent?: number;
+  bPercent?: number;
 }
 
 interface Hall {
@@ -71,26 +74,32 @@ export default function HallOfFame({ data }: { data: HallData }) {
     };
   }, [category]);
 
-  /** Une rivalité : la question, la barre à deux camps et les chiffres. */
+  /** Une rivalité : la question, la barre (team A, aucun des deux, team B) et les chiffres. */
   const debate = (r: Ranked) => {
     const rivalry = byId.get(r.id);
     if (!rivalry) return null;
     const [ca, cb] = teamColors(r.id);
+    const none = r.nonePercent ?? 0;
+    const b = r.bPercent ?? 100 - r.aPercent - none;
     return (
       <>
         <span class="hall-category">{labels.get(rivalry.category)}</span>
         <span class="hall-question">{rivalry.question}</span>
         <span class="hall-bar" aria-hidden="true">
           <span style={{ width: `${r.aPercent}%`, background: ca }} />
+          {none > 0 && <span class="hall-bar-none" style={{ width: `${none}%` }} />}
           <span style={{ flex: 1, background: cb }} />
         </span>
         <span class="hall-split">
           <span>
             {rivalry.a} · {r.aPercent} %
           </span>
-          <span class="hall-votes">{plural(t.votes, r.total)}</span>
+          <span class="hall-votes">
+            {plural(t.votes, r.total)}
+            {none > 0 && <> · {formatText(t.none, { percent: none })}</>}
+          </span>
           <span>
-            {100 - r.aPercent} % · {rivalry.b}
+            {b} % · {rivalry.b}
           </span>
         </span>
       </>

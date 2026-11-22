@@ -5,13 +5,13 @@
  * en moins de `DISPLAY_TIMEOUT_MS`, on affiche le pourcentage. Sinon, ou si l'API est muette,
  * on renvoie null (remarque neutre). La requête, elle, continue sa route (`keepalive`).
  */
-import type { PairResult, Team } from '../../engine';
+import type { Choice, PairResult } from '../../engine';
 
 export const DISPLAY_TIMEOUT_MS = 1500;
 
 export interface VotePayload {
   rivalryId: string;
-  team: Team;
+  team: Choice;
   /** Catégorie jouée (« mix » ou une catégorie), pour la validation côté serveur. */
   category: string;
 }
@@ -21,10 +21,27 @@ const isCount = (v: unknown): v is number => typeof v === 'number' && Number.isI
 /** Lit la réponse de l'API ; 429 (limite atteinte) renvoie aussi les chiffres de la paire. */
 export async function readPairResult(response: Response): Promise<PairResult | null> {
   if (response.status !== 200 && response.status !== 429) return null;
-  const body = (await response.json()) as { chosenVotes?: unknown; totalVotes?: unknown };
+  const body = (await response.json()) as {
+    chosenVotes?: unknown;
+    totalVotes?: unknown;
+    aVotes?: unknown;
+    bVotes?: unknown;
+    noneVotes?: unknown;
+  };
   if (!isCount(body.chosenVotes) || !isCount(body.totalVotes)) return null;
   if (body.chosenVotes > body.totalVotes) return null;
-  return { chosenVotes: body.chosenVotes, totalVotes: body.totalVotes };
+  const result: PairResult = { chosenVotes: body.chosenVotes, totalVotes: body.totalVotes };
+  // Détail des trois choix : seulement s'il est cohérent avec le total.
+  const { aVotes, bVotes, noneVotes } = body;
+  if (
+    isCount(aVotes) &&
+    isCount(bVotes) &&
+    isCount(noneVotes) &&
+    aVotes + bVotes + noneVotes === body.totalVotes
+  ) {
+    result.split = { a: aVotes, b: bVotes, none: noneVotes };
+  }
+  return result;
 }
 
 export function sendVote(
