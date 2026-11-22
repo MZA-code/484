@@ -1,9 +1,69 @@
-import { a as getSecret, i as universes, n as rivalries, t as categories } from "./content_CwDiKsbO.mjs";
+import { a as getSecret, i as universes, n as rivalries, t as categories } from "./content_CdF6cTpI.mjs";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { z } from "zod";
 import { createHash, timingSafeEqual } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
+// src/server/votes/guard.ts
+/** Outils en ligne de commande, bibliothèques HTTP, navigateurs pilotés, robots déclarés. */
+var AUTOMATED_AGENT = /curl|wget|python|httpie|go-http|java\/|okhttp|axios|node-fetch|undici|libwww|scrapy|aiohttp|headless|phantomjs|puppeteer|playwright|selenium|\bbot\b|bot\/|crawler|spider/i;
+/** L'hôte demandé par le navigateur (Host, ou X-Forwarded-Host derrière un proxy). */
+function requestedHost(headers, requestUrl) {
+	return headers.get("x-forwarded-host") ?? headers.get("host") ?? new URL(requestUrl).host;
+}
+function isSameSite(origin, headers, requestUrl) {
+	if (origin === null) return false;
+	try {
+		return new URL(origin).host === requestedHost(headers, requestUrl);
+	} catch {
+		return false;
+	}
+}
+/**
+* null si la requête peut passer, sinon le refus à renvoyer.
+* - Origin obligatoire et identique au site : tous les navigateurs l'envoient sur un POST.
+* - Corps JSON : un formulaire HTML d'un autre site ne peut pas en envoyer sans autorisation.
+* - Navigateur : User-Agent présent, et pas celui d'un outil d'automatisation connu.
+*/
+function checkWriteRequest(headers, requestUrl) {
+	if (!isSameSite(headers.get("origin"), headers, requestUrl)) return {
+		status: 403,
+		error: "forbidden-origin"
+	};
+	if (!(headers.get("content-type")?.toLowerCase() ?? "").startsWith("application/json")) return {
+		status: 415,
+		error: "json-required"
+	};
+	const agent = headers.get("user-agent") ?? "";
+	if (!agent || AUTOMATED_AGENT.test(agent)) return {
+		status: 403,
+		error: "automated-client"
+	};
+	return null;
+}
+/**
+* Nombre de proxys de confiance devant le serveur, depuis TRUST_PROXY :
+* « true » = 1, un nombre = ce nombre, autre chose = 0 (pas de proxy).
+*/
+function trustedHops(setting) {
+	if (setting === "true") return 1;
+	const n = Number(setting);
+	return Number.isInteger(n) && n > 0 ? n : 0;
+}
+/**
+* Adresse réelle du visiteur.
+*
+* Chaque proxy AJOUTE à droite de X-Forwarded-For l'adresse de qui lui parle. Les adresses de
+* gauche viennent donc du visiteur lui-même, qui peut en inventer autant qu'il veut. Avec
+* `hops` proxys de confiance, la bonne adresse est la `hops`-ième en partant de la droite :
+* c'est celle qu'a écrite notre propre proxy, impossible à falsifier.
+*/
+function pickClientIp(forwardedFor, direct, hops) {
+	if (hops <= 0) return direct;
+	const chain = (forwardedFor ?? "").split(",").map((part) => part.trim()).filter(Boolean);
+	if (chain.length === 0) return direct;
+	return chain[Math.max(0, chain.length - hops)] ?? direct;
+}
 var ranked = (r) => {
 	const total = r.aVotes + r.bVotes;
 	return {
@@ -34,14 +94,16 @@ function rankRivalries(rows, { limit = 5, popularLimit = 10, minVotes = 10 } = {
 * Comme le jour entre dans l'empreinte, deux journées d'un même visiteur ne peuvent pas être reliées.
 *
 * Limites : en moyenne 1 vote par seconde (seau de jetons, petites rafales tolérées pour
-* un joueur rapide au clavier) et 2 000 votes par jour.
+* un joueur rapide au clavier) et 600 votes par jour. En plus, un visiteur ne compte qu'une fois
+* par jour pour une même rivalité (voir store.ts).
 */
 var RATE = {
 	/** Rafale maximale : quelques votes rapprochés restent comptés. */
 	burst: 5,
 	/** Un jeton regagné par seconde, soit 1 vote par seconde en moyenne. */
 	refillPerMs: 1 / 1e3,
-	daily: 2e3
+	/** Largement assez pour un humain (une partie de 600 débats d'affilée), pas pour un robot. */
+	daily: 600
 };
 /** Signalements de GIF : 3 d'affilée, puis 1 par minute, 30 par jour. Personne n'en fait plus. */
 var REPORT_RATE = {
@@ -147,13 +209,22 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 				day,
 				nowMs
 			});
-			return outcome.status === "counted" ? {
+			if (outcome.status === "counted") return {
 				status: 200,
 				body: {
 					counted: true,
 					...outcome.pair
 				}
-			} : {
+			};
+			if (outcome.status === "duplicate") return {
+				status: 200,
+				body: {
+					counted: false,
+					reason: "duplicate",
+					...outcome.pair
+				}
+			};
+			return {
 				status: 429,
 				body: {
 					counted: false,
@@ -184,16 +255,29 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 				day,
 				nowMs
 			});
-			return outcome.status === "counted" ? {
+			if (outcome.status === "counted") return {
 				status: 200,
 				body: { counted: true }
-			} : {
+			};
+			if (outcome.status === "duplicate") return {
+				status: 200,
+				body: {
+					counted: false,
+					reason: "duplicate"
+				}
+			};
+			return {
 				status: 429,
 				body: {
 					counted: false,
 					reason: outcome.reason
 				}
 			};
+		},
+		/** GIF de cette team écartés par les signalements (à remplacer par le suivant). */
+		rejectedGifs(rivalryId, team) {
+			if (!categoryOf.has(rivalryId)) return /* @__PURE__ */ new Set();
+			return new Set(store.reportedGifIds(rivalryId, team, 3));
 		},
 		/**
 		* Liste des signalements pour `npm run gif-audit`, protégée par un jeton.
@@ -256,6 +340,8 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
 * - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
 * - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
+* - vote_seen, gif_report_seen : qui (empreinte du jour) a déjà voté pour une rivalité ou signalé
+*   un GIF aujourd'hui ; un visiteur ne compte qu'une fois par jour. Effacées chaque jour.
 *
 * L'interface `VoteStore` isole le reste du code de SQLite (passage à MySQL possible).
 */
@@ -304,7 +390,23 @@ var MIGRATIONS = [
      updated_ms INTEGER NOT NULL,
      count INTEGER NOT NULL
    ) STRICT;
-   CREATE INDEX report_limits_day ON report_limits(day);`
+   CREATE INDEX report_limits_day ON report_limits(day);`,
+	`CREATE TABLE vote_seen (
+     rivalry_id TEXT NOT NULL,
+     ip_hash TEXT NOT NULL,
+     day TEXT NOT NULL,
+     PRIMARY KEY (rivalry_id, ip_hash)
+   ) STRICT;
+   CREATE INDEX vote_seen_day ON vote_seen(day);
+   CREATE TABLE gif_report_seen (
+     rivalry_id TEXT NOT NULL,
+     team TEXT NOT NULL,
+     gif_id TEXT NOT NULL,
+     ip_hash TEXT NOT NULL,
+     day TEXT NOT NULL,
+     PRIMARY KEY (rivalry_id, team, gif_id, ip_hash)
+   ) STRICT;
+   CREATE INDEX gif_report_seen_day ON gif_report_seen(day);`
 ];
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
 var likePrefix = (prefix) => `${prefix.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
@@ -324,6 +426,12 @@ function openSqliteStore(file) {
 		putBucket: db.prepare(`INSERT INTO rate_limits (ip_hash, day, tokens, updated_ms, count) VALUES (?, ?, ?, ?, ?)
        ON CONFLICT(ip_hash) DO UPDATE SET tokens = excluded.tokens, updated_ms = excluded.updated_ms, count = excluded.count`),
 		purge: db.prepare("DELETE FROM rate_limits WHERE day < ?"),
+		purgeVoteSeen: db.prepare("DELETE FROM vote_seen WHERE day < ?"),
+		seeVote: db.prepare("INSERT OR IGNORE INTO vote_seen (rivalry_id, ip_hash, day) VALUES (?, ?, ?)"),
+		purgeReportSeen: db.prepare("DELETE FROM gif_report_seen WHERE day < ?"),
+		seeReport: db.prepare(`INSERT OR IGNORE INTO gif_report_seen (rivalry_id, team, gif_id, ip_hash, day)
+       VALUES (?, ?, ?, ?, ?)`),
+		reportedIds: db.prepare("SELECT gif_id AS gifId FROM gif_reports WHERE rivalry_id = ? AND team = ? AND reports >= ?"),
 		getReportBucket: db.prepare("SELECT tokens, updated_ms AS updatedMs, count FROM report_limits WHERE ip_hash = ?"),
 		putReportBucket: db.prepare(`INSERT INTO report_limits (ip_hash, day, tokens, updated_ms, count) VALUES (?, ?, ?, ?, ?)
        ON CONFLICT(ip_hash) DO UPDATE SET tokens = excluded.tokens, updated_ms = excluded.updated_ms, count = excluded.count`),
@@ -360,19 +468,25 @@ function openSqliteStore(file) {
 			try {
 				if (lastPurgeDay !== day) {
 					q.purge.run(day);
+					q.purgeVoteSeen.run(day);
 					lastPurgeDay = day;
 				}
 				const taken = takeToken(q.getBucket.get(ipHash), nowMs);
 				q.putBucket.run(ipHash, day, taken.next.tokens, taken.next.updatedMs, taken.next.count);
-				if (taken.allowed) (team === "a" ? q.voteA : q.voteB).run(rivalryId);
+				const first = taken.allowed && Number(q.seeVote.run(rivalryId, ipHash, day).changes) > 0;
+				if (first) (team === "a" ? q.voteA : q.voteB).run(rivalryId);
 				const pair = pairResult(rivalryId, team);
 				db.exec("COMMIT");
-				return taken.allowed ? {
+				if (!taken.allowed) return {
+					status: "rate-limited",
+					reason: taken.reason,
+					pair
+				};
+				return first ? {
 					status: "counted",
 					pair
 				} : {
-					status: "rate-limited",
-					reason: taken.reason,
+					status: "duplicate",
 					pair
 				};
 			} catch (error) {
@@ -385,16 +499,19 @@ function openSqliteStore(file) {
 			try {
 				if (lastReportPurgeDay !== day) {
 					q.purgeReports.run(day);
+					q.purgeReportSeen.run(day);
 					lastReportPurgeDay = day;
 				}
 				const taken = takeToken(q.getReportBucket.get(ipHash), nowMs, REPORT_RATE);
 				q.putReportBucket.run(ipHash, day, taken.next.tokens, taken.next.updatedMs, taken.next.count);
-				if (taken.allowed) q.report.run(rivalryId, team, gifId, nowMs);
+				const first = taken.allowed && Number(q.seeReport.run(rivalryId, team, gifId, ipHash, day).changes) > 0;
+				if (first) q.report.run(rivalryId, team, gifId, nowMs);
 				db.exec("COMMIT");
-				return taken.allowed ? { status: "counted" } : {
+				if (!taken.allowed) return {
 					status: "rate-limited",
 					reason: taken.reason
 				};
+				return first ? { status: "counted" } : { status: "duplicate" };
 			} catch (error) {
 				db.exec("ROLLBACK");
 				throw error;
@@ -405,6 +522,9 @@ function openSqliteStore(file) {
 				...row,
 				lastReport: new Date(lastMs).toISOString()
 			}));
+		},
+		reportedGifIds(rivalryId, team, minReports) {
+			return q.reportedIds.all(rivalryId, team, minReports).map((r) => r.gifId);
 		},
 		rivalryCounts(idPrefix) {
 			return idPrefix ? q.prefix.all(likePrefix(idPrefix)) : q.all.all();
@@ -438,15 +558,8 @@ function getVoteService() {
 	});
 	return service;
 }
-/**
-* Adresse du visiteur. Derrière un proxy (hébergement mutualisé), l'adresse directe est celle
-* du proxy : avec TRUST_PROXY=true, on lit la première adresse de X-Forwarded-For.
-*/
-function clientIp(request, clientAddress) {
-	if (getSecret("TRUST_PROXY") === "true") {
-		const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-		if (forwarded) return forwarded;
-	}
+/** Adresse directe de la connexion (le proxy, derrière un hébergement mutualisé). */
+function directAddress(clientAddress) {
 	try {
 		return clientAddress();
 	} catch {
@@ -454,19 +567,28 @@ function clientIp(request, clientAddress) {
 	}
 }
 /**
-* Le vote vient-il du site lui-même ? Sans en-tête Origin (ancien navigateur, outil), on laisse
-* passer : la limite de débit s'applique de toute façon. On compare à l'hôte demandé par le
-* navigateur (Host, ou X-Forwarded-Host derrière un proxy), pas à l'URL interne du serveur.
+* Adresse du visiteur. Derrière un proxy (hébergement mutualisé), l'adresse directe est celle
+* du proxy : avec TRUST_PROXY=true, on lit X-Forwarded-For, en partant de la droite (voir guard.ts).
 */
-function isSameOrigin(request) {
-	const origin = request.headers.get("origin");
-	if (!origin) return true;
-	const host = request.headers.get("x-forwarded-host") ?? request.headers.get("host") ?? new URL(request.url).host;
-	try {
-		return new URL(origin).host === host;
-	} catch {
-		return false;
-	}
+function clientIp(request, clientAddress) {
+	return pickClientIp(request.headers.get("x-forwarded-for"), directAddress(clientAddress), trustedHops(getSecret("TRUST_PROXY")));
+}
+/** Filtre anti-abus des routes qui écrivent : null si la requête passe, sinon la réponse de refus. */
+function rejectWrite(request) {
+	const rejection = checkWriteRequest(request.headers, request.url);
+	return rejection ? jsonResponse({ error: rejection.error }, rejection.status) : null;
+}
+/**
+* Diagnostic de l'adresse IP (GET /api/health?ip avec le jeton GIF_REPORT_TOKEN) : montre ce que
+* le serveur reçoit et l'adresse qu'il retient, pour vérifier que X-Forwarded-For est bien lu.
+*/
+function ipDiagnostic(request, clientAddress) {
+	return {
+		direct: directAddress(clientAddress),
+		forwardedFor: request.headers.get("x-forwarded-for"),
+		trustProxy: getSecret("TRUST_PROXY") ?? null,
+		chosen: clientIp(request, clientAddress)
+	};
 }
 var jsonResponse = (body, status, cacheControl = "no-store") => new Response(JSON.stringify(body), {
 	status,
@@ -475,4 +597,4 @@ var jsonResponse = (body, status, cacheControl = "no-store") => new Response(JSO
 		"cache-control": cacheControl
 	}
 });
-export { HALL_TTL_MS as a, jsonResponse as i, getVoteService as n, isSameOrigin as r, clientIp as t };
+export { rejectWrite as a, jsonResponse as i, getVoteService as n, HALL_TTL_MS as o, ipDiagnostic as r, sameToken as s, clientIp as t };

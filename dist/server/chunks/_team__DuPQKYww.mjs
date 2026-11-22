@@ -1,5 +1,6 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { a as getSecret, n as rivalries } from "./content_CwDiKsbO.mjs";
+import { a as getSecret, n as rivalries } from "./content_CdF6cTpI.mjs";
+import { n as getVoteService } from "./runtime_DeuYaHK-.mjs";
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 // src/server/gif-cache.ts
@@ -118,7 +119,8 @@ function keywordsFor(team) {
 * Ordre de priorité pour une team :
 * 1. un des GIF choisis à la main (`giphyIds`), au hasard ;
 * 2. sinon, le premier résultat de la recherche `giphyQuery` (`lang=fr`, `rating=g`) qui passe
-*    la validation par mots-clés (voir gif-match.ts) ;
+*    la validation par mots-clés (voir gif-match.ts) et n'a pas été écarté par les visiteurs
+*    (« Mauvais GIF ? » trop souvent signalé : on passe automatiquement au suivant) ;
 * 3. sinon, null : le navigateur garde le cadre rayé avec le nom.
 * Un résultat de recherche non validé n'est jamais renvoyé.
 *
@@ -179,9 +181,9 @@ function createGiphyService({ apiKey, cache, fetch: doFetch = fetch, random = Ma
 		if (hit !== void 0) return Promise.resolve(hit);
 		const pending = inFlight.get(key);
 		if (pending) return pending;
-		const promise = load().then((gif) => {
-			cache.set(key, gif, ttl(gif));
-			return gif;
+		const promise = load().then((value) => {
+			cache.set(key, value, ttl(value));
+			return value;
 		}).finally(() => inFlight.delete(key));
 		inFlight.set(key, promise);
 		return promise;
@@ -191,31 +193,39 @@ function createGiphyService({ apiKey, cache, fetch: doFetch = fetch, random = Ma
 			return toGif((await call(`/${encodeURIComponent(id)}`, {})).data);
 		});
 	}
-	function search(query, keywords) {
-		return cached(`q:${query.trim().toLowerCase()}|k:${[...keywords].sort().join(",").toLowerCase()}`, (gif) => gif ? TTL.search : TTL.empty, async () => {
+	/** Les premiers résultats de la recherche qui passent la validation par mots-clés. */
+	function candidates(query, keywords) {
+		return cached(`s:${query.trim().toLowerCase()}|k:${[...keywords].sort().join(",").toLowerCase()}`, (list) => list.length > 0 ? TTL.search : TTL.empty, async () => {
 			const body = await call("/search", {
 				q: query,
 				limit: String(25),
 				rating: "g",
 				lang: "fr"
 			});
+			const list = [];
 			for (const raw of body.data ?? []) {
+				if (list.length >= 5) break;
 				if (!matchesKeywords(raw, keywords)) continue;
 				const gif = toGif(raw);
-				if (gif) return gif;
+				if (gif) list.push(gif);
 			}
-			return null;
+			return list;
 		});
 	}
 	return { 
-	/** GIF d'une team : un des GIF choisis, sinon un résultat de recherche validé, sinon null. */
-async gifFor(source) {
+	/**
+	* GIF d'une team : un des GIF choisis, sinon le premier résultat de recherche validé qui
+	* n'est pas dans `rejected` (GIF trop signalés), sinon null.
+	* Les GIF choisis à la main ne sont jamais écartés automatiquement : c'est à toi d'en juger
+	* (ils apparaissent dans `npm run gif-audit`).
+	*/
+async gifFor(source, rejected = /* @__PURE__ */ new Set()) {
 		if (source.giphyIds.length > 0) {
 			const id = source.giphyIds[Math.floor(random() * source.giphyIds.length)];
 			const gif = await byId(id);
 			if (gif) return gif;
 		}
-		return search(source.giphyQuery, keywordsFor(source));
+		return (await candidates(source.giphyQuery, keywordsFor(source))).find((gif) => !rejected.has(gif.id)) ?? null;
 	} };
 }
 // src/pages/api/gif/[rivalry]/[team].ts
@@ -239,6 +249,15 @@ var json = (body, status, cacheControl) => new Response(JSON.stringify(body), {
 		"cache-control": cacheControl
 	}
 });
+/** GIF écartés par les signalements ; une base indisponible n'empêche jamais d'afficher un GIF. */
+function rejectedGifs(rivalryId, side) {
+	try {
+		return getVoteService()?.rejectedGifs(rivalryId, side) ?? /* @__PURE__ */ new Set();
+	} catch (error) {
+		console.warn("[api/gif] reports unavailable:", error.message);
+		return /* @__PURE__ */ new Set();
+	}
+}
 var GET = async ({ params }) => {
 	const rivalry = byId.get(params.rivalry ?? "");
 	const side = params.team;
@@ -247,9 +266,9 @@ var GET = async ({ params }) => {
 	const apiKey = getSecret("GIPHY_API_KEY");
 	if (!apiKey) return json({ error: "giphy-not-configured" }, 503, "no-store");
 	try {
-		const gif = await getService(apiKey).gifFor(team);
+		const gif = await getService(apiKey).gifFor(team, rejectedGifs(rivalry.id, side));
 		if (!gif) return json(null, 200, "public, max-age=3600");
-		return json(gif, 200, `public, max-age=${team.giphyIds.length > 1 ? 3600 : 86400}`);
+		return json(gif, 200, `public, max-age=${team.giphyIds.length === 1 && team.giphyIds[0] === gif.id ? 86400 : 3600}`);
 	} catch (error) {
 		const status = error instanceof GiphyError ? error.status : 0;
 		console.warn(`[api/gif] ${rivalry.id}/${side}: Giphy failure (${status || "network"})`);

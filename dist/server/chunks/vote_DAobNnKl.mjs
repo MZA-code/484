@@ -1,5 +1,5 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { i as jsonResponse, n as getVoteService, r as isSameOrigin, t as clientIp } from "./runtime_DKL-P66z.mjs";
+import { a as rejectWrite, i as jsonResponse, n as getVoteService, t as clientIp } from "./runtime_DeuYaHK-.mjs";
 // src/pages/api/vote.ts
 var vote_exports = /* @__PURE__ */ __exportAll({
 	POST: () => POST,
@@ -7,7 +7,8 @@ var vote_exports = /* @__PURE__ */ __exportAll({
 });
 var MAX_BODY = 1024;
 var POST = async ({ request, clientAddress }) => {
-	if (!isSameOrigin(request)) return jsonResponse({ error: "forbidden-origin" }, 403);
+	const rejected = rejectWrite(request);
+	if (rejected) return rejected;
 	const service = getVoteService();
 	if (!service) return jsonResponse({ error: "votes-disabled" }, 503);
 	const text = await request.text();
