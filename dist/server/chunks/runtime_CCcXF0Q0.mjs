@@ -1,4 +1,4 @@
-import { a as universes, n as categories, r as rivalries, t as getSecret } from "./server_CiIiFAVR.mjs";
+import { a as universes, n as categories, r as rivalries, t as getSecret } from "./server_DIGniH1C.mjs";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { z } from "zod";
@@ -65,18 +65,34 @@ function pickClientIp(forwardedFor, direct, hops) {
 	return chain[Math.max(0, chain.length - hops)] ?? direct;
 }
 var ranked = (r) => {
-	const total = r.aVotes + r.bVotes;
+	const total = r.aVotes + r.bVotes + r.noneVotes;
+	if (!total) return {
+		...r,
+		total,
+		aPercent: 50,
+		nonePercent: 0,
+		bPercent: 50
+	};
+	const aPercent = Math.round(r.aVotes / total * 100);
+	const nonePercent = Math.round(r.noneVotes / total * 100);
 	return {
 		...r,
 		total,
-		aPercent: total ? Math.round(r.aVotes / total * 100) : 50
+		aPercent,
+		nonePercent,
+		bPercent: Math.max(0, 100 - aPercent - nonePercent)
 	};
 };
-/** Écart relatif entre les deux teams : 0 = égalité parfaite, 1 = unanimité. */
-var margin = (r) => Math.abs(r.aVotes - r.bVotes) / r.total;
+/** Votes pour l'une des deux teams (sans « aucun des deux »). */
+var sided = (r) => r.aVotes + r.bVotes;
+/**
+* Écart relatif entre les deux teams, parmi ceux qui ont choisi un camp :
+* 0 = égalité parfaite, 1 = unanimité. « Aucun des deux » ne rend pas un débat serré.
+*/
+var margin = (r) => Math.abs(r.aVotes - r.bVotes) / sided(r);
 function rankRivalries(rows, { limit = 5, popularLimit = 10, minVotes = 10 } = {}) {
 	const all = rows.map(ranked).filter((r) => r.total > 0);
-	const judged = all.filter((r) => r.total >= minVotes);
+	const judged = all.filter((r) => sided(r) >= minVotes);
 	const byId = (a, b) => a.id.localeCompare(b.id);
 	const closest = [...judged].sort((a, b) => margin(a) - margin(b) || b.total - a.total || byId(a, b)).slice(0, limit);
 	const inClosest = new Set(closest.map((r) => r.id));
@@ -154,7 +170,11 @@ function takeToken(prev, nowMs, rate = RATE) {
 var HALL_TTL_MS = 6e4;
 var VoteBody = z.object({
 	rivalryId: z.string().min(1).max(160),
-	team: z.enum(["a", "b"]),
+	team: z.enum([
+		"a",
+		"b",
+		"none"
+	]),
 	category: z.string().min(1).max(60)
 });
 var GifReportBody = z.object({
@@ -343,7 +363,8 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 * Stockage des votes dans SQLite (module `node:sqlite` intégré à Node, rien à installer).
 *
 * Tables :
-* - rivalry_votes(rivalry_id, a_votes, b_votes) : les votes de chaque rivalité
+* - rivalry_votes(rivalry_id, a_votes, b_votes, none_votes) : les votes de chaque rivalité
+*   (« aucun des deux » compris)
 * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
 * - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
 * - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
@@ -413,7 +434,8 @@ var MIGRATIONS = [
      day TEXT NOT NULL,
      PRIMARY KEY (rivalry_id, team, gif_id, ip_hash)
    ) STRICT;
-   CREATE INDEX gif_report_seen_day ON gif_report_seen(day);`
+   CREATE INDEX gif_report_seen_day ON gif_report_seen(day);`,
+	`ALTER TABLE rivalry_votes ADD COLUMN none_votes INTEGER NOT NULL DEFAULT 0;`
 ];
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
 var likePrefix = (prefix) => `${prefix.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
@@ -452,24 +474,38 @@ function openSqliteStore(file) {
        ON CONFLICT(rivalry_id) DO UPDATE SET a_votes = a_votes + 1`),
 		voteB: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, b_votes) VALUES (?, 1)
        ON CONFLICT(rivalry_id) DO UPDATE SET b_votes = b_votes + 1`),
-		one: db.prepare("SELECT a_votes AS aVotes, b_votes AS bVotes FROM rivalry_votes WHERE rivalry_id = ?"),
-		all: db.prepare("SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes FROM rivalry_votes"),
-		prefix: db.prepare(`SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes FROM rivalry_votes
-       WHERE rivalry_id LIKE ? ESCAPE '\\'`)
+		voteNone: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, none_votes) VALUES (?, 1)
+       ON CONFLICT(rivalry_id) DO UPDATE SET none_votes = none_votes + 1`),
+		one: db.prepare(`SELECT a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+       FROM rivalry_votes WHERE rivalry_id = ?`),
+		all: db.prepare(`SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+       FROM rivalry_votes`),
+		prefix: db.prepare(`SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+       FROM rivalry_votes WHERE rivalry_id LIKE ? ESCAPE '\\'`)
 	};
 	let lastPurgeDay = "";
 	let lastReportPurgeDay = "";
-	function pairResult(rivalryId, team) {
-		const row = q.one.get(rivalryId);
-		if (!row) return {
-			chosenVotes: 0,
-			totalVotes: 0
+	function pairResult(rivalryId, choice) {
+		const counts = q.one.get(rivalryId) ?? {
+			aVotes: 0,
+			bVotes: 0,
+			noneVotes: 0
 		};
 		return {
-			chosenVotes: team === "a" ? row.aVotes : row.bVotes,
-			totalVotes: row.aVotes + row.bVotes
+			chosenVotes: {
+				a: counts.aVotes,
+				b: counts.bVotes,
+				none: counts.noneVotes
+			}[choice],
+			totalVotes: counts.aVotes + counts.bVotes + counts.noneVotes,
+			...counts
 		};
 	}
+	const voteFor = {
+		a: q.voteA,
+		b: q.voteB,
+		none: q.voteNone
+	};
 	return {
 		recordVote({ rivalryId, team, ipHash, day, nowMs }) {
 			db.exec("BEGIN IMMEDIATE");
@@ -482,7 +518,7 @@ function openSqliteStore(file) {
 				const taken = takeToken(q.getBucket.get(ipHash), nowMs);
 				q.putBucket.run(ipHash, day, taken.next.tokens, taken.next.updatedMs, taken.next.count);
 				const first = taken.allowed && Number(q.seeVote.run(rivalryId, ipHash, day).changes) > 0;
-				if (first) (team === "a" ? q.voteA : q.voteB).run(rivalryId);
+				if (first) voteFor[team].run(rivalryId);
 				const pair = pairResult(rivalryId, team);
 				db.exec("COMMIT");
 				if (!taken.allowed) return {

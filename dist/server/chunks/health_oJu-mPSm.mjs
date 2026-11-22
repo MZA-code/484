@@ -1,6 +1,6 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { t as getSecret } from "./server_CiIiFAVR.mjs";
-import { a as jsonResponse, c as sameToken, r as ipDiagnostic } from "./runtime_C35bM9v4.mjs";
+import { t as getSecret } from "./server_DIGniH1C.mjs";
+import { a as jsonResponse, c as sameToken, r as ipDiagnostic } from "./runtime_CCcXF0Q0.mjs";
 // src/pages/api/health.ts
 var health_exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,

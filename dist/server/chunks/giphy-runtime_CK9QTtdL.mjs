@@ -1,4 +1,4 @@
-import { t as getSecret } from "./server_CiIiFAVR.mjs";
+import { t as getSecret } from "./server_DIGniH1C.mjs";
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 // src/server/gif-match.ts
