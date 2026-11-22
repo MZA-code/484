@@ -2,10 +2,16 @@
  * Service Giphy côté serveur. La clé API ne quitte jamais le serveur :
  * le client ne reçoit que les URL des médias légers (MP4 / WebP).
  *
- * - Prétendant avec des GIF choisis à la main (`giphyIds`) : on en prend un au hasard.
- * - Sinon : premier résultat de la recherche `giphyQuery`, `rating=g`.
- * - Tout est mis en cache (mémoire + fichier) pour ménager le quota de l'API.
+ * Ordre de priorité pour une team :
+ * 1. un des GIF choisis à la main (`giphyIds`), au hasard ;
+ * 2. sinon, le premier résultat de la recherche `giphyQuery` (`lang=fr`, `rating=g`) qui passe
+ *    la validation par mots-clés (voir gif-match.ts) ;
+ * 3. sinon, null : le navigateur garde le cadre rayé avec le nom.
+ * Un résultat de recherche non validé n'est jamais renvoyé.
+ *
+ * Tout est mis en cache (mémoire + fichier) pour ménager le quota de l'API.
  */
+import { keywordsFor, matchesKeywords } from './gif-match';
 
 const API = 'https://api.giphy.com/v1/gifs';
 
@@ -56,6 +62,9 @@ interface GiphyRendition {
 
 interface GiphyObject {
   id: string;
+  title?: string;
+  slug?: string;
+  username?: string;
   images?: {
     fixed_height?: GiphyRendition;
     fixed_height_still?: GiphyRendition;
@@ -78,9 +87,15 @@ export function toGif(raw: GiphyObject | undefined): Gif | null {
 }
 
 export interface GifSource {
+  /** Nom de la team : mot-clé par défaut (voir `keywordsFor`). */
+  name: string;
   giphyIds: readonly string[];
   giphyQuery: string;
+  giphyKeywords?: readonly string[] | undefined;
 }
+
+/** Résultats demandés par recherche : de quoi en trouver un qui passe la validation. */
+export const SEARCH_LIMIT = 25;
 
 export interface GiphyServiceOptions {
   apiKey: string;
@@ -146,31 +161,38 @@ export function createGiphyService({
     );
   }
 
-  function search(query: string) {
+  function search(query: string, keywords: readonly string[]) {
+    // Les mots-clés font partie de la clé : les changer relance une recherche.
+    const key = `q:${query.trim().toLowerCase()}|k:${[...keywords].sort().join(',').toLowerCase()}`;
     return cached(
-      `q:${query.trim().toLowerCase()}`,
+      key,
       (gif) => (gif ? TTL.search : TTL.empty),
       async () => {
         const body = (await call('/search', {
           q: query,
-          limit: '1',
+          limit: String(SEARCH_LIMIT),
           rating: 'g',
-          lang: 'en',
+          lang: 'fr',
         })) as { data?: GiphyObject[] };
-        return toGif(body.data?.[0]);
+        for (const raw of body.data ?? []) {
+          if (!matchesKeywords(raw, keywords)) continue;
+          const gif = toGif(raw);
+          if (gif) return gif;
+        }
+        return null;
       },
     );
   }
 
   return {
-    /** GIF d'un prétendant : un des GIF choisis, sinon le premier résultat de recherche. */
+    /** GIF d'une team : un des GIF choisis, sinon un résultat de recherche validé, sinon null. */
     async gifFor(source: GifSource): Promise<Gif | null> {
       if (source.giphyIds.length > 0) {
         const id = source.giphyIds[Math.floor(random() * source.giphyIds.length)] as string;
         const gif = await byId(id);
         if (gif) return gif;
       }
-      return search(source.giphyQuery);
+      return search(source.giphyQuery, keywordsFor(source));
     },
   };
 }

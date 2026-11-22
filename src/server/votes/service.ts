@@ -1,7 +1,8 @@
 /**
- * Logique des routes `/api/vote` et `/api/hall-of-fame`, indépendante d'Astro :
+ * Logique des routes `/api/vote`, `/api/hall-of-fame` et `/api/gif-report`, indépendante d'Astro :
  * reçoit des données brutes, renvoie un statut HTTP et un corps JSON.
  */
+import { timingSafeEqual } from 'node:crypto';
 import { z } from 'zod';
 import { rankRivalries, type Rankings } from './ranking';
 import { dayOf, hashIp } from './rate-limit';
@@ -27,6 +28,20 @@ const VoteBody = z.object({
   team: z.enum(['a', 'b']),
   category: z.string().min(1).max(60),
 });
+
+const GifReportBody = z.object({
+  /** « rivalité/a » ou « rivalité/b », comme la route /api/gif. */
+  teamId: z.string().regex(/^[a-z0-9-]{1,160}\/[ab]$/),
+  /** Identifiant Giphy : lettres et chiffres. */
+  gifId: z.string().regex(/^[A-Za-z0-9]{1,64}$/),
+});
+
+/** Comparaison en temps constant : la durée ne trahit pas le jeton attendu. */
+function sameToken(given: string, expected: string): boolean {
+  const a = Buffer.from(given);
+  const b = Buffer.from(expected);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
 
 export interface VoteServiceOptions {
   store: VoteStore;
@@ -82,6 +97,41 @@ export function createVoteService({
       return outcome.status === 'counted'
         ? { status: 200, body: { counted: true, ...outcome.pair } }
         : { status: 429, body: { counted: false, reason: outcome.reason, ...outcome.pair } };
+    },
+
+    /** « Mauvais GIF ? » : un signalement de plus pour ce GIF de cette team. */
+    reportGif(raw: unknown, ip: string): ServiceResponse {
+      const parsed = GifReportBody.safeParse(raw);
+      if (!parsed.success) return { status: 400, body: { error: 'invalid-body' } };
+      const [rivalryId, team] = parsed.data.teamId.split('/') as [string, 'a' | 'b'];
+      if (!categoryOf.has(rivalryId)) return { status: 400, body: { error: 'unknown-rivalry' } };
+
+      const nowMs = now();
+      const day = dayOf(nowMs);
+      const outcome = store.recordGifReport({
+        rivalryId,
+        team,
+        gifId: parsed.data.gifId,
+        ipHash: hashIp(ip, salt, day),
+        day,
+        nowMs,
+      });
+      return outcome.status === 'counted'
+        ? { status: 200, body: { counted: true } }
+        : { status: 429, body: { counted: false, reason: outcome.reason } };
+    },
+
+    /**
+     * Liste des signalements pour `npm run gif-audit`, protégée par un jeton.
+     * Sans jeton configuré côté serveur, la liste n'existe pas (404).
+     */
+    gifReports(authorization: string | null, token: string | undefined): ServiceResponse {
+      if (!token) return { status: 404, body: { error: 'not-found' } };
+      const given = authorization?.replace(/^Bearer\s+/i, '') ?? '';
+      if (!sameToken(given, token)) return { status: 401, body: { error: 'unauthorized' } };
+      // Les rivalités retirées du JSON n'intéressent plus personne.
+      const reports = store.gifReports().filter((r) => categoryOf.has(r.rivalryId));
+      return { status: 200, body: { reports } };
     },
 
     hallOfFame(categoryParam: string | null): ServiceResponse {

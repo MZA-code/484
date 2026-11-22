@@ -185,9 +185,17 @@
   }
 }
 
-.team-card {
+/* Une carte et, dessous, son bouton « Mauvais GIF ? ». */
+.team-slot {
   flex: 1 1 340px;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.team-card {
+  width: 100%;
   min-height: 400px;
   display: flex;
   flex-direction: column;
@@ -415,6 +423,58 @@
 .team-line {
   font-size: 1.125rem;
   font-style: italic;
+}
+
+/* ─── « Mauvais GIF ? » : discret, sous la carte ─────────────────────────── */
+
+.gif-report {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 32px;
+  /* Laisse de la place à l'ombre de la carte (8 px). */
+  padding: 8px 8px 0 0;
+  transition: opacity 130ms ease;
+}
+
+.gif-report.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gif-report-button {
+  min-height: 32px;
+  padding: 4px 6px;
+  border: 0;
+  background: none;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.gif-report-button:hover,
+.gif-report-button:focus-visible {
+  color: var(--fg);
+}
+
+.gif-report-feedback {
+  margin: 0;
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.gif-report-feedback:empty {
+  display: none;
+}
+
+.gif-report-feedback:focus {
+  outline: none;
 }
 
 /* ─── Bouton « Je ne connais aucun des deux » ────────────────────────────── */

@@ -247,3 +247,16 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **`sitemap.xml`, `robots.txt`, `llms.txt`** générés au build depuis le contenu. Tous les robots sont admis (y compris les robots IA, condition du GEO), sauf `/api/`. `/jouer` n'est pas dans le plan du site : son contenu change à chaque visite.
 - **Images de partage** (`/og/<id>.png`, 1200 × 630) : satori + resvg en WebAssembly (aucun binaire natif à installer chez l'hébergeur). Dessinées à la demande, rangées sur disque sous l'empreinte de leur mise en page (`OG_CACHE_DIR`), gardées en mémoire (64 dernières). Une image par débat, une image générale pour le reste du site.
 - **Couleurs des teams** : `teamColors` utilisait seulement 8 des 56 paires possibles (la couleur B dépendait entièrement de A) ; un brassage du hachage les répartit désormais sur toutes les paires.
+
+## D23 — GIF fiables : validation par mots-clés, signalements, audit (phase 6)
+
+**Constat.** La recherche Giphy renvoyait des GIF hors sujet, surtout pour les œuvres françaises (« Les Trois Frères » donnait des frères quelconques). Le premier résultat était pris sans contrôle.
+
+**Décisions.**
+
+- **Ordre strict** : GIF choisis (`giphyIds`) > recherche validée > cadre rayé (`null`). Un résultat de recherche non validé n'est jamais affiché.
+- **Validation** (`src/server/gif-match.ts`) : titre, slug ou auteur du GIF doit contenir un mot-clé de la team, sans accents ni casse, en mots entiers (l'auteur, écrit sans espaces, est comparé mots-clés collés). Mots-clés : `giphyKeywords` s'il existe, sinon le nom sans article et `giphyQuery`. Sans valeur par défaut, les 2 000 teams (aucune n'a de `giphyIds`) auraient toutes perdu leur GIF d'un coup. La recherche demande 25 résultats (`lang=fr`) pour en trouver un valide, en un seul appel.
+- **Signalements** dans la base SQLite des votes (migration 3), pas dans un service externe : mêmes garanties que les votes (compteurs, empreinte d'IP quotidienne). Limite séparée et plus stricte (3, puis 1 par minute, 30 par jour). La page Confidentialité le mentionne.
+- **Export protégé par jeton** (`GET /api/gif-report`, `GIF_REPORT_TOKEN`) pour que `npm run gif-audit` lise les signalements de production sans accès au serveur. Sans jeton configuré, la route répond 404.
+- **Bouton à côté de la carte, pas dedans** : la carte est un `<button>`, qui ne peut pas en contenir un autre. Après l'envoi, le focus passe au message de remerciement.
+- **Œuvres françaises** repérées par catégorie (`cinefr`) et par une liste de marqueurs (auteurs, séries, chaînes) dans l'origine : les origines sont du texte libre, aucune règle automatique ne les distingue de façon fiable.

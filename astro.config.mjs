@@ -30,6 +30,8 @@ export default defineConfig({
         access: 'secret',
         default: 'data/votes.sqlite',
       }),
+      // Jeton qui protège la liste des signalements de GIF (GET /api/gif-report, npm run gif-audit).
+      GIF_REPORT_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
       // « true » derrière un proxy (hébergement mutualisé) pour lire l'IP dans X-Forwarded-For.
       TRUST_PROXY: envField.string({ context: 'server', access: 'secret', default: 'false' }),
     },

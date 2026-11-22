@@ -1,9 +1,12 @@
 /**
  * GET /api/gif/:rivalryId/:team → le GIF d'une team (URL MP4/WebP/image fixe).
  *
+ * Priorité : GIF choisis à la main (`giphyIds`) > recherche validée par mots-clés > rien.
+ *
  * Réponses :
  * - 200 { id, mp4, webp, still, width, height }
- * - 404 rivalité ou team inconnue, ou aucun GIF trouvé
+ * - 200 null : aucun GIF sûr pour cette team (le client affiche le cadre rayé avec le nom)
+ * - 404 rivalité ou team inconnue
  * - 503 clé Giphy absente · 502 Giphy en erreur
  * Le client affiche le cadre rayé dans tous les cas d'erreur : le jeu ne bloque jamais.
  */
@@ -45,7 +48,7 @@ export const GET: APIRoute = async ({ params }) => {
 
   try {
     const gif = await getService(apiKey).gifFor(team);
-    if (!gif) return json({ error: 'no-gif' }, 404, 'public, max-age=3600');
+    if (!gif) return json(null, 200, 'public, max-age=3600');
     // Un GIF choisi à la main peut changer d'une visite à l'autre : cache navigateur plus court.
     const maxAge = team.giphyIds.length > 1 ? 3600 : 86400;
     return json(gif, 200, `public, max-age=${maxAge}`);

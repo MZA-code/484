@@ -7,6 +7,7 @@ import { debateNumber, MIXED_CATEGORY, universeOf, type Team } from '../../engin
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
 import { useReducedMotion } from '../../lib/motion';
+import { GifReport } from './GifReport';
 import { preloadGif, teamGifKey } from './gifs';
 import { Panels } from './Panels';
 import { Result } from './Result';
@@ -115,17 +116,24 @@ export default function Debate({
   };
 
   const card = (side: Team) => (
-    <TeamCard
-      key={`${rivalry.id}-${side}`}
-      team={rivalry[side]}
-      side={side}
-      gifKey={teamGifKey(rivalry.id, side)}
-      stillOnly={reducedMotion}
-      color={colors[side === 'a' ? 0 : 1]}
-      exit={exit}
-      label={t.team}
-      onChoose={choose}
-    />
+    <div class="team-slot" key={`${rivalry.id}-${side}`}>
+      <TeamCard
+        team={rivalry[side]}
+        side={side}
+        gifKey={teamGifKey(rivalry.id, side)}
+        stillOnly={reducedMotion}
+        color={colors[side === 'a' ? 0 : 1]}
+        exit={exit}
+        label={t.team}
+        onChoose={choose}
+      />
+      <GifReport
+        gifKey={teamGifKey(rivalry.id, side)}
+        name={rivalry[side].name}
+        texts={t.gifReport}
+        hidden={exit !== null}
+      />
+    </div>
   );
 
   return (

@@ -85,7 +85,20 @@
     "shareCopied": "Lien copié. Va semer la zizanie.",
     "shareText": "Tu es plutôt team {a} ou team {b} ? Viens trancher.",
     "shareDescription": "Team {a} ou team {b} ? Choisis ton camp, et découvre si le reste du monde est d’accord.",
-    "loadError": "Les rivalités n’ont pas voulu sortir. Recharge la page, elles sont un peu timides."
+    "loadError": "Les rivalités n’ont pas voulu sortir. Recharge la page, elles sont un peu timides.",
+    "gifReport": {
+      "button": "Mauvais GIF ?",
+      "label": "Mauvais GIF ? Signaler le GIF de {name}",
+      "thanks": [
+        "Merci. Ce GIF a été envoyé au coin, il réfléchit à ce qu’il a fait.",
+        "Bien vu, détective. L’imposteur a été démasqué.",
+        "Signalé. Le stagiaire chargé des GIF va passer un sale quart d’heure (c’est un robot).",
+        "Merci ! On cherche un sosie plus ressemblant.",
+        "Noté. Ce GIF n’avait rien à faire là, et il le sait."
+      ],
+      "limited": "Doucement, inspecteur : tu as déjà signalé beaucoup de GIF aujourd’hui.",
+      "error": "Le signalement s’est perdu en route. Réessaie plus tard."
+    }
   },
   "quips": {
     "high": [
@@ -290,7 +303,7 @@
     "privacy": {
       "title": "Confidentialité",
       "description": "Aucun cookie, aucune mesure d’audience : ce que {domain} fait, et ne fait pas, de tes données.",
-      "updated": "Dernière mise à jour : 21 novembre 2026",
+      "updated": "Dernière mise à jour : 22 novembre 2026",
       "sections": [
         {
           "title": "En bref",
@@ -298,6 +311,7 @@
             [
               "Aucun cookie, aucune publicité, aucune mesure d’audience, aucun compte.",
               "Tes votes sont anonymes : le site ne garde que des compteurs par rivalité.",
+              "Le bouton « Mauvais GIF ? » n’envoie que la team et le GIF concernés.",
               "Ta progression reste dans ton navigateur et n’est jamais envoyée.",
               "Un seul service tiers : GIPHY, qui fournit les GIF."
             ]
@@ -317,9 +331,16 @@
           ]
         },
         {
+          "title": "Les signalements de GIF",
+          "blocks": [
+            "Quand tu cliques sur « Mauvais GIF ? », ton navigateur envoie au serveur la rivalité, la team et l’identifiant du GIF affiché. Rien d’autre : ni identifiant, ni cookie.",
+            "Le serveur ajoute un signalement au compteur de ce GIF, sans garder la trace de qui l’a signalé. Ces compteurs servent uniquement à choisir de meilleurs GIF."
+          ]
+        },
+        {
           "title": "Protection contre les abus",
           "blocks": [
-            "Pour qu’un robot ne puisse pas fausser les pourcentages, le nombre de votes est limité par visiteur. Le serveur calcule pour cela une empreinte de ton adresse IP, mélangée à une clé secrète et à la date du jour (hachage SHA-256). L’adresse IP elle-même n’est jamais enregistrée.",
+            "Pour qu’un robot ne puisse pas fausser les pourcentages, le nombre de votes et de signalements est limité par visiteur. Le serveur calcule pour cela une empreinte de ton adresse IP, mélangée à une clé secrète et à la date du jour (hachage SHA-256). L’adresse IP elle-même n’est jamais enregistrée.",
             "Cette empreinte change chaque jour et ne permet pas de retrouver l’adresse d’origine. Les empreintes des jours précédents sont effacées automatiquement.",
             "Base légale : l’intérêt légitime de l’éditeur à protéger le service (article 6.1.f du RGPD)."
           ]

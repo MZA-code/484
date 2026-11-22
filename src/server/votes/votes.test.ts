@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { afterEach, describe, expect, it } from 'vitest';
 import { rankRivalries } from './ranking';
-import { dayOf, hashIp, RATE, takeToken } from './rate-limit';
+import { dayOf, hashIp, RATE, REPORT_RATE, takeToken } from './rate-limit';
 import { createVoteService, HALL_TTL_MS } from './service';
 import { openSqliteStore, type VoteStore } from './store';
 
@@ -219,6 +219,69 @@ describe('vote service', () => {
   });
 });
 
+describe('gif reports', () => {
+  const report = { teamId: 'heros-batman-superman/a', gifId: 'xT0xeJpnrWC4XWblEk' };
+
+  it('counts reports per GIF, never who sent them', () => {
+    const { service, store } = setup();
+    expect(service.reportGif(report, '1.1.1.1')).toEqual({ status: 200, body: { counted: true } });
+    service.reportGif(report, '2.2.2.2');
+    service.reportGif({ ...report, teamId: 'bouffe-chat-chien/b', gifId: 'other1' }, '3.3.3.3');
+    expect(store.gifReports()).toEqual([
+      expect.objectContaining({
+        rivalryId: 'heros-batman-superman',
+        team: 'a',
+        gifId: 'xT0xeJpnrWC4XWblEk',
+        reports: 2,
+      }),
+      expect.objectContaining({ rivalryId: 'bouffe-chat-chien', team: 'b', reports: 1 }),
+    ]);
+    expect(JSON.stringify(store.gifReports())).not.toContain('1.1.1.1');
+  });
+
+  it('rejects malformed or unknown teams and GIF ids', () => {
+    const { service } = setup();
+    for (const body of [
+      null,
+      {},
+      { ...report, teamId: 'heros-batman-superman' },
+      { ...report, teamId: 'heros-batman-superman/c' },
+      { ...report, gifId: '../../etc' },
+      { ...report, gifId: '' },
+    ]) {
+      expect(service.reportGif(body, 'ip').status).toBe(400);
+    }
+    expect(service.reportGif({ ...report, teamId: 'pirates-x/a' }, 'ip').body).toEqual({
+      error: 'unknown-rivalry',
+    });
+  });
+
+  it('rate-limits reports separately from votes, and more strictly', () => {
+    const { service, store, tick } = setup();
+    const statuses = Array.from(
+      { length: REPORT_RATE.burst + 1 },
+      () => service.reportGif(report, '9.9.9.9').status,
+    );
+    expect(statuses).toEqual([...Array<number>(REPORT_RATE.burst).fill(200), 429]);
+    // Les votes du même visiteur ne sont pas touchés.
+    expect(service.vote(batman, '9.9.9.9').status).toBe(200);
+    tick(60_000);
+    expect(service.reportGif(report, '9.9.9.9').status).toBe(200);
+    expect(store.gifReports()[0]?.reports).toBe(REPORT_RATE.burst + 1);
+  });
+
+  it('lists reports only with the right token', () => {
+    const { service } = setup();
+    service.reportGif(report, '1.1.1.1');
+    expect(service.gifReports('Bearer secret', undefined).status).toBe(404);
+    expect(service.gifReports(null, 'secret').status).toBe(401);
+    expect(service.gifReports('Bearer wrong!', 'secret').status).toBe(401);
+    const ok = service.gifReports('Bearer secret', 'secret');
+    expect(ok.status).toBe(200);
+    expect((ok.body as { reports: unknown[] }).reports).toHaveLength(1);
+  });
+});
+
 describe('sqlite file', () => {
   const dirs: string[] = [];
   afterEach(() => {
@@ -290,6 +353,6 @@ describe('sqlite file', () => {
       }[]
     ).map((t) => t.name);
     check.close();
-    expect(tables.sort()).toEqual(['rate_limits', 'rivalry_votes']);
+    expect(tables.sort()).toEqual(['gif_reports', 'rate_limits', 'report_limits', 'rivalry_votes']);
   });
 });

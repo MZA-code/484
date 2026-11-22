@@ -37,6 +37,11 @@ export const TeamSchema = z.object({
   line: text.max(120, 'doit rester courte (120 caractères maximum)'),
   giphyIds: z.array(text),
   giphyQuery: text,
+  /**
+   * Mots-clés qui valident un résultat de recherche Giphy (titre, slug ou auteur, sans accents
+   * ni casse). Absents : le nom de la team et `giphyQuery` (voir src/server/gif-match.ts).
+   */
+  giphyKeywords: z.array(text).min(1, 'mettre au moins un mot-clé, ou retirer le champ').optional(),
 });
 
 export const RivalrySchema = z.object({
@@ -296,6 +301,15 @@ export const UiTextsSchema = z.object({
     shareText: template('a', 'b'),
     shareDescription: template('a', 'b'),
     loadError: text,
+    /** Bouton « Mauvais GIF ? » sous chaque carte. */
+    gifReport: z.object({
+      button: text,
+      /** Nom accessible : commence par le texte visible (WCAG 2.5.3). */
+      label: template('name'),
+      thanks: quipList,
+      limited: text,
+      error: text,
+    }),
   }),
   quips: z.object({ high: quipList, mid: quipList, low: quipList, neutral: quipList }),
   milestones: z.record(

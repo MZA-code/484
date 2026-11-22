@@ -17,6 +17,7 @@ const TECHNICAL_KEYS = new Set([
   'url',
   'giphyIds',
   'giphyQuery',
+  'giphyKeywords',
   'version',
 ]);
 

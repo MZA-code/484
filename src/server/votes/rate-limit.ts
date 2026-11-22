@@ -9,13 +9,29 @@
  */
 import { createHash } from 'node:crypto';
 
-export const RATE = {
+export interface Rate {
+  /** Rafale maximale. */
+  burst: number;
+  /** Jetons regagnés par milliseconde. */
+  refillPerMs: number;
+  /** Plafond par jour. */
+  daily: number;
+}
+
+export const RATE: Rate = {
   /** Rafale maximale : quelques votes rapprochés restent comptés. */
   burst: 5,
   /** Un jeton regagné par seconde, soit 1 vote par seconde en moyenne. */
   refillPerMs: 1 / 1000,
   daily: 2000,
-} as const;
+};
+
+/** Signalements de GIF : 3 d'affilée, puis 1 par minute, 30 par jour. Personne n'en fait plus. */
+export const REPORT_RATE: Rate = {
+  burst: 3,
+  refillPerMs: 1 / 60_000,
+  daily: 30,
+};
 
 /** Jour UTC « AAAA-MM-JJ ». */
 export function dayOf(nowMs: number): string {
@@ -35,12 +51,12 @@ export interface Bucket {
 export type TakeResult =
   { allowed: true; next: Bucket } | { allowed: false; reason: 'burst' | 'daily'; next: Bucket };
 
-/** Consomme un jeton si possible. `prev` absent = premier vote de la journée. */
-export function takeToken(prev: Bucket | undefined, nowMs: number): TakeResult {
+/** Consomme un jeton si possible. `prev` absent = première action de la journée. */
+export function takeToken(prev: Bucket | undefined, nowMs: number, rate: Rate = RATE): TakeResult {
   const elapsed = prev ? Math.max(0, nowMs - prev.updatedMs) : 0;
-  const tokens = prev ? Math.min(RATE.burst, prev.tokens + elapsed * RATE.refillPerMs) : RATE.burst;
+  const tokens = prev ? Math.min(rate.burst, prev.tokens + elapsed * rate.refillPerMs) : rate.burst;
   const count = prev?.count ?? 0;
-  if (count >= RATE.daily) {
+  if (count >= rate.daily) {
     return { allowed: false, reason: 'daily', next: { tokens, updatedMs: nowMs, count } };
   }
   if (tokens < 1) {
