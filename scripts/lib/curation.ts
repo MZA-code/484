@@ -6,6 +6,7 @@
  * recherche et modifier les mots-clés ; « Enregistrer » réécrit `content/rivalries.json`
  * (validé avant écriture, mis en forme par Prettier).
  */
+import { execFileSync } from 'node:child_process';
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { createServer, type IncomingMessage } from 'node:http';
 import { fileURLToPath } from 'node:url';
@@ -226,12 +227,43 @@ async function save({ picks, queries, keywords, links = {} }: SavePayload): Prom
   const options = (await resolveConfig(path)) ?? {};
   const text = await format(JSON.stringify(raw), { ...options, filepath: path });
   writeFileSync(RIVALRIES_FILE, text);
-  const saved = `${picked} team(s) enregistrée(s) dans content/rivalries.json.`;
-  if (problems.length === 0) return saved;
-  // Les liens refusés ne sont pas perdus : ils restent dans la page et sont recopiés dans un fichier.
-  const day = new Date().toISOString().slice(0, 10);
-  appendFileSync(REFUSED_FILE, problems.map((line) => `${day} · ${line}\n`).join(''));
-  return `${saved} ⚠ ${problems.length} lien(s) non enregistré(s), gardés dans liens-refuses.txt : ${problems.join(' · ')}`;
+  const message = [`✔ ${picked} team(s) enregistrée(s) dans content/rivalries.json.`];
+  const pending = uncommittedImages();
+  if (pending.length > 0) {
+    message.push(
+      `📁 Dans ton commit, coche aussi ${pending.length} image(s) pas encore dans git (sinon la CI échoue) : ${pending.join(' · ')}`,
+    );
+  }
+  if (problems.length > 0) {
+    // Les liens refusés ne sont pas perdus : ils restent dans la page et sont recopiés dans un fichier.
+    const day = new Date().toISOString().slice(0, 10);
+    appendFileSync(REFUSED_FILE, problems.map((line) => `${day} · ${line}\n`).join(''));
+    message.push(
+      `⚠ ${problems.length} lien(s) non enregistré(s), gardés dans liens-refuses.txt : ${problems.join(' · ')}`,
+    );
+  }
+  return message.join('\n');
+}
+
+/**
+ * Images de public/images/teams/ pas encore enregistrées dans git (nouvelles ou modifiées) :
+ * à cocher dans le commit, sinon le test « images in the content » fait échouer la CI.
+ */
+export function uncommittedImages(): string[] {
+  try {
+    const output = execFileSync(
+      'git',
+      ['status', '--porcelain', '--untracked-files=all', '--', 'public/images/teams'],
+      { cwd: fileURLToPath(new URL('../../', import.meta.url)), encoding: 'utf8' },
+    );
+    return output
+      .split('\n')
+      .filter((line) => line.length > 3 && !line.startsWith('D'))
+      .map((line) => line.slice(3).trim());
+  } catch {
+    // git absent ou dossier hors dépôt : pas de rappel, l'enregistrement reste valable.
+    return [];
+  }
 }
 
 // ─── Page HTML ──────────────────────────────────────────────────────────────
@@ -371,6 +403,7 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
     .caption{font-size:12px;color:#cfcac0;padding:0 4px 4px}.caption .title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .ok{color:#66e08a}.near{color:#ffd23f}.ko{color:#ff5a4e}
     .bar{position:fixed;inset:auto 0 0 0;display:flex;gap:16px;align-items:center;padding:14px 24px;background:#ffd23f;color:#121212;font-weight:700}
+    #status{white-space:pre-line}
     .none{color:#cfcac0}
     .links{display:flex;flex-direction:column;gap:6px;margin-top:14px;color:#cfcac0;font-size:12px}
     .links textarea{width:min(100%,720px);padding:8px;background:#1c1c1c;color:#f5f1e8;border:1px solid #444;font:13px ui-monospace,monospace}
