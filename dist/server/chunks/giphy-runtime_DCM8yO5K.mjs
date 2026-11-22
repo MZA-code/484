@@ -1,81 +1,6 @@
-import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { a as getSecret, n as rivalries, t as categories } from "./content_BTeWQUTN.mjs";
-import { n as getVoteService } from "./runtime_DXvZ5FsJ.mjs";
+import { t as getSecret } from "./server_D2vEgv0p.mjs";
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
-// src/server/gif-cache.ts
-/**
-* Cache des GIF : en mémoire, avec sauvegarde dans un fichier JSON pour survivre
-* aux redémarrages du serveur (la clé Giphy gratuite est limitée à ~100 appels par heure).
-*/
-/** Au-delà, on oublie les entrées les plus anciennes. */
-var MAX_ENTRIES = 5e3;
-function createMemoryCache(now = Date.now) {
-	const entries = /* @__PURE__ */ new Map();
-	return {
-		entries,
-		get(key) {
-			const entry = entries.get(key);
-			if (!entry) return void 0;
-			if (entry.expires <= now()) {
-				entries.delete(key);
-				return;
-			}
-			return entry.value;
-		},
-		set(key, value, ttlMs) {
-			entries.delete(key);
-			entries.set(key, {
-				value,
-				expires: now() + ttlMs
-			});
-			while (entries.size > MAX_ENTRIES) {
-				const oldest = entries.keys().next().value;
-				if (oldest === void 0) break;
-				entries.delete(oldest);
-			}
-		}
-	};
-}
-/**
-* Cache mémoire chargé depuis `file` au démarrage, réécrit (au plus toutes les 2 s)
-* après chaque ajout. Une erreur de lecture ou d'écriture n'empêche jamais de servir.
-*/
-function createFileCache(file, now = Date.now) {
-	const memory = createMemoryCache(now);
-	try {
-		const saved = JSON.parse(readFileSync(file, "utf8"));
-		for (const [key, entry] of Object.entries(saved)) if (entry.expires > now()) memory.entries.set(key, entry);
-	} catch {}
-	let timer = null;
-	const flush = () => {
-		if (timer) clearTimeout(timer);
-		timer = null;
-		try {
-			mkdirSync(dirname(file), { recursive: true });
-			const tmp = `${file}.tmp`;
-			writeFileSync(tmp, JSON.stringify(Object.fromEntries(memory.entries)));
-			renameSync(tmp, file);
-		} catch (error) {
-			console.warn("[gif-cache] write failed:", error.message);
-		}
-	};
-	const flushPending = () => {
-		if (timer) flush();
-	};
-	process.once("beforeExit", flushPending);
-	for (const signal of ["SIGINT", "SIGTERM"]) process.once(signal, () => {
-		flushPending();
-		process.exit(0);
-	});
-	return {
-		get: memory.get,
-		set(key, value, ttlMs) {
-			memory.set(key, value, ttlMs);
-			timer ??= setTimeout(flush, 300);
-		}
-	};
-}
 // src/server/gif-match.ts
 /** Minuscules, sans accents ; tout ce qui n'est ni lettre ni chiffre devient une espace. */
 function normalizeText(value) {
@@ -184,13 +109,32 @@ function toGif(raw) {
 	const video = raw?.images?.fixed_height;
 	const still = raw?.images?.fixed_height_still;
 	if (!raw?.id || !video?.mp4 || !video.webp || !still?.url) return null;
-	return {
+	const gif = {
 		id: raw.id,
 		mp4: video.mp4,
 		webp: video.webp,
 		still: still.url,
 		width: Number(video.width) || 0,
 		height: Number(video.height) || 0
+	};
+	const small = raw.images?.fixed_height_small;
+	const smallStill = raw.images?.fixed_height_small_still;
+	if (small?.mp4 && small.webp && smallStill?.url) gif.small = {
+		mp4: small.mp4,
+		webp: small.webp,
+		still: smallStill.url
+	};
+	return gif;
+}
+/** Version légère d'un GIF (vignette) : le petit rendu s'il existe, sinon le rendu normal. */
+function thumbnailOf(gif) {
+	return {
+		id: gif.id,
+		...gif.small ?? {
+			mp4: gif.mp4,
+			webp: gif.webp,
+			still: gif.still
+		}
 	};
 }
 /**
@@ -267,88 +211,137 @@ function createGiphyService({ apiKey, cache, fetch: doFetch = fetch, random = Ma
 		return cached(`m:${query.trim().toLowerCase()}`, (list) => list.length > 0 ? TTL.search : TTL.empty, async () => (await searchRaw(query)).map((raw) => toGif(raw)).filter((gif) => gif !== null).slice(0, 5));
 	}
 	const pick = (list) => list[Math.floor(random() * list.length)];
-	return { 
-	/**
-	* GIF d'une team : un des GIF choisis, sinon le premier résultat de recherche validé qui
-	* n'est pas dans `rejected` (GIF trop signalés), sinon null.
-	* Les GIF choisis à la main ne sont jamais écartés automatiquement : c'est à toi d'en juger
-	* (ils apparaissent dans `npm run gif-audit`).
-	*/
-async gifFor(source, rejected = /* @__PURE__ */ new Set()) {
-		const curated = pick(source.giphyIds);
-		if (curated) {
-			const gif = await byId(curated);
-			if (gif) return gif;
+	return {
+		/** GIF d'ambiance d'une catégorie (vignette de l'accueil) : choisi à la main, sinon le premier trouvé. */
+		async categoryGif(mood) {
+			const curated = pick(mood.giphyIds ?? []);
+			if (curated) {
+				const gif = await byId(curated);
+				if (gif) return gif;
+			}
+			return (await moodGifs(mood.giphyQuery))[0] ?? null;
+		},
+		/**
+		* GIF d'une team : un des GIF choisis, sinon le premier résultat de recherche validé qui
+		* n'est pas dans `rejected` (GIF trop signalés), sinon null.
+		* Les GIF choisis à la main ne sont jamais écartés automatiquement : c'est à toi d'en juger
+		* (ils apparaissent dans `npm run gif-audit`).
+		*/
+		async gifFor(source, rejected = /* @__PURE__ */ new Set()) {
+			const curated = pick(source.giphyIds);
+			if (curated) {
+				const gif = await byId(curated);
+				if (gif) return gif;
+			}
+			const words = source.giphyKeywords?.length ? [] : queryWords(source.giphyQuery);
+			const found = (await candidates(source.giphyQuery, keywordsFor(source), words)).find((gif) => !rejected.has(gif.id));
+			if (found) return found;
+			const fallback = source.fallback;
+			if (!fallback) return null;
+			const mood = pick(fallback.giphyIds ?? []);
+			if (mood) {
+				const gif = await byId(mood);
+				if (gif) return gif;
+			}
+			const moods = (await moodGifs(fallback.giphyQuery)).filter((gif) => !rejected.has(gif.id));
+			return moods[stableIndex(source.name, moods.length)] ?? null;
 		}
-		const words = source.giphyKeywords?.length ? [] : queryWords(source.giphyQuery);
-		const found = (await candidates(source.giphyQuery, keywordsFor(source), words)).find((gif) => !rejected.has(gif.id));
-		if (found) return found;
-		const fallback = source.fallback;
-		if (!fallback) return null;
-		const mood = pick(fallback.giphyIds ?? []);
-		if (mood) {
-			const gif = await byId(mood);
-			if (gif) return gif;
-		}
-		const moods = (await moodGifs(fallback.giphyQuery)).filter((gif) => !rejected.has(gif.id));
-		return moods[stableIndex(source.name, moods.length)] ?? null;
-	} };
+	};
 }
-// src/pages/api/gif/[rivalry]/[team].ts
-var _team__exports = /* @__PURE__ */ __exportAll({
-	GET: () => GET,
-	prerender: () => false
-});
-var byId = new Map(rivalries.map((r) => [r.id, r]));
-/** GIF d'ambiance de chaque catégorie, en dernier recours. */
-var moodOf = new Map(categories.map((c) => [c.id, {
-	giphyIds: c.giphyIds,
-	giphyQuery: c.giphyQuery
-}]));
+// src/server/gif-cache.ts
+/**
+* Cache des GIF : en mémoire, avec sauvegarde dans un fichier JSON pour survivre
+* aux redémarrages du serveur (la clé Giphy gratuite est limitée à ~100 appels par heure).
+*/
+/** Au-delà, on oublie les entrées les plus anciennes. */
+var MAX_ENTRIES = 5e3;
+function createMemoryCache(now = Date.now) {
+	const entries = /* @__PURE__ */ new Map();
+	return {
+		entries,
+		get(key) {
+			const entry = entries.get(key);
+			if (!entry) return void 0;
+			if (entry.expires <= now()) {
+				entries.delete(key);
+				return;
+			}
+			return entry.value;
+		},
+		set(key, value, ttlMs) {
+			entries.delete(key);
+			entries.set(key, {
+				value,
+				expires: now() + ttlMs
+			});
+			while (entries.size > MAX_ENTRIES) {
+				const oldest = entries.keys().next().value;
+				if (oldest === void 0) break;
+				entries.delete(oldest);
+			}
+		}
+	};
+}
+/**
+* Cache mémoire chargé depuis `file` au démarrage, réécrit (au plus toutes les 2 s)
+* après chaque ajout. Une erreur de lecture ou d'écriture n'empêche jamais de servir.
+*/
+function createFileCache(file, now = Date.now) {
+	const memory = createMemoryCache(now);
+	try {
+		const saved = JSON.parse(readFileSync(file, "utf8"));
+		for (const [key, entry] of Object.entries(saved)) if (entry.expires > now()) memory.entries.set(key, entry);
+	} catch {}
+	let timer = null;
+	const flush = () => {
+		if (timer) clearTimeout(timer);
+		timer = null;
+		try {
+			mkdirSync(dirname(file), { recursive: true });
+			const tmp = `${file}.tmp`;
+			writeFileSync(tmp, JSON.stringify(Object.fromEntries(memory.entries)));
+			renameSync(tmp, file);
+		} catch (error) {
+			console.warn("[gif-cache] write failed:", error.message);
+		}
+	};
+	const flushPending = () => {
+		if (timer) flush();
+	};
+	process.once("beforeExit", flushPending);
+	for (const signal of ["SIGINT", "SIGTERM"]) process.once(signal, () => {
+		flushPending();
+		process.exit(0);
+	});
+	return {
+		get: memory.get,
+		set(key, value, ttlMs) {
+			memory.set(key, value, ttlMs);
+			timer ??= setTimeout(flush, 300);
+		}
+	};
+}
+// src/server/giphy-runtime.ts
+/**
+* Instance unique du service Giphy pour le serveur Astro, partagée par toutes les routes :
+* un seul cache en mémoire, un seul fichier `data/gif-cache.json`.
+*/
 var service = null;
-function getService(apiKey) {
+/** null si la clé Giphy n'est pas configurée. */
+function getGiphyService() {
+	const apiKey = getSecret("GIPHY_API_KEY");
+	if (!apiKey) return null;
 	service ??= createGiphyService({
 		apiKey,
 		cache: createFileCache(getSecret("GIF_CACHE_FILE") ?? "data/gif-cache.json")
 	});
 	return service;
 }
-var json = (body, status, cacheControl) => new Response(JSON.stringify(body), {
+var gifJson = (body, status, cacheControl) => new Response(JSON.stringify(body), {
 	status,
 	headers: {
 		"content-type": "application/json; charset=utf-8",
 		"cache-control": cacheControl
 	}
 });
-/** GIF écartés par les signalements ; une base indisponible n'empêche jamais d'afficher un GIF. */
-function rejectedGifs(rivalryId, side) {
-	try {
-		return getVoteService()?.rejectedGifs(rivalryId, side) ?? /* @__PURE__ */ new Set();
-	} catch (error) {
-		console.warn("[api/gif] reports unavailable:", error.message);
-		return /* @__PURE__ */ new Set();
-	}
-}
-var GET = async ({ params }) => {
-	const rivalry = byId.get(params.rivalry ?? "");
-	const side = params.team;
-	if (!rivalry || side !== "a" && side !== "b") return json({ error: "unknown-team" }, 404, "public, max-age=3600");
-	const team = rivalry[side];
-	const apiKey = getSecret("GIPHY_API_KEY");
-	if (!apiKey) return json({ error: "giphy-not-configured" }, 503, "no-store");
-	try {
-		const gif = await getService(apiKey).gifFor({
-			...team,
-			fallback: moodOf.get(rivalry.category)
-		}, rejectedGifs(rivalry.id, side));
-		if (!gif) return json(null, 200, "public, max-age=3600");
-		return json(gif, 200, `public, max-age=${team.giphyIds.length === 1 && team.giphyIds[0] === gif.id ? 86400 : 3600}`);
-	} catch (error) {
-		const status = error instanceof GiphyError ? error.status : 0;
-		console.warn(`[api/gif] ${rivalry.id}/${side}: Giphy failure (${status || "network"})`);
-		return json({ error: "giphy-unavailable" }, 502, "no-store");
-	}
-};
-// \0virtual:astro:page:src/pages/api/gif/[rivalry]/[team]@_@ts
-var page = () => _team__exports;
-export { page };
+export { thumbnailOf as i, gifJson as n, GiphyError as r, getGiphyService as t };

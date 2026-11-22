@@ -1,0 +1,1 @@
+var e=`484:motionchange`,t=`(prefers-reduced-motion: reduce)`;function n(){if(typeof document>`u`)return!1;let e=document.documentElement.dataset.motion;return e===`full`?!1:e===`reduced`||typeof window.matchMedia==`function`&&window.matchMedia(`(prefers-reduced-motion: reduce)`).matches}export{t as n,n as r,e as t};

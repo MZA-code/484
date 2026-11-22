@@ -96,84 +96,6 @@ function validateEnvVariable(value, options) {
 	};
 	return selectValidator(options)(value);
 }
-// \0virtual:astro:env/internal
-var schema = {
-	"GIPHY_API_KEY": {
-		"context": "server",
-		"access": "secret",
-		"optional": true,
-		"type": "string"
-	},
-	"GIF_CACHE_FILE": {
-		"context": "server",
-		"access": "secret",
-		"default": "data/gif-cache.json",
-		"type": "string"
-	},
-	"OG_CACHE_DIR": {
-		"context": "server",
-		"access": "secret",
-		"default": "data/og",
-		"type": "string"
-	},
-	"VOTE_HASH_SALT": {
-		"context": "server",
-		"access": "secret",
-		"optional": true,
-		"type": "string"
-	},
-	"VOTES_DB_FILE": {
-		"context": "server",
-		"access": "secret",
-		"default": "data/votes.sqlite",
-		"type": "string"
-	},
-	"GIF_REPORT_TOKEN": {
-		"context": "server",
-		"access": "secret",
-		"optional": true,
-		"type": "string"
-	},
-	"TRUST_PROXY": {
-		"context": "server",
-		"access": "secret",
-		"default": "false",
-		"type": "string"
-	}
-};
-// \0astro:env/server
-/** @returns {string} */
-var getEnv = (key) => {
-	return getEnv$1(key);
-};
-var getSecret = (key) => {
-	return getEnv(key);
-};
-var _internalGetSecret = (key) => {
-	const rawVariable = getEnv(key);
-	const variable = rawVariable === "" ? void 0 : rawVariable;
-	const options = schema[key];
-	const result = validateEnvVariable(variable, options);
-	if (result.ok) return result.value;
-	const type = getEnvFieldType(options);
-	throw createInvalidVariablesError(key, type, result);
-};
-setOnSetGetEnv(() => {
-	GIPHY_API_KEY = _internalGetSecret("GIPHY_API_KEY");
-	GIF_CACHE_FILE = _internalGetSecret("GIF_CACHE_FILE");
-	OG_CACHE_DIR = _internalGetSecret("OG_CACHE_DIR");
-	VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
-	VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
-	GIF_REPORT_TOKEN = _internalGetSecret("GIF_REPORT_TOKEN");
-	TRUST_PROXY = _internalGetSecret("TRUST_PROXY");
-});
-var GIPHY_API_KEY = _internalGetSecret("GIPHY_API_KEY");
-var GIF_CACHE_FILE = _internalGetSecret("GIF_CACHE_FILE");
-var OG_CACHE_DIR = _internalGetSecret("OG_CACHE_DIR");
-var VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
-var VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
-var GIF_REPORT_TOKEN = _internalGetSecret("GIF_REPORT_TOKEN");
-var TRUST_PROXY = _internalGetSecret("TRUST_PROXY");
 var rivalries_default = {
 	version: 1,
 	universes: [
@@ -362,7 +284,7 @@ var rivalries_default = {
 			"label": "Monstres et créatures",
 			"tagline": "Ils vivent sous ton lit. Et ils ont un avis.",
 			"icon": "dragon",
-			"giphyQuery": "monster"
+			"giphyQuery": "cartoon monster"
 		},
 		{
 			"id": "animaux",
@@ -18508,13 +18430,8 @@ var ui_texts_fr_default = {
 			"icon": "shuffle"
 		},
 		"themesLabel": "Choisis ton arène",
-		"themeCount": "{n} rivalités · ∞ débats",
 		"play": "Jouer →",
-		"playUniverse": "Tout l’univers →",
-		"universeCount": {
-			"one": "{n} rivalité",
-			"other": "{n} rivalités"
-		}
+		"playUniverse": "Tout l’univers →"
 	},
 	debate: {
 		"pageTitle": "Débats",
@@ -19073,10 +18990,8 @@ var UiTextsSchema = z.object({
 			icon
 		}),
 		themesLabel: text,
-		themeCount: template("n"),
 		play: text,
-		playUniverse: text,
-		universeCount: pluralForms
+		playUniverse: text
 	}),
 	debate: z.object({
 		pageTitle: text,
@@ -19280,4 +19195,82 @@ function parseRivalries(raw) {
 */
 var ui = parseUi(ui_texts_fr_default);
 var { universes, categories, rivalries } = parseRivalries(rivalries_default);
-export { getSecret as a, universes as i, rivalries as n, ui as r, categories as t };
+// \0virtual:astro:env/internal
+var schema = {
+	"GIPHY_API_KEY": {
+		"context": "server",
+		"access": "secret",
+		"optional": true,
+		"type": "string"
+	},
+	"GIF_CACHE_FILE": {
+		"context": "server",
+		"access": "secret",
+		"default": "data/gif-cache.json",
+		"type": "string"
+	},
+	"OG_CACHE_DIR": {
+		"context": "server",
+		"access": "secret",
+		"default": "data/og",
+		"type": "string"
+	},
+	"VOTE_HASH_SALT": {
+		"context": "server",
+		"access": "secret",
+		"optional": true,
+		"type": "string"
+	},
+	"VOTES_DB_FILE": {
+		"context": "server",
+		"access": "secret",
+		"default": "data/votes.sqlite",
+		"type": "string"
+	},
+	"GIF_REPORT_TOKEN": {
+		"context": "server",
+		"access": "secret",
+		"optional": true,
+		"type": "string"
+	},
+	"TRUST_PROXY": {
+		"context": "server",
+		"access": "secret",
+		"default": "false",
+		"type": "string"
+	}
+};
+// \0astro:env/server
+/** @returns {string} */
+var getEnv = (key) => {
+	return getEnv$1(key);
+};
+var getSecret = (key) => {
+	return getEnv(key);
+};
+var _internalGetSecret = (key) => {
+	const rawVariable = getEnv(key);
+	const variable = rawVariable === "" ? void 0 : rawVariable;
+	const options = schema[key];
+	const result = validateEnvVariable(variable, options);
+	if (result.ok) return result.value;
+	const type = getEnvFieldType(options);
+	throw createInvalidVariablesError(key, type, result);
+};
+setOnSetGetEnv(() => {
+	GIPHY_API_KEY = _internalGetSecret("GIPHY_API_KEY");
+	GIF_CACHE_FILE = _internalGetSecret("GIF_CACHE_FILE");
+	OG_CACHE_DIR = _internalGetSecret("OG_CACHE_DIR");
+	VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
+	VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
+	GIF_REPORT_TOKEN = _internalGetSecret("GIF_REPORT_TOKEN");
+	TRUST_PROXY = _internalGetSecret("TRUST_PROXY");
+});
+var GIPHY_API_KEY = _internalGetSecret("GIPHY_API_KEY");
+var GIF_CACHE_FILE = _internalGetSecret("GIF_CACHE_FILE");
+var OG_CACHE_DIR = _internalGetSecret("OG_CACHE_DIR");
+var VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
+var VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
+var GIF_REPORT_TOKEN = _internalGetSecret("GIF_REPORT_TOKEN");
+var TRUST_PROXY = _internalGetSecret("TRUST_PROXY");
+export { universes as a, ui as i, categories as n, rivalries as r, getSecret as t };
