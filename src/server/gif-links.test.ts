@@ -11,6 +11,18 @@ describe('Tenor links', () => {
     expect(isTenorUrl('https://media.tenor.com/4Pm3OjjE7BEAAAPo/x.mp4')).toBe(true);
   });
 
+  it('accepts names with encoded characters (& and apostrophes)', () => {
+    const url =
+      'https://media1.tenor.com/m/_2Iwv1Tc7cgAAAAd/y%27a-quelqu%27un-il-y-a-quelqu%27un.gif';
+    expect(canonicalTenorUrl(url)).toBe(
+      'https://media.tenor.com/_2Iwv1Tc7cgAAAAC/y%27a-quelqu%27un-il-y-a-quelqu%27un.gif',
+    );
+    expect(
+      tenorGif('https://media1.tenor.com/m/bhL2NR4Os00AAAAd/jeanne%26serge-jeanne-et-serge.gif')
+        ?.mp4,
+    ).toBe('https://media.tenor.com/bhL2NR4Os00AAAPo/jeanne%26serge-jeanne-et-serge.mp4');
+  });
+
   it('refuses anything else', () => {
     for (const url of [
       'http://media.tenor.com/4Pm3OjjE7BEAAAAM/eddy.gif',

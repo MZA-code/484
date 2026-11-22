@@ -14,8 +14,9 @@
 import type { Gif } from './giphy';
 
 const TENOR_HOST = /^media\d*\.tenor\.com$/;
-const TENOR_PATH =
-  /^\/(?:m\/)?([A-Za-z0-9_-]{11})[A-Za-z0-9_-]{5}\/([A-Za-z0-9_.-]+?)\.(gif|mp4|webp|png)$/;
+// Le nom peut contenir des caractères encodés (`jeanne%26serge`, `y%27a-quelqu%27un`) : on le
+// garde tel que le navigateur l'a encodé.
+const TENOR_PATH = /^\/(?:m\/)?([A-Za-z0-9_-]{11})[A-Za-z0-9_-]{5}\/([^/]+?)\.(gif|mp4|webp|png)$/;
 
 interface TenorParts {
   /** Identifiant du GIF (sans le code de format). */

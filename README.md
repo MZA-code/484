@@ -125,7 +125,7 @@ Giphy connaît mal les œuvres françaises (Eddy Mitchell, la 7e compagnie…), 
 "gifUrls": ["https://media.tenor.com/4Pm3OjjE7BEAAAAC/eddy-mitchell-claude-moine.gif"]
 ```
 
-- Seules les images `https://media.tenor.com/…` (et `media1.tenor.com/m/…`) sont acceptées ; le fichier refuse tout autre lien.
+- Seules les images `https://media.tenor.com/…` (et `media1.tenor.com/m/…`) sont acceptées ; le fichier refuse tout autre lien. Dans la page de curation, un lien non reconnu n'empêche pas d'enregistrer les autres : il est signalé et recopié dans `liens-refuses.txt` (ignoré par git).
 - Le lien est rangé sous une forme unique (version `AAAAC`). Le site en sert la **vidéo MP4 légère** (`AAAPo`) et un **aperçu fixe** (`AAAAe`) pour les animations réduites, déduits du lien (`src/server/gif-links.ts`). Le GIF d'origine, parfois plusieurs Mo, n'est jamais chargé.
 - Le GIF reste hébergé chez Tenor ; si Google change ses adresses, la carte garde son cadre rayé.
 - Un lien Giphy collé dans le même champ est converti en identifiant et rangé dans `giphyIds`.

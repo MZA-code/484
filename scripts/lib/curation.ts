@@ -6,7 +6,7 @@
  * recherche et modifier les mots-clés ; « Enregistrer » réécrit `content/rivalries.json`
  * (validé avant écriture, mis en forme par Prettier).
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { createServer, type IncomingMessage } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { format, resolveConfig } from 'prettier';
@@ -21,6 +21,8 @@ import { keywordsFor, matchesKeywords, queryWords, type GifText } from '../../sr
 import { toGif, type Gif } from '../../src/server/giphy';
 
 const RIVALRIES_FILE = new URL('../../content/rivalries.json', import.meta.url);
+/** Liens collés mais non utilisables (ni Tenor ni Giphy) : gardés ici pour ne rien perdre (ignoré par git). */
+const REFUSED_FILE = new URL('../../liens-refuses.txt', import.meta.url);
 export const PER_TEAM = 6;
 
 // ─── Fichier des rivalités ──────────────────────────────────────────────────
@@ -173,11 +175,6 @@ async function save({ picks, queries, keywords, links = {} }: SavePayload): Prom
       else delete team.giphyKeywords;
     }
   }
-  if (problems.length > 0) {
-    throw new Error(
-      `Rien n’est enregistré : lien non reconnu (attendu : un lien d’image Tenor ou Giphy). ${problems.join(' · ')}`,
-    );
-  }
   // On valide avant d'écrire : le fichier ne peut pas devenir invalide.
   parseRivalries(raw);
   // Même mise en forme que le reste du dépôt (configuration Prettier du projet).
@@ -185,7 +182,20 @@ async function save({ picks, queries, keywords, links = {} }: SavePayload): Prom
   const options = (await resolveConfig(path)) ?? {};
   const text = await format(JSON.stringify(raw), { ...options, filepath: path });
   writeFileSync(RIVALRIES_FILE, text);
-  return `${picked} team(s) enregistrée(s) dans content/rivalries.json.`;
+  const saved = `${picked} team(s) enregistrée(s) dans content/rivalries.json.`;
+  if (problems.length === 0) return saved;
+  // Les liens refusés ne sont pas perdus : ils restent dans la page et sont recopiés dans un fichier.
+  const day = new Date().toISOString().slice(0, 10);
+  appendFileSync(
+    REFUSED_FILE,
+    problems
+      .map(
+        (line) => `${day} · ${line}
+`,
+      )
+      .join(''),
+  );
+  return `${saved} ⚠ ${problems.length} lien(s) non enregistré(s), car ce ne sont pas des GIF Tenor ou Giphy (gardés dans liens-refuses.txt) : ${problems.join(' · ')}`;
 }
 
 // ─── Page HTML ──────────────────────────────────────────────────────────────
