@@ -1,6 +1,6 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { t as getSecret } from "./server_0O288wnT.mjs";
-import { a as jsonResponse, i as isAdminRequest, n as getVoteService, o as rejectWrite, t as clientIp } from "./runtime_cghOltbI.mjs";
+import { t as getSecret } from "./server_L0l8KlBq.mjs";
+import { a as jsonResponse, i as isAdminRequest, n as getVoteService, o as rejectWrite, t as clientIp } from "./runtime_CbfwZ_XD.mjs";
 // src/pages/api/gif-report.ts
 var gif_report_exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,

@@ -4261,14 +4261,14 @@ var rivalries_default = {
 				"name": "Les Demoiselles de Rochefort",
 				"origin": "Jacques Demy · 1967",
 				"line": "Des jumelles, des chansons, et des marins.",
-				"giphyIds": [],
+				"giphyIds": ["13UqVTfchpLDZC"],
 				"giphyQuery": "Les Demoiselles de Rochefort"
 			},
 			"b": {
 				"name": "Les Parapluies de Cherbourg",
 				"origin": "Jacques Demy · 1964",
 				"line": "Tout le film est chanté. Tout.",
-				"giphyIds": [],
+				"giphyIds": ["IMUa3w7fV7EKTAX3cU"],
 				"giphyQuery": "Umbrellas of Cherbourg"
 			}
 		},
@@ -4280,14 +4280,16 @@ var rivalries_default = {
 				"origin": "Henri Verneuil · 1959",
 				"line": "Fernandel s’évade avec une vache.",
 				"giphyIds": [],
-				"giphyQuery": "La Vache et le Prisonnier Fernandel"
+				"giphyQuery": "La Vache et le Prisonnier Fernandel",
+				"gifUrls": ["https://media.tenor.com/tXOTC19c_RwAAAAC/don-camillo-peppone.gif"]
 			},
 			"b": {
 				"name": "Don Camillo",
 				"origin": "Julien Duvivier · 1952",
 				"line": "Un curé qui parle au crucifix.",
 				"giphyIds": [],
-				"giphyQuery": "Don Camillo Fernandel"
+				"giphyQuery": "Don Camillo Fernandel",
+				"gifUrls": ["https://media.tenor.com/jPq4_ZbVl0IAAAAC/don-camillo-peppone.gif"]
 			}
 		},
 		{
@@ -4298,7 +4300,8 @@ var rivalries_default = {
 				"origin": "Claude Zidi · 1980",
 				"line": "Le bac, et beaucoup de triche.",
 				"giphyIds": [],
-				"giphyQuery": "Les Sous-doues"
+				"giphyQuery": "Les Sous-doues",
+				"gifUrls": ["https://media.tenor.com/va9wj1DLHsYAAAAC/kicking-machine-machine-claque.gif"]
 			},
 			"b": {
 				"name": "Les Profs",
@@ -4316,14 +4319,16 @@ var rivalries_default = {
 				"origin": "Alain Chabat · 2004",
 				"line": "La préhistoire, et le secret du shampoing.",
 				"giphyIds": [],
-				"giphyQuery": "RRRrrr film"
+				"giphyQuery": "RRRrrr film",
+				"gifUrls": ["https://media.tenor.com/1Hu1eN5-Ed0AAAAC/sandouiche-sandwich.gif"]
 			},
 			"b": {
 				"name": "Didier",
 				"origin": "Alain Chabat · 1997",
 				"line": "Un chien qui devient homme et joue au foot.",
 				"giphyIds": [],
-				"giphyQuery": "Didier Chabat"
+				"giphyQuery": "Didier Chabat",
+				"gifUrls": ["https://media.tenor.com/xt2QLo09-M0AAAAC/oui-yes.gif"]
 			}
 		},
 		{
@@ -4333,7 +4338,7 @@ var rivalries_default = {
 				"name": "La Classe américaine",
 				"origin": "Michel Hazanavicius · 1993",
 				"line": "Des classiques d’Hollywood, entièrement redoublés.",
-				"giphyIds": [],
+				"giphyIds": ["2nzUAOGw3i7w4"],
 				"giphyQuery": "La Classe americaine"
 			},
 			"b": {
@@ -4341,7 +4346,8 @@ var rivalries_default = {
 				"origin": "Les Inconnus · 1995",
 				"line": "Trois frères, un héritage, et aucun argent à la fin.",
 				"giphyIds": [],
-				"giphyQuery": "Les Trois Freres"
+				"giphyQuery": "Les Trois Freres",
+				"gifUrls": ["https://media.tenor.com/QxxASzkAL9sAAAAC/les-inconnus-les-trois-fr%C3%A8res.gif"]
 			}
 		},
 		{
@@ -4370,14 +4376,16 @@ var rivalries_default = {
 				"origin": "Cédric Klapisch · 2002",
 				"line": "Erasmus à Barcelone, dans une colocation chaotique.",
 				"giphyIds": [],
-				"giphyQuery": "L'Auberge espagnole"
+				"giphyQuery": "L'Auberge espagnole",
+				"gifUrls": ["https://media.tenor.com/6PkfvMkW35cAAAAC/romain-duris.gif"]
 			},
 			"b": {
 				"name": "Les Petits Mouchoirs",
 				"origin": "Guillaume Canet · 2010",
 				"line": "Des vacances entre amis, et beaucoup de larmes.",
 				"giphyIds": [],
-				"giphyQuery": "Les Petits Mouchoirs"
+				"giphyQuery": "Les Petits Mouchoirs",
+				"gifUrls": ["https://media.tenor.com/c9RBwtZq0xgAAAAC/les-petits-mouchoirs-fran%C3%A7ois-cluzet.gif"]
 			}
 		},
 		{
@@ -4388,13 +4396,14 @@ var rivalries_default = {
 				"origin": "Claude Zidi · 1976",
 				"line": "Un critique gastronomique contre la malbouffe.",
 				"giphyIds": [],
-				"giphyQuery": "L'Aile ou la Cuisse"
+				"giphyQuery": "L'Aile ou la Cuisse",
+				"gifUrls": ["https://media.tenor.com/sUaDIQV4ysIAAAAC/pasfroid-steam.gif"]
 			},
 			"b": {
 				"name": "Le Grand Restaurant",
 				"origin": "Jacques Besnard · 1966",
 				"line": "De Funès, maître d’hôtel tyrannique.",
-				"giphyIds": [],
+				"giphyIds": ["OcUrMyhQKtJPW"],
 				"giphyQuery": "Le Grand Restaurant"
 			}
 		},
@@ -4413,7 +4422,8 @@ var rivalries_default = {
 				"origin": "Canal+ · 1998",
 				"line": "Des sketchs et des personnages absurdes.",
 				"giphyIds": [],
-				"giphyQuery": "Robins des Bois"
+				"giphyQuery": "Robins des Bois",
+				"gifUrls": ["https://media.tenor.com/EcyPfdhtVuMAAAAC/chiale-robin-des-bois.gif"]
 			}
 		},
 		{
@@ -4424,14 +4434,16 @@ var rivalries_default = {
 				"origin": "Trio · 1990",
 				"line": "Des sketchs et des parodies cultes.",
 				"giphyIds": [],
-				"giphyQuery": "Les Inconnus"
+				"giphyQuery": "Les Inconnus",
+				"gifUrls": ["https://media.tenor.com/d3zsQO_oVXYAAAAC/non-kermit.gif"]
 			},
 			"b": {
 				"name": "Les Nuls",
 				"origin": "Canal+ · 1987",
 				"line": "Des fausses pubs et un sens de l’absurde.",
 				"giphyIds": [],
-				"giphyQuery": "Les Nuls"
+				"giphyQuery": "Les Nuls",
+				"gifUrls": ["https://media.tenor.com/feF_dMkbGMUAAAAC/alain-chabat-acteur.gif"]
 			}
 		},
 		{
@@ -4441,7 +4453,7 @@ var rivalries_default = {
 				"name": "Omar et Fred",
 				"origin": "Le SAV · 2005",
 				"line": "Le service après-vente des émissions.",
-				"giphyIds": [],
+				"giphyIds": ["r6zVCO5K0ouw8"],
 				"giphyQuery": "Omar et Fred"
 			},
 			"b": {
@@ -4449,7 +4461,8 @@ var rivalries_default = {
 				"origin": "Canal+ · 1988",
 				"line": "Des marionnettes qui se moquent de tout le monde.",
 				"giphyIds": [],
-				"giphyQuery": "Les Guignols de l'info"
+				"giphyQuery": "Les Guignols de l'info",
+				"gifUrls": ["https://media.tenor.com/Xi4i9LuoYdYAAAAC/jacques-chirac-guignols-info-mangez-pommes.gif"]
 			}
 		},
 		{
@@ -4460,7 +4473,8 @@ var rivalries_default = {
 				"origin": "Luc Besson · 1985",
 				"line": "Des cheveux en pétard dans le métro.",
 				"giphyIds": [],
-				"giphyQuery": "Subway film 1985"
+				"giphyQuery": "Subway film 1985",
+				"gifUrls": ["https://media.tenor.com/C8bmXOXqF_EAAAAC/christophe-lambert-au-t%C3%A9lephone.gif"]
 			},
 			"b": {
 				"name": "Nikita",
@@ -4477,14 +4491,14 @@ var rivalries_default = {
 				"name": "À bout de souffle",
 				"origin": "Jean-Luc Godard · 1960",
 				"line": "« New York Herald Tribune ! »",
-				"giphyIds": [],
+				"giphyIds": ["ZNFmtw8hXOJu8"],
 				"giphyQuery": "A bout de souffle Godard"
 			},
 			"b": {
 				"name": "Les Quatre Cents Coups",
 				"origin": "François Truffaut · 1959",
 				"line": "Un gamin, une fugue, et la mer.",
-				"giphyIds": [],
+				"giphyIds": ["Ap5Esg5hZ8QiA"],
 				"giphyQuery": "400 Blows Truffaut"
 			}
 		},
@@ -4496,14 +4510,16 @@ var rivalries_default = {
 				"origin": "Jeunet et Caro · 1991",
 				"line": "Un boucher, un immeuble, et un menu douteux.",
 				"giphyIds": [],
-				"giphyQuery": "Delicatessen film"
+				"giphyQuery": "Delicatessen film",
+				"gifUrls": ["https://media.tenor.com/P-PEAP_U9SQAAAAC/delicatessen-jean-pierre-jeunet.gif"]
 			},
 			"b": {
 				"name": "La Cité des enfants perdus",
 				"origin": "Jeunet et Caro · 1995",
 				"line": "Un savant qui vole les rêves des enfants.",
 				"giphyIds": [],
-				"giphyQuery": "City of Lost Children"
+				"giphyQuery": "City of Lost Children",
+				"gifUrls": ["https://media.tenor.com/Ku22cibpcWYAAAAC/city-of-the-lost-children-krank.gif"]
 			}
 		},
 		{
@@ -4532,14 +4548,16 @@ var rivalries_default = {
 				"origin": "Robert Lamoureux · 1973",
 				"line": "Trois soldats perdus et un camion.",
 				"giphyIds": [],
-				"giphyQuery": "7eme compagnie"
+				"giphyQuery": "7eme compagnie",
+				"gifUrls": ["https://media.tenor.com/OoaQ4SjgVjEAAAAC/la-7eme-compagnie-7eme-compagnie.gif"]
 			},
 			"b": {
 				"name": "Papy fait de la résistance",
 				"origin": "Jean-Marie Poiré · 1983",
 				"line": "Une famille de résistants, et Super Résistant.",
 				"giphyIds": [],
-				"giphyQuery": "Papy fait de la resistance"
+				"giphyQuery": "Papy fait de la resistance",
+				"gifUrls": ["https://media.tenor.com/aio3-OrlZfwAAAAC/papi-fait-de-la-r%C3%A9sistance-roland-giraud.gif"]
 			}
 		},
 		{
@@ -4549,15 +4567,15 @@ var rivalries_default = {
 				"name": "Jacquouille",
 				"origin": "Les Visiteurs · 1993",
 				"line": "Des dents abîmées et un rire inoubliable.",
-				"giphyIds": [],
+				"giphyIds": ["Zd3bTtMtsVtrG"],
 				"giphyQuery": "Jacquouille"
 			},
 			"b": {
 				"name": "Godefroy de Montmirail",
 				"origin": "Les Visiteurs · 1993",
 				"line": "Un comte très noble, très perdu en 1993.",
-				"giphyIds": [],
-				"giphyQuery": "Godefroy de Montmirail"
+				"giphyIds": ["V98m5Xt9pf4xW"],
+				"giphyQuery": "les visiteurs"
 			}
 		},
 		{
@@ -4567,7 +4585,7 @@ var rivalries_default = {
 				"name": "La Boum",
 				"origin": "Claude Pinoteau · 1980",
 				"line": "Un premier slow et un casque de walkman.",
-				"giphyIds": [],
+				"giphyIds": ["E6UBtoq5iVDK8"],
 				"giphyQuery": "La Boum"
 			},
 			"b": {
@@ -4592,7 +4610,7 @@ var rivalries_default = {
 				"name": "Cyrano de Bergerac",
 				"origin": "Jean-Paul Rappeneau · 1990",
 				"line": "Un nez immense et des tirades.",
-				"giphyIds": [],
+				"giphyIds": ["FIKCa6oAaLX5S"],
 				"giphyQuery": "Cyrano de Bergerac"
 			}
 		},
@@ -4604,13 +4622,14 @@ var rivalries_default = {
 				"origin": "Le Quai des brumes · 1938",
 				"line": "La gueule, la voix, et la casquette.",
 				"giphyIds": [],
-				"giphyQuery": "Jean Gabin"
+				"giphyQuery": "Jean Gabin",
+				"gifUrls": ["https://media.tenor.com/cvErQtBHyXAAAAAC/tu-m%27emmerdes-leroidukitch.gif"]
 			},
 			"b": {
 				"name": "Lino Ventura",
 				"origin": "Les Tontons flingueurs · 1963",
 				"line": "Un regard, et tout le monde se tait.",
-				"giphyIds": [],
+				"giphyIds": ["c6NoRjSwtP86Q"],
 				"giphyQuery": "Lino Ventura"
 			}
 		},
@@ -4622,14 +4641,16 @@ var rivalries_default = {
 				"origin": "La Boum · 1980",
 				"line": "Le premier slow de toute une génération.",
 				"giphyIds": [],
-				"giphyQuery": "Sophie Marceau"
+				"giphyQuery": "Sophie Marceau",
+				"gifUrls": ["https://media.tenor.com/v3LMRK1VreoAAAAC/la-boum.gif"]
 			},
 			"b": {
 				"name": "Isabelle Adjani",
 				"origin": "L’Histoire d’Adèle H. · 1975",
 				"line": "Cinq César, un record.",
 				"giphyIds": [],
-				"giphyQuery": "Isabelle Adjani"
+				"giphyQuery": "Isabelle Adjani",
+				"gifUrls": ["https://media.tenor.com/mhsjfO6tv8AAAAAC/possession-anna.gif"]
 			}
 		},
 		{
@@ -4639,7 +4660,7 @@ var rivalries_default = {
 				"name": "Fantômas",
 				"origin": "André Hunebelle · 1964",
 				"line": "Un masque bleu et un rire diabolique.",
-				"giphyIds": [],
+				"giphyIds": ["10gDm6kTJfux9K"],
 				"giphyQuery": "Fantomas"
 			},
 			"b": {
@@ -4658,7 +4679,8 @@ var rivalries_default = {
 				"origin": "Francis Veber · 1981",
 				"line": "L’homme le plus malchanceux du monde. Et c’est utile.",
 				"giphyIds": [],
-				"giphyQuery": "La Chevre film"
+				"giphyQuery": "La Chevre film",
+				"gifUrls": ["https://media.tenor.com/QiPT-KXDAfQAAAAC/ch%C3%A8vre-jules.gif"]
 			},
 			"b": {
 				"name": "Les Compères",
@@ -4694,13 +4716,14 @@ var rivalries_default = {
 				"origin": "Olivier Dahan · 2007",
 				"line": "Piaf, et un Oscar pour Marion Cotillard.",
 				"giphyIds": [],
-				"giphyQuery": "La Mome Cotillard"
+				"giphyQuery": "La Mome Cotillard",
+				"gifUrls": ["https://media.tenor.com/tsPqJt18_p0AAAAC/marion-cotillard.gif"]
 			},
 			"b": {
 				"name": "The Artist",
 				"origin": "Michel Hazanavicius · 2011",
 				"line": "Un film muet en noir et blanc, et cinq Oscars.",
-				"giphyIds": [],
+				"giphyIds": ["hgSssis6gLKuY"],
 				"giphyQuery": "The Artist movie"
 			}
 		},
@@ -4712,14 +4735,16 @@ var rivalries_default = {
 				"origin": "Pascal Chaumeil · 2010",
 				"line": "Son métier : briser des couples, avec style.",
 				"giphyIds": [],
-				"giphyQuery": "L'Arnacoeur"
+				"giphyQuery": "L'Arnacoeur",
+				"gifUrls": ["https://media.tenor.com/_fKLbIjaCiIAAAAC/romain-duris.gif"]
 			},
 			"b": {
 				"name": "Hors de prix",
 				"origin": "Pierre Salvadori · 2006",
 				"line": "Une croqueuse de diamants et un barman.",
 				"giphyIds": [],
-				"giphyQuery": "Hors de prix"
+				"giphyQuery": "Hors de prix",
+				"gifUrls": ["https://media.tenor.com/s6JVhe15KVYAAAAC/priceless-gad-elmaleh.gif"]
 			}
 		},
 		{
@@ -4730,7 +4755,8 @@ var rivalries_default = {
 				"origin": "Philippe Lacheau · 2014",
 				"line": "Une soirée de baby-sitting qui dérape. Beaucoup.",
 				"giphyIds": [],
-				"giphyQuery": "Babysitting film"
+				"giphyQuery": "Babysitting film",
+				"gifUrls": ["https://media.tenor.com/3W3lb6iEWQ8AAAAC/babysitting-film.gif"]
 			},
 			"b": {
 				"name": "Alibi.com",
@@ -4748,14 +4774,16 @@ var rivalries_default = {
 				"origin": "Gilles Lellouche · 2018",
 				"line": "Des hommes en crise qui font de la natation synchronisée.",
 				"giphyIds": [],
-				"giphyQuery": "Le Grand Bain"
+				"giphyQuery": "Le Grand Bain",
+				"gifUrls": ["https://media.tenor.com/onuR7TjtAAUAAAAC/le-grand-bain-sink-or-swim.gif"]
 			},
 			"b": {
 				"name": "Le Sens de la fête",
 				"origin": "Olivier Nakache et Éric Toledano · 2017",
 				"line": "Un mariage dans un château, et tout ce qui peut rater rate.",
 				"giphyIds": [],
-				"giphyQuery": "Le Sens de la fete"
+				"giphyQuery": "Le Sens de la fete",
+				"gifUrls": ["https://media.tenor.com/-fq7l7rIIDYAAAAC/le-sens-de-la-fete-personne-n-a-une-tete-de-flan.gif"]
 			}
 		},
 		{
@@ -4766,14 +4794,16 @@ var rivalries_default = {
 				"origin": "Alexandre Dumas · 1844",
 				"line": "Un pour tous, tous pour un.",
 				"giphyIds": [],
-				"giphyQuery": "Three Musketeers"
+				"giphyQuery": "Three Musketeers",
+				"gifUrls": ["https://media.tenor.com/85-TOA-XDToAAAAC/%D1%82%D1%80%D0%B8%D0%BC%D1%83%D1%88%D0%BA%D0%B5%D1%82%D0%B5%D1%80%D0%B0-%D1%82%D1%80%D0%B8.gif"]
 			},
 			"b": {
 				"name": "Le Bossu",
 				"origin": "Paul Féval · 1857",
 				"line": "« Si tu ne viens pas à Lagardère, Lagardère ira à toi ! »",
 				"giphyIds": [],
-				"giphyQuery": "Le Bossu Lagardere"
+				"giphyQuery": "Le Bossu Lagardere",
+				"gifUrls": ["https://media.tenor.com/7ne0jhgQLdcAAAAC/smiling-quasimodo.gif"]
 			}
 		},
 		{
@@ -4784,14 +4814,16 @@ var rivalries_default = {
 				"origin": "Christian-Jaque · 1952",
 				"line": "Un soldat, des duels, et des cascades.",
 				"giphyIds": [],
-				"giphyQuery": "Fanfan la Tulipe"
+				"giphyQuery": "Fanfan la Tulipe",
+				"images": ["/images/teams/fanfan-la-tulipe-8fad9ca3.webp"]
 			},
 			"b": {
 				"name": "Angélique, marquise des anges",
 				"origin": "Bernard Borderie · 1964",
 				"line": "Des robes, des intrigues, et des suites.",
 				"giphyIds": [],
-				"giphyQuery": "Angelique marquise des anges"
+				"giphyQuery": "Angelique marquise des anges",
+				"gifUrls": ["https://media.tenor.com/TKBK9N2spGAAAAAC/mich%C3%A8le-mercier-angelique.gif"]
 			}
 		},
 		{
@@ -4802,14 +4834,16 @@ var rivalries_default = {
 				"origin": "Didier Bourdon et Bernard Campan · 1997",
 				"line": "Deux beaux-frères qui parient d’arrêter de fumer.",
 				"giphyIds": [],
-				"giphyQuery": "Le Pari film"
+				"giphyQuery": "Le Pari film",
+				"gifUrls": ["https://media.tenor.com/gv_sQyuvY7gAAAAC/le-pari-soupir.gif"]
 			},
 			"b": {
 				"name": "Mais qui a tué Pamela Rose ?",
 				"origin": "Éric Lartigau · 2003",
 				"line": "Deux agents du FBI très, très approximatifs.",
 				"giphyIds": [],
-				"giphyQuery": "Pamela Rose Kad Olivier"
+				"giphyQuery": "Pamela Rose Kad Olivier",
+				"gifUrls": ["https://media.tenor.com/bhlB88j8H1cAAAAC/cassette-rouge-kad-et-olivier.gif"]
 			}
 		},
 		{
@@ -5026,7 +5060,8 @@ var rivalries_default = {
 				"origin": "Skyrock · 2002",
 				"line": "Des paillettes, et « lâchez vos com’s ».",
 				"giphyIds": [],
-				"giphyQuery": "glitter text 2000s"
+				"giphyQuery": "glitter text 2000s",
+				"gifUrls": ["https://media.tenor.com/mLL_z6rHgp0AAAAC/scene.gif"]
 			}
 		},
 		{
