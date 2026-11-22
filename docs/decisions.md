@@ -273,3 +273,13 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **IP : l'adresse la plus à droite** de `X-Forwarded-For` (`TRUST_PROXY=true` = 1 proxy, ou un nombre de proxys), la seule écrite par le proxy de l'hébergeur. Diagnostic protégé par le jeton : `GET /api/health?ip`.
 - **Filtre de requête** : `Origin` obligatoire, JSON obligatoire, `User-Agent` d'outil automatisé refusé. Facile à contourner pour un robot déterminé, mais cela écarte les scripts naïfs et les formulaires d'autres sites.
 - **Pas de CAPTCHA** pour l'instant : ce serait un service tiers de plus (cookies, transfert de données), disproportionné tant qu'aucune attaque n'est observée.
+
+## D25 — Un GIF sur chaque carte, cartes symétriques
+
+**Constats.** La validation par phrase exacte (D23) laissait sans GIF les teams « idées » : leur nom est en français et leur requête est une phrase que Giphy ne reprend jamais telle quelle (« ignored genius »). Sur un échantillon d'une team par catégorie : 13 sur 20 avaient un GIF, 6 de plus en auraient eu un bon avec une correspondance mot à mot, 1 n'avait aucun résultat valable. Par ailleurs, une carte dont le nom tient sur deux lignes était plus haute que l'autre.
+
+**Décisions.**
+
+- **Validation à deux niveaux**, sur la même recherche (aucun appel en plus) : correspondance exacte d'abord, puis mot significatif de la requête. Des `giphyKeywords` écrits à la main restent stricts (pas de mot à mot).
+- **GIF d'ambiance par catégorie** en dernier recours (`giphyQuery` obligatoire, `giphyIds` facultatifs sur chaque catégorie) : une seule recherche par catégorie, 5 GIF répartis entre les teams selon leur nom. C'est un GIF générique, jamais présenté comme le personnage : l'esprit de D23 (pas de GIF trompeur) est respecté.
+- **Arène en grille** `1fr auto 1fr` : les deux cartes ont toujours la hauteur de la plus haute, et elles ne passent plus l'une sous l'autre entre 720 et 800 px.

@@ -26,6 +26,12 @@ export const ThemeSchema = z.object({
   label: text,
   tagline: text,
   icon,
+  /**
+   * GIF d'ambiance, en dernier recours pour une team sans GIF fiable : recherche générique
+   * en anglais (« difficult choice »), ou GIF choisis à la main.
+   */
+  giphyQuery: text,
+  giphyIds: z.array(text).optional(),
 });
 
 // ─── Rivalités « Team X ou Team Y ? » ───────────────────────────────────────

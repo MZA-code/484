@@ -93,10 +93,13 @@ Le site suit le réglage « réduire les animations » du système : avec ce ré
 La route `/api/gif/<rivalité>/<a|b>` suit cet ordre, sans exception :
 
 1. **GIF choisis à la main** (`giphyIds`) : un au hasard. C'est la seule source vraiment fiable.
-2. **Recherche Giphy** avec `giphyQuery` (`lang=fr`, `rating=g`, 25 résultats), **validée par mots-clés** : un résultat n'est retenu que si son titre, son slug ou le nom de son auteur contient au moins un des mots-clés de la team (sans accents, sans casse, en mots entiers).
-3. **Rien** : la route renvoie `null` et la carte garde son cadre rayé avec le nom.
+2. **Recherche Giphy** avec `giphyQuery` (`lang=fr`, `rating=g`, 25 résultats), **validée** sur le titre, le slug ou le nom de l'auteur du GIF (sans accents, sans casse, en mots entiers) :
+   - d'abord **exacte** : il contient un mot-clé entier de la team (son nom, sa requête, ou ses `giphyKeywords`) ;
+   - puis **mot à mot** (seulement sans `giphyKeywords`) : il contient un mot significatif de la requête, 4 lettres ou plus, hors mots vagues comme « film » ou « funny ». C'est ce qui donne un GIF aux teams « idées » (« Contrôler la météo » → `weather control` → « Weather Map Storm »).
+3. **GIF d'ambiance de la catégorie** : ses `giphyIds` si tu en as choisi, sinon les premiers résultats de sa recherche générique (`giphyQuery` de la catégorie, par exemple `difficult choice` pour les dilemmes). Chaque team reçoit toujours le même parmi 5, pas toutes le même.
+4. **Rien** : la route renvoie `null` et la carte garde son cadre rayé avec le nom (seulement si Giphy ne renvoie rien du tout).
 
-Un résultat de recherche qui ne passe pas la validation n'est jamais affiché. Mieux vaut un cadre rayé qu'un GIF hors sujet.
+Un résultat de recherche non validé n'est jamais présenté comme la team : au pire, la carte montre un GIF d'ambiance de sa catégorie.
 
 Les mots-clés se règlent avec le champ facultatif `giphyKeywords` :
 

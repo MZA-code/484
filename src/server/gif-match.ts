@@ -51,6 +51,44 @@ export function matchesKeywords(gif: GifText, keywords: readonly string[]): bool
   });
 }
 
+/** Mots trop vagues pour valider un GIF à eux seuls. */
+const VAGUE_WORDS = new Set([
+  'the',
+  'and',
+  'with',
+  'from',
+  'that',
+  'this',
+  'your',
+  'dans',
+  'pour',
+  'avec',
+  'film',
+  'movie',
+  'show',
+  'series',
+  'cartoon',
+  'anime',
+  'funny',
+  'meme',
+  'reaction',
+  'scene',
+  'cute',
+  'animated',
+]);
+
+/**
+ * Mots significatifs d'une requête (4 lettres ou plus, hors mots vagues) : la validation
+ * « mot à mot », pour les teams qui sont des idées (« contrôler la météo » → « weather control »)
+ * plutôt que des noms propres, dont Giphy ne reprend jamais la phrase exacte.
+ */
+export function queryWords(query: string): string[] {
+  const words = normalizeText(query)
+    .split(' ')
+    .filter((w) => w.length >= 4 && !VAGUE_WORDS.has(w));
+  return [...new Set(words)];
+}
+
 /** Articles retirés en tête du nom : « Les Jedi » doit accepter un GIF titré « Jedi ». */
 const LEADING_ARTICLE = /^(le|la|les|l|un|une|des|du|the)\s+/;
 

@@ -106,7 +106,13 @@ describe('rivalries file', () => {
 
   it('rejects a category with too few rivalries', () => {
     const file = cloneRivalries();
-    file.categories.push({ id: 'vide', label: 'Vide', tagline: 'Rien.', icon: 'star' });
+    file.categories.push({
+      id: 'vide',
+      label: 'Vide',
+      tagline: 'Rien.',
+      icon: 'star',
+      giphyQuery: 'empty',
+    });
     expectError(file, /« vide » a 0 rivalité/);
   });
 

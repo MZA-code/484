@@ -3,13 +3,14 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createFileCache, createMemoryCache } from './gif-cache';
-import { keywordsFor, matchesKeywords, normalizeText } from './gif-match';
+import { keywordsFor, matchesKeywords, normalizeText, queryWords } from './gif-match';
 import {
   createGiphyService,
   GiphyError,
   MAX_CANDIDATES,
   QUOTA_PAUSE_MS,
   SEARCH_LIMIT,
+  stableIndex,
   toGif,
   TTL,
   type GifSource,
@@ -123,6 +124,13 @@ describe('keyword validation', () => {
     expect(keywordsFor({ name: 'L’Arme fatale', giphyQuery: 'Lethal Weapon' })).toContain(
       'arme fatale',
     );
+  });
+
+  it('extracts the meaningful words of a query', () => {
+    expect(queryWords('weather control')).toEqual(['weather', 'control']);
+    expect(queryWords('Taxi film Marseille')).toEqual(['taxi', 'marseille']);
+    expect(queryWords('PUBG pan')).toEqual(['pubg']);
+    expect(queryWords('the cute cat')).toEqual([]);
   });
 
   it('uses only the hand-written keywords when there are some', () => {
@@ -258,6 +266,115 @@ describe('giphy service', () => {
     });
     const gif = await service.gifFor(team('x', { giphyIds: ['pick'] }), new Set(['pick']));
     expect(gif?.id).toBe('pick');
+  });
+
+  it('falls back to word-level matching when no exact phrase matches', async () => {
+    // « Contrôler la météo » : Giphy ne reprend jamais la phrase exacte « weather control ».
+    const giphy = fakeFetch(() => ({
+      body: {
+        data: [
+          giphyObject('cat', 'Cat Reaction'),
+          giphyObject('storm', 'Weather Map Storm Timelapse'),
+          giphyObject('exact', 'Weather Control Machine'),
+        ],
+      },
+    }));
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(),
+      fetch: giphy.fetch,
+    });
+    const source = { name: 'Contrôler la météo', giphyIds: [], giphyQuery: 'weather control' };
+    // La correspondance exacte passe en premier, la correspondance mot à mot ensuite.
+    expect((await service.gifFor(source))?.id).toBe('exact');
+    expect((await service.gifFor(source, new Set(['exact'])))?.id).toBe('storm');
+    expect(await service.gifFor(source, new Set(['exact', 'storm']))).toBeNull();
+  });
+
+  it('keeps hand-written keywords strict: no word-level matching', async () => {
+    const giphy = fakeFetch(() => ({ body: { data: [giphyObject('t', 'Taxi Driver')] } }));
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(),
+      fetch: giphy.fetch,
+    });
+    const source = team('Taxi film Marseille', { giphyKeywords: ['Samy Naceri'] });
+    expect(await service.gifFor(source)).toBeNull();
+  });
+
+  it('uses the category mood GIF as a last resort, spread over the teams', async () => {
+    const giphy = fakeFetch((url) => ({
+      body: {
+        data:
+          url.searchParams.get('q') === 'difficult choice'
+            ? Array.from({ length: 5 }, (_, i) => giphyObject(`mood${i}`, `Choice ${i}`))
+            : [giphyObject('off', 'Totally unrelated')],
+      },
+    }));
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(),
+      fetch: giphy.fetch,
+    });
+    const fallback = { giphyQuery: 'difficult choice' };
+    const genius = {
+      name: 'Le génie qu’on ne croit pas',
+      giphyIds: [],
+      giphyQuery: 'ignored genius',
+      fallback,
+    };
+    const gif = await service.gifFor(genius);
+    expect(gif?.id).toMatch(/^mood\d$/);
+    // Même team, même GIF ; le GIF hors sujet de la recherche n'est jamais utilisé.
+    expect((await service.gifFor(genius))?.id).toBe(gif?.id);
+    // Les GIF d'ambiance trop signalés sont écartés eux aussi.
+    expect((await service.gifFor(genius, new Set([gif?.id as string])))?.id).not.toBe(gif?.id);
+    // Une seule recherche d'ambiance pour toute la catégorie.
+    await service.gifFor({ ...genius, name: 'Autre team', giphyQuery: 'other' });
+    expect(giphy.calls.filter((u) => u.searchParams.get('q') === 'difficult choice')).toHaveLength(
+      1,
+    );
+  });
+
+  it('prefers the hand-picked mood GIFs of the category', async () => {
+    const giphy = fakeFetch((url) =>
+      url.pathname.endsWith('/search')
+        ? { body: { data: [] } }
+        : { body: { data: giphyObject(url.pathname.split('/').pop() as string) } },
+    );
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(),
+      fetch: giphy.fetch,
+    });
+    const fallback = { giphyIds: ['moodpick'], giphyQuery: 'ignored' };
+    expect((await service.gifFor(team('nothing', { fallback })))?.id).toBe('moodpick');
+  });
+
+  it('spreads stable indexes', () => {
+    expect(stableIndex('Batman', 5)).toBe(stableIndex('Batman', 5));
+    const spread = new Set(
+      ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map((t) => stableIndex(`Team ${t}`, 5)),
+    );
+    expect(spread.size).toBeGreaterThan(2);
+    expect(stableIndex('x', 0)).toBe(0);
+  });
+
+  it('reuses the candidate lists cached by the previous version', async () => {
+    const giphy = fakeFetch(() => ({ body: { data: [] } }));
+    const cache = createMemoryCache();
+    const old = toGif(giphyObject('old', 'Batman old'));
+    cache.set('s:batman|k:batman', [old as NonNullable<typeof old>], TTL.search);
+    // Ancienne liste vide : on refait la recherche (le mot à mot peut trouver mieux).
+    cache.set('s:weather|k:weather', [], TTL.empty);
+    const single = toGif(giphyObject('single', 'Robin'));
+    cache.set('q:robin|k:robin', single, TTL.search);
+    const service = createGiphyService({ apiKey: KEY, cache, fetch: giphy.fetch });
+    expect((await service.gifFor(team('Batman')))?.id).toBe('old');
+    expect((await service.gifFor(team('Robin')))?.id).toBe('single');
+    expect(giphy.calls).toHaveLength(0);
+    await service.gifFor(team('weather'));
+    expect(giphy.calls).toHaveLength(1);
   });
 
   it('searches again when the keywords change', async () => {

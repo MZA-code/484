@@ -35,121 +35,141 @@
       "id": "heros",
       "label": "Héros et vilains",
       "tagline": "Des capes, des masques, et des egos surdimensionnés.",
-      "icon": "mask"
+      "icon": "mask",
+      "giphyQuery": "superhero pose"
     },
     {
       "id": "bouffe",
       "label": "Bouffe qui divise",
       "tagline": "Ces débats ont gâché plus de repas de famille que la politique.",
-      "icon": "pizza-slice"
+      "icon": "pizza-slice",
+      "giphyQuery": "delicious food"
     },
     {
       "id": "geek",
       "label": "Tech et geek",
       "tagline": "Les guerres saintes de l’informatique. Aucun survivant.",
-      "icon": "laptop-code"
+      "icon": "laptop-code",
+      "giphyQuery": "computer nerd"
     },
     {
       "id": "jeux",
       "label": "Jeux vidéo",
       "tagline": "Manette en main, amitiés en jeu.",
-      "icon": "gamepad"
+      "icon": "gamepad",
+      "giphyQuery": "video game controller"
     },
     {
       "id": "ecrans",
       "label": "Ciné et séries",
       "tagline": "Pop-corn, canapé, et des avis très tranchés.",
-      "icon": "film"
+      "icon": "film",
+      "giphyQuery": "popcorn movie night"
     },
     {
       "id": "duos",
       "label": "Duos à départager",
       "tagline": "Ils sont inséparables. Toi, tu vas devoir choisir.",
-      "icon": "user-group"
+      "icon": "user-group",
+      "giphyQuery": "best friends duo"
     },
     {
       "id": "quotidien",
       "label": "Vie quotidienne",
       "tagline": "Les petites guerres de tous les jours.",
-      "icon": "mug-hot"
+      "icon": "mug-hot",
+      "giphyQuery": "everyday life"
     },
     {
       "id": "musique",
       "label": "Musique",
       "tagline": "Ces débats ont fini plus de soirées que la police.",
-      "icon": "guitar"
+      "icon": "guitar",
+      "giphyQuery": "dancing music"
     },
     {
       "id": "dessins",
       "label": "Dessins animés",
       "tagline": "Le samedi matin, devant la télé, en pyjama. Choisis ton camp.",
-      "icon": "tv"
+      "icon": "tv",
+      "giphyQuery": "classic cartoon"
     },
     {
       "id": "cinefr",
       "label": "Ciné français",
       "tagline": "Des répliques que ton oncle cite encore à chaque repas.",
-      "icon": "clapperboard"
+      "icon": "clapperboard",
+      "giphyQuery": "cinema popcorn"
     },
     {
       "id": "internet",
       "label": "Internet et memes",
       "tagline": "Le savoir de toute l’humanité, utilisé surtout pour regarder des chats.",
-      "icon": "hashtag"
+      "icon": "hashtag",
+      "giphyQuery": "internet meme"
     },
     {
       "id": "mots",
       "label": "Mots de chez nous",
       "tagline": "La France, la Belgique, la Suisse et le Québec ne parlent pas tout à fait la même langue.",
-      "icon": "comments"
+      "icon": "comments",
+      "giphyQuery": "dictionary words"
     },
     {
       "id": "nostalgie",
       "label": "Nostalgie années 90",
       "tagline": "Avant les smartphones, il y avait ça. Et on était heureux.",
-      "icon": "compact-disc"
+      "icon": "compact-disc",
+      "giphyQuery": "90s retro"
     },
     {
       "id": "sport",
       "label": "Sport",
       "tagline": "Des débats plus tendus qu’une finale aux tirs au but.",
-      "icon": "futbol"
+      "icon": "futbol",
+      "giphyQuery": "sports fan cheering"
     },
     {
       "id": "mode",
       "label": "Mode et looks",
       "tagline": "Le miroir n’a jamais menti. Toi, peut-être.",
-      "icon": "shirt"
+      "icon": "shirt",
+      "giphyQuery": "fashion runway"
     },
     {
       "id": "autos",
       "label": "Autos et motos",
       "tagline": "Des marques, des moteurs, et des clubs de fans prêts à en découdre.",
-      "icon": "car-side"
+      "icon": "car-side",
+      "giphyQuery": "fast car"
     },
     {
       "id": "dilemmes",
       "label": "Dilemmes absurdes",
       "tagline": "Aucune bonne réponse. Seulement des mauvaises, et des pires.",
-      "icon": "scale-balanced"
+      "icon": "scale-balanced",
+      "giphyQuery": "difficult choice"
     },
     {
       "id": "pouvoirs",
       "label": "Superpouvoirs",
       "tagline": "Choisis bien : aucun remboursement, aucun échange.",
-      "icon": "bolt"
+      "icon": "bolt",
+      "giphyQuery": "superpower"
     },
     {
       "id": "monstres",
       "label": "Monstres et créatures",
       "tagline": "Ils vivent sous ton lit. Et ils ont un avis.",
-      "icon": "dragon"
+      "icon": "dragon",
+      "giphyQuery": "monster"
     },
     {
       "id": "animaux",
       "label": "Animaux",
       "tagline": "Ils ne savent pas qu’on les compare. Heureusement.",
-      "icon": "paw"
+      "icon": "paw",
+      "giphyQuery": "cute animals"
     }
   ],
   "rivalries": [

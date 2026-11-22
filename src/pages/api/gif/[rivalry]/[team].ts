@@ -13,7 +13,7 @@
  */
 import type { APIRoute } from 'astro';
 import { getSecret } from 'astro:env/server';
-import { rivalries } from '../../../../data/content';
+import { categories, rivalries } from '../../../../data/content';
 import { createFileCache } from '../../../../server/gif-cache';
 import { createGiphyService, GiphyError, type GiphyService } from '../../../../server/giphy';
 import { getVoteService } from '../../../../server/votes/runtime';
@@ -21,6 +21,10 @@ import { getVoteService } from '../../../../server/votes/runtime';
 export const prerender = false;
 
 const byId = new Map(rivalries.map((r) => [r.id, r]));
+/** GIF d'ambiance de chaque catégorie, en dernier recours. */
+const moodOf = new Map(
+  categories.map((c) => [c.id, { giphyIds: c.giphyIds, giphyQuery: c.giphyQuery }]),
+);
 
 let service: GiphyService | null = null;
 function getService(apiKey: string): GiphyService {
@@ -59,7 +63,10 @@ export const GET: APIRoute = async ({ params }) => {
   if (!apiKey) return json({ error: 'giphy-not-configured' }, 503, 'no-store');
 
   try {
-    const gif = await getService(apiKey).gifFor(team, rejectedGifs(rivalry.id, side));
+    const gif = await getService(apiKey).gifFor(
+      { ...team, fallback: moodOf.get(rivalry.category) },
+      rejectedGifs(rivalry.id, side),
+    );
     if (!gif) return json(null, 200, 'public, max-age=3600');
     // Seul un GIF choisi à la main, et unique, est stable : il peut rester un jour en cache.
     // Sinon une heure : variété entre plusieurs GIF choisis, ou remplacement d'un GIF signalé.

@@ -11,7 +11,7 @@ import { createServer, type IncomingMessage } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { format, resolveConfig } from 'prettier';
 import { parseRivalries } from '../../src/data/parse';
-import { keywordsFor, matchesKeywords, type GifText } from '../../src/server/gif-match';
+import { keywordsFor, matchesKeywords, queryWords, type GifText } from '../../src/server/gif-match';
 import { toGif, type Gif } from '../../src/server/giphy';
 
 const RIVALRIES_FILE = new URL('../../content/rivalries.json', import.meta.url);
@@ -150,20 +150,33 @@ export interface TargetNote {
   reportedGifs?: ReadonlyMap<string, number> | undefined;
 }
 
+interface MatchSource {
+  name: string;
+  giphyQuery: string;
+  giphyKeywords?: string[] | undefined;
+}
+
+/** Comment le site jugerait ce GIF : mot-clé entier, mot de la requête, ou refusé. */
+function matchLabel(text: GifText, source: MatchSource): string {
+  if (matchesKeywords(text, keywordsFor(source))) return '<span class="ok">✓ exact</span>';
+  const words = source.giphyKeywords?.length ? [] : queryWords(source.giphyQuery);
+  if (matchesKeywords(text, words)) return '<span class="near">≈ mot à mot</span>';
+  return '<span class="ko">✗ refusé</span>';
+}
+
 function tiles(
   teamKey: string,
   proposals: Proposal[],
   chosen: readonly string[],
-  keywords: readonly string[],
+  source: MatchSource,
   reported: ReadonlyMap<string, number> | undefined,
 ): string {
   if (proposals.length === 0) return '<p class="none">Aucun résultat. Essaie d’autres mots.</p>';
   return proposals
     .map(({ gif, text }) => {
-      const ok = matchesKeywords(text, keywords);
       const reports = reported?.get(gif.id) ?? 0;
       const caption = [
-        `<span class="${ok ? 'ok' : 'ko'}">${ok ? '✓ mots-clés' : '✗ mots-clés'}</span>`,
+        matchLabel(text, source),
         reports ? `<span class="ko">⚠ signalé ${reports}×</span>` : '',
         `<span class="title">${escape(text.title || text.slug || gif.id)}</span>`,
       ].join(' ');
@@ -215,7 +228,7 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
           <label>Mots-clés <input name="kw" value="${escape((t.team.giphyKeywords ?? []).join(', '))}" placeholder="${escape(keywords.join(', '))}"></label>
           <button>Rechercher</button>
         </form>
-        <div class="grid">${tiles(key, proposals, t.team.giphyIds, keywords, note?.reportedGifs)}</div>
+        <div class="grid">${tiles(key, proposals, t.team.giphyIds, t.team, note?.reportedGifs)}</div>
       </section>`;
       })
       .join('');
@@ -236,12 +249,12 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
     .tile input{position:absolute;top:8px;left:8px;width:22px;height:22px;z-index:1}
     .tile video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
     .caption{font-size:12px;color:#cfcac0;padding:0 4px 4px}.caption .title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .ok{color:#66e08a}.ko{color:#ff5a4e}
+    .ok{color:#66e08a}.near{color:#ffd23f}.ko{color:#ff5a4e}
     .bar{position:fixed;inset:auto 0 0 0;display:flex;gap:16px;align-items:center;padding:14px 24px;background:#ffd23f;color:#121212;font-weight:700}
     .none{color:#cfcac0}
   </style></head><body>
   <h1>${escape(title)}</h1>
-  <p class="help">${escape(intro)} Coche les GIF à garder (plusieurs possibles : le site en tire un au hasard) ; une team sans case cochée garde ses GIF actuels. « ✓ mots-clés » : ce GIF serait accepté par la recherche automatique du site. Mots-clés vides = valeurs par défaut (en gris).</p>
+  <p class="help">${escape(intro)} Coche les GIF à garder (plusieurs possibles : le site en tire un au hasard) ; une team sans case cochée garde ses GIF actuels. « ✓ exact » et « ≈ mot à mot » : ce GIF serait accepté par la recherche automatique du site (l’exact passe en premier) ; « ✗ refusé » : jamais affiché sans ton choix. Mots-clés vides = valeurs par défaut (en gris).</p>
   ${sections}
   <div class="bar"><button id="save">Enregistrer dans rivalries.json</button><span id="status"></span></div>
   <script>
@@ -291,16 +304,16 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
         if (!target) throw new Error(`Team inconnue : ${id}`);
         const query = url.searchParams.get('q') || target.team.giphyQuery;
         const typed = splitKeywords(url.searchParams.get('kw') ?? '');
-        const keywords = keywordsFor({
-          ...target.team,
+        const source = {
+          name: target.team.name,
           giphyQuery: query,
           giphyKeywords: typed.length > 0 ? typed : undefined,
-        });
+        };
         const proposals = await search(apiKey, query);
         results.set(id, proposals);
         res
           .writeHead(200, { 'content-type': 'text/html; charset=utf-8' })
-          .end(tiles(id, proposals, [], keywords, notes?.get(id)?.reportedGifs));
+          .end(tiles(id, proposals, [], source, notes?.get(id)?.reportedGifs));
       } else if (req.method === 'POST' && url.pathname === '/save') {
         const message = await save(JSON.parse(await readBody(req)) as SavePayload);
         console.log(message);
