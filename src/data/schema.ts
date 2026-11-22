@@ -269,10 +269,8 @@ export const UiTextsSchema = z.object({
     footnote: text,
     mixedTheme: z.object({ label: text, tagline: text, icon }),
     themesLabel: text,
-    themeCount: template('n'),
     play: text,
     playUniverse: text,
-    universeCount: pluralForms,
   }),
   debate: z.object({
     pageTitle: text,

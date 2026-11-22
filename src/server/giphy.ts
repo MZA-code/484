@@ -30,6 +30,8 @@ export interface Gif {
   still: string;
   width: number;
   height: number;
+  /** Version réduite (100 px de haut), pour les vignettes de l'accueil. */
+  small?: { mp4: string; webp: string; still: string };
 }
 
 /** Durées de cache. */
@@ -75,6 +77,8 @@ interface GiphyObject {
   images?: {
     fixed_height?: GiphyRendition;
     fixed_height_still?: GiphyRendition;
+    fixed_height_small?: GiphyRendition;
+    fixed_height_small_still?: GiphyRendition;
   };
 }
 
@@ -83,7 +87,7 @@ export function toGif(raw: GiphyObject | undefined): Gif | null {
   const video = raw?.images?.fixed_height;
   const still = raw?.images?.fixed_height_still;
   if (!raw?.id || !video?.mp4 || !video.webp || !still?.url) return null;
-  return {
+  const gif: Gif = {
     id: raw.id,
     mp4: video.mp4,
     webp: video.webp,
@@ -91,6 +95,17 @@ export function toGif(raw: GiphyObject | undefined): Gif | null {
     width: Number(video.width) || 0,
     height: Number(video.height) || 0,
   };
+  const small = raw.images?.fixed_height_small;
+  const smallStill = raw.images?.fixed_height_small_still;
+  if (small?.mp4 && small.webp && smallStill?.url) {
+    gif.small = { mp4: small.mp4, webp: small.webp, still: smallStill.url };
+  }
+  return gif;
+}
+
+/** Version légère d'un GIF (vignette) : le petit rendu s'il existe, sinon le rendu normal. */
+export function thumbnailOf(gif: Gif): Pick<Gif, 'id' | 'mp4' | 'webp' | 'still'> {
+  return { id: gif.id, ...(gif.small ?? { mp4: gif.mp4, webp: gif.webp, still: gif.still }) };
 }
 
 export interface GifSource {
@@ -250,6 +265,16 @@ export function createGiphyService({
   const pick = <T>(list: readonly T[]): T | undefined => list[Math.floor(random() * list.length)];
 
   return {
+    /** GIF d'ambiance d'une catégorie (vignette de l'accueil) : choisi à la main, sinon le premier trouvé. */
+    async categoryGif(mood: CategoryGifs): Promise<Gif | null> {
+      const curated = pick(mood.giphyIds ?? []);
+      if (curated) {
+        const gif = await byId(curated);
+        if (gif) return gif;
+      }
+      return (await moodGifs(mood.giphyQuery))[0] ?? null;
+    },
+
     /**
      * GIF d'une team : un des GIF choisis, sinon le premier résultat de recherche validé qui
      * n'est pas dans `rejected` (GIF trop signalés), sinon null.

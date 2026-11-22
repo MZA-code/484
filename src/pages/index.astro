@@ -6,9 +6,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import type { IconName } from '../lib/icons';
-import { categories, rivalries, ui, universes } from '../data/content';
+import { categories, ui, universes } from '../data/content';
 import { MIXED_CATEGORY } from '../engine/debate';
-import { formatText, plural } from '../lib/format';
 
 /** Ordre des couleurs du prototype : crème, jaune, rose, bleu, orange, puis le reste de la palette. */
 const HOME_COLORS = [
@@ -33,13 +32,11 @@ const websiteJsonLd = {
   inLanguage: 'fr-FR',
 };
 
-const countIn = (categoryIds: readonly string[]) =>
-  rivalries.filter((r) => categoryIds.includes(r.category)).length;
 const label = new Map(categories.map((c) => [c.id, c] as const));
 
 /** Les couleurs défilent d'une carte à l'autre sur toute la page ; --i règle la cascade d'entrée. */
 let index = 0;
-const card = (id: string, name: string, tagline: string, icon: IconName, n: number) => {
+const card = (id: string, name: string, tagline: string, icon: IconName) => {
   const i = index++;
   return {
     id,
@@ -47,7 +44,6 @@ const card = (id: string, name: string, tagline: string, icon: IconName, n: numb
     tagline,
     icon,
     href: `/jouer?theme=${id}`,
-    count: formatText(ui.home.themeCount, { n }),
     style: `--card: ${HOME_COLORS[i % HOME_COLORS.length]}; --i: ${i}`,
   };
 };
@@ -57,15 +53,13 @@ const mixed = card(
   ui.home.mixedTheme.label,
   ui.home.mixedTheme.tagline,
   ui.home.mixedTheme.icon,
-  rivalries.length,
 );
 const sections = universes.map((u) => ({
   ...u,
   href: `/jouer?theme=${u.id}`,
-  count: plural(ui.home.universeCount, countIn(u.categories)),
   cards: u.categories.map((id) => {
     const c = label.get(id);
-    return card(id, c?.label ?? id, c?.tagline ?? '', c?.icon ?? 'star', countIn([id]));
+    return card(id, c?.label ?? id, c?.tagline ?? '', c?.icon ?? 'star');
   }),
 }));
 ---
@@ -84,7 +78,6 @@ const sections = universes.map((u) => ({
     <h2 class="visually-hidden">{ui.home.themesLabel}</h2>
     <a class="theme-card theme-card--mixed" href={mixed.href} style={mixed.style}>
       <Icon name={mixed.icon} class="theme-icon" />
-      <span class="theme-count">{mixed.count}</span>
       <span class="theme-name">{mixed.name}</span>
       <span class="theme-tagline">{mixed.tagline}</span>
       <span class="theme-play">{ui.home.play}</span>
@@ -99,15 +92,18 @@ const sections = universes.map((u) => ({
           </h3>
           <p class="universe-tagline">{section.tagline}</p>
           <a class="universe-play" href={section.href}>
-            {ui.home.playUniverse} <span class="universe-count">{section.count}</span>
+            {ui.home.playUniverse}
           </a>
         </div>
         <ul class="theme-grid">
           {section.cards.map((c) => (
             <li>
               <a class="theme-card" href={c.href} style={c.style}>
-                <Icon name={c.icon} class="theme-icon" />
-                <span class="theme-count">{c.count}</span>
+                {/* Vignette animée (GIF d'ambiance de la catégorie) ; l'icône reste visible
+                    tant qu'elle charge, et pour toujours si elle échoue. */}
+                <span class="theme-media" data-category-gif={c.id} aria-hidden="true">
+                  <Icon name={c.icon} class="theme-icon" />
+                </span>
                 <span class="theme-name">{c.name}</span>
                 <span class="theme-tagline">{c.tagline}</span>
                 <span class="theme-play">{ui.home.play}</span>
@@ -120,6 +116,76 @@ const sections = universes.map((u) => ({
     <p class="footnote">{ui.home.footnote}</p>
   </section>
 </BaseLayout>
+
+<script>
+  import { MOTION_EVENT, prefersReducedMotion } from '../lib/motion-pref';
+
+  /**
+   * Vignettes animées des catégories : chargées seulement à l'approche de l'écran, en image
+   * fixe si les animations sont réduites. En cas d'échec, l'icône reste : rien ne casse.
+   */
+  interface Thumbnail {
+    mp4: string;
+    still: string;
+  }
+
+  const frames = [...document.querySelectorAll<HTMLElement>('[data-category-gif]')];
+  const thumbnails = new Map<HTMLElement, Thumbnail>();
+
+  function show(frame: HTMLElement, gif: Thumbnail) {
+    frame.querySelector('.theme-gif')?.remove();
+    frame.classList.remove('has-gif');
+    const media = prefersReducedMotion() ? new Image() : document.createElement('video');
+    media.className = 'theme-gif';
+    const ready = () => frame.classList.add('has-gif');
+    if (media instanceof HTMLVideoElement) {
+      media.muted = true;
+      media.loop = true;
+      media.autoplay = true;
+      media.playsInline = true;
+      media.disablePictureInPicture = true;
+      media.addEventListener('loadeddata', ready, { once: true });
+      media.src = gif.mp4;
+    } else {
+      media.alt = '';
+      media.decoding = 'async';
+      media.addEventListener('load', ready, { once: true });
+      media.src = gif.still;
+    }
+    frame.append(media);
+  }
+
+  async function load(frame: HTMLElement) {
+    try {
+      const id = encodeURIComponent(frame.dataset['categoryGif'] ?? '');
+      const response = await fetch(`/api/category-gif/${id}`);
+      if (!response.ok) return;
+      const gif = (await response.json()) as Thumbnail | null;
+      if (!gif?.mp4 || !gif.still) return;
+      thumbnails.set(frame, gif);
+      show(frame, gif);
+    } catch {
+      // Réseau ou Giphy indisponible : l'icône reste affichée.
+    }
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        observer.unobserve(entry.target);
+        void load(entry.target as HTMLElement);
+      }
+    },
+    { rootMargin: '300px 0px' },
+  );
+  frames.forEach((frame) => observer.observe(frame));
+
+  // L'interrupteur « Animations » bascule les vignettes entre vidéo et image fixe.
+  window.addEventListener(MOTION_EVENT, () => {
+    thumbnails.forEach((gif, frame) => show(frame, gif));
+  });
+</script>
 
 <style>
   .hero {
@@ -220,12 +286,6 @@ const sections = universes.map((u) => ({
     text-underline-offset: 4px;
   }
 
-  .universe-count {
-    margin-left: 0.5em;
-    color: var(--fg-muted);
-    font-weight: 400;
-  }
-
   /* Toujours 4 colonnes (2 sur mobile), quel que soit le nombre de catégories de l'univers. */
   .theme-grid {
     display: grid;
@@ -298,18 +358,14 @@ const sections = universes.map((u) => ({
     transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Icône dans le coin de la carte ; elle flotte au survol. */
   .theme-card {
     position: relative;
     overflow: hidden;
   }
 
-  .theme-card :global(.theme-icon) {
+  /* « Tout mélangé » : grande icône à droite ; elle flotte au survol. */
+  .theme-card--mixed :global(.theme-icon) {
     position: absolute;
-    top: 18px;
-    right: 18px;
-    width: 52px;
-    height: 52px;
     opacity: 0.85;
     transition:
       transform 320ms var(--ease-out),
@@ -317,8 +373,8 @@ const sections = universes.map((u) => ({
       filter 320ms ease;
   }
 
-  .theme-card:hover :global(.theme-icon),
-  .theme-card:focus-visible :global(.theme-icon) {
+  .theme-card--mixed:hover :global(.theme-icon),
+  .theme-card--mixed:focus-visible :global(.theme-icon) {
     opacity: 1;
     transform: translateY(-6px) scale(1.12);
     filter: drop-shadow(3px 5px 0 rgb(0 0 0 / 0.18));
@@ -332,10 +388,52 @@ const sections = universes.map((u) => ({
     margin-top: calc(clamp(64px, 9vw, 110px) / -2);
   }
 
-  /* Le nom ne passe pas sous l'icône. */
-  .theme-card .theme-count,
-  .theme-card .theme-name {
-    padding-right: 64px;
+  /* Le nom ne passe pas sous la grande icône. */
+  .theme-card--mixed .theme-name {
+    padding-right: clamp(84px, 12vw, 170px);
+  }
+
+  /* Cadre 16:9 de la vignette : rayé, avec l'icône, tant que le GIF n'est pas prêt. */
+  .theme-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 3px solid var(--ink);
+    background: repeating-linear-gradient(
+      45deg,
+      rgb(0 0 0 / 0.1) 0 14px,
+      rgb(0 0 0 / 0.02) 14px 28px
+    );
+  }
+
+  .theme-media :global(.theme-icon) {
+    width: 44px;
+    height: 44px;
+    opacity: 0.8;
+  }
+
+  /* Le GIF recouvre le cadre une fois prêt (fondu), et zoome un peu au survol de la carte. */
+  .theme-media :global(.theme-gif) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition:
+      opacity 200ms ease,
+      transform 300ms ease;
+  }
+
+  .theme-media:global(.has-gif) :global(.theme-gif) {
+    opacity: 1;
+  }
+
+  .theme-card:hover .theme-media :global(.theme-gif),
+  .theme-card:focus-visible .theme-media :global(.theme-gif) {
+    transform: scale(1.06);
   }
 
   .universe-title {
@@ -355,13 +453,6 @@ const sections = universes.map((u) => ({
       opacity: 0;
       transform: translateY(28px);
     }
-  }
-
-  .theme-count {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    font-weight: 700;
-    text-transform: uppercase;
   }
 
   .theme-name {
@@ -385,27 +476,14 @@ const sections = universes.map((u) => ({
     font-weight: 700;
   }
 
-  /* Tablette et mobile : cartes compactes (icône réduite, le nom passe sous l'icône). */
+  /* Tablette et mobile : cartes compactes. */
   @media (max-width: 1100px) {
     .theme-grid .theme-card {
       gap: 8px;
       padding: 16px;
     }
 
-    .theme-grid .theme-card :global(.theme-icon) {
-      top: 14px;
-      right: 14px;
-      width: 34px;
-      height: 34px;
-    }
-
-    .theme-grid .theme-card .theme-count {
-      min-height: 34px;
-      padding-right: 42px;
-    }
-
     .theme-grid .theme-card .theme-name {
-      padding-right: 0;
       font-size: 1.5rem;
     }
 
@@ -424,20 +502,17 @@ const sections = universes.map((u) => ({
 
     .theme-grid .theme-card {
       min-height: 200px;
-      padding: 14px;
+      padding: 12px;
       box-shadow: 4px 4px 0 var(--fg);
     }
 
-    .theme-grid .theme-card :global(.theme-icon) {
-      top: 12px;
-      right: 12px;
-      width: 30px;
-      height: 30px;
+    .theme-media {
+      border-width: 2px;
     }
 
-    .theme-grid .theme-card .theme-count {
-      min-height: 30px;
-      padding-right: 36px;
+    .theme-media :global(.theme-icon) {
+      width: 30px;
+      height: 30px;
     }
 
     .theme-grid .theme-card .theme-name {

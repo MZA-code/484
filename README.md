@@ -101,6 +101,8 @@ La route `/api/gif/<rivalité>/<a|b>` suit cet ordre, sans exception :
 
 Un résultat de recherche non validé n'est jamais présenté comme la team : au pire, la carte montre un GIF d'ambiance de sa catégorie.
 
+Ce même GIF d'ambiance sert de vignette aux cartes des catégories sur l'accueil (`GET /api/category-gif/<catégorie>`, version réduite de Giphy, une quinzaine de Ko). Les vignettes ne se chargent qu'à l'approche de l'écran, en image fixe si les animations sont réduites ; tant qu'elles chargent, ou si Giphy ne répond pas, l'icône de la catégorie reste affichée. Pour changer la vignette d'une catégorie : modifier son `giphyQuery`, ou lui donner des `giphyIds` dans `content/rivalries.json`.
+
 Les mots-clés se règlent avec le champ facultatif `giphyKeywords` :
 
 ```json

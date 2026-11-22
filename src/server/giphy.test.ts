@@ -11,6 +11,7 @@ import {
   QUOTA_PAUSE_MS,
   SEARCH_LIMIT,
   stableIndex,
+  thumbnailOf,
   toGif,
   TTL,
   type GifSource,
@@ -69,6 +70,29 @@ describe('toGif', () => {
       width: 356,
       height: 200,
     });
+  });
+
+  it('keeps the small rendition for thumbnails when Giphy has one', () => {
+    const raw = giphyObject('abc');
+    const withSmall = {
+      ...raw,
+      images: {
+        ...raw.images,
+        fixed_height_small: { mp4: 'small.mp4', webp: 'small.webp' },
+        fixed_height_small_still: { url: 'small_s.gif' },
+      },
+    };
+    const gif = toGif(withSmall);
+    expect(gif?.small).toEqual({ mp4: 'small.mp4', webp: 'small.webp', still: 'small_s.gif' });
+    expect(thumbnailOf(gif as NonNullable<typeof gif>)).toEqual({
+      id: 'abc',
+      mp4: 'small.mp4',
+      webp: 'small.webp',
+      still: 'small_s.gif',
+    });
+    // Sans petit rendu (ancien cache), la vignette reprend le rendu normal.
+    const plain = toGif(raw);
+    expect(thumbnailOf(plain as NonNullable<typeof plain>).mp4).toBe(plain?.mp4);
   });
 
   it('returns null when a rendition is missing', () => {
@@ -349,6 +373,28 @@ describe('giphy service', () => {
     });
     const fallback = { giphyIds: ['moodpick'], giphyQuery: 'ignored' };
     expect((await service.gifFor(team('nothing', { fallback })))?.id).toBe('moodpick');
+  });
+
+  it('gives each category a thumbnail from the same cached mood search', async () => {
+    const giphy = fakeFetch((url) =>
+      url.pathname.endsWith('/search')
+        ? { body: { data: [giphyObject('mood0', 'Choice'), giphyObject('mood1', 'Choice')] } }
+        : { body: { data: giphyObject(url.pathname.split('/').pop() as string) } },
+    );
+    const service = createGiphyService({
+      apiKey: KEY,
+      cache: createMemoryCache(),
+      fetch: giphy.fetch,
+    });
+    expect((await service.categoryGif({ giphyQuery: 'difficult choice' }))?.id).toBe('mood0');
+    // Le repli d'une team de la même catégorie réutilise la même recherche.
+    await service.gifFor(team('nothing here', { fallback: { giphyQuery: 'difficult choice' } }));
+    expect(giphy.calls.filter((u) => u.searchParams.get('q') === 'difficult choice')).toHaveLength(
+      1,
+    );
+    // Un GIF choisi à la main pour la catégorie passe avant.
+    const curated = await service.categoryGif({ giphyIds: ['pick'], giphyQuery: 'x' });
+    expect(curated?.id).toBe('pick');
   });
 
   it('spreads stable indexes', () => {

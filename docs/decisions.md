@@ -283,3 +283,10 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Validation à deux niveaux**, sur la même recherche (aucun appel en plus) : correspondance exacte d'abord, puis mot significatif de la requête. Des `giphyKeywords` écrits à la main restent stricts (pas de mot à mot).
 - **GIF d'ambiance par catégorie** en dernier recours (`giphyQuery` obligatoire, `giphyIds` facultatifs sur chaque catégorie) : une seule recherche par catégorie, 5 GIF répartis entre les teams selon leur nom. C'est un GIF générique, jamais présenté comme le personnage : l'esprit de D23 (pas de GIF trompeur) est respecté.
 - **Arène en grille** `1fr auto 1fr` : les deux cartes ont toujours la hauteur de la plus haute, et elles ne passent plus l'une sous l'autre entre 720 et 800 px.
+
+## D26 — Vignettes animées sur l'accueil, nombres retirés
+
+- **Le GIF d'ambiance de chaque catégorie (D25) devient sa vignette sur l'accueil**, dans un cadre 16:9 rayé qui garde l'icône Font Awesome en attendant (et en cas d'échec). Même service, même cache : aucun appel Giphy en plus de celui des replis.
+- **Version réduite** de Giphy (`fixed_height_small`, environ 14 Ko par vidéo) gardée dans le cache à côté du rendu normal ; chargement à l'approche de l'écran (`IntersectionObserver`), image fixe si les animations sont réduites.
+- **Un seul service Giphy pour tout le serveur** (`src/server/giphy-runtime.ts`) : deux routes avec chacune son cache auraient écrit le même fichier et effacé les entrées l'une de l'autre.
+- **Les nombres de rivalités disparaissent de l'accueil** (cartes et univers) : l'information n'intéresse pas le visiteur. Textes `themeCount` et `universeCount` supprimés.

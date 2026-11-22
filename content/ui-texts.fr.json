@@ -35,13 +35,8 @@
       "icon": "shuffle"
     },
     "themesLabel": "Choisis ton arène",
-    "themeCount": "{n} rivalités · ∞ débats",
     "play": "Jouer →",
-    "playUniverse": "Tout l’univers →",
-    "universeCount": {
-      "one": "{n} rivalité",
-      "other": "{n} rivalités"
-    }
+    "playUniverse": "Tout l’univers →"
   },
   "debate": {
     "pageTitle": "Débats",
