@@ -226,9 +226,10 @@ const sections = universes.map((u) => ({
     font-weight: 400;
   }
 
+  /* Toujours 4 colonnes (2 sur mobile), quel que soit le nombre de catégories de l'univers. */
   .theme-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
     margin: 0;
     padding: 0;
@@ -368,6 +369,7 @@ const sections = universes.map((u) => ({
     font-size: 2.125rem;
     line-height: 1;
     text-transform: uppercase;
+    overflow-wrap: break-word;
   }
 
   .theme-tagline {
@@ -381,6 +383,74 @@ const sections = universes.map((u) => ({
     font-family: var(--font-mono);
     font-size: 0.875rem;
     font-weight: 700;
+  }
+
+  /* Tablette et mobile : cartes compactes (icône réduite, le nom passe sous l'icône). */
+  @media (max-width: 1100px) {
+    .theme-grid .theme-card {
+      gap: 8px;
+      padding: 16px;
+    }
+
+    .theme-grid .theme-card :global(.theme-icon) {
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+    }
+
+    .theme-grid .theme-card .theme-count {
+      min-height: 34px;
+      padding-right: 42px;
+    }
+
+    .theme-grid .theme-card .theme-name {
+      padding-right: 0;
+      font-size: 1.5rem;
+    }
+
+    .theme-grid .theme-tagline {
+      font-size: 0.875rem;
+      line-height: 1.35;
+    }
+  }
+
+  /* Mobile : deux colonnes. */
+  @media (max-width: 720px) {
+    .theme-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .theme-grid .theme-card {
+      min-height: 200px;
+      padding: 14px;
+      box-shadow: 4px 4px 0 var(--fg);
+    }
+
+    .theme-grid .theme-card :global(.theme-icon) {
+      top: 12px;
+      right: 12px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .theme-grid .theme-card .theme-count {
+      min-height: 30px;
+      padding-right: 36px;
+    }
+
+    .theme-grid .theme-card .theme-name {
+      font-size: 1.375rem;
+    }
+
+    .theme-grid .theme-tagline {
+      font-size: 0.8125rem;
+    }
+
+    .theme-grid .theme-play {
+      font-size: 0.75rem;
+    }
   }
 
   .footnote {

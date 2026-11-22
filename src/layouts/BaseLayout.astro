@@ -4,7 +4,9 @@
  * Tous les textes viennent de `content/ui-texts.fr.json`.
  */
 import '../styles/global.css';
+import { version } from '../../package.json';
 import { ui } from '../data/content';
+import { formatText } from '../lib/format';
 import { OG_HEIGHT, OG_WIDTH, ogImagePath } from '../lib/og-path';
 import { serializeJsonLd } from '../lib/seo';
 
@@ -136,6 +138,7 @@ const imageUrl = new URL(image, Astro.site ?? Astro.url).href;
       <a class="footer-giphy" href={ui.footer.giphy.url} rel="noopener" target="_blank">
         {ui.footer.giphy.label}
       </a>
+      <p class="footer-version">{formatText(ui.footer.version, { version })}</p>
       <slot name="footer" />
     </footer>
     <script is:inline>
@@ -335,5 +338,10 @@ const imageUrl = new URL(image, Astro.site ?? Astro.url).href;
 
   .footer-giphy:hover {
     color: var(--fg);
+  }
+
+  .footer-version {
+    margin: 0;
+    font-size: 0.75rem;
   }
 </style>

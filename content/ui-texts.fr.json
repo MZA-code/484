@@ -200,7 +200,8 @@
       "mentions": "Mentions légales",
       "privacy": "Confidentialité",
       "accessibility": "Accessibilité : partiellement conforme"
-    }
+    },
+    "version": "Version {version}"
   },
   "projectsPage": {
     "title": "Mes autres projets",
@@ -235,20 +236,6 @@
       "text": "D’après Invasion Los Angeles (1988) : chausse-les, et les publicités révèlent enfin leur vrai message.",
       "url": "https://github.com/MZA-code/truth-glasses",
       "cta": "GitHub"
-    },
-    {
-      "kind": "MATÉRIEL · 2026",
-      "title": "Rondo",
-      "text": "Compteur moto open source sur écran rond ESP32-S3, avec GPS. Conçu pour une KDX 125 préparée rallye.",
-      "url": "https://github.com/MZA-code/rondo",
-      "cta": "GitHub"
-    },
-    {
-      "kind": "ET LE RESTE",
-      "title": "Les réserves",
-      "text": "Prototypes, essais et projets en cours dorment sur GitHub.",
-      "url": "https://github.com/MZA-code",
-      "cta": "github.com/MZA-code"
     }
   ],
   "pages": {

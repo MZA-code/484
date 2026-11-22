@@ -341,6 +341,8 @@ export const UiTextsSchema = z.object({
     projects: text,
     hallOfFame: text,
     disclaimer: text,
+    /** Numéro de version (celui de package.json). */
+    version: template('version'),
     giphy: z.object({ label: text, url: z.url() }),
     legal: z.object({
       label: text,
