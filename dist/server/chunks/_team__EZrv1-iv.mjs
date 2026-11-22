@@ -1,7 +1,7 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { n as categories, r as rivalries } from "./server_BI-EddGW.mjs";
-import { n as gifJson, r as GiphyError, t as getGiphyService } from "./giphy-runtime_DJyJG6mj.mjs";
-import { n as getVoteService } from "./runtime_Cjk02zLM.mjs";
+import { n as categories, o as tenorGif, r as rivalries } from "./server_BtJM-N7F.mjs";
+import { n as gifJson, r as GiphyError, t as getGiphyService } from "./giphy-runtime_CGNS7cvZ.mjs";
+import { n as getVoteService } from "./runtime_BdhnVmTq.mjs";
 // src/pages/api/gif/[rivalry]/[team].ts
 var _team__exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,
@@ -27,16 +27,24 @@ var GET = async ({ params }) => {
 	const side = params.team;
 	if (!rivalry || side !== "a" && side !== "b") return gifJson({ error: "unknown-team" }, 404, "public, max-age=3600");
 	const team = rivalry[side];
+	const links = team.gifUrls ?? [];
+	const handPicked = links.length + team.giphyIds.length;
+	const maxAge = handPicked === 1 ? 86400 : 3600;
+	const pick = Math.floor(Math.random() * handPicked);
+	const link = pick < links.length ? tenorGif(links[pick]) : null;
+	if (link) return gifJson(link, 200, `public, max-age=${maxAge}`);
 	const giphy = getGiphyService();
 	if (!giphy) return gifJson({ error: "giphy-not-configured" }, 503, "no-store");
 	try {
+		const chosen = team.giphyIds[pick - links.length];
+		const giphyIds = chosen ? [chosen] : team.giphyIds;
 		const gif = await giphy.gifFor({
 			...team,
+			giphyIds,
 			fallback: moodOf.get(rivalry.category)
 		}, rejectedGifs(rivalry.id, side));
 		if (!gif) return gifJson(null, 200, "public, max-age=3600");
-		const maxAge = team.giphyIds.length === 1 && team.giphyIds[0] === gif.id ? 86400 : 3600;
-		return gifJson(gif, 200, `public, max-age=${maxAge}`);
+		return gifJson(gif, 200, `public, max-age=${handPicked > 0 ? maxAge : 3600}`);
 	} catch (error) {
 		const status = error instanceof GiphyError ? error.status : 0;
 		console.warn(`[api/gif] ${rivalry.id}/${side}: Giphy failure (${status || "network"})`);
