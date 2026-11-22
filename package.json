@@ -1,6 +1,6 @@
 {
   "name": "484-duels",
-  "version": "1.3.1",
+  "version": "1.4.1",
   "private": true,
   "description": "Lequel tu préfères ? Duels infinis entre icônes de la pop culture.",
   "type": "module",
@@ -51,6 +51,7 @@
     "globals": "^17.14.0",
     "prettier": "^3.10.1",
     "prettier-plugin-astro": "^1.1.2",
+    "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.73.0",

@@ -18926,6 +18926,26 @@ function tenorGif(url) {
 		height: 0
 	};
 }
+/** Dossier public des images de teams (adresse vue par le navigateur). */
+var TEAM_IMAGES_DIR = "/images/teams/";
+var TEAM_IMAGE = /^\/images\/teams\/([a-z0-9-]+-([0-9a-f]{8}))(\.anim)?\.webp$/;
+/** Le chemin est-il une image de team rangée sur le site ? */
+function isTeamImage(path) {
+	return TEAM_IMAGE.test(path);
+}
+/** Une image de team, au format renvoyé par /api/gif : pas de vidéo, l'image et son aperçu fixe. */
+function teamImage(path) {
+	const match = TEAM_IMAGE.exec(path);
+	if (!match) return null;
+	return {
+		id: `img${match[2]}`,
+		mp4: "",
+		webp: path,
+		still: `${TEAM_IMAGES_DIR}${match[1]}.webp`,
+		width: 0,
+		height: 0
+	};
+}
 // src/lib/inline.ts
 /** Lien `[libellé](adresse)` : adresse interne ou https, sans espace. */
 var LINK = /\[([^\]]+)\]\(((?:\/|#|https:\/\/)[^\s)]*)\)/g;
@@ -18975,7 +18995,12 @@ var TeamSchema = z.object({
 	* GIF choisis à la main par un lien Tenor (`https://media.tenor.com/…`), quand Giphy n'a rien
 	* de bon. Tirés au sort avec les `giphyIds` (voir src/server/gif-links.ts).
 	*/
-	gifUrls: z.array(z.string().refine(isTenorUrl, "lien Tenor attendu, de la forme https://media.tenor.com/…/nom.gif (clic droit sur le GIF, « Copier l’adresse de l’image »)")).min(1, "mettre au moins un lien, ou retirer le champ").optional()
+	gifUrls: z.array(z.string().refine(isTenorUrl, "lien Tenor attendu, de la forme https://media.tenor.com/…/nom.gif (clic droit sur le GIF, « Copier l’adresse de l’image »)")).min(1, "mettre au moins un lien, ou retirer le champ").optional(),
+	/**
+	* Images rangées sur le site (`/images/teams/…webp`), importées par la page de curation quand
+	* ni Giphy ni Tenor n'ont rien. Tirées au sort avec les autres GIF choisis à la main.
+	*/
+	images: z.array(z.string().refine(isTeamImage, "image attendue, de la forme /images/teams/nom-1a2b3c4d.webp (à importer avec npm run gif-audit)")).min(1, "mettre au moins une image, ou retirer le champ").optional()
 });
 var RivalrySchema = z.object({
 	id: slug,
@@ -19408,6 +19433,7 @@ var TECHNICAL_KEYS = /* @__PURE__ */ new Set([
 	"giphyQuery",
 	"giphyKeywords",
 	"gifUrls",
+	"images",
 	"kind",
 	"version"
 ]);
@@ -19515,4 +19541,4 @@ var VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
 var VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
 var GIF_REPORT_TOKEN = _internalGetSecret("GIF_REPORT_TOKEN");
 var TRUST_PROXY = _internalGetSecret("TRUST_PROXY");
-export { universes as a, ui as i, categories as n, tenorGif as o, rivalries as r, getSecret as t };
+export { universes as a, ui as i, categories as n, teamImage as o, rivalries as r, tenorGif as s, getSecret as t };

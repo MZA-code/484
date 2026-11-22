@@ -1,7 +1,7 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { n as categories, o as tenorGif, r as rivalries } from "./server_Lg2WpWrd.mjs";
-import { n as gifJson, r as GiphyError, t as getGiphyService } from "./giphy-runtime_Cvq70K44.mjs";
-import { n as getVoteService } from "./runtime_By4MsoVd.mjs";
+import { n as categories, o as teamImage, r as rivalries, s as tenorGif } from "./server_COcyA0ZK.mjs";
+import { n as gifJson, r as GiphyError, t as getGiphyService } from "./giphy-runtime_CR3ySKA1.mjs";
+import { n as getVoteService } from "./runtime_CzUGee_N.mjs";
 // src/pages/api/gif/[rivalry]/[team].ts
 var _team__exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,
@@ -27,16 +27,16 @@ var GET = async ({ params }) => {
 	const side = params.team;
 	if (!rivalry || side !== "a" && side !== "b") return gifJson({ error: "unknown-team" }, 404, "public, max-age=3600");
 	const team = rivalry[side];
-	const links = team.gifUrls ?? [];
-	const handPicked = links.length + team.giphyIds.length;
+	const direct = [...(team.gifUrls ?? []).map(tenorGif), ...(team.images ?? []).map(teamImage)];
+	const handPicked = direct.length + team.giphyIds.length;
 	const maxAge = handPicked === 1 ? 86400 : 3600;
 	const pick = Math.floor(Math.random() * handPicked);
-	const link = pick < links.length ? tenorGif(links[pick]) : null;
+	const link = pick < direct.length ? direct[pick] : null;
 	if (link) return gifJson(link, 200, `public, max-age=${maxAge}`);
 	const giphy = getGiphyService();
 	if (!giphy) return gifJson({ error: "giphy-not-configured" }, 503, "no-store");
 	try {
-		const chosen = team.giphyIds[pick - links.length];
+		const chosen = team.giphyIds[pick - direct.length];
 		const giphyIds = chosen ? [chosen] : team.giphyIds;
 		const gif = await giphy.gifFor({
 			...team,
