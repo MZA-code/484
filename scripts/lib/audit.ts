@@ -2,7 +2,7 @@
  * Analyse pour `npm run gif-audit` : signalements par team, et repérage des œuvres françaises
  * (Giphy connaît mal le cinéma, la BD et la télé françaises : leurs GIF sont à vérifier en priorité).
  */
-import { normalizeText } from '../../src/server/gif-match';
+import { normalizeText } from '../../src/lib/gif-match';
 
 /** Catégories entièrement faites d'œuvres françaises. */
 export const FRENCH_CATEGORIES: readonly string[] = ['cinefr'];

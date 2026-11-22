@@ -279,6 +279,7 @@
     "back": "Retour aux débats →"
   },
   "footer": {
+    "links": "Le site et son auteur",
     "projects": "Voir mes autres projets →",
     "disclaimer": "Aucune team n’a été blessée pendant les débats. Leur ego, si.",
     "giphy": {
@@ -286,7 +287,7 @@
       "url": "https://giphy.com/"
     },
     "tenor": {
-      "label": "GIF via Tenor",
+      "label": "Powered by Tenor",
       "url": "https://tenor.com/"
     },
     "hallOfFame": "Hall of Fame",
@@ -450,9 +451,10 @@
         {
           "title": "Les GIF, fournis par GIPHY et Tenor",
           "blocks": [
-            "Les GIF sont recherchés par le serveur du site, pas par ton navigateur : tes choix ne sont jamais transmis à GIPHY.",
-            "Ton navigateur télécharge ensuite les vidéos directement depuis les serveurs de GIPHY, une société américaine. Comme pour toute image chargée sur Internet, GIPHY reçoit alors ton adresse IP et des informations techniques sur ton navigateur. Ces serveurs ne déposent aucun cookie.",
+            "Les GIF de GIPHY, une société américaine, sont demandés directement par ton navigateur, comme GIPHY l’exige des sites web : ton navigateur interroge le service de GIPHY, puis télécharge les vidéos depuis ses serveurs.",
+            "GIPHY reçoit alors ton adresse IP, des informations techniques sur ton navigateur et ce qui est demandé : le nom de la team affichée (pour la recherche) ou le numéro du GIF choisi. Tes votes, eux, ne lui sont jamais transmis. Ni le service de GIPHY ni ses serveurs d’images ne déposent de cookie (vérifié le 22 novembre 2026).",
             "Quelques GIF, choisis à la main par l’éditeur, viennent de Tenor, un service de Google. Ton navigateur les télécharge depuis les serveurs d’images de Tenor, qui reçoivent de la même façon ton adresse IP et des informations techniques. Ces serveurs ne déposent aucun cookie (vérifié le 22 novembre 2026).",
+            "Certaines images sont rangées sur le site lui-même : elles ne passent par aucun service tiers.",
             "Pour en savoir plus : la [politique de confidentialité de GIPHY](https://giphy.com/privacy) et les [règles de confidentialité de Google](https://policies.google.com/privacy)."
           ]
         },

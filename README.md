@@ -90,18 +90,20 @@ Le site suit le réglage « réduire les animations » du système : avec ce ré
 
 ### Comment le site choisit le GIF d'une team
 
-La route `/api/gif/<rivalité>/<a|b>` suit cet ordre, sans exception :
+**Qui appelle Giphy ?** Le navigateur, directement : c'est la règle de GIPHY pour une application web (pas de serveur intermédiaire, aucune réponse ni adresse gardée en cache, adresses utilisées telles quelles). La route `/api/gif/<rivalité>/<a|b>` ne fait que préparer un « plan » : le GIF choisi à la main tiré au sort, ou la recherche avec ses mots-clés de validation, les GIF écartés par les signalements et le GIF d'ambiance de la catégorie. Le navigateur l'exécute avec `src/lib/giphy.ts`. La clé Giphy du site part donc dans ce plan : une clé web est publique par nature. Après un « quota dépassé », le navigateur n'appelle plus Giphy jusqu'à la fin de la visite.
+
+L'ordre est toujours le même, sans exception :
 
 1. **GIF choisis à la main** : les `giphyIds`, les liens Tenor `gifUrls` et les images du site `images`, un au hasard parmi tous. C'est la seule source vraiment fiable.
 2. **Recherche Giphy** avec `giphyQuery` (`lang=fr`, `rating=g`, 25 résultats), **validée** sur le titre, le slug ou le nom de l'auteur du GIF (sans accents, sans casse, en mots entiers) :
    - d'abord **exacte** : il contient un mot-clé entier de la team (son nom, sa requête, ou ses `giphyKeywords`) ;
    - puis **mot à mot** (seulement sans `giphyKeywords`) : il contient un mot significatif de la requête, 4 lettres ou plus, hors mots vagues comme « film » ou « funny ». C'est ce qui donne un GIF aux teams « idées » (« Contrôler la météo » → `weather control` → « Weather Map Storm »).
 3. **GIF d'ambiance de la catégorie** : ses `giphyIds` si tu en as choisi, sinon les premiers résultats de sa recherche générique (`giphyQuery` de la catégorie, par exemple `difficult choice` pour les dilemmes). Chaque team reçoit toujours le même parmi 5, pas toutes le même.
-4. **Rien** : la route renvoie `null` et la carte garde son cadre rayé avec le nom (seulement si Giphy ne renvoie rien du tout).
+4. **Rien** : la carte garde son cadre rayé avec le nom (seulement si Giphy ne renvoie rien du tout, ou refuse : quota dépassé).
 
 Un résultat de recherche non validé n'est jamais présenté comme la team : au pire, la carte montre un GIF d'ambiance de sa catégorie.
 
-Ce même GIF d'ambiance sert de vignette aux cartes des catégories sur l'accueil (`GET /api/category-gif/<catégorie>`, version réduite de Giphy, une quinzaine de Ko). Les vignettes ne se chargent qu'à l'approche de l'écran, en image fixe si les animations sont réduites ; tant qu'elles chargent, ou si Giphy ne répond pas, l'icône de la catégorie reste affichée. Pour changer la vignette d'une catégorie : modifier son `giphyQuery`, ou lui donner des `giphyIds` dans `content/rivalries.json`.
+Ce même GIF d'ambiance sert de vignette aux cartes des catégories sur l'accueil (`GET /api/category-gif/<catégorie>` donne quoi demander, le navigateur demande à Giphy la version réduite, une quinzaine de Ko). Les vignettes ne se chargent qu'à l'approche de l'écran, en image fixe si les animations sont réduites ; tant qu'elles chargent, ou si Giphy ne répond pas, l'icône de la catégorie reste affichée. Pour changer la vignette d'une catégorie : modifier son `giphyQuery`, ou lui donner des `giphyIds` dans `content/rivalries.json`.
 
 Les mots-clés se règlent avec le champ facultatif `giphyKeywords` :
 
@@ -150,7 +152,7 @@ L'image est servie par le site lui-même : aucun service tiers, rien à changer 
 
 Sous chaque carte, un bouton discret « Mauvais GIF ? » envoie `POST /api/gif-report { teamId, gifId }`. Le serveur ajoute un signalement au compteur de ce GIF dans la base SQLite des votes (tables `gif_reports` et `report_limits`) : jamais d'IP, seulement l'empreinte quotidienne déjà utilisée pour les votes. Limite : 3 signalements d'affilée, puis 1 par minute, 30 par jour et par visiteur. Un visiteur ne compte qu'**une fois par jour pour un même GIF**.
 
-**Remplacement automatique.** La recherche garde en cache jusqu'à 5 GIF validés par team. Dès qu'un GIF trouvé par la recherche atteint **3 signalements** (`GIF_REJECT_THRESHOLD`, donc 3 visiteurs différents, ou 3 jours), le site passe au suivant de la liste, sans nouvel appel à Giphy. Si les 5 sont écartés, la carte garde le cadre rayé. Les GIF choisis à la main (`giphyIds`) ne sont jamais écartés automatiquement : ils apparaissent dans `npm run gif-audit`, et c'est toi qui décides. Le navigateur garde la réponse une heure : un remplacement se voit au plus tard une heure après.
+**Remplacement automatique.** La recherche retient jusqu'à 5 GIF validés par team. Dès qu'un GIF trouvé par la recherche atteint **3 signalements** (`GIF_REJECT_THRESHOLD`, donc 3 visiteurs différents, ou 3 jours), le plan le transmet comme écarté et le navigateur prend le suivant de la liste. Si les 5 sont écartés, la carte garde le cadre rayé. Les GIF choisis à la main (`giphyIds`) ne sont jamais écartés automatiquement : ils apparaissent dans `npm run gif-audit`, et c'est toi qui décides. Le navigateur garde la réponse une heure : un remplacement se voit au plus tard une heure après.
 
 Pour lire les signalements du site en ligne depuis ton poste, choisis un jeton (une longue chaîne aléatoire) et mets-le **aux deux endroits** :
 

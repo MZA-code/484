@@ -330,3 +330,21 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 ## D31 — Marque officielle « Powered by GIPHY » (version 1.4.3)
 
 GIPHY exige d'afficher ses marques d'attribution officielles là où l'API est utilisée : condition pour obtenir la clé de production. Le simple texte du pied de page est remplacé par le badge officiel (`public/images/giphy/powered-by-giphy.gif`, 200 × 42, tiré du kit de GIPHY, original dans `docs/giphy/`), lien vers giphy.com. Le badge est animé ; quand les animations sont réduites (réglage du système ou interrupteur de l'en-tête), une version fixe (première image, `powered-by-giphy.png`) s'affiche à la place. Le texte `footer.giphy.label` sert de texte alternatif.
+
+## D32 — Giphy appelé par le navigateur, selon les règles de GIPHY (version 1.5.0)
+
+**Constat.** La documentation de GIPHY pour les développeurs (« Prohibited Integration Practices », lue le 22/11/2026) interdit trois choses que le site faisait ou allait faire : mettre en cache les réponses de l'API ou les adresses des médias (« Do not cache API responses or media URLs »), passer par un serveur intermédiaire (« Do not proxy requests to GIPHY […] All requests to GIPHY should be made directly from the client side »), et modifier les adresses renvoyées (« Do not strip or modify URLs returned by the API »). C'est ce que GIPHY vérifie avant d'accorder une clé de production. L'idée de déduire l'adresse d'un GIF de son identifiant, sans appel à l'API, est donc abandonnée.
+
+**Décisions.**
+
+- **Le serveur prépare, le navigateur appelle.** `/api/gif` et `/api/category-gif` renvoient un plan (GIF choisi tiré au sort, recherche, mots-clés, GIF écartés, GIF d'ambiance) ; `src/lib/giphy.ts` l'exécute dans le navigateur. Toute la logique de choix reste la même ; les liens Tenor et les images du site restent servis tels quels.
+- **Aucun cache de Giphy** : ni fichier, ni mémoire côté serveur. `data/gif-cache.json` est supprimé au démarrage. Dans le navigateur, une carte garde le GIF choisi pendant la visite, et la vidéo du prochain challenger est préchargée par un lecteur caché (cache HTTP ordinaire du navigateur), plus par une copie `blob:`.
+- **Adresses intactes** : les cartes affichent les adresses renvoyées par Giphy, paramètres compris.
+- **Clé publique** : la clé du site part dans le plan. C'est le cas de toute clé web Giphy ; il vaut mieux une autre clé pour `npm run gif-audit`, pour que la curation n'entame pas le quota du site.
+- **Quota** : après un 429, le navigateur n'appelle plus Giphy jusqu'à la fin de la visite. Avec une clé beta (100 appels par heure pour tout le site), le quota s'épuise vite : cette version suppose la clé de production.
+- **Confidentialité** : GIPHY reçoit désormais, depuis le navigateur du visiteur, le nom de la team cherchée ou le numéro du GIF. La page Confidentialité le dit ; aucun cookie (vérifié).
+- **Non fait** : les appels d'analyse recommandés par GIPHY (« onload », « onclick ») demandent un identifiant de visiteur ; le site n'en a pas et n'en veut pas.
+
+## D33 — Pied de page en trois étages (version 1.5.0)
+
+Le pied de page mélangeait les liens de l'auteur, la phrase d'humour, les mentions légales, la version et les attributions. Il est rangé en trois étages : la phrase d'humour seule ; une ligne avec le Hall of Fame et « Voir mes autres projets » à gauche, les badges officiels « Powered by GIPHY » et « powered by tenor » à droite ; sous un filet, les liens d'information et la version. Le logo Tenor est la version blanche officielle (`PB_tenor_logo_white_horizontal.svg`, kit d'attribution de Tenor), posée sur un fond noir de la hauteur du badge GIPHY ; il n'apparaît que si des liens Tenor sont utilisés.

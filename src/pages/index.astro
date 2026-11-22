@@ -123,11 +123,13 @@ const sections = universes.map((u) => ({
 </BaseLayout>
 
 <script>
+  import { giphyClientFor, thumbnailOf, type CategoryGiphyPlan } from '../lib/giphy';
   import { MOTION_EVENT, prefersReducedMotion } from '../lib/motion-pref';
 
   /**
    * Vignettes animées des catégories : chargées seulement à l'approche de l'écran, en image
-   * fixe si les animations sont réduites. En cas d'échec, l'icône reste : rien ne casse.
+   * fixe si les animations sont réduites. Le site dit quoi demander, le navigateur appelle
+   * Giphy lui-même (règles de GIPHY). En cas d'échec, l'icône reste : rien ne casse.
    */
   interface Thumbnail {
     mp4: string;
@@ -179,7 +181,9 @@ const sections = universes.map((u) => ({
       const id = encodeURIComponent(frame.dataset['categoryGif'] ?? '');
       const response = await fetch(`/api/category-gif/${id}`);
       if (!response.ok) return giveUp();
-      const gif = (await response.json()) as Thumbnail | null;
+      const plan = (await response.json()) as CategoryGiphyPlan;
+      const found = await giphyClientFor(plan.key).categoryGif(plan);
+      const gif = found ? thumbnailOf(found) : null;
       if (!gif?.mp4 || !gif.still) return giveUp();
       thumbnails.set(frame, gif);
       show(frame, gif);

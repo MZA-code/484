@@ -17,12 +17,9 @@ export default defineConfig({
     // Secrets lus au démarrage du serveur (fichier .env ou variables d'environnement),
     // jamais intégrés au code envoyé au navigateur.
     schema: {
+      // Clé Giphy du site : envoyée au navigateur par /api/gif, qui appelle Giphy lui-même
+      // (règle de GIPHY pour le web). Une clé web est publique par nature.
       GIPHY_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
-      GIF_CACHE_FILE: envField.string({
-        context: 'server',
-        access: 'secret',
-        default: 'data/gif-cache.json',
-      }),
       OG_CACHE_DIR: envField.string({ context: 'server', access: 'secret', default: 'data/og' }),
       VOTE_HASH_SALT: envField.string({ context: 'server', access: 'secret', optional: true }),
       VOTES_DB_FILE: envField.string({

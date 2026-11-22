@@ -125,59 +125,84 @@ const usesTenor = rivalries.some(
     </main>
 
     <footer class="site-footer container">
-      <a class="footer-projects" href="/projets">
-        {ui.footer.projects}
-      </a>
-      <a class="footer-hall" href="/hall-of-fame">
-        {ui.footer.hallOfFame}
-      </a>
+      {/* 1. Le mot de la fin. */}
       <p class="footer-disclaimer">{ui.footer.disclaimer}</p>
-      <nav class="footer-legal" aria-label={ui.footer.legal.label}>
-        <ul>
-          <li>
-            <a href="/debats">{ui.footer.legal.debates}</a>
-          </li>
-          <li>
-            <a href="/a-propos">{ui.footer.legal.about}</a>
-          </li>
-          <li>
-            <a href="/mentions-legales">{ui.footer.legal.mentions}</a>
-          </li>
-          <li>
-            <a href="/confidentialite">{ui.footer.legal.privacy}</a>
-          </li>
-          <li>
-            <a href="/accessibilite">{ui.footer.legal.accessibility}</a>
-          </li>
-        </ul>
-      </nav>
-      {/* Marque officielle « Powered by GIPHY » (exigée par GIPHY), fixe si les animations sont réduites. */}
-      <a class="footer-giphy-badge" href={ui.footer.giphy.url} rel="noopener" target="_blank">
-        <img
-          class="giphy-badge-animated"
-          src="/images/giphy/powered-by-giphy.gif"
-          width="200"
-          height="42"
-          alt={ui.footer.giphy.label}
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          class="giphy-badge-still"
-          src="/images/giphy/powered-by-giphy.png"
-          width="200"
-          height="42"
-          alt={ui.footer.giphy.label}
-          loading="lazy"
-          decoding="async"
-        />
-      </a>
-      {usesTenor && (
-        <a class="footer-giphy" href={ui.footer.tenor.url} rel="noopener" target="_blank">
-          {ui.footer.tenor.label}
-        </a>
-      )}
-      <p class="footer-version">{formatText(ui.footer.version, { version })}</p>
+
+      {/* 2. Le site et son auteur, puis les marques d'attribution des GIF (exigées par GIPHY et Tenor). */}
+      <div class="footer-row">
+        <nav class="footer-links" aria-label={ui.footer.links}>
+          <a class="footer-hall" href="/hall-of-fame">
+            {ui.footer.hallOfFame}
+          </a>
+          <a class="footer-projects" href="/projets">
+            {ui.footer.projects}
+          </a>
+        </nav>
+        <div class="footer-credits">
+          {/* Badge officiel « Powered by GIPHY », fixe si les animations sont réduites. */}
+          <a class="footer-badge" href={ui.footer.giphy.url} rel="noopener" target="_blank">
+            <img
+              class="giphy-badge-animated"
+              src="/images/giphy/powered-by-giphy.gif"
+              width="200"
+              height="42"
+              alt={ui.footer.giphy.label}
+              loading="lazy"
+              decoding="async"
+            />
+            <img
+              class="giphy-badge-still"
+              src="/images/giphy/powered-by-giphy.png"
+              width="200"
+              height="42"
+              alt={ui.footer.giphy.label}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+          {usesTenor && (
+            <a
+              class="footer-badge footer-badge-tenor"
+              href={ui.footer.tenor.url}
+              rel="noopener"
+              target="_blank"
+            >
+              <img
+                src="/images/tenor/powered-by-tenor.svg"
+                width="141"
+                height="18"
+                alt={ui.footer.tenor.label}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          )}
+        </div>
+      </div>
+
+      {/* 3. Informations légales et version. */}
+      <div class="footer-bottom">
+        <nav class="footer-legal" aria-label={ui.footer.legal.label}>
+          <ul>
+            <li>
+              <a href="/debats">{ui.footer.legal.debates}</a>
+            </li>
+            <li>
+              <a href="/a-propos">{ui.footer.legal.about}</a>
+            </li>
+            <li>
+              <a href="/mentions-legales">{ui.footer.legal.mentions}</a>
+            </li>
+            <li>
+              <a href="/confidentialite">{ui.footer.legal.privacy}</a>
+            </li>
+            <li>
+              <a href="/accessibilite">{ui.footer.legal.accessibility}</a>
+            </li>
+          </ul>
+        </nav>
+        <p class="footer-version">{formatText(ui.footer.version, { version })}</p>
+      </div>
       <slot name="footer" />
     </footer>
     <script is:inline>
@@ -297,29 +322,61 @@ const usesTenor = rivalries.some(
     color: #fff;
   }
 
+  /*
+   * Pied de page en trois étages : le mot de la fin ; les liens du site et de l'auteur à
+   * gauche, les marques d'attribution des GIF à droite ; enfin les informations légales et la
+   * version, sous un filet.
+   */
   .site-footer {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px 24px;
+    flex-direction: column;
+    gap: 20px;
     margin-top: 56px;
-    padding-block: 24px;
+    padding-block: 32px 24px;
     border-top: 1px solid #3a3a3a;
     color: var(--fg-muted);
     font-family: var(--font-mono);
     font-size: 0.8125rem;
   }
 
+  .footer-disclaimer {
+    margin: 0;
+    color: var(--fg);
+    font-style: italic;
+  }
+
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 32px;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 28px;
+  }
+
+  .footer-hall,
   .footer-projects {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    color: var(--yellow);
     font-size: 0.875rem;
     font-weight: 700;
-    text-decoration: underline;
     text-underline-offset: 4px;
+  }
+
+  .footer-hall {
+    color: var(--fg);
+  }
+
+  .footer-projects {
+    color: var(--yellow);
+    text-decoration: underline;
   }
 
   .footer-projects:hover,
@@ -327,19 +384,64 @@ const usesTenor = rivalries.some(
     color: #fff;
   }
 
-  .footer-hall {
+  /* Marques d'attribution : les badges officiels, tels que fournis, à la même hauteur. */
+  .footer-credits {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-badge {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    color: var(--fg);
-    font-weight: 700;
-    text-underline-offset: 4px;
   }
 
-  /* Liens d'information : une ligne pleine largeur, qui passe à la ligne sur mobile. */
-  .footer-legal {
-    flex-basis: 100%;
-    order: 10;
+  .footer-badge img {
+    display: block;
+  }
+
+  /* Le logo Tenor (blanc, sans fond) posé sur un fond noir de la hauteur du badge GIPHY. */
+  .footer-badge-tenor img {
+    box-sizing: content-box;
+    width: 141px;
+    height: 18px;
+    padding: 12px;
+    background: #000;
+  }
+
+  /* Une seule des deux images GIPHY est visible : l'animée, ou la fixe si les animations sont réduites. */
+  .giphy-badge-still {
+    display: none !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(:root:not([data-motion='full'])) .giphy-badge-animated {
+      display: none !important;
+    }
+
+    :global(:root:not([data-motion='full'])) .giphy-badge-still {
+      display: block !important;
+    }
+  }
+
+  :global(:root[data-motion='reduced']) .giphy-badge-animated {
+    display: none !important;
+  }
+
+  :global(:root[data-motion='reduced']) .giphy-badge-still {
+    display: block !important;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0 24px;
+    padding-top: 12px;
+    border-top: 1px dashed #3a3a3a;
   }
 
   .footer-legal ul {
@@ -362,59 +464,6 @@ const usesTenor = rivalries.some(
   .footer-legal a:hover,
   .footer-legal a:focus-visible {
     color: var(--fg);
-  }
-
-  /* Attribution Giphy obligatoire, mais discrète. */
-  .footer-giphy {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    color: var(--fg-muted);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-  }
-
-  .footer-giphy:hover {
-    color: var(--fg);
-  }
-
-  .footer-giphy-badge {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-  }
-
-  .footer-giphy-badge img {
-    width: 200px;
-    height: 42px;
-  }
-
-  /* Une seule des deux images est visible : l'animée, ou la fixe si les animations sont réduites. */
-  .giphy-badge-animated {
-    display: block;
-  }
-
-  .giphy-badge-still {
-    display: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    :global(:root:not([data-motion='full'])) .giphy-badge-animated {
-      display: none;
-    }
-
-    :global(:root:not([data-motion='full'])) .giphy-badge-still {
-      display: block;
-    }
-  }
-
-  :global(:root[data-motion='reduced']) .giphy-badge-animated {
-    display: none;
-  }
-
-  :global(:root[data-motion='reduced']) .giphy-badge-still {
-    display: block;
   }
 
   .footer-version {

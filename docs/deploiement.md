@@ -13,7 +13,7 @@ résultat dans la branche `production`, que le serveur se contente de récupére
 | Application               | `~/team484` : clone Git du dépôt, branche `production`                                                   |
 | Version de Node.js        | 24.22.3, mode Production                                                                                 |
 | Fichier de démarrage      | `app.cjs` (lance `dist/server/entry.mjs`)                                                                |
-| Données                   | `~/team484/data/` : votes, cache des GIF, images de partage                                              |
+| Données                   | `~/team484/data/` : votes, images de partage                                                             |
 | Variables (cPanel)        | `GIPHY_API_KEY`, `VOTE_HASH_SALT`, `TRUST_PROXY=true`, `GIF_REPORT_TOKEN`                                |
 
 ## Mettre à jour le site
@@ -93,5 +93,5 @@ curl -sI http://www.team484.fr/debats | grep -i location   # → https://team484
 ## Sauvegardes
 
 La base des votes est le seul fichier précieux : `~/team484/data/votes.sqlite`.
-Le cache des GIF et les images de partage se reconstruisent tout seuls.
+Les images de partage se reconstruisent toutes seules. (L'ancien cache des GIF, `data/gif-cache.json`, est supprimé au démarrage depuis la version 1.5.0 : GIPHY interdit de garder ses réponses.)
 o2switch sauvegarde l'hébergement chaque jour (outil « JetBackup » dans cPanel).

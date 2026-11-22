@@ -422,6 +422,8 @@ export const UiTextsSchema = z.object({
   }),
   notFound: z.object({ pageTitle: text, code: text, title: text, text, back: text }),
   footer: z.object({
+    /** Nom (pour les lecteurs d'écran) du groupe de liens Hall of Fame / autres projets. */
+    links: text,
     projects: text,
     hallOfFame: text,
     disclaimer: text,

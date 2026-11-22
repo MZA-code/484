@@ -1,22 +1,24 @@
 /**
- * Instance unique du service Giphy pour le serveur Astro, partagée par toutes les routes :
- * un seul cache en mémoire, un seul fichier `data/gif-cache.json`.
+ * Clé Giphy du site, transmise au navigateur dans les plans de /api/gif et /api/category-gif :
+ * c'est le navigateur qui appelle Giphy (règle de GIPHY pour le web, voir src/lib/giphy.ts).
  */
+import { rmSync } from 'node:fs';
 import { getSecret } from 'astro:env/server';
-import { createFileCache } from './gif-cache';
-import { createGiphyService, type GiphyService } from './giphy';
 
-let service: GiphyService | null = null;
+let oldCacheRemoved = false;
 
-/** null si la clé Giphy n'est pas configurée. */
-export function getGiphyService(): GiphyService | null {
-  const apiKey = getSecret('GIPHY_API_KEY');
-  if (!apiKey) return null;
-  service ??= createGiphyService({
-    apiKey,
-    cache: createFileCache(getSecret('GIF_CACHE_FILE') ?? 'data/gif-cache.json'),
-  });
-  return service;
+/** undefined si la clé Giphy n'est pas configurée. */
+export function getGiphyKey(): string | undefined {
+  // Les versions avant 1.5.0 gardaient les réponses de Giphy dans un fichier : GIPHY l'interdit.
+  if (!oldCacheRemoved) {
+    oldCacheRemoved = true;
+    try {
+      rmSync('data/gif-cache.json', { force: true });
+    } catch {
+      // Fichier absent ou protégé : rien d'autre à faire.
+    }
+  }
+  return getSecret('GIPHY_API_KEY') || undefined;
 }
 
 export const gifJson = (body: unknown, status: number, cacheControl: string) =>

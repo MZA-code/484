@@ -11,7 +11,7 @@
  * `AAAAe` aperçu fixe. Vérifié le 22/11/2026 ; si Tenor change ce schéma, la carte garde
  * simplement son cadre rayé.
  */
-import type { Gif } from './giphy';
+import type { Gif } from '../lib/giphy';
 
 const TENOR_HOST = /^media\d*\.tenor\.com$/;
 // Le nom peut contenir des caractères encodés (`jeanne%26serge`, `y%27a-quelqu%27un`) : on le

@@ -21,8 +21,8 @@ import {
   tenorGif,
   tenorGifId,
 } from '../../src/server/gif-links';
-import { keywordsFor, matchesKeywords, queryWords, type GifText } from '../../src/server/gif-match';
-import { toGif, type Gif } from '../../src/server/giphy';
+import { keywordsFor, matchesKeywords, queryWords, type GifText } from '../../src/lib/gif-match';
+import { toGif, type Gif } from '../../src/lib/giphy';
 import { importTeamImage, isImageSource } from './team-images';
 
 const RIVALRIES_FILE = new URL('../../content/rivalries.json', import.meta.url);

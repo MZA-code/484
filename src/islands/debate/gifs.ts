@@ -1,12 +1,15 @@
 /**
  * Chargement et préchargement des GIF côté navigateur.
  *
- * Pour qu'un duel s'enchaîne sans attente, le MP4 du prochain challenger est téléchargé
- * à l'avance et gardé en mémoire (URL « blob: »). Les médias de Giphy autorisent CORS.
- * En cas d'échec à n'importe quelle étape, on renvoie null ou l'URL directe : la carte
- * garde alors son cadre rayé, et le jeu continue.
+ * Le site dit quoi afficher (/api/gif renvoie un plan) ; pour Giphy, c'est le navigateur qui
+ * appelle l'API directement et affiche les adresses telles quelles (règles de GIPHY, voir
+ * src/lib/giphy.ts). Pour qu'un duel s'enchaîne sans attente, la vidéo du prochain challenger
+ * est préchargée par un lecteur caché : le navigateur la garde dans son cache HTTP habituel.
+ * En cas d'échec à n'importe quelle étape, on renvoie null : la carte garde son cadre rayé,
+ * et le jeu continue.
  */
 import { useEffect, useState } from 'preact/hooks';
+import { giphyClientFor, type TeamGifPlan } from '../../lib/giphy';
 
 /** Abonnés au rafraîchissement d'un GIF (voir refreshGif). */
 const refreshListeners = new Set<(gifKey: string) => void>();
@@ -18,40 +21,36 @@ export interface GifInfo {
   still: string;
 }
 
-/** Nombre de vidéos gardées en mémoire (les deux à l'écran + celles préchargées). */
-const MAX_BLOBS = 10;
-
+/** GIF choisi pour chaque team pendant cette visite (la même carte ne change pas de GIF). */
 const infos = new Map<string, Promise<GifInfo | null>>();
-const blobs = new Map<string, Promise<string>>();
-/** Vidéos affichées en ce moment : jamais évincées du cache. */
-const inUse = new Map<string, number>();
 
-function retain(mp4: string): void {
-  inUse.set(mp4, (inUse.get(mp4) ?? 0) + 1);
-}
-
-function release(mp4: string): void {
-  const count = (inUse.get(mp4) ?? 1) - 1;
-  if (count > 0) inUse.set(mp4, count);
-  else inUse.delete(mp4);
-}
+/** Lecteurs cachés qui préchargent les prochaines vidéos (les plus anciens sont libérés). */
+const MAX_PRELOADED = 6;
+const preloaded = new Map<string, HTMLVideoElement>();
 
 /** Clé du GIF d'une team : « rivalité/a » ou « rivalité/b ». */
 export function teamGifKey(rivalryId: string, team: 'a' | 'b'): string {
   return `${rivalryId}/${team}`;
 }
 
-/** Métadonnées du GIF d'une team, demandées une seule fois par visite (`reload` : redemander). */
+async function resolve(plan: TeamGifPlan | null): Promise<GifInfo | null> {
+  if (!plan) return null;
+  if (plan.kind === 'gif') return plan.gif;
+  return giphyClientFor(plan.key).teamGif(plan);
+}
+
+/** GIF d'une team, choisi une seule fois par visite (`reload` : redemander au site). */
 export function gifInfo(gifKey: string, reload = false): Promise<GifInfo | null> {
   let pending = reload ? undefined : infos.get(gifKey);
   if (!pending) {
     const url = `/api/gif/${gifKey.split('/').map(encodeURIComponent).join('/')}`;
-    // `reload` contourne aussi le cache du navigateur (une heure) : le serveur a changé de GIF.
+    // `reload` contourne aussi le cache du navigateur (une heure) : le site a changé de GIF.
     pending = fetch(url, reload ? { cache: 'reload' } : undefined)
-      .then((r) => (r.ok ? (r.json() as Promise<GifInfo>) : null))
+      .then((r) => (r.ok ? (r.json() as Promise<TeamGifPlan>) : null))
+      .then(resolve)
       .catch(() => null);
     infos.set(gifKey, pending);
-    // Un échec réseau ne doit pas être définitif : on pourra réessayer plus tard.
+    // Un échec ne doit pas être définitif : on pourra réessayer plus tard.
     void pending.then((info) => {
       if (!info) infos.delete(gifKey);
     });
@@ -80,28 +79,20 @@ export function useGifVersion(gifKey: string): number {
   return version;
 }
 
-/** URL locale (blob:) de la vidéo, ou l'URL d'origine si le téléchargement échoue. */
-function videoUrl(mp4: string): Promise<string> {
-  const hit = blobs.get(mp4);
-  if (hit) {
-    // Rafraîchit la position dans l'ordre d'utilisation (LRU).
-    blobs.delete(mp4);
-    blobs.set(mp4, hit);
-    return hit;
+/** Précharge une vidéo avec un lecteur caché, à son adresse d'origine. */
+function preloadVideo(src: string): void {
+  if (preloaded.has(src)) return;
+  const video = document.createElement('video');
+  video.muted = true;
+  video.preload = 'auto';
+  video.src = src;
+  preloaded.set(src, video);
+  for (const [key, old] of preloaded) {
+    if (preloaded.size <= MAX_PRELOADED) break;
+    preloaded.delete(key);
+    old.removeAttribute('src');
+    old.load();
   }
-  const pending = fetch(mp4)
-    .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(String(r.status)))))
-    .then((blob) => URL.createObjectURL(blob))
-    .catch(() => mp4);
-  blobs.set(mp4, pending);
-  // Éviction des plus anciennes vidéos, sauf celles affichées.
-  for (const [key, url] of blobs) {
-    if (blobs.size <= MAX_BLOBS) break;
-    if (inUse.has(key) || key === mp4) continue;
-    blobs.delete(key);
-    void url.then((u) => u.startsWith('blob:') && URL.revokeObjectURL(u));
-  }
-  return pending;
 }
 
 /** Télécharge à l'avance le GIF d'un prétendant (sans rien afficher). */
@@ -109,7 +100,7 @@ export function preloadGif(gifKey: string, stillOnly: boolean): void {
   void gifInfo(gifKey).then((info) => {
     if (!info) return;
     if (stillOnly || !info.mp4) new Image().src = stillOnly ? info.still : info.webp;
-    else void videoUrl(info.mp4);
+    else preloadVideo(info.mp4);
   });
 }
 
@@ -118,7 +109,7 @@ export type GifMedia = { kind: 'video'; src: string } | { kind: 'image'; src: st
 export interface GifState {
   media: GifMedia | null;
   /**
-   * Vrai une fois la réponse du site reçue. `settled` sans `media` : pas de GIF (aucun résultat,
+   * Vrai une fois la réponse reçue. `settled` sans `media` : pas de GIF (aucun résultat,
    * ou Giphy indisponible, quota atteint compris) ; il n'y a rien à attendre.
    */
   settled: boolean;
@@ -130,9 +121,8 @@ export function useGif(gifKey: string, stillOnly: boolean): GifState {
   const [state, setState] = useState<GifState>({ media: null, settled: false });
   useEffect(() => {
     let cancelled = false;
-    let retained: string | null = null;
     setState({ media: null, settled: false });
-    void gifInfo(gifKey).then(async (info) => {
+    void gifInfo(gifKey).then((info) => {
       if (cancelled) return;
       if (!info) {
         setState({ media: null, settled: true });
@@ -144,14 +134,10 @@ export function useGif(gifKey: string, stillOnly: boolean): GifState {
         setState({ media: { kind: 'image', src }, settled: true });
         return;
       }
-      retain(info.mp4);
-      retained = info.mp4;
-      const src = await videoUrl(info.mp4);
-      if (!cancelled) setState({ media: { kind: 'video', src }, settled: true });
+      setState({ media: { kind: 'video', src: info.mp4 }, settled: true });
     });
     return () => {
       cancelled = true;
-      if (retained) release(retained);
     };
   }, [gifKey, stillOnly, version]);
   return state;
