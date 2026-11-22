@@ -1,6 +1,6 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { n as categories } from "./server_BtJM-N7F.mjs";
-import { i as thumbnailOf, n as gifJson, r as GiphyError, t as getGiphyService } from "./giphy-runtime_CGNS7cvZ.mjs";
+import { n as categories } from "./server_Lg2WpWrd.mjs";
+import { i as thumbnailOf, n as gifJson, r as GiphyError, t as getGiphyService } from "./giphy-runtime_Cvq70K44.mjs";
 // src/pages/api/category-gif/[id].ts
 var _id__exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,

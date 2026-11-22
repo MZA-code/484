@@ -2193,7 +2193,8 @@ var rivalries_default = {
 				"origin": "Les Chaussettes noires · 1961",
 				"line": "Du rock, du cinéma, et une dernière séance.",
 				"giphyIds": [],
-				"giphyQuery": "chanteur francais old"
+				"giphyQuery": "chanteur francais old",
+				"gifUrls": ["https://media.tenor.com/mG35Af7nn9YAAAAC/cuisine-americaine-eddy-mitchell.gif"]
 			}
 		},
 		{
@@ -3219,7 +3220,8 @@ var rivalries_default = {
 				"origin": "Série animée · 1982",
 				"line": "Esteban, Zia, Tao, et un condor en or.",
 				"giphyIds": [],
-				"giphyQuery": "Mysterious Cities of Gold"
+				"giphyQuery": "Mysterious Cities of Gold",
+				"gifUrls": ["https://media.tenor.com/JW79lNecXjsAAAAC/grandcondor.gif"]
 			}
 		},
 		{
@@ -3229,14 +3231,14 @@ var rivalries_default = {
 				"name": "Il était une fois… la vie",
 				"origin": "Albert Barillé · 1987",
 				"line": "Des globules blancs en uniforme.",
-				"giphyIds": [],
-				"giphyQuery": "Once Upon a Time Life"
+				"giphyIds": ["acngmt1o5atVMEebXF"],
+				"giphyQuery": "Hello Maestro"
 			},
 			"b": {
 				"name": "Il était une fois… l’homme",
 				"origin": "Albert Barillé · 1978",
 				"line": "Maestro et sa très longue barbe.",
-				"giphyIds": [],
+				"giphyIds": ["HRvcfB6kn3wYOtFf18"],
 				"giphyQuery": "Once Upon a Time Man"
 			}
 		},
@@ -3579,7 +3581,8 @@ var rivalries_default = {
 				"origin": "Sylvain Chomet · 2003",
 				"line": "Trois chanteuses, un chien, et le Tour de France.",
 				"giphyIds": [],
-				"giphyQuery": "Triplets of Belleville"
+				"giphyQuery": "Triplets of Belleville",
+				"gifUrls": ["https://media.tenor.com/l0uAdKxkKcsAAAAC/triplets-belleville.gif"]
 			}
 		},
 		{
@@ -3651,7 +3654,8 @@ var rivalries_default = {
 				"origin": "Morris · 1960",
 				"line": "Le chien le plus bête de l’Ouest.",
 				"giphyIds": [],
-				"giphyQuery": "Rantanplan dog"
+				"giphyQuery": "Rantanplan dog",
+				"gifUrls": ["https://media.tenor.com/t4BnfY4XOQsAAAAC/dog-rintindumb.gif"]
 			}
 		},
 		{
@@ -3669,7 +3673,8 @@ var rivalries_default = {
 				"origin": "L’Île aux enfants · 1974",
 				"line": "Un dinosaure orange, et du gloubi-boulga.",
 				"giphyIds": [],
-				"giphyQuery": "Casimir dinosaur"
+				"giphyQuery": "Casimir dinosaur",
+				"gifUrls": ["https://media.tenor.com/e85q0CTgsOEAAAAC/casimir.gif"]
 			}
 		},
 		{
@@ -3740,7 +3745,7 @@ var rivalries_default = {
 				"name": "Wakfu",
 				"origin": "Ankama · 2008",
 				"line": "Un chapeau, des portails, et des larmes.",
-				"giphyIds": [],
+				"giphyIds": ["N8wxYjgqOfxvi"],
 				"giphyQuery": "Wakfu"
 			}
 		},
@@ -3849,7 +3854,8 @@ var rivalries_default = {
 				"origin": "Série animée · 1984",
 				"line": "Le volley, version passion.",
 				"giphyIds": [],
-				"giphyQuery": "volleyball anime"
+				"giphyQuery": "volleyball anime",
+				"gifUrls": ["https://media.tenor.com/bhL2NR4Os00AAAAC/jeanne%26serge-jeanne-et-serge.gif"]
 			}
 		},
 		{
@@ -3895,7 +3901,7 @@ var rivalries_default = {
 				"name": "Louis de Funès",
 				"origin": "Le Corniaud · 1965",
 				"line": "Mille grimaces à la minute.",
-				"giphyIds": [],
+				"giphyIds": ["G5CoKPt7xtiI8"],
 				"giphyQuery": "Louis de Funes"
 			},
 			"b": {
@@ -3903,7 +3909,8 @@ var rivalries_default = {
 				"origin": "La Grande Vadrouille · 1966",
 				"line": "Le gentil qui s’en sort quand même.",
 				"giphyIds": [],
-				"giphyQuery": "Bourvil"
+				"giphyQuery": "Bourvil",
+				"gifUrls": ["https://media.tenor.com/_2Iwv1Tc7cgAAAAC/y%27a-quelqu%27un-il-y-a-quelqu%27un.gif"]
 			}
 		},
 		{
@@ -3914,14 +3921,16 @@ var rivalries_default = {
 				"origin": "Patrice Leconte · 1978",
 				"line": "Le Club Med, version catastrophe.",
 				"giphyIds": [],
-				"giphyQuery": "Les Bronzes"
+				"giphyQuery": "Les Bronzes",
+				"gifUrls": ["https://media.tenor.com/bsd1hzZExBMAAAAC/michel-blanc-beach.gif"]
 			},
 			"b": {
 				"name": "Le Père Noël est une ordure",
 				"origin": "Jean-Marie Poiré · 1982",
 				"line": "Un réveillon de Noël qui tourne mal. Très mal.",
 				"giphyIds": [],
-				"giphyQuery": "Le Pere Noel est une ordure"
+				"giphyQuery": "Le Pere Noel est une ordure",
+				"gifUrls": ["https://media.tenor.com/EybmJtQ8b6AAAAAC/le-pere-noel-est-une-ordure-thierry-lhermitte.gif"]
 			}
 		},
 		{
@@ -3931,14 +3940,14 @@ var rivalries_default = {
 				"name": "OSS 117, Le Caire nid d’espions",
 				"origin": "Michel Hazanavicius · 2006",
 				"line": "Un espion sûr de lui, et très souvent à côté.",
-				"giphyIds": [],
-				"giphyQuery": "OSS 117 Dujardin"
+				"giphyIds": ["3o7bufRpr472fizpHa"],
+				"giphyQuery": "OSS 117"
 			},
 			"b": {
 				"name": "Astérix, Mission Cléopâtre",
 				"origin": "Alain Chabat · 2002",
 				"line": "« C’est une bonne situation, ça, scribe ? »",
-				"giphyIds": [],
+				"giphyIds": ["7JsEoLWq836gidV6r5"],
 				"giphyQuery": "Asterix Mission Cleopatre"
 			}
 		},
@@ -3950,13 +3959,14 @@ var rivalries_default = {
 				"origin": "Francis Veber · 1998",
 				"line": "« Il s’appelle Juste Leblanc. »",
 				"giphyIds": [],
-				"giphyQuery": "Le Diner de cons"
+				"giphyQuery": "Le Diner de cons",
+				"gifUrls": ["https://media.tenor.com/mIDS6MKwGAUAAAAC/diner-cons.gif"]
 			},
 			"b": {
 				"name": "La Cité de la peur",
 				"origin": "Les Nuls · 1994",
 				"line": "Un festival de Cannes et un tueur au marteau et à la faucille.",
-				"giphyIds": [],
+				"giphyIds": ["3o751UakDjQQO6HjAQ"],
 				"giphyQuery": "La Cite de la peur"
 			}
 		},
@@ -3967,14 +3977,14 @@ var rivalries_default = {
 				"name": "Les Visiteurs",
 				"origin": "Jean-Marie Poiré · 1993",
 				"line": "Un chevalier et son écuyer perdus en 1993.",
-				"giphyIds": [],
+				"giphyIds": ["V98m5Xt9pf4xW"],
 				"giphyQuery": "Les Visiteurs"
 			},
 			"b": {
 				"name": "Les Bronzés font du ski",
 				"origin": "Patrice Leconte · 1979",
 				"line": "Le ski, la fondue, et la survie en montagne.",
-				"giphyIds": [],
+				"giphyIds": ["bYAvC6WCKOAPGcWcEy"],
 				"giphyQuery": "Les Bronzes font du ski"
 			}
 		},
@@ -3985,7 +3995,7 @@ var rivalries_default = {
 				"name": "Intouchables",
 				"origin": "Olivier Nakache et Éric Toledano · 2011",
 				"line": "Un milliardaire, un aide à domicile, et beaucoup de rires.",
-				"giphyIds": [],
+				"giphyIds": ["9VvfZjzJJMHXF4cRN3"],
 				"giphyQuery": "Intouchables"
 			},
 			"b": {
@@ -3993,7 +4003,8 @@ var rivalries_default = {
 				"origin": "Dany Boon · 2008",
 				"line": "« Biloute ! »",
 				"giphyIds": [],
-				"giphyQuery": "Bienvenue chez les Chtis"
+				"giphyQuery": "Bienvenue chez les Chtis",
+				"gifUrls": ["https://media.tenor.com/RQbuAqBcF0sAAAAC/nord-chti.gif"]
 			}
 		},
 		{
@@ -4003,14 +4014,14 @@ var rivalries_default = {
 				"name": "Le Fabuleux Destin d’Amélie Poulain",
 				"origin": "Jean-Pierre Jeunet · 2001",
 				"line": "Casser la croûte des crèmes brûlées.",
-				"giphyIds": [],
+				"giphyIds": ["14fbNNlDpxjEnS"],
 				"giphyQuery": "Amelie Poulain"
 			},
 			"b": {
 				"name": "La Haine",
 				"origin": "Mathieu Kassovitz · 1995",
 				"line": "« Jusqu’ici, tout va bien. »",
-				"giphyIds": [],
+				"giphyIds": ["88pDcmjlxXFoQ"],
 				"giphyQuery": "La Haine"
 			}
 		},
@@ -18875,7 +18886,7 @@ var ICON_NAMES = Object.keys({
 });
 // src/server/gif-links.ts
 var TENOR_HOST = /^media\d*\.tenor\.com$/;
-var TENOR_PATH = /^\/(?:m\/)?([A-Za-z0-9_-]{11})[A-Za-z0-9_-]{5}\/([A-Za-z0-9_.-]+?)\.(gif|mp4|webp|png)$/;
+var TENOR_PATH = /^\/(?:m\/)?([A-Za-z0-9_-]{11})[A-Za-z0-9_-]{5}\/([^/]+?)\.(gif|mp4|webp|png)$/;
 function tenorParts(url) {
 	let parsed;
 	try {
