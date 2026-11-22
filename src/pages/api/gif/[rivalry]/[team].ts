@@ -1,7 +1,8 @@
 /**
  * GET /api/gif/:rivalryId/:team → le GIF d'une team (URL MP4/WebP/image fixe).
  *
- * Priorité : GIF choisis à la main (`giphyIds` et liens Tenor `gifUrls`, tirés au sort ensemble)
+ * Priorité : GIF choisis à la main (`giphyIds`, liens Tenor `gifUrls` et images rangées sur le
+ * site `images`, tirés au sort ensemble)
  * > recherche validée > GIF d'ambiance de la catégorie > rien.
  * Les résultats de recherche trop signalés (« Mauvais GIF ? ») sont remplacés par le suivant.
  *
@@ -14,7 +15,7 @@
  */
 import type { APIRoute } from 'astro';
 import { categories, rivalries } from '../../../../data/content';
-import { tenorGif } from '../../../../server/gif-links';
+import { teamImage, tenorGif } from '../../../../server/gif-links';
 import { GiphyError } from '../../../../server/giphy';
 import { getGiphyService, gifJson as json } from '../../../../server/giphy-runtime';
 import { getVoteService } from '../../../../server/votes/runtime';
@@ -46,12 +47,12 @@ export const GET: APIRoute = async ({ params }) => {
   const team = rivalry[side];
 
   // GIF choisis à la main : un seul est stable (un jour de cache), plusieurs varient (une heure).
-  const links = team.gifUrls ?? [];
-  const handPicked = links.length + team.giphyIds.length;
+  // Liens Tenor et images du site : rien à demander à Giphy.
+  const direct = [...(team.gifUrls ?? []).map(tenorGif), ...(team.images ?? []).map(teamImage)];
+  const handPicked = direct.length + team.giphyIds.length;
   const maxAge = handPicked === 1 ? 86400 : 3600;
   const pick = Math.floor(Math.random() * handPicked);
-  // Un lien Tenor tiré au sort : rien à demander à Giphy.
-  const link = pick < links.length ? tenorGif(links[pick] as string) : null;
+  const link = pick < direct.length ? direct[pick] : null;
   if (link) return json(link, 200, `public, max-age=${maxAge}`);
 
   const giphy = getGiphyService();
@@ -59,7 +60,7 @@ export const GET: APIRoute = async ({ params }) => {
 
   try {
     // Un GIF Giphy choisi à la main a été tiré : on le demande, lui (repli sur la recherche).
-    const chosen = team.giphyIds[pick - links.length];
+    const chosen = team.giphyIds[pick - direct.length];
     const giphyIds = chosen ? [chosen] : team.giphyIds;
     const gif = await giphy.gifFor(
       { ...team, giphyIds, fallback: moodOf.get(rivalry.category) },

@@ -108,7 +108,7 @@ function videoUrl(mp4: string): Promise<string> {
 export function preloadGif(gifKey: string, stillOnly: boolean): void {
   void gifInfo(gifKey).then((info) => {
     if (!info) return;
-    if (stillOnly) new Image().src = info.still;
+    if (stillOnly || !info.mp4) new Image().src = stillOnly ? info.still : info.webp;
     else void videoUrl(info.mp4);
   });
 }
@@ -138,8 +138,10 @@ export function useGif(gifKey: string, stillOnly: boolean): GifState {
         setState({ media: null, settled: true });
         return;
       }
-      if (stillOnly) {
-        setState({ media: { kind: 'image', src: info.still }, settled: true });
+      // Image fixe : animations réduites, ou image rangée sur le site (pas de vidéo).
+      if (stillOnly || !info.mp4) {
+        const src = stillOnly ? info.still : info.webp;
+        setState({ media: { kind: 'image', src }, settled: true });
         return;
       }
       retain(info.mp4);

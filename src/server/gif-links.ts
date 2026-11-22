@@ -90,3 +90,39 @@ export function giphyIdFromUrl(url: string): string | null {
   const page = /^\/(?:gifs|stickers)\/(?:[a-z0-9-]*-)?([A-Za-z0-9]+)\/?$/.exec(parsed.pathname);
   return page ? (page[1] as string) : null;
 }
+
+// ─── Images rangées sur le site ─────────────────────────────────────────────
+//
+// Quand ni Giphy ni Tenor n'ont rien, l'éditeur peut coller une image (lien ou fichier) dans la
+// page de curation : elle est téléchargée, réduite et rangée dans public/images/teams/. Elle est
+// servie par le site lui-même : aucun service tiers. Une image animée est rangée deux fois :
+// `<nom>.anim.webp` (animée) et `<nom>.webp` (image fixe, pour les animations réduites).
+
+/** Dossier public des images de teams (adresse vue par le navigateur). */
+export const TEAM_IMAGES_DIR = '/images/teams/';
+const TEAM_IMAGE = /^\/images\/teams\/([a-z0-9-]+-([0-9a-f]{8}))(\.anim)?\.webp$/;
+
+/** Le chemin est-il une image de team rangée sur le site ? */
+export function isTeamImage(path: string): boolean {
+  return TEAM_IMAGE.test(path);
+}
+
+/** Identifiant d'une image de team, sous la même forme que ceux de Giphy (« img » + empreinte). */
+export function teamImageId(path: string): string | null {
+  const match = TEAM_IMAGE.exec(path);
+  return match ? `img${match[2]}` : null;
+}
+
+/** Une image de team, au format renvoyé par /api/gif : pas de vidéo, l'image et son aperçu fixe. */
+export function teamImage(path: string): Gif | null {
+  const match = TEAM_IMAGE.exec(path);
+  if (!match) return null;
+  return {
+    id: `img${match[2]}`,
+    mp4: '',
+    webp: path,
+    still: `${TEAM_IMAGES_DIR}${match[1]}.webp`,
+    width: 0,
+    height: 0,
+  };
+}

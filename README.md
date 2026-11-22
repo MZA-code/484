@@ -92,7 +92,7 @@ Le site suit le réglage « réduire les animations » du système : avec ce ré
 
 La route `/api/gif/<rivalité>/<a|b>` suit cet ordre, sans exception :
 
-1. **GIF choisis à la main** : les `giphyIds` et les liens Tenor `gifUrls`, un au hasard parmi tous. C'est la seule source vraiment fiable.
+1. **GIF choisis à la main** : les `giphyIds`, les liens Tenor `gifUrls` et les images du site `images`, un au hasard parmi tous. C'est la seule source vraiment fiable.
 2. **Recherche Giphy** avec `giphyQuery` (`lang=fr`, `rating=g`, 25 résultats), **validée** sur le titre, le slug ou le nom de l'auteur du GIF (sans accents, sans casse, en mots entiers) :
    - d'abord **exacte** : il contient un mot-clé entier de la team (son nom, sa requête, ou ses `giphyKeywords`) ;
    - puis **mot à mot** (seulement sans `giphyKeywords`) : il contient un mot significatif de la requête, 4 lettres ou plus, hors mots vagues comme « film » ou « funny ». C'est ce qui donne un GIF aux teams « idées » (« Contrôler la météo » → `weather control` → « Weather Map Storm »).
@@ -130,6 +130,21 @@ Giphy connaît mal les œuvres françaises (Eddy Mitchell, la 7e compagnie…), 
 - Le GIF reste hébergé chez Tenor ; si Google change ses adresses, la carte garde son cadre rayé.
 - Un lien Giphy collé dans le même champ est converti en identifiant et rangé dans `giphyIds`.
 - Le pied de page affiche « GIF via Tenor » dès qu'un lien est utilisé, et la page Confidentialité mentionne Tenor.
+
+### Images rangées sur le site : quand il n'y a aucun GIF
+
+Pour une team qu'aucun service de GIF ne connaît (Tazos, Les Ripoux…), on colle dans le même champ de la page de curation le lien d'une image (clic droit, « Copier l'adresse de l'image ») ou le chemin d'un fichier du poste (« Copier en tant que chemin »). À l'enregistrement, `scripts/lib/team-images.ts` :
+
+- télécharge ou lit l'image, vérifie que c'en est une (25 Mo au plus) ;
+- la réduit à 480 px de large en WebP dans `public/images/teams/<team>-<empreinte>.webp` ;
+- si elle est animée, garde aussi une version animée `….anim.webp` (1,5 Mo au plus, sinon elle reste fixe) ; la version fixe sert pour les animations réduites ;
+- range le chemin dans `images` :
+
+```json
+"images": ["/images/teams/tazos-18035d40.webp"]
+```
+
+L'image est servie par le site lui-même : aucun service tiers, rien à changer dans la page Confidentialité. L'API renvoie `mp4: ""` et l'image dans `webp` ; la carte l'affiche alors en image. Un test vérifie que chaque image listée existe dans `public/`, avec sa version fixe. Les images sont recopiées sur le site : préférer celles qu'on a le droit d'utiliser.
 
 ### Signalements « Mauvais GIF ? »
 

@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { ACHIEVEMENT_KINDS } from '../engine/achievements';
 import { MIXED_CATEGORY as MIXED_THEME } from '../engine/debate';
 import { ICON_NAMES } from '../lib/icons';
-import { isTenorUrl } from '../server/gif-links';
+import { isTeamImage, isTenorUrl } from '../server/gif-links';
 import { brokenLinks, inlineVariables } from '../lib/inline';
 
 /** Nom d'une icône intégrée (voir src/lib/icons.ts). */
@@ -64,6 +64,21 @@ export const TeamSchema = z.object({
         ),
     )
     .min(1, 'mettre au moins un lien, ou retirer le champ')
+    .optional(),
+  /**
+   * Images rangées sur le site (`/images/teams/…webp`), importées par la page de curation quand
+   * ni Giphy ni Tenor n'ont rien. Tirées au sort avec les autres GIF choisis à la main.
+   */
+  images: z
+    .array(
+      z
+        .string()
+        .refine(
+          isTeamImage,
+          'image attendue, de la forme /images/teams/nom-1a2b3c4d.webp (à importer avec npm run gif-audit)',
+        ),
+    )
+    .min(1, 'mettre au moins une image, ou retirer le champ')
     .optional(),
 });
 

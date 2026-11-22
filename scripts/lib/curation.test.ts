@@ -14,7 +14,23 @@ describe('curation links', () => {
       // Deux versions du même GIF Tenor : un seul lien gardé.
       tenor: ['https://media.tenor.com/mG35Af7nn9YAAAAC/cuisine-americaine-eddy-mitchell.gif'],
       giphy: ['l0HlvtIPzPdt2usKs'],
-      invalid: ['https://example.com/chat.gif'],
+      images: [],
+      // Un autre site : une image à importer sur le site.
+      toImport: ['https://example.com/chat.gif'],
+      invalid: [],
+    });
+  });
+
+  it('keeps site images, imports files of the computer, refuses the rest', () => {
+    const text = [
+      '/images/teams/les-ripoux-1a2b3c4d.webp',
+      '"C:\\Users\\moi\\Images\\tazos 1.jpg"',
+      'pas un lien',
+    ].join('\r\n');
+    expect(readLinks(text)).toMatchObject({
+      images: ['/images/teams/les-ripoux-1a2b3c4d.webp'],
+      toImport: ['C:\\Users\\moi\\Images\\tazos 1.jpg'],
+      invalid: ['pas un lien'],
     });
   });
 
@@ -29,5 +45,8 @@ describe('curation links', () => {
     expect(isCurated(team)).toBe(true);
     expect(handPickedIds(team)).toEqual(['tenor4Pm3OjjE7BE']);
     expect(isCurated({ ...team, gifUrls: [] })).toBe(false);
+    expect(
+      handPickedIds({ ...team, gifUrls: [], images: ['/images/teams/x-0a0b0c0d.anim.webp'] }),
+    ).toEqual(['img0a0b0c0d']);
   });
 });

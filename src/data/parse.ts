@@ -19,6 +19,7 @@ const TECHNICAL_KEYS = new Set([
   'giphyQuery',
   'giphyKeywords',
   'gifUrls',
+  'images',
   'kind',
   'version',
 ]);

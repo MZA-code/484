@@ -314,3 +314,15 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Seulement `media.tenor.com`**, validé par le schéma : jamais n'importe quel site. Le GIF reste hébergé chez Tenor ; rien n'est copié sur le serveur du site.
 - **Versions déduites du lien** : le code de format de 5 caractères après l'identifiant désigne une version du GIF (`AAAAC` original de plusieurs Mo, `AAAPo` MP4 d'environ 200 Ko, `AAAAe` aperçu fixe d'une seule image). Vérifié le 22/11/2026 sur de vrais GIF, aux deux formes d'adresse. Le navigateur reçoit le même format que pour Giphy (MP4 + image fixe) : rien à changer dans les cartes. Schéma non documenté : s'il change, la carte garde son cadre rayé.
 - **Confidentialité** : les serveurs d'images de Tenor ne posent aucun cookie (vérifié) et autorisent CORS. La page Confidentialité mentionne Tenor (Google) ; le pied de page affiche « GIF via Tenor » seulement si un lien est utilisé.
+
+## D30 — Images rangées sur le site, quand aucun GIF n'existe (version 1.4.0)
+
+**Constat.** Certaines teams n'ont de GIF ni chez Giphy ni chez Tenor (Tazos, Les Ripoux). L'éditeur trouve en revanche des images ailleurs (YouTube, Etsy, ses propres fichiers).
+
+**Décisions.**
+
+- **Copiées sur le site, pas liées** : afficher directement l'image d'un site quelconque ajouterait un service tiers inconnu (adresse IP du visiteur transmise, page Confidentialité à changer) et casserait dès que le site d'origine bouge ou bloque. La page de curation télécharge l'image et la range dans `public/images/teams/` ; elle part en production avec le reste du dépôt.
+- **Réduite à l'import** : WebP de 480 px de large (la largeur des cartes), quelques dizaines de Ko. Une image animée garde son animation (`.anim.webp`, 1,5 Mo au plus) et une version fixe pour les animations réduites.
+- **Nom avec empreinte** (`<team>-<8 caractères du SHA-256>`) : la même image importée deux fois donne le même fichier ; l'identifiant `img<empreinte>` sert pour « Mauvais GIF ? » comme ceux de Giphy et Tenor.
+- **Même format côté navigateur** : l'API renvoie `mp4` vide ; la carte affiche alors l'image (`webp`) au lieu d'une vidéo. Rien d'autre ne change dans les cartes.
+- **Droits** : les images sont recopiées sur le site ; la procédure rappelle de préférer celles qu'on a le droit d'utiliser.

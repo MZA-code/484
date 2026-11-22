@@ -14,15 +14,20 @@ import { parseRivalries } from '../../src/data/parse';
 import {
   canonicalTenorUrl,
   giphyIdFromUrl,
+  isTeamImage,
+  teamImage,
+  teamImageId,
   tenorGif,
   tenorGifId,
 } from '../../src/server/gif-links';
 import { keywordsFor, matchesKeywords, queryWords, type GifText } from '../../src/server/gif-match';
 import { toGif, type Gif } from '../../src/server/giphy';
+import { importTeamImage, isImageSource } from './team-images';
 
 const RIVALRIES_FILE = new URL('../../content/rivalries.json', import.meta.url);
 /** Liens collés mais non utilisables (ni Tenor ni Giphy) : gardés ici pour ne rien perdre (ignoré par git). */
 const REFUSED_FILE = new URL('../../liens-refuses.txt', import.meta.url);
+const PUBLIC_DIR = new URL('../../public/', import.meta.url);
 export const PER_TEAM = 6;
 
 // ─── Fichier des rivalités ──────────────────────────────────────────────────
@@ -35,32 +40,61 @@ export interface RawTeam {
   giphyKeywords?: string[];
   /** Liens Tenor choisis à la main. */
   gifUrls?: string[];
+  /** Images rangées sur le site (`/images/teams/…webp`). */
+  images?: string[];
 }
 
-/** Identifiants des GIF choisis à la main (Giphy, et liens Tenor sous leur identifiant « tenor… »). */
+/**
+ * Identifiants des GIF choisis à la main : Giphy, liens Tenor (« tenor… ») et images du site (« img… »).
+ */
 export function handPickedIds(team: RawTeam): string[] {
-  return [...team.giphyIds, ...(team.gifUrls ?? []).map((url) => tenorGifId(url) ?? url)];
+  return [
+    ...team.giphyIds,
+    ...(team.gifUrls ?? []).map((url) => tenorGifId(url) ?? url),
+    ...(team.images ?? []).map((path) => teamImageId(path) ?? path),
+  ];
 }
 
 /** La team a-t-elle au moins un GIF choisi à la main ? */
 export const isCurated = (team: RawTeam) => handPickedIds(team).length > 0;
 
+export interface PastedLinks {
+  /** Liens Tenor, sous leur forme canonique. */
+  tenor: string[];
+  /** Identifiants Giphy. */
+  giphy: string[];
+  /** Images déjà rangées sur le site (`/images/teams/…`). */
+  images: string[];
+  /** Images à importer : liens web ou fichiers du poste. */
+  toImport: string[];
+  /** Lignes non reconnues. */
+  invalid: string[];
+}
+
 /**
- * Lit les liens collés (un par ligne) : Tenor → gardé sous sa forme canonique,
- * Giphy → son identifiant (rangé avec les `giphyIds`). Les lignes non reconnues sont renvoyées.
+ * Lit les liens collés, un par ligne : Tenor → forme canonique, Giphy → identifiant,
+ * image du site → gardée, autre lien web ou fichier du poste → image à importer.
  */
-export function readLinks(text: string): { tenor: string[]; giphy: string[]; invalid: string[] } {
-  const result = { tenor: [] as string[], giphy: [] as string[], invalid: [] as string[] };
-  for (const line of text.split(/\s+/).filter(Boolean)) {
+export function readLinks(text: string): PastedLinks {
+  const result: PastedLinks = { tenor: [], giphy: [], images: [], toImport: [], invalid: [] };
+  for (const raw of text.split(/\r?\n/)) {
+    // « Copier en tant que chemin » de Windows ajoute des guillemets.
+    const line = raw.trim().replace(/^"(.*)"$/, '$1');
+    if (!line) continue;
     const tenor = canonicalTenorUrl(line);
     const giphy = tenor ? null : giphyIdFromUrl(line);
     if (tenor) result.tenor.push(tenor);
     else if (giphy) result.giphy.push(giphy);
+    else if (isTeamImage(line)) result.images.push(line);
+    else if (isImageSource(line)) result.toImport.push(line);
     else result.invalid.push(line);
   }
+  const unique = (list: string[]) => [...new Set(list)];
   return {
-    tenor: [...new Set(result.tenor)],
-    giphy: [...new Set(result.giphy)],
+    tenor: unique(result.tenor),
+    giphy: unique(result.giphy),
+    images: unique(result.images),
+    toImport: unique(result.toImport),
     invalid: result.invalid,
   };
 }
@@ -141,7 +175,7 @@ interface SavePayload {
   queries: Record<string, string>;
   /** Mots-clés séparés par des virgules ; vide = retour aux mots-clés par défaut. */
   keywords: Record<string, string>;
-  /** Liens Tenor ou Giphy collés, un par ligne. */
+  /** Liens Tenor ou Giphy, images (lien ou fichier) collés, un par ligne. */
   links?: Record<string, string>;
 }
 
@@ -160,10 +194,20 @@ async function save({ picks, queries, keywords, links = {} }: SavePayload): Prom
     const before = JSON.stringify(handPickedIds(team));
     if (ids && ids.length > 0) team.giphyIds = ids;
     if (key in links) {
-      const { tenor, giphy, invalid } = readLinks(links[key] ?? '');
-      invalid.forEach((line) => problems.push(`${team.name} : ${line}`));
+      const { tenor, giphy, images, toImport, invalid } = readLinks(links[key] ?? '');
+      invalid.forEach((line) => problems.push(`${team.name} : ${line} (lien non reconnu)`));
+      for (const source of toImport) {
+        try {
+          images.push(await importTeamImage(source, team.name));
+        } catch (error) {
+          problems.push(`${team.name} : ${source} (${(error as Error).message})`);
+        }
+      }
       if (tenor.length > 0) team.gifUrls = tenor;
       else delete team.gifUrls;
+      const kept = [...new Set(images)];
+      if (kept.length > 0) team.images = kept;
+      else delete team.images;
       team.giphyIds = [...new Set([...team.giphyIds, ...giphy])];
     }
     if (JSON.stringify(handPickedIds(team)) !== before) picked++;
@@ -186,16 +230,8 @@ async function save({ picks, queries, keywords, links = {} }: SavePayload): Prom
   if (problems.length === 0) return saved;
   // Les liens refusés ne sont pas perdus : ils restent dans la page et sont recopiés dans un fichier.
   const day = new Date().toISOString().slice(0, 10);
-  appendFileSync(
-    REFUSED_FILE,
-    problems
-      .map(
-        (line) => `${day} · ${line}
-`,
-      )
-      .join(''),
-  );
-  return `${saved} ⚠ ${problems.length} lien(s) non enregistré(s), car ce ne sont pas des GIF Tenor ou Giphy (gardés dans liens-refuses.txt) : ${problems.join(' · ')}`;
+  appendFileSync(REFUSED_FILE, problems.map((line) => `${day} · ${line}\n`).join(''));
+  return `${saved} ⚠ ${problems.length} lien(s) non enregistré(s), gardés dans liens-refuses.txt : ${problems.join(' · ')}`;
 }
 
 // ─── Page HTML ──────────────────────────────────────────────────────────────
@@ -224,15 +260,23 @@ function matchLabel(text: GifText, source: MatchSource): string {
   return '<span class="ko">✗ refusé</span>';
 }
 
-/** Aperçu des liens Tenor déjà choisis (la vidéo que le site affichera). */
-function linkPreviews(urls: readonly string[]): string {
-  const items = urls
+/** Aperçu des liens Tenor et des images déjà choisis (ce que le site affichera). */
+function linkPreviews(team: RawTeam): string {
+  const videos = (team.gifUrls ?? [])
     .map((url) => tenorGif(url))
     .filter((gif) => gif !== null)
     .map(
       (gif) =>
         `<figure><video src="${escape(gif.mp4)}" autoplay muted loop playsinline></video><figcaption>Lien Tenor choisi</figcaption></figure>`,
     );
+  const images = (team.images ?? [])
+    .map((path) => teamImage(path))
+    .filter((gif) => gif !== null)
+    .map(
+      (gif) =>
+        `<figure><img src="${escape(gif.webp)}" alt=""><figcaption>Image du site</figcaption></figure>`,
+    );
+  const items = [...videos, ...images];
   return items.length > 0 ? `<div class="previews">${items.join('')}</div>` : '';
 }
 
@@ -301,10 +345,10 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
           <button>Rechercher</button>
         </form>
         <div class="grid">${tiles(key, proposals, t.team.giphyIds, t.team, note?.reportedGifs)}</div>
-        <label class="links">Liens Tenor ou Giphy, un par ligne (sur tenor.com : clic droit sur le GIF, « Copier l’adresse de l’image »)
-          <textarea data-links="${escape(key)}" rows="2" placeholder="https://media.tenor.com/…/nom.gif">${escape((t.team.gifUrls ?? []).join('\n'))}</textarea>
+        <label class="links">Liens Tenor ou Giphy, ou une image (lien d’image ou fichier du poste), un par ligne — clic droit sur l’image, « Copier l’adresse de l’image »
+          <textarea data-links="${escape(key)}" rows="2" placeholder="https://media.tenor.com/…/nom.gif">${escape([...(t.team.gifUrls ?? []), ...(t.team.images ?? [])].join('\n'))}</textarea>
         </label>
-        ${linkPreviews(t.team.gifUrls ?? [])}
+        ${linkPreviews(t.team)}
       </section>`;
       })
       .join('');
@@ -331,7 +375,7 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
     .links{display:flex;flex-direction:column;gap:6px;margin-top:14px;color:#cfcac0;font-size:12px}
     .links textarea{width:min(100%,720px);padding:8px;background:#1c1c1c;color:#f5f1e8;border:1px solid #444;font:13px ui-monospace,monospace}
     .previews{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-    .previews figure{margin:0;width:200px;outline:4px solid #ffd23f}.previews video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+    .previews figure{margin:0;width:200px;outline:4px solid #ffd23f}.previews video,.previews img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
     .previews figcaption{font-size:12px;color:#cfcac0;padding:4px}
   </style></head><body>
   <h1>${escape(title)}</h1>
@@ -383,6 +427,10 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
     try {
       if (req.method === 'GET' && url.pathname === '/') {
         res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }).end(page());
+      } else if (req.method === 'GET' && isTeamImage(url.pathname)) {
+        // Aperçu des images importées (public/images/teams/).
+        const file = new URL(`.${url.pathname}`, PUBLIC_DIR);
+        res.writeHead(200, { 'content-type': 'image/webp' }).end(readFileSync(file));
       } else if (req.method === 'GET' && url.pathname === '/search') {
         const id = url.searchParams.get('id') ?? '';
         const target = teamsOf().find((t) => t.key === id);

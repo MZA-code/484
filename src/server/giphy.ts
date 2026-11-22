@@ -22,7 +22,10 @@ const API = 'https://api.giphy.com/v1/gifs';
 /** Ce que l'API du site renvoie au navigateur. */
 export interface Gif {
   id: string;
-  /** Vidéo MP4 légère (rendu « fixed_height » de Giphy, 200 px de haut). */
+  /**
+   * Vidéo MP4 légère (rendu « fixed_height » de Giphy, 200 px de haut). Vide pour une image
+   * rangée sur le site (voir teamImage) : le navigateur affiche alors `webp` en image.
+   */
   mp4: string;
   /** Même rendu en WebP animé, en secours. */
   webp: string;

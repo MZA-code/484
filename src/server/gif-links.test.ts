@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { canonicalTenorUrl, giphyIdFromUrl, isTenorUrl, tenorGif, tenorGifId } from './gif-links';
+import {
+  canonicalTenorUrl,
+  giphyIdFromUrl,
+  isTeamImage,
+  isTenorUrl,
+  teamImage,
+  tenorGif,
+  tenorGifId,
+} from './gif-links';
 
 const EDDY = 'https://media.tenor.com/4Pm3OjjE7BEAAAAM/eddy-mitchell-claude-moine.gif';
 const CUISINE = 'https://media1.tenor.com/m/mG35Af7nn9YAAAAC/cuisine-americaine-eddy-mitchell.gif';
@@ -79,5 +87,37 @@ describe('Giphy links', () => {
     ).toBe('l0HlvtIPzPdt2usKs');
     expect(giphyIdFromUrl('https://i.giphy.com/l0HlvtIPzPdt2usKs.webp')).toBe('l0HlvtIPzPdt2usKs');
     expect(giphyIdFromUrl(EDDY)).toBeNull();
+  });
+});
+
+describe('images stored on the site', () => {
+  it('serves a still image as image, with no video', () => {
+    expect(teamImage('/images/teams/les-ripoux-1a2b3c4d.webp')).toEqual({
+      id: 'img1a2b3c4d',
+      mp4: '',
+      webp: '/images/teams/les-ripoux-1a2b3c4d.webp',
+      still: '/images/teams/les-ripoux-1a2b3c4d.webp',
+      width: 0,
+      height: 0,
+    });
+  });
+
+  it('serves an animated image with its still version for reduced motion', () => {
+    expect(teamImage('/images/teams/tazos-0a0b0c0d.anim.webp')).toMatchObject({
+      webp: '/images/teams/tazos-0a0b0c0d.anim.webp',
+      still: '/images/teams/tazos-0a0b0c0d.webp',
+    });
+  });
+
+  it('refuses any other path', () => {
+    for (const path of [
+      'https://example.com/images/teams/x-1a2b3c4d.webp',
+      '/images/teams/../secret-1a2b3c4d.webp',
+      '/images/teams/x.webp',
+      '/images/teams/X-1a2b3c4d.webp',
+      '/images/teams/x-1a2b3c4d.jpg',
+    ]) {
+      expect(isTeamImage(path)).toBe(false);
+    }
   });
 });
