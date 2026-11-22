@@ -53,9 +53,10 @@ RewriteCond %{HTTP:X-Forwarded-Proto} =http
 RewriteRule ^ https://team484.fr%{REQUEST_URI} [R=301,L]
 ```
 
-Le chiffrement est assuré par le proxy d'o2switch, devant le serveur : l'application reçoit
-toujours une connexion non chiffrée. On ne teste donc pas `%{HTTPS}` (toujours « off », la
-redirection tournerait en boucle) mais l'en-tête `X-Forwarded-Proto` posé par le proxy.
+Un proxy d'o2switch se trouve devant le serveur. La règle s'appuie donc sur l'en-tête
+`X-Forwarded-Proto` qu'il transmet, et ne redirige que s'il vaut explicitement `http` : sans cet
+en-tête, elle ne fait rien, ce qui exclut toute boucle de redirection. Vérifié le 22/11/2026 :
+`http://` est bien redirigé, `https://` s'affiche directement.
 
 **Ne pas utiliser la page « Redirections » de cPanel** pour ce domaine : elle n'écrit pas dans
 `~/484/.htaccess`, et une redirection de `team484.fr` vers `https://team484.fr/` peut boucler.
