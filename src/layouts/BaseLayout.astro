@@ -5,7 +5,7 @@
  */
 import '../styles/global.css';
 import { version } from '../../package.json';
-import { ui } from '../data/content';
+import { rivalries, ui } from '../data/content';
 import { formatText } from '../lib/format';
 import { OG_HEIGHT, OG_WIDTH, ogImagePath } from '../lib/og-path';
 import { serializeJsonLd } from '../lib/seo';
@@ -32,6 +32,11 @@ const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !==
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const canonical = new URL(path, Astro.site ?? Astro.url).href;
 const imageUrl = new URL(image, Astro.site ?? Astro.url).href;
+
+/** Des GIF viennent-ils de Tenor (liens choisis à la main) ? Alors on le mentionne. */
+const usesTenor = rivalries.some(
+  (r) => (r.a.gifUrls?.length ?? 0) + (r.b.gifUrls?.length ?? 0) > 0,
+);
 ---
 
 <!doctype html>
@@ -149,6 +154,11 @@ const imageUrl = new URL(image, Astro.site ?? Astro.url).href;
       <a class="footer-giphy" href={ui.footer.giphy.url} rel="noopener" target="_blank">
         {ui.footer.giphy.label}
       </a>
+      {usesTenor && (
+        <a class="footer-giphy" href={ui.footer.tenor.url} rel="noopener" target="_blank">
+          {ui.footer.tenor.label}
+        </a>
+      )}
       <p class="footer-version">{formatText(ui.footer.version, { version })}</p>
       <slot name="footer" />
     </footer>

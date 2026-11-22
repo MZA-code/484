@@ -285,6 +285,10 @@
       "label": "Powered by GIPHY",
       "url": "https://giphy.com/"
     },
+    "tenor": {
+      "label": "GIF via Tenor",
+      "url": "https://tenor.com/"
+    },
     "hallOfFame": "Hall of Fame",
     "legal": {
       "label": "Informations",
@@ -393,7 +397,7 @@
               "Tes votes sont anonymes : le site ne garde que des compteurs par rivalité.",
               "Le bouton « Mauvais GIF ? » n’envoie que la team et le GIF concernés.",
               "Ta progression reste dans ton navigateur et n’est jamais envoyée.",
-              "Un seul service tiers : GIPHY, qui fournit les GIF."
+              "Deux services tiers, pour les GIF seulement : GIPHY et, pour quelques-uns, Tenor (Google)."
             ]
           ]
         },
@@ -444,11 +448,12 @@
           ]
         },
         {
-          "title": "Les GIF, fournis par GIPHY",
+          "title": "Les GIF, fournis par GIPHY et Tenor",
           "blocks": [
             "Les GIF sont recherchés par le serveur du site, pas par ton navigateur : tes choix ne sont jamais transmis à GIPHY.",
             "Ton navigateur télécharge ensuite les vidéos directement depuis les serveurs de GIPHY, une société américaine. Comme pour toute image chargée sur Internet, GIPHY reçoit alors ton adresse IP et des informations techniques sur ton navigateur. Ces serveurs ne déposent aucun cookie.",
-            "Pour en savoir plus : la [politique de confidentialité de GIPHY](https://giphy.com/privacy)."
+            "Quelques GIF, choisis à la main par l’éditeur, viennent de Tenor, un service de Google. Ton navigateur les télécharge depuis les serveurs d’images de Tenor, qui reçoivent de la même façon ton adresse IP et des informations techniques. Ces serveurs ne déposent aucun cookie (vérifié le 22 novembre 2026).",
+            "Pour en savoir plus : la [politique de confidentialité de GIPHY](https://giphy.com/privacy) et les [règles de confidentialité de Google](https://policies.google.com/privacy)."
           ]
         },
         {

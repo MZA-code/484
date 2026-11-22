@@ -303,3 +303,14 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Le pourcentage affiché inclut les trois choix** : « Team A 45 %, aucun des deux 12 %, team B 43 % ». La barre a trois parts ; « aucun » est une part neutre et rayée, au milieu.
 - **Hall of Fame** : les débats « serrés » et « écrasants » sont jugés sur l'écart entre les deux teams seulement (beaucoup de « aucun des deux » ne rend pas un débat serré) ; « les plus votés » compte tous les votes.
 - **Pour le visiteur, c'est un débat tranché** : il compte pour le numéro de débat et les achievements, et apparaît dans « Tes teams ». Clavier : ↓. Le bouton « Je ne connais aucun des deux » reste un simple passage, sans vote.
+
+## D29 — Liens Tenor choisis à la main (version 1.3.0)
+
+**Constat.** Giphy n'a presque rien sur les œuvres françaises que Tenor connaît (Eddy Mitchell). Mais l'API Tenor est fermée aux sites extérieurs depuis le 30 juin 2026 (annonce de Google du 13 janvier 2026) : plus de recherche automatique possible. Klipy, présenté comme remplaçant, n'a pas non plus ces GIF.
+
+**Décisions.**
+
+- **Liens choisis à la main** (`gifUrls`) : l'éditeur copie l'adresse d'une image sur tenor.com et la colle dans la page de curation. Tirés au sort avec les `giphyIds`, avant toute recherche.
+- **Seulement `media.tenor.com`**, validé par le schéma : jamais n'importe quel site. Le GIF reste hébergé chez Tenor ; rien n'est copié sur le serveur du site.
+- **Versions déduites du lien** : le code de format de 5 caractères après l'identifiant désigne une version du GIF (`AAAAC` original de plusieurs Mo, `AAAPo` MP4 d'environ 200 Ko, `AAAAe` aperçu fixe d'une seule image). Vérifié le 22/11/2026 sur de vrais GIF, aux deux formes d'adresse. Le navigateur reçoit le même format que pour Giphy (MP4 + image fixe) : rien à changer dans les cartes. Schéma non documenté : s'il change, la carte garde son cadre rayé.
+- **Confidentialité** : les serveurs d'images de Tenor ne posent aucun cookie (vérifié) et autorisent CORS. La page Confidentialité mentionne Tenor (Google) ; le pied de page affiche « GIF via Tenor » seulement si un lien est utilisé.

@@ -2,7 +2,7 @@
  * Audit des GIF : quelles teams curer en priorité ?
  *
  * Liste :
- * 1. les teams sans GIF choisi (`giphyIds` vide), les plus signalées (« Mauvais GIF ? ») d'abord ;
+ * 1. les teams sans GIF choisi (ni `giphyIds` ni lien Tenor), les plus signalées (« Mauvais GIF ? ») d'abord ;
  * 2. les teams dont l'origine cite une œuvre française (Giphy les connaît mal) ;
  * 3. en plus, les teams dont un GIF choisi à la main a été signalé.
  * Puis ouvre la page de curation (6 propositions par team) pour les premières de la liste ;
@@ -26,7 +26,15 @@ import {
   type ReportRow,
   type TeamReports,
 } from './lib/audit';
-import { requireApiKey, runCuration, teamsOf, type TargetNote, type TeamRef } from './lib/curation';
+import {
+  handPickedIds,
+  isCurated,
+  requireApiKey,
+  runCuration,
+  teamsOf,
+  type TargetNote,
+  type TeamRef,
+} from './lib/curation';
 
 const { values: args } = parseArgs({
   options: {
@@ -102,7 +110,7 @@ const total = (key: string) => reports.get(key)?.total ?? 0;
 
 const teams = teamsOf();
 const uncurated = sortByReports(
-  teams.filter((t) => t.team.giphyIds.length === 0),
+  teams.filter((t) => !isCurated(t.team)),
   reports,
 );
 const french = sortByReports(
@@ -110,7 +118,9 @@ const french = sortByReports(
   reports,
 );
 const reportedCurated = sortByReports(
-  teams.filter((t) => t.team.giphyIds.some((id) => (reports.get(t.key)?.gifs.get(id) ?? 0) > 0)),
+  teams.filter((t) =>
+    handPickedIds(t.team).some((id) => (reports.get(t.key)?.gifs.get(id) ?? 0) > 0),
+  ),
   reports,
 );
 
@@ -118,7 +128,7 @@ const line = (t: TeamRef) => {
   const n = total(t.key);
   const flags = [
     n ? `${n} signalement${n > 1 ? 's' : ''}` : '',
-    t.team.giphyIds.length ? `${t.team.giphyIds.length} GIF choisi(s)` : 'aucun GIF choisi',
+    isCurated(t.team) ? `${handPickedIds(t.team).length} GIF choisi(s)` : 'aucun GIF choisi',
     t.team.giphyKeywords ? `mots-clés : ${t.team.giphyKeywords.join(', ')}` : '',
   ].filter(Boolean);
   return `  ${t.key.padEnd(58)} ${t.team.name} (${t.team.origin}) — ${flags.join(' · ')}`;
@@ -154,7 +164,7 @@ if (args.list) process.exit(0);
 const order = [
   ...reportedUncurated,
   ...reportedCurated,
-  ...french.filter((t) => t.team.giphyIds.length === 0),
+  ...french.filter((t) => !isCurated(t.team)),
   ...french,
   ...uncurated,
 ];
@@ -175,7 +185,7 @@ const notes = new Map<string, TargetNote>(
     const badges = [
       r ? `${r.total} signalement${r.total > 1 ? 's' : ''}` : '',
       frenchKeys.has(t.key) ? 'œuvre française' : '',
-      t.team.giphyIds.length ? `${t.team.giphyIds.length} GIF choisi(s)` : '',
+      isCurated(t.team) ? `${handPickedIds(t.team).length} GIF choisi(s)` : '',
     ].filter(Boolean);
     return [t.key, { badges, reportedGifs: r?.gifs }];
   }),

@@ -92,7 +92,7 @@ Le site suit le réglage « réduire les animations » du système : avec ce ré
 
 La route `/api/gif/<rivalité>/<a|b>` suit cet ordre, sans exception :
 
-1. **GIF choisis à la main** (`giphyIds`) : un au hasard. C'est la seule source vraiment fiable.
+1. **GIF choisis à la main** : les `giphyIds` et les liens Tenor `gifUrls`, un au hasard parmi tous. C'est la seule source vraiment fiable.
 2. **Recherche Giphy** avec `giphyQuery` (`lang=fr`, `rating=g`, 25 résultats), **validée** sur le titre, le slug ou le nom de l'auteur du GIF (sans accents, sans casse, en mots entiers) :
    - d'abord **exacte** : il contient un mot-clé entier de la team (son nom, sa requête, ou ses `giphyKeywords`) ;
    - puis **mot à mot** (seulement sans `giphyKeywords`) : il contient un mot significatif de la requête, 4 lettres ou plus, hors mots vagues comme « film » ou « funny ». C'est ce qui donne un GIF aux teams « idées » (« Contrôler la météo » → `weather control` → « Weather Map Storm »).
@@ -116,6 +116,20 @@ Les mots-clés se règlent avec le champ facultatif `giphyKeywords` :
 ```
 
 Sans `giphyKeywords`, les mots-clés sont le nom de la team sans son article (« Les Jedi » → « jedi ») et la requête `giphyQuery` entière. Avec `giphyKeywords`, seuls ces mots-clés comptent : utile pour un nom trop vague (« Taxi », « Camping »).
+
+### Liens Tenor : quand Giphy n'a rien
+
+Giphy connaît mal les œuvres françaises (Eddy Mitchell, la 7e compagnie…), que Tenor a souvent. L'API Tenor est fermée aux sites extérieurs depuis le 30 juin 2026 : pas de recherche automatique, mais on peut **coller un lien** choisi sur tenor.com (clic droit sur le GIF, « Copier l'adresse de l'image ») dans la page de curation, champ « Liens Tenor ou Giphy ». Il est rangé dans `gifUrls` :
+
+```json
+"gifUrls": ["https://media.tenor.com/4Pm3OjjE7BEAAAAC/eddy-mitchell-claude-moine.gif"]
+```
+
+- Seules les images `https://media.tenor.com/…` (et `media1.tenor.com/m/…`) sont acceptées ; le fichier refuse tout autre lien.
+- Le lien est rangé sous une forme unique (version `AAAAC`). Le site en sert la **vidéo MP4 légère** (`AAAPo`) et un **aperçu fixe** (`AAAAe`) pour les animations réduites, déduits du lien (`src/server/gif-links.ts`). Le GIF d'origine, parfois plusieurs Mo, n'est jamais chargé.
+- Le GIF reste hébergé chez Tenor ; si Google change ses adresses, la carte garde son cadre rayé.
+- Un lien Giphy collé dans le même champ est converti en identifiant et rangé dans `giphyIds`.
+- Le pied de page affiche « GIF via Tenor » dès qu'un lien est utilisé, et la page Confidentialité mentionne Tenor.
 
 ### Signalements « Mauvais GIF ? »
 

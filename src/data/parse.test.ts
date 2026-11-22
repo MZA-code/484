@@ -50,6 +50,7 @@ interface RawTeam {
   giphyIds: string[];
   giphyQuery: string;
   giphyKeywords?: string[];
+  gifUrls?: string[];
 }
 interface RawRivalry {
   id: string;
@@ -110,6 +111,17 @@ describe('rivalries file', () => {
       b: first.a,
     });
     expectError(file, /rivalité déjà présente/);
+  });
+
+  it('accepts Tenor image links and refuses any other link', () => {
+    const ok = cloneRivalries();
+    (ok.rivalries[0] as RawRivalry).a.gifUrls = [
+      'https://media.tenor.com/4Pm3OjjE7BEAAAAC/eddy-mitchell-claude-moine.gif',
+    ];
+    expect(() => parseRivalries(ok)).not.toThrow();
+    const bad = cloneRivalries();
+    (bad.rivalries[0] as RawRivalry).a.gifUrls = ['https://tenor.com/view/eddy-mitchell-gif-1'];
+    expectError(bad, /lien Tenor attendu/);
   });
 
   it('rejects two teams with the same name', () => {

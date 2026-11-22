@@ -16,7 +16,7 @@ try {
   for (const category of categories) {
     const list = rivalries.filter((r) => r.category === category.id);
     const teams = list.flatMap((r) => [r.a, r.b]);
-    const curated = teams.filter((t) => t.giphyIds.length > 0).length;
+    const curated = teams.filter((t) => t.giphyIds.length + (t.gifUrls?.length ?? 0) > 0).length;
     console.log(
       `  ${category.label.padEnd(22)} ${String(list.length).padStart(3)} rivalités · ${curated}/${teams.length} teams avec GIF choisis`,
     );

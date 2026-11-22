@@ -16,7 +16,7 @@
  * une recherche = un appel).
  */
 import { parseArgs } from 'node:util';
-import { requireApiKey, runCuration, teamsOf } from './lib/curation';
+import { isCurated, requireApiKey, runCuration, teamsOf } from './lib/curation';
 
 const apiKey = requireApiKey();
 
@@ -31,7 +31,7 @@ const { values: args } = parseArgs({
 
 const targets = teamsOf()
   .filter((t) => !args.category || t.category === args.category)
-  .filter((t) => args.all || t.team.giphyIds.length === 0)
+  .filter((t) => args.all || !isCurated(t.team))
   .slice(0, Number(args.limit));
 
 if (targets.length === 0) {

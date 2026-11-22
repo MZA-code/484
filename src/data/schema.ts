@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { ACHIEVEMENT_KINDS } from '../engine/achievements';
 import { MIXED_CATEGORY as MIXED_THEME } from '../engine/debate';
 import { ICON_NAMES } from '../lib/icons';
+import { isTenorUrl } from '../server/gif-links';
 import { brokenLinks, inlineVariables } from '../lib/inline';
 
 /** Nom d'une icône intégrée (voir src/lib/icons.ts). */
@@ -49,6 +50,21 @@ export const TeamSchema = z.object({
    * ni casse). Absents : le nom de la team et `giphyQuery` (voir src/server/gif-match.ts).
    */
   giphyKeywords: z.array(text).min(1, 'mettre au moins un mot-clé, ou retirer le champ').optional(),
+  /**
+   * GIF choisis à la main par un lien Tenor (`https://media.tenor.com/…`), quand Giphy n'a rien
+   * de bon. Tirés au sort avec les `giphyIds` (voir src/server/gif-links.ts).
+   */
+  gifUrls: z
+    .array(
+      z
+        .string()
+        .refine(
+          isTenorUrl,
+          'lien Tenor attendu, de la forme https://media.tenor.com/…/nom.gif (clic droit sur le GIF, « Copier l’adresse de l’image »)',
+        ),
+    )
+    .min(1, 'mettre au moins un lien, ou retirer le champ')
+    .optional(),
 });
 
 export const RivalrySchema = z.object({
@@ -397,6 +413,8 @@ export const UiTextsSchema = z.object({
     /** Numéro de version (celui de package.json). */
     version: template('version'),
     giphy: z.object({ label: text, url: z.url() }),
+    /** Affiché seulement si des GIF viennent de Tenor. */
+    tenor: z.object({ label: text, url: z.url() }),
     legal: z.object({
       label: text,
       debates: text,

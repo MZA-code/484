@@ -1,7 +1,8 @@
 /**
  * GET /api/gif/:rivalryId/:team → le GIF d'une team (URL MP4/WebP/image fixe).
  *
- * Priorité : GIF choisis à la main (`giphyIds`) > recherche validée > GIF d'ambiance de la catégorie > rien.
+ * Priorité : GIF choisis à la main (`giphyIds` et liens Tenor `gifUrls`, tirés au sort ensemble)
+ * > recherche validée > GIF d'ambiance de la catégorie > rien.
  * Les résultats de recherche trop signalés (« Mauvais GIF ? ») sont remplacés par le suivant.
  *
  * Réponses :
@@ -13,6 +14,7 @@
  */
 import type { APIRoute } from 'astro';
 import { categories, rivalries } from '../../../../data/content';
+import { tenorGif } from '../../../../server/gif-links';
 import { GiphyError } from '../../../../server/giphy';
 import { getGiphyService, gifJson as json } from '../../../../server/giphy-runtime';
 import { getVoteService } from '../../../../server/votes/runtime';
@@ -43,20 +45,28 @@ export const GET: APIRoute = async ({ params }) => {
   }
   const team = rivalry[side];
 
+  // GIF choisis à la main : un seul est stable (un jour de cache), plusieurs varient (une heure).
+  const links = team.gifUrls ?? [];
+  const handPicked = links.length + team.giphyIds.length;
+  const maxAge = handPicked === 1 ? 86400 : 3600;
+  const pick = Math.floor(Math.random() * handPicked);
+  // Un lien Tenor tiré au sort : rien à demander à Giphy.
+  const link = pick < links.length ? tenorGif(links[pick] as string) : null;
+  if (link) return json(link, 200, `public, max-age=${maxAge}`);
+
   const giphy = getGiphyService();
   if (!giphy) return json({ error: 'giphy-not-configured' }, 503, 'no-store');
 
   try {
+    // Un GIF Giphy choisi à la main a été tiré : on le demande, lui (repli sur la recherche).
+    const chosen = team.giphyIds[pick - links.length];
+    const giphyIds = chosen ? [chosen] : team.giphyIds;
     const gif = await giphy.gifFor(
-      { ...team, fallback: moodOf.get(rivalry.category) },
+      { ...team, giphyIds, fallback: moodOf.get(rivalry.category) },
       rejectedGifs(rivalry.id, side),
     );
     if (!gif) return json(null, 200, 'public, max-age=3600');
-    // Seul un GIF choisi à la main, et unique, est stable : il peut rester un jour en cache.
-    // Sinon une heure : variété entre plusieurs GIF choisis, ou remplacement d'un GIF signalé.
-    const stable = team.giphyIds.length === 1 && team.giphyIds[0] === gif.id;
-    const maxAge = stable ? 86400 : 3600;
-    return json(gif, 200, `public, max-age=${maxAge}`);
+    return json(gif, 200, `public, max-age=${handPicked > 0 ? maxAge : 3600}`);
   } catch (error) {
     const status = error instanceof GiphyError ? error.status : 0;
     console.warn(`[api/gif] ${rivalry.id}/${side}: Giphy failure (${status || 'network'})`);

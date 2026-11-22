@@ -11,6 +11,12 @@ import { createServer, type IncomingMessage } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { format, resolveConfig } from 'prettier';
 import { parseRivalries } from '../../src/data/parse';
+import {
+  canonicalTenorUrl,
+  giphyIdFromUrl,
+  tenorGif,
+  tenorGifId,
+} from '../../src/server/gif-links';
 import { keywordsFor, matchesKeywords, queryWords, type GifText } from '../../src/server/gif-match';
 import { toGif, type Gif } from '../../src/server/giphy';
 
@@ -25,6 +31,36 @@ export interface RawTeam {
   giphyIds: string[];
   giphyQuery: string;
   giphyKeywords?: string[];
+  /** Liens Tenor choisis à la main. */
+  gifUrls?: string[];
+}
+
+/** Identifiants des GIF choisis à la main (Giphy, et liens Tenor sous leur identifiant « tenor… »). */
+export function handPickedIds(team: RawTeam): string[] {
+  return [...team.giphyIds, ...(team.gifUrls ?? []).map((url) => tenorGifId(url) ?? url)];
+}
+
+/** La team a-t-elle au moins un GIF choisi à la main ? */
+export const isCurated = (team: RawTeam) => handPickedIds(team).length > 0;
+
+/**
+ * Lit les liens collés (un par ligne) : Tenor → gardé sous sa forme canonique,
+ * Giphy → son identifiant (rangé avec les `giphyIds`). Les lignes non reconnues sont renvoyées.
+ */
+export function readLinks(text: string): { tenor: string[]; giphy: string[]; invalid: string[] } {
+  const result = { tenor: [] as string[], giphy: [] as string[], invalid: [] as string[] };
+  for (const line of text.split(/\s+/).filter(Boolean)) {
+    const tenor = canonicalTenorUrl(line);
+    const giphy = tenor ? null : giphyIdFromUrl(line);
+    if (tenor) result.tenor.push(tenor);
+    else if (giphy) result.giphy.push(giphy);
+    else result.invalid.push(line);
+  }
+  return {
+    tenor: [...new Set(result.tenor)],
+    giphy: [...new Set(result.giphy)],
+    invalid: result.invalid,
+  };
 }
 
 interface RawRivalry {
@@ -103,6 +139,8 @@ interface SavePayload {
   queries: Record<string, string>;
   /** Mots-clés séparés par des virgules ; vide = retour aux mots-clés par défaut. */
   keywords: Record<string, string>;
+  /** Liens Tenor ou Giphy collés, un par ligne. */
+  links?: Record<string, string>;
 }
 
 export const splitKeywords = (value: string) =>
@@ -111,15 +149,22 @@ export const splitKeywords = (value: string) =>
     .map((k) => k.trim())
     .filter(Boolean);
 
-async function save({ picks, queries, keywords }: SavePayload): Promise<string> {
+async function save({ picks, queries, keywords, links = {} }: SavePayload): Promise<string> {
   const raw = readRaw();
   let picked = 0;
+  const problems: string[] = [];
   for (const { key, team } of teamsOf(raw)) {
     const ids = picks[key];
-    if (ids && ids.length > 0) {
-      team.giphyIds = ids;
-      picked++;
+    const before = JSON.stringify(handPickedIds(team));
+    if (ids && ids.length > 0) team.giphyIds = ids;
+    if (key in links) {
+      const { tenor, giphy, invalid } = readLinks(links[key] ?? '');
+      invalid.forEach((line) => problems.push(`${team.name} : ${line}`));
+      if (tenor.length > 0) team.gifUrls = tenor;
+      else delete team.gifUrls;
+      team.giphyIds = [...new Set([...team.giphyIds, ...giphy])];
     }
+    if (JSON.stringify(handPickedIds(team)) !== before) picked++;
     const query = queries[key]?.trim();
     if (query) team.giphyQuery = query;
     if (key in keywords) {
@@ -127,6 +172,11 @@ async function save({ picks, queries, keywords }: SavePayload): Promise<string> 
       if (list.length > 0) team.giphyKeywords = list;
       else delete team.giphyKeywords;
     }
+  }
+  if (problems.length > 0) {
+    throw new Error(
+      `Rien n’est enregistré : lien non reconnu (attendu : un lien d’image Tenor ou Giphy). ${problems.join(' · ')}`,
+    );
   }
   // On valide avant d'écrire : le fichier ne peut pas devenir invalide.
   parseRivalries(raw);
@@ -162,6 +212,18 @@ function matchLabel(text: GifText, source: MatchSource): string {
   const words = source.giphyKeywords?.length ? [] : queryWords(source.giphyQuery);
   if (matchesKeywords(text, words)) return '<span class="near">≈ mot à mot</span>';
   return '<span class="ko">✗ refusé</span>';
+}
+
+/** Aperçu des liens Tenor déjà choisis (la vidéo que le site affichera). */
+function linkPreviews(urls: readonly string[]): string {
+  const items = urls
+    .map((url) => tenorGif(url))
+    .filter((gif) => gif !== null)
+    .map(
+      (gif) =>
+        `<figure><video src="${escape(gif.mp4)}" autoplay muted loop playsinline></video><figcaption>Lien Tenor choisi</figcaption></figure>`,
+    );
+  return items.length > 0 ? `<div class="previews">${items.join('')}</div>` : '';
 }
 
 function tiles(
@@ -229,6 +291,10 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
           <button>Rechercher</button>
         </form>
         <div class="grid">${tiles(key, proposals, t.team.giphyIds, t.team, note?.reportedGifs)}</div>
+        <label class="links">Liens Tenor ou Giphy, un par ligne (sur tenor.com : clic droit sur le GIF, « Copier l’adresse de l’image »)
+          <textarea data-links="${escape(key)}" rows="2" placeholder="https://media.tenor.com/…/nom.gif">${escape((t.team.gifUrls ?? []).join('\n'))}</textarea>
+        </label>
+        ${linkPreviews(t.team.gifUrls ?? [])}
       </section>`;
       })
       .join('');
@@ -252,6 +318,11 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
     .ok{color:#66e08a}.near{color:#ffd23f}.ko{color:#ff5a4e}
     .bar{position:fixed;inset:auto 0 0 0;display:flex;gap:16px;align-items:center;padding:14px 24px;background:#ffd23f;color:#121212;font-weight:700}
     .none{color:#cfcac0}
+    .links{display:flex;flex-direction:column;gap:6px;margin-top:14px;color:#cfcac0;font-size:12px}
+    .links textarea{width:min(100%,720px);padding:8px;background:#1c1c1c;color:#f5f1e8;border:1px solid #444;font:13px ui-monospace,monospace}
+    .previews{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .previews figure{margin:0;width:200px;outline:4px solid #ffd23f}.previews video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+    .previews figcaption{font-size:12px;color:#cfcac0;padding:4px}
   </style></head><body>
   <h1>${escape(title)}</h1>
   <p class="help">${escape(intro)} Coche les GIF à garder (plusieurs possibles : le site en tire un au hasard) ; une team sans case cochée garde ses GIF actuels. « ✓ exact » et « ≈ mot à mot » : ce GIF serait accepté par la recherche automatique du site (l’exact passe en premier) ; « ✗ refusé » : jamais affiché sans ton choix. Mots-clés vides = valeurs par défaut (en gris).</p>
@@ -279,7 +350,11 @@ export async function runCuration({ apiKey, targets, port, title, intro, notes }
       document.querySelectorAll('input[type=checkbox]:checked').forEach((box) => {
         (picks[box.name] ??= []).push(box.value);
       });
-      const res = await fetch('/save', { method: 'POST', body: JSON.stringify({ picks, queries, keywords }) });
+      const links = {};
+      document.querySelectorAll('textarea[data-links]').forEach((area) => {
+        links[area.dataset.links] = area.value;
+      });
+      const res = await fetch('/save', { method: 'POST', body: JSON.stringify({ picks, queries, keywords, links }) });
       document.getElementById('status').textContent = await res.text();
     });
   </script></body></html>`;
