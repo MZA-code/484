@@ -9,7 +9,7 @@
  */
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { isAbsolute, join } from 'node:path';
+import { join, win32 } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { TEAM_IMAGES_DIR } from '../../src/server/gif-links';
@@ -24,7 +24,8 @@ const MAX_SOURCE_BYTES = 25_000_000;
 
 /** La ligne collée ressemble-t-elle à une image à importer (lien web ou fichier du poste) ? */
 export function isImageSource(line: string): boolean {
-  return /^https?:\/\//i.test(line) || isAbsolute(line);
+  // Règle Windows quel que soit le système (C:\… comme /…) : les tests tournent aussi sous Linux.
+  return /^https?:\/\//i.test(line) || win32.isAbsolute(line);
 }
 
 /** Nom de fichier lisible tiré du nom de la team : « Les Ripoux » → « les-ripoux ». */
