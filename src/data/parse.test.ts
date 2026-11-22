@@ -38,9 +38,33 @@ describe('UI texts file', () => {
 
 // ─── Rivalités ──────────────────────────────────────────────────────────────
 
-type RawRivalries = typeof rawRivalries;
-const cloneRivalries = (): RawRivalries => structuredClone(rawRivalries);
-type RawRivalry = RawRivalries['rivalries'][number];
+/**
+ * Forme brute du fichier, volontairement générique. Sans elle, TypeScript déduirait les types
+ * du contenu exact du JSON (une liste `giphyIds` toujours vide devient « never[] ») : choisir des
+ * GIF avec `npm run gif-audit` casserait alors la compilation des tests.
+ */
+interface RawTeam {
+  name: string;
+  origin: string;
+  line: string;
+  giphyIds: string[];
+  giphyQuery: string;
+  giphyKeywords?: string[];
+}
+interface RawRivalry {
+  id: string;
+  category: string;
+  question?: string;
+  a: RawTeam;
+  b: RawTeam;
+}
+interface RawRivalries {
+  version: number;
+  universes: Record<string, unknown>[];
+  categories: Record<string, unknown>[];
+  rivalries: RawRivalry[];
+}
+const cloneRivalries = (): RawRivalries => structuredClone(rawRivalries) as RawRivalries;
 
 describe('rivalries file', () => {
   const parsed = parseRivalries(rawRivalries);
