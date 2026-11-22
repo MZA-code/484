@@ -4033,13 +4033,14 @@ var rivalries_default = {
 				"origin": "Luc Besson · 1988",
 				"line": "Plonger toujours plus profond, avec des dauphins.",
 				"giphyIds": [],
-				"giphyQuery": "Le Grand Bleu dolphin"
+				"giphyQuery": "Le Grand Bleu",
+				"gifUrls": ["https://media.tenor.com/70XZ75JE5YkAAAAC/le-grand-bleu-the-big-blue.gif"]
 			},
 			"b": {
 				"name": "Léon",
 				"origin": "Luc Besson · 1994",
 				"line": "Un tueur, une plante verte, et un verre de lait.",
-				"giphyIds": [],
+				"giphyIds": ["tCzWe3PQwJeuI"],
 				"giphyQuery": "Leon the Professional"
 			}
 		},
@@ -4050,7 +4051,7 @@ var rivalries_default = {
 				"name": "Le Cinquième Élément",
 				"origin": "Luc Besson · 1997",
 				"line": "« Multipass ! »",
-				"giphyIds": [],
+				"giphyIds": ["uIGHPjEfdc0Ni"],
 				"giphyQuery": "Fifth Element multipass"
 			},
 			"b": {
@@ -4058,7 +4059,8 @@ var rivalries_default = {
 				"origin": "Gérard Pirès · 1998",
 				"line": "Marseille en mode turbo.",
 				"giphyIds": [],
-				"giphyQuery": "Taxi film Marseille"
+				"giphyQuery": "Taxi film Marseille",
+				"gifUrls": ["https://media.tenor.com/LaFq0vrUiJAAAAAC/taxi-start.gif"]
 			}
 		},
 		{
@@ -4068,7 +4070,7 @@ var rivalries_default = {
 				"name": "Jean Dujardin",
 				"origin": "Brice de Nice, OSS 117",
 				"line": "Des grimaces, des répliques, et un Oscar.",
-				"giphyIds": [],
+				"giphyIds": ["qDJuQR8Xyt3ri"],
 				"giphyQuery": "Jean Dujardin"
 			},
 			"b": {
@@ -4086,7 +4088,7 @@ var rivalries_default = {
 				"name": "Les Tontons flingueurs",
 				"origin": "Georges Lautner · 1963",
 				"line": "Des truands, une cuisine, et des dialogues d’Audiard.",
-				"giphyIds": [],
+				"giphyIds": ["c6NoRjSwtP86Q"],
 				"giphyQuery": "Les Tontons flingueurs"
 			},
 			"b": {
@@ -4094,7 +4096,8 @@ var rivalries_default = {
 				"origin": "Gérard Oury · 1966",
 				"line": "Deux Français, des aviateurs anglais, et une course-poursuite.",
 				"giphyIds": [],
-				"giphyQuery": "La Grande Vadrouille"
+				"giphyQuery": "defenus",
+				"gifUrls": ["https://media.tenor.com/OL9_NJ1VlQgAAAAC/la-grande-vadrouille-ecoutez-mon-cher-dites-vous-bien-que-nous-ne-sommes-pas-du-meme-monde.gif"]
 			}
 		},
 		{
@@ -4105,13 +4108,14 @@ var rivalries_default = {
 				"origin": "Jean Girault · 1981",
 				"line": "Un extraterrestre fan de soupe.",
 				"giphyIds": [],
-				"giphyQuery": "La Soupe aux choux"
+				"giphyQuery": "La Soupe aux choux",
+				"gifUrls": ["https://media.tenor.com/bhZ8y9j-8jQAAAAC/defunes-villeret.gif"]
 			},
 			"b": {
 				"name": "Le Gendarme de Saint-Tropez",
 				"origin": "Jean Girault · 1964",
 				"line": "Des gendarmes, la plage, et beaucoup d’agitation.",
-				"giphyIds": [],
+				"giphyIds": ["yUXc5qUqmrdza"],
 				"giphyQuery": "Gendarme de Saint-Tropez"
 			}
 		},
@@ -4122,7 +4126,7 @@ var rivalries_default = {
 				"name": "Brice de Nice",
 				"origin": "James Huth · 2005",
 				"line": "« Cassé ! »",
-				"giphyIds": [],
+				"giphyIds": ["j8SjxLuHM3L32"],
 				"giphyQuery": "Brice de Nice"
 			},
 			"b": {
@@ -4130,7 +4134,8 @@ var rivalries_default = {
 				"origin": "Olivier Baroux · 2011",
 				"line": "Une famille qui gagne au loto et reste fidèle à elle-même.",
 				"giphyIds": [],
-				"giphyQuery": "Les Tuche"
+				"giphyQuery": "Les Tuche",
+				"gifUrls": ["https://media.tenor.com/c1bsf5k0QjwAAAAC/les-tuche-des-frites-des-frites-des-frites.gif"]
 			}
 		},
 		{
@@ -4141,14 +4146,16 @@ var rivalries_default = {
 				"origin": "Fabien Onteniente · 2006",
 				"line": "Patrick Chirac, au camping des Flots bleus, tous les étés.",
 				"giphyIds": [],
-				"giphyQuery": "Camping film Franck Dubosc"
+				"giphyQuery": "Camping film Franck Dubosc",
+				"gifUrls": ["https://media.tenor.com/1wLhaxTMpqAAAAAC/franck-dubosc-patrick.gif"]
 			},
 			"b": {
 				"name": "La Vérité si je mens !",
 				"origin": "Thomas Gilou · 1997",
 				"line": "Le Sentier, des costumes, et des embrouilles.",
 				"giphyIds": [],
-				"giphyQuery": "La Verite si je mens"
+				"giphyQuery": "La Verite si je mens",
+				"gifUrls": ["https://media.tenor.com/5Tuf-Lz7IjMAAAAC/yallah-la-verite-si-je-mens.gif"]
 			}
 		},
 		{
@@ -4159,14 +4166,16 @@ var rivalries_default = {
 				"origin": "Mon oncle · 1958",
 				"line": "Un imper, une pipe, et des gags au millimètre.",
 				"giphyIds": [],
-				"giphyQuery": "Jacques Tati"
+				"giphyQuery": "Jacques Tati",
+				"gifUrls": ["https://media.tenor.com/bhIHQ0JagfkAAAAC/jacques-tati-playtime.gif"]
 			},
 			"b": {
 				"name": "Pierre Richard",
 				"origin": "Le Grand Blond · 1972",
 				"line": "Une chaussure noire et beaucoup de maladresse.",
 				"giphyIds": [],
-				"giphyQuery": "Pierre Richard"
+				"giphyQuery": "Pierre Richard",
+				"gifUrls": ["https://media.tenor.com/QiPT-KXDAfQAAAAC/ch%C3%A8vre-jules.gif"]
 			}
 		},
 		{
@@ -4176,7 +4185,7 @@ var rivalries_default = {
 				"name": "Christian Clavier",
 				"origin": "Le Splendid · 1974",
 				"line": "Jacquouille, Napoléon, et beaucoup de cris.",
-				"giphyIds": [],
+				"giphyIds": ["IHuS5o0hs2BVe"],
 				"giphyQuery": "Christian Clavier"
 			},
 			"b": {
@@ -4184,7 +4193,8 @@ var rivalries_default = {
 				"origin": "Le Splendid · 1974",
 				"line": "Le séducteur des Bronzés.",
 				"giphyIds": [],
-				"giphyQuery": "Thierry Lhermitte"
+				"giphyQuery": "Thierry Lhermitte",
+				"gifUrls": ["https://media.tenor.com/QnxZJZWkNdMAAAAC/belle-t%C3%AAte-de-vainqueur-le-d%C3%AEner-de-cons.gif"]
 			}
 		},
 		{
@@ -4194,7 +4204,7 @@ var rivalries_default = {
 				"name": "Les Choristes",
 				"origin": "Christophe Barratier · 2004",
 				"line": "Une chorale, un internat, et des frissons.",
-				"giphyIds": [],
+				"giphyIds": ["j5KabUmARslBZHZdg6"],
 				"giphyQuery": "Les Choristes"
 			},
 			"b": {
@@ -4202,7 +4212,8 @@ var rivalries_default = {
 				"origin": "Laurent Tirard · 2009",
 				"line": "L’école, les copains, et des bêtises.",
 				"giphyIds": [],
-				"giphyQuery": "Le Petit Nicolas"
+				"giphyQuery": "Le Petit Nicolas",
+				"gifUrls": ["https://media.tenor.com/tNAVccHGM14AAAAC/agnan-agnan-le-petit-nicolas.gif"]
 			}
 		},
 		{
@@ -4213,14 +4224,16 @@ var rivalries_default = {
 				"origin": "Christophe Gans · 2001",
 				"line": "Une bête mystérieuse et du kung-fu en 1764.",
 				"giphyIds": [],
-				"giphyQuery": "Brotherhood of the Wolf"
+				"giphyQuery": "Brotherhood of the Wolf",
+				"gifUrls": ["https://media.tenor.com/2K3AuJ_EKWwAAAAC/brotherhood-of.gif"]
 			},
 			"b": {
 				"name": "Les Rivières pourpres",
 				"origin": "Mathieu Kassovitz · 2000",
 				"line": "Deux flics, un glacier, et des frissons.",
 				"giphyIds": [],
-				"giphyQuery": "Crimson Rivers"
+				"giphyQuery": "Crimson Rivers",
+				"gifUrls": ["https://media.tenor.com/Zyks82ezHq0AAAAC/les-rivieres-pourpres-olivier-marchal.gif"]
 			}
 		},
 		{
@@ -4230,14 +4243,14 @@ var rivalries_default = {
 				"name": "Jean-Paul Belmondo",
 				"origin": "À bout de souffle · 1960",
 				"line": "Des cascades sans doublure et un sourire en coin.",
-				"giphyIds": [],
+				"giphyIds": ["YrEMVIxF1rSVXcUc2Y"],
 				"giphyQuery": "Jean-Paul Belmondo"
 			},
 			"b": {
 				"name": "Alain Delon",
 				"origin": "Le Samouraï · 1967",
 				"line": "Le regard bleu, et la classe.",
-				"giphyIds": [],
+				"giphyIds": ["H1kCbNzRYJCx5teutr"],
 				"giphyQuery": "Alain Delon"
 			}
 		},
