@@ -326,3 +326,7 @@ L'état relu du `localStorage` est vérifié avec Zod, puis confronté au catalo
 - **Nom avec empreinte** (`<team>-<8 caractères du SHA-256>`) : la même image importée deux fois donne le même fichier ; l'identifiant `img<empreinte>` sert pour « Mauvais GIF ? » comme ceux de Giphy et Tenor.
 - **Même format côté navigateur** : l'API renvoie `mp4` vide ; la carte affiche alors l'image (`webp`) au lieu d'une vidéo. Rien d'autre ne change dans les cartes.
 - **Droits** : les images sont recopiées sur le site ; la procédure rappelle de préférer celles qu'on a le droit d'utiliser.
+
+## D31 — Marque officielle « Powered by GIPHY » (version 1.4.3)
+
+GIPHY exige d'afficher ses marques d'attribution officielles là où l'API est utilisée : condition pour obtenir la clé de production. Le simple texte du pied de page est remplacé par le badge officiel (`public/images/giphy/powered-by-giphy.gif`, 200 × 42, tiré du kit de GIPHY, original dans `docs/giphy/`), lien vers giphy.com. Le badge est animé ; quand les animations sont réduites (réglage du système ou interrupteur de l'en-tête), une version fixe (première image, `powered-by-giphy.png`) s'affiche à la place. Le texte `footer.giphy.label` sert de texte alternatif.

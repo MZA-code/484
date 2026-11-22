@@ -151,8 +151,26 @@ const usesTenor = rivalries.some(
           </li>
         </ul>
       </nav>
-      <a class="footer-giphy" href={ui.footer.giphy.url} rel="noopener" target="_blank">
-        {ui.footer.giphy.label}
+      {/* Marque officielle « Powered by GIPHY » (exigée par GIPHY), fixe si les animations sont réduites. */}
+      <a class="footer-giphy-badge" href={ui.footer.giphy.url} rel="noopener" target="_blank">
+        <img
+          class="giphy-badge-animated"
+          src="/images/giphy/powered-by-giphy.gif"
+          width="200"
+          height="42"
+          alt={ui.footer.giphy.label}
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          class="giphy-badge-still"
+          src="/images/giphy/powered-by-giphy.png"
+          width="200"
+          height="42"
+          alt={ui.footer.giphy.label}
+          loading="lazy"
+          decoding="async"
+        />
       </a>
       {usesTenor && (
         <a class="footer-giphy" href={ui.footer.tenor.url} rel="noopener" target="_blank">
@@ -359,6 +377,44 @@ const usesTenor = rivalries.some(
 
   .footer-giphy:hover {
     color: var(--fg);
+  }
+
+  .footer-giphy-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .footer-giphy-badge img {
+    width: 200px;
+    height: 42px;
+  }
+
+  /* Une seule des deux images est visible : l'animée, ou la fixe si les animations sont réduites. */
+  .giphy-badge-animated {
+    display: block;
+  }
+
+  .giphy-badge-still {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(:root:not([data-motion='full'])) .giphy-badge-animated {
+      display: none;
+    }
+
+    :global(:root:not([data-motion='full'])) .giphy-badge-still {
+      display: block;
+    }
+  }
+
+  :global(:root[data-motion='reduced']) .giphy-badge-animated {
+    display: none;
+  }
+
+  :global(:root[data-motion='reduced']) .giphy-badge-still {
+    display: block;
   }
 
   .footer-version {
