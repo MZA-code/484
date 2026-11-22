@@ -543,7 +543,7 @@ var rivalries_default = {
 				"name": "OSS 117",
 				"origin": "Jean Bruce · 1949",
 				"line": "« Comment est votre blanquette ? »",
-				"giphyIds": [],
+				"giphyIds": ["D37UOXknYbTcQ"],
 				"giphyQuery": "OSS 117 Jean Dujardin"
 			}
 		},
@@ -1530,14 +1530,14 @@ var rivalries_default = {
 				"name": "Kaamelott",
 				"origin": "M6 · 2005",
 				"line": "« C’est pas faux. »",
-				"giphyIds": [],
+				"giphyIds": ["zrCSvFfl2fP7W"],
 				"giphyQuery": "Kaamelott"
 			},
 			"b": {
 				"name": "Les Visiteurs",
 				"origin": "Jean-Marie Poiré · 1993",
 				"line": "« Okayyy ! »",
-				"giphyIds": [],
+				"giphyIds": ["MrHFzd4JQ22Zy"],
 				"giphyQuery": "Les Visiteurs Jacquouille"
 			}
 		},
@@ -1621,15 +1621,15 @@ var rivalries_default = {
 				"name": "Astérix",
 				"origin": "Goscinny et Uderzo · 1959",
 				"line": "Petit, rusé, et carburant à la potion.",
-				"giphyIds": [],
+				"giphyIds": ["1Md9azxcgIyQ"],
 				"giphyQuery": "Asterix"
 			},
 			"b": {
 				"name": "Obélix",
 				"origin": "Goscinny et Uderzo · 1959",
 				"line": "Pas gros. Tombé dedans quand il était petit.",
-				"giphyIds": [],
-				"giphyQuery": "Obelix"
+				"giphyIds": ["aPpnKwFghQCE8"],
+				"giphyQuery": "Astérix  Obelix"
 			}
 		},
 		{
@@ -2185,7 +2185,7 @@ var rivalries_default = {
 				"name": "Johnny Hallyday",
 				"origin": "Rock français · 1960",
 				"line": "Cinquante ans de scène, et toujours l’idole des jeunes.",
-				"giphyIds": [],
+				"giphyIds": ["3oxHQiQoUiAbB5m2pG"],
 				"giphyQuery": "Johnny Hallyday"
 			},
 			"b": {
@@ -2193,7 +2193,7 @@ var rivalries_default = {
 				"origin": "Les Chaussettes noires · 1961",
 				"line": "Du rock, du cinéma, et une dernière séance.",
 				"giphyIds": [],
-				"giphyQuery": "Eddy Mitchell"
+				"giphyQuery": "chanteur francais old"
 			}
 		},
 		{
@@ -2984,7 +2984,7 @@ var rivalries_default = {
 				"name": "Star Academy",
 				"origin": "TF1 · 2001",
 				"line": "Un château, des cours de chant, et des larmes.",
-				"giphyIds": [],
+				"giphyIds": ["oMGTNu1MzJBVQeX78n"],
 				"giphyQuery": "Star Academy"
 			}
 		},
@@ -3175,7 +3175,7 @@ var rivalries_default = {
 				"name": "Les Schtroumpfs",
 				"origin": "Peyo · 1958",
 				"line": "Tout bleus, et schtroumpfement joyeux.",
-				"giphyIds": [],
+				"giphyIds": ["11nasKvU7ANSEw"],
 				"giphyQuery": "Smurfs"
 			},
 			"b": {
@@ -3283,14 +3283,14 @@ var rivalries_default = {
 				"name": "Oggy et les Cafards",
 				"origin": "Xilam · 1998",
 				"line": "Un chat bleu, trois cafards, zéro répit.",
-				"giphyIds": [],
+				"giphyIds": ["InHHbyimzP1uCR8cJb"],
 				"giphyQuery": "Oggy and the Cockroaches"
 			},
 			"b": {
 				"name": "Zig et Sharko",
 				"origin": "Xilam · 2010",
 				"line": "Une hyène, un requin, une sirène, et des plans foireux.",
-				"giphyIds": [],
+				"giphyIds": ["7sCEyMcmmXgzc46Pi5"],
 				"giphyQuery": "Zig and Sharko"
 			}
 		},
@@ -3571,7 +3571,7 @@ var rivalries_default = {
 				"name": "Kirikou",
 				"origin": "Michel Ocelot · 1998",
 				"line": "Petit, rapide, et plus malin que la sorcière.",
-				"giphyIds": [],
+				"giphyIds": ["MSRLPAkKlbFkzTD7Tb"],
 				"giphyQuery": "Kirikou"
 			},
 			"b": {
@@ -3643,7 +3643,7 @@ var rivalries_default = {
 				"name": "Lucky Luke",
 				"origin": "Morris · 1946",
 				"line": "Tire plus vite que son ombre.",
-				"giphyIds": [],
+				"giphyIds": ["7npgNtSclhnP2"],
 				"giphyQuery": "Lucky Luke"
 			},
 			"b": {
@@ -3849,7 +3849,7 @@ var rivalries_default = {
 				"origin": "Série animée · 1984",
 				"line": "Le volley, version passion.",
 				"giphyIds": [],
-				"giphyQuery": "Attacker You"
+				"giphyQuery": "volleyball anime"
 			}
 		},
 		{
@@ -4064,7 +4064,7 @@ var rivalries_default = {
 				"name": "Jean Reno",
 				"origin": "Léon, Les Visiteurs",
 				"line": "Un regard grave et une voix encore plus grave.",
-				"giphyIds": [],
+				"giphyIds": ["Pc16mmoHoXBh6"],
 				"giphyQuery": "Jean Reno"
 			}
 		},
@@ -6896,7 +6896,8 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Des disques en plastique, dans les paquets de chips.",
 				"giphyIds": [],
-				"giphyQuery": "Tazos"
+				"giphyQuery": "Tazos",
+				"giphyKeywords": ["pog"]
 			},
 			"b": {
 				"name": "Cartes Pokémon",
@@ -12712,8 +12713,8 @@ var rivalries_default = {
 				"name": "Kaijus",
 				"origin": "Pacific Rim · 2013",
 				"line": "Des monstres géants sortis de l’océan.",
-				"giphyIds": [],
-				"giphyQuery": "Pacific Rim kaiju"
+				"giphyIds": ["C5HjYGn5OWuj8r6CcM"],
+				"giphyQuery": "Pacific Rim monster"
 			},
 			"b": {
 				"name": "Jaegers",
@@ -14370,7 +14371,7 @@ var rivalries_default = {
 				"name": "Ulysse",
 				"origin": "L’Odyssée",
 				"line": "Dix ans pour rentrer chez lui.",
-				"giphyIds": [],
+				"giphyIds": ["vd7zIvHKK8MBI3izXj"],
 				"giphyQuery": "Odysseus"
 			},
 			"b": {
@@ -17101,7 +17102,7 @@ var rivalries_default = {
 				"name": "Daniel Craig",
 				"origin": "James Bond · 2006",
 				"line": "Le plus brutal, et une chemise mouillée.",
-				"giphyIds": [],
+				"giphyIds": ["PD8BbTOAB2e08"],
 				"giphyQuery": "Daniel Craig Bond"
 			}
 		},
