@@ -1,4 +1,4 @@
-import { a as universes, n as categories, r as rivalries, t as getSecret } from "./server_D2vEgv0p.mjs";
+import { a as universes, n as categories, r as rivalries, t as getSecret } from "./server_CiIiFAVR.mjs";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { z } from "zod";
@@ -233,8 +233,11 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 				}
 			};
 		},
-		/** « Mauvais GIF ? » : un signalement de plus pour ce GIF de cette team. */
-		reportGif(raw, ip) {
+		/**
+		* « Mauvais GIF ? » : un signalement de plus pour ce GIF de cette team.
+		* En mode admin (`admin`), pas de limite, et le GIF est écarté tout de suite.
+		*/
+		reportGif(raw, ip, admin = false) {
 			const parsed = GifReportBody.safeParse(raw);
 			if (!parsed.success) return {
 				status: 400,
@@ -253,11 +256,15 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 				gifId: parsed.data.gifId,
 				ipHash: hashIp(ip, salt, day),
 				day,
-				nowMs
+				nowMs,
+				...admin ? { trusted: { weight: 3 } } : {}
 			});
 			if (outcome.status === "counted") return {
 				status: 200,
-				body: { counted: true }
+				body: admin ? {
+					counted: true,
+					rejected: true
+				} : { counted: true }
 			};
 			if (outcome.status === "duplicate") return {
 				status: 200,
@@ -436,8 +443,9 @@ function openSqliteStore(file) {
 		putReportBucket: db.prepare(`INSERT INTO report_limits (ip_hash, day, tokens, updated_ms, count) VALUES (?, ?, ?, ?, ?)
        ON CONFLICT(ip_hash) DO UPDATE SET tokens = excluded.tokens, updated_ms = excluded.updated_ms, count = excluded.count`),
 		purgeReports: db.prepare("DELETE FROM report_limits WHERE day < ?"),
-		report: db.prepare(`INSERT INTO gif_reports (rivalry_id, team, gif_id, reports, last_ms) VALUES (?, ?, ?, 1, ?)
-       ON CONFLICT(rivalry_id, team, gif_id) DO UPDATE SET reports = reports + 1, last_ms = excluded.last_ms`),
+		report: db.prepare(`INSERT INTO gif_reports (rivalry_id, team, gif_id, reports, last_ms) VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(rivalry_id, team, gif_id)
+       DO UPDATE SET reports = reports + excluded.reports, last_ms = excluded.last_ms`),
 		reports: db.prepare(`SELECT rivalry_id AS rivalryId, team, gif_id AS gifId, reports, last_ms AS lastMs
        FROM gif_reports ORDER BY reports DESC, last_ms DESC`),
 		voteA: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, a_votes) VALUES (?, 1)
@@ -494,7 +502,11 @@ function openSqliteStore(file) {
 				throw error;
 			}
 		},
-		recordGifReport({ rivalryId, team, gifId, ipHash, day, nowMs }) {
+		recordGifReport({ rivalryId, team, gifId, ipHash, day, nowMs, trusted }) {
+			if (trusted) {
+				q.report.run(rivalryId, team, gifId, trusted.weight, nowMs);
+				return { status: "counted" };
+			}
 			db.exec("BEGIN IMMEDIATE");
 			try {
 				if (lastReportPurgeDay !== day) {
@@ -505,7 +517,7 @@ function openSqliteStore(file) {
 				const taken = takeToken(q.getReportBucket.get(ipHash), nowMs, REPORT_RATE);
 				q.putReportBucket.run(ipHash, day, taken.next.tokens, taken.next.updatedMs, taken.next.count);
 				const first = taken.allowed && Number(q.seeReport.run(rivalryId, team, gifId, ipHash, day).changes) > 0;
-				if (first) q.report.run(rivalryId, team, gifId, nowMs);
+				if (first) q.report.run(rivalryId, team, gifId, 1, nowMs);
 				db.exec("COMMIT");
 				if (!taken.allowed) return {
 					status: "rate-limited",
@@ -573,6 +585,14 @@ function directAddress(clientAddress) {
 function clientIp(request, clientAddress) {
 	return pickClientIp(request.headers.get("x-forwarded-for"), directAddress(clientAddress), trustedHops(getSecret("TRUST_PROXY")));
 }
+/** En-tête qui porte le jeton du mode admin (voir src/lib/admin.ts). */
+var ADMIN_HEADER = "x-484-admin";
+/** La requête vient-elle de l'éditeur (jeton GIF_REPORT_TOKEN dans l'en-tête admin) ? */
+function isAdminRequest(request) {
+	const token = getSecret("GIF_REPORT_TOKEN");
+	const given = request.headers.get(ADMIN_HEADER);
+	return Boolean(token && given && sameToken(given, token));
+}
 /** Filtre anti-abus des routes qui écrivent : null si la requête passe, sinon la réponse de refus. */
 function rejectWrite(request) {
 	const rejection = checkWriteRequest(request.headers, request.url);
@@ -597,4 +617,4 @@ var jsonResponse = (body, status, cacheControl = "no-store") => new Response(JSO
 		"cache-control": cacheControl
 	}
 });
-export { rejectWrite as a, jsonResponse as i, getVoteService as n, HALL_TTL_MS as o, ipDiagnostic as r, sameToken as s, clientIp as t };
+export { jsonResponse as a, sameToken as c, isAdminRequest as i, getVoteService as n, rejectWrite as o, ipDiagnostic as r, HALL_TTL_MS as s, clientIp as t };

@@ -1,7 +1,7 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { n as categories, r as rivalries } from "./server_D2vEgv0p.mjs";
-import { n as gifJson, r as GiphyError, t as getGiphyService } from "./giphy-runtime_DCM8yO5K.mjs";
-import { n as getVoteService } from "./runtime_C0TQjExH.mjs";
+import { n as categories, r as rivalries } from "./server_CiIiFAVR.mjs";
+import { n as gifJson, r as GiphyError, t as getGiphyService } from "./giphy-runtime_b9Ondzh8.mjs";
+import { n as getVoteService } from "./runtime_C35bM9v4.mjs";
 // src/pages/api/gif/[rivalry]/[team].ts
 var _team__exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,

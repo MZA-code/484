@@ -1,6 +1,6 @@
 import { i as setOnSetGetEnv, n as getEnv$1, t as createInvalidVariablesError } from "./runtime_BNfvQd4R.mjs";
 import { z } from "zod";
-import { faBolt, faCarSide, faClapperboard, faComments, faCompactDisc, faDragon, faFilm, faFutbol, faGamepad, faGuitar, faHashtag, faHouse, faLaptopCode, faMask, faMugHot, faPaw, faPizzaSlice, faScaleBalanced, faShirt, faShuffle, faStar, faTv, faUserGroup, faVideo, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
+import { faBolt, faBriefcase, faCarSide, faClapperboard, faComments, faCompactDisc, faCompass, faCrown, faDragon, faEarthEurope, faEye, faFilm, faFire, faFutbol, faGamepad, faGuitar, faHandFist, faHashtag, faHeart, faHouse, faLaptopCode, faLock, faMask, faMedal, faMugHot, faPaw, faPeopleGroup, faPizzaSlice, faScaleBalanced, faShirt, faShuffle, faStar, faTrophy, faTv, faUserGroup, faVideo, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
 // node_modules/astro/dist/env/validators.js
 function getEnvFieldType(options) {
 	const optional = options.optional ? options.default !== void 0 ? false : true : false;
@@ -18487,7 +18487,8 @@ var ui_texts_fr_default = {
 				"Noté. Ce GIF n’avait rien à faire là, et il le sait."
 			],
 			"limited": "Doucement, inspecteur : tu as déjà signalé beaucoup de GIF aujourd’hui.",
-			"error": "Le signalement s’est perdu en route. Réessaie plus tard."
+			"error": "Le signalement s’est perdu en route. Réessaie plus tard.",
+			"admin": "Écarté. Voici le suivant (mode admin)."
 		}
 	},
 	quips: {
@@ -18516,19 +18517,116 @@ var ui_texts_fr_default = {
 			"C’est toi qui vois. Et tu as vu."
 		]
 	},
-	milestones: {
-		"10": { "text": "10 débats. Tu avais sûrement autre chose à faire. Non ? Parfait." },
-		"25": {
-			"text": "25 débats. Si tu es recruteur, on devrait sérieusement se parler.",
-			"link": true
-		},
-		"50": { "text": "50 débats. À ce stade, ce n’est plus un site, c’est une relation." },
-		"100": { "text": "100 débats. Tu as vu passer plus de pop culture qu’un vidéoclub en 1995." },
-		"200": { "text": "200 débats. Ton patron pense que tu travailles. D’une certaine façon, oui." },
-		"484": {
-			"text": "484 débats. Le nombre fétiche de ce site. Tu as gagné notre respect éternel.",
-			"link": true
-		}
+	achievements: {
+		"title": "Tes achievements",
+		"unlocked": "Achievement débloqué",
+		"count": "{done} sur {total} débloqués",
+		"next": "Prochain : {name}, encore {left}",
+		"allDone": "Tout est débloqué. Il n’y a plus rien à prouver. Tu peux continuer quand même.",
+		"locked": "verrouillé",
+		"list": [
+			{
+				"id": "curieux",
+				"kind": "debates",
+				"goal": 10,
+				"icon": "eye",
+				"name": "Curieux",
+				"description": "10 débats tranchés",
+				"text": "10 débats. Tu avais sûrement autre chose à faire. Non ? Parfait."
+			},
+			{
+				"id": "recrutable",
+				"kind": "debates",
+				"goal": 25,
+				"icon": "briefcase",
+				"name": "Recrutable",
+				"description": "25 débats tranchés",
+				"text": "25 débats. Si tu es recruteur, on devrait sérieusement se parler.",
+				"link": true
+			},
+			{
+				"id": "accro",
+				"kind": "debates",
+				"goal": 50,
+				"icon": "heart",
+				"name": "Accro",
+				"description": "50 débats tranchés",
+				"text": "50 débats. À ce stade, ce n’est plus un site, c’est une relation."
+			},
+			{
+				"id": "centurion",
+				"kind": "debates",
+				"goal": 100,
+				"icon": "medal",
+				"name": "Centurion",
+				"description": "100 débats tranchés",
+				"text": "100 débats. Tu as vu passer plus de pop culture qu’un vidéoclub en 1995."
+			},
+			{
+				"id": "insatiable",
+				"kind": "debates",
+				"goal": 200,
+				"icon": "fire",
+				"name": "Insatiable",
+				"description": "200 débats tranchés",
+				"text": "200 débats. Ton patron pense que tu travailles. D’une certaine façon, oui."
+			},
+			{
+				"id": "legende-484",
+				"kind": "debates",
+				"goal": 484,
+				"icon": "crown",
+				"name": "Légende du 484",
+				"description": "484 débats tranchés",
+				"text": "484 débats. Le nombre fétiche de ce site. Tu as gagné notre respect éternel.",
+				"link": true
+			},
+			{
+				"id": "hors-categorie",
+				"kind": "debates",
+				"goal": 1e3,
+				"icon": "trophy",
+				"name": "Hors catégorie",
+				"description": "1 000 débats tranchés",
+				"text": "1 000 débats. On ne sait plus quoi te dire. Toi non plus, visiblement."
+			},
+			{
+				"id": "rebelle",
+				"kind": "rebels",
+				"goal": 10,
+				"icon": "hand-fist",
+				"name": "Rebelle",
+				"description": "10 choix contre la majorité",
+				"text": "10 choix contre la majorité. Tu ne suis pas le troupeau. Le troupeau ne te suit pas non plus."
+			},
+			{
+				"id": "dans-le-moule",
+				"kind": "streak",
+				"goal": 20,
+				"icon": "people-group",
+				"name": "Dans le moule",
+				"description": "20 fois d’accord avec la majorité, d’affilée",
+				"text": "20 fois d’accord avec la majorité, d’affilée. Tu n’as pas un avis, tu as L’avis."
+			},
+			{
+				"id": "globe-trotteur",
+				"kind": "universes",
+				"goal": 4,
+				"icon": "earth-europe",
+				"name": "Globe-trotteur",
+				"description": "Un débat tranché dans chacun des 4 univers",
+				"text": "Les 4 univers visités. Écrans, pop culture, vraie vie, imaginaire : tu as fait le tour du propriétaire."
+			},
+			{
+				"id": "explorateur",
+				"kind": "categories",
+				"goal": 20,
+				"icon": "compass",
+				"name": "Explorateur",
+				"description": "Un débat tranché dans chacune des 20 catégories",
+				"text": "Les 20 catégories. Tu as un avis sur tout. Littéralement tout."
+			}
+		]
 	},
 	hallOfFame: {
 		"pageTitle": "Hall of Fame",
@@ -18691,6 +18789,14 @@ function applyTypographyDeep(value, skipKeys) {
 	};
 	return walk(value);
 }
+// src/engine/achievements.ts
+var ACHIEVEMENT_KINDS = [
+	"debates",
+	"rebels",
+	"categories",
+	"universes",
+	"streak"
+];
 var count = z.number().int().nonnegative();
 z.object({
 	version: z.literal(1),
@@ -18706,30 +18812,45 @@ z.object({
 	measured: count,
 	agreed: count,
 	rebels: count,
+	categories: z.array(z.string()).default([]),
+	streak: count.default(0),
+	bestStreak: count.default(0),
 	lastQuipKey: z.string().nullable()
 });
 var ICON_NAMES = Object.keys({
 	bolt: faBolt,
+	briefcase: faBriefcase,
 	"car-side": faCarSide,
 	clapperboard: faClapperboard,
 	comments: faComments,
 	"compact-disc": faCompactDisc,
+	compass: faCompass,
+	crown: faCrown,
 	dragon: faDragon,
+	"earth-europe": faEarthEurope,
+	eye: faEye,
 	film: faFilm,
+	fire: faFire,
 	futbol: faFutbol,
 	gamepad: faGamepad,
 	guitar: faGuitar,
+	"hand-fist": faHandFist,
 	hashtag: faHashtag,
+	heart: faHeart,
 	house: faHouse,
 	"laptop-code": faLaptopCode,
+	lock: faLock,
 	mask: faMask,
+	medal: faMedal,
 	"mug-hot": faMugHot,
 	paw: faPaw,
+	"people-group": faPeopleGroup,
 	"pizza-slice": faPizzaSlice,
 	"scale-balanced": faScaleBalanced,
 	shirt: faShirt,
 	shuffle: faShuffle,
 	star: faStar,
+	trophy: faTrophy,
 	tv: faTv,
 	"user-group": faUserGroup,
 	video: faVideo,
@@ -19037,7 +19158,9 @@ var UiTextsSchema = z.object({
 			label: template("name"),
 			thanks: quipList,
 			limited: text,
-			error: text
+			error: text,
+			/** Mode admin : le GIF est écarté et remplacé sous tes yeux. */
+			admin: text
 		})
 	}),
 	quips: z.object({
@@ -19046,10 +19169,37 @@ var UiTextsSchema = z.object({
 		low: quipList,
 		neutral: quipList
 	}),
-	milestones: z.record(z.string().regex(/^[1-9]\d*$/, "la clé d’un palier doit être un nombre de débats"), z.object({
-		text,
-		link: z.boolean().optional()
-	})),
+	/** Achievements : objectifs à débloquer (voir src/engine/achievements.ts). */
+	achievements: z.object({
+		title: text,
+		unlocked: text,
+		count: template("done", "total"),
+		next: template("name", "left"),
+		allDone: text,
+		locked: text,
+		list: z.array(z.object({
+			id: slug,
+			kind: z.enum(ACHIEVEMENT_KINDS, { message: `type inconnu ; types possibles : ${ACHIEVEMENT_KINDS.join(", ")}` }),
+			goal: z.number().int().positive("l’objectif doit être un nombre positif"),
+			icon,
+			name: text.max(40, "doit rester court (40 caractères maximum)"),
+			description: text,
+			/** Phrase du bandeau de déblocage. */
+			text,
+			/** Affiche le lien LinkedIn dans le bandeau. */
+			link: z.boolean().optional()
+		})).min(1).superRefine((list, ctx) => {
+			const seen = /* @__PURE__ */ new Set();
+			list.forEach((a, i) => {
+				if (seen.has(a.id)) ctx.addIssue({
+					code: "custom",
+					path: [i, "id"],
+					message: `achievement en double : ${a.id}`
+				});
+				seen.add(a.id);
+			});
+		})
+	}),
 	hallOfFame: z.object({
 		pageTitle: text,
 		title: text,
@@ -19167,6 +19317,7 @@ var TECHNICAL_KEYS = /* @__PURE__ */ new Set([
 	"giphyIds",
 	"giphyQuery",
 	"giphyKeywords",
+	"kind",
 	"version"
 ]);
 var ContentError = class extends Error {

@@ -1,6 +1,6 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { t as getSecret } from "./server_D2vEgv0p.mjs";
-import { a as rejectWrite, i as jsonResponse, n as getVoteService, t as clientIp } from "./runtime_C0TQjExH.mjs";
+import { t as getSecret } from "./server_CiIiFAVR.mjs";
+import { a as jsonResponse, i as isAdminRequest, n as getVoteService, o as rejectWrite, t as clientIp } from "./runtime_C35bM9v4.mjs";
 // src/pages/api/gif-report.ts
 var gif_report_exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,
@@ -22,7 +22,7 @@ var POST = async ({ request, clientAddress }) => {
 		return jsonResponse({ error: "invalid-json" }, 400);
 	}
 	try {
-		const result = service.reportGif(body, clientIp(request, () => clientAddress));
+		const result = service.reportGif(body, clientIp(request, () => clientAddress), isAdminRequest(request));
 		return jsonResponse(result.body, result.status);
 	} catch (error) {
 		console.error("[api/gif-report]", error.message);
