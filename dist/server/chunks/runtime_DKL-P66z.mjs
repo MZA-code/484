@@ -1,8 +1,8 @@
-import { a as getSecret, i as universes, n as rivalries, t as categories } from "./content_D4-3keF-.mjs";
+import { a as getSecret, i as universes, n as rivalries, t as categories } from "./content_CwDiKsbO.mjs";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { z } from "zod";
-import { createHash } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
 var ranked = (r) => {
 	const total = r.aVotes + r.bVotes;
@@ -43,6 +43,12 @@ var RATE = {
 	refillPerMs: 1 / 1e3,
 	daily: 2e3
 };
+/** Signalements de GIF : 3 d'affilée, puis 1 par minute, 30 par jour. Personne n'en fait plus. */
+var REPORT_RATE = {
+	burst: 3,
+	refillPerMs: 1 / 6e4,
+	daily: 30
+};
 /** Jour UTC « AAAA-MM-JJ ». */
 function dayOf(nowMs) {
 	return new Date(nowMs).toISOString().slice(0, 10);
@@ -50,12 +56,12 @@ function dayOf(nowMs) {
 function hashIp(ip, salt, day) {
 	return createHash("sha256").update(`${salt}|${day}|${ip}`).digest("hex").slice(0, 32);
 }
-/** Consomme un jeton si possible. `prev` absent = premier vote de la journée. */
-function takeToken(prev, nowMs) {
+/** Consomme un jeton si possible. `prev` absent = première action de la journée. */
+function takeToken(prev, nowMs, rate = RATE) {
 	const elapsed = prev ? Math.max(0, nowMs - prev.updatedMs) : 0;
-	const tokens = prev ? Math.min(RATE.burst, prev.tokens + elapsed * RATE.refillPerMs) : RATE.burst;
+	const tokens = prev ? Math.min(rate.burst, prev.tokens + elapsed * rate.refillPerMs) : rate.burst;
 	const count = prev?.count ?? 0;
-	if (count >= RATE.daily) return {
+	if (count >= rate.daily) return {
 		allowed: false,
 		reason: "daily",
 		next: {
@@ -89,6 +95,18 @@ var VoteBody = z.object({
 	team: z.enum(["a", "b"]),
 	category: z.string().min(1).max(60)
 });
+var GifReportBody = z.object({
+	/** « rivalité/a » ou « rivalité/b », comme la route /api/gif. */
+	teamId: z.string().regex(/^[a-z0-9-]{1,160}\/[ab]$/),
+	/** Identifiant Giphy : lettres et chiffres. */
+	gifId: z.string().regex(/^[A-Za-z0-9]{1,64}$/)
+});
+/** Comparaison en temps constant : la durée ne trahit pas le jeton attendu. */
+function sameToken(given, expected) {
+	const a = Buffer.from(given);
+	const b = Buffer.from(expected);
+	return a.length === b.length && timingSafeEqual(a, b);
+}
 function createVoteService({ store, salt, rivalries, categoryIds, universes = [], now = Date.now }) {
 	const categoryOf = new Map(rivalries.map((r) => [r.id, r.category]));
 	/** Catégories couvertes par chaque filtre possible : une catégorie, un univers, ou tout. */
@@ -144,6 +162,57 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 				}
 			};
 		},
+		/** « Mauvais GIF ? » : un signalement de plus pour ce GIF de cette team. */
+		reportGif(raw, ip) {
+			const parsed = GifReportBody.safeParse(raw);
+			if (!parsed.success) return {
+				status: 400,
+				body: { error: "invalid-body" }
+			};
+			const [rivalryId, team] = parsed.data.teamId.split("/");
+			if (!categoryOf.has(rivalryId)) return {
+				status: 400,
+				body: { error: "unknown-rivalry" }
+			};
+			const nowMs = now();
+			const day = dayOf(nowMs);
+			const outcome = store.recordGifReport({
+				rivalryId,
+				team,
+				gifId: parsed.data.gifId,
+				ipHash: hashIp(ip, salt, day),
+				day,
+				nowMs
+			});
+			return outcome.status === "counted" ? {
+				status: 200,
+				body: { counted: true }
+			} : {
+				status: 429,
+				body: {
+					counted: false,
+					reason: outcome.reason
+				}
+			};
+		},
+		/**
+		* Liste des signalements pour `npm run gif-audit`, protégée par un jeton.
+		* Sans jeton configuré côté serveur, la liste n'existe pas (404).
+		*/
+		gifReports(authorization, token) {
+			if (!token) return {
+				status: 404,
+				body: { error: "not-found" }
+			};
+			if (!sameToken(authorization?.replace(/^Bearer\s+/i, "") ?? "", token)) return {
+				status: 401,
+				body: { error: "unauthorized" }
+			};
+			return {
+				status: 200,
+				body: { reports: store.gifReports().filter((r) => categoryOf.has(r.rivalryId)) }
+			};
+		},
 		hallOfFame(categoryParam) {
 			const category = categoryParam || "mix";
 			if (!isCategory(category)) return {
@@ -185,11 +254,14 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 * Tables :
 * - rivalry_votes(rivalry_id, a_votes, b_votes) : les votes de chaque rivalité
 * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
+* - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
+* - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
 *
 * L'interface `VoteStore` isole le reste du code de SQLite (passage à MySQL possible).
 */
 /** Migrations successives, appliquées une fois (suivies par `PRAGMA user_version`). */
-var MIGRATIONS = [`CREATE TABLE contenders (
+var MIGRATIONS = [
+	`CREATE TABLE contenders (
      id TEXT PRIMARY KEY,
      wins INTEGER NOT NULL DEFAULT 0,
      losses INTEGER NOT NULL DEFAULT 0
@@ -209,13 +281,31 @@ var MIGRATIONS = [`CREATE TABLE contenders (
      updated_ms INTEGER NOT NULL,
      count INTEGER NOT NULL
    ) STRICT;
-   CREATE INDEX rate_limits_day ON rate_limits(day);`, `DROP TABLE contenders;
+   CREATE INDEX rate_limits_day ON rate_limits(day);`,
+	`DROP TABLE contenders;
    DROP TABLE pairs;
    CREATE TABLE rivalry_votes (
      rivalry_id TEXT PRIMARY KEY,
      a_votes INTEGER NOT NULL DEFAULT 0,
      b_votes INTEGER NOT NULL DEFAULT 0
-   ) STRICT;`];
+   ) STRICT;`,
+	`CREATE TABLE gif_reports (
+     rivalry_id TEXT NOT NULL,
+     team TEXT NOT NULL CHECK (team IN ('a', 'b')),
+     gif_id TEXT NOT NULL,
+     reports INTEGER NOT NULL DEFAULT 0,
+     last_ms INTEGER NOT NULL,
+     PRIMARY KEY (rivalry_id, team, gif_id)
+   ) STRICT;
+   CREATE TABLE report_limits (
+     ip_hash TEXT PRIMARY KEY,
+     day TEXT NOT NULL,
+     tokens REAL NOT NULL,
+     updated_ms INTEGER NOT NULL,
+     count INTEGER NOT NULL
+   ) STRICT;
+   CREATE INDEX report_limits_day ON report_limits(day);`
+];
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
 var likePrefix = (prefix) => `${prefix.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
 function openSqliteStore(file) {
@@ -234,6 +324,14 @@ function openSqliteStore(file) {
 		putBucket: db.prepare(`INSERT INTO rate_limits (ip_hash, day, tokens, updated_ms, count) VALUES (?, ?, ?, ?, ?)
        ON CONFLICT(ip_hash) DO UPDATE SET tokens = excluded.tokens, updated_ms = excluded.updated_ms, count = excluded.count`),
 		purge: db.prepare("DELETE FROM rate_limits WHERE day < ?"),
+		getReportBucket: db.prepare("SELECT tokens, updated_ms AS updatedMs, count FROM report_limits WHERE ip_hash = ?"),
+		putReportBucket: db.prepare(`INSERT INTO report_limits (ip_hash, day, tokens, updated_ms, count) VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(ip_hash) DO UPDATE SET tokens = excluded.tokens, updated_ms = excluded.updated_ms, count = excluded.count`),
+		purgeReports: db.prepare("DELETE FROM report_limits WHERE day < ?"),
+		report: db.prepare(`INSERT INTO gif_reports (rivalry_id, team, gif_id, reports, last_ms) VALUES (?, ?, ?, 1, ?)
+       ON CONFLICT(rivalry_id, team, gif_id) DO UPDATE SET reports = reports + 1, last_ms = excluded.last_ms`),
+		reports: db.prepare(`SELECT rivalry_id AS rivalryId, team, gif_id AS gifId, reports, last_ms AS lastMs
+       FROM gif_reports ORDER BY reports DESC, last_ms DESC`),
 		voteA: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, a_votes) VALUES (?, 1)
        ON CONFLICT(rivalry_id) DO UPDATE SET a_votes = a_votes + 1`),
 		voteB: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, b_votes) VALUES (?, 1)
@@ -244,6 +342,7 @@ function openSqliteStore(file) {
        WHERE rivalry_id LIKE ? ESCAPE '\\'`)
 	};
 	let lastPurgeDay = "";
+	let lastReportPurgeDay = "";
 	function pairResult(rivalryId, team) {
 		const row = q.one.get(rivalryId);
 		if (!row) return {
@@ -280,6 +379,32 @@ function openSqliteStore(file) {
 				db.exec("ROLLBACK");
 				throw error;
 			}
+		},
+		recordGifReport({ rivalryId, team, gifId, ipHash, day, nowMs }) {
+			db.exec("BEGIN IMMEDIATE");
+			try {
+				if (lastReportPurgeDay !== day) {
+					q.purgeReports.run(day);
+					lastReportPurgeDay = day;
+				}
+				const taken = takeToken(q.getReportBucket.get(ipHash), nowMs, REPORT_RATE);
+				q.putReportBucket.run(ipHash, day, taken.next.tokens, taken.next.updatedMs, taken.next.count);
+				if (taken.allowed) q.report.run(rivalryId, team, gifId, nowMs);
+				db.exec("COMMIT");
+				return taken.allowed ? { status: "counted" } : {
+					status: "rate-limited",
+					reason: taken.reason
+				};
+			} catch (error) {
+				db.exec("ROLLBACK");
+				throw error;
+			}
+		},
+		gifReports() {
+			return q.reports.all().map(({ lastMs, ...row }) => ({
+				...row,
+				lastReport: new Date(lastMs).toISOString()
+			}));
 		},
 		rivalryCounts(idPrefix) {
 			return idPrefix ? q.prefix.all(likePrefix(idPrefix)) : q.all.all();

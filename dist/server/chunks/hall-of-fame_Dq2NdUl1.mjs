@@ -1,5 +1,5 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { a as HALL_TTL_MS, i as jsonResponse, n as getVoteService } from "./runtime_CPjlmE7C.mjs";
+import { a as HALL_TTL_MS, i as jsonResponse, n as getVoteService } from "./runtime_DKL-P66z.mjs";
 // src/pages/api/hall-of-fame.ts
 var hall_of_fame_exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,

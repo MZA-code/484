@@ -1,5 +1,5 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { a as getSecret, n as rivalries } from "./content_D4-3keF-.mjs";
+import { a as getSecret, n as rivalries } from "./content_CwDiKsbO.mjs";
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 // src/server/gif-cache.ts
@@ -75,14 +75,54 @@ function createFileCache(file, now = Date.now) {
 		}
 	};
 }
+// src/server/gif-match.ts
+/** Minuscules, sans accents ; tout ce qui n'est ni lettre ni chiffre devient une espace. */
+function normalizeText(value) {
+	return value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+}
+var compact = (value) => value.replace(/ /g, "");
+/** Le mot-clé apparaît-il en mots entiers dans le texte (« dc » oui dans « dc comics », non dans « dclic ») ? */
+function containsWords(haystack, keyword) {
+	return ` ${haystack} `.includes(` ${keyword} `);
+}
+/**
+* Vrai si au moins un mot-clé apparaît dans le titre, le slug ou le nom d'auteur.
+* Le nom d'auteur s'écrit sans espaces (« lesinconnus ») : il est comparé mots-clés collés.
+*/
+function matchesKeywords(gif, keywords) {
+	const title = normalizeText(gif.title ?? "");
+	const slug = normalizeText(gif.slug ?? "");
+	const username = compact(normalizeText(gif.username ?? ""));
+	return keywords.some((raw) => {
+		const keyword = normalizeText(raw);
+		if (!keyword) return false;
+		return containsWords(title, keyword) || containsWords(slug, keyword) || username !== "" && username.includes(compact(keyword));
+	});
+}
+/** Articles retirés en tête du nom : « Les Jedi » doit accepter un GIF titré « Jedi ». */
+var LEADING_ARTICLE = /^(le|la|les|l|un|une|des|du|the)\s+/;
+/**
+* Mots-clés d'une team : ceux écrits dans `giphyKeywords`, sinon son nom (sans article)
+* et sa requête de recherche (souvent le nom anglais : « Darth Vader » pour Dark Vador).
+*/
+function keywordsFor(team) {
+	if (team.giphyKeywords && team.giphyKeywords.length > 0) return [...team.giphyKeywords];
+	const name = normalizeText(team.name).replace(LEADING_ARTICLE, "");
+	return [...new Set([name, normalizeText(team.giphyQuery)].filter(Boolean))];
+}
 // src/server/giphy.ts
 /**
 * Service Giphy côté serveur. La clé API ne quitte jamais le serveur :
 * le client ne reçoit que les URL des médias légers (MP4 / WebP).
 *
-* - Prétendant avec des GIF choisis à la main (`giphyIds`) : on en prend un au hasard.
-* - Sinon : premier résultat de la recherche `giphyQuery`, `rating=g`.
-* - Tout est mis en cache (mémoire + fichier) pour ménager le quota de l'API.
+* Ordre de priorité pour une team :
+* 1. un des GIF choisis à la main (`giphyIds`), au hasard ;
+* 2. sinon, le premier résultat de la recherche `giphyQuery` (`lang=fr`, `rating=g`) qui passe
+*    la validation par mots-clés (voir gif-match.ts) ;
+* 3. sinon, null : le navigateur garde le cadre rayé avec le nom.
+* Un résultat de recherche non validé n'est jamais renvoyé.
+*
+* Tout est mis en cache (mémoire + fichier) pour ménager le quota de l'API.
 */
 var API = "https://api.giphy.com/v1/gifs";
 /** Durées de cache. */
@@ -151,25 +191,31 @@ function createGiphyService({ apiKey, cache, fetch: doFetch = fetch, random = Ma
 			return toGif((await call(`/${encodeURIComponent(id)}`, {})).data);
 		});
 	}
-	function search(query) {
-		return cached(`q:${query.trim().toLowerCase()}`, (gif) => gif ? TTL.search : TTL.empty, async () => {
-			return toGif((await call("/search", {
+	function search(query, keywords) {
+		return cached(`q:${query.trim().toLowerCase()}|k:${[...keywords].sort().join(",").toLowerCase()}`, (gif) => gif ? TTL.search : TTL.empty, async () => {
+			const body = await call("/search", {
 				q: query,
-				limit: "1",
+				limit: String(25),
 				rating: "g",
-				lang: "en"
-			})).data?.[0]);
+				lang: "fr"
+			});
+			for (const raw of body.data ?? []) {
+				if (!matchesKeywords(raw, keywords)) continue;
+				const gif = toGif(raw);
+				if (gif) return gif;
+			}
+			return null;
 		});
 	}
 	return { 
-	/** GIF d'un prétendant : un des GIF choisis, sinon le premier résultat de recherche. */
+	/** GIF d'une team : un des GIF choisis, sinon un résultat de recherche validé, sinon null. */
 async gifFor(source) {
 		if (source.giphyIds.length > 0) {
 			const id = source.giphyIds[Math.floor(random() * source.giphyIds.length)];
 			const gif = await byId(id);
 			if (gif) return gif;
 		}
-		return search(source.giphyQuery);
+		return search(source.giphyQuery, keywordsFor(source));
 	} };
 }
 // src/pages/api/gif/[rivalry]/[team].ts
@@ -202,7 +248,7 @@ var GET = async ({ params }) => {
 	if (!apiKey) return json({ error: "giphy-not-configured" }, 503, "no-store");
 	try {
 		const gif = await getService(apiKey).gifFor(team);
-		if (!gif) return json({ error: "no-gif" }, 404, "public, max-age=3600");
+		if (!gif) return json(null, 200, "public, max-age=3600");
 		return json(gif, 200, `public, max-age=${team.giphyIds.length > 1 ? 3600 : 86400}`);
 	} catch (error) {
 		const status = error instanceof GiphyError ? error.status : 0;

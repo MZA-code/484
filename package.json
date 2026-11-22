@@ -1,6 +1,6 @@
 {
   "name": "484-duels",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Lequel tu préfères ? Duels infinis entre icônes de la pop culture.",
   "type": "module",
@@ -22,6 +22,7 @@
     "content:check": "tsx scripts/check-content.ts",
     "content:review": "tsx scripts/review-rivalries.ts",
     "curate": "tsx scripts/curate-gifs.ts",
+    "gif-audit": "tsx scripts/gif-audit.ts",
     "verify": "npm run lint && npm run format:check && npm run check && npm run test && npm run build"
   },
   "dependencies": {
