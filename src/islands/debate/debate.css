@@ -1209,72 +1209,346 @@
   text-underline-offset: 4px;
 }
 
-/* ─── Catégorie terminée ─────────────────────────────────────────────────── */
+/* ─── Catégorie terminée : la célébration ────────────────────────────────── */
 
-.debate-finished {
+.finish {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 32px 0 8px;
-  animation: question-in 420ms var(--ease-out) backwards;
+  gap: 32px;
+  padding-top: 8px;
 }
 
-.debate-finished .debate-title:focus {
+/* Bandeau jaune à rayons, avec le tampon « terminée » et la pastille du score. */
+.finish-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: clamp(36px, 7vw, 64px) var(--gutter) clamp(44px, 8vw, 72px);
+  overflow: hidden;
+  border: 4px solid var(--fg);
+  background: var(--yellow);
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 10px 10px 0 var(--pink);
+  animation: finish-shake 520ms 380ms ease-out backwards;
+}
+
+/* Rayons du soleil : fixes (pas de rotation), ils « respirent » une fois à l'arrivée. */
+.finish-rays {
+  position: absolute;
+  inset: -50%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    #ffc21a 0 9deg,
+    transparent 9deg 18deg
+  );
+  animation: finish-rays-in 900ms var(--ease-out) backwards;
+  pointer-events: none;
+}
+
+.finish-kicker {
+  position: relative;
+  padding: 6px 14px;
+  background: var(--ink);
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+.finish-title {
+  position: relative;
+  max-width: 12ch;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 11vw, 7.5rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-shadow:
+    4px 4px 0 var(--pink),
+    8px 8px 0 var(--ink);
+  transform: rotate(-3deg);
+  animation: finish-slam 560ms cubic-bezier(0.2, 1.4, 0.4, 1) backwards;
+}
+
+.finish-title:focus {
   outline: none;
 }
 
-.debate-finished-text {
-  max-width: 60ch;
-  color: var(--fg-muted);
-}
-
-.debate-finished-next {
-  margin-top: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-}
-
-.debate-finished-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 0;
-  list-style: none;
-}
-
-.debate-finished-list .category-tab {
+/* Pastille ronde « 50/50 débats bouclés », collée de travers. */
+.finish-score {
+  position: absolute;
+  top: clamp(10px, 3vw, 22px);
+  right: clamp(10px, 3vw, 28px);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-}
-
-.debate-finished-count {
-  color: var(--fg-muted);
-  font-size: 0.75rem;
-  font-weight: 400;
-}
-
-.debate-finished-list .category-tab:hover .debate-finished-count {
-  color: inherit;
-}
-
-.debate-finished-replay {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 12px 16px;
-  margin-top: 8px;
+  justify-content: center;
+  width: clamp(92px, 16vw, 128px);
+  aspect-ratio: 1;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--ink);
+  transform: rotate(12deg);
+  animation: finish-pop 420ms 520ms cubic-bezier(0.2, 1.6, 0.4, 1) backwards;
 }
 
-.debate-finished-hint {
+.finish-score-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  line-height: 1;
+}
+
+.finish-score-label {
+  max-width: 9ch;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Gerbes de confettis (même mouvement que celles du palier). */
+.finish-fireworks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.finish-burst {
+  position: absolute;
+}
+
+.finish-burst span {
+  position: absolute;
+  width: 11px;
+  height: 16px;
+  border: 1px solid rgb(18 18 18 / 0.5);
+  opacity: 0;
+  animation: confetti-burst 1400ms cubic-bezier(0.1, 0.8, 0.3, 1) var(--delay) forwards;
+}
+
+.finish-burst span.is-round {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* GIF dans un cadre de carte, penché, et la phrase de la catégorie. */
+.finish-body {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 56px);
+}
+
+.finish-gif {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 4px solid var(--fg);
+  background: repeating-linear-gradient(-45deg, #1c1c1c 0 12px, #242424 12px 24px);
+  box-shadow: 10px 10px 0 var(--blue);
+  transform: rotate(-2deg);
+  animation: finish-pop 480ms 300ms cubic-bezier(0.2, 1.4, 0.4, 1) backwards;
+}
+
+.finish-gif-wait {
   color: var(--fg-muted);
   font-family: var(--font-mono);
   font-size: 0.8125rem;
 }
 
+.finish-gif video,
+.finish-gif img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.finish-gif.is-ready video,
+.finish-gif.is-ready img {
+  opacity: 1;
+}
+
+.finish-text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.finish-line {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.finish-replay {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+
+.finish-replay-button {
+  min-height: 48px;
+  padding: 10px 20px;
+  border: 3px solid var(--fg);
+  background: var(--fg);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 var(--yellow);
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.finish-replay-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--yellow);
+}
+
+.finish-hint {
+  flex: 1 1 220px;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+/* Catégories où il reste à trancher : de vraies cartes colorées. */
+.finish-next-title {
+  margin-bottom: 14px;
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.finish-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.finish-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  min-height: 96px;
+  padding: 16px;
+  border: 3px solid var(--ink);
+  background: var(--card);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 6px 6px 0 var(--fg);
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.finish-card:hover {
+  transform: translate(-3px, -3px) rotate(-1deg);
+  box-shadow: 9px 9px 0 var(--fg);
+}
+
+.finish-card-label {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.finish-card-count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+@keyframes finish-slam {
+  0% {
+    opacity: 0;
+    transform: scale(2.8) rotate(-10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-2deg);
+  }
+}
+
+@keyframes finish-shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-8px, 4px);
+  }
+  40% {
+    transform: translate(7px, -5px);
+  }
+  60% {
+    transform: translate(-5px, 3px);
+  }
+  80% {
+    transform: translate(3px, -2px);
+  }
+}
+
+@keyframes finish-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3) rotate(-20deg);
+  }
+}
+
+@keyframes finish-rays-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+@media (max-width: 720px) {
+  .finish-body {
+    grid-template-columns: 1fr;
+  }
+
+  .finish-hero {
+    padding-top: 72px;
+  }
+
+  .finish-score {
+    width: 84px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .debate-finished {
+  :root:not([data-motion='full']) .finish-hero,
+  :root:not([data-motion='full']) .finish-hero * {
     animation: none;
   }
+}
+
+:root[data-motion='reduced'] .finish-hero,
+:root[data-motion='reduced'] .finish-hero * {
+  animation: none;
 }

@@ -36,140 +36,220 @@
       "label": "Héros et vilains",
       "tagline": "Des capes, des masques, et des egos surdimensionnés.",
       "icon": "mask",
-      "giphyQuery": "superhero pose"
+      "giphyQuery": "superhero pose",
+      "finish": {
+        "line": "Mission accomplie. Tu peux enlever ta cape, personne ne regarde.",
+        "giphyQuery": "superhero celebration"
+      }
     },
     {
       "id": "bouffe",
       "label": "Bouffe qui divise",
       "tagline": "Ces débats ont gâché plus de repas de famille que la politique.",
       "icon": "pizza-slice",
-      "giphyQuery": "delicious food"
+      "giphyQuery": "delicious food",
+      "finish": {
+        "line": "Tu as tout goûté, même les débats indigestes. Sieste conseillée.",
+        "giphyQuery": "food coma"
+      }
     },
     {
       "id": "geek",
       "label": "Tech et geek",
       "tagline": "Les guerres saintes de l’informatique. Aucun survivant.",
       "icon": "laptop-code",
-      "giphyQuery": "computer nerd"
+      "giphyQuery": "computer nerd",
+      "finish": {
+        "line": "Chargement terminé à 100 %. Aucun bug détecté, pour une fois.",
+        "giphyQuery": "nerd celebration"
+      }
     },
     {
       "id": "jeux",
       "label": "Jeux vidéo",
       "tagline": "Manette en main, amitiés en jeu.",
       "icon": "gamepad",
-      "giphyQuery": "video game controller"
+      "giphyQuery": "video game controller",
+      "finish": {
+        "line": "Niveau terminé. Pas de boss caché, pas de DLC, promis.",
+        "giphyQuery": "level complete"
+      }
     },
     {
       "id": "ecrans",
       "label": "Ciné et séries",
       "tagline": "Pop-corn, canapé, et des avis très tranchés.",
       "icon": "film",
-      "giphyQuery": "popcorn movie night"
+      "giphyQuery": "popcorn movie night",
+      "finish": {
+        "line": "Générique de fin. Tu peux rallumer la lumière et ramasser le pop-corn.",
+        "giphyQuery": "movie theater applause"
+      }
     },
     {
       "id": "duos",
       "label": "Duos à départager",
       "tagline": "Ils sont inséparables. Toi, tu vas devoir choisir.",
       "icon": "user-group",
-      "giphyQuery": "best friends duo"
+      "giphyQuery": "best friends duo",
+      "finish": {
+        "line": "Tu as séparé tous les duos. Il va y avoir des rancunes.",
+        "giphyQuery": "best friends fight funny"
+      }
     },
     {
       "id": "quotidien",
       "label": "Vie quotidienne",
       "tagline": "Les petites guerres de tous les jours.",
       "icon": "mug-hot",
-      "giphyQuery": "everyday life"
+      "giphyQuery": "everyday life",
+      "finish": {
+        "line": "Ta vie quotidienne est désormais parfaitement arbitrée. Ou presque.",
+        "giphyQuery": "nailed it"
+      }
     },
     {
       "id": "musique",
       "label": "Musique",
       "tagline": "Ces débats ont fini plus de soirées que la police.",
       "icon": "guitar",
-      "giphyQuery": "dancing music"
+      "giphyQuery": "dancing music",
+      "finish": {
+        "line": "Rideau. Le public réclame un rappel, mais il n’y a plus de morceau.",
+        "giphyQuery": "mic drop"
+      }
     },
     {
       "id": "dessins",
       "label": "Dessins animés",
       "tagline": "Le samedi matin, devant la télé, en pyjama. Choisis ton camp.",
       "icon": "tv",
-      "giphyQuery": "classic cartoon"
+      "giphyQuery": "classic cartoon",
+      "finish": {
+        "line": "C’est fini, comme le dernier générique du mercredi après-midi.",
+        "giphyQuery": "that's all folks"
+      }
     },
     {
       "id": "cinefr",
       "label": "Ciné français",
       "tagline": "Des répliques que ton oncle cite encore à chaque repas.",
       "icon": "clapperboard",
-      "giphyQuery": "cinema popcorn"
+      "giphyQuery": "cinema popcorn",
+      "finish": {
+        "line": "Fin. Comme dans un film d’auteur : sans prévenir, et tu restes sur ta faim.",
+        "giphyQuery": "standing ovation"
+      }
     },
     {
       "id": "internet",
       "label": "Internet et memes",
       "tagline": "Le savoir de toute l’humanité, utilisé surtout pour regarder des chats.",
       "icon": "hashtag",
-      "giphyQuery": "internet meme"
+      "giphyQuery": "internet meme",
+      "finish": {
+        "line": "Tu as fini Internet. Enfin, ce petit bout-là.",
+        "giphyQuery": "you win the internet"
+      }
     },
     {
       "id": "mots",
       "label": "Mots de chez nous",
       "tagline": "La France, la Belgique, la Suisse et le Québec ne parlent pas tout à fait la même langue.",
       "icon": "comments",
-      "giphyQuery": "dictionary words"
+      "giphyQuery": "dictionary words",
+      "finish": {
+        "line": "Tous les mots sont tranchés. L’Académie française n’a qu’à bien se tenir.",
+        "giphyQuery": "mind blown"
+      }
     },
     {
       "id": "nostalgie",
       "label": "Nostalgie années 90",
       "tagline": "Avant les smartphones, il y avait ça. Et on était heureux.",
       "icon": "compact-disc",
-      "giphyQuery": "90s retro"
+      "giphyQuery": "90s retro",
+      "finish": {
+        "line": "Rembobinage terminé. Pense à remettre la cassette dans sa boîte.",
+        "giphyQuery": "90s dance"
+      }
     },
     {
       "id": "sport",
       "label": "Sport",
       "tagline": "Des débats plus tendus qu’une finale aux tirs au but.",
       "icon": "futbol",
-      "giphyQuery": "sports fan cheering"
+      "giphyQuery": "sports fan cheering",
+      "finish": {
+        "line": "Coup de sifflet final. Victoire aux tirs au but, évidemment.",
+        "giphyQuery": "goal celebration"
+      }
     },
     {
       "id": "mode",
       "label": "Mode et looks",
       "tagline": "Le miroir n’a jamais menti. Toi, peut-être.",
       "icon": "shirt",
-      "giphyQuery": "fashion runway"
+      "giphyQuery": "fashion runway",
+      "finish": {
+        "line": "Défilé terminé. Tu peux retirer tes talons, ou tes chaussettes-claquettes.",
+        "giphyQuery": "runway walk sassy"
+      }
     },
     {
       "id": "autos",
       "label": "Autos et motos",
       "tagline": "Des marques, des moteurs, et des clubs de fans prêts à en découdre.",
       "icon": "car-side",
-      "giphyQuery": "fast car"
+      "giphyQuery": "fast car",
+      "finish": {
+        "line": "Ligne d’arrivée franchie. Pense à faire le plein.",
+        "giphyQuery": "finish line race"
+      }
     },
     {
       "id": "dilemmes",
       "label": "Dilemmes absurdes",
       "tagline": "Aucune bonne réponse. Seulement des mauvaises, et des pires.",
       "icon": "scale-balanced",
-      "giphyQuery": "difficult choice"
+      "giphyQuery": "difficult choice",
+      "finish": {
+        "line": "Tu as résolu tous les dilemmes. Les philosophes sont au chômage.",
+        "giphyQuery": "thinking hard funny"
+      }
     },
     {
       "id": "pouvoirs",
       "label": "Superpouvoirs",
       "tagline": "Choisis bien : aucun remboursement, aucun échange.",
       "icon": "bolt",
-      "giphyQuery": "superpower"
+      "giphyQuery": "superpower",
+      "finish": {
+        "line": "Tous tes superpouvoirs sont choisis. Utilise-les pour le bien. Ou pour les courses.",
+        "giphyQuery": "power up"
+      }
     },
     {
       "id": "monstres",
       "label": "Monstres et créatures",
       "tagline": "Ils vivent sous ton lit. Et ils ont un avis.",
       "icon": "dragon",
-      "giphyQuery": "cartoon monster"
+      "giphyQuery": "cartoon monster",
+      "finish": {
+        "line": "Tous les monstres sont rangés sous le lit. Tu peux dormir.",
+        "giphyQuery": "monster dance"
+      }
     },
     {
       "id": "animaux",
       "label": "Animaux",
       "tagline": "Ils ne savent pas qu’on les compare. Heureusement.",
       "icon": "paw",
-      "giphyQuery": "cute animals"
+      "giphyQuery": "cute animals",
+      "finish": {
+        "line": "Tous les animaux sont départagés. Aucun n’est vexé. Sauf le chat.",
+        "giphyQuery": "cat judging"
+      }
     }
   ],
   "rivalries": [

@@ -276,7 +276,12 @@ export default function Debate({
           debateStage(rivalry)
         ) : (
           <Finished
+            key={state.category}
+            id={state.category}
             category={state.category === MIXED_CATEGORY ? null : (labels.get(state.category) ?? '')}
+            line={data.categories.find((c) => c.id === state.category)?.finishLine}
+            total={ctx.catalog.pools.get(state.category)?.length ?? 0}
+            reducedMotion={reducedMotion}
             suggestions={suggestions}
             texts={t.finished}
             onSelect={selectCategory}

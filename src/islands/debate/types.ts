@@ -31,7 +31,8 @@ export type AchievementTexts = Omit<UiTexts['achievements'], 'list'> & {
 
 export interface DebateData {
   universes: { id: string; label: string; categories: string[] }[];
-  categories: { id: string; label: string }[];
+  /** `finishLine` : phrase de l'écran « Catégorie terminée » (sinon le texte générique). */
+  categories: { id: string; label: string; finishLine?: string | undefined }[];
   rivalries: DebateRivalry[];
   texts: Pick<UiTexts, 'debate' | 'quips'> & {
     achievements: AchievementTexts;

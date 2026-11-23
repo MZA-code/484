@@ -16,7 +16,11 @@ const team = ({ name, origin, line }: { name: string; origin: string; line: stri
 export function buildDebateData(): DebateData {
   return {
     universes: universes.map(({ id, label, categories: ids }) => ({ id, label, categories: ids })),
-    categories: categories.map(({ id, label }) => ({ id, label })),
+    categories: categories.map(({ id, label, finish }) => ({
+      id,
+      label,
+      finishLine: finish?.line,
+    })),
     rivalries: rivalries.map((r) => ({
       id: r.id,
       category: r.category,

@@ -96,14 +96,18 @@
     "shareDescription": "Team {a} ou team {b} ? Choisis ton camp, et découvre si le reste du monde est d’accord.",
     "loadError": "Les rivalités n’ont pas voulu sortir. Recharge la page, elles sont un peu timides.",
     "finished": {
-      "title": "Catégorie terminée",
+      "title": "Catégorie terminée !",
       "body": "Tu as tranché tous les débats de « {category} ». Il n’en reste plus un seul.",
-      "allTitle": "Tout est tranché",
+      "allKicker": "Tout mélangé",
+      "allTitle": "Tout est tranché !",
       "allBody": "Tu as fait le tour de tous les débats du site. Tous. On n’a plus rien à te demander, pour l’instant.",
-      "next": "Il reste des débats à trancher ailleurs :",
+      "score": "{n}/{n}",
+      "scoreLabel": "débats bouclés",
+      "gifWait": "GIF en approche…",
+      "next": "Il reste du boulot ailleurs",
       "remaining": {
-        "one": "{n} débat",
-        "other": "{n} débats"
+        "one": "{n} débat à trancher →",
+        "other": "{n} débats à trancher →"
       },
       "replay": "Rejouer cette catégorie",
       "replayAll": "Tout rejouer",

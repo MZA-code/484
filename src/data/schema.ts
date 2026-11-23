@@ -34,6 +34,11 @@ export const ThemeSchema = z.object({
    */
   giphyQuery: text,
   giphyIds: z.array(text).optional(),
+  /**
+   * Écran « Catégorie terminée » : une phrase drôle propre à la catégorie et son GIF (recherche
+   * Giphy en anglais, ou GIF choisis à la main). Absent : texte et GIF génériques.
+   */
+  finish: z.object({ line: text, giphyQuery: text, giphyIds: z.array(text).optional() }).optional(),
 });
 
 // ─── Rivalités « Team X ou Team Y ? » ───────────────────────────────────────
@@ -358,8 +363,14 @@ export const UiTextsSchema = z.object({
       title: text,
       body: template('category'),
       /** « Tout mélangé » terminé : tout le site est tranché. */
+      allKicker: text,
       allTitle: text,
       allBody: text,
+      /** Pastille « 50/50 débats bouclés ». */
+      score: template('n'),
+      scoreLabel: text,
+      /** Dans le cadre du GIF, tant qu'il n'est pas là (ou s'il n'y en a pas). */
+      gifWait: text,
       next: text,
       remaining: pluralForms,
       replay: text,
