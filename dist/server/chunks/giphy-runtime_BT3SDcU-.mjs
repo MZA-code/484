@@ -1,4 +1,4 @@
-import { o as teamImage, s as tenorGif, t as getSecret } from "./server_DZ4iSzzB.mjs";
+import { o as teamImage, s as tenorGif, t as getSecret } from "./server_Pw9WUbLS.mjs";
 import { rmSync } from "node:fs";
 // src/lib/gif-match.ts
 /** Minuscules, sans accents ; tout ce qui n'est ni lettre ni chiffre devient une espace. */
@@ -103,8 +103,17 @@ function teamGifPlan(team, options) {
 * c'est le navigateur qui appelle Giphy (règle de GIPHY pour le web, voir src/lib/giphy.ts).
 */
 var oldCacheRemoved = false;
-/** undefined si la clé Giphy n'est pas configurée. */
+/**
+* Mode développement sans Giphy (`npm run dev:sans-giphy`) : la clé n'est jamais envoyée au
+* navigateur, donc aucun appel à l'API Giphy ; les cartes reçoivent un GIF de remplacement.
+* Jamais activé en production (la variable n'existe pas dans cPanel).
+*/
+function giphyOffline() {
+	return getSecret("GIPHY_OFFLINE") === "true";
+}
+/** undefined si la clé Giphy n'est pas configurée, ou en mode sans Giphy. */
 function getGiphyKey() {
+	if (giphyOffline()) return void 0;
 	if (!oldCacheRemoved) {
 		oldCacheRemoved = true;
 		try {
@@ -120,4 +129,4 @@ var gifJson = (body, status, cacheControl) => new Response(JSON.stringify(body),
 		"cache-control": cacheControl
 	}
 });
-export { teamGifPlan as i, gifJson as n, moodPlan as r, getGiphyKey as t };
+export { teamGifPlan as a, moodPlan as i, gifJson as n, giphyOffline as r, getGiphyKey as t };

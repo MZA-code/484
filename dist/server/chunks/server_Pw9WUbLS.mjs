@@ -18550,6 +18550,20 @@ var ui_texts_fr_default = {
 		"shareText": "Tu es plutôt team {a} ou team {b} ? Viens trancher.",
 		"shareDescription": "Team {a} ou team {b} ? Choisis ton camp, et découvre si le reste du monde est d’accord.",
 		"loadError": "Les rivalités n’ont pas voulu sortir. Recharge la page, elles sont un peu timides.",
+		"finished": {
+			"title": "Catégorie terminée",
+			"body": "Tu as tranché tous les débats de « {category} ». Il n’en reste plus un seul.",
+			"allTitle": "Tout est tranché",
+			"allBody": "Tu as fait le tour de tous les débats du site. Tous. On n’a plus rien à te demander, pour l’instant.",
+			"next": "Il reste des débats à trancher ailleurs :",
+			"remaining": {
+				"one": "{n} débat",
+				"other": "{n} débats"
+			},
+			"replay": "Rejouer cette catégorie",
+			"replayAll": "Tout rejouer",
+			"replayHint": "Tes anciens choix restent dans ton profil. Tu as le droit de changer d’avis."
+		},
 		"gifReport": {
 			"button": "Mauvais GIF ?",
 			"label": "Mauvais GIF ? Signaler le GIF de {name}",
@@ -18883,7 +18897,8 @@ z.object({
 	version: z.literal(1),
 	category: z.string(),
 	queue: z.array(z.string()),
-	current: z.string(),
+	current: z.string().nullable(),
+	done: z.array(z.string()).optional(),
 	count,
 	history: z.array(z.object({
 		rivalryId: z.string(),
@@ -19325,6 +19340,19 @@ var UiTextsSchema = z.object({
 		shareText: template("a", "b"),
 		shareDescription: template("a", "b"),
 		loadError: text,
+		/** Catégorie terminée : tous ses débats tranchés ou passés (rien ne revient tout seul). */
+		finished: z.object({
+			title: text,
+			body: template("category"),
+			/** « Tout mélangé » terminé : tout le site est tranché. */
+			allTitle: text,
+			allBody: text,
+			next: text,
+			remaining: pluralForms,
+			replay: text,
+			replayAll: text,
+			replayHint: text
+		}),
 		/** Bouton « Mauvais GIF ? » sous chaque carte. */
 		gifReport: z.object({
 			button: text,
@@ -19541,6 +19569,12 @@ var schema = {
 		"optional": true,
 		"type": "string"
 	},
+	"GIPHY_OFFLINE": {
+		"context": "server",
+		"access": "secret",
+		"default": "false",
+		"type": "string"
+	},
 	"OG_CACHE_DIR": {
 		"context": "server",
 		"access": "secret",
@@ -19591,6 +19625,7 @@ var _internalGetSecret = (key) => {
 };
 setOnSetGetEnv(() => {
 	GIPHY_API_KEY = _internalGetSecret("GIPHY_API_KEY");
+	GIPHY_OFFLINE = _internalGetSecret("GIPHY_OFFLINE");
 	OG_CACHE_DIR = _internalGetSecret("OG_CACHE_DIR");
 	VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
 	VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
@@ -19598,6 +19633,7 @@ setOnSetGetEnv(() => {
 	TRUST_PROXY = _internalGetSecret("TRUST_PROXY");
 });
 var GIPHY_API_KEY = _internalGetSecret("GIPHY_API_KEY");
+var GIPHY_OFFLINE = _internalGetSecret("GIPHY_OFFLINE");
 var OG_CACHE_DIR = _internalGetSecret("OG_CACHE_DIR");
 var VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
 var VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
