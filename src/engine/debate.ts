@@ -3,7 +3,9 @@
  *
  * Règles :
  * - chaque catégorie est une liste de rivalités ; « Tout mélangé » est l'union de toutes ;
- * - on tire dans une file mélangée (Fisher-Yates) sans remise, remélangée quand elle est vide ;
+ * - on tire dans une file mélangée (Fisher-Yates) sans remise ;
+ * - une rivalité tranchée (vote) ou passée ne revient jamais : quand il n'en reste plus dans
+ *   la catégorie, elle est terminée (`current` vaut null) et seul « Rejouer » la rouvre ;
  * - jamais deux fois la même rivalité d'affilée ;
  * - voter compte un débat tranché ; passer ou changer de catégorie ne compte pas,
  *   et garde le compteur, l'historique et le profil ;
@@ -84,7 +86,10 @@ export interface DebateState {
   version: typeof DEBATE_STATE_VERSION;
   category: string;
   queue: string[];
-  current: string;
+  /** Rivalité affichée ; null quand la catégorie est terminée (plus rien à trancher). */
+  current: string | null;
+  /** Rivalités tranchées ou passées : elles ne reviennent plus (sauf « Rejouer »). */
+  done: string[];
   /** Débats tranchés (votes) depuis le début. */
   count: number;
   /** Choix les plus récents d'abord. */
@@ -110,34 +115,47 @@ export type DebateEvent = { type: 'voted'; rivalryId: string; team: Choice; cate
 
 // ─── Tirage ─────────────────────────────────────────────────────────────────
 
-/** Prochaine rivalité de la file, jamais `avoid` si on peut faire autrement. */
+/**
+ * Prochaine rivalité de la file, parmi celles qui ne sont pas dans `done`, jamais `avoid` si
+ * on peut faire autrement. `id` vaut null quand il ne reste plus rien : catégorie terminée.
+ */
 function drawNext(
   queue: readonly string[],
   pool: readonly string[],
+  done: ReadonlySet<string>,
   avoid: string | null,
   rng: Rng,
-): { id: string; queue: string[] } {
-  let source = queue.length > 0 ? queue : shuffle(pool, rng);
+): { id: string | null; queue: string[] } {
+  const open = (ids: readonly string[]) => ids.filter((id) => !done.has(id));
+  let source = open(queue);
+  if (source.length === 0) source = shuffle(open(pool), rng);
   let index = source.findIndex((id) => id !== avoid);
-  if (index === -1) {
-    // La file ne contient plus que `avoid` : on remélange tout.
-    source = shuffle(pool, rng);
+  if (index === -1 && source.length > 0) {
+    // La file ne contient plus que `avoid` : on remélange ce qui reste à trancher.
+    source = shuffle(open(pool), rng);
     index = source.findIndex((id) => id !== avoid);
+    if (index === -1) index = 0; // il ne reste que `avoid` : répétition inévitable
   }
-  if (index === -1) index = 0; // catégorie d'une seule rivalité : répétition inévitable
+  if (index === -1) return { id: null, queue: [] };
   return { id: source[index] as string, queue: source.filter((_, i) => i !== index) };
+}
+
+/** `done` avec une rivalité de plus (sans doublon). */
+function withDone(done: readonly string[], id: string): string[] {
+  return done.includes(id) ? [...done] : [...done, id];
 }
 
 // ─── Actions ────────────────────────────────────────────────────────────────
 
 export function createDebate(ctx: DebateContext, category: string): DebateState {
   const pool = poolOf(ctx.catalog, category);
-  const first = drawNext(shuffle(pool, ctx.rng), pool, null, ctx.rng);
+  const first = drawNext(shuffle(pool, ctx.rng), pool, new Set(), null, ctx.rng);
   return {
     version: DEBATE_STATE_VERSION,
     category,
     queue: first.queue,
     current: first.id,
+    done: [],
     count: 0,
     history: [],
     measured: 0,
@@ -155,13 +173,14 @@ export function vote(
   team: Choice,
   ctx: DebateContext,
 ): { state: DebateState; events: DebateEvent[] } {
+  const rivalryId = state.current;
+  if (rivalryId === null) return { state, events: [] };
   const pool = poolOf(ctx.catalog, state.category);
-  const next = drawNext(state.queue, pool, state.current, ctx.rng);
+  const done = withDone(state.done, rivalryId);
+  const next = drawNext(state.queue, pool, new Set(done), rivalryId, ctx.rng);
   const count = state.count + 1;
-  const events: DebateEvent[] = [
-    { type: 'voted', rivalryId: state.current, team, category: state.category },
-  ];
-  const played = categoryOfRivalry(ctx.catalog, state.current);
+  const events: DebateEvent[] = [{ type: 'voted', rivalryId, team, category: state.category }];
+  const played = categoryOfRivalry(ctx.catalog, rivalryId);
   const categories =
     played && !state.categories.includes(played) ? [...state.categories, played] : state.categories;
   return {
@@ -169,22 +188,40 @@ export function vote(
       ...state,
       queue: next.queue,
       current: next.id,
+      done,
       count,
       categories,
-      history: [{ rivalryId: state.current, team, percent: null }, ...state.history].slice(
-        0,
-        HISTORY_SIZE,
-      ),
+      history: [{ rivalryId, team, percent: null }, ...state.history].slice(0, HISTORY_SIZE),
     },
     events,
   };
 }
 
-/** « Je ne connais aucun des deux » : rivalité suivante, sans compter de débat. */
+/** « Passer » : rivalité suivante, sans compter de débat ; la rivalité passée ne revient plus. */
 export function skip(state: DebateState, ctx: DebateContext): DebateState {
+  if (state.current === null) return state;
   const pool = poolOf(ctx.catalog, state.category);
-  const next = drawNext(state.queue, pool, state.current, ctx.rng);
-  return { ...state, queue: next.queue, current: next.id };
+  const done = withDone(state.done, state.current);
+  const next = drawNext(state.queue, pool, new Set(done), state.current, ctx.rng);
+  return { ...state, queue: next.queue, current: next.id, done };
+}
+
+/**
+ * « Rejouer cette catégorie » : ses rivalités tranchées ou passées redeviennent disponibles.
+ * Le compteur, l'historique et le profil sont gardés.
+ */
+export function replayCategory(state: DebateState, ctx: DebateContext): DebateState {
+  const pool = poolOf(ctx.catalog, state.category);
+  const inPool = new Set(pool);
+  const done = state.done.filter((id) => !inPool.has(id));
+  const next = drawNext(shuffle(pool, ctx.rng), pool, new Set(done), state.current, ctx.rng);
+  return { ...state, queue: next.queue, current: next.id, done };
+}
+
+/** Rivalités qui restent à trancher dans une catégorie (ou un univers, ou « Tout mélangé »). */
+export function remainingIn(state: DebateState, catalog: DebateCatalog, category: string): number {
+  const done = new Set(state.done);
+  return (catalog.pools.get(category) ?? []).filter((id) => !done.has(id)).length;
 }
 
 /** Change de catégorie : nouvelle file, le compteur, l'historique et le profil sont gardés. */
@@ -195,7 +232,7 @@ export function changeCategory(
 ): DebateState {
   if (category === state.category) return state;
   const pool = poolOf(ctx.catalog, category);
-  const next = drawNext(shuffle(pool, ctx.rng), pool, state.current, ctx.rng);
+  const next = drawNext(shuffle(pool, ctx.rng), pool, new Set(state.done), state.current, ctx.rng);
   return { ...state, category, queue: next.queue, current: next.id };
 }
 
@@ -207,8 +244,8 @@ export function categoryOfRivalry(catalog: DebateCatalog, rivalryId: string): st
 }
 
 /**
- * Ouvre directement une rivalité (lien partagé). Si elle n'est pas dans la catégorie en cours,
- * on passe dans la sienne. La rivalité qui était affichée retourne dans la file.
+ * Ouvre directement une rivalité (lien partagé), même déjà tranchée. Si elle n'est pas dans la
+ * catégorie en cours, on passe dans la sienne. La rivalité qui était affichée retourne dans la file.
  */
 export function focusRivalry(
   state: DebateState,
@@ -226,7 +263,10 @@ export function focusRivalry(
   return {
     ...next,
     current: rivalryId,
-    queue: [...next.queue.filter((id) => id !== rivalryId), next.current],
+    queue: [
+      ...next.queue.filter((id) => id !== rivalryId),
+      ...(next.current === null ? [] : [next.current]),
+    ],
   };
 }
 
@@ -298,7 +338,9 @@ const StoredDebateSchema = z.object({
   version: z.literal(DEBATE_STATE_VERSION),
   category: z.string(),
   queue: z.array(z.string()),
-  current: z.string(),
+  current: z.string().nullable(),
+  // Absent des sauvegardes d'avant la fin des catégories : retrouvé dans l'historique.
+  done: z.array(z.string()).optional(),
   count,
   history: z.array(
     z.object({
@@ -331,6 +373,10 @@ export function restoreDebate(raw: unknown, ctx: DebateContext): DebateState | n
   const known = new Set(poolOf(ctx.catalog, MIXED_CATEGORY));
   const measured = Math.max(stored.measured, 0);
   const history = stored.history.filter((v) => known.has(v.rivalryId)).slice(0, HISTORY_SIZE);
+  const done = [...new Set(stored.done ?? stored.history.map((v) => v.rivalryId))].filter((id) =>
+    known.has(id),
+  );
+  const doneSet = new Set(done);
   // Catégories jouées : celles gardées, plus celles de l'historique (sauvegardes plus anciennes).
   const categories = [
     ...new Set([
@@ -340,7 +386,10 @@ export function restoreDebate(raw: unknown, ctx: DebateContext): DebateState | n
   ].filter((id) => id !== MIXED_CATEGORY && ctx.catalog.pools.has(id));
   const restored: DebateState = {
     ...stored,
-    queue: [...new Set(stored.queue)].filter((id) => pool.has(id) && id !== stored.current),
+    queue: [...new Set(stored.queue)].filter(
+      (id) => pool.has(id) && id !== stored.current && !doneSet.has(id),
+    ),
+    done,
     history,
     measured,
     agreed: Math.min(stored.agreed, measured),
@@ -349,8 +398,8 @@ export function restoreDebate(raw: unknown, ctx: DebateContext): DebateState | n
     streak: Math.min(stored.streak, measured),
     bestStreak: Math.min(Math.max(stored.bestStreak, stored.streak), measured),
   };
-  if (pool.has(stored.current)) return restored;
-  // La rivalité en cours n'existe plus : on en tire une autre.
-  const next = drawNext(restored.queue, [...pool], null, ctx.rng);
+  if (stored.current !== null && pool.has(stored.current)) return restored;
+  // Rivalité supprimée du JSON, ou catégorie terminée (de nouvelles rivalités ont pu arriver).
+  const next = drawNext(restored.queue, [...pool], doneSet, null, ctx.rng);
   return { ...restored, current: next.id, queue: next.queue };
 }

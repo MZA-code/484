@@ -35,21 +35,22 @@ Le site suit le réglage « réduire les animations » du système : avec ce ré
 
 ## Commandes
 
-| Commande                 | Rôle                                                             |
-| ------------------------ | ---------------------------------------------------------------- |
-| `npm run dev`            | Serveur de développement                                         |
-| `npm run build`          | Build de production dans `dist/`                                 |
-| `npm start`              | Lance le build de production (serveur Node autonome)             |
-| `npm run play`           | Mode console : jouer dans le terminal                            |
-| `npm run curate`         | Outil de curation des GIF (page locale)                          |
-| `npm run gif-audit`      | GIF à curer en priorité (signalés, œuvres françaises) + page     |
-| `npm run content:review` | Fiche de relecture des rivalités (`docs/relecture-rivalites.md`) |
-| `npm run content:check`  | Vérifie les JSON de `content/` et affiche un résumé              |
-| `npm run lint`           | ESLint                                                           |
-| `npm run format`         | Formate tout le code avec Prettier                               |
-| `npm run check`          | Vérification des types (TypeScript + Astro)                      |
-| `npm test`               | Tests unitaires (Vitest)                                         |
-| `npm run verify`         | Tout ce que fait la CI : lint, format, types, tests, build       |
+| Commande                 | Rôle                                                              |
+| ------------------------ | ----------------------------------------------------------------- |
+| `npm run dev`            | Serveur de développement                                          |
+| `npm run dev:sans-giphy` | Idem, sans aucun appel à Giphy (GIF de remplacement, quota gardé) |
+| `npm run build`          | Build de production dans `dist/`                                  |
+| `npm start`              | Lance le build de production (serveur Node autonome)              |
+| `npm run play`           | Mode console : jouer dans le terminal                             |
+| `npm run curate`         | Outil de curation des GIF (page locale)                           |
+| `npm run gif-audit`      | GIF à curer en priorité (signalés, œuvres françaises) + page      |
+| `npm run content:review` | Fiche de relecture des rivalités (`docs/relecture-rivalites.md`)  |
+| `npm run content:check`  | Vérifie les JSON de `content/` et affiche un résumé               |
+| `npm run lint`           | ESLint                                                            |
+| `npm run format`         | Formate tout le code avec Prettier                                |
+| `npm run check`          | Vérification des types (TypeScript + Astro)                       |
+| `npm test`               | Tests unitaires (Vitest)                                          |
+| `npm run verify`         | Tout ce que fait la CI : lint, format, types, tests, build        |
 
 ## Ajouter une rivalité
 

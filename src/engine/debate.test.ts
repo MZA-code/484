@@ -9,6 +9,8 @@ import {
   MIXED_CATEGORY,
   profile,
   recordOutcome,
+  remainingIn,
+  replayCategory,
   restoreDebate,
   skip,
   vote,
@@ -52,10 +54,11 @@ describe('universes', () => {
     const ctx = makeCtx();
     expect([...pool(ctx, 'univers-pop')].sort()).toEqual(['h1', 'h2', 'h3', 'h4', 'h5', 'solo']);
     let state = createDebate(ctx, 'univers-pop');
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 6; i++) {
       expect(pool(ctx, 'univers-pop')).toContain(state.current);
       state = vote(state, 'a', ctx).state;
     }
+    expect(state.current).toBeNull();
   });
 
   it('finds the universe of a category, or of itself', () => {
@@ -115,23 +118,76 @@ describe('drawing', () => {
     }
   });
 
-  it('never shows the same rivalry twice in a row, even across reshuffles', () => {
+  it('never brings back a voted or skipped rivalry, then finishes the category', () => {
     for (let seed = 0; seed < 30; seed++) {
       const ctx = makeCtx(seed);
-      let state = createDebate(ctx, 'bouffe');
-      for (let i = 0; i < 60; i++) {
-        const before = state.current;
+      let state = createDebate(ctx, MIXED_CATEGORY);
+      const seen: string[] = [];
+      for (let i = 0; state.current !== null; i++) {
+        expect(seen).not.toContain(state.current);
+        seen.push(state.current);
         state = i % 4 === 3 ? skip(state, ctx) : vote(state, i % 2 ? 'a' : 'b', ctx).state;
-        expect(state.current).not.toBe(before);
       }
+      expect([...seen].sort()).toEqual([...pool(ctx, MIXED_CATEGORY)].sort());
+      expect(state.queue).toEqual([]);
+      // Catégorie terminée : voter ou passer ne fait plus rien.
+      expect(vote(state, 'a', ctx)).toEqual({ state, events: [] });
+      expect(skip(state, ctx)).toBe(state);
     }
   });
 
-  it('survives a category with a single rivalry', () => {
+  it('finishes a category with a single rivalry', () => {
     const ctx = makeCtx();
     let state = createDebate(ctx, 'seule');
     state = vote(state, 'a', ctx).state;
-    expect(state.current).toBe('solo');
+    expect(state.current).toBeNull();
+  });
+
+  it('skips what was already decided in another category', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'bouffe');
+    state = vote(state, 'a', ctx).state;
+    state = skip(state, ctx);
+    const decided = state.done;
+    state = changeCategory(state, MIXED_CATEGORY, ctx);
+    for (let i = 0; state.current !== null; i++) {
+      expect(decided).not.toContain(state.current);
+      state = vote(state, 'a', ctx).state;
+    }
+    expect(state.count).toBe(1 + rivalries.length - 2);
+  });
+
+  it('switching to a finished category shows nothing to decide', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'seule');
+    state = vote(state, 'a', ctx).state;
+    state = changeCategory(state, 'heros', ctx);
+    expect(changeCategory(state, 'seule', ctx).current).toBeNull();
+  });
+
+  it('counts what is left in each category', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'bouffe');
+    expect(remainingIn(state, ctx.catalog, 'bouffe')).toBe(3);
+    state = vote(state, 'a', ctx).state;
+    state = skip(state, ctx);
+    expect(remainingIn(state, ctx.catalog, 'bouffe')).toBe(1);
+    expect(remainingIn(state, ctx.catalog, MIXED_CATEGORY)).toBe(rivalries.length - 2);
+    expect(remainingIn(state, ctx.catalog, 'heros')).toBe(5);
+  });
+
+  it('replays a finished category, keeping counters and the other categories', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'seule');
+    state = vote(state, 'a', ctx).state;
+    state = changeCategory(state, 'bouffe', ctx);
+    while (state.current !== null) state = vote(state, 'b', ctx).state;
+    const replayed = replayCategory(state, ctx);
+    expect(pool(ctx, 'bouffe')).toContain(replayed.current);
+    expect(remainingIn(replayed, ctx.catalog, 'bouffe')).toBe(3);
+    expect(replayed.done).toEqual(['solo']);
+    expect(replayed.count).toBe(4);
+    expect(replayed.history).toEqual(state.history);
   });
 
   it('is reproducible with the same seed', () => {
@@ -164,7 +220,10 @@ describe('voting', () => {
   it('keeps a bounded history, most recent first', () => {
     const ctx = makeCtx();
     let state = createDebate(ctx, MIXED_CATEGORY);
-    for (let i = 0; i < HISTORY_SIZE + 10; i++) state = vote(state, 'a', ctx).state;
+    for (let i = 0; i < HISTORY_SIZE + 10; i++) {
+      if (state.current === null) state = replayCategory(state, ctx);
+      state = vote(state, 'a', ctx).state;
+    }
     expect(state.history).toHaveLength(HISTORY_SIZE);
     expect(state.count).toBe(HISTORY_SIZE + 10);
   });
@@ -364,6 +423,26 @@ describe('restoreDebate', () => {
     expect(restored?.queue).not.toContain('ghost');
     expect(restored?.history.map((v) => v.rivalryId)).not.toContain('ghost');
     expect(restored?.count).toBe(3);
+  });
+
+  it('finds what was already decided in older saves (from the history)', () => {
+    const { state, ctx } = saved();
+    const old: Record<string, unknown> = { ...state };
+    delete old['done'];
+    const restored = restoreDebate(JSON.parse(JSON.stringify(old)), ctx);
+    expect([...(restored?.done ?? [])].sort()).toEqual(
+      state.history.map((v) => v.rivalryId).sort(),
+    );
+    expect(restored?.queue.some((id) => restored.done.includes(id))).toBe(false);
+  });
+
+  it('keeps a finished category finished, unless new rivalries arrived', () => {
+    const ctx = makeCtx();
+    let state = createDebate(ctx, 'bouffe');
+    while (state.current !== null) state = vote(state, 'a', ctx).state;
+    expect(restoreDebate(JSON.parse(JSON.stringify(state)), ctx)?.current).toBeNull();
+    const withNew = { ...state, done: state.done.filter((id) => id !== 'b2') };
+    expect(restoreDebate(withNew, ctx)?.current).toBe('b2');
   });
 
   it('keeps profile counters consistent', () => {

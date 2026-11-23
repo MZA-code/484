@@ -1,6 +1,6 @@
 {
   "name": "484-duels",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": true,
   "description": "Lequel tu préfères ? Duels infinis entre icônes de la pop culture.",
   "type": "module",
@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:sans-giphy": "tsx scripts/dev-sans-giphy.ts",
     "build": "astro build",
     "preview": "astro preview",
     "start": "node --env-file-if-exists=.env ./dist/server/entry.mjs",

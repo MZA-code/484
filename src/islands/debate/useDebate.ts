@@ -15,6 +15,7 @@ import {
   readJson,
   recordOutcome,
   removeKey,
+  replayCategory,
   resolveStorage,
   restoreDebate,
   shareOutcome,
@@ -103,10 +104,11 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
   }, [state, rules, ctx]);
 
   // L'adresse suit le débat affiché (/debat/<id>?theme=<catégorie>) : la copier suffit pour le partager.
+  // Catégorie terminée : /jouer?theme=<catégorie>, pour qu'un rechargement ne rouvre pas le dernier débat.
   // replaceState : on ne remplit pas l'historique, le bouton « retour » quitte le jeu.
   useEffect(() => {
     const url = new URL(window.location.href);
-    url.pathname = `/debat/${shown}`;
+    url.pathname = shown === null ? '/jouer' : `/debat/${shown}`;
     url.searchParams.set('theme', state.category);
     if (url.href !== window.location.href) window.history.replaceState(null, '', url);
   }, [shown, state.category]);
@@ -132,6 +134,7 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
       if (busy.current) return;
       const current = stateRef.current;
       const rivalryId = current.current;
+      if (rivalryId === null) return; // catégorie terminée : plus rien à trancher
       const transition = vote(current, team, ctx);
       const id = transition.state.count;
       pendingVote.current = id;
@@ -160,7 +163,7 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
   );
 
   const skip = useCallback(() => {
-    if (busy.current) return;
+    if (busy.current || stateRef.current.current === null) return;
     pendingVote.current = -1;
     setResult(null);
     setAchievement(null);
@@ -178,5 +181,16 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
     [ctx, advance],
   );
 
-  return { state, ctx, shown, exit, result, achievement, choose, skip, selectCategory };
+  /** « Rejouer cette catégorie » : rien ne sort de l'écran, le premier débat entre tout de suite. */
+  const replay = useCallback(() => {
+    if (busy.current) return;
+    pendingVote.current = -1;
+    setResult(null);
+    setAchievement(null);
+    const next = replayCategory(stateRef.current, ctx);
+    setState(next);
+    setShown(next.current);
+  }, [ctx]);
+
+  return { state, ctx, shown, exit, result, achievement, choose, skip, selectCategory, replay };
 }

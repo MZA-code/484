@@ -11,12 +11,14 @@
  * - 200 { kind: 'gif', gif }   lien Tenor ou image du site, prêt à afficher
  * - 200 { kind: 'giphy', key, id?, query, keywords, words, rejected, mood? }   à demander à Giphy
  * - 404 rivalité ou team inconnue · 503 rien de choisi à la main et clé Giphy absente
+ * En mode sans Giphy (GIPHY_OFFLINE, développement), un GIF de remplacement au lieu de Giphy.
  * Le client affiche le cadre rayé dans tous les cas d'erreur : le jeu ne bloque jamais.
  */
 import type { APIRoute } from 'astro';
 import { categories, rivalries } from '../../../../data/content';
 import { teamGifPlan } from '../../../../server/gif-plan';
-import { getGiphyKey, gifJson as json } from '../../../../server/giphy-runtime';
+import { placeholderGif } from '../../../../server/gif-placeholder';
+import { getGiphyKey, gifJson as json, giphyOffline } from '../../../../server/giphy-runtime';
 import { getVoteService } from '../../../../server/votes/runtime';
 
 export const prerender = false;
@@ -48,6 +50,10 @@ export const GET: APIRoute = ({ params }) => {
     mood: moodOf.get(rivalry.category),
     rejected: rejectedGifs(rivalry.id, side),
   });
+  if (!plan && giphyOffline()) {
+    const gif = placeholderGif(rivalry[side].name, `${rivalry.id}-${side}`);
+    return json({ kind: 'gif', gif }, 200, 'no-store');
+  }
   if (!plan) return json({ error: 'giphy-not-configured' }, 503, 'no-store');
   return json(plan, 200, `public, max-age=${maxAge}`);
 };

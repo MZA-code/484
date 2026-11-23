@@ -11,6 +11,7 @@ import {
   createDebate,
   createDebateCatalog,
   recordOutcome,
+  replayCategory,
   vote,
   type DebateState,
 } from './debate';
@@ -43,6 +44,8 @@ const rules: AchievementRule[] = [
 function playIn(state: DebateState, category: string, n: number, percent = 60): DebateState {
   let s = changeCategory(state, category, ctx);
   for (let i = 0; i < n; i++) {
+    // Catégorie terminée (3 rivalités) : on la rejoue pour continuer à compter.
+    if (s.current === null) s = replayCategory(s, ctx);
     s = vote(s, 'a', ctx).state;
     s = recordOutcome(s, s.history[0]!.rivalryId, { kind: 'share', percent });
   }

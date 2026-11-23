@@ -3,18 +3,29 @@
  * Rendu uniquement côté client (la partie dépend du stockage local et de l'URL).
  */
 import { useEffect, useMemo, useState } from 'preact/hooks';
-import { debateNumber, MIXED_CATEGORY, universeOf, type Choice, type Team } from '../../engine';
+import {
+  debateNumber,
+  MIXED_CATEGORY,
+  remainingIn,
+  universeOf,
+  type Choice,
+  type Team,
+} from '../../engine';
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
 import { useReducedMotion } from '../../lib/motion';
+import { Finished, type Suggestion } from './Finished';
 import { GifReport } from './GifReport';
 import { preloadGif, teamGifKey } from './gifs';
 import { Panels } from './Panels';
 import { Result } from './Result';
 import { TeamCard } from './TeamCard';
-import type { DebateData } from './types';
+import type { DebateData, DebateRivalry } from './types';
 import { useDebate } from './useDebate';
 import './debate.css';
+
+/** Catégories proposées sur l'écran de fin. */
+const MAX_SUGGESTIONS = 4;
 
 /** Ne pas détourner les flèches quand on tape du texte ou avec un raccourci système. */
 function shouldIgnoreKey(event: KeyboardEvent): boolean {
@@ -49,10 +60,8 @@ export default function Debate({
   data: DebateData;
   initialRivalry?: string | undefined;
 }) {
-  const { state, ctx, shown, exit, result, achievement, choose, skip, selectCategory } = useDebate(
-    data,
-    initialRivalry,
-  );
+  const { state, ctx, shown, exit, result, achievement, choose, skip, selectCategory, replay } =
+    useDebate(data, initialRivalry);
   const [copied, setCopied] = useState(false);
   const t = data.texts.debate;
   const reducedMotion = useReducedMotion();
@@ -79,11 +88,35 @@ export default function Debate({
 
   // Le titre de l'onglet suit la question affichée (favoris, historique, partage).
   useEffect(() => {
+    if (shown === null) {
+      const all = state.category === MIXED_CATEGORY;
+      document.title = `${all ? t.finished.allTitle : t.finished.title} · 484`;
+      return;
+    }
     const rivalry = byId.get(shown);
     if (!rivalry) return;
     const q = rivalry.question ?? formatText(t.question, { a: rivalry.a.name, b: rivalry.b.name });
     document.title = `${q} · 484`;
-  }, [shown, byId, t]);
+  }, [shown, byId, t, state.category]);
+
+  /** Catégories où il reste à trancher, celles du même univers d'abord (écran de fin). */
+  const suggestions = useMemo((): Suggestion[] => {
+    if (shown !== null) return [];
+    const universe = universeOf(ctx.catalog, state.category);
+    const ids = ctx.catalog.categoryIds.filter(
+      (id) => id !== MIXED_CATEGORY && id !== state.category,
+    );
+    const sameUniverse = (id: string) => (universe?.categories.includes(id) ? 0 : 1);
+    return [...ids]
+      .sort((x, y) => sameUniverse(x) - sameUniverse(y))
+      .map((id) => ({
+        id,
+        label: labels.get(id) ?? id,
+        remaining: remainingIn(state, ctx.catalog, id),
+      }))
+      .filter((s) => s.remaining > 0)
+      .slice(0, MAX_SUGGESTIONS);
+  }, [shown, state, ctx, labels]);
 
   // Clavier : ← team de gauche, → team de droite, ↑ les deux, ↓ aucun des deux,
   // Échap retour à l'accueil.
@@ -110,86 +143,46 @@ export default function Debate({
   }, [choose]);
 
   const activeUniverse = universeOf(ctx.catalog, state.category);
-  const rivalry = byId.get(shown);
-  if (!rivalry) return null;
-  const colors = teamColors(rivalry.id);
+  const rivalry = shown === null ? undefined : byId.get(shown);
+  if (shown !== null && !rivalry) return null;
   const lastRivalry = result ? byId.get(result.rivalryId) : undefined;
-  const lastColors = result ? teamColors(result.rivalryId) : colors;
-  const names = { a: rivalry.a.name, b: rivalry.b.name };
-  const question = rivalry.question ?? formatText(t.question, names);
-  const onShare = () => {
-    void shareDebate(question, formatText(t.shareText, names)).then((didCopy) => {
-      setCopied(didCopy);
-      if (didCopy) window.setTimeout(() => setCopied(false), 2500);
-    });
-  };
+  const lastColors = teamColors(result?.rivalryId ?? rivalry?.id ?? '');
 
-  const card = (side: Team) => (
-    <div class="team-slot" key={`${rivalry.id}-${side}`}>
-      <TeamCard
-        team={rivalry[side]}
-        side={side}
-        gifKey={teamGifKey(rivalry.id, side)}
-        stillOnly={reducedMotion}
-        color={colors[side === 'a' ? 0 : 1]}
-        exit={exit}
-        label={t.team}
-        onChoose={choose}
-      />
-      <GifReport
-        gifKey={teamGifKey(rivalry.id, side)}
-        name={rivalry[side].name}
-        texts={t.gifReport}
-        hidden={exit !== null}
-      />
-    </div>
-  );
+  /** La rivalité affichée : question, deux cartes, autres réponses. */
+  const debateStage = (rivalry: DebateRivalry) => {
+    const colors = teamColors(rivalry.id);
+    const names = { a: rivalry.a.name, b: rivalry.b.name };
+    const question = rivalry.question ?? formatText(t.question, names);
+    const onShare = () => {
+      void shareDebate(question, formatText(t.shareText, names)).then((didCopy) => {
+        setCopied(didCopy);
+        if (didCopy) window.setTimeout(() => setCopied(false), 2500);
+      });
+    };
 
-  return (
-    <div class="debate">
-      {/* Premier niveau : « Tout mélangé » et les univers. */}
-      <nav class="category-tabs" aria-label={t.universesLabel}>
-        {[MIXED_CATEGORY, ...ctx.catalog.universes.map((u) => u.id)].map((id) => (
-          <button
-            key={id}
-            type="button"
-            class="category-tab"
-            aria-pressed={
-              id === MIXED_CATEGORY ? state.category === MIXED_CATEGORY : activeUniverse?.id === id
-            }
-            onClick={() => selectCategory(id)}
-          >
-            {labels.get(id)}
-          </button>
-        ))}
-      </nav>
-      {/* Second niveau : tout l'univers, ou une de ses catégories. */}
-      {activeUniverse && (
-        <nav class="category-tabs category-tabs--sub" aria-label={t.categoriesLabel}>
-          {[activeUniverse.id, ...activeUniverse.categories].map((id) => (
-            <button
-              key={id}
-              type="button"
-              class="category-tab category-tab--sub"
-              aria-pressed={state.category === id}
-              onClick={() => selectCategory(id)}
-            >
-              {id === activeUniverse.id ? t.wholeUniverse : labels.get(id)}
-            </button>
-          ))}
-        </nav>
-      )}
-
-      <div class="debate-head">
-        <p class="debate-number">
-          <span class="debate-number-value" key={state.count}>
-            {formatText(t.number, { n: debateNumber(state) })}
-          </span>
-        </p>
-        <p class="debate-subtitle">{t.subtitle}</p>
+    const card = (side: Team) => (
+      <div class="team-slot" key={`${rivalry.id}-${side}`}>
+        <TeamCard
+          team={rivalry[side]}
+          side={side}
+          gifKey={teamGifKey(rivalry.id, side)}
+          stillOnly={reducedMotion}
+          color={colors[side === 'a' ? 0 : 1]}
+          exit={exit}
+          label={t.team}
+          onChoose={choose}
+        />
+        <GifReport
+          gifKey={teamGifKey(rivalry.id, side)}
+          name={rivalry[side].name}
+          texts={t.gifReport}
+          hidden={exit !== null}
+        />
       </div>
+    );
 
-      <div class="debate-stage">
+    return (
+      <>
         <div class={`debate-question${exit ? ' is-leaving' : ''}`} key={rivalry.id}>
           {state.category !== rivalry.category && (
             <p class="debate-category">{labels.get(rivalry.category)}</p>
@@ -227,6 +220,69 @@ export default function Debate({
             {copied && <span class="pop">{t.shareCopied}</span>}
           </p>
         </div>
+      </>
+    );
+  };
+
+  return (
+    <div class="debate">
+      {/* Premier niveau : « Tout mélangé » et les univers. */}
+      <nav class="category-tabs" aria-label={t.universesLabel}>
+        {[MIXED_CATEGORY, ...ctx.catalog.universes.map((u) => u.id)].map((id) => (
+          <button
+            key={id}
+            type="button"
+            class="category-tab"
+            aria-pressed={
+              id === MIXED_CATEGORY ? state.category === MIXED_CATEGORY : activeUniverse?.id === id
+            }
+            onClick={() => selectCategory(id)}
+          >
+            {labels.get(id)}
+          </button>
+        ))}
+      </nav>
+      {/* Second niveau : tout l'univers, ou une de ses catégories. */}
+      {activeUniverse && (
+        <nav class="category-tabs category-tabs--sub" aria-label={t.categoriesLabel}>
+          {[activeUniverse.id, ...activeUniverse.categories].map((id) => (
+            <button
+              key={id}
+              type="button"
+              class="category-tab category-tab--sub"
+              aria-pressed={state.category === id}
+              onClick={() => selectCategory(id)}
+            >
+              {id === activeUniverse.id ? t.wholeUniverse : labels.get(id)}
+            </button>
+          ))}
+        </nav>
+      )}
+
+      {/* Pas de « Débat n° X » ni de « Ça ne s'arrête jamais » sur l'écran de fin. */}
+      {rivalry && (
+        <div class="debate-head">
+          <p class="debate-number">
+            <span class="debate-number-value" key={state.count}>
+              {formatText(t.number, { n: debateNumber(state) })}
+            </span>
+          </p>
+          <p class="debate-subtitle">{t.subtitle}</p>
+        </div>
+      )}
+
+      <div class="debate-stage">
+        {rivalry ? (
+          debateStage(rivalry)
+        ) : (
+          <Finished
+            category={state.category === MIXED_CATEGORY ? null : (labels.get(state.category) ?? '')}
+            suggestions={suggestions}
+            texts={t.finished}
+            onSelect={selectCategory}
+            onReplay={replay}
+          />
+        )}
 
         <Result
           reducedMotion={reducedMotion}

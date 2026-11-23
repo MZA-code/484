@@ -95,6 +95,20 @@
     "shareText": "Tu es plutôt team {a} ou team {b} ? Viens trancher.",
     "shareDescription": "Team {a} ou team {b} ? Choisis ton camp, et découvre si le reste du monde est d’accord.",
     "loadError": "Les rivalités n’ont pas voulu sortir. Recharge la page, elles sont un peu timides.",
+    "finished": {
+      "title": "Catégorie terminée",
+      "body": "Tu as tranché tous les débats de « {category} ». Il n’en reste plus un seul.",
+      "allTitle": "Tout est tranché",
+      "allBody": "Tu as fait le tour de tous les débats du site. Tous. On n’a plus rien à te demander, pour l’instant.",
+      "next": "Il reste des débats à trancher ailleurs :",
+      "remaining": {
+        "one": "{n} débat",
+        "other": "{n} débats"
+      },
+      "replay": "Rejouer cette catégorie",
+      "replayAll": "Tout rejouer",
+      "replayHint": "Tes anciens choix restent dans ton profil. Tu as le droit de changer d’avis."
+    },
     "gifReport": {
       "button": "Mauvais GIF ?",
       "label": "Mauvais GIF ? Signaler le GIF de {name}",

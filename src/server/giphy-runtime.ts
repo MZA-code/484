@@ -7,8 +7,18 @@ import { getSecret } from 'astro:env/server';
 
 let oldCacheRemoved = false;
 
-/** undefined si la clé Giphy n'est pas configurée. */
+/**
+ * Mode développement sans Giphy (`npm run dev:sans-giphy`) : la clé n'est jamais envoyée au
+ * navigateur, donc aucun appel à l'API Giphy ; les cartes reçoivent un GIF de remplacement.
+ * Jamais activé en production (la variable n'existe pas dans cPanel).
+ */
+export function giphyOffline(): boolean {
+  return getSecret('GIPHY_OFFLINE') === 'true';
+}
+
+/** undefined si la clé Giphy n'est pas configurée, ou en mode sans Giphy. */
 export function getGiphyKey(): string | undefined {
+  if (giphyOffline()) return undefined;
   // Les versions avant 1.5.0 gardaient les réponses de Giphy dans un fichier : GIPHY l'interdit.
   if (!oldCacheRemoved) {
     oldCacheRemoved = true;

@@ -353,6 +353,19 @@ export const UiTextsSchema = z.object({
     shareText: template('a', 'b'),
     shareDescription: template('a', 'b'),
     loadError: text,
+    /** Catégorie terminée : tous ses débats tranchés ou passés (rien ne revient tout seul). */
+    finished: z.object({
+      title: text,
+      body: template('category'),
+      /** « Tout mélangé » terminé : tout le site est tranché. */
+      allTitle: text,
+      allBody: text,
+      next: text,
+      remaining: pluralForms,
+      replay: text,
+      replayAll: text,
+      replayHint: text,
+    }),
     /** Bouton « Mauvais GIF ? » sous chaque carte. */
     gifReport: z.object({
       button: text,

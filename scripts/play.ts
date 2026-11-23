@@ -24,6 +24,7 @@ import {
   MIXED_CATEGORY,
   profile,
   recordOutcome,
+  replayCategory,
   skip,
   vote,
   type DebateContext,
@@ -137,6 +138,26 @@ function renderPanels(state: DebateState): string[] {
 }
 
 function render(state: DebateState, banner: string[]): void {
+  if (state.current === null) {
+    const all = state.category === MIXED_CATEGORY;
+    const f = ui.debate.finished;
+    console.clear();
+    console.log(
+      [
+        `${ansi.card('#FFD23F', ansi.bold('484'))} ${ansi.dim(`[${categoryLabels.get(state.category)}]`)}`,
+        '',
+        ...banner,
+        '',
+        ansi.bold((all ? f.allTitle : f.title).toUpperCase()),
+        all
+          ? f.allBody
+          : formatText(f.body, { category: categoryLabels.get(state.category) ?? '' }),
+        '',
+        ansi.dim(`R « ${all ? f.replayAll : f.replay} » · C changer de catégorie · Q quitter`),
+      ].join('\n'),
+    );
+    return;
+  }
   const r = rivalry(state.current);
   const category =
     r.category !== state.category ? ` ${ansi.dim(`· ${categoryLabels.get(r.category)}`)}` : '';
@@ -183,6 +204,7 @@ function bar(percent: number, hex: string): string {
 }
 
 function play(state: DebateState, team: Choice): { state: DebateState; banner: string[] } {
+  if (state.current === null) return { state, banner: [] };
   const r = rivalry(state.current);
   const result = vote(state, team, ctx);
   const outcome = shareOutcome(simulatePair());
@@ -225,6 +247,8 @@ if (args.auto !== undefined) {
   let state = createDebate(ctx, args.category);
   let banner: string[] = [];
   for (let i = 0; i < Number(args.auto); i++) {
+    // Catégorie terminée : on la rejoue pour aller jusqu'au nombre de votes demandé.
+    if (state.current === null) state = replayCategory(state, ctx);
     ({ state, banner } = play(state, rng() < 0.5 ? 'a' : 'b'));
   }
   render(state, banner);
@@ -255,6 +279,9 @@ process.stdin.on('keypress', (_str: string | undefined, key: { name?: string; ct
     ({ state, banner } = play(state, choice));
   } else if (key.name === 's') {
     state = skip(state, ctx);
+    banner = [];
+  } else if (key.name === 'r' && state.current === null) {
+    state = replayCategory(state, ctx);
     banner = [];
   } else if (key.name === 'c') {
     state = nextCategory(state);
