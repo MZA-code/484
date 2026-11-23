@@ -3,7 +3,7 @@
  * La zone est une région « live » : les lecteurs d'écran annoncent chaque résultat
  * (la valeur finale seulement, pas le compteur qui défile).
  */
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { CARD_COLORS } from '../../lib/color';
 import { formatText } from '../../lib/format';
 import { AchievementIcon } from './AchievementIcon';
@@ -64,45 +64,123 @@ function Confetti() {
   );
 }
 
+/** Parts arrondies en %, pour la barre et sa légende. */
+interface Parts {
+  /** Le duel : team A et team B parmi ceux qui ont choisi une team (100 % à eux deux). */
+  a: number;
+  b: number;
+  /** « Les deux » et « aucun des deux », en % de tous les votes (écrits sous la barre). */
+  both: number;
+  none: number;
+}
+
 /**
- * Parts de la barre, en % : team A, « aucun des deux », team B (le reste).
- * Avec le détail des trois choix, on le suit ; sans lui (ancienne réponse), on déduit les deux
- * camps du pourcentage du choix du visiteur. null si on ne peut rien dessiner de juste.
+ * Parts de la barre. Avec le détail des choix, on le suit ; sans lui (ancienne réponse), on
+ * déduit le duel du pourcentage du choix du visiteur. null si on ne peut rien dessiner de juste.
  */
-function splitParts(
-  result: VoteResult,
-  share: number,
-): { a: number; none: number; b: number } | null {
+function splitParts(result: VoteResult, share: number): Parts | null {
   const split = result.split;
-  const total = split ? split.a + split.b + split.none : 0;
+  const total = split ? split.a + split.b + split.none + split.both : 0;
   if (split && total > 0) {
-    const a = Math.round((split.a / total) * 100);
-    const none = Math.round((split.none / total) * 100);
-    return { a, none, b: Math.max(0, 100 - a - none) };
+    const sided = split.a + split.b;
+    if (sided === 0) return null;
+    const a = Math.round((split.a / sided) * 100);
+    const pct = (n: number) => Math.round((n / total) * 100);
+    return { a, b: 100 - a, both: pct(split.both), none: pct(split.none) };
   }
-  if (result.team === 'none') return null;
+  if (result.team !== 'a' && result.team !== 'b') return null;
   const a = result.team === 'a' ? share : 100 - share;
-  return { a, none: 0, b: 100 - a };
+  return { a, b: 100 - a, both: 0, none: 0 };
+}
+
+/** En dessous de cette part, le pourcentage n'est pas écrit dans la barre (pas la place). */
+const MIN_LABEL_PERCENT = 10;
+
+/** Durée d'affichage du bandeau, une fois la remarque arrivée. */
+export const RESULT_LIFETIME_MS = 10_000;
+/** Durée de la sortie en douceur du bandeau. */
+const CLOSE_MS = 350;
+
+/**
+ * Durée de vie du bandeau `key` : il se ferme `RESULT_LIFETIME_MS` après `ready`. Le décompte
+ * se met en pause quand on survole ou parcourt le bandeau au clavier, et quand l'onglet est caché.
+ */
+function useLifetime(key: number | null, ready: boolean, reduced: boolean) {
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [tabHidden, setTabHidden] = useState(false);
+  const [closing, setClosing] = useState<number | null>(null);
+  const [closed, setClosed] = useState<number | null>(null);
+  /** Temps restant du bandeau en cours (remis à plein à chaque nouveau vote). */
+  const remaining = useRef({ key, ms: RESULT_LIFETIME_MS });
+  const paused = hovered || focused || tabHidden;
+
+  useEffect(() => {
+    const onVisibility = () => setTabHidden(document.hidden);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
+
+  useEffect(() => {
+    if (remaining.current.key !== key) remaining.current = { key, ms: RESULT_LIFETIME_MS };
+    if (key === null || !ready || paused || closing === key) return;
+    const started = performance.now();
+    const timer = window.setTimeout(() => setClosing(key), remaining.current.ms);
+    return () => {
+      window.clearTimeout(timer);
+      if (remaining.current.key === key) remaining.current.ms -= performance.now() - started;
+    };
+  }, [key, ready, paused, closing]);
+
+  useEffect(() => {
+    if (closing === null) return;
+    const timer = window.setTimeout(() => setClosed(closing), reduced ? 0 : CLOSE_MS);
+    return () => window.clearTimeout(timer);
+  }, [closing, reduced]);
+
+  return {
+    paused,
+    closing: key !== null && closing === key,
+    closed: key !== null && closed === key,
+    handlers: {
+      onMouseEnter: () => setHovered(true),
+      onMouseLeave: () => setHovered(false),
+      onFocusIn: () => setFocused(true),
+      onFocusOut: () => setFocused(false),
+    },
+  };
 }
 
 export function Result({ result, rivalry, colors, achievement, texts, reducedMotion }: Props) {
   const t = texts.debate;
-  const reached = achievement;
-  const isNone = result?.team === 'none';
-  const team = result && rivalry && result.team !== 'none' ? rivalry[result.team] : undefined;
+  const life = useLifetime(result?.id ?? null, !!result?.quip, reducedMotion);
+  // Bandeau refermé : on revient à l'aide du départ, jusqu'au vote suivant.
+  const reached = life.closed ? null : achievement;
+  const choice = result?.team;
+  const team =
+    result && rivalry && (choice === 'a' || choice === 'b') ? rivalry[choice] : undefined;
   const outcome = result?.outcome;
   const share = outcome?.kind === 'share' ? outcome.percent : null;
   const shown = useCountUp(share, reducedMotion);
   const parts = share === null || !result ? null : splitParts(result, share);
-  // Les trois parts défilent avec le pourcentage du choix du visiteur.
+  // Le détail défile avec le pourcentage du choix du visiteur.
   const progress = share && shown !== null ? shown / share : 1;
   const counted = (n: number) => Math.round(n * progress);
   const shareText = share === null ? '' : formatText(t.share, { percent: share });
+  const choiceText = team
+    ? fill(t.choice, { name: <strong>{team.name}</strong> })
+    : choice === 'both' || choice === 'none'
+      ? t[choice].choice
+      : null;
 
   return (
     <>
       {/* Le résultat se colle en bas de l'écran : visible sans défiler, sans décaler les cartes. */}
-      <div class={`result-dock${result && team ? ' is-docked' : ''}`} aria-live="polite">
+      <div
+        class={`result-dock${result && rivalry && !life.closed ? ' is-docked' : ''}${life.closing ? ' is-closing' : ''}`}
+        aria-live="polite"
+        {...life.handlers}
+      >
         {/* Le palier passe dans le bandeau collé : sinon il tomberait sous les cartes, hors de vue. */}
         {reached && (
           <div class="milestone pop" key={`achievement-${reached.id}`}>
@@ -121,10 +199,21 @@ export function Result({ result, rivalry, colors, achievement, texts, reducedMot
             )}
           </div>
         )}
-        {result && (team || isNone) ? (
+        {result && rivalry && choiceText && !life.closed ? (
           <div class="result" key={result.id}>
+            {/* Le temps qui reste avant que le bandeau se referme. */}
+            {result.quip && (
+              <span
+                class="result-timer"
+                aria-hidden="true"
+                style={{
+                  animationDuration: `${RESULT_LIFETIME_MS}ms`,
+                  animationPlayState: life.paused ? 'paused' : 'running',
+                }}
+              />
+            )}
             <p class="result-choice">
-              {team ? fill(t.choice, { name: <strong>{team.name}</strong> }) : t.none.choice}
+              {choiceText}
               {share !== null && (
                 <span class="result-share">
                   {' · '}
@@ -133,32 +222,47 @@ export function Result({ result, rivalry, colors, achievement, texts, reducedMot
                 </span>
               )}
             </p>
-            {parts && rivalry && (
-              <>
-                <span class="result-bar" aria-hidden="true">
+            {/* La barre aux couleurs des cartes : la team de gauche contre la team de droite. */}
+            {parts && (
+              <div class="result-meter" aria-hidden="true">
+                <span class="result-meter-track">
                   <span
-                    class="result-bar-a"
+                    class={`result-meter-seg${choice === 'a' ? ' is-picked' : ''}`}
                     style={{ width: `${parts.a}%`, background: colors[0] }}
-                  />
-                  {parts.none > 0 && (
-                    <span class="result-bar-none" style={{ width: `${parts.none}%` }} />
-                  )}
-                  <span class="result-bar-b" style={{ background: colors[1] }} />
-                </span>
-                <span class="result-split" aria-hidden="true">
-                  <span>
-                    {rivalry.a.name} · {counted(parts.a)} %
+                  >
+                    {parts.a >= MIN_LABEL_PERCENT && (
+                      <span class="result-meter-pct">{counted(parts.a)} %</span>
+                    )}
                   </span>
-                  {parts.none > 0 && (
-                    <span class="result-split-none">
-                      {formatText(t.none.split, { percent: counted(parts.none) })}
+                  <span
+                    class={`result-meter-seg result-meter-b${choice === 'b' ? ' is-picked' : ''}`}
+                    style={{ background: colors[1] }}
+                  >
+                    {parts.b >= MIN_LABEL_PERCENT && (
+                      <span class="result-meter-pct">{counted(parts.b)} %</span>
+                    )}
+                  </span>
+                </span>
+                <span class="result-split">
+                  <span class={choice === 'a' ? 'is-picked' : undefined}>{rivalry.a.name}</span>
+                  {(parts.both > 0 || parts.none > 0) && (
+                    <span class="result-split-other">
+                      {parts.both > 0 && (
+                        <span class={choice === 'both' ? 'is-picked' : undefined}>
+                          {formatText(t.both.split, { percent: counted(parts.both) })}
+                        </span>
+                      )}
+                      {parts.both > 0 && parts.none > 0 && ' · '}
+                      {parts.none > 0 && (
+                        <span class={choice === 'none' ? 'is-picked' : undefined}>
+                          {formatText(t.none.split, { percent: counted(parts.none) })}
+                        </span>
+                      )}
                     </span>
                   )}
-                  <span>
-                    {counted(parts.b)} % · {rivalry.b.name}
-                  </span>
+                  <span class={choice === 'b' ? 'is-picked' : undefined}>{rivalry.b.name}</span>
                 </span>
-              </>
+              </div>
             )}
             {outcome?.kind === 'first' && <p class="result-first pop">{t.firstVote}</p>}
             {result.quip ? (

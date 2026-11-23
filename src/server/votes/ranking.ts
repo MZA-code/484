@@ -9,13 +9,16 @@ export interface RivalryCounts {
   bVotes: number;
   /** « Aucun des deux ». */
   noneVotes: number;
+  /** « Les deux ». */
+  bothVotes: number;
 }
 
 export interface RankedRivalry extends RivalryCounts {
-  /** Tous les votes, « aucun des deux » compris. */
+  /** Tous les votes, « aucun des deux » et « les deux » compris. */
   total: number;
-  /** Parts arrondies en % du total : team A, « aucun des deux », et team B (le reste). */
+  /** Parts arrondies en % du total : team A, « les deux », « aucun des deux », et team B (le reste). */
   aPercent: number;
+  bothPercent: number;
   nonePercent: number;
   bPercent: number;
 }
@@ -24,25 +27,27 @@ export interface RankedRivalry extends RivalryCounts {
 export const MIN_VOTES_TO_RANK = 10;
 
 const ranked = (r: RivalryCounts): RankedRivalry => {
-  const total = r.aVotes + r.bVotes + r.noneVotes;
-  if (!total) return { ...r, total, aPercent: 50, nonePercent: 0, bPercent: 50 };
+  const total = r.aVotes + r.bVotes + r.noneVotes + r.bothVotes;
+  if (!total) return { ...r, total, aPercent: 50, bothPercent: 0, nonePercent: 0, bPercent: 50 };
   const aPercent = Math.round((r.aVotes / total) * 100);
+  const bothPercent = Math.round((r.bothVotes / total) * 100);
   const nonePercent = Math.round((r.noneVotes / total) * 100);
   return {
     ...r,
     total,
     aPercent,
+    bothPercent,
     nonePercent,
-    bPercent: Math.max(0, 100 - aPercent - nonePercent),
+    bPercent: Math.max(0, 100 - aPercent - bothPercent - nonePercent),
   };
 };
 
-/** Votes pour l'une des deux teams (sans « aucun des deux »). */
+/** Votes pour l'une des deux teams (sans « aucun des deux » ni « les deux »). */
 const sided = (r: RivalryCounts) => r.aVotes + r.bVotes;
 
 /**
  * Écart relatif entre les deux teams, parmi ceux qui ont choisi un camp :
- * 0 = égalité parfaite, 1 = unanimité. « Aucun des deux » ne rend pas un débat serré.
+ * 0 = égalité parfaite, 1 = unanimité. « Aucun des deux » et « les deux » ne rendent pas un débat serré.
  */
 const margin = (r: RankedRivalry) => Math.abs(r.aVotes - r.bVotes) / sided(r);
 

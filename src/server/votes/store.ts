@@ -2,8 +2,8 @@
  * Stockage des votes dans SQLite (module `node:sqlite` intégré à Node, rien à installer).
  *
  * Tables :
- * - rivalry_votes(rivalry_id, a_votes, b_votes, none_votes) : les votes de chaque rivalité
- *   (« aucun des deux » compris)
+ * - rivalry_votes(rivalry_id, a_votes, b_votes, none_votes, both_votes) : les votes de chaque
+ *   rivalité (« aucun des deux » et « les deux » compris)
  * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
  * - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
  * - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
@@ -19,8 +19,8 @@ import type { RivalryCounts } from './ranking';
 import { REPORT_RATE, takeToken, type Bucket } from './rate-limit';
 
 export type Team = 'a' | 'b';
-/** Choix d'un vote : une des deux teams, ou « aucun des deux ». */
-export type Choice = Team | 'none';
+/** Choix d'un vote : une des deux teams, « aucun des deux » ou « les deux ». */
+export type Choice = Team | 'none' | 'both';
 
 export interface VoteInput {
   rivalryId: string;
@@ -30,13 +30,14 @@ export interface VoteInput {
   nowMs: number;
 }
 
-/** Votes de la rivalité, vus depuis le choix du visiteur, et le détail des trois choix. */
+/** Votes de la rivalité, vus depuis le choix du visiteur, et le détail des quatre choix. */
 export interface PairResult {
   chosenVotes: number;
   totalVotes: number;
   aVotes: number;
   bVotes: number;
   noneVotes: number;
+  bothVotes: number;
 }
 
 export type VoteOutcome =
@@ -155,6 +156,8 @@ const MIGRATIONS = [
    CREATE INDEX gif_report_seen_day ON gif_report_seen(day);`,
   // 5. « Aucun des deux » : un troisième compteur par rivalité.
   `ALTER TABLE rivalry_votes ADD COLUMN none_votes INTEGER NOT NULL DEFAULT 0;`,
+  // 6. « Les deux » : un quatrième compteur par rivalité.
+  `ALTER TABLE rivalry_votes ADD COLUMN both_votes INTEGER NOT NULL DEFAULT 0;`,
 ];
 
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
@@ -225,16 +228,23 @@ export function openSqliteStore(file: string): VoteStore {
       `INSERT INTO rivalry_votes (rivalry_id, none_votes) VALUES (?, 1)
        ON CONFLICT(rivalry_id) DO UPDATE SET none_votes = none_votes + 1`,
     ),
+    voteBoth: db.prepare(
+      `INSERT INTO rivalry_votes (rivalry_id, both_votes) VALUES (?, 1)
+       ON CONFLICT(rivalry_id) DO UPDATE SET both_votes = both_votes + 1`,
+    ),
     one: db.prepare(
-      `SELECT a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+      `SELECT a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes,
+              both_votes AS bothVotes
        FROM rivalry_votes WHERE rivalry_id = ?`,
     ),
     all: db.prepare(
-      `SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+      `SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes,
+              both_votes AS bothVotes
        FROM rivalry_votes`,
     ),
     prefix: db.prepare(
-      `SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+      `SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes,
+              both_votes AS bothVotes
        FROM rivalry_votes WHERE rivalry_id LIKE ? ESCAPE '\\'`,
     ),
   };
@@ -244,17 +254,22 @@ export function openSqliteStore(file: string): VoteStore {
 
   function pairResult(rivalryId: string, choice: Choice): PairResult {
     const row = q.one.get(rivalryId) as
-      { aVotes: number; bVotes: number; noneVotes: number } | undefined;
-    const counts = row ?? { aVotes: 0, bVotes: 0, noneVotes: 0 };
-    const chosen = { a: counts.aVotes, b: counts.bVotes, none: counts.noneVotes }[choice];
+      { aVotes: number; bVotes: number; noneVotes: number; bothVotes: number } | undefined;
+    const counts = row ?? { aVotes: 0, bVotes: 0, noneVotes: 0, bothVotes: 0 };
+    const chosen = {
+      a: counts.aVotes,
+      b: counts.bVotes,
+      none: counts.noneVotes,
+      both: counts.bothVotes,
+    }[choice];
     return {
       chosenVotes: chosen,
-      totalVotes: counts.aVotes + counts.bVotes + counts.noneVotes,
+      totalVotes: counts.aVotes + counts.bVotes + counts.noneVotes + counts.bothVotes,
       ...counts,
     };
   }
 
-  const voteFor = { a: q.voteA, b: q.voteB, none: q.voteNone };
+  const voteFor = { a: q.voteA, b: q.voteB, none: q.voteNone, both: q.voteBoth };
 
   return {
     recordVote({ rivalryId, team, ipHash, day, nowMs }) {

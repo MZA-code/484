@@ -3,7 +3,7 @@
  * Rendu uniquement côté client (la partie dépend du stockage local et de l'URL).
  */
 import { useEffect, useMemo, useState } from 'preact/hooks';
-import { debateNumber, MIXED_CATEGORY, universeOf, type Team } from '../../engine';
+import { debateNumber, MIXED_CATEGORY, universeOf, type Choice, type Team } from '../../engine';
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
 import { useReducedMotion } from '../../lib/motion';
@@ -85,14 +85,22 @@ export default function Debate({
     document.title = `${q} · 484`;
   }, [shown, byId, t]);
 
-  // Clavier : ← team de gauche, → team de droite, ↓ aucun des deux, Échap retour à l'accueil.
+  // Clavier : ← team de gauche, → team de droite, ↑ les deux, ↓ aucun des deux,
+  // Échap retour à l'accueil.
   useEffect(() => {
+    const keys: Record<string, Choice> = {
+      ArrowLeft: 'a',
+      ArrowRight: 'b',
+      ArrowUp: 'both',
+      ArrowDown: 'none',
+    };
     const onKey = (event: KeyboardEvent) => {
       if (shouldIgnoreKey(event)) return;
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      const picked = keys[event.key];
+      if (picked) {
         event.preventDefault();
         if (event.repeat) return;
-        choose(event.key === 'ArrowLeft' ? 'a' : event.key === 'ArrowRight' ? 'b' : 'none');
+        choose(picked);
       } else if (event.key === 'Escape') {
         window.location.assign('/');
       }
@@ -197,16 +205,24 @@ export default function Debate({
           {card('b')}
         </div>
 
+        {/* En haut, les deux autres réponses ; en dessous, passer et partager (pas des votes). */}
         <div class="debate-actions">
-          <button type="button" class="skip-button none-button" onClick={() => choose('none')}>
-            {t.none.button}
-          </button>
-          <button type="button" class="skip-button" onClick={skip}>
-            {t.skip}
-          </button>
-          <button type="button" class="skip-button share-button" onClick={onShare}>
-            {t.shareButton}
-          </button>
+          <div class="debate-actions-row">
+            <button type="button" class="skip-button both-button" onClick={() => choose('both')}>
+              {t.both.button}
+            </button>
+            <button type="button" class="skip-button none-button" onClick={() => choose('none')}>
+              {t.none.button}
+            </button>
+          </div>
+          <div class="debate-actions-row debate-actions-row--minor">
+            <button type="button" class="skip-button pass-button" onClick={skip}>
+              {t.skip}
+            </button>
+            <button type="button" class="skip-button share-button" onClick={onShare}>
+              {t.shareButton}
+            </button>
+          </div>
           <p class="share-feedback" aria-live="polite">
             {copied && <span class="pop">{t.shareCopied}</span>}
           </p>

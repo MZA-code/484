@@ -18,16 +18,26 @@ describe('readPairResult', () => {
     });
   });
 
-  it('reads the three choices when the counts add up', async () => {
-    const body = { chosenVotes: 2, totalVotes: 10, aVotes: 5, bVotes: 3, noneVotes: 2 };
+  it('reads the choices when the counts add up', async () => {
+    const body = {
+      chosenVotes: 2,
+      totalVotes: 12,
+      aVotes: 5,
+      bVotes: 3,
+      noneVotes: 2,
+      bothVotes: 2,
+    };
     expect(await readPairResult(json(body))).toEqual({
       chosenVotes: 2,
-      totalVotes: 10,
-      split: { a: 5, b: 3, none: 2 },
+      totalVotes: 12,
+      split: { a: 5, b: 3, none: 2, both: 2 },
     });
+    // Serveur d'avant « les deux » : compté à 0.
+    const old = { chosenVotes: 2, totalVotes: 10, aVotes: 5, bVotes: 3, noneVotes: 2 };
+    expect((await readPairResult(json(old)))?.split).toEqual({ a: 5, b: 3, none: 2, both: 0 });
     // Détail incohérent : ignoré, le pourcentage reste utilisable.
     const wrong = { ...body, noneVotes: 9 };
-    expect(await readPairResult(json(wrong))).toEqual({ chosenVotes: 2, totalVotes: 10 });
+    expect(await readPairResult(json(wrong))).toEqual({ chosenVotes: 2, totalVotes: 12 });
   });
 
   it('returns null for errors and nonsense', async () => {

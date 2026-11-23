@@ -114,6 +114,11 @@
 }
 
 /* « Aucun des deux » : part neutre et rayée, comme dans le bandeau du jeu. */
+/* « Les deux » : une part neutre, unie (« aucun des deux » est rayé). */
+.hall-bar .hall-bar-both {
+  background: #8a8a8a;
+}
+
 .hall-bar .hall-bar-none {
   background: repeating-linear-gradient(45deg, var(--fg-muted) 0 4px, #6b6b6b 4px 8px);
 }

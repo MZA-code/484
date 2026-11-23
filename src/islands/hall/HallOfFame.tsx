@@ -16,8 +16,9 @@ interface Ranked {
   bVotes: number;
   total: number;
   aPercent: number;
-  /** Absents des réponses d'avant « aucun des deux » : 0, et B prend le reste. */
+  /** Absents des réponses d'avant « aucun des deux » / « les deux » : 0, et B prend le reste. */
   nonePercent?: number;
+  bothPercent?: number;
   bPercent?: number;
 }
 
@@ -74,19 +75,21 @@ export default function HallOfFame({ data }: { data: HallData }) {
     };
   }, [category]);
 
-  /** Une rivalité : la question, la barre (team A, aucun des deux, team B) et les chiffres. */
+  /** Une rivalité : la question, la barre (team A, les deux, aucun des deux, team B) et les chiffres. */
   const debate = (r: Ranked) => {
     const rivalry = byId.get(r.id);
     if (!rivalry) return null;
     const [ca, cb] = teamColors(r.id);
     const none = r.nonePercent ?? 0;
-    const b = r.bPercent ?? 100 - r.aPercent - none;
+    const both = r.bothPercent ?? 0;
+    const b = r.bPercent ?? 100 - r.aPercent - both - none;
     return (
       <>
         <span class="hall-category">{labels.get(rivalry.category)}</span>
         <span class="hall-question">{rivalry.question}</span>
         <span class="hall-bar" aria-hidden="true">
           <span style={{ width: `${r.aPercent}%`, background: ca }} />
+          {both > 0 && <span class="hall-bar-both" style={{ width: `${both}%` }} />}
           {none > 0 && <span class="hall-bar-none" style={{ width: `${none}%` }} />}
           <span style={{ flex: 1, background: cb }} />
         </span>
@@ -96,6 +99,7 @@ export default function HallOfFame({ data }: { data: HallData }) {
           </span>
           <span class="hall-votes">
             {plural(t.votes, r.total)}
+            {both > 0 && <> · {formatText(t.both, { percent: both })}</>}
             {none > 0 && <> · {formatText(t.none, { percent: none })}</>}
           </span>
           <span>

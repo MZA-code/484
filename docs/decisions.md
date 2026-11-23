@@ -348,3 +348,10 @@ GIPHY exige d'afficher ses marques d'attribution officielles là où l'API est u
 ## D33 — Pied de page en trois étages (version 1.5.0)
 
 Le pied de page mélangeait les liens de l'auteur, la phrase d'humour, les mentions légales, la version et les attributions. Il est rangé en trois étages : la phrase d'humour seule ; une ligne avec le Hall of Fame et « Voir mes autres projets » à gauche, les badges officiels « Powered by GIPHY » et « powered by tenor » à droite ; sous un filet, les liens d'information et la version. Le logo Tenor est la version blanche officielle (`PB_tenor_logo_white_horizontal.svg`, kit d'attribution de Tenor), posée sur un fond noir de la hauteur du badge GIPHY ; il n'apparaît que si des liens Tenor sont utilisés.
+
+## D34 — « Les deux », boutons rangés, barre du résultat aux couleurs des cartes (version 1.6.0)
+
+- **Quatrième choix « Les deux »** (flèche ↑) : un vrai vote, compté à part (`both_votes`, migration 6 de la base, ajoutée toute seule au démarrage). Il compte comme un débat tranché, apparaît dans « Tes teams » et dans le Hall of Fame (part grise unie ; « aucun des deux » reste rayé). Comme « aucun des deux », il ne rend pas un débat serré ou écrasant.
+- **Boutons en deux rangées** : « Les deux » | « Aucun des deux » (des votes), puis « Passer » | « Partager » (pas des votes, un cran plus discrets). « Je ne connais aucun des deux » devient « Passer ».
+- **Barre du résultat** : les couleurs des deux cartes, collées, avec leur pourcentage écrit dedans ; c'est le duel, parmi ceux qui ont choisi une team. « Les deux » et « aucun des deux » sont écrits dessous, en part de tous les votes. Au-dessus, « Comme X % des autres » reste la part de tous les votes du même choix : il peut différer du chiffre de la barre (choix validé).
+- **Durée de vie du bandeau** : 10 s une fois la remarque affichée (5 à 6 s suffisent à le lire), avec un filet jaune qui se vide, puis une sortie en douceur. Le décompte s'arrête au survol, au clavier dans le bandeau et quand l'onglet est caché. Le bandeau reste collé en bas pour tous les choix, plus seulement pour une team.

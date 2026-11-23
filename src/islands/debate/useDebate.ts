@@ -46,8 +46,8 @@ export interface VoteResult {
   team: Choice;
   /** null tant que l'API n'a pas répondu (au plus 1,5 s). */
   outcome: ShareOutcome | null;
-  /** Votes des trois choix (barre à trois parts), si l'API les a donnés. */
-  split: { a: number; b: number; none: number } | null;
+  /** Votes des quatre choix (détail sous la barre), si l'API les a donnés. */
+  split: { a: number; b: number; none: number; both: number } | null;
   quip: string | null;
 }
 

@@ -49,11 +49,11 @@ export function Panels({ state, hallScope, byId, catalog, texts }: Props) {
           <ul class="teams-list">
             {recent.map(({ v, r }, i) => (
               <li key={`${v.rivalryId}-${state.count - i}`}>
-                {v.team === 'none' ? (
+                {v.team === 'none' || v.team === 'both' ? (
                   <>
-                    <strong>{t.none.label}</strong>
+                    <strong>{t[v.team].label}</strong>
                     <span class="teams-versus">
-                      {formatText(t.none.between, { a: r.a.name, b: r.b.name })}
+                      {formatText(t[v.team].between, { a: r.a.name, b: r.b.name })}
                     </span>
                   </>
                 ) : (

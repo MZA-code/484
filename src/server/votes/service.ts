@@ -32,7 +32,7 @@ export interface HallOfFame extends Rankings {
 
 const VoteBody = z.object({
   rivalryId: z.string().min(1).max(160),
-  team: z.enum(['a', 'b', 'none']),
+  team: z.enum(['a', 'b', 'none', 'both']),
   category: z.string().min(1).max(60),
 });
 

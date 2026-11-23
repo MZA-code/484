@@ -27,19 +27,23 @@ export async function readPairResult(response: Response): Promise<PairResult | n
     aVotes?: unknown;
     bVotes?: unknown;
     noneVotes?: unknown;
+    bothVotes?: unknown;
   };
   if (!isCount(body.chosenVotes) || !isCount(body.totalVotes)) return null;
   if (body.chosenVotes > body.totalVotes) return null;
   const result: PairResult = { chosenVotes: body.chosenVotes, totalVotes: body.totalVotes };
-  // Détail des trois choix : seulement s'il est cohérent avec le total.
+  // Détail des choix : seulement s'il est cohérent avec le total. « Les deux » manque
+  // dans les réponses d'un serveur d'avant ce choix : on le compte alors à 0.
   const { aVotes, bVotes, noneVotes } = body;
+  const bothVotes = body.bothVotes ?? 0;
   if (
     isCount(aVotes) &&
     isCount(bVotes) &&
     isCount(noneVotes) &&
-    aVotes + bVotes + noneVotes === body.totalVotes
+    isCount(bothVotes) &&
+    aVotes + bVotes + noneVotes + bothVotes === body.totalVotes
   ) {
-    result.split = { a: aVotes, b: bVotes, none: noneVotes };
+    result.split = { a: aVotes, b: bVotes, none: noneVotes, both: bothVotes };
   }
   return result;
 }

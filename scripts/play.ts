@@ -118,8 +118,8 @@ function renderPanels(state: DebateState): string[] {
     const r = rivalry(v.rivalryId);
     const percent = v.percent === null ? '' : ansi.dim(` · ${v.percent} %`);
     const choice =
-      v.team === 'none'
-        ? `${ui.debate.none.label}${ansi.dim(` (${formatText(ui.debate.none.between, { a: r.a.name, b: r.b.name })})`)}`
+      v.team === 'none' || v.team === 'both'
+        ? `${ui.debate[v.team].label}${ansi.dim(` (${formatText(ui.debate[v.team].between, { a: r.a.name, b: r.b.name })})`)}`
         : `${r[v.team].name}${ansi.dim(` (contre ${r[v.team === 'a' ? 'b' : 'a'].name})`)}`;
     lines.push(`  • ${choice}${percent}`);
   }
@@ -157,7 +157,7 @@ function render(state: DebateState, banner: string[]): void {
     ...renderPanels(state),
     '',
     ansi.dim(
-      `← / → choisir · ↓ « ${ui.debate.none.button} » · S « ${ui.debate.skip} » · C changer de catégorie · Q quitter`,
+      `← / → choisir · ↑ « ${ui.debate.both.button} » · ↓ « ${ui.debate.none.button} » · S « ${ui.debate.skip} » · C changer de catégorie · Q quitter`,
     ),
   ];
   console.clear();
@@ -190,7 +190,9 @@ function play(state: DebateState, team: Choice): { state: DebateState; banner: s
   const quip = debateQuip(withOutcome, ui.quips, outcome, rng);
 
   const choice =
-    team === 'none' ? ui.debate.none.choice : formatText(ui.debate.choice, { name: r[team].name });
+    team === 'none' || team === 'both'
+      ? ui.debate[team].choice
+      : formatText(ui.debate.choice, { name: r[team].name });
   const banner = [
     outcome.kind === 'share'
       ? `${ansi.bold(choice)} · ${formatText(ui.debate.share, { percent: outcome.percent })} ${ansi.dim('(simulé)')}`
@@ -247,8 +249,9 @@ process.stdin.on('keypress', (_str: string | undefined, key: { name?: string; ct
     console.log(`\n${ui.footer.disclaimer}\n`);
     process.exit(0);
   }
-  if (key.name === 'left' || key.name === 'right' || key.name === 'down') {
-    const choice = key.name === 'left' ? 'a' : key.name === 'right' ? 'b' : 'none';
+  const keys: Record<string, Choice> = { left: 'a', right: 'b', up: 'both', down: 'none' };
+  const choice = key.name ? keys[key.name] : undefined;
+  if (choice) {
     ({ state, banner } = play(state, choice));
   } else if (key.name === 's') {
     state = skip(state, ctx);

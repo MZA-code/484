@@ -514,13 +514,28 @@
   outline: none;
 }
 
-/* ─── Bouton « Je ne connais aucun des deux » ────────────────────────────── */
+/* ─── Boutons sous les cartes ────────────────────────────────────────────── */
 
+/* Deux rangées de deux : « Les deux » | « Aucun des deux », puis « Passer » | « Partager ». */
 .debate-actions {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 12px;
+}
+
+.debate-actions-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 520px);
+}
+
+/* « Passer » et « Partager » ne sont pas des votes : un cran plus discrets. */
+.debate-actions-row--minor .skip-button {
+  min-height: 44px;
+  border-width: 1px;
+  font-size: 0.8125rem;
 }
 
 .skip-button {
@@ -544,8 +559,17 @@
   color: var(--yellow);
 }
 
+.both-button {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.pass-button {
+  border-color: var(--fg-muted);
+  color: var(--fg-muted);
+}
+
 .share-feedback {
-  flex-basis: 100%;
   min-height: 1.5em;
   color: var(--yellow);
   font-family: var(--font-mono);
@@ -583,6 +607,7 @@
 
 /* Le bandeau glisse depuis le bas à chaque vote. */
 .result {
+  position: relative;
   animation: result-up 420ms var(--ease-out) backwards;
   display: flex;
   flex-direction: column;
@@ -602,8 +627,37 @@
   display: inline-block;
 }
 
-.result-share {
-  font-variant-numeric: tabular-nums;
+/* Décompte avant fermeture : un filet jaune sur le bord haut, qui se vide de droite à gauche. */
+.result-timer {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--yellow);
+  transform-origin: left;
+  animation-name: result-timer;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes result-timer {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Le temps écoulé, le bandeau redescend en douceur. */
+.result-dock.is-closing .result,
+.result-dock.is-closing .milestone {
+  animation: result-down 350ms var(--ease-in) forwards;
+}
+
+@keyframes result-down {
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
 }
 
 @keyframes result-up {
@@ -613,38 +667,70 @@
   }
 }
 
-.result-bar {
+.result-share {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Barre aux couleurs des cartes : la team de gauche contre la team de droite, collées. */
+.result-meter {
   display: flex;
-  height: 14px;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* La barre se dévoile de gauche à droite pendant que les pourcentages défilent. */
+.result-meter-track {
+  display: flex;
+  height: 24px;
+  overflow: hidden;
   background: #3a3a3a;
+  animation: meter-reveal 650ms var(--ease-out) both;
 }
 
-/* Barre à deux camps : la team A à gauche, la team B prend le reste. */
-.result-bar-a {
-  display: block;
-  height: 100%;
-  transform-origin: left;
-  animation: bar-grow 600ms var(--ease-out) both;
+@keyframes meter-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
-.result-bar-b {
-  display: block;
+/* Chaque part : son pourcentage écrit dedans, en encre sur la couleur vive de la carte. */
+.result-meter-seg {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.result-meter-pct {
+  padding: 0 8px;
+}
+
+/* La team de droite prend le reste, son pourcentage collé à droite. */
+.result-meter-b {
   flex: 1;
-  height: 100%;
+  justify-content: flex-end;
 }
 
-/* « Aucun des deux » : une part neutre, rayée, entre les deux camps. */
-.result-bar-none {
-  display: block;
-  height: 100%;
-  background: repeating-linear-gradient(45deg, var(--fg-muted) 0 4px, #6b6b6b 4px 8px);
-}
-
-.result-split-none {
+.result-split-other {
   color: var(--fg);
 }
 
-/* Bouton « Aucun des deux » : même allure que « Je ne connais aucun des deux », en rose. */
+/* Le choix du visiteur ressort dans la légende. */
+.result-split .is-picked {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+/* Bouton « Aucun des deux » : même allure que les autres, en rose. */
 .none-button {
   border-color: var(--pink);
   color: var(--pink);
@@ -658,12 +744,6 @@
   color: var(--fg-muted);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-}
-
-@keyframes bar-grow {
-  from {
-    transform: scaleX(0);
-  }
 }
 
 .result-first {

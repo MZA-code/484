@@ -323,6 +323,14 @@ export const UiTextsSchema = z.object({
       between: template('a', 'b'),
       split: template('percent'),
     }),
+    /** « Les deux » : 4e choix, compté comme un débat tranché. */
+    both: z.object({
+      button: text,
+      choice: text,
+      label: text,
+      between: template('a', 'b'),
+      split: template('percent'),
+    }),
     keysHint: text,
     pickHint: text,
     loading: text,
@@ -414,6 +422,8 @@ export const UiTextsSchema = z.object({
     votes: pluralForms,
     /** Part « aucun des deux » d'un débat. */
     none: template('percent'),
+    /** Part « les deux » d'un débat. */
+    both: template('percent'),
     empty: text,
     emptySection: text,
     loading: text,

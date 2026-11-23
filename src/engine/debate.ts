@@ -25,8 +25,8 @@ export const HISTORY_SIZE = 30;
 export const REBEL_BELOW = 40;
 
 export type Team = 'a' | 'b';
-/** Choix d'un vote : une des deux teams, ou « aucun des deux » (compte comme un débat tranché). */
-export type Choice = Team | 'none';
+/** Choix d'un vote : une des deux teams, « aucun des deux » ou « les deux » (comptent comme un débat tranché). */
+export type Choice = Team | 'none' | 'both';
 
 export interface CatalogUniverse {
   id: string;
@@ -303,7 +303,7 @@ const StoredDebateSchema = z.object({
   history: z.array(
     z.object({
       rivalryId: z.string(),
-      team: z.enum(['a', 'b', 'none']),
+      team: z.enum(['a', 'b', 'none', 'both']),
       percent: z.number().min(0).max(100).nullable(),
     }),
   ),
