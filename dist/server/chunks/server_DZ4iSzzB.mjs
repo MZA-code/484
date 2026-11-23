@@ -18501,7 +18501,7 @@ var ui_texts_fr_default = {
 		"categoriesLabel": "Catégories",
 		"team": "Team",
 		"vs": "VS",
-		"skip": "Je ne connais aucun des deux",
+		"skip": "Passer",
 		"none": {
 			"button": "Aucun des deux",
 			"choice": "Ni l’un ni l’autre, pour toi",
@@ -18509,12 +18509,19 @@ var ui_texts_fr_default = {
 			"between": "entre {a} et {b}",
 			"split": "aucun des deux · {percent} %"
 		},
-		"keysHint": "← et → pour choisir · ↓ pour aucun des deux · Échap pour revenir à l’accueil",
+		"both": {
+			"button": "Les deux",
+			"choice": "L’un et l’autre, pour toi",
+			"label": "Les deux",
+			"between": "{a} et {b}",
+			"split": "les deux · {percent} %"
+		},
+		"keysHint": "← et → pour choisir · ↑ pour les deux · ↓ pour aucun des deux · Échap pour revenir à l’accueil",
 		"pickHint": "Choisis ton camp. Le reste du monde attend ton verdict.",
 		"loading": "On sort les rivalités du placard…",
 		"noscript": "Ce jeu a besoin de JavaScript. Comme la plupart des robots de ce site.",
 		"choice": "Tu es team {name}",
-		"share": "{percent} % des visiteurs aussi",
+		"share": "Comme {percent} % des autres",
 		"firstVote": "Tu es le premier à trancher ce débat. Pas de pression.",
 		"milestoneLink": "On en parle sur LinkedIn →",
 		"teams": {
@@ -18720,6 +18727,7 @@ var ui_texts_fr_default = {
 			"other": "{n} votes"
 		},
 		"none": "{percent} % aucun des deux",
+		"both": "{percent} % les deux",
 		"empty": "Pas encore de votes ici. Va jouer, le classement compte sur toi.",
 		"emptySection": "Pas encore assez de votes pour juger. Il en faut au moins dix par débat.",
 		"loading": "On recompte les bulletins…",
@@ -18882,7 +18890,8 @@ z.object({
 		team: z.enum([
 			"a",
 			"b",
-			"none"
+			"none",
+			"both"
 		]),
 		percent: z.number().min(0).max(100).nullable()
 	})),
@@ -19282,6 +19291,14 @@ var UiTextsSchema = z.object({
 			between: template("a", "b"),
 			split: template("percent")
 		}),
+		/** « Les deux » : 4e choix, compté comme un débat tranché. */
+		both: z.object({
+			button: text,
+			choice: text,
+			label: text,
+			between: template("a", "b"),
+			split: template("percent")
+		}),
 		keysHint: text,
 		pickHint: text,
 		loading: text,
@@ -19377,6 +19394,8 @@ var UiTextsSchema = z.object({
 		votes: pluralForms,
 		/** Part « aucun des deux » d'un débat. */
 		none: template("percent"),
+		/** Part « les deux » d'un débat. */
+		both: template("percent"),
 		empty: text,
 		emptySection: text,
 		loading: text,

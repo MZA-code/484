@@ -1,4 +1,4 @@
-import { a as universes, n as categories, r as rivalries, t as getSecret } from "./server_Cews8BEg.mjs";
+import { a as universes, n as categories, r as rivalries, t as getSecret } from "./server_DZ4iSzzB.mjs";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { z } from "zod";
@@ -65,29 +65,32 @@ function pickClientIp(forwardedFor, direct, hops) {
 	return chain[Math.max(0, chain.length - hops)] ?? direct;
 }
 var ranked = (r) => {
-	const total = r.aVotes + r.bVotes + r.noneVotes;
+	const total = r.aVotes + r.bVotes + r.noneVotes + r.bothVotes;
 	if (!total) return {
 		...r,
 		total,
 		aPercent: 50,
+		bothPercent: 0,
 		nonePercent: 0,
 		bPercent: 50
 	};
 	const aPercent = Math.round(r.aVotes / total * 100);
+	const bothPercent = Math.round(r.bothVotes / total * 100);
 	const nonePercent = Math.round(r.noneVotes / total * 100);
 	return {
 		...r,
 		total,
 		aPercent,
+		bothPercent,
 		nonePercent,
-		bPercent: Math.max(0, 100 - aPercent - nonePercent)
+		bPercent: Math.max(0, 100 - aPercent - bothPercent - nonePercent)
 	};
 };
-/** Votes pour l'une des deux teams (sans « aucun des deux »). */
+/** Votes pour l'une des deux teams (sans « aucun des deux » ni « les deux »). */
 var sided = (r) => r.aVotes + r.bVotes;
 /**
 * Écart relatif entre les deux teams, parmi ceux qui ont choisi un camp :
-* 0 = égalité parfaite, 1 = unanimité. « Aucun des deux » ne rend pas un débat serré.
+* 0 = égalité parfaite, 1 = unanimité. « Aucun des deux » et « les deux » ne rendent pas un débat serré.
 */
 var margin = (r) => Math.abs(r.aVotes - r.bVotes) / sided(r);
 function rankRivalries(rows, { limit = 5, popularLimit = 10, minVotes = 10 } = {}) {
@@ -173,7 +176,8 @@ var VoteBody = z.object({
 	team: z.enum([
 		"a",
 		"b",
-		"none"
+		"none",
+		"both"
 	]),
 	category: z.string().min(1).max(60)
 });
@@ -363,8 +367,8 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 * Stockage des votes dans SQLite (module `node:sqlite` intégré à Node, rien à installer).
 *
 * Tables :
-* - rivalry_votes(rivalry_id, a_votes, b_votes, none_votes) : les votes de chaque rivalité
-*   (« aucun des deux » compris)
+* - rivalry_votes(rivalry_id, a_votes, b_votes, none_votes, both_votes) : les votes de chaque
+*   rivalité (« aucun des deux » et « les deux » compris)
 * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
 * - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
 * - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
@@ -435,7 +439,8 @@ var MIGRATIONS = [
      PRIMARY KEY (rivalry_id, team, gif_id, ip_hash)
    ) STRICT;
    CREATE INDEX gif_report_seen_day ON gif_report_seen(day);`,
-	`ALTER TABLE rivalry_votes ADD COLUMN none_votes INTEGER NOT NULL DEFAULT 0;`
+	`ALTER TABLE rivalry_votes ADD COLUMN none_votes INTEGER NOT NULL DEFAULT 0;`,
+	`ALTER TABLE rivalry_votes ADD COLUMN both_votes INTEGER NOT NULL DEFAULT 0;`
 ];
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
 var likePrefix = (prefix) => `${prefix.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
@@ -476,11 +481,16 @@ function openSqliteStore(file) {
        ON CONFLICT(rivalry_id) DO UPDATE SET b_votes = b_votes + 1`),
 		voteNone: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, none_votes) VALUES (?, 1)
        ON CONFLICT(rivalry_id) DO UPDATE SET none_votes = none_votes + 1`),
-		one: db.prepare(`SELECT a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+		voteBoth: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, both_votes) VALUES (?, 1)
+       ON CONFLICT(rivalry_id) DO UPDATE SET both_votes = both_votes + 1`),
+		one: db.prepare(`SELECT a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes,
+              both_votes AS bothVotes
        FROM rivalry_votes WHERE rivalry_id = ?`),
-		all: db.prepare(`SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+		all: db.prepare(`SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes,
+              both_votes AS bothVotes
        FROM rivalry_votes`),
-		prefix: db.prepare(`SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes
+		prefix: db.prepare(`SELECT rivalry_id AS id, a_votes AS aVotes, b_votes AS bVotes, none_votes AS noneVotes,
+              both_votes AS bothVotes
        FROM rivalry_votes WHERE rivalry_id LIKE ? ESCAPE '\\'`)
 	};
 	let lastPurgeDay = "";
@@ -489,22 +499,25 @@ function openSqliteStore(file) {
 		const counts = q.one.get(rivalryId) ?? {
 			aVotes: 0,
 			bVotes: 0,
-			noneVotes: 0
+			noneVotes: 0,
+			bothVotes: 0
 		};
 		return {
 			chosenVotes: {
 				a: counts.aVotes,
 				b: counts.bVotes,
-				none: counts.noneVotes
+				none: counts.noneVotes,
+				both: counts.bothVotes
 			}[choice],
-			totalVotes: counts.aVotes + counts.bVotes + counts.noneVotes,
+			totalVotes: counts.aVotes + counts.bVotes + counts.noneVotes + counts.bothVotes,
 			...counts
 		};
 	}
 	const voteFor = {
 		a: q.voteA,
 		b: q.voteB,
-		none: q.voteNone
+		none: q.voteNone,
+		both: q.voteBoth
 	};
 	return {
 		recordVote({ rivalryId, team, ipHash, day, nowMs }) {
