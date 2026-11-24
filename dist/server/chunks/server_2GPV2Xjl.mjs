@@ -1,0 +1,25119 @@
+import { i as setOnSetGetEnv, n as getEnv$1, t as createInvalidVariablesError } from "./runtime_BNfvQd4R.mjs";
+import { z } from "zod";
+import { faBan, faBolt, faBriefcase, faCarSide, faClapperboard, faComments, faCompactDisc, faCompass, faCrown, faDragon, faEarthEurope, faEye, faFilm, faFire, faForward, faFutbol, faGamepad, faGuitar, faHandFist, faHandshake, faHashtag, faHeart, faHouse, faLaptopCode, faLock, faMask, faMedal, faMugHot, faPaw, faPeopleGroup, faPizzaSlice, faScaleBalanced, faShareNodes, faShirt, faShuffle, faStar, faTrophy, faTv, faUserGroup, faVideo, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
+// node_modules/astro/dist/env/validators.js
+function getEnvFieldType(options) {
+	const optional = options.optional ? options.default !== void 0 ? false : true : false;
+	let type;
+	if (options.type === "enum") type = options.values.map((v) => `'${v}'`).join(" | ");
+	else type = options.type;
+	return `${type}${optional ? " | undefined" : ""}`;
+}
+var stringValidator = ({ max, min, length, url, includes, startsWith, endsWith }) => (input) => {
+	if (typeof input !== "string") return {
+		ok: false,
+		errors: ["type"]
+	};
+	const errors = [];
+	if (max !== void 0 && !(input.length <= max)) errors.push("max");
+	if (min !== void 0 && !(input.length >= min)) errors.push("min");
+	if (length !== void 0 && !(input.length === length)) errors.push("length");
+	if (url !== void 0 && !URL.canParse(input)) errors.push("url");
+	if (includes !== void 0 && !input.includes(includes)) errors.push("includes");
+	if (startsWith !== void 0 && !input.startsWith(startsWith)) errors.push("startsWith");
+	if (endsWith !== void 0 && !input.endsWith(endsWith)) errors.push("endsWith");
+	if (errors.length > 0) return {
+		ok: false,
+		errors
+	};
+	return {
+		ok: true,
+		value: input
+	};
+};
+var numberValidator = ({ gt, min, lt, max, int }) => (input) => {
+	const num = Number.parseFloat(input ?? "");
+	if (isNaN(num)) return {
+		ok: false,
+		errors: ["type"]
+	};
+	const errors = [];
+	if (gt !== void 0 && !(num > gt)) errors.push("gt");
+	if (min !== void 0 && !(num >= min)) errors.push("min");
+	if (lt !== void 0 && !(num < lt)) errors.push("lt");
+	if (max !== void 0 && !(num <= max)) errors.push("max");
+	if (int !== void 0) {
+		const isInt = Number.isInteger(num);
+		if (!(int ? isInt : !isInt)) errors.push("int");
+	}
+	if (errors.length > 0) return {
+		ok: false,
+		errors
+	};
+	return {
+		ok: true,
+		value: num
+	};
+};
+var booleanValidator = (input) => {
+	const bool = input === "true" ? true : input === "false" ? false : void 0;
+	if (typeof bool !== "boolean") return {
+		ok: false,
+		errors: ["type"]
+	};
+	return {
+		ok: true,
+		value: bool
+	};
+};
+var enumValidator = ({ values }) => (input) => {
+	if (!(typeof input === "string" ? values.includes(input) : false)) return {
+		ok: false,
+		errors: ["type"]
+	};
+	return {
+		ok: true,
+		value: input
+	};
+};
+function selectValidator(options) {
+	switch (options.type) {
+		case "string": return stringValidator(options);
+		case "number": return numberValidator(options);
+		case "boolean": return booleanValidator;
+		case "enum": return enumValidator(options);
+	}
+}
+function validateEnvVariable(value, options) {
+	const isOptional = options.optional || options.default !== void 0;
+	if (isOptional && value === void 0) return {
+		ok: true,
+		value: options.default
+	};
+	if (!isOptional && value === void 0) return {
+		ok: false,
+		errors: ["missing"]
+	};
+	return selectValidator(options)(value);
+}
+var rivalries_default = {
+	version: 1,
+	universes: [
+		{
+			"id": "univers-ecrans",
+			"label": "Écrans",
+			"tagline": "Tout ce qu’on a regardé au lieu de dormir.",
+			"icon": "video",
+			"categories": [
+				"ecrans",
+				"cinefr",
+				"dessins",
+				"jeux"
+			]
+		},
+		{
+			"id": "univers-pop",
+			"label": "Pop culture",
+			"tagline": "Héros, tubes, memes et autres obsessions.",
+			"icon": "star",
+			"categories": [
+				"heros",
+				"musique",
+				"duos",
+				"internet",
+				"geek",
+				"nostalgie"
+			]
+		},
+		{
+			"id": "univers-vie",
+			"label": "La vraie vie",
+			"tagline": "Les débats du quotidien, ceux qui fâchent vraiment.",
+			"icon": "house",
+			"categories": [
+				"bouffe",
+				"quotidien",
+				"mots",
+				"sport",
+				"mode",
+				"autos"
+			]
+		},
+		{
+			"id": "univers-imaginaire",
+			"label": "Imaginaire",
+			"tagline": "Monstres, superpouvoirs et dilemmes impossibles.",
+			"icon": "wand-magic-sparkles",
+			"categories": [
+				"dilemmes",
+				"pouvoirs",
+				"monstres",
+				"animaux"
+			]
+		}
+	],
+	categories: [
+		{
+			"id": "heros",
+			"label": "Héros et vilains",
+			"tagline": "Des capes, des masques, et des egos surdimensionnés.",
+			"icon": "mask",
+			"giphyQuery": "superhero pose",
+			"giphyIds": ["5cZbRBLhW4tc4"],
+			"finish": {
+				"line": "Mission accomplie. Tu peux enlever ta cape, personne ne regarde.",
+				"giphyQuery": "superhero celebration"
+			}
+		},
+		{
+			"id": "bouffe",
+			"label": "Bouffe qui divise",
+			"tagline": "Ces débats ont gâché plus de repas de famille que la politique.",
+			"icon": "pizza-slice",
+			"giphyQuery": "delicious food",
+			"finish": {
+				"line": "Tu as tout goûté, même les débats indigestes. Sieste conseillée.",
+				"giphyQuery": "food coma"
+			}
+		},
+		{
+			"id": "geek",
+			"label": "Tech et geek",
+			"tagline": "Les guerres saintes de l’informatique. Aucun survivant.",
+			"icon": "laptop-code",
+			"giphyQuery": "computer nerd",
+			"finish": {
+				"line": "Chargement terminé à 100 %. Aucun bug détecté, pour une fois.",
+				"giphyQuery": "nerd celebration"
+			}
+		},
+		{
+			"id": "jeux",
+			"label": "Jeux vidéo",
+			"tagline": "Manette en main, amitiés en jeu.",
+			"icon": "gamepad",
+			"giphyQuery": "video game controller",
+			"finish": {
+				"line": "Niveau terminé. Pas de boss caché, pas de DLC, promis.",
+				"giphyQuery": "level complete"
+			}
+		},
+		{
+			"id": "ecrans",
+			"label": "Ciné et séries",
+			"tagline": "Pop-corn, canapé, et des avis très tranchés.",
+			"icon": "film",
+			"giphyQuery": "popcorn movie night",
+			"giphyIds": ["Sb7WSbjHFNIL6"],
+			"finish": {
+				"line": "Générique de fin. Tu peux rallumer la lumière et ramasser le pop-corn.",
+				"giphyQuery": "movie theater applause"
+			}
+		},
+		{
+			"id": "duos",
+			"label": "Duos à départager",
+			"tagline": "Ils sont inséparables. Toi, tu vas devoir choisir.",
+			"icon": "user-group",
+			"giphyQuery": "best friends duo",
+			"giphyIds": ["afWj3IJLPU8W4"],
+			"finish": {
+				"line": "Tu as séparé tous les duos. Il va y avoir des rancunes.",
+				"giphyQuery": "best friends fight funny"
+			}
+		},
+		{
+			"id": "quotidien",
+			"label": "Vie quotidienne",
+			"tagline": "Les petites guerres de tous les jours.",
+			"icon": "mug-hot",
+			"giphyQuery": "everyday life",
+			"finish": {
+				"line": "Ta vie quotidienne est désormais parfaitement arbitrée. Ou presque.",
+				"giphyQuery": "nailed it"
+			}
+		},
+		{
+			"id": "musique",
+			"label": "Musique",
+			"tagline": "Ces débats ont fini plus de soirées que la police.",
+			"icon": "guitar",
+			"giphyQuery": "dancing music",
+			"finish": {
+				"line": "Rideau. Le public réclame un rappel, mais il n’y a plus de morceau.",
+				"giphyQuery": "mic drop"
+			}
+		},
+		{
+			"id": "dessins",
+			"label": "Dessins animés",
+			"tagline": "Le samedi matin, devant la télé, en pyjama. Choisis ton camp.",
+			"icon": "tv",
+			"giphyQuery": "classic cartoon",
+			"giphyIds": ["5IT69msgpaOcg"],
+			"finish": {
+				"line": "C’est fini, comme le dernier générique du mercredi après-midi.",
+				"giphyQuery": "that's all folks"
+			}
+		},
+		{
+			"id": "cinefr",
+			"label": "Ciné français",
+			"tagline": "Des répliques que ton oncle cite encore à chaque repas.",
+			"icon": "clapperboard",
+			"giphyQuery": "cinema popcorn",
+			"giphyIds": ["bOaCDNQR76IOk"],
+			"finish": {
+				"line": "Fin. Comme dans un film d’auteur : sans prévenir, et tu restes sur ta faim.",
+				"giphyQuery": "standing ovation"
+			}
+		},
+		{
+			"id": "internet",
+			"label": "Internet et memes",
+			"tagline": "Le savoir de toute l’humanité, utilisé surtout pour regarder des chats.",
+			"icon": "hashtag",
+			"giphyQuery": "internet meme",
+			"finish": {
+				"line": "Tu as fini Internet. Enfin, ce petit bout-là.",
+				"giphyQuery": "you win the internet"
+			}
+		},
+		{
+			"id": "mots",
+			"label": "Mots de chez nous",
+			"tagline": "La France, la Belgique, la Suisse et le Québec ne parlent pas tout à fait la même langue.",
+			"icon": "comments",
+			"giphyQuery": "dictionary words",
+			"finish": {
+				"line": "Tous les mots sont tranchés. L’Académie française n’a qu’à bien se tenir.",
+				"giphyQuery": "mind blown"
+			}
+		},
+		{
+			"id": "nostalgie",
+			"label": "Nostalgie années 90",
+			"tagline": "Avant les smartphones, il y avait ça. Et on était heureux.",
+			"icon": "compact-disc",
+			"giphyQuery": "90s retro",
+			"finish": {
+				"line": "Rembobinage terminé. Pense à remettre la cassette dans sa boîte.",
+				"giphyQuery": "90s dance"
+			}
+		},
+		{
+			"id": "sport",
+			"label": "Sport",
+			"tagline": "Des débats plus tendus qu’une finale aux tirs au but.",
+			"icon": "futbol",
+			"giphyQuery": "sports fan cheering",
+			"giphyIds": ["hryis7A55UXZNCUTNA"],
+			"finish": {
+				"line": "Coup de sifflet final. Victoire aux tirs au but, évidemment.",
+				"giphyQuery": "goal celebration"
+			}
+		},
+		{
+			"id": "mode",
+			"label": "Mode et looks",
+			"tagline": "Le miroir n’a jamais menti. Toi, peut-être.",
+			"icon": "shirt",
+			"giphyQuery": "fashion runway",
+			"giphyIds": ["iqdvmjxie4Zby"],
+			"finish": {
+				"line": "Défilé terminé. Tu peux retirer tes talons, ou tes chaussettes-claquettes.",
+				"giphyQuery": "runway walk sassy"
+			}
+		},
+		{
+			"id": "autos",
+			"label": "Autos et motos",
+			"tagline": "Des marques, des moteurs, et des clubs de fans prêts à en découdre.",
+			"icon": "car-side",
+			"giphyQuery": "fast car",
+			"finish": {
+				"line": "Ligne d’arrivée franchie. Pense à faire le plein.",
+				"giphyQuery": "finish line race"
+			}
+		},
+		{
+			"id": "dilemmes",
+			"label": "Dilemmes absurdes",
+			"tagline": "Aucune bonne réponse. Seulement des mauvaises, et des pires.",
+			"icon": "scale-balanced",
+			"giphyQuery": "difficult choice",
+			"finish": {
+				"line": "Tu as résolu tous les dilemmes. Les philosophes sont au chômage.",
+				"giphyQuery": "thinking hard funny"
+			}
+		},
+		{
+			"id": "pouvoirs",
+			"label": "Superpouvoirs",
+			"tagline": "Choisis bien : aucun remboursement, aucun échange.",
+			"icon": "bolt",
+			"giphyQuery": "superpower",
+			"finish": {
+				"line": "Tous tes superpouvoirs sont choisis. Utilise-les pour le bien. Ou pour les courses.",
+				"giphyQuery": "power up"
+			}
+		},
+		{
+			"id": "monstres",
+			"label": "Monstres et créatures",
+			"tagline": "Ils vivent sous ton lit. Et ils ont un avis.",
+			"icon": "dragon",
+			"giphyQuery": "cartoon monster",
+			"finish": {
+				"line": "Tous les monstres sont rangés sous le lit. Tu peux dormir.",
+				"giphyQuery": "monster dance"
+			}
+		},
+		{
+			"id": "animaux",
+			"label": "Animaux",
+			"tagline": "Ils ne savent pas qu’on les compare. Heureusement.",
+			"icon": "paw",
+			"giphyQuery": "cute animals",
+			"finish": {
+				"line": "Tous les animaux sont départagés. Aucun n’est vexé. Sauf le chat.",
+				"giphyQuery": "cat judging"
+			}
+		}
+	],
+	rivalries: [
+		{
+			"id": "heros-batman-superman",
+			"category": "heros",
+			"a": {
+				"name": "Batman",
+				"origin": "DC · 1939",
+				"line": "Pas de super-pouvoir, juste un excellent comptable.",
+				"quip": "Team Batman : tu as un plan B, un plan C, et un dossier secret sur chacun de tes amis.",
+				"giphyIds": [],
+				"giphyQuery": "Batman"
+			},
+			"b": {
+				"name": "Superman",
+				"origin": "DC · 1938",
+				"line": "Invincible, sauf face à un caillou vert.",
+				"quip": "Team Superman : pour toi, une paire de lunettes suffit comme déguisement. Et ça marche.",
+				"giphyIds": [],
+				"giphyQuery": "Superman"
+			},
+			"bothQuip": "Les deux ? Toi, tu attends le film où ils se réconcilient parce que leurs mères s’appellent Martha.",
+			"noneQuip": "Ni Batman ni Superman. Team Robin, c’est ça ? Courage."
+		},
+		{
+			"id": "heros-marvel-dc",
+			"category": "heros",
+			"a": {
+				"name": "Marvel",
+				"origin": "Comics · 1939",
+				"line": "Des héros qui ont des problèmes de loyer.",
+				"quip": "Team Marvel : tu restes jusqu’à la toute fin du générique. Toujours. Même quand il n’y a rien.",
+				"giphyIds": [],
+				"giphyQuery": "Marvel Avengers"
+			},
+			"b": {
+				"name": "DC",
+				"origin": "Comics · 1934",
+				"line": "Des dieux qui ont des problèmes de cape.",
+				"quip": "Team DC : tu aimes tes héros sombres, tristes, et filmés sous la pluie.",
+				"giphyIds": [],
+				"giphyQuery": "Justice League DC"
+			},
+			"bothQuip": "Marvel et DC. Tu as vu tous les films. Tous. On s’inquiète un peu.",
+			"noneQuip": "Ni Marvel ni DC. Tu as une vie sociale, toi."
+		},
+		{
+			"id": "heros-iron-man-captain-america",
+			"category": "heros",
+			"a": {
+				"name": "Iron Man",
+				"origin": "Marvel · 1963",
+				"line": "Génie, milliardaire, et pas du tout modeste.",
+				"quip": "Team Iron Man : face à un problème, tu achètes une armure plus grosse.",
+				"giphyIds": [],
+				"giphyQuery": "Iron Man Tony Stark"
+			},
+			"b": {
+				"name": "Captain America",
+				"origin": "Marvel · 1941",
+				"line": "Congelé soixante-dix ans, toujours aussi poli.",
+				"quip": "Team Captain America : tu dis « langage ! » quand quelqu’un jure à table.",
+				"giphyIds": [],
+				"giphyQuery": "Captain America"
+			},
+			"bothQuip": "Les deux ? Tu aurais voulu que Civil War finisse par un câlin.",
+			"noneQuip": "Ni Tony ni Steve. Team Bucky, avoue."
+		},
+		{
+			"id": "heros-jedi-sith",
+			"category": "heros",
+			"a": {
+				"name": "Les Jedi",
+				"origin": "Star Wars",
+				"line": "La Force, la sagesse, et de très longues robes beiges.",
+				"quip": "Team Jedi : tu vas méditer sur ce choix. Puis méditer sur ta méditation.",
+				"giphyIds": [],
+				"giphyQuery": "Jedi lightsaber"
+			},
+			"b": {
+				"name": "Les Sith",
+				"origin": "Star Wars",
+				"line": "Le côté obscur, des sabres rouges, et des cookies.",
+				"quip": "Team Sith : ton sabre est rouge, tes intentions aussi.",
+				"giphyIds": [],
+				"giphyQuery": "Sith Darth Sidious"
+			},
+			"bothQuip": "Les deux. Tu cherches l’équilibre dans la Force. Anakin aussi, et on a vu le résultat.",
+			"noneQuip": "Ni Jedi ni Sith. Tu es contrebandier dans l’âme, et tu as tiré le premier."
+		},
+		{
+			"id": "heros-dark-vador-voldemort",
+			"category": "heros",
+			"a": {
+				"name": "Dark Vador",
+				"origin": "Star Wars · 1977",
+				"line": "Respire fort, parle fort, père absent.",
+				"quip": "Team Dark Vador : tu étrangles les gens à distance quand ils oublient leur clignotant.",
+				"giphyIds": [],
+				"giphyQuery": "Darth Vader"
+			},
+			"b": {
+				"name": "Voldemort",
+				"origin": "Harry Potter · 1997",
+				"line": "Pas de nez, pas d’amis, beaucoup d’horcruxes.",
+				"quip": "Team Voldemort : on ne dira pas ton choix à voix haute. Par précaution.",
+				"giphyIds": [],
+				"giphyQuery": "Voldemort"
+			},
+			"bothQuip": "Les deux méchants. Dans chaque film, tu soutiens l’équipe d’en face.",
+			"noneQuip": "Ni Vador ni Voldemort. Tu attends un méchant qui a un nez ET des poumons."
+		},
+		{
+			"id": "heros-joker-thanos",
+			"category": "heros",
+			"a": {
+				"name": "Le Joker",
+				"origin": "DC · 1940",
+				"line": "« Pourquoi tant de sérieux ? »",
+				"quip": "Team Joker : tu ris à des blagues que personne d’autre ne comprend. On a remarqué.",
+				"giphyIds": [],
+				"giphyQuery": "Joker Batman"
+			},
+			"b": {
+				"name": "Thanos",
+				"origin": "Marvel · 1973",
+				"line": "Un claquement de doigts, et la moitié de l’univers en moins.",
+				"quip": "Team Thanos : pour toi, ranger sa chambre, c’est en jeter la moitié. Parfaitement équilibré.",
+				"giphyIds": [],
+				"giphyQuery": "Thanos snap"
+			},
+			"bothQuip": "Les deux. Ton groupe d’amis doit être… intéressant.",
+			"noneQuip": "Ni le Joker ni Thanos. Tu préfères les méchants qui oublient juste de répondre aux messages."
+		},
+		{
+			"id": "heros-spider-man-deadpool",
+			"category": "heros",
+			"a": {
+				"name": "Spider-Man",
+				"origin": "Marvel · 1962",
+				"line": "Un grand pouvoir, un petit salaire de photographe.",
+				"quip": "Team Spider-Man : un grand pouvoir implique une grande responsabilité. Comme rappeler ta tante.",
+				"giphyIds": [],
+				"giphyQuery": "Spider-Man"
+			},
+			"b": {
+				"name": "Deadpool",
+				"origin": "Marvel · 1991",
+				"line": "Parle à la caméra, se régénère, ne s’excuse jamais.",
+				"quip": "Team Deadpool : tu as lu cette phrase en te disant qu’elle te parlait directement. Elle te parle directement.",
+				"giphyIds": [],
+				"giphyQuery": "Deadpool"
+			},
+			"bothQuip": "Les deux. Tu veux le film où Deadpool ne laisse pas Spider-Man en placer une.",
+			"noneQuip": "Ni l’un ni l’autre. Les araignées te font peur, et les chimichangas aussi."
+		},
+		{
+			"id": "heros-wolverine-hulk",
+			"category": "heros",
+			"a": {
+				"name": "Wolverine",
+				"origin": "Marvel · 1974",
+				"line": "Des griffes, des rouflaquettes, et un sale caractère.",
+				"quip": "Team Wolverine : tu appelles « bub » les gens que tu n’aimes pas. Donc tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "Wolverine X-Men"
+			},
+			"b": {
+				"name": "Hulk",
+				"origin": "Marvel · 1962",
+				"line": "Toujours en colère. Le pantalon tient, on ne sait pas comment.",
+				"quip": "Team Hulk : HULK APPROUVE. HULK PAS CASSER TÉLÉPHONE. CETTE FOIS.",
+				"giphyIds": [],
+				"giphyQuery": "Hulk smash"
+			},
+			"bothQuip": "Les deux. Les griffes contre la peau verte. Spoiler : le mobilier perd.",
+			"noneQuip": "Ni Wolverine ni Hulk. Tu règles tes conflits par mail, avec « cordialement »."
+		},
+		{
+			"id": "heros-goku-vegeta",
+			"category": "heros",
+			"a": {
+				"name": "Goku",
+				"origin": "Dragon Ball · 1984",
+				"line": "Sauve l’univers entre deux repas.",
+				"quip": "Team Goku : tu manges trente bols de riz et tu appelles ça un en-cas.",
+				"giphyIds": [],
+				"giphyQuery": "Goku Dragon Ball"
+			},
+			"b": {
+				"name": "Vegeta",
+				"origin": "Dragon Ball · 1988",
+				"line": "Prince d’une planète qui n’existe plus. Et il le fait savoir.",
+				"quip": "Team Vegeta : ton niveau de fierté est de plus de 9 000.",
+				"giphyIds": [],
+				"giphyQuery": "Vegeta Dragon Ball"
+			},
+			"bothQuip": "Les deux. Tu fais la fusion. Tu connais même la danse ? Montre.",
+			"noneQuip": "Ni Goku ni Vegeta. Team Krilin. Il en faut, du courage."
+		},
+		{
+			"id": "heros-naruto-sasuke",
+			"category": "heros",
+			"a": {
+				"name": "Naruto",
+				"origin": "Naruto · 1999",
+				"line": "Veut devenir Hokage. Le répète toutes les cinq minutes.",
+				"quip": "Team Naruto : tu ne lâches jamais rien, et tu le cries très fort. Dattebayo !",
+				"giphyIds": [],
+				"giphyQuery": "Naruto Uzumaki"
+			},
+			"b": {
+				"name": "Sasuke",
+				"origin": "Naruto · 1999",
+				"line": "Boude pendant des centaines d’épisodes.",
+				"quip": "Team Sasuke : toi aussi, tu as une coiffure qui défie la gravité et des problèmes de famille.",
+				"giphyIds": [],
+				"giphyQuery": "Sasuke Uchiha"
+			},
+			"bothQuip": "Les deux. Tu as regardé tout l’arc où Naruto court après Sasuke. Tout. Respect.",
+			"noneQuip": "Ni Naruto ni Sasuke. Team Kakashi, qui arrive en retard avec un livre douteux."
+		},
+		{
+			"id": "heros-gandalf-dumbledore",
+			"category": "heros",
+			"a": {
+				"name": "Gandalf",
+				"origin": "Le Hobbit · 1937",
+				"line": "« Vous ne passerez pas ! »",
+				"quip": "Team Gandalf : tu n’arrives jamais en retard. Ni en avance. Tu arrives précisément à l’heure prévue.",
+				"giphyIds": [],
+				"giphyQuery": "Gandalf you shall not pass"
+			},
+			"b": {
+				"name": "Dumbledore",
+				"origin": "Harry Potter · 1997",
+				"line": "Sage, puissant, et très avare d’explications.",
+				"quip": "Team Dumbledore : tu donnes cent points à ta maison pour une raison franchement discutable.",
+				"giphyIds": [],
+				"giphyQuery": "Dumbledore"
+			},
+			"bothQuip": "Les deux. Tu fais confiance aux vieux barbus qui ne t’expliquent jamais rien.",
+			"noneQuip": "Ni Gandalf ni Dumbledore. Toi aussi, tu aurais appelé les aigles dès le début."
+		},
+		{
+			"id": "heros-sherlock-holmes-hercule-poirot",
+			"category": "heros",
+			"a": {
+				"name": "Sherlock Holmes",
+				"origin": "Arthur Conan Doyle · 1887",
+				"line": "Un violon, une pipe, et aucun ami. Sauf un.",
+				"quip": "Team Sherlock : élémentaire. Tu as deviné le coupable dès la bande-annonce.",
+				"giphyIds": [],
+				"giphyQuery": "Sherlock Holmes"
+			},
+			"b": {
+				"name": "Hercule Poirot",
+				"origin": "Agatha Christie · 1920",
+				"line": "Les petites cellules grises, et une moustache impeccable.",
+				"quip": "Team Poirot : tu réunis toute la famille au salon pour annoncer qui a fini le fromage.",
+				"giphyIds": [],
+				"giphyQuery": "Hercule Poirot"
+			},
+			"bothQuip": "Les deux. À chaque repas de famille, tu soupçonnes tout le monde.",
+			"noneQuip": "Ni Holmes ni Poirot. Team inspecteur Gadget, c’est ça ?"
+		},
+		{
+			"id": "heros-robin-des-bois-zorro",
+			"category": "heros",
+			"a": {
+				"name": "Robin des Bois",
+				"origin": "Légende anglaise",
+				"line": "Vole aux riches, donne aux pauvres, porte des collants.",
+				"quip": "Team Robin des Bois : tu partages ton compte Netflix avec toute la famille. Les riches paieront.",
+				"giphyIds": [],
+				"giphyQuery": "Robin Hood Disney"
+			},
+			"b": {
+				"name": "Zorro",
+				"origin": "Johnston McCulley · 1919",
+				"line": "Signe tous ses exploits d’un Z. Très discret.",
+				"quip": "Team Zorro : tu signes tes post-it d’un Z. Personne ne sait que c’est toi.",
+				"giphyIds": [],
+				"giphyQuery": "Zorro"
+			},
+			"bothQuip": "Les deux. Collants ET cape. Tu ne crains pas le ridicule, et ça, c’est héroïque.",
+			"noneQuip": "Ni Robin des Bois ni Zorro. Tu respectes la propriété privée et le Code civil. Admirable."
+		},
+		{
+			"id": "heros-james-bond-oss-117",
+			"category": "heros",
+			"a": {
+				"name": "James Bond",
+				"origin": "Ian Fleming · 1953",
+				"line": "Au service de Sa Majesté, et des marques de voitures.",
+				"quip": "Team James Bond : tu commandes « au shaker, pas à la cuillère » même au distributeur de café.",
+				"giphyIds": [],
+				"giphyQuery": "James Bond 007"
+			},
+			"b": {
+				"name": "OSS 117",
+				"origin": "Jean Bruce · 1949",
+				"line": "« Comment est votre blanquette ? »",
+				"quip": "Team OSS 117 : tu as un avis sur tout, et il est toujours très mal renseigné.",
+				"giphyIds": ["D37UOXknYbTcQ"],
+				"giphyQuery": "OSS 117 Jean Dujardin"
+			},
+			"bothQuip": "Les deux. Bond pour les gadgets, OSS pour les répliques. Le bon goût.",
+			"noneQuip": "Ni Bond ni OSS 117. Team Johnny English, assume."
+		},
+		{
+			"id": "bouffe-pain-au-chocolat-chocolatine",
+			"category": "bouffe",
+			"a": {
+				"name": "Pain au chocolat",
+				"origin": "La moitié nord de la France",
+				"line": "Deux barres de chocolat, zéro débat. Enfin presque.",
+				"quip": "Team pain au chocolat : quand on te dit « chocolatine », tu fais semblant de ne pas avoir entendu.",
+				"giphyIds": [],
+				"giphyQuery": "pain au chocolat"
+			},
+			"b": {
+				"name": "Chocolatine",
+				"origin": "Le Sud-Ouest, fièrement",
+				"line": "Le Sud-Ouest n’a jamais cédé. Il ne cédera pas.",
+				"quip": "Team chocolatine : tu corriges les gens à la boulangerie. Même ceux qui ne t’ont rien demandé.",
+				"giphyIds": [],
+				"giphyQuery": "chocolate croissant"
+			},
+			"bothQuip": "Les deux ? Tu changes de mot selon le département. La diplomatie de la viennoiserie, c’est toi.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « petit pain au chocolat » ? Il y a pire. Pas beaucoup."
+		},
+		{
+			"id": "bouffe-pizza-ananas",
+			"category": "bouffe",
+			"question": "Pizza : avec ou sans ananas ?",
+			"a": {
+				"name": "Avec ananas",
+				"origin": "Canada · 1962",
+				"line": "Inventée au Canada. Hawaï n’a rien demandé.",
+				"quip": "Team ananas : quelque part à Naples, une grand-mère vient de perdre connaissance.",
+				"giphyIds": [],
+				"giphyQuery": "pineapple pizza"
+			},
+			"b": {
+				"name": "Sans ananas",
+				"origin": "Naples, depuis toujours",
+				"line": "Quelque part en Italie, une grand-mère approuve.",
+				"quip": "Team sans ananas : pour toi, un fruit sur une pizza, c’est un motif de rupture.",
+				"giphyIds": [],
+				"giphyQuery": "pizza margherita"
+			},
+			"bothQuip": "Les deux ? Tu manges la moitié hawaïenne en surveillant l’autre moitié du coin de l’œil.",
+			"noneQuip": "Aucun des deux. Toi, c’est kebab, on a compris."
+		},
+		{
+			"id": "bouffe-nutella-confiture",
+			"category": "bouffe",
+			"a": {
+				"name": "Nutella",
+				"origin": "Ferrero · 1964",
+				"line": "Une cuillère. Puis le pot entier.",
+				"quip": "Team Nutella : tu as déjà mangé une tartine sans pain. Juste la cuillère. On a vu.",
+				"giphyIds": [],
+				"giphyQuery": "Nutella"
+			},
+			"b": {
+				"name": "Confiture",
+				"origin": "Chez ta grand-mère",
+				"line": "Faite maison, étiquetée au feutre, datée de 2019.",
+				"quip": "Team confiture : tu as un pot qui date d’avant le Covid, et tu le trouves parfait.",
+				"giphyIds": [],
+				"giphyQuery": "jam toast"
+			},
+			"bothQuip": "Les deux sur la même tartine. Tu n’as peur de rien.",
+			"noneQuip": "Ni Nutella ni confiture. Tartine beurre, point. L’ascète du petit-déjeuner."
+		},
+		{
+			"id": "bouffe-coca-cola-pepsi",
+			"category": "bouffe",
+			"a": {
+				"name": "Coca-Cola",
+				"origin": "Atlanta · 1886",
+				"line": "La recette est secrète. Le sucre, beaucoup moins.",
+				"quip": "Team Coca : quand le serveur demande « Pepsi, ça ira ? », ta journée est gâchée.",
+				"giphyIds": [],
+				"giphyQuery": "Coca-Cola"
+			},
+			"b": {
+				"name": "Pepsi",
+				"origin": "Caroline du Nord · 1893",
+				"line": "L’éternel challenger. Il gagne les tests à l’aveugle, paraît-il.",
+				"quip": "Team Pepsi : tu as gagné un test à l’aveugle une fois, et tu en parles encore.",
+				"giphyIds": [],
+				"giphyQuery": "Pepsi"
+			},
+			"bothQuip": "Les deux. Pour toi, c’est du soda brun, et c’est très bien comme ça.",
+			"noneQuip": "Ni Coca ni Pepsi. Team Orangina, qu’on secoue avant d’ouvrir."
+		},
+		{
+			"id": "bouffe-cafe-the",
+			"category": "bouffe",
+			"a": {
+				"name": "Café",
+				"origin": "Éthiopie, selon la légende",
+				"line": "Le carburant officiel des open spaces.",
+				"quip": "Team café : avant ta première tasse, il ne faut pas t’adresser la parole.",
+				"giphyIds": [],
+				"giphyQuery": "coffee"
+			},
+			"b": {
+				"name": "Thé",
+				"origin": "Chine, selon la légende",
+				"line": "Pour ceux qui ont le temps de laisser infuser.",
+				"quip": "Team thé : tu as une théière, quatre boîtes de thé et un avis sur la température de l’eau.",
+				"giphyIds": [],
+				"giphyQuery": "tea cup"
+			},
+			"bothQuip": "Les deux. Café le matin, thé l’après-midi, insomnie le soir.",
+			"noneQuip": "Ni café ni thé. Tu tournes à quoi ? À l’eau tiède et à l’optimisme ?"
+		},
+		{
+			"id": "bouffe-sucre-sale",
+			"category": "bouffe",
+			"a": {
+				"name": "Sucré",
+				"origin": "Team goûter",
+				"line": "Le dessert d’abord. La vie est courte.",
+				"quip": "Team sucré : tu sautes l’entrée pour garder de la place pour le dessert. Stratège.",
+				"giphyIds": [],
+				"giphyQuery": "dessert cake"
+			},
+			"b": {
+				"name": "Salé",
+				"origin": "Team apéro",
+				"line": "Une chips. Puis le paquet entier.",
+				"quip": "Team salé : à l’apéro, les cacahuètes sont finies avant que tout le monde soit assis.",
+				"giphyIds": [],
+				"giphyQuery": "chips snack"
+			},
+			"bothQuip": "Les deux. Caramel au beurre salé : tu as trouvé la faille.",
+			"noneQuip": "Ni sucré ni salé. Tu manges quoi, exactement ? De l’air ?"
+		},
+		{
+			"id": "bouffe-ketchup-mayonnaise",
+			"category": "bouffe",
+			"a": {
+				"name": "Ketchup",
+				"origin": "États-Unis · 1876",
+				"line": "Va sur tout. Surtout là où il ne devrait pas.",
+				"quip": "Team ketchup : tu en mets sur les pâtes, et tu ne laisses personne te juger.",
+				"giphyIds": [],
+				"giphyQuery": "ketchup"
+			},
+			"b": {
+				"name": "Mayonnaise",
+				"origin": "Port-Mahon · 1756, paraît-il",
+				"line": "Montée à la main, ratée une fois sur deux.",
+				"quip": "Team mayo : tu trempes tes frites jusqu’au coude.",
+				"giphyIds": [],
+				"giphyQuery": "mayonnaise"
+			},
+			"bothQuip": "Les deux. Mélangés. Tu réinventes la sauce cocktail à chaque repas.",
+			"noneQuip": "Ni ketchup ni mayo. Team samouraï : toi, il faut que ça pique."
+		},
+		{
+			"id": "bouffe-frites-puree",
+			"category": "bouffe",
+			"a": {
+				"name": "Frites",
+				"origin": "Belgique ou France, on se dispute encore",
+				"line": "Croustillantes dehors, fondantes dedans, disputées partout.",
+				"quip": "Team frites : tu piques celles des autres en disant « je goûte juste ».",
+				"giphyIds": [],
+				"giphyQuery": "french fries"
+			},
+			"b": {
+				"name": "Purée",
+				"origin": "La cantine, pour toujours",
+				"line": "Le doudou de la gastronomie.",
+				"quip": "Team purée : tu fais un volcan avec la sauce au milieu. Toujours.",
+				"giphyIds": [],
+				"giphyQuery": "mashed potatoes"
+			},
+			"bothQuip": "Les deux. Des frites trempées dans la purée. On ne dira rien à personne.",
+			"noneQuip": "Ni frites ni purée. Tu viens de fâcher toutes les pommes de terre du pays."
+		},
+		{
+			"id": "bouffe-mcdonalds-burger-king",
+			"category": "bouffe",
+			"a": {
+				"name": "McDonald’s",
+				"origin": "Californie · 1940",
+				"line": "Le M jaune, et des frites froides en trois minutes.",
+				"quip": "Team McDo : tu connais le menu par cœur, et tu passes quand même dix minutes devant la borne.",
+				"giphyIds": [],
+				"giphyQuery": "McDonalds fries"
+			},
+			"b": {
+				"name": "Burger King",
+				"origin": "Miami · 1954",
+				"line": "Grillé à la flamme, couronné en carton.",
+				"quip": "Team Burger King : tu traverses la ville pour un Whopper. Le McDo d’en bas, tu ne le regardes même pas.",
+				"giphyIds": [],
+				"giphyQuery": "Burger King"
+			},
+			"bothQuip": "Les deux. Ta fidélité, c’est le drive le plus proche.",
+			"noneQuip": "Ni McDo ni Burger King. Tu fais tes burgers toi-même, et tu le fais savoir."
+		},
+		{
+			"id": "bouffe-raclette-fondue",
+			"category": "bouffe",
+			"a": {
+				"name": "Raclette",
+				"origin": "Valais",
+				"line": "Un appareil, huit poêlons, zéro légume.",
+				"quip": "Team raclette : il fait 28 °C dehors, et tu as sorti l’appareil quand même.",
+				"giphyIds": [],
+				"giphyQuery": "raclette cheese"
+			},
+			"b": {
+				"name": "Fondue",
+				"origin": "Suisse",
+				"line": "Qui perd son pain dans le caquelon paie sa tournée.",
+				"quip": "Team fondue : tu as déjà fait le tour de la table pour repêcher ton pain. Et payé la tournée.",
+				"giphyIds": [],
+				"giphyQuery": "cheese fondue"
+			},
+			"bothQuip": "Les deux. Ton médecin est au courant ?",
+			"noneQuip": "Ni raclette ni fondue. Les Savoyards te regardent avec beaucoup de peine."
+		},
+		{
+			"id": "bouffe-crepe-gaufre",
+			"category": "bouffe",
+			"a": {
+				"name": "Crêpe",
+				"origin": "Bretagne",
+				"line": "Fine, pliée en quatre, et toujours une de trop.",
+				"quip": "Team crêpe : la première est toujours ratée, et c’est toi qui la manges.",
+				"giphyIds": [],
+				"giphyQuery": "crepe"
+			},
+			"b": {
+				"name": "Gaufre",
+				"origin": "Belgique",
+				"line": "Des petits carreaux conçus pour retenir le sucre glace.",
+				"quip": "Team gaufre : tu as du sucre glace jusque dans les sourcils.",
+				"giphyIds": [],
+				"giphyQuery": "waffle"
+			},
+			"bothQuip": "Les deux. Tu es la personne qu’on veut avec soi à la fête foraine.",
+			"noneQuip": "Ni crêpe ni gaufre. La Chandeleur, pour toi, c’est un jour comme un autre. Triste."
+		},
+		{
+			"id": "bouffe-chocolat-noir-chocolat-au-lait",
+			"category": "bouffe",
+			"a": {
+				"name": "Chocolat noir",
+				"origin": "Rayon « adultes »",
+				"line": "Amer, élégant, plein d’antioxydants. Il te le rappelle.",
+				"quip": "Team chocolat noir : 85 % de cacao, et 100 % de condescendance.",
+				"giphyIds": [],
+				"giphyQuery": "dark chocolate"
+			},
+			"b": {
+				"name": "Chocolat au lait",
+				"origin": "Rayon « réconfort »",
+				"line": "Doux, régressif, et parfaitement assumé.",
+				"quip": "Team chocolat au lait : tu manges la tablette entière en disant « juste un carré ».",
+				"giphyIds": [],
+				"giphyQuery": "milk chocolate bar"
+			},
+			"bothQuip": "Les deux. Le noir pour la frime, le lait pour le réconfort.",
+			"noneQuip": "Ni noir ni lait. Team chocolat blanc. Ce n’est pas du chocolat, mais on t’aime quand même."
+		},
+		{
+			"id": "bouffe-pates-riz",
+			"category": "bouffe",
+			"a": {
+				"name": "Pâtes",
+				"origin": "Italie",
+				"line": "Au pesto, à la carbonara, ou à deux heures du matin.",
+				"quip": "Team pâtes : à deux heures du matin, une casserole d’eau, c’est ton plan de secours.",
+				"giphyIds": [],
+				"giphyQuery": "pasta spaghetti"
+			},
+			"b": {
+				"name": "Riz",
+				"origin": "Asie",
+				"line": "Le fidèle compagnon de tous les plats en sauce.",
+				"quip": "Team riz : tu as un cuiseur à riz, et tu en parles comme d’un membre de la famille.",
+				"giphyIds": [],
+				"giphyQuery": "rice bowl"
+			},
+			"bothQuip": "Les deux. Ton budget courses te remercie.",
+			"noneQuip": "Ni pâtes ni riz. Les féculents, c’est fini pour toi ? On ne te reconnaît plus."
+		},
+		{
+			"id": "bouffe-kebab-burger",
+			"category": "bouffe",
+			"a": {
+				"name": "Kebab",
+				"origin": "Berlin · années 1970",
+				"line": "Salade, tomate, oignon. Et la sauce qui coule sur le poignet.",
+				"quip": "Team kebab : « salade, tomate, oignon » est la seule phrase que tu récites sans réfléchir.",
+				"giphyIds": [],
+				"giphyQuery": "kebab doner"
+			},
+			"b": {
+				"name": "Burger",
+				"origin": "États-Unis",
+				"line": "Deux pains, un steak, aucune chance de rester propre.",
+				"quip": "Team burger : tu écrases ton burger avant de mordre dedans. Pour qu’il rentre.",
+				"giphyIds": [],
+				"giphyQuery": "burger"
+			},
+			"bothQuip": "Les deux. Un burger-kebab, ça existe ? Pour toi, ça devrait.",
+			"noneQuip": "Ni kebab ni burger. Les fins de soirée doivent être compliquées pour toi."
+		},
+		{
+			"id": "geek-mac-pc",
+			"category": "geek",
+			"a": {
+				"name": "Mac",
+				"origin": "Apple · 1984",
+				"line": "Ça marche. Ne demande pas pourquoi.",
+				"quip": "Team Mac : tu as déjà dit « ça n’arriverait pas sur Mac ». Plusieurs fois. Au même ami.",
+				"giphyIds": [],
+				"giphyQuery": "Mac computer Apple"
+			},
+			"b": {
+				"name": "PC",
+				"origin": "IBM · 1981",
+				"line": "Tu peux tout changer. Tu vas tout changer.",
+				"quip": "Team PC : tu as changé ta carte graphique avant ta brosse à dents.",
+				"giphyIds": [],
+				"giphyQuery": "PC gaming setup"
+			},
+			"bothQuip": "Les deux. Un Mac pour la frime, un PC pour jouer. Ton compte en banque pleure.",
+			"noneQuip": "Ni Mac ni PC. Tu fais tout sur ton téléphone, même ta déclaration d’impôts."
+		},
+		{
+			"id": "geek-iphone-android",
+			"category": "geek",
+			"a": {
+				"name": "iPhone",
+				"origin": "Apple · 2007",
+				"line": "Des bulles bleues, et un chargeur jamais compatible.",
+				"quip": "Team iPhone : quand une bulle verte apparaît dans le groupe, tu soupires.",
+				"giphyIds": [],
+				"giphyQuery": "iPhone"
+			},
+			"b": {
+				"name": "Android",
+				"origin": "Google · 2008",
+				"line": "La liberté totale, et quatorze applis préinstallées.",
+				"quip": "Team Android : tu as passé trois heures à personnaliser ton écran d’accueil. Il est magnifique.",
+				"giphyIds": [],
+				"giphyQuery": "Android robot"
+			},
+			"bothQuip": "Les deux. Un téléphone pro, un perso, et deux chargeurs différents dans le sac.",
+			"noneQuip": "Ni iPhone ni Android. Tu as encore un Nokia 3310, et il marche."
+		},
+		{
+			"id": "geek-playstation-xbox",
+			"category": "geek",
+			"a": {
+				"name": "PlayStation",
+				"origin": "Sony · 1994",
+				"line": "Le CD qui tourne, la démo qui charge.",
+				"quip": "Team PlayStation : tu as le bruit de démarrage de la PS1 dans la tête. Là, maintenant.",
+				"giphyIds": [],
+				"giphyQuery": "PlayStation"
+			},
+			"b": {
+				"name": "Xbox",
+				"origin": "Microsoft · 2001",
+				"line": "Une manette énorme, et Halo dedans.",
+				"quip": "Team Xbox : tes pouces ont pris la forme de la manette.",
+				"giphyIds": [],
+				"giphyQuery": "Xbox"
+			},
+			"bothQuip": "Les deux. Il y a plus de câbles derrière ta télé que dans un central téléphonique.",
+			"noneQuip": "Ni PlayStation ni Xbox. Team Nintendo, et aucun regret."
+		},
+		{
+			"id": "geek-tabulations-espaces",
+			"category": "geek",
+			"question": "Pour indenter ton code : tabulations ou espaces ?",
+			"a": {
+				"name": "Tabulations",
+				"origin": "Ton éditeur de code",
+				"line": "Une touche, toute l’indentation. Efficace.",
+				"quip": "Team tabulations : une touche au lieu de quatre. À l’échelle d’une vie, le gain de temps est énorme.",
+				"giphyIds": [],
+				"giphyQuery": "keyboard typing fast"
+			},
+			"b": {
+				"name": "Espaces",
+				"origin": "Ton éditeur de code",
+				"line": "Quatre appuis, zéro ambiguïté. Paraît-il.",
+				"quip": "Team espaces : tu as déjà refusé une demande de fusion pour une indentation. Ne nie pas.",
+				"giphyIds": [],
+				"giphyQuery": "space bar keyboard"
+			},
+			"bothQuip": "Les deux. Dans le même fichier. Tes collègues vont te retrouver.",
+			"noneQuip": "Ni tabulations ni espaces. Tout ton code tient sur une seule ligne."
+		},
+		{
+			"id": "geek-vim-emacs",
+			"category": "geek",
+			"a": {
+				"name": "Vim",
+				"origin": "Bram Moolenaar · 1991",
+				"line": "Facile à ouvrir. Impossible à quitter.",
+				"quip": "Team Vim : tu as ouvert Vim une fois en 2016. Tu cherches encore comment le quitter.",
+				"giphyIds": [],
+				"giphyQuery": "vim exit"
+			},
+			"b": {
+				"name": "Emacs",
+				"origin": "Richard Stallman · 1976",
+				"line": "Un éditeur de texte. Et un système d’exploitation. Et un mode de vie.",
+				"quip": "Team Emacs : tu lis tes mails, tu joues à Tetris et tu codes sans jamais quitter ton éditeur.",
+				"giphyIds": [],
+				"giphyQuery": "programmer hacker"
+			},
+			"bothQuip": "Les deux. Les guerres de religion, tu les fais toutes.",
+			"noneQuip": "Ni Vim ni Emacs. Team Bloc-notes, et tu le vis très bien."
+		},
+		{
+			"id": "geek-mode-sombre-mode-clair",
+			"category": "geek",
+			"a": {
+				"name": "Mode sombre",
+				"origin": "Les réglages, tout en bas",
+				"line": "Pour coder la nuit et avoir l’air mystérieux.",
+				"quip": "Team mode sombre : si tu pouvais, tu mettrais aussi ton grille-pain en mode sombre.",
+				"giphyIds": [],
+				"giphyQuery": "dark mode"
+			},
+			"b": {
+				"name": "Mode clair",
+				"origin": "Les réglages par défaut",
+				"line": "Pour ceux qui codent en terrasse.",
+				"quip": "Team mode clair : à minuit, ton écran éclaire toute la pièce. Et les voisins.",
+				"giphyIds": [],
+				"giphyQuery": "sunglasses bright light"
+			},
+			"bothQuip": "Les deux. Clair le jour, sombre la nuit, en automatique. Une personne équilibrée.",
+			"noneQuip": "Ni sombre ni clair. Ton écran est vert sur noir, comme en 1985."
+		},
+		{
+			"id": "geek-windows-linux",
+			"category": "geek",
+			"a": {
+				"name": "Windows",
+				"origin": "Microsoft · 1985",
+				"line": "Une mise à jour s’installe. Ne pas éteindre.",
+				"quip": "Team Windows : tu as appris à aimer l’écran bleu. Un peu.",
+				"giphyIds": [],
+				"giphyQuery": "Windows update"
+			},
+			"b": {
+				"name": "Linux",
+				"origin": "Linus Torvalds · 1991",
+				"line": "Gratuit, libre, il suffit de recompiler le noyau.",
+				"quip": "Team Linux : tu as déjà dit « en fait, j’utilise Arch » sans que personne ne demande.",
+				"giphyIds": [],
+				"giphyQuery": "Linux penguin Tux"
+			},
+			"bothQuip": "Les deux. Double démarrage, et tu ne sais jamais lequel va se lancer.",
+			"noneQuip": "Ni Windows ni Linux. Team Mac, mais tu n’as pas osé le dire."
+		},
+		{
+			"id": "geek-chrome-firefox",
+			"category": "geek",
+			"a": {
+				"name": "Chrome",
+				"origin": "Google · 2008",
+				"line": "Rapide, efficace, et affamé de mémoire vive.",
+				"quip": "Team Chrome : ton ordinateur chauffe assez pour cuire un œuf. Mais c’est rapide.",
+				"giphyIds": [],
+				"giphyQuery": "Google Chrome"
+			},
+			"b": {
+				"name": "Firefox",
+				"origin": "Mozilla · 2004",
+				"line": "Un renard, une conscience, et des extensions partout.",
+				"quip": "Team Firefox : tu as installé quinze extensions, dont trois que tu ne comprends pas.",
+				"giphyIds": [],
+				"giphyQuery": "Firefox fox"
+			},
+			"bothQuip": "Les deux. Un pour le travail, un pour… le reste. On ne pose pas de questions.",
+			"noneQuip": "Ni Chrome ni Firefox. Team Internet Explorer ? Tu es encore là ?"
+		},
+		{
+			"id": "geek-star-wars-star-trek",
+			"category": "geek",
+			"a": {
+				"name": "Star Wars",
+				"origin": "George Lucas · 1977",
+				"line": "« Que la Force soit avec toi. »",
+				"quip": "Team Star Wars : tu as déjà fait le bruit du sabre laser avec une baguette de pain.",
+				"giphyIds": [],
+				"giphyQuery": "Star Wars"
+			},
+			"b": {
+				"name": "Star Trek",
+				"origin": "Gene Roddenberry · 1966",
+				"line": "« Longue vie et prospérité. »",
+				"quip": "Team Star Trek : tu fais le salut vulcain, et tu y arrives du premier coup.",
+				"giphyIds": [],
+				"giphyQuery": "Star Trek Spock"
+			},
+			"bothQuip": "Les deux. Ne dis surtout pas ça dans une convention. Tu risques ta vie.",
+			"noneQuip": "Ni Star Wars ni Star Trek. Les étoiles, tu les regardes depuis ton jardin."
+		},
+		{
+			"id": "geek-livre-papier-liseuse",
+			"category": "geek",
+			"a": {
+				"name": "Livre papier",
+				"origin": "Gutenberg · vers 1450",
+				"line": "L’odeur, le poids, et le marque-page oublié dedans.",
+				"quip": "Team livre papier : ta bibliothèque déborde, et tu viens d’en acheter trois autres.",
+				"giphyIds": [],
+				"giphyQuery": "reading book"
+			},
+			"b": {
+				"name": "Liseuse",
+				"origin": "Ta poche",
+				"line": "Mille livres dans la poche, aucune odeur.",
+				"quip": "Team liseuse : tu lis au lit, dans le noir, sans réveiller personne. Le rêve.",
+				"giphyIds": [],
+				"giphyQuery": "e-reader kindle"
+			},
+			"bothQuip": "Les deux. Liseuse en vacances, papier à la maison, et une pile à lire jusqu’au plafond.",
+			"noneQuip": "Ni papier ni liseuse. Team livres audio, les oreilles grandes ouvertes."
+		},
+		{
+			"id": "geek-merge-rebase",
+			"category": "geek",
+			"question": "Sur Git : merge ou rebase ?",
+			"a": {
+				"name": "Merge",
+				"origin": "Git · 2005",
+				"line": "L’histoire telle qu’elle s’est passée.",
+				"quip": "Team merge : ton historique Git ressemble à un plan de métro. Mais il est honnête.",
+				"giphyIds": [],
+				"giphyQuery": "merge traffic"
+			},
+			"b": {
+				"name": "Rebase",
+				"origin": "Git · 2005",
+				"line": "L’histoire telle qu’on aurait voulu qu’elle se passe.",
+				"quip": "Team rebase : tu réécris l’histoire. Parfois avec un --force. Tes collègues tremblent.",
+				"giphyIds": [],
+				"giphyQuery": "rewrite history"
+			},
+			"bothQuip": "Les deux. Ça dépend de qui relit ta demande de fusion.",
+			"noneQuip": "Ni merge ni rebase. Tu t’envoies tes fichiers par mail : « v2_final_VRAIMENT_final »."
+		},
+		{
+			"id": "geek-azerty-qwerty",
+			"category": "geek",
+			"a": {
+				"name": "AZERTY",
+				"origin": "Les claviers français",
+				"line": "Le point en majuscule. On s’y est fait.",
+				"quip": "Team AZERTY : tu tapes un point avec la touche majuscule, et tu trouves ça normal.",
+				"giphyIds": [],
+				"giphyQuery": "keyboard typing"
+			},
+			"b": {
+				"name": "QWERTY",
+				"origin": "Machine à écrire · 1873",
+				"line": "Le standard mondial. Sauf ici.",
+				"quip": "Team QWERTY : depuis que tu as changé de clavier, tes mots de passe sont un mystère.",
+				"giphyIds": [],
+				"giphyQuery": "typewriter"
+			},
+			"bothQuip": "Les deux. Tu changes de clavier selon l’ordinateur et tu tapes « qzerty » tous les matins.",
+			"noneQuip": "Ni AZERTY ni QWERTY. Team BÉPO. On respecte, même sans comprendre."
+		},
+		{
+			"id": "geek-wi-fi-cable",
+			"category": "geek",
+			"a": {
+				"name": "Wi-Fi",
+				"origin": "Partout",
+				"line": "Ça capte partout. Sauf dans ta chambre.",
+				"quip": "Team Wi-Fi : tu fais le tour de l’appartement en brandissant ton téléphone pour capter.",
+				"giphyIds": [],
+				"giphyQuery": "wifi signal"
+			},
+			"b": {
+				"name": "Câble Ethernet",
+				"origin": "Derrière le meuble télé",
+				"line": "Moche, mais jamais en panne.",
+				"quip": "Team câble : un câble de vingt mètres traverse ton salon. Il est beau, ton câble.",
+				"giphyIds": [],
+				"giphyQuery": "ethernet cable"
+			},
+			"bothQuip": "Les deux. Le câble pour jouer, le Wi-Fi pour le reste. Le réseau parfait.",
+			"noneQuip": "Ni Wi-Fi ni câble. Tu vis en 4G, et ton forfait souffre."
+		},
+		{
+			"id": "geek-clippy-siri",
+			"category": "geek",
+			"a": {
+				"name": "Le trombone de Word",
+				"origin": "Microsoft Office · 1997",
+				"line": "« On dirait que vous écrivez une lettre. »",
+				"quip": "Team Trombone : il voulait juste aider. Personne ne l’a jamais remercié. Toi, si.",
+				"giphyIds": [],
+				"giphyQuery": "Clippy Microsoft Office"
+			},
+			"b": {
+				"name": "Siri",
+				"origin": "Apple · 2011",
+				"line": "« Je n’ai pas bien compris. »",
+				"quip": "Team Siri : tu lui as déjà demandé « tu m’aimes ? ». Avoue.",
+				"giphyIds": [],
+				"giphyQuery": "Siri iPhone"
+			},
+			"bothQuip": "Les deux. Tu aimes les assistants qui ne comprennent rien. Ça rassure.",
+			"noneQuip": "Ni le Trombone ni Siri. Tu te débrouilles sans assistant, comme au Moyen Âge."
+		},
+		{
+			"id": "jeux-mario-sonic",
+			"category": "jeux",
+			"a": {
+				"name": "Mario",
+				"origin": "Nintendo · 1981",
+				"line": "Plombier, pilote, médecin, tennisman. Aucun diplôme.",
+				"quip": "Team Mario : tu as déjà sauté sur une tortue pour voir. Dans un jeu, on espère.",
+				"giphyIds": [],
+				"giphyQuery": "Super Mario"
+			},
+			"b": {
+				"name": "Sonic",
+				"origin": "Sega · 1991",
+				"line": "Trop rapide pour cette page.",
+				"quip": "Team Sonic : tu tapes du pied quand on te fait attendre. Comme lui.",
+				"giphyIds": [],
+				"giphyQuery": "Sonic the Hedgehog"
+			},
+			"bothQuip": "Les deux. Tu as joué aux Jeux olympiques où ils font la course ensemble. Et tu as aimé.",
+			"noneQuip": "Ni Mario ni Sonic. Team Pac-Man, il était là avant tout le monde."
+		},
+		{
+			"id": "jeux-nintendo-sega",
+			"category": "jeux",
+			"a": {
+				"name": "Nintendo",
+				"origin": "Kyoto · 1889",
+				"line": "Ça a commencé par des cartes à jouer. Vraiment.",
+				"quip": "Team Nintendo : tu as racheté le même Zelda sur quatre consoles différentes.",
+				"giphyIds": [],
+				"giphyQuery": "Nintendo retro"
+			},
+			"b": {
+				"name": "Sega",
+				"origin": "Japon · 1960",
+				"line": "« Sega, c’est plus fort que toi. »",
+				"quip": "Team Sega : tu cries encore « SEGA ! » au démarrage. Dans ta tête, au moins.",
+				"giphyIds": [],
+				"giphyQuery": "Sega Mega Drive"
+			},
+			"bothQuip": "Les deux. Agent double de la guerre des consoles, c’est toi.",
+			"noneQuip": "Ni Nintendo ni Sega. Team PlayStation, arrivée après la bataille."
+		},
+		{
+			"id": "jeux-tetris-snake",
+			"category": "jeux",
+			"a": {
+				"name": "Tetris",
+				"origin": "Alexeï Pajitnov · 1984",
+				"line": "Toujours pas de barre droite.",
+				"quip": "Team Tetris : tu ranges le coffre de la voiture comme une partie de Tetris. Et tout rentre.",
+				"giphyIds": [],
+				"giphyQuery": "Tetris"
+			},
+			"b": {
+				"name": "Snake",
+				"origin": "Nokia · 1997",
+				"line": "Ne te mords pas la queue.",
+				"quip": "Team Snake : ton record sur le Nokia de 2001 n’a jamais été battu. Tu en parles encore.",
+				"giphyIds": [],
+				"giphyQuery": "Snake Nokia"
+			},
+			"bothQuip": "Les deux. Tu vois des blocs tomber quand tu fermes les yeux.",
+			"noneQuip": "Ni Tetris ni Snake. Les jeux qui accélèrent jusqu’à ta perte, très peu pour toi."
+		},
+		{
+			"id": "jeux-link-zelda",
+			"category": "jeux",
+			"a": {
+				"name": "Link",
+				"origin": "Nintendo · 1986",
+				"line": "Le héros. Tout le monde l’appelle Zelda.",
+				"quip": "Team Link : tu as déjà corrigé quelqu’un : « Zelda, c’est la princesse ! ». Plusieurs fois.",
+				"giphyIds": [],
+				"giphyQuery": "Link Legend of Zelda"
+			},
+			"b": {
+				"name": "Zelda",
+				"origin": "Nintendo · 1986",
+				"line": "La princesse. Le jeu porte son nom, ce n’est pas sa faute.",
+				"quip": "Team Zelda : tu appelles le héros Zelda exprès, juste pour énerver les fans.",
+				"giphyIds": [],
+				"giphyQuery": "Princess Zelda"
+			},
+			"bothQuip": "Les deux. Le héros et la princesse : tu sauves Hyrule en équipe.",
+			"noneQuip": "Ni Link ni Zelda. Team Ganon. Enfin quelqu’un qui le soutient."
+		},
+		{
+			"id": "jeux-pikachu-rondoudou",
+			"category": "jeux",
+			"a": {
+				"name": "Pikachu",
+				"origin": "Pokémon · 1996",
+				"line": "« Pika pika ! »",
+				"quip": "Team Pikachu : tu as déjà dit « Pika pika » à ton chat. Il n’a pas répondu.",
+				"giphyIds": [],
+				"giphyQuery": "Pikachu"
+			},
+			"b": {
+				"name": "Rondoudou",
+				"origin": "Pokémon · 1996",
+				"line": "Chante, tout le monde s’endort, et il le prend très mal.",
+				"quip": "Team Rondoudou : au karaoké, tout le monde s’endort, et tu leur dessines sur la figure.",
+				"giphyIds": [],
+				"giphyQuery": "Jigglypuff"
+			},
+			"bothQuip": "Les deux. Une boule jaune et une boule rose : tu as bon goût.",
+			"noneQuip": "Ni Pikachu ni Rondoudou. Team Magicarpe. Courage, il va évoluer."
+		},
+		{
+			"id": "jeux-street-fighter-mortal-kombat",
+			"category": "jeux",
+			"a": {
+				"name": "Street Fighter II",
+				"origin": "Capcom · 1991",
+				"line": "« Hadoken ! »",
+				"quip": "Team Street Fighter : tu fais encore « bas, avant, poing » en ouvrant les portes.",
+				"giphyIds": [],
+				"giphyQuery": "Street Fighter II hadouken"
+			},
+			"b": {
+				"name": "Mortal Kombat",
+				"origin": "Midway · 1992",
+				"line": "« Finish him ! »",
+				"quip": "Team Mortal Kombat : tu as déjà murmuré « Finish him » à quelqu’un au Monopoly.",
+				"giphyIds": [],
+				"giphyQuery": "Mortal Kombat"
+			},
+			"bothQuip": "Les deux. Ton pouce a fait des quarts de cercle pendant toute ton adolescence.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux de baston, tu y joues en appuyant sur tous les boutons."
+		},
+		{
+			"id": "jeux-minecraft-les-sims",
+			"category": "jeux",
+			"a": {
+				"name": "Minecraft",
+				"origin": "Mojang · 2011",
+				"line": "Des cubes à perte de vue, et un creeper derrière toi.",
+				"quip": "Team Minecraft : tu as bâti un château en terre. Un creeper l’a fait exploser.",
+				"giphyIds": [],
+				"giphyQuery": "Minecraft"
+			},
+			"b": {
+				"name": "Les Sims",
+				"origin": "Maxis · 2000",
+				"line": "Retirer l’échelle de la piscine.",
+				"quip": "Team Les Sims : tu as retiré l’échelle de la piscine. Ne mens pas, tout le monde l’a fait.",
+				"giphyIds": [],
+				"giphyQuery": "The Sims"
+			},
+			"bothQuip": "Les deux. Tu construis des maisons dans tous les jeux, mais pas un seul meuble en kit.",
+			"noneQuip": "Ni Minecraft ni Les Sims. Tu préfères la vraie vie. Étrange."
+		},
+		{
+			"id": "jeux-lara-croft-nathan-drake",
+			"category": "jeux",
+			"a": {
+				"name": "Lara Croft",
+				"origin": "Tomb Raider · 1996",
+				"line": "Pille des tombeaux depuis avant que ce soit cool.",
+				"quip": "Team Lara Croft : tu as enfermé le majordome dans la chambre froide. On sait tout.",
+				"giphyIds": [],
+				"giphyQuery": "Lara Croft Tomb Raider"
+			},
+			"b": {
+				"name": "Nathan Drake",
+				"origin": "Uncharted · 2007",
+				"line": "Tombe de partout, s’en sort toujours, avec une blague.",
+				"quip": "Team Nathan Drake : tu tombes de partout, et tu as toujours une blague prête. Admirable.",
+				"giphyIds": [],
+				"giphyQuery": "Nathan Drake Uncharted"
+			},
+			"bothQuip": "Les deux. Les temples maudits, ça te connaît.",
+			"noneQuip": "Ni Lara ni Nathan. Les tombeaux, tu préfères ne pas déranger leurs occupants."
+		},
+		{
+			"id": "jeux-crash-bandicoot-spyro",
+			"category": "jeux",
+			"a": {
+				"name": "Crash Bandicoot",
+				"origin": "PlayStation · 1996",
+				"line": "Une toupie, des caisses, et beaucoup de cris.",
+				"quip": "Team Crash : tu as cassé toutes les caisses de ta vie. Même celles du déménagement.",
+				"giphyIds": [],
+				"giphyQuery": "Crash Bandicoot"
+			},
+			"b": {
+				"name": "Spyro",
+				"origin": "PlayStation · 1998",
+				"line": "Un petit dragon violet qui crache du feu sur des moutons.",
+				"quip": "Team Spyro : tu as passé des heures à griller des moutons. Pour les gemmes, évidemment.",
+				"giphyIds": [],
+				"giphyQuery": "Spyro the Dragon"
+			},
+			"bothQuip": "Les deux. Ta PS1 était orange et violette.",
+			"noneQuip": "Ni Crash ni Spyro. Team Croc, le crocodile oublié."
+		},
+		{
+			"id": "jeux-manette-clavier-souris",
+			"category": "jeux",
+			"a": {
+				"name": "Manette",
+				"origin": "Le canapé",
+				"line": "Les potes, les chips, et le câble toujours trop court.",
+				"quip": "Team manette : le canapé, les chips, et un câble qui n’arrive jamais jusqu’au canapé.",
+				"giphyIds": [],
+				"giphyQuery": "gamepad controller"
+			},
+			"b": {
+				"name": "Clavier-souris",
+				"origin": "Le bureau",
+				"line": "Une précision chirurgicale, et le dos en compote.",
+				"quip": "Team clavier-souris : ton tapis de souris est grand comme une nappe.",
+				"giphyIds": [],
+				"giphyQuery": "gaming keyboard mouse"
+			},
+			"bothQuip": "Les deux. Tu changes selon le jeu. Une personne pragmatique.",
+			"noneQuip": "Ni l’un ni l’autre. Tu joues sur ton téléphone. Aux toilettes."
+		},
+		{
+			"id": "jeux-pac-man-space-invaders",
+			"category": "jeux",
+			"a": {
+				"name": "Pac-Man",
+				"origin": "Namco · 1980",
+				"line": "Waka waka waka waka.",
+				"quip": "Team Pac-Man : tu fais « waka waka » en mangeant des Tic Tac.",
+				"giphyIds": [],
+				"giphyQuery": "Pac-Man"
+			},
+			"b": {
+				"name": "Space Invaders",
+				"origin": "Taito · 1978",
+				"line": "Ils descendent. Lentement. Puis très vite.",
+				"quip": "Team Space Invaders : tu as sauvé la Terre plusieurs fois, avec une seule pièce.",
+				"giphyIds": [],
+				"giphyQuery": "Space Invaders"
+			},
+			"bothQuip": "Les deux. Ton enfance s’est passée dans une salle d’arcade, et ton ouïe s’en souvient.",
+			"noneQuip": "Ni Pac-Man ni Space Invaders. Les pixels de 1980, ce n’est pas ta génération."
+		},
+		{
+			"id": "jeux-game-boy-game-gear",
+			"category": "jeux",
+			"a": {
+				"name": "Game Boy",
+				"origin": "Nintendo · 1989",
+				"line": "Quatre nuances de vert, des piles par paquets de douze.",
+				"quip": "Team Game Boy : tu jouais sous la couette à la lampe torche, jusqu’à la mort des piles.",
+				"giphyIds": [],
+				"giphyQuery": "Game Boy"
+			},
+			"b": {
+				"name": "Game Gear",
+				"origin": "Sega · 1990",
+				"line": "En couleur ! Six piles, à peine trois heures d’autonomie.",
+				"quip": "Team Game Gear : six piles pour trois heures de jeu. Tu as financé des usines entières.",
+				"giphyIds": [],
+				"giphyQuery": "Sega Game Gear"
+			},
+			"bothQuip": "Les deux. Tes poches ont toujours été pleines de cartouches.",
+			"noneQuip": "Ni Game Boy ni Game Gear. Team Tamagotchi, dans le même cartable."
+		},
+		{
+			"id": "jeux-goldeneye-mario-kart-64",
+			"category": "jeux",
+			"question": "Soirée Nintendo 64 : GoldenEye ou Mario Kart ?",
+			"a": {
+				"name": "GoldenEye 007",
+				"origin": "Nintendo 64 · 1997",
+				"line": "Interdit de prendre Oddjob.",
+				"quip": "Team GoldenEye : tu as pris Oddjob. Tes amis ne te l’ont jamais pardonné.",
+				"giphyIds": [],
+				"giphyQuery": "GoldenEye 007 N64"
+			},
+			"b": {
+				"name": "Mario Kart 64",
+				"origin": "Nintendo 64 · 1996",
+				"line": "Une carapace bleue, et une amitié brisée.",
+				"quip": "Team Mario Kart 64 : une carapace bleue sur ton meilleur ami. Vous ne vous parlez plus.",
+				"giphyIds": [],
+				"giphyQuery": "Mario Kart 64"
+			},
+			"bothQuip": "Les deux. Tes soirées N64 finissaient toujours en dispute.",
+			"noneQuip": "Ni l’un ni l’autre. Team Super Smash Bros. On s’y bat aussi, mais avec style."
+		},
+		{
+			"id": "jeux-bowser-ganon",
+			"category": "jeux",
+			"a": {
+				"name": "Bowser",
+				"origin": "Nintendo · 1985",
+				"line": "Enlève la même princesse depuis 1985. Persévérant.",
+				"quip": "Team Bowser : tu kidnappes la même princesse depuis 1985. Change de stratégie, peut-être ?",
+				"giphyIds": [],
+				"giphyQuery": "Bowser"
+			},
+			"b": {
+				"name": "Ganon",
+				"origin": "Nintendo · 1986",
+				"line": "Revient à chaque épisode, perd à chaque épisode.",
+				"quip": "Team Ganon : tu perds à chaque épisode, et tu reviens toujours. On respecte la motivation.",
+				"giphyIds": [],
+				"giphyQuery": "Ganondorf"
+			},
+			"bothQuip": "Les deux. Les méchants de Nintendo ont bien besoin de fans comme toi.",
+			"noneQuip": "Ni Bowser ni Ganon. Les méchants qui perdent toujours, ça te déprime."
+		},
+		{
+			"id": "ecrans-edward-jacob",
+			"category": "ecrans",
+			"a": {
+				"name": "Edward",
+				"origin": "Twilight · 2008",
+				"line": "Brille au soleil et te regarde dormir.",
+				"quip": "Team Edward : tu trouves romantique qu’on te regarde dormir. Il faut qu’on en parle.",
+				"giphyIds": [],
+				"giphyQuery": "Edward Cullen Twilight"
+			},
+			"b": {
+				"name": "Jacob",
+				"origin": "Twilight · 2008",
+				"line": "Toujours torse nu, toujours en avance.",
+				"quip": "Team Jacob : tu sors sans t-shirt en novembre, et tu dis que tu n’as pas froid.",
+				"giphyIds": [],
+				"giphyQuery": "Jacob Black Twilight"
+			},
+			"bothQuip": "Les deux. Un vampire et un loup-garou : tu ne choisis pas, tu gardes tout le monde.",
+			"noneQuip": "Ni Edward ni Jacob. Bella aurait dû rester célibataire, c’est ça ?"
+		},
+		{
+			"id": "ecrans-harry-potter-seigneur-des-anneaux",
+			"category": "ecrans",
+			"a": {
+				"name": "Harry Potter",
+				"origin": "J. K. Rowling · 1997",
+				"line": "Une baguette, une cicatrice, sept tomes.",
+				"quip": "Team Harry Potter : tu attends toujours ta lettre de Poudlard. Elle a dû se perdre.",
+				"giphyIds": [],
+				"giphyQuery": "Harry Potter"
+			},
+			"b": {
+				"name": "Le Seigneur des anneaux",
+				"origin": "J. R. R. Tolkien · 1954",
+				"line": "Neuf compagnons, un anneau, énormément de marche.",
+				"quip": "Team Seigneur des anneaux : pour toi, une petite balade, c’est trois films de trois heures.",
+				"giphyIds": [],
+				"giphyQuery": "Lord of the Rings fellowship"
+			},
+			"bothQuip": "Les deux. Des baguettes, des anneaux, des barbus : il te faut une étagère de plus.",
+			"noneQuip": "Ni l’un ni l’autre. La magie et les elfes, très peu pour toi. Esprit moldu."
+		},
+		{
+			"id": "ecrans-gryffondor-serpentard",
+			"category": "ecrans",
+			"a": {
+				"name": "Gryffondor",
+				"origin": "Harry Potter · 1997",
+				"line": "Courage, loyauté, et règlement intérieur facultatif.",
+				"quip": "Team Gryffondor : tu fonces d’abord, tu réfléchis après. Parfois.",
+				"giphyIds": [],
+				"giphyQuery": "Gryffindor"
+			},
+			"b": {
+				"name": "Serpentard",
+				"origin": "Harry Potter · 1997",
+				"line": "Ambition, ruse, et une salle commune sous un lac.",
+				"quip": "Team Serpentard : tu as un plan pour tout, et tu le gardes pour toi.",
+				"giphyIds": [],
+				"giphyQuery": "Slytherin"
+			},
+			"bothQuip": "Les deux. Le Choixpeau a hésité dix minutes. Tu lui as donné la migraine.",
+			"noneQuip": "Ni Gryffondor ni Serpentard. Team Poufsouffle, et c’est très bien."
+		},
+		{
+			"id": "ecrans-friends-the-office",
+			"category": "ecrans",
+			"a": {
+				"name": "Friends",
+				"origin": "NBC · 1994",
+				"line": "Six amis, un canapé orange, un loyer impossible.",
+				"quip": "Team Friends : tu cries « PIVOT ! » chaque fois qu’un canapé monte un escalier.",
+				"giphyIds": [],
+				"giphyQuery": "Friends TV show"
+			},
+			"b": {
+				"name": "The Office",
+				"origin": "NBC · 2005",
+				"line": "Un patron gênant, et des regards caméra.",
+				"quip": "Team The Office : tu fais des regards caméra dans la vraie vie, et personne ne comprend.",
+				"giphyIds": [],
+				"giphyQuery": "The Office Michael Scott"
+			},
+			"bothQuip": "Les deux. Tu as vu chaque épisode au moins quatre fois. C’est ta thérapie.",
+			"noneQuip": "Ni Friends ni The Office. Les sitcoms ne te font pas rire. Le public enregistré, si."
+		},
+		{
+			"id": "ecrans-stark-lannister",
+			"category": "ecrans",
+			"a": {
+				"name": "Les Stark",
+				"origin": "Game of Thrones · 2011",
+				"line": "« L’hiver vient. »",
+				"quip": "Team Stark : tu annonces l’hiver dès le mois de septembre.",
+				"giphyIds": [],
+				"giphyQuery": "Jon Snow Stark"
+			},
+			"b": {
+				"name": "Les Lannister",
+				"origin": "Game of Thrones · 2011",
+				"line": "Un Lannister paie toujours ses dettes.",
+				"quip": "Team Lannister : tu paies toujours tes dettes. Et tu n’oublies jamais celles des autres.",
+				"giphyIds": [],
+				"giphyQuery": "Tyrion Lannister"
+			},
+			"bothQuip": "Les deux. Tu aimes les familles qui s’entretuent. Tes repas de famille doivent être animés.",
+			"noneQuip": "Ni Stark ni Lannister. Team Targaryen, et ses dragons."
+		},
+		{
+			"id": "ecrans-rocky-rambo",
+			"category": "ecrans",
+			"a": {
+				"name": "Rocky",
+				"origin": "Rocky · 1976",
+				"line": "Court dans les escaliers, crie « Adrian ! ».",
+				"quip": "Team Rocky : tu montes les escaliers en courant, les bras levés. Même ceux du métro.",
+				"giphyIds": [],
+				"giphyQuery": "Rocky Balboa"
+			},
+			"b": {
+				"name": "Rambo",
+				"origin": "Rambo · 1982",
+				"line": "C’est pas lui qui a commencé.",
+				"quip": "Team Rambo : il y a un bandeau rouge dans ton tiroir. Pour les grandes occasions.",
+				"giphyIds": [],
+				"giphyQuery": "Rambo"
+			},
+			"bothQuip": "Les deux. Stallone te remercie, et il crie « Adrian ! » pour fêter ça.",
+			"noneQuip": "Ni Rocky ni Rambo. Les muscles et les cris, très peu pour toi."
+		},
+		{
+			"id": "ecrans-indiana-jones-han-solo",
+			"category": "ecrans",
+			"a": {
+				"name": "Indiana Jones",
+				"origin": "Les Aventuriers de l’arche perdue · 1981",
+				"line": "Un chapeau, un fouet, et une sainte horreur des serpents.",
+				"quip": "Team Indiana Jones : les serpents te terrifient, mais tu fonces quand même dans les temples.",
+				"giphyIds": [],
+				"giphyQuery": "Indiana Jones"
+			},
+			"b": {
+				"name": "Han Solo",
+				"origin": "Star Wars · 1977",
+				"line": "A tiré le premier. On en débat encore.",
+				"quip": "Team Han Solo : pour toi, il a tiré le premier. Et c’est non négociable.",
+				"giphyIds": [],
+				"giphyQuery": "Han Solo"
+			},
+			"bothQuip": "Les deux. Harrison Ford dans tous les cas. Tu as de la suite dans les idées.",
+			"noneQuip": "Ni Indy ni Han. Team Chewbacca : tu communiques surtout en grognant."
+		},
+		{
+			"id": "ecrans-alien-predator",
+			"category": "ecrans",
+			"a": {
+				"name": "Alien",
+				"origin": "Alien · 1979",
+				"line": "Dans l’espace, personne ne t’entend crier.",
+				"quip": "Team Alien : tu ne fais confiance à aucun robot du vaisseau. Ni à ton grille-pain.",
+				"giphyIds": [],
+				"giphyQuery": "Alien xenomorph"
+			},
+			"b": {
+				"name": "Predator",
+				"origin": "Predator · 1987",
+				"line": "Invisible, chasseur, et franchement pas photogénique.",
+				"quip": "Team Predator : tu trouves que ce visage, au fond, a beaucoup de charme.",
+				"giphyIds": [],
+				"giphyQuery": "Predator movie"
+			},
+			"bothQuip": "Les deux. Le film où ils s’affrontent, tu l’as vu. Tu fais partie des rares.",
+			"noneQuip": "Ni Alien ni Predator. Les extraterrestres méchants, très peu pour toi. Team E.T."
+		},
+		{
+			"id": "ecrans-terminator-robocop",
+			"category": "ecrans",
+			"a": {
+				"name": "Terminator",
+				"origin": "Terminator · 1984",
+				"line": "« I’ll be back. »",
+				"quip": "Team Terminator : en partant, tu dis « I’ll be back ». Même à la boulangerie.",
+				"giphyIds": [],
+				"giphyQuery": "Terminator T-800"
+			},
+			"b": {
+				"name": "RoboCop",
+				"origin": "RoboCop · 1987",
+				"line": "Mi-homme, mi-machine, entièrement flic.",
+				"quip": "Team RoboCop : tu fais respecter le règlement de la copropriété avec beaucoup de zèle.",
+				"giphyIds": [],
+				"giphyQuery": "RoboCop"
+			},
+			"bothQuip": "Les deux. Les robots des années 80 sont tes héros. Les aspirateurs aussi.",
+			"noneQuip": "Ni Terminator ni RoboCop. Les cyborgs, tu t’en méfies. Avec raison."
+		},
+		{
+			"id": "ecrans-r2-d2-c-3po",
+			"category": "ecrans",
+			"a": {
+				"name": "R2-D2",
+				"origin": "Star Wars · 1977",
+				"line": "« Bip bip bwiiip. »",
+				"quip": "Team R2-D2 : tu réponds à tes messages en bips. Tes amis s’adaptent.",
+				"giphyIds": [],
+				"giphyQuery": "R2-D2 Star Wars"
+			},
+			"b": {
+				"name": "C-3PO",
+				"origin": "Star Wars · 1977",
+				"line": "Parle six millions de langues, se plaint dans toutes.",
+				"quip": "Team C-3PO : tu parles six langues, et tu râles dans chacune.",
+				"giphyIds": [],
+				"giphyQuery": "C-3PO Star Wars"
+			},
+			"bothQuip": "Les deux. Le meilleur duo de Star Wars, et tu as raison.",
+			"noneQuip": "Ni R2 ni 3PO. Team BB-8, la boule orange."
+		},
+		{
+			"id": "ecrans-wall-e-eve",
+			"category": "ecrans",
+			"a": {
+				"name": "WALL-E",
+				"origin": "Pixar · 2008",
+				"line": "Compacte les déchets, collectionne les briquets, tombe amoureux.",
+				"quip": "Team WALL-E : tu gardes des objets inutiles dans des boîtes. Ils ont tous une histoire.",
+				"giphyIds": [],
+				"giphyQuery": "WALL-E Pixar"
+			},
+			"b": {
+				"name": "EVE",
+				"origin": "Pixar · 2008",
+				"line": "Élégante, efficace, tire d’abord.",
+				"quip": "Team EVE : tu tires d’abord, et tu poses les questions après. Avec élégance.",
+				"giphyIds": [],
+				"giphyQuery": "EVE WALL-E Pixar"
+			},
+			"bothQuip": "Les deux. Tu as pleuré devant deux robots qui se tiennent la main. Ça arrive.",
+			"noneQuip": "Ni WALL-E ni EVE. Les robots amoureux ne te touchent pas. Cœur de pierre."
+		},
+		{
+			"id": "ecrans-disney-pixar",
+			"category": "ecrans",
+			"a": {
+				"name": "Disney",
+				"origin": "Blanche-Neige · 1937",
+				"line": "Des princesses, des chansons, et des parents qui disparaissent tôt.",
+				"quip": "Team Disney : tu connais toutes les chansons. En entier. Sous la douche.",
+				"giphyIds": [],
+				"giphyQuery": "Disney castle"
+			},
+			"b": {
+				"name": "Pixar",
+				"origin": "Toy Story · 1995",
+				"line": "Des jouets, des robots, et toi qui pleures à la fin.",
+				"quip": "Team Pixar : les dix premières minutes de Là-haut t’ont brisé le cœur. Pour toujours.",
+				"giphyIds": [],
+				"giphyQuery": "Pixar lamp"
+			},
+			"bothQuip": "Les deux. Ton abonnement de streaming te remercie.",
+			"noneQuip": "Ni Disney ni Pixar. Team DreamWorks, et l’Âne de Shrek."
+		},
+		{
+			"id": "ecrans-kaamelott-les-visiteurs",
+			"category": "ecrans",
+			"a": {
+				"name": "Kaamelott",
+				"origin": "M6 · 2005",
+				"line": "« C’est pas faux. »",
+				"quip": "Team Kaamelott : tu réponds « c’est pas faux » quand tu n’as rien compris.",
+				"giphyIds": ["zrCSvFfl2fP7W"],
+				"giphyQuery": "Kaamelott"
+			},
+			"b": {
+				"name": "Les Visiteurs",
+				"origin": "Jean-Marie Poiré · 1993",
+				"line": "« Okayyy ! »",
+				"quip": "Team Les Visiteurs : tu dis « Okayyy ! » et « Jacquouille ! » aux pires moments.",
+				"giphyIds": ["MrHFzd4JQ22Zy"],
+				"giphyQuery": "Les Visiteurs Jacquouille"
+			},
+			"bothQuip": "Les deux. Le Moyen Âge à la française, c’est ta passion.",
+			"noneQuip": "Ni Kaamelott ni Les Visiteurs. Le Moyen Âge, tu préfères l’oublier."
+		},
+		{
+			"id": "ecrans-delorean-tardis",
+			"category": "ecrans",
+			"question": "Pour voyager dans le temps : DeLorean ou TARDIS ?",
+			"a": {
+				"name": "La DeLorean",
+				"origin": "Retour vers le futur · 1985",
+				"line": "Carbure au plutonium, ou aux épluchures.",
+				"quip": "Team DeLorean : tu vérifies que ta voiture peut atteindre 88 miles à l’heure. Au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "DeLorean Back to the Future"
+			},
+			"b": {
+				"name": "Le TARDIS",
+				"origin": "Doctor Who · 1963",
+				"line": "Plus grand à l’intérieur.",
+				"quip": "Team TARDIS : ton appartement est plus grand à l’intérieur. Ce n’est pas l’avis de l’agent immobilier.",
+				"giphyIds": [],
+				"giphyQuery": "TARDIS Doctor Who"
+			},
+			"bothQuip": "Les deux. Voyager dans le temps en voiture ET en cabine. Exigence maximale.",
+			"noneQuip": "Ni DeLorean ni TARDIS. Le présent te convient. C’est rare, et sain."
+		},
+		{
+			"id": "duos-tom-jerry",
+			"category": "duos",
+			"a": {
+				"name": "Tom",
+				"origin": "MGM · 1940",
+				"line": "Perd depuis 1940. N’abandonne jamais.",
+				"quip": "Team Tom : tu perds depuis toujours, et tu y retournes chaque matin. On t’admire.",
+				"giphyIds": [],
+				"giphyQuery": "Tom cat Tom and Jerry"
+			},
+			"b": {
+				"name": "Jerry",
+				"origin": "MGM · 1940",
+				"line": "Petit, malin, et franchement sadique.",
+				"quip": "Team Jerry : sous tes airs mignons se cache un sadisme assez impressionnant.",
+				"giphyIds": [],
+				"giphyQuery": "Jerry mouse Tom and Jerry"
+			},
+			"bothQuip": "Les deux. Tu sais qu’au fond, ils s’adorent. Et tu as raison.",
+			"noneQuip": "Ni Tom ni Jerry. Team Spike, le bouledogue qui met tout le monde d’accord."
+		},
+		{
+			"id": "duos-mulder-scully",
+			"category": "duos",
+			"a": {
+				"name": "Mulder",
+				"origin": "X-Files · 1993",
+				"line": "Veut croire.",
+				"quip": "Team Mulder : tu as déjà vu un OVNI. C’était un drone, mais tu préfères y croire.",
+				"giphyIds": [],
+				"giphyQuery": "Fox Mulder X-Files"
+			},
+			"b": {
+				"name": "Scully",
+				"origin": "X-Files · 1993",
+				"line": "Veut des preuves.",
+				"quip": "Team Scully : quand on te raconte une histoire, tu demandes une source.",
+				"giphyIds": [],
+				"giphyQuery": "Dana Scully X-Files"
+			},
+			"bothQuip": "Les deux. Tu veux croire, mais avec des preuves. La vérité est ailleurs.",
+			"noneQuip": "Ni Mulder ni Scully. Team l’homme à la cigarette : tu en sais plus que tu ne le dis."
+		},
+		{
+			"id": "duos-doc-marty",
+			"category": "duos",
+			"a": {
+				"name": "Doc",
+				"origin": "Retour vers le futur · 1985",
+				"line": "« Nom de Zeus ! »",
+				"quip": "Team Doc : tu dis « Nom de Zeus ! » quand tu renverses ton café.",
+				"giphyIds": [],
+				"giphyQuery": "Doc Brown great Scott"
+			},
+			"b": {
+				"name": "Marty",
+				"origin": "Retour vers le futur · 1985",
+				"line": "Un skate, une guitare, et un retard chronique.",
+				"quip": "Team Marty : tu es en retard partout. Même dans le passé.",
+				"giphyIds": [],
+				"giphyQuery": "Marty McFly"
+			},
+			"bothQuip": "Les deux. Un génie et un ado en retard : la recette d’une trilogie parfaite.",
+			"noneQuip": "Ni Doc ni Marty. Team Biff ? Tu as tort."
+		},
+		{
+			"id": "duos-asterix-obelix",
+			"category": "duos",
+			"a": {
+				"name": "Astérix",
+				"origin": "Goscinny et Uderzo · 1959",
+				"line": "Petit, rusé, et carburant à la potion.",
+				"quip": "Team Astérix : petit, malin, et toujours un plan. Tu n’as même pas besoin de potion.",
+				"giphyIds": ["1Md9azxcgIyQ"],
+				"giphyQuery": "Asterix"
+			},
+			"b": {
+				"name": "Obélix",
+				"origin": "Goscinny et Uderzo · 1959",
+				"line": "Pas gros. Tombé dedans quand il était petit.",
+				"quip": "Team Obélix : tu manges un sanglier entier, et tu demandes ce qu’il y a au dessert.",
+				"giphyIds": ["aPpnKwFghQCE8"],
+				"giphyQuery": "Astérix  Obelix"
+			},
+			"bothQuip": "Les deux. Enfant, tu as voulu tomber dans la marmite. Toi aussi.",
+			"noneQuip": "Ni Astérix ni Obélix. Team Idéfix, qui pleure dès qu’on coupe un arbre."
+		},
+		{
+			"id": "duos-laurel-hardy",
+			"category": "duos",
+			"a": {
+				"name": "Laurel",
+				"origin": "Cinéma · 1927",
+				"line": "Se gratte la tête, pleure, et rate tout.",
+				"quip": "Team Laurel : tu te grattes la tête quand tu ne comprends pas. Souvent.",
+				"giphyIds": [],
+				"giphyQuery": "Stan Laurel"
+			},
+			"b": {
+				"name": "Hardy",
+				"origin": "Cinéma · 1927",
+				"line": "« Encore une belle pagaille. »",
+				"quip": "Team Hardy : « Encore une belle pagaille ! » Tu le dis chaque semaine.",
+				"giphyIds": [],
+				"giphyQuery": "Oliver Hardy"
+			},
+			"bothQuip": "Les deux. Les gags en noir et blanc te font encore rire. Bon goût.",
+			"noneQuip": "Ni Laurel ni Hardy. Le noir et blanc, ce n’est pas ta génération."
+		},
+		{
+			"id": "duos-bert-ernie",
+			"category": "duos",
+			"a": {
+				"name": "Bert",
+				"origin": "1, rue Sésame · 1969",
+				"line": "Aime les pigeons, les trombones, et le calme.",
+				"quip": "Team Bert : tu aimes le calme, les trombones, et qu’on te laisse dormir.",
+				"giphyIds": [],
+				"giphyQuery": "Bert Sesame Street"
+			},
+			"b": {
+				"name": "Ernie",
+				"origin": "1, rue Sésame · 1969",
+				"line": "Aime son canard en caoutchouc, et réveiller Bert.",
+				"quip": "Team Ernie : tu réveilles tes colocataires pour leur parler de ton canard en plastique.",
+				"giphyIds": [],
+				"giphyQuery": "Ernie rubber duckie"
+			},
+			"bothQuip": "Les deux. Le colocataire calme et le colocataire pénible : tu as connu les deux.",
+			"noneQuip": "Ni Bert ni Ernie. Team Macaron le glouton, et ses biscuits."
+		},
+		{
+			"id": "duos-woody-buzz",
+			"category": "duos",
+			"a": {
+				"name": "Woody",
+				"origin": "Toy Story · 1995",
+				"line": "« Il y a un serpent dans ma botte ! »",
+				"quip": "Team Woody : il y a un serpent dans ta botte. Au sens figuré.",
+				"giphyIds": [],
+				"giphyQuery": "Woody Toy Story"
+			},
+			"b": {
+				"name": "Buzz l’Éclair",
+				"origin": "Toy Story · 1995",
+				"line": "« Vers l’infini et au-delà ! »",
+				"quip": "Team Buzz : tu crois encore que tu sais voler. Tu tombes avec style.",
+				"giphyIds": [],
+				"giphyQuery": "Buzz Lightyear"
+			},
+			"bothQuip": "Les deux. Tes jouets d’enfance sont dans un carton. Ils t’attendent.",
+			"noneQuip": "Ni Woody ni Buzz. Team Monsieur Patate, entièrement démontable."
+		},
+		{
+			"id": "duos-rick-morty",
+			"category": "duos",
+			"a": {
+				"name": "Rick",
+				"origin": "Adult Swim · 2013",
+				"line": "Le plus grand génie de l’univers. Et le plus pénible.",
+				"quip": "Team Rick : tu es la personne la plus intelligente de la pièce. Et la plus fatigante.",
+				"giphyIds": [],
+				"giphyQuery": "Rick Sanchez"
+			},
+			"b": {
+				"name": "Morty",
+				"origin": "Adult Swim · 2013",
+				"line": "Quatorze ans, et déjà trop de traumatismes.",
+				"quip": "Team Morty : tu dis « euh… » avant chaque phrase, et tu suis quand même les pires idées.",
+				"giphyIds": [],
+				"giphyQuery": "Morty Smith"
+			},
+			"bothQuip": "Les deux. Tu as vu tous les épisodes, et tu fais des rêves étranges depuis.",
+			"noneQuip": "Ni Rick ni Morty. Team cornichon. Pickle Rick !"
+		},
+		{
+			"id": "duos-bob-patrick",
+			"category": "duos",
+			"a": {
+				"name": "Bob l’éponge",
+				"origin": "Nickelodeon · 1999",
+				"line": "Adore son travail au Crabe Croustillant. Sincèrement.",
+				"quip": "Team Bob l’éponge : tu chantes en allant au travail. Sincèrement.",
+				"giphyIds": [],
+				"giphyQuery": "SpongeBob"
+			},
+			"b": {
+				"name": "Patrick",
+				"origin": "Nickelodeon · 1999",
+				"line": "Vit sous un rocher. Littéralement.",
+				"quip": "Team Patrick : tu as passé le week-end sous un rocher. Ou presque.",
+				"giphyIds": [],
+				"giphyQuery": "Patrick Star"
+			},
+			"bothQuip": "Les deux. Une maison en ananas, un voisin sous un rocher : ton quartier idéal.",
+			"noneQuip": "Ni Bob ni Patrick. Team Carlo : le dimanche, tu veux juste la paix."
+		},
+		{
+			"id": "duos-timon-pumbaa",
+			"category": "duos",
+			"a": {
+				"name": "Timon",
+				"origin": "Le Roi lion · 1994",
+				"line": "Le cerveau du duo. Selon lui.",
+				"quip": "Team Timon : tu te prends pour le cerveau du groupe. Selon toi.",
+				"giphyIds": [],
+				"giphyQuery": "Timon Lion King"
+			},
+			"b": {
+				"name": "Pumbaa",
+				"origin": "Le Roi lion · 1994",
+				"line": "Le cœur du duo. Et les flatulences.",
+				"quip": "Team Pumbaa : un cœur immense, et une digestion compliquée.",
+				"giphyIds": [],
+				"giphyQuery": "Pumbaa Lion King"
+			},
+			"bothQuip": "Les deux. Hakuna Matata : rien ne t’inquiète.",
+			"noneQuip": "Ni Timon ni Pumbaa. Les insectes au petit-déjeuner, très peu pour toi."
+		},
+		{
+			"id": "duos-dupond-dupont",
+			"category": "duos",
+			"a": {
+				"name": "Dupond",
+				"origin": "Tintin · 1934",
+				"line": "Avec un d, comme dans « détective ».",
+				"quip": "Team Dupond : avec un d. Tu insistes.",
+				"giphyIds": [],
+				"giphyQuery": "Thomson and Thompson Tintin"
+			},
+			"b": {
+				"name": "Dupont",
+				"origin": "Tintin · 1934",
+				"line": "Avec un t. « Je dirais même plus… »",
+				"quip": "Team Dupont : avec un t. Je dirais même plus : avec un t.",
+				"giphyIds": [],
+				"giphyQuery": "Thomson Thompson twins"
+			},
+			"bothQuip": "Les deux. Tu ne les distingues pas. Personne ne les distingue.",
+			"noneQuip": "Ni Dupond ni Dupont. Tu passes ton chemin. Je dirais même plus : tu passes ton chemin."
+		},
+		{
+			"id": "duos-minus-cortex",
+			"category": "duos",
+			"a": {
+				"name": "Minus",
+				"origin": "Animaniacs · 1993",
+				"line": "Ne comprend rien, mais avec enthousiasme.",
+				"quip": "Team Minus : tu ne comprends rien, mais avec un enthousiasme contagieux. Narf !",
+				"giphyIds": [],
+				"giphyQuery": "Pinky Pinky and the Brain"
+			},
+			"b": {
+				"name": "Cortex",
+				"origin": "Animaniacs · 1993",
+				"line": "« Conquérir le monde ! »",
+				"quip": "Team Cortex : chaque soir, un plan pour conquérir le monde. Chaque matin, un échec.",
+				"giphyIds": [],
+				"giphyQuery": "Brain Pinky and the Brain"
+			},
+			"bothQuip": "Les deux. Le cerveau et l’énergie : le monde n’a qu’à bien se tenir.",
+			"noneQuip": "Ni Minus ni Cortex. Conquérir le monde, très peu pour toi. Un dimanche tranquille suffit."
+		},
+		{
+			"id": "duos-shrek-l-ane",
+			"category": "duos",
+			"a": {
+				"name": "Shrek",
+				"origin": "Shrek · 2001",
+				"line": "Les ogres, c’est comme les oignons : il y a des couches.",
+				"quip": "Team Shrek : tu as des couches, comme les oignons. Et tu veux qu’on sorte de ton marais.",
+				"giphyIds": [],
+				"giphyQuery": "Shrek"
+			},
+			"b": {
+				"name": "L’Âne",
+				"origin": "Shrek · 2001",
+				"line": "« On est bientôt arrivés ? »",
+				"quip": "Team l’Âne : « On est bientôt arrivés ? » Tu le demandes à chaque trajet en voiture.",
+				"giphyIds": [],
+				"giphyQuery": "Donkey Shrek"
+			},
+			"bothQuip": "Les deux. L’ogre grognon et l’âne bavard : tu as un ami de chaque sorte.",
+			"noneQuip": "Ni Shrek ni l’Âne. Team Chat potté, et ses yeux de chaton."
+		},
+		{
+			"id": "duos-holmes-watson",
+			"category": "duos",
+			"a": {
+				"name": "Holmes",
+				"origin": "Arthur Conan Doyle · 1887",
+				"line": "« Élémentaire. »",
+				"quip": "Team Holmes : tu fais des déductions sur les gens dans le métro. À voix haute.",
+				"giphyIds": [],
+				"giphyQuery": "Sherlock Holmes deduction"
+			},
+			"b": {
+				"name": "Watson",
+				"origin": "Arthur Conan Doyle · 1887",
+				"line": "Écrit toutes les enquêtes. Aucune reconnaissance.",
+				"quip": "Team Watson : tu fais tout le travail, et c’est l’autre qui a la gloire. On te voit.",
+				"giphyIds": [],
+				"giphyQuery": "Dr Watson Sherlock"
+			},
+			"bothQuip": "Les deux. Le génie et celui qui écrit tout : le duo parfait.",
+			"noneQuip": "Ni Holmes ni Watson. Team Moriarty : tu as un plan."
+		},
+		{
+			"id": "duos-mario-luigi",
+			"category": "duos",
+			"a": {
+				"name": "Mario",
+				"origin": "Nintendo · 1981",
+				"line": "La casquette rouge, la gloire, les produits dérivés.",
+				"quip": "Team Mario : la casquette rouge et la gloire. Les premiers rôles, ça te connaît.",
+				"giphyIds": [],
+				"giphyQuery": "Mario Nintendo"
+			},
+			"b": {
+				"name": "Luigi",
+				"origin": "Nintendo · 1983",
+				"line": "Plus grand, saute plus haut, toujours deuxième.",
+				"quip": "Team Luigi : plus grand, saute plus haut, et toujours deuxième. Justice pour Luigi.",
+				"giphyIds": [],
+				"giphyQuery": "Luigi"
+			},
+			"bothQuip": "Les deux. Les frères plombiers, deux salopettes, une seule légende.",
+			"noneQuip": "Ni Mario ni Luigi. Team Wario, et son rire diabolique."
+		},
+		{
+			"id": "quotidien-chat-chien",
+			"category": "quotidien",
+			"a": {
+				"name": "Chat",
+				"origin": "Égypte antique",
+				"line": "Te tolère. Parfois.",
+				"giphyIds": [],
+				"giphyQuery": "funny cat"
+			},
+			"b": {
+				"name": "Chien",
+				"origin": "Le Paléolithique",
+				"line": "T’adore, même après cinq minutes d’absence.",
+				"giphyIds": [],
+				"giphyQuery": "happy dog"
+			}
+		},
+		{
+			"id": "quotidien-mer-montagne",
+			"category": "quotidien",
+			"a": {
+				"name": "Mer",
+				"origin": "La plage la plus proche",
+				"line": "Du sable partout, jusqu’en décembre.",
+				"giphyIds": [],
+				"giphyQuery": "beach waves"
+			},
+			"b": {
+				"name": "Montagne",
+				"origin": "Le refuge le plus haut",
+				"line": "Des randonnées, des refuges, et des mollets en béton.",
+				"giphyIds": [],
+				"giphyQuery": "mountain hiking"
+			}
+		},
+		{
+			"id": "quotidien-ete-hiver",
+			"category": "quotidien",
+			"a": {
+				"name": "Été",
+				"origin": "Juillet-août",
+				"line": "Apéros en terrasse et coups de soleil.",
+				"giphyIds": [],
+				"giphyQuery": "summer sun"
+			},
+			"b": {
+				"name": "Hiver",
+				"origin": "Décembre-février",
+				"line": "Plaids, chocolat chaud, et excuses pour ne pas sortir.",
+				"giphyIds": [],
+				"giphyQuery": "cozy winter blanket"
+			}
+		},
+		{
+			"id": "quotidien-leve-tot-couche-tard",
+			"category": "quotidien",
+			"a": {
+				"name": "Lève-tôt",
+				"origin": "6 h du matin",
+				"line": "Le monde t’appartient. Il est juste encore fermé.",
+				"giphyIds": [],
+				"giphyQuery": "sunrise morning"
+			},
+			"b": {
+				"name": "Couche-tard",
+				"origin": "2 h du matin",
+				"line": "Les meilleures idées arrivent la nuit. Les pires aussi.",
+				"giphyIds": [],
+				"giphyQuery": "night owl"
+			}
+		},
+		{
+			"id": "quotidien-papier-toilette",
+			"category": "quotidien",
+			"question": "Le papier toilette : par-dessus ou par-dessous ?",
+			"a": {
+				"name": "Par-dessus",
+				"origin": "Le brevet de 1891",
+				"line": "Le dessin du brevet original te donne raison.",
+				"giphyIds": [],
+				"giphyQuery": "toilet paper roll"
+			},
+			"b": {
+				"name": "Par-dessous",
+				"origin": "Les rebelles de la salle de bains",
+				"line": "Les chats te remercient.",
+				"giphyIds": [],
+				"giphyQuery": "cat toilet paper"
+			}
+		},
+		{
+			"id": "quotidien-douche-bain",
+			"category": "quotidien",
+			"a": {
+				"name": "Douche",
+				"origin": "Tous les matins",
+				"line": "Cinq minutes, chrono. Concert compris.",
+				"giphyIds": [],
+				"giphyQuery": "shower singing"
+			},
+			"b": {
+				"name": "Bain",
+				"origin": "Le dimanche soir",
+				"line": "Une heure, un livre, et l’eau froide à la fin.",
+				"giphyIds": [],
+				"giphyQuery": "bubble bath"
+			}
+		},
+		{
+			"id": "quotidien-sms-appel",
+			"category": "quotidien",
+			"a": {
+				"name": "SMS",
+				"origin": "Ton pouce",
+				"line": "Écrire, effacer, réécrire, envoyer. Regretter.",
+				"giphyIds": [],
+				"giphyQuery": "texting phone"
+			},
+			"b": {
+				"name": "Appel",
+				"origin": "Ta voix, ce truc oublié",
+				"line": "Personne ne décroche, mais c’est l’intention qui compte.",
+				"giphyIds": [],
+				"giphyQuery": "phone call ringing"
+			}
+		},
+		{
+			"id": "quotidien-ville-campagne",
+			"category": "quotidien",
+			"a": {
+				"name": "Ville",
+				"origin": "Le métro, ligne 13",
+				"line": "Tout est à cinq minutes, sauf le calme.",
+				"giphyIds": [],
+				"giphyQuery": "city traffic"
+			},
+			"b": {
+				"name": "Campagne",
+				"origin": "Le bout du chemin",
+				"line": "Du calme, des vaches, et quinze kilomètres jusqu’au pain.",
+				"giphyIds": [],
+				"giphyQuery": "countryside cows"
+			}
+		},
+		{
+			"id": "quotidien-noel-halloween",
+			"category": "quotidien",
+			"a": {
+				"name": "Noël",
+				"origin": "Le 25 décembre",
+				"line": "Des cadeaux, une dinde, et l’oncle qui parle politique.",
+				"giphyIds": [],
+				"giphyQuery": "Christmas tree"
+			},
+			"b": {
+				"name": "Halloween",
+				"origin": "Le 31 octobre",
+				"line": "Des bonbons, des costumes, aucun repas de famille.",
+				"giphyIds": [],
+				"giphyQuery": "Halloween pumpkin"
+			}
+		},
+		{
+			"id": "quotidien-bureau-range-bazar",
+			"category": "quotidien",
+			"question": "Ton bureau : rangé ou en bazar ?",
+			"a": {
+				"name": "Rangé",
+				"origin": "Un tiroir par catégorie",
+				"line": "Chaque chose à sa place, et des étiquettes partout.",
+				"giphyIds": [],
+				"giphyQuery": "organized desk"
+			},
+			"b": {
+				"name": "En bazar",
+				"origin": "Une pile par semaine",
+				"line": "C’est un désordre organisé. Tu ne comprendrais pas.",
+				"giphyIds": [],
+				"giphyQuery": "messy desk"
+			}
+		},
+		{
+			"id": "quotidien-reveil-snooze",
+			"category": "quotidien",
+			"question": "Le réveil sonne : debout ou encore cinq minutes ?",
+			"a": {
+				"name": "Debout",
+				"origin": "Première sonnerie",
+				"line": "Levé à la première sonnerie. C’est suspect.",
+				"giphyIds": [],
+				"giphyQuery": "wake up alarm"
+			},
+			"b": {
+				"name": "Encore cinq minutes",
+				"origin": "Neuvième sonnerie",
+				"line": "Le bouton snooze est ton meilleur ami. Neuf fois de suite.",
+				"giphyIds": [],
+				"giphyQuery": "snooze alarm bed"
+			}
+		},
+		{
+			"id": "quotidien-cinema-canape",
+			"category": "quotidien",
+			"question": "Un film ce soir : cinéma ou canapé ?",
+			"a": {
+				"name": "Cinéma",
+				"origin": "La salle 3",
+				"line": "Grand écran, pop-corn hors de prix, voisin qui commente.",
+				"giphyIds": [],
+				"giphyQuery": "cinema popcorn"
+			},
+			"b": {
+				"name": "Canapé",
+				"origin": "Ton salon",
+				"line": "Le pyjama, la pause quand tu veux, et la sieste à la moitié.",
+				"giphyIds": [],
+				"giphyQuery": "couch potato tv"
+			}
+		},
+		{
+			"id": "quotidien-pizza-froide-rechauffee",
+			"category": "quotidien",
+			"question": "La pizza du lendemain : froide ou réchauffée ?",
+			"a": {
+				"name": "Froide",
+				"origin": "Le frigo, 8 h du matin",
+				"line": "Le petit-déjeuner des champions.",
+				"giphyIds": [],
+				"giphyQuery": "cold pizza breakfast"
+			},
+			"b": {
+				"name": "Réchauffée",
+				"origin": "La poêle, 8 h 05",
+				"line": "Croustillante, chaude, et civilisée.",
+				"giphyIds": [],
+				"giphyQuery": "hot pizza slice"
+			}
+		},
+		{
+			"id": "quotidien-organise-improvise",
+			"category": "quotidien",
+			"question": "En vacances : tout organisé ou tout improvisé ?",
+			"a": {
+				"name": "Tout organisé",
+				"origin": "Un tableur, onglet « bagages »",
+				"line": "Le planning est prêt. Le planning B aussi.",
+				"giphyIds": [],
+				"giphyQuery": "planning checklist"
+			},
+			"b": {
+				"name": "Tout improvisé",
+				"origin": "« On verra sur place »",
+				"line": "On a vu sur place. C’était bien, finalement.",
+				"giphyIds": [],
+				"giphyQuery": "road trip adventure"
+			}
+		},
+		{
+			"id": "musique-the-beatles-the-rolling-stones",
+			"category": "musique",
+			"a": {
+				"name": "The Beatles",
+				"origin": "Liverpool · 1960",
+				"line": "Quatre garçons dans le vent, et dans tous les hit-parades.",
+				"quip": "Team Beatles : tu as traversé un passage piéton pieds nus pour la photo. Ou tu y as pensé.",
+				"giphyIds": [],
+				"giphyQuery": "The Beatles"
+			},
+			"b": {
+				"name": "The Rolling Stones",
+				"origin": "Londres · 1962",
+				"line": "Toujours en tournée. Probablement pour l’éternité.",
+				"quip": "Team Rolling Stones : tu comptes faire la fête jusqu’à quatre-vingts ans. Minimum.",
+				"giphyIds": [],
+				"giphyQuery": "Rolling Stones"
+			},
+			"bothQuip": "Les deux. Le rock britannique des années 60, c’est ta religion.",
+			"noneQuip": "Ni l’un ni l’autre. Les années 60, tu les laisses à tes grands-parents."
+		},
+		{
+			"id": "musique-blur-oasis",
+			"category": "musique",
+			"a": {
+				"name": "Blur",
+				"origin": "Londres · 1988",
+				"line": "La britpop version école d’art.",
+				"quip": "Team Blur : pour toi, tout le monde devrait passer par une école d’art.",
+				"giphyIds": [],
+				"giphyQuery": "Blur band"
+			},
+			"b": {
+				"name": "Oasis",
+				"origin": "Manchester · 1991",
+				"line": "Deux frères, beaucoup de guitares, et des disputes légendaires.",
+				"quip": "Team Oasis : chez toi, les disputes de famille ont toujours un public. Et une guitare.",
+				"giphyIds": [],
+				"giphyQuery": "Oasis band Gallagher"
+			},
+			"bothQuip": "Les deux. La guerre de la britpop, tu l’as faite des deux côtés.",
+			"noneQuip": "Ni Blur ni Oasis. La britpop, c’est de l’histoire ancienne pour toi."
+		},
+		{
+			"id": "musique-vinyle-streaming",
+			"category": "musique",
+			"a": {
+				"name": "Vinyle",
+				"origin": "La platine du salon",
+				"line": "Craque un peu, coûte cher, sonne mieux. Paraît-il.",
+				"quip": "Team vinyle : tu dis « ça sonne plus chaud », et personne n’ose te contredire.",
+				"giphyIds": [],
+				"giphyQuery": "vinyl record player"
+			},
+			"b": {
+				"name": "Streaming",
+				"origin": "Ton téléphone",
+				"line": "Cent millions de titres, et tu écoutes la même playlist.",
+				"quip": "Team streaming : cent millions de titres, et tes « titres likés » tournent en boucle.",
+				"giphyIds": [],
+				"giphyQuery": "headphones music phone"
+			},
+			"bothQuip": "Les deux. Le vinyle au salon, le streaming dans le métro. Le budget souffre.",
+			"noneQuip": "Ni vinyle ni streaming. Team CD gravé, avec la pochette écrite au feutre."
+		},
+		{
+			"id": "musique-daft-punk-justice",
+			"category": "musique",
+			"a": {
+				"name": "Daft Punk",
+				"origin": "Paris · 1993",
+				"line": "Deux casques, zéro visage.",
+				"quip": "Team Daft Punk : tu as déjà gardé un casque de moto en soirée. Pour l’esthétique.",
+				"giphyIds": [],
+				"giphyQuery": "Daft Punk"
+			},
+			"b": {
+				"name": "Justice",
+				"origin": "Paris · 2003",
+				"line": "Une croix lumineuse et beaucoup de basse.",
+				"quip": "Team Justice : une croix lumineuse clignote dans ta chambre. Tes voisins s’interrogent.",
+				"giphyIds": [],
+				"giphyQuery": "Justice band electro"
+			},
+			"bothQuip": "Les deux. La French Touch, c’est ta fierté nationale.",
+			"noneQuip": "Ni Daft Punk ni Justice. L’électro française, très peu pour toi. Dommage."
+		},
+		{
+			"id": "musique-madonna-kylie-minogue",
+			"category": "musique",
+			"a": {
+				"name": "Madonna",
+				"origin": "Pop · 1982",
+				"line": "Reine de la pop, réinventée tous les dix ans.",
+				"quip": "Team Madonna : tu te réinventes tous les dix ans. Coupe de cheveux comprise.",
+				"giphyIds": [],
+				"giphyQuery": "Madonna"
+			},
+			"b": {
+				"name": "Kylie Minogue",
+				"origin": "Pop · 1987",
+				"line": "La pop australienne, paillettes illimitées.",
+				"quip": "Team Kylie : impossible de te sortir cette chanson de la tête. La la la.",
+				"giphyIds": [],
+				"giphyQuery": "Kylie Minogue"
+			},
+			"bothQuip": "Les deux. Les paillettes et la pop des années 80, ton carburant.",
+			"noneQuip": "Ni Madonna ni Kylie. Ta reine de la pop, c’est quelqu’un d’autre."
+		},
+		{
+			"id": "musique-johnny-hallyday-eddy-mitchell",
+			"category": "musique",
+			"a": {
+				"name": "Johnny Hallyday",
+				"origin": "Rock français · 1960",
+				"line": "Cinquante ans de scène, et toujours l’idole des jeunes.",
+				"quip": "Team Johnny : tu as déjà crié « Que je t’aime ! » à un concert. Ou dans ta cuisine.",
+				"giphyIds": ["3oxHQiQoUiAbB5m2pG"],
+				"giphyQuery": "Johnny Hallyday"
+			},
+			"b": {
+				"name": "Eddy Mitchell",
+				"origin": "Les Chaussettes noires · 1961",
+				"line": "Du rock, du cinéma, et une dernière séance.",
+				"quip": "Team Eddy Mitchell : la dernière séance, tu la regardes encore le mardi soir.",
+				"giphyIds": [],
+				"giphyQuery": "chanteur francais old",
+				"gifUrls": ["https://media.tenor.com/mG35Af7nn9YAAAAC/cuisine-americaine-eddy-mitchell.gif"]
+			},
+			"bothQuip": "Les deux. Le rock à la française, de la première à la dernière tournée.",
+			"noneQuip": "Ni Johnny ni Eddy. Le rock français, ce n’est pas ton rayon."
+		},
+		{
+			"id": "musique-celine-dion-mylene-farmer",
+			"category": "musique",
+			"a": {
+				"name": "Céline Dion",
+				"origin": "Québec · 1981",
+				"line": "Une voix qui a traversé le Titanic.",
+				"quip": "Team Céline : tu chantes « My Heart Will Go On » à l’avant de n’importe quel bateau.",
+				"giphyIds": [],
+				"giphyQuery": "Celine Dion"
+			},
+			"b": {
+				"name": "Mylène Farmer",
+				"origin": "France · 1984",
+				"line": "Rousse, mystérieuse, et des clips qui font peur.",
+				"quip": "Team Mylène Farmer : tu as un poster dans ta chambre, et un peu peur de ses clips.",
+				"giphyIds": [],
+				"giphyQuery": "Mylene Farmer"
+			},
+			"bothQuip": "Les deux. Ta playlist alterne la puissance et le mystère.",
+			"noneQuip": "Ni Céline ni Mylène. Les grandes voix des années 90, ce n’est pas pour toi."
+		},
+		{
+			"id": "musique-metal-rap",
+			"category": "musique",
+			"a": {
+				"name": "Metal",
+				"origin": "Les années 1970",
+				"line": "Des cheveux longs et des guitares saturées.",
+				"quip": "Team metal : tu headbangues même sur la musique d’attente du service client.",
+				"giphyIds": [],
+				"giphyQuery": "heavy metal headbang"
+			},
+			"b": {
+				"name": "Rap",
+				"origin": "Le Bronx · années 1970",
+				"line": "Des rimes, des beats et des punchlines.",
+				"quip": "Team rap : tu glisses des punchlines dans toutes tes phrases. Même au travail.",
+				"giphyIds": [],
+				"giphyQuery": "rap hip hop"
+			},
+			"bothQuip": "Les deux. Ton mélange préféré, c’est le nu metal. On ne juge pas.",
+			"noneQuip": "Ni metal ni rap. Team variété française, et c’est très bien."
+		},
+		{
+			"id": "musique-rock-electro",
+			"category": "musique",
+			"a": {
+				"name": "Rock",
+				"origin": "Trois accords",
+				"line": "Trois accords et la vérité.",
+				"quip": "Team rock : trois accords, une guitare, et tout le monde chante. Ton rêve.",
+				"giphyIds": [],
+				"giphyQuery": "rock guitar"
+			},
+			"b": {
+				"name": "Électro",
+				"origin": "Un ordinateur portable",
+				"line": "Un ordinateur, un casque, et des milliers de bras levés.",
+				"quip": "Team électro : tu as levé les bras à 4 h du matin devant un ordinateur portable. Et c’était magique.",
+				"giphyIds": [],
+				"giphyQuery": "electronic music dj"
+			},
+			"bothQuip": "Les deux. Le rock électronique existe, et tu le sais.",
+			"noneQuip": "Ni rock ni électro. Team chanson à texte, et un tabouret."
+		},
+		{
+			"id": "musique-ntm-iam",
+			"category": "musique",
+			"a": {
+				"name": "NTM",
+				"origin": "Saint-Denis · 1988",
+				"line": "Le 93, et le volume à fond.",
+				"quip": "Team NTM : le volume à fond. Et les voisins aussi.",
+				"giphyIds": [],
+				"giphyQuery": "Supreme NTM"
+			},
+			"b": {
+				"name": "IAM",
+				"origin": "Marseille · 1989",
+				"line": "Marseille, l’Égypte ancienne et des textes ciselés.",
+				"quip": "Team IAM : tu connais « Je danse le Mia » par cœur, chorégraphie comprise.",
+				"giphyIds": [],
+				"giphyQuery": "IAM rap Marseille"
+			},
+			"bothQuip": "Les deux. Le rap français des années 90, c’est ta bible.",
+			"noneQuip": "Ni NTM ni IAM. Le rap des années 90 ne te parle pas. Le flow, si ?"
+		},
+		{
+			"id": "musique-mozart-beethoven",
+			"category": "musique",
+			"a": {
+				"name": "Mozart",
+				"origin": "Salzbourg · 1756",
+				"line": "Compose à cinq ans. Toi, tu apprenais à lacer tes chaussures.",
+				"quip": "Team Mozart : à cinq ans, tu apprenais à faire tes lacets. Lui composait. Ne compare pas.",
+				"giphyIds": [],
+				"giphyQuery": "Mozart"
+			},
+			"b": {
+				"name": "Beethoven",
+				"origin": "Bonn · 1770",
+				"line": "Compose sourd, et ça reste génial.",
+				"quip": "Team Beethoven : tu fredonnes « pom pom pom pooom » dès qu’il se passe un truc dramatique.",
+				"giphyIds": [],
+				"giphyQuery": "Beethoven"
+			},
+			"bothQuip": "Les deux. Le classique en fond pour travailler. Ça marche, paraît-il.",
+			"noneQuip": "Ni Mozart ni Beethoven. Team Vivaldi : les quatre saisons en une."
+		},
+		{
+			"id": "musique-guitare-piano",
+			"category": "musique",
+			"a": {
+				"name": "Guitare",
+				"origin": "Le feu de camp",
+				"line": "Trois accords, une soirée entière.",
+				"quip": "Team guitare : tu connais trois accords, et tu les joues à chaque feu de camp. On t’aime.",
+				"giphyIds": [],
+				"giphyQuery": "acoustic guitar campfire"
+			},
+			"b": {
+				"name": "Piano",
+				"origin": "Le salon de ta grand-mère",
+				"line": "Quatre-vingt-huit touches et beaucoup de gammes.",
+				"quip": "Team piano : tu as appris « La Lettre à Élise ». Surtout le début.",
+				"giphyIds": [],
+				"giphyQuery": "piano playing"
+			},
+			"bothQuip": "Les deux. Tu joues un peu de tout, et rien jusqu’au bout.",
+			"noneQuip": "Ni guitare ni piano. Team flûte à bec, souvenir du collège."
+		},
+		{
+			"id": "musique-eurovision-grammy-awards",
+			"category": "musique",
+			"a": {
+				"name": "Eurovision",
+				"origin": "Depuis 1956",
+				"line": "Des costumes, des paillettes, et « douze points ».",
+				"quip": "Team Eurovision : « douze points » est ta réponse à tout.",
+				"giphyIds": [],
+				"giphyQuery": "Eurovision"
+			},
+			"b": {
+				"name": "Grammy Awards",
+				"origin": "Depuis 1959",
+				"line": "Des robes, des discours, et des oubliés.",
+				"quip": "Team Grammy : tu regardes la cérémonie pour les robes et les discours en larmes.",
+				"giphyIds": [],
+				"giphyQuery": "Grammy Awards"
+			},
+			"bothQuip": "Les deux. Tu adores les remises de prix. Surtout les têtes de ceux qui perdent.",
+			"noneQuip": "Ni l’un ni l’autre. Les cérémonies de trois heures, très peu pour toi."
+		},
+		{
+			"id": "musique-karaoke-blind-test",
+			"category": "musique",
+			"a": {
+				"name": "Karaoké",
+				"origin": "Le bar du coin",
+				"line": "Tu chantes faux, mais avec conviction.",
+				"quip": "Team karaoké : tu chantes faux, mais avec une conviction qui force le respect.",
+				"giphyIds": [],
+				"giphyQuery": "karaoke"
+			},
+			"b": {
+				"name": "Blind test",
+				"origin": "La soirée entre amis",
+				"line": "Tu reconnais tout en deux notes. Tu es insupportable.",
+				"quip": "Team blind test : tu trouves en deux notes, et tout le monde te déteste un peu.",
+				"giphyIds": [],
+				"giphyQuery": "quiz buzzer"
+			},
+			"bothQuip": "Les deux. Tu es la vedette de toutes les soirées. Les autres rentrent tôt.",
+			"noneQuip": "Ni karaoké ni blind test. Toi, tu restes au buffet."
+		},
+		{
+			"id": "musique-concert-festival",
+			"category": "musique",
+			"a": {
+				"name": "Concert",
+				"origin": "La salle de spectacle",
+				"line": "Un artiste, une salle, et des acouphènes.",
+				"quip": "Team concert : une salle, un artiste, et des acouphènes pour trois jours.",
+				"giphyIds": [],
+				"giphyQuery": "concert crowd"
+			},
+			"b": {
+				"name": "Festival",
+				"origin": "Un champ, trois jours",
+				"line": "Trois jours, de la boue, et une tente inondée.",
+				"quip": "Team festival : tes bottes en caoutchouc ont encore de la boue de 2019.",
+				"giphyIds": [],
+				"giphyQuery": "music festival mud"
+			},
+			"bothQuip": "Les deux. Ton été est un calendrier de billets.",
+			"noneQuip": "Ni concert ni festival. La musique, tu la préfères depuis ton canapé. Sage."
+		},
+		{
+			"id": "musique-elvis-presley-frank-sinatra",
+			"category": "musique",
+			"a": {
+				"name": "Elvis Presley",
+				"origin": "Memphis · 1954",
+				"line": "Le King, les déhanchés, les rouflaquettes.",
+				"quip": "Team Elvis : tu as essayé les déhanchés devant ton miroir. Ton dos s’en souvient.",
+				"giphyIds": [],
+				"giphyQuery": "Elvis Presley"
+			},
+			"b": {
+				"name": "Frank Sinatra",
+				"origin": "New York · années 1940",
+				"line": "La voix, le smoking, et la classe.",
+				"quip": "Team Sinatra : tu fais tout à ta façon. My way, toujours.",
+				"giphyIds": [],
+				"giphyQuery": "Frank Sinatra"
+			},
+			"bothQuip": "Les deux. Le King et « The Voice » : ta soirée idéale en noir et blanc.",
+			"noneQuip": "Ni Elvis ni Sinatra. Les crooners, très peu pour toi."
+		},
+		{
+			"id": "musique-abba-bee-gees",
+			"category": "musique",
+			"a": {
+				"name": "ABBA",
+				"origin": "Suède · 1972",
+				"line": "Des paillettes, des pattes d’eph, et l’Eurovision 1974.",
+				"quip": "Team ABBA : « Dancing Queen » démarre, et tu es sur la piste en deux secondes.",
+				"giphyIds": [],
+				"giphyQuery": "ABBA"
+			},
+			"b": {
+				"name": "Bee Gees",
+				"origin": "Australie · 1958",
+				"line": "Trois frères, des voix aiguës, et la fièvre du samedi soir.",
+				"quip": "Team Bee Gees : tu chantes en voix de tête dans la voiture. Ah, ha, ha, ha, stayin’ alive.",
+				"giphyIds": [],
+				"giphyQuery": "Bee Gees"
+			},
+			"bothQuip": "Les deux. Les années 70, les pattes d’eph, et la boule à facettes.",
+			"noneQuip": "Ni ABBA ni les Bee Gees. Le disco ne t’a jamais fait bouger."
+		},
+		{
+			"id": "musique-nirvana-pearl-jam",
+			"category": "musique",
+			"a": {
+				"name": "Nirvana",
+				"origin": "Seattle · 1987",
+				"line": "Un pull rayé, des guitares saturées, une génération.",
+				"quip": "Team Nirvana : tu as eu un pull rayé trop grand. Peut-être encore aujourd’hui.",
+				"giphyIds": [],
+				"giphyQuery": "Nirvana band"
+			},
+			"b": {
+				"name": "Pearl Jam",
+				"origin": "Seattle · 1990",
+				"line": "Seattle aussi, mais avec encore plus de cheveux.",
+				"quip": "Team Pearl Jam : tu dis que Pearl Jam était meilleur, et tu le défends depuis 1991.",
+				"giphyIds": [],
+				"giphyQuery": "Pearl Jam"
+			},
+			"bothQuip": "Les deux. Seattle, la pluie, et le grunge : ton adolescence, en somme.",
+			"noneQuip": "Ni Nirvana ni Pearl Jam. Le grunge, tu préfères qu’il reste dans les années 90."
+		},
+		{
+			"id": "musique-queen-led-zeppelin",
+			"category": "musique",
+			"a": {
+				"name": "Queen",
+				"origin": "Londres · 1970",
+				"line": "Un stade entier qui tape des mains en rythme.",
+				"quip": "Team Queen : deux coups dans les mains, un coup sur la table. Partout où tu vas.",
+				"giphyIds": [],
+				"giphyQuery": "Queen band"
+			},
+			"b": {
+				"name": "Led Zeppelin",
+				"origin": "Londres · 1968",
+				"line": "Un dirigeable, des riffs, et un escalier vers le ciel.",
+				"quip": "Team Led Zeppelin : tu as joué l’intro de « Stairway to Heaven » au magasin de guitares. Tu y es interdit de séjour.",
+				"giphyIds": [],
+				"giphyQuery": "Led Zeppelin"
+			},
+			"bothQuip": "Les deux. Le rock anglais des années 70, rien de moins.",
+			"noneQuip": "Ni Queen ni Led Zeppelin. Le rock de stade, très peu pour toi."
+		},
+		{
+			"id": "musique-spotify-deezer",
+			"category": "musique",
+			"a": {
+				"name": "Spotify",
+				"origin": "Suède · 2008",
+				"line": "Le récap de fin d’année qui te juge.",
+				"quip": "Team Spotify : ton récap de fin d’année t’a fait honte. Et tu l’as partagé quand même.",
+				"giphyIds": [],
+				"giphyQuery": "Spotify"
+			},
+			"b": {
+				"name": "Deezer",
+				"origin": "Paris · 2007",
+				"line": "Le streaming à la française, cocorico.",
+				"quip": "Team Deezer : tu soutiens la tech française. Cocorico.",
+				"giphyIds": [],
+				"giphyQuery": "music streaming app"
+			},
+			"bothQuip": "Les deux abonnements. Tu payes deux fois pour les mêmes chansons.",
+			"noneQuip": "Ni Spotify ni Deezer. Tu écoutes la radio, comme en 1995."
+		},
+		{
+			"id": "musique-casque-ecouteurs",
+			"category": "musique",
+			"a": {
+				"name": "Casque",
+				"origin": "Sur la tête",
+				"line": "Isolé du monde, et les cheveux écrasés.",
+				"quip": "Team casque : coupé du monde, avec une coiffure en forme de serre-tête.",
+				"giphyIds": [],
+				"giphyQuery": "headphones"
+			},
+			"b": {
+				"name": "Écouteurs",
+				"origin": "Dans les oreilles",
+				"line": "Un dans chaque oreille, puis un seul, puis zéro.",
+				"quip": "Team écouteurs : tu en as perdu au moins un. Dans la rue, ou dans la machine à laver.",
+				"giphyIds": [],
+				"giphyQuery": "earbuds"
+			},
+			"bothQuip": "Les deux. Le casque à la maison, les écouteurs dehors, et zéro conversation.",
+			"noneQuip": "Ni casque ni écouteurs. Tu mets ta musique sur haut-parleur dans le bus. C’est donc toi."
+		},
+		{
+			"id": "musique-air-guitar-air-batterie",
+			"category": "musique",
+			"a": {
+				"name": "Air guitar",
+				"origin": "Ta chambre",
+				"line": "Une guitare invisible et un talent certain.",
+				"quip": "Team air guitar : ta guitare invisible a fait des concerts complets dans ta chambre.",
+				"giphyIds": [],
+				"giphyQuery": "air guitar"
+			},
+			"b": {
+				"name": "Air batterie",
+				"origin": "Le volant de ta voiture",
+				"line": "Tu frappes l’air avec la précision d’un métronome.",
+				"quip": "Team air batterie : ton volant connaît tous les solos de Phil Collins.",
+				"giphyIds": [],
+				"giphyQuery": "air drums"
+			},
+			"bothQuip": "Les deux. Un groupe complet en une seule personne.",
+			"noneQuip": "Ni l’un ni l’autre. Tu écoutes la musique sans bouger. On s’inquiète un peu."
+		},
+		{
+			"id": "musique-shakira-beyonce",
+			"category": "musique",
+			"a": {
+				"name": "Shakira",
+				"origin": "Colombie · 1991",
+				"line": "Les hanches ne mentent pas.",
+				"quip": "Team Shakira : tes hanches ne mentent pas. Ton dos non plus, le lendemain.",
+				"giphyIds": [],
+				"giphyQuery": "Shakira"
+			},
+			"b": {
+				"name": "Beyoncé",
+				"origin": "Houston · 1997",
+				"line": "Une armée de fans et des chorégraphies millimétrées.",
+				"quip": "Team Beyoncé : tu as appris la chorégraphie de « Single Ladies ». En entier.",
+				"giphyIds": [],
+				"giphyQuery": "Beyonce"
+			},
+			"bothQuip": "Les deux. Ta playlist de soirée commence fort.",
+			"noneQuip": "Ni Shakira ni Beyoncé. Ta diva, c’est quelqu’un d’autre."
+		},
+		{
+			"id": "musique-britney-spears-christina-aguilera",
+			"category": "musique",
+			"a": {
+				"name": "Britney Spears",
+				"origin": "Le Mickey Mouse Club · 1993",
+				"line": "Une écolière, un serpent, et des tubes.",
+				"quip": "Team Britney : « Oops!… I Did It Again ». Tu le dis après chaque bêtise.",
+				"giphyIds": [],
+				"giphyQuery": "Britney Spears"
+			},
+			"b": {
+				"name": "Christina Aguilera",
+				"origin": "Le Mickey Mouse Club · 1993",
+				"line": "Un génie dans une bouteille, et une voix énorme.",
+				"quip": "Team Christina : tu chantes « Genie in a Bottle » avec beaucoup trop de vibrato.",
+				"giphyIds": [],
+				"giphyQuery": "Christina Aguilera"
+			},
+			"bothQuip": "Les deux. Le Mickey Mouse Club t’a donné tes deux idoles.",
+			"noneQuip": "Ni Britney ni Christina. La pop des années 2000, ce n’était pas ton époque."
+		},
+		{
+			"id": "musique-sex-pistols-the-clash",
+			"category": "musique",
+			"a": {
+				"name": "Sex Pistols",
+				"origin": "Londres · 1975",
+				"line": "Trois ans de carrière, tout le punk dedans.",
+				"quip": "Team Sex Pistols : trois ans de carrière, et tu en parles depuis cinquante ans.",
+				"giphyIds": [],
+				"giphyQuery": "Sex Pistols"
+			},
+			"b": {
+				"name": "The Clash",
+				"origin": "Londres · 1976",
+				"line": "Le punk qui avait des choses à dire.",
+				"quip": "Team The Clash : « Should I stay or should I go ? » Ta question à chaque fin de soirée.",
+				"giphyIds": [],
+				"giphyQuery": "The Clash band"
+			},
+			"bothQuip": "Les deux. Ton blouson en cuir est couvert d’épingles à nourrice.",
+			"noneQuip": "Ni l’un ni l’autre. Le punk, trop bruyant pour toi."
+		},
+		{
+			"id": "musique-bob-marley-bob-dylan",
+			"category": "musique",
+			"a": {
+				"name": "Bob Marley",
+				"origin": "Jamaïque · 1963",
+				"line": "Le reggae, le soleil, et beaucoup de sérénité.",
+				"quip": "Team Bob Marley : rien ne t’inquiète. Every little thing gonna be all right.",
+				"giphyIds": [],
+				"giphyQuery": "Bob Marley"
+			},
+			"b": {
+				"name": "Bob Dylan",
+				"origin": "New York · 1961",
+				"line": "Un harmonica, une voix nasillarde, un prix Nobel.",
+				"quip": "Team Bob Dylan : tu joues de l’harmonica. Mal. Mais avec un prix Nobel dans le cœur.",
+				"giphyIds": [],
+				"giphyQuery": "Bob Dylan"
+			},
+			"bothQuip": "Les deux Bob. Le reggae et le folk, la paix et les poèmes.",
+			"noneQuip": "Ni l’un ni l’autre. Team Bob l’éponge, la vraie star."
+		},
+		{
+			"id": "musique-taylor-swift-adele",
+			"category": "musique",
+			"a": {
+				"name": "Taylor Swift",
+				"origin": "Nashville · 2006",
+				"line": "Un album par ère, et des fans qui décodent tout.",
+				"quip": "Team Taylor Swift : tu as décodé des messages cachés dans un album. Et tu avais raison.",
+				"giphyIds": [],
+				"giphyQuery": "Taylor Swift"
+			},
+			"b": {
+				"name": "Adele",
+				"origin": "Londres · 2008",
+				"line": "Une voix, un piano, et des mouchoirs.",
+				"quip": "Team Adele : tu chantes « Someone Like You » en pleurant dans la voiture. Au feu rouge.",
+				"giphyIds": [],
+				"giphyQuery": "Adele"
+			},
+			"bothQuip": "Les deux. Les ruptures en chanson, c’est ta spécialité.",
+			"noneQuip": "Ni Taylor ni Adele. Les chansons de rupture ne te font rien. Cœur de pierre."
+		},
+		{
+			"id": "musique-stromae-angele",
+			"category": "musique",
+			"a": {
+				"name": "Stromae",
+				"origin": "Bruxelles · 2009",
+				"line": "Alors on danse. Et après, on réfléchit.",
+				"quip": "Team Stromae : alors on danse. Puis on réfléchit. Puis on danse encore.",
+				"giphyIds": [],
+				"giphyQuery": "Stromae"
+			},
+			"b": {
+				"name": "Angèle",
+				"origin": "Bruxelles · 2018",
+				"line": "La pop belge, avec un sourire en coin.",
+				"quip": "Team Angèle : tu chantes en faisant la vaisselle, avec un sourire en coin.",
+				"giphyIds": [],
+				"giphyQuery": "Angele singer"
+			},
+			"bothQuip": "Les deux. La Belgique t’a tout donné. Frites comprises.",
+			"noneQuip": "Ni Stromae ni Angèle. La pop belge, tu n’as pas encore découvert. Il est temps."
+		},
+		{
+			"id": "musique-serge-gainsbourg-georges-brassens",
+			"category": "musique",
+			"a": {
+				"name": "Serge Gainsbourg",
+				"origin": "Paris · 1958",
+				"line": "Une Gitane, un piano, et de la provocation.",
+				"quip": "Team Gainsbourg : tu as déjà lâché une provocation juste pour voir la réaction. Ça a marché.",
+				"giphyIds": [],
+				"giphyQuery": "Serge Gainsbourg"
+			},
+			"b": {
+				"name": "Georges Brassens",
+				"origin": "Sète · 1952",
+				"line": "Une moustache, une guitare, une pipe.",
+				"quip": "Team Brassens : tu as une moustache, ou tu en rêves. Et une pipe pour réfléchir.",
+				"giphyIds": [],
+				"giphyQuery": "Georges Brassens"
+			},
+			"bothQuip": "Les deux. La chanson française, avec ou sans fumée.",
+			"noneQuip": "Ni Gainsbourg ni Brassens. La chanson à texte, tu préfères danser."
+		},
+		{
+			"id": "musique-edith-piaf-dalida",
+			"category": "musique",
+			"a": {
+				"name": "Édith Piaf",
+				"origin": "Paris · 1935",
+				"line": "Un mètre quarante-sept et une voix immense.",
+				"quip": "Team Piaf : tu ne regrettes rien. Rien de rien.",
+				"giphyIds": [],
+				"giphyQuery": "Edith Piaf"
+			},
+			"b": {
+				"name": "Dalida",
+				"origin": "Paris · 1956",
+				"line": "Des paillettes, des tubes, et « Paroles, paroles ».",
+				"quip": "Team Dalida : « Paroles, paroles, paroles. » Tu le dis en réunion.",
+				"giphyIds": [],
+				"giphyQuery": "Dalida"
+			},
+			"bothQuip": "Les deux. Les grandes voix françaises, tu les chantes en faisant le ménage.",
+			"noneQuip": "Ni Piaf ni Dalida. Les grandes dames de la chanson, tu les laisses à tes grands-parents."
+		},
+		{
+			"id": "musique-musique-classique-jazz",
+			"category": "musique",
+			"a": {
+				"name": "Musique classique",
+				"origin": "La salle de concert",
+				"line": "On ne tousse pas entre les mouvements.",
+				"quip": "Team classique : tu ne tousses jamais entre les mouvements. Discipline de fer.",
+				"giphyIds": [],
+				"giphyQuery": "orchestra conductor"
+			},
+			"b": {
+				"name": "Jazz",
+				"origin": "Le club enfumé",
+				"line": "On improvise, et c’est fait exprès.",
+				"quip": "Team jazz : tu dis « on improvise », et tu appelles ça un plan.",
+				"giphyIds": [],
+				"giphyQuery": "jazz saxophone"
+			},
+			"bothQuip": "Les deux. La salle de concert le samedi, le club enfumé le dimanche.",
+			"noneQuip": "Ni classique ni jazz. La musique sans paroles, ça t’endort."
+		},
+		{
+			"id": "musique-radio-playlist",
+			"category": "musique",
+			"a": {
+				"name": "Radio",
+				"origin": "L’autoradio",
+				"line": "Des pubs, des infos, et parfois ta chanson préférée.",
+				"quip": "Team radio : trois heures de pub pour entendre ta chanson préférée. La patience.",
+				"giphyIds": [],
+				"giphyQuery": "radio vintage"
+			},
+			"b": {
+				"name": "Playlist",
+				"origin": "Ton téléphone",
+				"line": "Que tes chansons préférées, et aucune surprise.",
+				"quip": "Team playlist : tu en as une pour chaque humeur, chaque saison et chaque trajet.",
+				"giphyIds": [],
+				"giphyQuery": "playlist music"
+			},
+			"bothQuip": "Les deux. La radio en voiture, ta playlist dans le métro.",
+			"noneQuip": "Ni radio ni playlist. Tu chantes toi-même, tout le temps. Tes proches sont fatigués."
+		},
+		{
+			"id": "musique-air-phoenix",
+			"category": "musique",
+			"a": {
+				"name": "Air",
+				"origin": "Versailles · 1995",
+				"line": "Une musique pour voyager en apesanteur.",
+				"quip": "Team Air : tu écoutes « Moon Safari » en regardant le plafond. C’est très bien.",
+				"giphyIds": [],
+				"giphyQuery": "Air french band"
+			},
+			"b": {
+				"name": "Phoenix",
+				"origin": "Versailles · 1995",
+				"line": "Versailles aussi, mais en guitares.",
+				"quip": "Team Phoenix : Versailles, mais en guitares. La classe à la française.",
+				"giphyIds": [],
+				"giphyQuery": "Phoenix band"
+			},
+			"bothQuip": "Les deux. Versailles a produit autre chose que des rois, et tu le sais.",
+			"noneQuip": "Ni Air ni Phoenix. Tu ne connais pas ? Ça s’écoute très bien."
+		},
+		{
+			"id": "musique-indochine-telephone",
+			"category": "musique",
+			"a": {
+				"name": "Indochine",
+				"origin": "Paris · 1981",
+				"line": "Quarante ans de concerts et toujours en noir.",
+				"quip": "Team Indochine : tu as un t-shirt noir pour chaque concert depuis 1985.",
+				"giphyIds": [],
+				"giphyQuery": "Indochine band"
+			},
+			"b": {
+				"name": "Téléphone",
+				"origin": "Paris · 1976",
+				"line": "Quatre rockeurs, et un téléphone qui sonne.",
+				"quip": "Team Téléphone : « Un autre monde », tu le chantes à chaque fin de soirée.",
+				"giphyIds": [],
+				"giphyQuery": "telephone ringing vintage"
+			},
+			"bothQuip": "Les deux. Le rock français des années 80 : ta jeunesse, ou celle de tes parents.",
+			"noneQuip": "Ni Indochine ni Téléphone. Le rock français, tu le connais mal. Écoute-les."
+		},
+		{
+			"id": "musique-lady-gaga-katy-perry",
+			"category": "musique",
+			"a": {
+				"name": "Lady Gaga",
+				"origin": "New York · 2008",
+				"line": "Une robe en viande, et une voix énorme.",
+				"quip": "Team Lady Gaga : tu as un jour porté une tenue que personne n’a comprise. Respect.",
+				"giphyIds": [],
+				"giphyQuery": "Lady Gaga"
+			},
+			"b": {
+				"name": "Katy Perry",
+				"origin": "Californie · 2008",
+				"line": "Des bonbons, des feux d’artifice, et un requin qui danse.",
+				"quip": "Team Katy Perry : il y a un requin gonflable dans ton placard. Pour danser.",
+				"giphyIds": [],
+				"giphyQuery": "Katy Perry"
+			},
+			"bothQuip": "Les deux. Des tenues extravagantes et des tubes : ta formule magique.",
+			"noneQuip": "Ni Gaga ni Katy. La pop des années 2010, très peu pour toi."
+		},
+		{
+			"id": "musique-eminem-snoop-dogg",
+			"category": "musique",
+			"a": {
+				"name": "Eminem",
+				"origin": "Detroit · 1996",
+				"line": "Débite plus vite que son ombre.",
+				"quip": "Team Eminem : tu rappes « Rap God » dans ta voiture. Tu tiens dix secondes.",
+				"giphyIds": [],
+				"giphyQuery": "Eminem"
+			},
+			"b": {
+				"name": "Snoop Dogg",
+				"origin": "Long Beach · 1992",
+				"line": "Calme, cool, et une émission de cuisine.",
+				"quip": "Team Snoop Dogg : calme, cool, et fin cuisinier. Tu es la personne zen du groupe.",
+				"giphyIds": [],
+				"giphyQuery": "Snoop Dogg"
+			},
+			"bothQuip": "Les deux. Le rap américain des années 2000 te ramène direct au lycée.",
+			"noneQuip": "Ni Eminem ni Snoop. Le rap américain, tu préfères le français. C’est noté."
+		},
+		{
+			"id": "musique-gorillaz-alvin-et-les-chipmunks",
+			"category": "musique",
+			"a": {
+				"name": "Gorillaz",
+				"origin": "Damon Albarn · 1998",
+				"line": "Un groupe de dessin animé, avec de vrais tubes.",
+				"quip": "Team Gorillaz : tu préfères les groupes de dessin animé. Ils ne font jamais de scandale.",
+				"giphyIds": [],
+				"giphyQuery": "Gorillaz"
+			},
+			"b": {
+				"name": "Alvin et les Chipmunks",
+				"origin": "États-Unis · 1958",
+				"line": "Trois écureuils, et des voix en accéléré.",
+				"quip": "Team Chipmunks : tu as passé une cassette en accéléré pour chanter comme eux.",
+				"giphyIds": [],
+				"giphyQuery": "Alvin and the Chipmunks"
+			},
+			"bothQuip": "Les deux. Les groupes dessinés, c’est ton genre. Les vrais musiciens s’interrogent.",
+			"noneQuip": "Ni l’un ni l’autre. Les groupes qui n’existent pas, très peu pour toi."
+		},
+		{
+			"id": "musique-chanter-sous-la-douche-chanter-en-voiture",
+			"category": "musique",
+			"a": {
+				"name": "Chanter sous la douche",
+				"origin": "La salle de bains",
+				"line": "Acoustique parfaite, public absent.",
+				"quip": "Team douche : acoustique parfaite, aucun public. Tu es une star.",
+				"giphyIds": [],
+				"giphyQuery": "singing in the shower"
+			},
+			"b": {
+				"name": "Chanter en voiture",
+				"origin": "Le périphérique",
+				"line": "Concert privé, jusqu’au feu rouge.",
+				"quip": "Team voiture : au feu rouge, la voiture d’à côté a vu tout ton concert.",
+				"giphyIds": [],
+				"giphyQuery": "singing in the car"
+			},
+			"bothQuip": "Les deux. La douche le matin, les bouchons le soir : ta tournée quotidienne.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne chantes jamais ? Même pas un peu ? On n’y croit pas."
+		},
+		{
+			"id": "musique-batterie-basse",
+			"category": "musique",
+			"a": {
+				"name": "Batterie",
+				"origin": "Le garage",
+				"line": "Tape fort, compte jusqu’à quatre.",
+				"quip": "Team batterie : tu tapes sur la table avec des stylos pendant les réunions.",
+				"giphyIds": [],
+				"giphyQuery": "drummer"
+			},
+			"b": {
+				"name": "Basse",
+				"origin": "Le fond de la scène",
+				"line": "Personne ne l’entend, tout le monde la sent.",
+				"quip": "Team basse : personne ne t’entend, tout le monde te sent. Le pouvoir discret.",
+				"giphyIds": [],
+				"giphyQuery": "bass guitar"
+			},
+			"bothQuip": "Les deux. La section rythmique, c’est toi. Le groupe repose sur tes épaules.",
+			"noneQuip": "Ni batterie ni basse. Team chant, au centre de la scène."
+		},
+		{
+			"id": "musique-kiss-ac-dc",
+			"category": "musique",
+			"a": {
+				"name": "Kiss",
+				"origin": "New York · 1973",
+				"line": "Du maquillage, des flammes, et une très longue langue.",
+				"quip": "Team Kiss : tu as essayé le maquillage noir et blanc. Ta tante a eu peur.",
+				"giphyIds": [],
+				"giphyQuery": "Kiss band"
+			},
+			"b": {
+				"name": "AC/DC",
+				"origin": "Sydney · 1973",
+				"line": "Un uniforme d’écolier et des riffs éternels.",
+				"quip": "Team AC/DC : tu as fait le pas de canard d’Angus Young dans le salon.",
+				"giphyIds": [],
+				"giphyQuery": "ACDC Angus Young"
+			},
+			"bothQuip": "Les deux. Le hard rock de 1973, ton millésime préféré.",
+			"noneQuip": "Ni Kiss ni AC/DC. Le hard rock, trop fort pour toi."
+		},
+		{
+			"id": "musique-metallica-iron-maiden",
+			"category": "musique",
+			"a": {
+				"name": "Metallica",
+				"origin": "Los Angeles · 1981",
+				"line": "Le metal, version stade.",
+				"quip": "Team Metallica : tu as appris « Nothing Else Matters » à la guitare. Le début, en tout cas.",
+				"giphyIds": [],
+				"giphyQuery": "Metallica"
+			},
+			"b": {
+				"name": "Iron Maiden",
+				"origin": "Londres · 1975",
+				"line": "Une mascotte zombie et des solos interminables.",
+				"quip": "Team Iron Maiden : il y a Eddie sur ton t-shirt. Il te regarde dormir.",
+				"giphyIds": [],
+				"giphyQuery": "Iron Maiden Eddie"
+			},
+			"bothQuip": "Les deux. Ton casque est réglé sur « fort » depuis 1990.",
+			"noneQuip": "Ni Metallica ni Iron Maiden. Le metal, c’est non. On l’entend d’ici."
+		},
+		{
+			"id": "musique-rihanna-dua-lipa",
+			"category": "musique",
+			"a": {
+				"name": "Rihanna",
+				"origin": "Barbade · 2005",
+				"line": "Sous son parapluie, à la tête d’un empire.",
+				"quip": "Team Rihanna : dès qu’il pleut, tu sors ton parapluie en chantant « ella, ella, eh, eh ».",
+				"giphyIds": [],
+				"giphyQuery": "Rihanna"
+			},
+			"b": {
+				"name": "Dua Lipa",
+				"origin": "Londres · 2015",
+				"line": "De nouvelles règles, et des tubes disco.",
+				"quip": "Team Dua Lipa : tu as des règles. Trois règles. Et tu les respectes.",
+				"giphyIds": [],
+				"giphyQuery": "Dua Lipa"
+			},
+			"bothQuip": "Les deux. Ta playlist de soirée est imbattable.",
+			"noneQuip": "Ni Rihanna ni Dua Lipa. La pop qui fait danser, tu la regardes de loin."
+		},
+		{
+			"id": "musique-billie-eilish-olivia-rodrigo",
+			"category": "musique",
+			"a": {
+				"name": "Billie Eilish",
+				"origin": "Los Angeles · 2015",
+				"line": "Chuchote, et le monde entier écoute.",
+				"quip": "Team Billie Eilish : tu chuchotes, et tout le monde se tait pour t’écouter.",
+				"giphyIds": [],
+				"giphyQuery": "Billie Eilish"
+			},
+			"b": {
+				"name": "Olivia Rodrigo",
+				"origin": "Californie · 2021",
+				"line": "Un permis de conduire, et un cœur brisé en chanson.",
+				"quip": "Team Olivia Rodrigo : le permis et le chagrin d’amour, la même semaine.",
+				"giphyIds": [],
+				"giphyQuery": "Olivia Rodrigo"
+			},
+			"bothQuip": "Les deux. Les chansons tristes de ta génération, tu les connais toutes.",
+			"noneQuip": "Ni Billie ni Olivia. La pop d’ados, tu as passé l’âge. Ou pas encore."
+		},
+		{
+			"id": "musique-ed-sheeran-bruno-mars",
+			"category": "musique",
+			"a": {
+				"name": "Ed Sheeran",
+				"origin": "Royaume-Uni · 2011",
+				"line": "Une guitare, une pédale de boucle, et des stades.",
+				"quip": "Team Ed Sheeran : une guitare, une pédale de boucle, et tu remplis un stade. Dans ta tête.",
+				"giphyIds": [],
+				"giphyQuery": "Ed Sheeran"
+			},
+			"b": {
+				"name": "Bruno Mars",
+				"origin": "Hawaï · 2010",
+				"line": "Le groove, le chapeau, et la danse.",
+				"quip": "Team Bruno Mars : tu as un chapeau, et tu sais danser avec.",
+				"giphyIds": [],
+				"giphyQuery": "Bruno Mars"
+			},
+			"bothQuip": "Les deux. Les mariages où tu vas ont toujours la même playlist. Et elle marche.",
+			"noneQuip": "Ni Ed ni Bruno. Les chansons de mariage, très peu pour toi."
+		},
+		{
+			"id": "musique-musique-d-ascenseur-musique-d-attente",
+			"category": "musique",
+			"a": {
+				"name": "Musique d’ascenseur",
+				"origin": "L’ascenseur",
+				"line": "Apaisante, et pourtant on veut sortir.",
+				"quip": "Team musique d’ascenseur : tu la fredonnes encore trois étages plus tard.",
+				"giphyIds": [],
+				"giphyQuery": "elevator music"
+			},
+			"b": {
+				"name": "Musique d’attente",
+				"origin": "Le service client",
+				"line": "« Votre appel est important pour nous. » Depuis quarante minutes.",
+				"quip": "Team musique d’attente : celle de ta banque, tu la connais par cœur. Quarante minutes, ça aide.",
+				"giphyIds": [],
+				"giphyQuery": "on hold phone waiting"
+			},
+			"bothQuip": "Les deux. Tu trouves ces musiques reposantes. Tu es une personne très patiente.",
+			"noneQuip": "Ni l’une ni l’autre. Le silence, c’est mieux. Surtout quand on attend."
+		},
+		{
+			"id": "musique-tube-de-l-ete-chanson-de-noel",
+			"category": "musique",
+			"a": {
+				"name": "Tube de l’été",
+				"origin": "Juillet-août",
+				"line": "Dansé en juillet, détesté en septembre.",
+				"quip": "Team tube de l’été : dansé en juillet, détesté en septembre. Comme tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "summer dance party"
+			},
+			"b": {
+				"name": "Chanson de Noël",
+				"origin": "Décembre",
+				"line": "Revient chaque année, que tu le veuilles ou non.",
+				"quip": "Team chanson de Noël : tu lances « All I Want for Christmas » le 1er novembre. Personne n’est prêt.",
+				"giphyIds": [],
+				"giphyQuery": "christmas song"
+			},
+			"bothQuip": "Les deux. Ton année tient en deux tubes. Le reste du temps, silence.",
+			"noneQuip": "Ni l’un ni l’autre. Les tubes de saison t’agacent. On comprend."
+		},
+		{
+			"id": "musique-rap-francais-rap-americain",
+			"category": "musique",
+			"a": {
+				"name": "Rap français",
+				"origin": "France",
+				"line": "Des punchlines et beaucoup de verlan.",
+				"quip": "Team rap français : tu parles en verlan. Même à ta grand-mère.",
+				"giphyIds": [],
+				"giphyQuery": "french rap"
+			},
+			"b": {
+				"name": "Rap américain",
+				"origin": "États-Unis",
+				"line": "Des chaînes en or et de très grosses voitures.",
+				"quip": "Team rap américain : tu as cherché une grosse chaîne en or au rayon bricolage.",
+				"giphyIds": [],
+				"giphyQuery": "rapper gold chain"
+			},
+			"bothQuip": "Les deux. Ta playlist traverse l’Atlantique chaque matin.",
+			"noneQuip": "Ni l’un ni l’autre. Le rap, ce n’est pas ton truc. Variété française ?"
+		},
+		{
+			"id": "musique-playback-live",
+			"category": "musique",
+			"a": {
+				"name": "Playback",
+				"origin": "Le plateau télé",
+				"line": "Zéro fausse note, zéro risque.",
+				"quip": "Team playback : zéro fausse note, zéro risque. Tu aimes la perfection.",
+				"giphyIds": [],
+				"giphyQuery": "lip sync"
+			},
+			"b": {
+				"name": "Live",
+				"origin": "La scène",
+				"line": "Des fausses notes, et c’est ça qui est beau.",
+				"quip": "Team live : les fausses notes font partie du charme. Comme toi.",
+				"giphyIds": [],
+				"giphyQuery": "live concert singer"
+			},
+			"bothQuip": "Les deux. Playback à la télé, live en concert : le monde réel.",
+			"noneQuip": "Ni l’un ni l’autre. Tu écoutes la version studio. Aucune surprise."
+		},
+		{
+			"id": "musique-freddie-mercury-david-bowie",
+			"category": "musique",
+			"a": {
+				"name": "Freddie Mercury",
+				"origin": "Queen · 1970",
+				"line": "Une moustache, un débardeur, et quatre octaves.",
+				"quip": "Team Freddie : tu fais « Ay-oh ! » au public, même quand le public, c’est ton chat.",
+				"giphyIds": [],
+				"giphyQuery": "Freddie Mercury"
+			},
+			"b": {
+				"name": "David Bowie",
+				"origin": "Londres · 1964",
+				"line": "Un éclair sur le visage, et mille personnages.",
+				"quip": "Team Bowie : un éclair sur la joue, pour les grandes occasions.",
+				"giphyIds": [],
+				"giphyQuery": "David Bowie"
+			},
+			"bothQuip": "Les deux. « Under Pressure » : ils l’ont chantée ensemble. Ton choix est validé.",
+			"noneQuip": "Ni Freddie ni Bowie. Les légendes du rock des années 70, ce n’est pas ton truc."
+		},
+		{
+			"id": "musique-les-enfoires-star-academy",
+			"category": "musique",
+			"a": {
+				"name": "Les Enfoirés",
+				"origin": "Depuis 1989",
+				"line": "Des stars, des chansons, et des costumes improbables.",
+				"quip": "Team Enfoirés : tu attends le spectacle chaque année pour les costumes improbables.",
+				"giphyIds": [],
+				"giphyQuery": "Les Enfoires"
+			},
+			"b": {
+				"name": "Star Academy",
+				"origin": "TF1 · 2001",
+				"line": "Un château, des cours de chant, et des larmes.",
+				"quip": "Team Star Academy : tu as pleuré devant une évaluation de chant. Plusieurs fois.",
+				"giphyIds": ["oMGTNu1MzJBVQeX78n"],
+				"giphyQuery": "Star Academy"
+			},
+			"bothQuip": "Les deux. Les chansons en chœur et les larmes : ta télé de l’hiver.",
+			"noneQuip": "Ni l’un ni l’autre. La télé qui chante, très peu pour toi."
+		},
+		{
+			"id": "musique-c-etait-mieux-avant-c-est-mieux-maintenant",
+			"category": "musique",
+			"question": "La musique : c’était mieux avant ?",
+			"a": {
+				"name": "C’était mieux avant",
+				"origin": "Tes souvenirs",
+				"line": "Les vraies chansons, les vrais instruments, les vrais artistes.",
+				"quip": "Team c’était mieux avant : tu as dit « ça, c’est de la vraie musique » au moins une fois cette semaine.",
+				"giphyIds": [],
+				"giphyQuery": "old school music"
+			},
+			"b": {
+				"name": "C’est mieux maintenant",
+				"origin": "Ta playlist",
+				"line": "De nouveaux sons chaque jour, et des découvertes à l’infini.",
+				"quip": "Team c’est mieux maintenant : tu découvres trois artistes par jour, et tu en oublies deux.",
+				"giphyIds": [],
+				"giphyQuery": "new music"
+			},
+			"bothQuip": "Les deux. Chaque époque a ses tubes. La sagesse.",
+			"noneQuip": "Ni avant ni maintenant. La musique, ce sera mieux… demain ?"
+		},
+		{
+			"id": "musique-aya-nakamura-jul",
+			"category": "musique",
+			"a": {
+				"name": "Aya Nakamura",
+				"origin": "Aulnay-sous-Bois · 2017",
+				"line": "« Djadja », et le monde entier chante en français.",
+				"quip": "Team Aya : tu chantes « Djadja » sans connaître toutes les paroles. Comme tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "aya nakamura"
+			},
+			"b": {
+				"name": "Jul",
+				"origin": "Marseille · 2013",
+				"line": "Des albums par dizaines, et un signe des mains célèbre.",
+				"quip": "Team Jul : tu fais le signe avec les mains au moindre prétexte. Même pour dire bonjour.",
+				"giphyIds": [],
+				"giphyQuery": "jul rap"
+			},
+			"bothQuip": "Les deux. Le rap français qui fait danser toute la France.",
+			"noneQuip": "Ni Aya ni Jul. Les records de streaming, tu passes ton tour."
+		},
+		{
+			"id": "musique-la-danse-des-canards-la-chenille",
+			"category": "musique",
+			"question": "Au mariage : la danse des canards ou la chenille ?",
+			"a": {
+				"name": "La danse des canards",
+				"origin": "Le mariage, à minuit",
+				"line": "Les ailes, le bec, et les genoux qui plient.",
+				"quip": "Team danse des canards : tu fais le bec avec les mains dès les premières notes. Réflexe.",
+				"giphyIds": [],
+				"giphyQuery": "chicken dance"
+			},
+			"b": {
+				"name": "La chenille",
+				"origin": "Le mariage, à une heure",
+				"line": "Tout le monde à la queue leu leu, et le tonton en tête.",
+				"quip": "Team chenille : tu mènes le cortège jusque dans la cuisine du traiteur.",
+				"giphyIds": [],
+				"giphyQuery": "conga line"
+			},
+			"bothQuip": "Les deux. Tu es la personne qui fait durer la fête jusqu’à l’aube.",
+			"noneQuip": "Ni l’une ni l’autre. Aux mariages, tu gardes ta chaise. Et ta dignité."
+		},
+		{
+			"id": "musique-coldplay-u2",
+			"category": "musique",
+			"a": {
+				"name": "Coldplay",
+				"origin": "Londres · 1996",
+				"line": "Des bracelets lumineux, et tout un stade qui chante « oh oh oh ».",
+				"quip": "Team Coldplay : tu as gardé ton bracelet lumineux. Il clignote encore au fond d’un tiroir.",
+				"giphyIds": [],
+				"giphyQuery": "coldplay"
+			},
+			"b": {
+				"name": "U2",
+				"origin": "Dublin · 1976",
+				"line": "Des lunettes de soleil, des stades, et un album qui s’est invité tout seul.",
+				"quip": "Team U2 : tu as reçu leur album sans le demander, et tu l’as gardé.",
+				"giphyIds": [],
+				"giphyQuery": "u2 band"
+			},
+			"bothQuip": "Les deux. Les concerts de stade, c’est ton habitat naturel.",
+			"noneQuip": "Ni Coldplay ni U2. Le rock de stade, tu le trouves trop gentil."
+		},
+		{
+			"id": "musique-l-album-dans-l-ordre-lecture-aleatoire",
+			"category": "musique",
+			"a": {
+				"name": "L’album dans l’ordre",
+				"origin": "L’artiste, qui a tout pensé",
+				"line": "Piste 1, piste 2, piste 3, comme prévu.",
+				"quip": "Team dans l’ordre : sauter une piste, pour toi, c’est un manque de respect.",
+				"giphyIds": [],
+				"giphyQuery": "vinyl record"
+			},
+			"b": {
+				"name": "Lecture aléatoire",
+				"origin": "Le bouton magique",
+				"line": "La surprise, à chaque chanson.",
+				"quip": "Team aléatoire : tu laisses le hasard décider. Il te ressort toujours les trois mêmes chansons.",
+				"giphyIds": [],
+				"giphyQuery": "shuffle"
+			},
+			"bothQuip": "Les deux. Dans l’ordre la première fois, en aléatoire ensuite.",
+			"noneQuip": "Ni l’un ni l’autre. Tu écoutes la même chanson en boucle. Toute la journée."
+		},
+		{
+			"id": "musique-les-vraies-paroles-en-yaourt",
+			"category": "musique",
+			"a": {
+				"name": "Les vraies paroles",
+				"origin": "Le livret du CD",
+				"line": "Apprises mot pour mot.",
+				"quip": "Team vraies paroles : tu corriges ceux qui se trompent. Même au karaoké. Surtout au karaoké.",
+				"giphyIds": [],
+				"giphyQuery": "singing"
+			},
+			"b": {
+				"name": "En yaourt",
+				"origin": "Ton cœur",
+				"line": "Tu ne connais pas les mots, mais tu y mets toute ton âme.",
+				"quip": "Team yaourt : tu chantes « ouane ouane mi ouane ouane » avec une conviction totale.",
+				"giphyIds": [],
+				"giphyQuery": "singing badly"
+			},
+			"bothQuip": "Les deux. Les vraies paroles pour le refrain, du yaourt pour le reste.",
+			"noneQuip": "Ni l’un ni l’autre. Tu fredonnes, sans un mot. Aucun risque."
+		},
+		{
+			"id": "musique-francis-cabrel-jean-jacques-goldman",
+			"category": "musique",
+			"a": {
+				"name": "Francis Cabrel",
+				"origin": "Astaffort · 1974",
+				"line": "Une guitare, une moustache, et des chansons pour la route.",
+				"quip": "Team Cabrel : tu as déjà chanté « Je l’aime à mourir » au coin du feu. Tout le monde a suivi.",
+				"giphyIds": [],
+				"giphyQuery": "acoustic guitar"
+			},
+			"b": {
+				"name": "Jean-Jacques Goldman",
+				"origin": "Paris · 1975",
+				"line": "Des tubes pour tout le monde, puis le silence.",
+				"quip": "Team Goldman : tu attends son retour depuis des années. Tu y crois encore.",
+				"giphyIds": [],
+				"giphyQuery": "concert crowd"
+			},
+			"bothQuip": "Les deux. La chanson française qui rassemble tout le monde. Même ta tante.",
+			"noneQuip": "Ni Cabrel ni Goldman. La chanson française des années 80, demande à tes parents."
+		},
+		{
+			"id": "musique-dans-la-fosse-en-gradins",
+			"category": "musique",
+			"question": "Au concert : dans la fosse ou en gradins ?",
+			"a": {
+				"name": "Dans la fosse",
+				"origin": "Devant la scène",
+				"line": "Debout, serré, en sueur. Le bonheur.",
+				"quip": "Team fosse : tu arrives quatre heures avant pour être devant. Tes jambes s’en souviennent.",
+				"giphyIds": [],
+				"giphyQuery": "concert crowd jumping"
+			},
+			"b": {
+				"name": "En gradins",
+				"origin": "Sur les côtés",
+				"line": "Assis, au calme, avec vue sur toute la scène.",
+				"quip": "Team gradins : une vue sur toute la scène, et un siège rien qu’à toi. La sagesse.",
+				"giphyIds": [],
+				"giphyQuery": "concert seats"
+			},
+			"bothQuip": "Les deux. La fosse pour les tubes, les gradins pour souffler.",
+			"noneQuip": "Ni l’un ni l’autre. Tu regardes le concert en vidéo, le lendemain."
+		},
+		{
+			"id": "dessins-les-simpson-les-griffin",
+			"category": "dessins",
+			"a": {
+				"name": "Les Simpson",
+				"origin": "Matt Groening · 1989",
+				"line": "Plus de trente saisons et ils ont toujours le même âge.",
+				"quip": "Team Simpson : les Simpson l’avaient prédit. Quoi ? Tout. Ils prédisent tout.",
+				"giphyIds": [],
+				"giphyQuery": "The Simpsons"
+			},
+			"b": {
+				"name": "Les Griffin",
+				"origin": "Seth MacFarlane · 1999",
+				"line": "Des digressions, un chien qui parle, un bébé qui complote.",
+				"quip": "Team Griffin : tu fais des digressions au milieu de tes histoires. Ça me rappelle la fois où…",
+				"giphyIds": [],
+				"giphyQuery": "Family Guy"
+			},
+			"bothQuip": "Les deux. Les pères de famille catastrophiques en dessin animé, c’est ton truc.",
+			"noneQuip": "Ni les Simpson ni les Griffin. Team Bob’s Burgers, plus tranquille."
+		},
+		{
+			"id": "dessins-bip-bip-vil-coyote",
+			"category": "dessins",
+			"a": {
+				"name": "Bip Bip",
+				"origin": "Warner · 1949",
+				"line": "Bip bip. Et il est déjà loin.",
+				"quip": "Team Bip Bip : bip bip. Et tu es déjà loin.",
+				"giphyIds": [],
+				"giphyQuery": "Road Runner"
+			},
+			"b": {
+				"name": "Vil Coyote",
+				"origin": "Warner · 1949",
+				"line": "Client fidèle de la marque ACME.",
+				"quip": "Team Vil Coyote : tu commandes des trucs bizarres en ligne. Aucun ne marche.",
+				"giphyIds": [],
+				"giphyQuery": "Wile E Coyote"
+			},
+			"bothQuip": "Les deux. Toute ton enfance, tu as espéré que le coyote gagne. Une seule fois.",
+			"noneQuip": "Ni Bip Bip ni le Coyote. Les courses-poursuites dans le désert, ça donne soif."
+		},
+		{
+			"id": "dessins-titi-grosminet",
+			"category": "dessins",
+			"a": {
+				"name": "Titi",
+				"origin": "Warner · 1942",
+				"line": "« J’ai cru voir un rominet ! »",
+				"quip": "Team Titi : derrière ton air innocent, tu es redoutable. On a vu.",
+				"giphyIds": [],
+				"giphyQuery": "Tweety bird"
+			},
+			"b": {
+				"name": "Grosminet",
+				"origin": "Warner · 1945",
+				"line": "Toujours affamé, jamais rassasié.",
+				"quip": "Team Grosminet : tu postillonnes un peu en parlant, et tu as toujours faim.",
+				"giphyIds": [],
+				"giphyQuery": "Sylvester cat"
+			},
+			"bothQuip": "Les deux. « J’ai cru voir un rominet ! » Tu l’as dit au moins une fois cette année.",
+			"noneQuip": "Ni Titi ni Grosminet. Team Mémé, et son parapluie."
+		},
+		{
+			"id": "dessins-bugs-bunny-daffy-duck",
+			"category": "dessins",
+			"a": {
+				"name": "Bugs Bunny",
+				"origin": "Warner · 1940",
+				"line": "« Quoi de neuf, docteur ? »",
+				"quip": "Team Bugs Bunny : « Quoi de neuf, docteur ? » en croquant une carotte. Ta réplique de tous les jours.",
+				"giphyIds": [],
+				"giphyQuery": "Bugs Bunny"
+			},
+			"b": {
+				"name": "Daffy Duck",
+				"origin": "Warner · 1937",
+				"line": "Un canard qui postillonne et qui perd toujours.",
+				"quip": "Team Daffy Duck : tu perds toujours, et c’est toujours la faute des autres. C’est méprisable.",
+				"giphyIds": [],
+				"giphyQuery": "Daffy Duck"
+			},
+			"bothQuip": "Les deux. Les Looney Tunes, c’est ta culture générale.",
+			"noneQuip": "Ni Bugs ni Daffy. Team Porky Pig. C’est tout, les amis !"
+		},
+		{
+			"id": "dessins-mickey-donald",
+			"category": "dessins",
+			"a": {
+				"name": "Mickey",
+				"origin": "Disney · 1928",
+				"line": "Le patron de l’empire, en short rouge.",
+				"quip": "Team Mickey : le short rouge et un empire. Tu as le sens des affaires.",
+				"giphyIds": [],
+				"giphyQuery": "Mickey Mouse"
+			},
+			"b": {
+				"name": "Donald",
+				"origin": "Disney · 1934",
+				"line": "Râle tout le temps, et personne ne comprend ce qu’il dit.",
+				"quip": "Team Donald : tu râles tout le temps, et personne ne comprend ce que tu dis. Le matin, en tout cas.",
+				"giphyIds": [],
+				"giphyQuery": "Donald Duck angry"
+			},
+			"bothQuip": "Les deux. Le patron et le râleur : ton bureau, en somme.",
+			"noneQuip": "Ni Mickey ni Donald. Team Dingo, le plus gentil de tous."
+		},
+		{
+			"id": "dessins-pokemon-digimon",
+			"category": "dessins",
+			"a": {
+				"name": "Pokémon",
+				"origin": "Anime · 1997",
+				"line": "Attrapez-les tous.",
+				"quip": "Team Pokémon : tes cartes sont encore dans un classeur. Le Dracaufeu brillant, sous pochette.",
+				"giphyIds": [],
+				"giphyQuery": "Pokemon anime"
+			},
+			"b": {
+				"name": "Digimon",
+				"origin": "Anime · 1999",
+				"line": "Ils évoluent aussi, mais en criant plus fort.",
+				"quip": "Team Digimon : tu as hurlé « Digivolution ! » dans la cour de récré. Plusieurs fois.",
+				"giphyIds": [],
+				"giphyQuery": "Digimon"
+			},
+			"bothQuip": "Les deux. La guerre de la cour de récré, tu l’as faite des deux côtés.",
+			"noneQuip": "Ni Pokémon ni Digimon. Les monstres de poche, ce n’est pas pour toi."
+		},
+		{
+			"id": "dessins-dragon-ball-one-piece",
+			"category": "dessins",
+			"a": {
+				"name": "Dragon Ball",
+				"origin": "Akira Toriyama · 1984",
+				"line": "Sept boules, un dragon, et des cris qui durent trois épisodes.",
+				"quip": "Team Dragon Ball : tu as chargé un Kamehameha dans ta chambre. Pendant trois épisodes.",
+				"giphyIds": [],
+				"giphyQuery": "Dragon Ball"
+			},
+			"b": {
+				"name": "One Piece",
+				"origin": "Eiichiro Oda · 1997",
+				"line": "Un chapeau de paille et plus de mille épisodes.",
+				"quip": "Team One Piece : plus de mille épisodes, et pas une minute de regret. Courage pour la suite.",
+				"giphyIds": [],
+				"giphyQuery": "One Piece Luffy"
+			},
+			"bothQuip": "Les deux. Des cheveux qui défient la gravité et des chapeaux de paille.",
+			"noneQuip": "Ni Dragon Ball ni One Piece. Les animes de mille épisodes, pas le temps."
+		},
+		{
+			"id": "dessins-disney-studio-ghibli",
+			"category": "dessins",
+			"a": {
+				"name": "Disney",
+				"origin": "Blanche-Neige · 1937",
+				"line": "Une souris, un château, et une chanson qui ne sort plus de ta tête.",
+				"quip": "Team Disney : tu connais toutes les chansons. Tu les chantes faux, mais en entier.",
+				"giphyIds": [],
+				"giphyQuery": "Disney animation"
+			},
+			"b": {
+				"name": "Studio Ghibli",
+				"origin": "Tokyo · 1985",
+				"line": "Des esprits, du vent dans les herbes, et des repas qui donnent faim.",
+				"quip": "Team Ghibli : les repas des films te donnent plus faim que les vrais.",
+				"giphyIds": [],
+				"giphyQuery": "Studio Ghibli"
+			},
+			"bothQuip": "Les deux. Ton enfance tient en chansons et en esprits de la forêt.",
+			"noneQuip": "Ni Disney ni Ghibli. Les dessins animés, tu les as rangés au grenier."
+		},
+		{
+			"id": "dessins-totoro-le-chatbus",
+			"category": "dessins",
+			"a": {
+				"name": "Totoro",
+				"origin": "Mon voisin Totoro · 1988",
+				"line": "Une grosse boule de poils qui attend le bus.",
+				"quip": "Team Totoro : tu attends le bus sous la pluie avec un grand sourire. Comme lui.",
+				"giphyIds": [],
+				"giphyQuery": "Totoro"
+			},
+			"b": {
+				"name": "Le Chatbus",
+				"origin": "Mon voisin Totoro · 1988",
+				"line": "Un bus. Un chat. Douze pattes.",
+				"quip": "Team Chatbus : douze pattes, un sourire immense, et une destination magique. Ton transport idéal.",
+				"giphyIds": [],
+				"giphyQuery": "Catbus Totoro"
+			},
+			"bothQuip": "Les deux. « Mon voisin Totoro », c’est ton film doudou.",
+			"noneQuip": "Ni Totoro ni le Chatbus. Les esprits de la forêt te laissent de marbre."
+		},
+		{
+			"id": "dessins-goldorak-albator",
+			"category": "dessins",
+			"a": {
+				"name": "Goldorak",
+				"origin": "Go Nagai · 1975",
+				"line": "« Fulguropoing ! »",
+				"quip": "Team Goldorak : tu as crié « Fulguropoing ! » en lançant ton poing vers ton frère ou ta sœur.",
+				"giphyIds": [],
+				"giphyQuery": "Grendizer"
+			},
+			"b": {
+				"name": "Albator",
+				"origin": "Leiji Matsumoto · 1977",
+				"line": "Une cape, une balafre, et un vaisseau à tête de mort.",
+				"quip": "Team Albator : il y a une cape noire au fond de ton placard. Pour les soirées spatiales.",
+				"giphyIds": [],
+				"giphyQuery": "Captain Harlock"
+			},
+			"bothQuip": "Les deux. Ton enfance : des robots géants et des pirates de l’espace.",
+			"noneQuip": "Ni Goldorak ni Albator. Les dessins animés japonais des années 70, ce n’est pas ta génération."
+		},
+		{
+			"id": "dessins-les-schtroumpfs-les-bisounours",
+			"category": "dessins",
+			"a": {
+				"name": "Les Schtroumpfs",
+				"origin": "Peyo · 1958",
+				"line": "Tout bleus, et schtroumpfement joyeux.",
+				"quip": "Team Schtroumpfs : tu remplaces des mots par « schtroumpf » au hasard. Ça schtroumpfe très bien.",
+				"giphyIds": ["11nasKvU7ANSEw"],
+				"giphyQuery": "Smurfs"
+			},
+			"b": {
+				"name": "Les Bisounours",
+				"origin": "États-Unis · 1981",
+				"line": "Un câlin, et un arc-en-ciel sur le ventre.",
+				"quip": "Team Bisounours : tu fais des câlins à tout le monde. Même à ceux qui n’en veulent pas.",
+				"giphyIds": [],
+				"giphyQuery": "Care Bears"
+			},
+			"bothQuip": "Les deux. Bleu ou arc-en-ciel : ton enfance était très colorée.",
+			"noneQuip": "Ni l’un ni l’autre. Team Grognon, le Bisounours qui râle."
+		},
+		{
+			"id": "dessins-scooby-doo-inspecteur-gadget",
+			"category": "dessins",
+			"a": {
+				"name": "Scooby-Doo",
+				"origin": "Hanna-Barbera · 1969",
+				"line": "Mène l’enquête pour des biscuits.",
+				"quip": "Team Scooby-Doo : à la fin, tu arraches le masque du méchant. C’était le concierge.",
+				"giphyIds": [],
+				"giphyQuery": "Scooby Doo"
+			},
+			"b": {
+				"name": "Inspecteur Gadget",
+				"origin": "DIC · 1983",
+				"line": "« Go go gadgeto ! »",
+				"quip": "Team Inspecteur Gadget : « Go go gadgeto parapluie ! » Et rien ne s’ouvre.",
+				"giphyIds": [],
+				"giphyQuery": "Inspector Gadget"
+			},
+			"bothQuip": "Les deux. Les enquêteurs maladroits, c’est ta passion.",
+			"noneQuip": "Ni l’un ni l’autre. Team Sophie, la nièce qui fait tout le travail de Gadget."
+		},
+		{
+			"id": "dessins-ulysse-31-les-mysterieuses-cites-d-or",
+			"category": "dessins",
+			"a": {
+				"name": "Ulysse 31",
+				"origin": "Série animée · 1981",
+				"line": "L’Odyssée, dans l’espace, avec un robot.",
+				"quip": "Team Ulysse 31 : les yeux de Zeus te font encore un peu peur.",
+				"giphyIds": [],
+				"giphyQuery": "Ulysses 31"
+			},
+			"b": {
+				"name": "Les Mystérieuses Cités d’or",
+				"origin": "Série animée · 1982",
+				"line": "Esteban, Zia, Tao, et un condor en or.",
+				"quip": "Team Cités d’or : « Enfants du soleil… » Le générique te donne encore des frissons.",
+				"giphyIds": [],
+				"giphyQuery": "Mysterious Cities of Gold",
+				"gifUrls": ["https://media.tenor.com/JW79lNecXjsAAAAC/grandcondor.gif"]
+			},
+			"bothQuip": "Les deux. Les dessins animés franco-japonais des années 80, ton trésor.",
+			"noneQuip": "Ni l’un ni l’autre. L’espace et l’Eldorado, très peu pour toi."
+		},
+		{
+			"id": "dessins-il-etait-une-fois-la-vie-il-etait-une-fois-l-homme",
+			"category": "dessins",
+			"a": {
+				"name": "Il était une fois… la vie",
+				"origin": "Albert Barillé · 1987",
+				"line": "Des globules blancs en uniforme.",
+				"quip": "Team la vie : quand tu t’enrhumes, tu imagines les globules blancs en uniforme.",
+				"giphyIds": ["acngmt1o5atVMEebXF"],
+				"giphyQuery": "Hello Maestro"
+			},
+			"b": {
+				"name": "Il était une fois… l’homme",
+				"origin": "Albert Barillé · 1978",
+				"line": "Maestro et sa très longue barbe.",
+				"quip": "Team l’homme : Maestro et sa barbe t’ont appris toute l’histoire du monde.",
+				"giphyIds": ["HRvcfB6kn3wYOtFf18"],
+				"giphyQuery": "Once Upon a Time Man"
+			},
+			"bothQuip": "Les deux. Tes meilleurs profs de biologie et d’histoire étaient des dessins animés.",
+			"noneQuip": "Ni l’un ni l’autre. Les dessins animés éducatifs, tu les fuyais."
+		},
+		{
+			"id": "dessins-les-tortues-ninja-musclor",
+			"category": "dessins",
+			"a": {
+				"name": "Les Tortues Ninja",
+				"origin": "Série animée · 1987",
+				"line": "Quatre tortues, des pizzas, et les égouts.",
+				"quip": "Team Tortues Ninja : tu commandes des pizzas en criant « Cowabunga ! ».",
+				"giphyIds": [],
+				"giphyQuery": "Teenage Mutant Ninja Turtles"
+			},
+			"b": {
+				"name": "Musclor",
+				"origin": "Les Maîtres de l’univers · 1983",
+				"line": "« Par le pouvoir du crâne ancestral ! »",
+				"quip": "Team Musclor : tu brandis ta cuillère en criant « Par le pouvoir du crâne ancestral ! ».",
+				"giphyIds": [],
+				"giphyQuery": "He-Man"
+			},
+			"bothQuip": "Les deux. Ta chambre était pleine de figurines. Elle l’est peut-être encore.",
+			"noneQuip": "Ni les Tortues ni Musclor. Les héros des années 80, tu les laisses aux autres."
+		},
+		{
+			"id": "dessins-totally-spies-les-supers-nanas",
+			"category": "dessins",
+			"a": {
+				"name": "Totally Spies",
+				"origin": "Marathon · 2001",
+				"line": "Trois espionnes et des gadgets déguisés en sèche-cheveux.",
+				"quip": "Team Totally Spies : ton sèche-cheveux est aussi un laser. Officiellement.",
+				"giphyIds": [],
+				"giphyQuery": "Totally Spies"
+			},
+			"b": {
+				"name": "Les Supers Nanas",
+				"origin": "Cartoon Network · 1998",
+				"line": "Du sucre, des épices, et l’ingrédient X.",
+				"quip": "Team Supers Nanas : sucre, épices et ingrédient X. Ta recette secrète.",
+				"giphyIds": [],
+				"giphyQuery": "Powerpuff Girls"
+			},
+			"bothQuip": "Les deux. Les héroïnes qui sauvent le monde après l’école, ce sont tes modèles.",
+			"noneQuip": "Ni l’un ni l’autre. Team Mojo Jojo, le méchant au cerveau géant."
+		},
+		{
+			"id": "dessins-oggy-et-les-cafards-zig-et-sharko",
+			"category": "dessins",
+			"a": {
+				"name": "Oggy et les Cafards",
+				"origin": "Xilam · 1998",
+				"line": "Un chat bleu, trois cafards, zéro répit.",
+				"quip": "Team Oggy : trois cafards t’empêchent de dormir. On compatit.",
+				"giphyIds": ["InHHbyimzP1uCR8cJb"],
+				"giphyQuery": "Oggy and the Cockroaches"
+			},
+			"b": {
+				"name": "Zig et Sharko",
+				"origin": "Xilam · 2010",
+				"line": "Une hyène, un requin, une sirène, et des plans foireux.",
+				"quip": "Team Zig et Sharko : une hyène, un requin, une sirène. Ton triangle amoureux préféré.",
+				"giphyIds": ["7sCEyMcmmXgzc46Pi5"],
+				"giphyQuery": "Zig and Sharko"
+			},
+			"bothQuip": "Les deux. Xilam a occupé toutes tes vacances.",
+			"noneQuip": "Ni l’un ni l’autre. Les dessins animés sans dialogues, ça te perturbe."
+		},
+		{
+			"id": "dessins-les-razmoket-doug",
+			"category": "dessins",
+			"a": {
+				"name": "Les Razmoket",
+				"origin": "Nickelodeon · 1991",
+				"line": "Des bébés qui en savent plus que les adultes.",
+				"quip": "Team Razmoket : tu te souviens de tout ce que tu as fait à un an. C’est inquiétant.",
+				"giphyIds": [],
+				"giphyQuery": "Rugrats"
+			},
+			"b": {
+				"name": "Doug",
+				"origin": "Nickelodeon · 1991",
+				"line": "Un journal intime, un chien, et beaucoup d’angoisse.",
+				"quip": "Team Doug : un journal intime et beaucoup d’angoisses. Comme Doug.",
+				"giphyIds": [],
+				"giphyQuery": "Doug Funnie"
+			},
+			"bothQuip": "Les deux. Nickelodeon, c’était ta deuxième maison.",
+			"noneQuip": "Ni l’un ni l’autre. Team Hé Arnold !, et sa tête en ballon de rugby."
+		},
+		{
+			"id": "dessins-batman-la-serie-animee-spider-man-la-serie-animee",
+			"category": "dessins",
+			"a": {
+				"name": "Batman, la série animée",
+				"origin": "Warner · 1992",
+				"line": "Gotham, la nuit, et un générique génial.",
+				"quip": "Team Batman, la série animée : le meilleur générique de tous les temps. Tu le fredonnes, là.",
+				"giphyIds": [],
+				"giphyQuery": "Batman animated series"
+			},
+			"b": {
+				"name": "Spider-Man, la série animée",
+				"origin": "Marvel · 1994",
+				"line": "Le tisseur, version années 90.",
+				"quip": "Team Spider-Man, la série animée : son générique rock est gravé dans ton cerveau.",
+				"giphyIds": [],
+				"giphyQuery": "Spider-Man animated series 1994"
+			},
+			"bothQuip": "Les deux. Tes mercredis après-midi étaient sauvés par des super-héros.",
+			"noneQuip": "Ni l’un ni l’autre. Les super-héros dessinés, très peu pour toi."
+		},
+		{
+			"id": "dessins-avatar-le-dernier-maitre-de-l-ai-la-legende-de-korra",
+			"category": "dessins",
+			"a": {
+				"name": "Avatar, le dernier maître de l’air",
+				"origin": "Nickelodeon · 2005",
+				"line": "Quatre éléments, et une flèche sur le crâne.",
+				"quip": "Team Aang : tu as une flèche bleue imaginaire sur le crâne. Et la sagesse qui va avec.",
+				"giphyIds": [],
+				"giphyQuery": "Avatar Aang"
+			},
+			"b": {
+				"name": "La Légende de Korra",
+				"origin": "Nickelodeon · 2012",
+				"line": "Plus âgée, plus rapide, plus têtue.",
+				"quip": "Team Korra : plus âgée, plus têtue, plus forte. Toi aussi, peut-être.",
+				"giphyIds": [],
+				"giphyQuery": "Legend of Korra"
+			},
+			"bothQuip": "Les deux. Les quatre éléments, tu les maîtrises tous. Au moins dans ta tête.",
+			"noneQuip": "Ni l’un ni l’autre. Team oncle Iroh, et son thé."
+		},
+		{
+			"id": "dessins-futurama-south-park",
+			"category": "dessins",
+			"a": {
+				"name": "Futurama",
+				"origin": "Matt Groening · 1999",
+				"line": "L’an 3000, et toujours des livreurs mal payés.",
+				"quip": "Team Futurama : devant chaque nouveau gadget, tu dis « Tais-toi et prends mon argent ».",
+				"giphyIds": [],
+				"giphyQuery": "Futurama"
+			},
+			"b": {
+				"name": "South Park",
+				"origin": "Comedy Central · 1997",
+				"line": "Quatre gamins, beaucoup de gros mots.",
+				"quip": "Team South Park : tu as un humour qu’on ne peut pas montrer à ta mère.",
+				"giphyIds": [],
+				"giphyQuery": "South Park"
+			},
+			"bothQuip": "Les deux. L’humour pour adultes en dessin animé, tu l’as découvert trop tôt.",
+			"noneQuip": "Ni Futurama ni South Park. Les dessins animés trash, très peu pour toi."
+		},
+		{
+			"id": "dessins-gravity-falls-adventure-time",
+			"category": "dessins",
+			"a": {
+				"name": "Gravity Falls",
+				"origin": "Disney · 2012",
+				"line": "Des mystères, des codes secrets, un été bizarre.",
+				"quip": "Team Gravity Falls : tu as déchiffré tous les codes secrets du générique. Avec un crayon.",
+				"giphyIds": [],
+				"giphyQuery": "Gravity Falls"
+			},
+			"b": {
+				"name": "Adventure Time",
+				"origin": "Cartoon Network · 2010",
+				"line": "Un chien élastique et un garçon au bonnet.",
+				"quip": "Team Adventure Time : « Mathématique ! » Tu le dis encore.",
+				"giphyIds": [],
+				"giphyQuery": "Adventure Time"
+			},
+			"bothQuip": "Les deux. Les dessins animés bizarres et géniaux des années 2010.",
+			"noneQuip": "Ni l’un ni l’autre. Les mystères et les bonnets, très peu pour toi."
+		},
+		{
+			"id": "dessins-les-aristochats-les-101-dalmatiens",
+			"category": "dessins",
+			"a": {
+				"name": "Les Aristochats",
+				"origin": "Disney · 1970",
+				"line": "Tout le monde veut devenir un chat.",
+				"quip": "Team Aristochats : tu chantes « Tout le monde veut devenir un cat » en jouant du jazz imaginaire.",
+				"giphyIds": [],
+				"giphyQuery": "Aristocats"
+			},
+			"b": {
+				"name": "Les 101 Dalmatiens",
+				"origin": "Disney · 1961",
+				"line": "Beaucoup de taches, et Cruella.",
+				"quip": "Team Dalmatiens : tu as compté les taches. Toutes. Sur les cent un.",
+				"giphyIds": [],
+				"giphyQuery": "101 Dalmatians"
+			},
+			"bothQuip": "Les deux. Les chats chics et les chiens tachetés : ta maison idéale.",
+			"noneQuip": "Ni chats ni dalmatiens. Team Cruella ? On s’inquiète."
+		},
+		{
+			"id": "dessins-le-roi-lion-le-livre-de-la-jungle",
+			"category": "dessins",
+			"a": {
+				"name": "Le Roi lion",
+				"origin": "Disney · 1994",
+				"line": "« Hakuna matata. »",
+				"quip": "Team Roi lion : tu as envie de soulever chaque nouveau-né de la famille en haut d’un rocher.",
+				"giphyIds": [],
+				"giphyQuery": "Lion King"
+			},
+			"b": {
+				"name": "Le Livre de la jungle",
+				"origin": "Disney · 1967",
+				"line": "Il en faut peu pour être heureux.",
+				"quip": "Team Livre de la jungle : il en faut peu pour être heureux. Tu as tout compris.",
+				"giphyIds": [],
+				"giphyQuery": "Jungle Book Baloo"
+			},
+			"bothQuip": "Les deux. Des animaux qui chantent : c’est ta philosophie de vie.",
+			"noneQuip": "Ni l’un ni l’autre. Les animaux qui parlent, ça te met mal à l’aise."
+		},
+		{
+			"id": "dessins-aladdin-la-belle-et-la-bete",
+			"category": "dessins",
+			"a": {
+				"name": "Aladdin",
+				"origin": "Disney · 1992",
+				"line": "Un tapis, une lampe, trois vœux.",
+				"quip": "Team Aladdin : tu as déjà frotté une théière. Au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "Aladdin Disney"
+			},
+			"b": {
+				"name": "La Belle et la Bête",
+				"origin": "Disney · 1991",
+				"line": "Une bibliothèque immense, et un chandelier bavard.",
+				"quip": "Team La Belle et la Bête : tu rêves d’une bibliothèque immense et d’un chandelier qui parle.",
+				"giphyIds": [],
+				"giphyQuery": "Beauty and the Beast Disney"
+			},
+			"bothQuip": "Les deux. Tes trois vœux : une bibliothèque, un tapis volant, et un génie.",
+			"noneQuip": "Ni l’un ni l’autre. Les Disney des années 90, ce n’est pas ton époque."
+		},
+		{
+			"id": "dessins-mulan-vaiana",
+			"category": "dessins",
+			"a": {
+				"name": "Mulan",
+				"origin": "Disney · 1998",
+				"line": "Sauve la Chine, déguisée en soldat.",
+				"quip": "Team Mulan : tu ferais tout pour ta famille. Même partir à la guerre en cachette.",
+				"giphyIds": [],
+				"giphyQuery": "Mulan Disney"
+			},
+			"b": {
+				"name": "Vaiana",
+				"origin": "Disney · 2016",
+				"line": "Traverse l’océan avec un coq pas très malin.",
+				"quip": "Team Vaiana : tu pars à l’aventure sans plan, avec un coq pas très malin. Courage.",
+				"giphyIds": [],
+				"giphyQuery": "Moana"
+			},
+			"bothQuip": "Les deux. Les héroïnes qui sauvent tout le monde, ce sont tes modèles.",
+			"noneQuip": "Ni l’une ni l’autre. Team Mushu, le dragon bavard."
+		},
+		{
+			"id": "dessins-elsa-anna",
+			"category": "dessins",
+			"a": {
+				"name": "Elsa",
+				"origin": "La Reine des neiges · 2013",
+				"line": "« Libérée, délivrée. »",
+				"quip": "Team Elsa : tu as chanté « Libérée, délivrée » à tue-tête dans la voiture. Avoue.",
+				"giphyIds": [],
+				"giphyQuery": "Elsa Frozen"
+			},
+			"b": {
+				"name": "Anna",
+				"origin": "La Reine des neiges · 2013",
+				"line": "Tombe amoureuse en une chanson.",
+				"quip": "Team Anna : tu tombes sous le charme en une chanson, et tu fonces.",
+				"giphyIds": [],
+				"giphyQuery": "Anna Frozen"
+			},
+			"bothQuip": "Les deux. Les sœurs les plus célèbres du monde. Ta playlist ne s’en remet pas.",
+			"noneQuip": "Ni Elsa ni Anna. Team Olaf, qui aime les câlins tout chauds."
+		},
+		{
+			"id": "dessins-l-age-de-glace-madagascar",
+			"category": "dessins",
+			"a": {
+				"name": "L’Âge de glace",
+				"origin": "Blue Sky · 2002",
+				"line": "Un écureuil, un gland, et une obsession.",
+				"quip": "Team Âge de glace : tu as une obsession, comme Scrat et son gland. Ne dis pas laquelle.",
+				"giphyIds": [],
+				"giphyQuery": "Ice Age Scrat"
+			},
+			"b": {
+				"name": "Madagascar",
+				"origin": "DreamWorks · 2005",
+				"line": "Des animaux du zoo, et des pingouins très organisés.",
+				"quip": "Team Madagascar : « Souriez et saluez, les gars. » Tu le dis en entrant en réunion.",
+				"giphyIds": [],
+				"giphyQuery": "Madagascar penguins"
+			},
+			"bothQuip": "Les deux. Les animaux en vacances forcées, ton genre de film.",
+			"noneQuip": "Ni l’un ni l’autre. Les animaux qui parlent, très peu pour toi."
+		},
+		{
+			"id": "dessins-monstres-et-cie-le-monde-de-nemo",
+			"category": "dessins",
+			"a": {
+				"name": "Monstres et Cie",
+				"origin": "Pixar · 2001",
+				"line": "Ils font peur aux enfants. Pour l’électricité.",
+				"quip": "Team Monstres et Cie : tu vérifies encore sous ton lit. Au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "Monsters Inc"
+			},
+			"b": {
+				"name": "Le Monde de Nemo",
+				"origin": "Pixar · 2003",
+				"line": "« Continue de nager. »",
+				"quip": "Team Nemo : « Continue de nager. » Ta devise de tous les lundis.",
+				"giphyIds": [],
+				"giphyQuery": "Finding Nemo Dory"
+			},
+			"bothQuip": "Les deux. Pixar a fait pleurer ton enfance, et ça continue.",
+			"noneQuip": "Ni l’un ni l’autre. Les monstres et les poissons, très peu pour toi."
+		},
+		{
+			"id": "dessins-les-indestructibles-ratatouille",
+			"category": "dessins",
+			"a": {
+				"name": "Les Indestructibles",
+				"origin": "Pixar · 2004",
+				"line": "« Pas de cape ! »",
+				"quip": "Team Indestructibles : « Pas de cape ! » Tu le dis dès que quelqu’un met une écharpe.",
+				"giphyIds": [],
+				"giphyQuery": "The Incredibles"
+			},
+			"b": {
+				"name": "Ratatouille",
+				"origin": "Pixar · 2007",
+				"line": "Un rat chef cuisinier, à Paris.",
+				"quip": "Team Ratatouille : tu cuisines avec quelqu’un qui te tire les cheveux. Au sens figuré.",
+				"giphyIds": [],
+				"giphyQuery": "Ratatouille"
+			},
+			"bothQuip": "Les deux. Les super-héros et la grande cuisine : ton week-end idéal.",
+			"noneQuip": "Ni l’un ni l’autre. Les capes et les rats, très peu pour toi."
+		},
+		{
+			"id": "dessins-chicken-run-shaun-le-mouton",
+			"category": "dessins",
+			"a": {
+				"name": "Chicken Run",
+				"origin": "Aardman · 2000",
+				"line": "Des poules qui préparent la grande évasion.",
+				"quip": "Team Chicken Run : tu as un plan d’évasion pour chaque réunion trop longue.",
+				"giphyIds": [],
+				"giphyQuery": "Chicken Run"
+			},
+			"b": {
+				"name": "Shaun le mouton",
+				"origin": "Aardman · 2007",
+				"line": "Un mouton plus malin que le fermier.",
+				"quip": "Team Shaun : tu as toujours un temps d’avance sur ton chef. Comme Shaun sur le fermier.",
+				"giphyIds": [],
+				"giphyQuery": "Shaun the Sheep"
+			},
+			"bothQuip": "Les deux. La pâte à modeler, c’est ta matière préférée.",
+			"noneQuip": "Ni l’un ni l’autre. Les animaux de la ferme, tu les préfères dans le pré."
+		},
+		{
+			"id": "dessins-les-minions-les-lapins-cretins",
+			"category": "dessins",
+			"a": {
+				"name": "Les Minions",
+				"origin": "Moi, moche et méchant · 2010",
+				"line": "Jaunes, en salopette, fous de bananes.",
+				"quip": "Team Minions : tu dis « Banana ! » avec un accent bizarre. Et ça te fait rire.",
+				"giphyIds": [],
+				"giphyQuery": "Minions"
+			},
+			"b": {
+				"name": "Les Lapins Crétins",
+				"origin": "Ubisoft · 2006",
+				"line": "« Bwaaaah ! »",
+				"quip": "Team Lapins Crétins : « BWAAAAH ! » C’est ta réponse à tout.",
+				"giphyIds": [],
+				"giphyQuery": "Rabbids"
+			},
+			"bothQuip": "Les deux. Les petites créatures qui crient, c’est ton humour.",
+			"noneQuip": "Ni l’un ni l’autre. Les petites créatures bruyantes, ça t’agace."
+		},
+		{
+			"id": "dessins-kirikou-les-triplettes-de-belleville",
+			"category": "dessins",
+			"a": {
+				"name": "Kirikou",
+				"origin": "Michel Ocelot · 1998",
+				"line": "Petit, rapide, et plus malin que la sorcière.",
+				"quip": "Team Kirikou : « Kirikou n’est pas grand, mais il est vaillant. » Tu le chantes encore.",
+				"giphyIds": ["MSRLPAkKlbFkzTD7Tb"],
+				"giphyQuery": "Kirikou"
+			},
+			"b": {
+				"name": "Les Triplettes de Belleville",
+				"origin": "Sylvain Chomet · 2003",
+				"line": "Trois chanteuses, un chien, et le Tour de France.",
+				"quip": "Team Triplettes : tu fais de la musique avec un frigo et un journal. Et c’est très bien.",
+				"giphyIds": [],
+				"giphyQuery": "Triplets of Belleville",
+				"gifUrls": ["https://media.tenor.com/l0uAdKxkKcsAAAAC/triplets-belleville.gif"]
+			},
+			"bothQuip": "Les deux. L’animation française, tu la défends partout.",
+			"noneQuip": "Ni l’un ni l’autre. L’animation française, il faut que tu essaies."
+		},
+		{
+			"id": "dessins-peppa-pig-t-choupi",
+			"category": "dessins",
+			"a": {
+				"name": "Peppa Pig",
+				"origin": "Royaume-Uni · 2004",
+				"line": "Saute dans les flaques de boue. Toujours.",
+				"quip": "Team Peppa Pig : tu sautes dans les flaques de boue. Encore aujourd’hui.",
+				"giphyIds": [],
+				"giphyQuery": "Peppa Pig"
+			},
+			"b": {
+				"name": "T’choupi",
+				"origin": "France · 1992",
+				"line": "Un petit pingouin qui découvre la vie, tranquillement.",
+				"quip": "Team T’choupi : tu découvres la vie tranquillement. Et c’est très bien comme ça.",
+				"giphyIds": [],
+				"giphyQuery": "Tchoupi penguin"
+			},
+			"bothQuip": "Les deux. Tu les as vus cent fois avec des enfants. Tu connais les répliques.",
+			"noneQuip": "Ni Peppa ni T’choupi. Pas d’enfants dans ton entourage, c’est ça ?"
+		},
+		{
+			"id": "dessins-la-pat-patrouille-pyjamasques",
+			"category": "dessins",
+			"a": {
+				"name": "La Pat’ Patrouille",
+				"origin": "Nickelodeon · 2013",
+				"line": "Six chiots, et un budget illimité.",
+				"quip": "Team Pat’ Patrouille : « Aucune mission n’est trop dure, aucun chiot n’est trop petit. » Tu le sais par cœur.",
+				"giphyIds": [],
+				"giphyQuery": "Paw Patrol"
+			},
+			"b": {
+				"name": "Pyjamasques",
+				"origin": "Série animée · 2015",
+				"line": "Super-héros la nuit, élèves fatigués le jour.",
+				"quip": "Team Pyjamasques : la nuit, tu sauves le monde. Le jour, tu dors en réunion.",
+				"giphyIds": [],
+				"giphyQuery": "PJ Masks"
+			},
+			"bothQuip": "Les deux. Tu as vu tous les épisodes. Avec ou sans enfants, on ne juge pas.",
+			"noneQuip": "Ni l’un ni l’autre. Les dessins animés pour les petits, ça te fatigue."
+		},
+		{
+			"id": "dessins-garfield-snoopy",
+			"category": "dessins",
+			"a": {
+				"name": "Garfield",
+				"origin": "Jim Davis · 1978",
+				"line": "Déteste les lundis, adore les lasagnes.",
+				"quip": "Team Garfield : le lundi, tu ne parles à personne avant midi.",
+				"giphyIds": [],
+				"giphyQuery": "Garfield"
+			},
+			"b": {
+				"name": "Snoopy",
+				"origin": "Charles Schulz · 1950",
+				"line": "Dort sur le toit de sa niche.",
+				"quip": "Team Snoopy : tu rêves de dormir sur le toit de ta niche. Enfin, de ton lit.",
+				"giphyIds": [],
+				"giphyQuery": "Snoopy"
+			},
+			"bothQuip": "Les deux. Le chat paresseux et le chien rêveur : ta mascotte idéale.",
+			"noneQuip": "Ni Garfield ni Snoopy. Les animaux de BD, tu les trouves trop bavards."
+		},
+		{
+			"id": "dessins-lucky-luke-rantanplan",
+			"category": "dessins",
+			"a": {
+				"name": "Lucky Luke",
+				"origin": "Morris · 1946",
+				"line": "Tire plus vite que son ombre.",
+				"quip": "Team Lucky Luke : tu dégaines plus vite que ton ombre. Surtout ton téléphone.",
+				"giphyIds": ["7npgNtSclhnP2"],
+				"giphyQuery": "Lucky Luke"
+			},
+			"b": {
+				"name": "Rantanplan",
+				"origin": "Morris · 1960",
+				"line": "Le chien le plus bête de l’Ouest.",
+				"quip": "Team Rantanplan : tu ne comprends rien, mais avec un bonheur parfait.",
+				"giphyIds": [],
+				"giphyQuery": "Rantanplan dog",
+				"gifUrls": ["https://media.tenor.com/t4BnfY4XOQsAAAAC/dog-rintindumb.gif"]
+			},
+			"bothQuip": "Les deux. Le cow-boy solitaire et le chien le plus bête de l’Ouest : ton western idéal.",
+			"noneQuip": "Ni Lucky Luke ni Rantanplan. Team Jolly Jumper, le vrai cerveau."
+		},
+		{
+			"id": "dessins-barbapapa-casimir",
+			"category": "dessins",
+			"a": {
+				"name": "Barbapapa",
+				"origin": "Annette Tison et Talus Taylor · 1970",
+				"line": "Change de forme, mais reste rose.",
+				"quip": "Team Barbapapa : tu changes de forme selon la situation. Hop hop hop.",
+				"giphyIds": [],
+				"giphyQuery": "Barbapapa"
+			},
+			"b": {
+				"name": "Casimir",
+				"origin": "L’Île aux enfants · 1974",
+				"line": "Un dinosaure orange, et du gloubi-boulga.",
+				"quip": "Team Casimir : tu as goûté au gloubi-boulga. Tu le regrettes encore.",
+				"giphyIds": [],
+				"giphyQuery": "Casimir dinosaur",
+				"gifUrls": ["https://media.tenor.com/e85q0CTgsOEAAAAC/casimir.gif"]
+			},
+			"bothQuip": "Les deux. Ton enfance était rose et orange.",
+			"noneQuip": "Ni l’un ni l’autre. Les années 70, tu ne connais pas. Demande à tes parents."
+		},
+		{
+			"id": "dessins-kung-fu-panda-dragons",
+			"category": "dessins",
+			"a": {
+				"name": "Kung Fu Panda",
+				"origin": "DreamWorks · 2008",
+				"line": "Un panda, des raviolis, et le kung-fu.",
+				"quip": "Team Kung Fu Panda : tu fais du kung-fu entre deux raviolis. Le guerrier dragon, c’est toi.",
+				"giphyIds": [],
+				"giphyQuery": "Kung Fu Panda"
+			},
+			"b": {
+				"name": "Dragons",
+				"origin": "DreamWorks · 2010",
+				"line": "Un Viking, et son dragon noir, Krokmou.",
+				"quip": "Team Dragons : tu rêves d’un Krokmou. Ton chat fait l’affaire.",
+				"giphyIds": [],
+				"giphyQuery": "How to Train Your Dragon Toothless"
+			},
+			"bothQuip": "Les deux. Les héros maladroits qui sauvent tout le monde, ta catégorie préférée.",
+			"noneQuip": "Ni l’un ni l’autre. Les dragons et le kung-fu, très peu pour toi."
+		},
+		{
+			"id": "dessins-he-arnold-daria",
+			"category": "dessins",
+			"a": {
+				"name": "Hé Arnold !",
+				"origin": "Nickelodeon · 1996",
+				"line": "Une tête en forme de ballon de rugby.",
+				"quip": "Team Hé Arnold ! : tu as un grand cœur. Et une tête bizarre, d’après certains.",
+				"giphyIds": [],
+				"giphyQuery": "Hey Arnold"
+			},
+			"b": {
+				"name": "Daria",
+				"origin": "MTV · 1997",
+				"line": "Blasée, lucide, et des lunettes rondes.",
+				"quip": "Team Daria : blasée, lucide, et tu lèves les yeux au ciel avant même qu’on parle.",
+				"giphyIds": [],
+				"giphyQuery": "Daria"
+			},
+			"bothQuip": "Les deux. Les ados des années 90, ta génération ou presque.",
+			"noneQuip": "Ni l’un ni l’autre. Les ados en dessin animé, tu as passé l’âge."
+		},
+		{
+			"id": "dessins-ben-10-danny-fantome",
+			"category": "dessins",
+			"a": {
+				"name": "Ben 10",
+				"origin": "Cartoon Network · 2005",
+				"line": "Une montre, dix aliens.",
+				"quip": "Team Ben 10 : tu tournes le cadran de ta montre en espérant devenir un alien.",
+				"giphyIds": [],
+				"giphyQuery": "Ben 10"
+			},
+			"b": {
+				"name": "Danny Fantôme",
+				"origin": "Nickelodeon · 2004",
+				"line": "Moitié ado, moitié fantôme.",
+				"quip": "Team Danny Fantôme : moitié ado, moitié fantôme. Le lundi matin, surtout fantôme.",
+				"giphyIds": [],
+				"giphyQuery": "Danny Phantom"
+			},
+			"bothQuip": "Les deux. Les héros ados aux pouvoirs bizarres, tes préférés.",
+			"noneQuip": "Ni l’un ni l’autre. Les aliens et les fantômes, tu laisses ça aux autres."
+		},
+		{
+			"id": "dessins-code-lyoko-wakfu",
+			"category": "dessins",
+			"a": {
+				"name": "Code Lyoko",
+				"origin": "France · 2003",
+				"line": "Sauver le monde virtuel après les cours.",
+				"quip": "Team Code Lyoko : tu as sauvé le monde virtuel après les cours. Puis tu as fait tes devoirs.",
+				"giphyIds": [],
+				"giphyQuery": "Code Lyoko"
+			},
+			"b": {
+				"name": "Wakfu",
+				"origin": "Ankama · 2008",
+				"line": "Un chapeau, des portails, et des larmes.",
+				"quip": "Team Wakfu : tu as pleuré. Beaucoup. Ce dessin animé ne pardonne rien.",
+				"giphyIds": ["N8wxYjgqOfxvi"],
+				"giphyQuery": "Wakfu"
+			},
+			"bothQuip": "Les deux. L’animation française des années 2000, ta fierté.",
+			"noneQuip": "Ni l’un ni l’autre. Les mondes virtuels et les portails, très peu pour toi."
+		},
+		{
+			"id": "dessins-sailor-moon-card-captor-sakura",
+			"category": "dessins",
+			"a": {
+				"name": "Sailor Moon",
+				"origin": "Naoko Takeuchi · 1992",
+				"line": "« Au nom de la Lune, je vais te punir ! »",
+				"quip": "Team Sailor Moon : « Au nom de la Lune, je vais te punir ! » Tu le dis encore.",
+				"giphyIds": [],
+				"giphyQuery": "Sailor Moon"
+			},
+			"b": {
+				"name": "Card Captor Sakura",
+				"origin": "CLAMP · 1996",
+				"line": "Des cartes magiques et une meilleure amie couturière.",
+				"quip": "Team Sakura : un classeur de cartes magiques, et une amie qui coud tes costumes.",
+				"giphyIds": [],
+				"giphyQuery": "Cardcaptor Sakura"
+			},
+			"bothQuip": "Les deux. Les héroïnes magiques des années 90, tu les as toutes regardées.",
+			"noneQuip": "Ni l’une ni l’autre. Les transformations magiques, ça prend trop de temps."
+		},
+		{
+			"id": "dessins-hamtaro-doraemon",
+			"category": "dessins",
+			"a": {
+				"name": "Hamtaro",
+				"origin": "Ritsuko Kawai · 1997",
+				"line": "Un hamster, des graines de tournesol, des copains.",
+				"quip": "Team Hamtaro : tu stockes des graines de tournesol dans tes joues. Au sens figuré.",
+				"giphyIds": [],
+				"giphyQuery": "Hamtaro"
+			},
+			"b": {
+				"name": "Doraemon",
+				"origin": "Fujiko F. Fujio · 1969",
+				"line": "Un chat-robot avec une poche magique.",
+				"quip": "Team Doraemon : tu rêves d’une poche magique qui sort n’importe quoi. Comme ton sac.",
+				"giphyIds": [],
+				"giphyQuery": "Doraemon"
+			},
+			"bothQuip": "Les deux. Un hamster et un chat-robot : ton enfance japonaise.",
+			"noneQuip": "Ni l’un ni l’autre. Les petites bêtes mignonnes, très peu pour toi."
+		},
+		{
+			"id": "dessins-nicky-larson-cobra",
+			"category": "dessins",
+			"a": {
+				"name": "Nicky Larson",
+				"origin": "Tsukasa Hojo · 1985",
+				"line": "Détective de génie, dragueur catastrophique.",
+				"quip": "Team Nicky Larson : détective de génie, dragueur catastrophique. Sans commentaire.",
+				"giphyIds": [],
+				"giphyQuery": "City Hunter"
+			},
+			"b": {
+				"name": "Cobra",
+				"origin": "Buichi Terasawa · 1978",
+				"line": "Un rayon psychique caché dans le bras gauche.",
+				"quip": "Team Cobra : un bras qui tire des rayons et un cigare. Tu fais des rêves bizarres.",
+				"giphyIds": [],
+				"giphyQuery": "Space Adventure Cobra"
+			},
+			"bothQuip": "Les deux. Les héros des années 80, avec des muscles et des répliques.",
+			"noneQuip": "Ni l’un ni l’autre. Les héros dragueurs des années 80 ont mal vieilli. On est d’accord."
+		},
+		{
+			"id": "dessins-les-chevaliers-du-zodiaque-ken-le-survivant",
+			"category": "dessins",
+			"a": {
+				"name": "Les Chevaliers du Zodiaque",
+				"origin": "Masami Kurumada · 1986",
+				"line": "Des armures, des constellations, et beaucoup de cris.",
+				"quip": "Team Chevaliers du Zodiaque : tu as crié « Météores de Pégase ! » en boxant le vide.",
+				"giphyIds": [],
+				"giphyQuery": "Saint Seiya"
+			},
+			"b": {
+				"name": "Ken le Survivant",
+				"origin": "Buronson et Tetsuo Hara · 1983",
+				"line": "« Tu ne le sais pas encore, mais tu es déjà mort. »",
+				"quip": "Team Ken le Survivant : « Tu ne le sais pas encore, mais tu es déjà mort. » Tu le dis aux moustiques.",
+				"giphyIds": [],
+				"giphyQuery": "Fist of the North Star"
+			},
+			"bothQuip": "Les deux. Le Club Dorothée t’a transmis des valeurs. Discutables, mais des valeurs.",
+			"noneQuip": "Ni l’un ni l’autre. Les animes qui crient fort, ça te donne mal à la tête."
+		},
+		{
+			"id": "dessins-candy-princesse-sarah",
+			"category": "dessins",
+			"a": {
+				"name": "Candy",
+				"origin": "Kyoko Mizuki · 1975",
+				"line": "Pleure beaucoup, se relève toujours.",
+				"quip": "Team Candy : tu pleures beaucoup, et tu te relèves toujours. Admirable.",
+				"giphyIds": [],
+				"giphyQuery": "Candy Candy"
+			},
+			"b": {
+				"name": "Princesse Sarah",
+				"origin": "Série animée · 1985",
+				"line": "Riche, puis pauvre, puis riche. Courage.",
+				"quip": "Team Princesse Sarah : riche, pauvre, puis riche. Tu as survécu à tout.",
+				"giphyIds": [],
+				"giphyQuery": "Princess Sarah anime"
+			},
+			"bothQuip": "Les deux. Deux dessins animés, deux paquets de mouchoirs, une seule semaine.",
+			"noneQuip": "Ni l’une ni l’autre. Les héroïnes qui pleurent tout le temps, ce n’est pas ton truc."
+		},
+		{
+			"id": "dessins-olive-et-tom-jeanne-et-serge",
+			"category": "dessins",
+			"a": {
+				"name": "Olive et Tom",
+				"origin": "Yoichi Takahashi · 1981",
+				"line": "Un terrain de foot de dix kilomètres de long.",
+				"quip": "Team Olive et Tom : tu as traversé un terrain de dix kilomètres en trois épisodes.",
+				"giphyIds": [],
+				"giphyQuery": "Captain Tsubasa"
+			},
+			"b": {
+				"name": "Jeanne et Serge",
+				"origin": "Série animée · 1984",
+				"line": "Le volley, version passion.",
+				"quip": "Team Jeanne et Serge : tes smashs au volley ont beaucoup trop de passion.",
+				"giphyIds": [],
+				"giphyQuery": "volleyball anime",
+				"gifUrls": ["https://media.tenor.com/bhL2NR4Os00AAAAC/jeanne%26serge-jeanne-et-serge.gif"]
+			},
+			"bothQuip": "Les deux. Le sport en dessin animé : ta seule activité sportive.",
+			"noneQuip": "Ni l’un ni l’autre. Le sport à la télé, même dessiné, très peu pour toi."
+		},
+		{
+			"id": "dessins-bambi-dumbo",
+			"category": "dessins",
+			"a": {
+				"name": "Bambi",
+				"origin": "Disney · 1942",
+				"line": "Apprend à marcher sur la glace. Puis le drame.",
+				"quip": "Team Bambi : tu as appris à marcher sur la glace. Puis le drame. Ça te hante encore.",
+				"giphyIds": [],
+				"giphyQuery": "Bambi"
+			},
+			"b": {
+				"name": "Dumbo",
+				"origin": "Disney · 1941",
+				"line": "De grandes oreilles, et un grand destin.",
+				"quip": "Team Dumbo : de grandes oreilles, un grand destin. Tu crois en toi, et tu as raison.",
+				"giphyIds": [],
+				"giphyQuery": "Dumbo"
+			},
+			"bothQuip": "Les deux. Disney a brisé ton cœur d’enfant. Deux fois.",
+			"noneQuip": "Ni Bambi ni Dumbo. Les films qui font pleurer les enfants, tu évites. Sage."
+		},
+		{
+			"id": "dessins-coraline-l-etrange-noel-de-m-jack",
+			"category": "dessins",
+			"a": {
+				"name": "Coraline",
+				"origin": "Henry Selick · 2009",
+				"line": "Une autre mère, avec des boutons à la place des yeux.",
+				"quip": "Team Coraline : tu ne fais confiance à personne qui a des boutons à la place des yeux. Personne.",
+				"giphyIds": [],
+				"giphyQuery": "Coraline"
+			},
+			"b": {
+				"name": "L’Étrange Noël de M. Jack",
+				"origin": "Henry Selick · 1993",
+				"line": "Halloween veut faire Noël. Ça se passe moyennement.",
+				"quip": "Team Monsieur Jack : tu décores pour Halloween et pour Noël en même temps. Tes voisins sont perdus.",
+				"giphyIds": [],
+				"giphyQuery": "Nightmare Before Christmas Jack"
+			},
+			"bothQuip": "Les deux. Henry Selick, c’est ton réalisateur. L’image par image, ton style.",
+			"noneQuip": "Ni l’un ni l’autre. Les dessins animés qui font peur aux enfants, très peu pour toi."
+		},
+		{
+			"id": "dessins-titeuf-kid-paddle",
+			"category": "dessins",
+			"a": {
+				"name": "Titeuf",
+				"origin": "Zep · 1992",
+				"line": "Une mèche, mille questions, et « c’est pô juste ! ».",
+				"quip": "Team Titeuf : « C’est pô juste ! » Tu le dis encore quand tu perds au Monopoly.",
+				"giphyIds": [],
+				"giphyQuery": "kid cartoon"
+			},
+			"b": {
+				"name": "Kid Paddle",
+				"origin": "Midam · 1993",
+				"line": "Des jeux vidéo, des monstres, et une imagination débordante.",
+				"quip": "Team Kid Paddle : tu vois des monstres partout. Surtout dans ta salle de bains.",
+				"giphyIds": [],
+				"giphyQuery": "gamer kid"
+			},
+			"bothQuip": "Les deux. Tes BD d’enfance sont devenues des dessins animés, et tu as tout vu.",
+			"noneQuip": "Ni Titeuf ni Kid Paddle. Team Boule et Bill, la bonne vieille BD."
+		},
+		{
+			"id": "dessins-ariel-raiponce",
+			"category": "dessins",
+			"a": {
+				"name": "Ariel",
+				"origin": "La Petite Sirène · 1989",
+				"line": "Une voix, une fourchette pour se coiffer, et l’envie de partir.",
+				"quip": "Team Ariel : tu as déjà essayé de te coiffer avec une fourchette. Une fois, pour voir.",
+				"giphyIds": [],
+				"giphyQuery": "little mermaid"
+			},
+			"b": {
+				"name": "Raiponce",
+				"origin": "Raiponce · 2010",
+				"line": "Vingt mètres de cheveux, et une poêle à frire.",
+				"quip": "Team Raiponce : ta poêle à frire, c’est aussi ton arme. Et tu sais t’en servir.",
+				"giphyIds": [],
+				"giphyQuery": "rapunzel"
+			},
+			"bothQuip": "Les deux. Les princesses qui veulent voir le monde, ce sont tes préférées.",
+			"noneQuip": "Ni Ariel ni Raiponce. Les princesses enfermées, très peu pour toi."
+		},
+		{
+			"id": "dessins-le-chanter-le-passer",
+			"category": "dessins",
+			"question": "Le générique du dessin animé : tu le chantes ou tu le passes ?",
+			"a": {
+				"name": "Le chanter",
+				"origin": "Le canapé, à tue-tête",
+				"line": "Toutes les paroles, en entier, avec la chorégraphie.",
+				"quip": "Team je chante : tu connais des génériques de 1987 par cœur. Mais pas ton code de carte bancaire.",
+				"giphyIds": [],
+				"giphyQuery": "singing"
+			},
+			"b": {
+				"name": "Le passer",
+				"origin": "La télécommande",
+				"line": "On veut l’épisode, pas la chanson.",
+				"quip": "Team je passe : tu as raté les plus belles chansons de ton enfance. Et tu ne le sais même pas.",
+				"giphyIds": [],
+				"giphyQuery": "fast forward"
+			},
+			"bothQuip": "Les deux. Tu chantes le premier, tu passes les suivants. Par efficacité.",
+			"noneQuip": "Ni l’un ni l’autre. Tu coupes le son pendant le générique. Le silence est d’or."
+		},
+		{
+			"id": "dessins-shrek-le-chat-potte",
+			"category": "dessins",
+			"a": {
+				"name": "Shrek",
+				"origin": "Shrek · 2001",
+				"line": "Un ogre, un marais, et des couches comme les oignons.",
+				"quip": "Team Shrek : « Sors de mon marais ! » Tu le dis quand on entre dans ta chambre.",
+				"giphyIds": [],
+				"giphyQuery": "shrek"
+			},
+			"b": {
+				"name": "Le Chat potté",
+				"origin": "Shrek 2 · 2004",
+				"line": "Un chapeau, des bottes, et des yeux qui implorent.",
+				"quip": "Team Chat potté : tu fais ses yeux suppliants pour avoir la dernière part de gâteau. Et ça marche.",
+				"giphyIds": [],
+				"giphyQuery": "puss in boots"
+			},
+			"bothQuip": "Les deux. L’ogre grognon et le chat charmeur : tu les veux dans ta bande.",
+			"noneQuip": "Ni Shrek ni le Chat potté. Team Ti-Biscuit, le bonhomme en pain d’épices."
+		},
+		{
+			"id": "dessins-toy-story-cars",
+			"category": "dessins",
+			"a": {
+				"name": "Toy Story",
+				"origin": "Pixar · 1995",
+				"line": "Des jouets qui vivent dès qu’on ne regarde pas.",
+				"quip": "Team Toy Story : tu ne jettes jamais un jouet. Au cas où il aurait des sentiments.",
+				"giphyIds": [],
+				"giphyQuery": "toy story"
+			},
+			"b": {
+				"name": "Cars",
+				"origin": "Pixar · 2006",
+				"line": "Des voitures qui parlent, et la route 66.",
+				"quip": "Team Cars : tu dis « Ka-tchow ! » en faisant le plein. Même au diesel.",
+				"giphyIds": [],
+				"giphyQuery": "cars pixar"
+			},
+			"bothQuip": "Les deux. Pixar a rempli ta chambre de jouets et de petites voitures.",
+			"noneQuip": "Ni Toy Story ni Cars. Les objets qui parlent, ça t’inquiète un peu."
+		},
+		{
+			"id": "dessins-bart-lisa",
+			"category": "dessins",
+			"a": {
+				"name": "Bart",
+				"origin": "Les Simpson · 1989",
+				"line": "Un skate, une fronde, et « Ay caramba ! ».",
+				"quip": "Team Bart : tu as déjà fait une blague au téléphone. Peut-être même hier.",
+				"giphyIds": [],
+				"giphyQuery": "bart simpson"
+			},
+			"b": {
+				"name": "Lisa",
+				"origin": "Les Simpson · 1989",
+				"line": "Un saxophone, de bonnes notes, et toujours raison.",
+				"quip": "Team Lisa : tu as raison, tout le temps. Et personne ne t’écoute. C’est dur.",
+				"giphyIds": [],
+				"giphyQuery": "lisa simpson"
+			},
+			"bothQuip": "Les deux. La bêtise et l’intelligence, dans la même famille. Comme la tienne.",
+			"noneQuip": "Ni Bart ni Lisa. Team Maggie, qui ne dit rien et voit tout."
+		},
+		{
+			"id": "dessins-dessin-anime-en-2d-dessin-anime-en-3d",
+			"category": "dessins",
+			"a": {
+				"name": "Dessin animé en 2D",
+				"origin": "Le crayon",
+				"line": "Dessiné à la main, image par image.",
+				"quip": "Team 2D : tu dis « c’était mieux à la main », avec beaucoup de nostalgie.",
+				"giphyIds": [],
+				"giphyQuery": "hand drawn animation"
+			},
+			"b": {
+				"name": "Dessin animé en 3D",
+				"origin": "L’ordinateur",
+				"line": "Des poils qui bougent un par un, et des reflets partout.",
+				"quip": "Team 3D : tu admires chaque poil de chaque personnage. Il y en a des millions.",
+				"giphyIds": [],
+				"giphyQuery": "3d animation"
+			},
+			"bothQuip": "Les deux. Un bon dessin animé reste un bon dessin animé, au crayon ou à l’ordinateur.",
+			"noneQuip": "Ni 2D ni 3D. Team pâte à modeler, image par image. La vraie patience."
+		},
+		{
+			"id": "dessins-babar-petit-ours-brun",
+			"category": "dessins",
+			"a": {
+				"name": "Babar",
+				"origin": "Jean de Brunhoff · 1931",
+				"line": "Un éléphant roi, en costume vert.",
+				"quip": "Team Babar : tu as un costume vert pour les grandes occasions. Ou tu y as pensé.",
+				"giphyIds": [],
+				"giphyQuery": "elephant"
+			},
+			"b": {
+				"name": "Petit Ours Brun",
+				"origin": "Bayard · 1975",
+				"line": "Il se brosse les dents, prend son bain, et fait des bêtises.",
+				"quip": "Team Petit Ours Brun : tu ne veux toujours pas aller te coucher. Encore aujourd’hui.",
+				"giphyIds": [],
+				"giphyQuery": "teddy bear"
+			},
+			"bothQuip": "Les deux. Tes histoires du soir avaient des oreilles rondes.",
+			"noneQuip": "Ni Babar ni Petit Ours Brun. Tes histoires du soir faisaient plus peur, c’est ça ?"
+		},
+		{
+			"id": "cinefr-louis-de-funes-bourvil",
+			"category": "cinefr",
+			"a": {
+				"name": "Louis de Funès",
+				"origin": "Le Corniaud · 1965",
+				"line": "Mille grimaces à la minute.",
+				"quip": "Team de Funès : quand on te contrarie, mille grimaces à la minute. Non, non, non… Oh si !",
+				"giphyIds": ["G5CoKPt7xtiI8"],
+				"giphyQuery": "Louis de Funes"
+			},
+			"b": {
+				"name": "Bourvil",
+				"origin": "La Grande Vadrouille · 1966",
+				"line": "Le gentil qui s’en sort quand même.",
+				"quip": "Team Bourvil : tu restes adorable même quand tout tourne mal. Surtout quand tout tourne mal.",
+				"giphyIds": [],
+				"giphyQuery": "Bourvil",
+				"gifUrls": ["https://media.tenor.com/_2Iwv1Tc7cgAAAAC/y%27a-quelqu%27un-il-y-a-quelqu%27un.gif"]
+			},
+			"bothQuip": "Les deux. « La Grande Vadrouille » à chaque Noël, et tu ris toujours au même moment.",
+			"noneQuip": "Ni de Funès ni Bourvil. Les classiques du dimanche soir, tu as zappé."
+		},
+		{
+			"id": "cinefr-les-bronzes-le-pere-noel-est-une-ordure",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Bronzés",
+				"origin": "Patrice Leconte · 1978",
+				"line": "Le Club Med, version catastrophe.",
+				"quip": "Team Les Bronzés : chaque été, tu cherches ton Club Med, ton Gigi et ton Jean-Claude.",
+				"giphyIds": [],
+				"giphyQuery": "Les Bronzes",
+				"gifUrls": ["https://media.tenor.com/bsd1hzZExBMAAAAC/michel-blanc-beach.gif"]
+			},
+			"b": {
+				"name": "Le Père Noël est une ordure",
+				"origin": "Jean-Marie Poiré · 1982",
+				"line": "Un réveillon de Noël qui tourne mal. Très mal.",
+				"quip": "Team Le Père Noël est une ordure : « C’est cela, oui. » Tu le dis à toute ta famille.",
+				"giphyIds": [],
+				"giphyQuery": "Le Pere Noel est une ordure",
+				"gifUrls": ["https://media.tenor.com/EybmJtQ8b6AAAAAC/le-pere-noel-est-une-ordure-thierry-lhermitte.gif"]
+			},
+			"bothQuip": "Les deux. Le Splendid a écrit la moitié de tes répliques.",
+			"noneQuip": "Ni l’un ni l’autre. Le Club Med et les réveillons ratés, très peu pour toi."
+		},
+		{
+			"id": "cinefr-oss-117-le-caire-nid-d-espions-asterix-mission-cleopatre",
+			"category": "cinefr",
+			"a": {
+				"name": "OSS 117, Le Caire nid d’espions",
+				"origin": "Michel Hazanavicius · 2006",
+				"line": "Un espion sûr de lui, et très souvent à côté.",
+				"quip": "Team OSS 117 : « Comment est votre blanquette ? » Tu le demandes au restaurant. Sérieusement.",
+				"giphyIds": ["3o7bufRpr472fizpHa"],
+				"giphyQuery": "OSS 117"
+			},
+			"b": {
+				"name": "Astérix, Mission Cléopâtre",
+				"origin": "Alain Chabat · 2002",
+				"line": "« C’est une bonne situation, ça, scribe ? »",
+				"quip": "Team Mission Cléopâtre : tu as déjà fait le monologue de la bonne situation. En entier.",
+				"giphyIds": ["7JsEoLWq836gidV6r5"],
+				"giphyQuery": "Asterix Mission Cleopatre"
+			},
+			"bothQuip": "Les deux. Les années 2000 ont produit les comédies que tu cites encore.",
+			"noneQuip": "Ni l’un ni l’autre. Les répliques cultes, tu ne les connais pas ? On a du travail."
+		},
+		{
+			"id": "cinefr-le-diner-de-cons-la-cite-de-la-peur",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Dîner de cons",
+				"origin": "Francis Veber · 1998",
+				"line": "« Il s’appelle Juste Leblanc. »",
+				"quip": "Team Dîner de cons : « Il s’appelle Juste Leblanc. » Ah bon, il n’a pas de prénom ?",
+				"giphyIds": [],
+				"giphyQuery": "Le Diner de cons",
+				"gifUrls": ["https://media.tenor.com/mIDS6MKwGAUAAAAC/diner-cons.gif"]
+			},
+			"b": {
+				"name": "La Cité de la peur",
+				"origin": "Les Nuls · 1994",
+				"line": "Un festival de Cannes et un tueur au marteau et à la faucille.",
+				"quip": "Team La Cité de la peur : tu fais la Carioca à chaque mariage. Et tu entraînes tout le monde.",
+				"giphyIds": ["3o751UakDjQQO6HjAQ"],
+				"giphyQuery": "La Cite de la peur"
+			},
+			"bothQuip": "Les deux. Ton humour vient entièrement des années 90.",
+			"noneQuip": "Ni l’un ni l’autre. Les comédies cultes, tu en as raté quelques-unes."
+		},
+		{
+			"id": "cinefr-les-visiteurs-les-bronzes-font-du-ski",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Visiteurs",
+				"origin": "Jean-Marie Poiré · 1993",
+				"line": "Un chevalier et son écuyer perdus en 1993.",
+				"quip": "Team Les Visiteurs : « Okayyy ! » Tu le dis en levant les mains, comme Jacquouille.",
+				"giphyIds": ["V98m5Xt9pf4xW"],
+				"giphyQuery": "Les Visiteurs"
+			},
+			"b": {
+				"name": "Les Bronzés font du ski",
+				"origin": "Patrice Leconte · 1979",
+				"line": "Le ski, la fondue, et la survie en montagne.",
+				"quip": "Team Les Bronzés font du ski : tu as goûté une spécialité douteuse dans un refuge. Et survécu.",
+				"giphyIds": ["bYAvC6WCKOAPGcWcEy"],
+				"giphyQuery": "Les Bronzes font du ski"
+			},
+			"bothQuip": "Les deux. Le Moyen Âge et la montagne : la France sous tous ses angles.",
+			"noneQuip": "Ni l’un ni l’autre. Les comédies françaises des années 70 à 90, il faut t’y mettre."
+		},
+		{
+			"id": "cinefr-intouchables-bienvenue-chez-les-ch-tis",
+			"category": "cinefr",
+			"a": {
+				"name": "Intouchables",
+				"origin": "Olivier Nakache et Éric Toledano · 2011",
+				"line": "Un milliardaire, un aide à domicile, et beaucoup de rires.",
+				"quip": "Team Intouchables : tu as dansé sur « Boogie Wonderland » à un anniversaire. Comme Omar Sy.",
+				"giphyIds": ["9VvfZjzJJMHXF4cRN3"],
+				"giphyQuery": "Intouchables"
+			},
+			"b": {
+				"name": "Bienvenue chez les Ch’tis",
+				"origin": "Dany Boon · 2008",
+				"line": "« Biloute ! »",
+				"quip": "Team Ch’tis : tu dis « biloute » à des gens qui ne viennent pas du Nord. Ils sont surpris.",
+				"giphyIds": [],
+				"giphyQuery": "Bienvenue chez les Chtis",
+				"gifUrls": ["https://media.tenor.com/RQbuAqBcF0sAAAAC/nord-chti.gif"]
+			},
+			"bothQuip": "Les deux. Les plus gros succès du cinéma français, tu les as vus. Normal.",
+			"noneQuip": "Ni l’un ni l’autre. Les films que tout le monde a vus, tu les fuis. Rebelle."
+		},
+		{
+			"id": "cinefr-le-fabuleux-destin-d-amelie-poul-la-haine",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Fabuleux Destin d’Amélie Poulain",
+				"origin": "Jean-Pierre Jeunet · 2001",
+				"line": "Casser la croûte des crèmes brûlées.",
+				"quip": "Team Amélie : tu casses la croûte des crèmes brûlées à la cuillère. Et tu fais des ricochets.",
+				"giphyIds": ["14fbNNlDpxjEnS"],
+				"giphyQuery": "Amelie Poulain"
+			},
+			"b": {
+				"name": "La Haine",
+				"origin": "Mathieu Kassovitz · 1995",
+				"line": "« Jusqu’ici, tout va bien. »",
+				"quip": "Team La Haine : « Jusqu’ici, tout va bien. » Ta phrase du lundi matin.",
+				"giphyIds": ["88pDcmjlxXFoQ"],
+				"giphyQuery": "La Haine"
+			},
+			"bothQuip": "Les deux. Montmartre et la banlieue, deux visages du cinéma français.",
+			"noneQuip": "Ni l’un ni l’autre. Le cinéma français des années 90 et 2000, à découvrir."
+		},
+		{
+			"id": "cinefr-le-grand-bleu-leon",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Grand Bleu",
+				"origin": "Luc Besson · 1988",
+				"line": "Plonger toujours plus profond, avec des dauphins.",
+				"quip": "Team Le Grand Bleu : tu retiens ta respiration dans la baignoire. Pour t’entraîner.",
+				"giphyIds": [],
+				"giphyQuery": "Le Grand Bleu",
+				"gifUrls": ["https://media.tenor.com/70XZ75JE5YkAAAAC/le-grand-bleu-the-big-blue.gif"]
+			},
+			"b": {
+				"name": "Léon",
+				"origin": "Luc Besson · 1994",
+				"line": "Un tueur, une plante verte, et un verre de lait.",
+				"quip": "Team Léon : tu prends soin d’une plante verte comme d’une meilleure amie. Et tu bois du lait.",
+				"giphyIds": ["tCzWe3PQwJeuI"],
+				"giphyQuery": "Leon the Professional"
+			},
+			"bothQuip": "Les deux. Luc Besson a fait toute ta culture des années 90.",
+			"noneQuip": "Ni l’un ni l’autre. La plongée et les tueurs, très peu pour toi."
+		},
+		{
+			"id": "cinefr-le-cinquieme-element-taxi",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Cinquième Élément",
+				"origin": "Luc Besson · 1997",
+				"line": "« Multipass ! »",
+				"quip": "Team Le Cinquième Élément : « Multipass ! » Tu le dis en tendant ta carte de transport.",
+				"giphyIds": ["uIGHPjEfdc0Ni"],
+				"giphyQuery": "Fifth Element multipass"
+			},
+			"b": {
+				"name": "Taxi",
+				"origin": "Gérard Pirès · 1998",
+				"line": "Marseille en mode turbo.",
+				"quip": "Team Taxi : dans ta tête, tu conduis comme Daniel sur le périphérique.",
+				"giphyIds": [],
+				"giphyQuery": "Taxi film Marseille",
+				"gifUrls": ["https://media.tenor.com/LaFq0vrUiJAAAAAC/taxi-start.gif"]
+			},
+			"bothQuip": "Les deux. La science-fiction et Marseille en mode turbo : ton grand écart préféré.",
+			"noneQuip": "Ni l’un ni l’autre. Les films à grande vitesse, très peu pour toi."
+		},
+		{
+			"id": "cinefr-jean-dujardin-jean-reno",
+			"category": "cinefr",
+			"a": {
+				"name": "Jean Dujardin",
+				"origin": "Brice de Nice, OSS 117",
+				"line": "Des grimaces, des répliques, et un Oscar.",
+				"quip": "Team Dujardin : tu as dit « Cassé ! » à un collègue. Et il l’a été.",
+				"giphyIds": ["qDJuQR8Xyt3ri"],
+				"giphyQuery": "Jean Dujardin"
+			},
+			"b": {
+				"name": "Jean Reno",
+				"origin": "Léon, Les Visiteurs",
+				"line": "Un regard grave et une voix encore plus grave.",
+				"quip": "Team Jean Reno : une voix grave et un regard sérieux, même pour commander un café.",
+				"giphyIds": ["Pc16mmoHoXBh6"],
+				"giphyQuery": "Jean Reno"
+			},
+			"bothQuip": "Les deux. Deux Jean, deux styles, une seule soirée cinéma.",
+			"noneQuip": "Ni l’un ni l’autre. Les Jean du cinéma français, tu préfères d’autres prénoms."
+		},
+		{
+			"id": "cinefr-les-tontons-flingueurs-la-grande-vadrouille",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Tontons flingueurs",
+				"origin": "Georges Lautner · 1963",
+				"line": "Des truands, une cuisine, et des dialogues d’Audiard.",
+				"quip": "Team Tontons flingueurs : tu cites Audiard à table. Avec l’accent.",
+				"giphyIds": ["c6NoRjSwtP86Q"],
+				"giphyQuery": "Les Tontons flingueurs"
+			},
+			"b": {
+				"name": "La Grande Vadrouille",
+				"origin": "Gérard Oury · 1966",
+				"line": "Deux Français, des aviateurs anglais, et une course-poursuite.",
+				"quip": "Team La Grande Vadrouille : « Il n’y a pas d’hélice, hélas. » Tu en ris encore.",
+				"giphyIds": [],
+				"giphyQuery": "defenus",
+				"gifUrls": ["https://media.tenor.com/OL9_NJ1VlQgAAAAC/la-grande-vadrouille-ecoutez-mon-cher-dites-vous-bien-que-nous-ne-sommes-pas-du-meme-monde.gif"]
+			},
+			"bothQuip": "Les deux. Les années 60 et les dialogues cultes : ton patrimoine.",
+			"noneQuip": "Ni l’un ni l’autre. Les vieux classiques, tu les laisses à ton grand-père."
+		},
+		{
+			"id": "cinefr-la-soupe-aux-choux-le-gendarme-de-saint-tropez",
+			"category": "cinefr",
+			"a": {
+				"name": "La Soupe aux choux",
+				"origin": "Jean Girault · 1981",
+				"line": "Un extraterrestre fan de soupe.",
+				"quip": "Team La Soupe aux choux : tu as fait une soupe aux choux pour voir si un extraterrestre viendrait.",
+				"giphyIds": [],
+				"giphyQuery": "La Soupe aux choux",
+				"gifUrls": ["https://media.tenor.com/bhZ8y9j-8jQAAAAC/defunes-villeret.gif"]
+			},
+			"b": {
+				"name": "Le Gendarme de Saint-Tropez",
+				"origin": "Jean Girault · 1964",
+				"line": "Des gendarmes, la plage, et beaucoup d’agitation.",
+				"quip": "Team Le Gendarme : tu réponds à ta hiérarchie avec un salut militaire. Et beaucoup de zèle.",
+				"giphyIds": ["yUXc5qUqmrdza"],
+				"giphyQuery": "Gendarme de Saint-Tropez"
+			},
+			"bothQuip": "Les deux. De Funès en gendarme ou avec des extraterrestres : tu prends tout.",
+			"noneQuip": "Ni l’un ni l’autre. Les gendarmes et les soupes, très peu pour toi."
+		},
+		{
+			"id": "cinefr-brice-de-nice-les-tuche",
+			"category": "cinefr",
+			"a": {
+				"name": "Brice de Nice",
+				"origin": "James Huth · 2005",
+				"line": "« Cassé ! »",
+				"quip": "Team Brice de Nice : « Cassé ! » Ta réponse à chaque bonne réplique des autres.",
+				"giphyIds": ["j8SjxLuHM3L32"],
+				"giphyQuery": "Brice de Nice"
+			},
+			"b": {
+				"name": "Les Tuche",
+				"origin": "Olivier Baroux · 2011",
+				"line": "Une famille qui gagne au loto et reste fidèle à elle-même.",
+				"quip": "Team Les Tuche : tu resterais toi-même, même avec des millions. On respecte.",
+				"giphyIds": [],
+				"giphyQuery": "Les Tuche",
+				"gifUrls": ["https://media.tenor.com/c1bsf5k0QjwAAAAC/les-tuche-des-frites-des-frites-des-frites.gif"]
+			},
+			"bothQuip": "Les deux. Les héros un peu à côté de la plaque, ce sont tes préférés.",
+			"noneQuip": "Ni l’un ni l’autre. L’humour décalé, ce n’est pas ton truc."
+		},
+		{
+			"id": "cinefr-camping-la-verite-si-je-mens",
+			"category": "cinefr",
+			"a": {
+				"name": "Camping",
+				"origin": "Fabien Onteniente · 2006",
+				"line": "Patrick Chirac, au camping des Flots bleus, tous les étés.",
+				"quip": "Team Camping : tu retournes au même camping chaque été depuis vingt ans. Comme Patrick Chirac.",
+				"giphyIds": [],
+				"giphyQuery": "Camping film Franck Dubosc",
+				"gifUrls": ["https://media.tenor.com/1wLhaxTMpqAAAAAC/franck-dubosc-patrick.gif"]
+			},
+			"b": {
+				"name": "La Vérité si je mens !",
+				"origin": "Thomas Gilou · 1997",
+				"line": "Le Sentier, des costumes, et des embrouilles.",
+				"quip": "Team La Vérité si je mens ! : tu as déjà essayé de négocier un prix… au supermarché.",
+				"giphyIds": [],
+				"giphyQuery": "La Verite si je mens",
+				"gifUrls": ["https://media.tenor.com/5Tuf-Lz7IjMAAAAC/yallah-la-verite-si-je-mens.gif"]
+			},
+			"bothQuip": "Les deux. Les comédies de bande, c’est ton genre de soirée.",
+			"noneQuip": "Ni l’un ni l’autre. Le camping et le Sentier, très peu pour toi."
+		},
+		{
+			"id": "cinefr-jacques-tati-pierre-richard",
+			"category": "cinefr",
+			"a": {
+				"name": "Jacques Tati",
+				"origin": "Mon oncle · 1958",
+				"line": "Un imper, une pipe, et des gags au millimètre.",
+				"quip": "Team Jacques Tati : un sens du gag au millimètre. Et un imperméable.",
+				"giphyIds": [],
+				"giphyQuery": "Jacques Tati",
+				"gifUrls": ["https://media.tenor.com/bhIHQ0JagfkAAAAC/jacques-tati-playtime.gif"]
+			},
+			"b": {
+				"name": "Pierre Richard",
+				"origin": "Le Grand Blond · 1972",
+				"line": "Une chaussure noire et beaucoup de maladresse.",
+				"quip": "Team Pierre Richard : une chaussure noire et une marron. C’est un style.",
+				"giphyIds": [],
+				"giphyQuery": "Pierre Richard",
+				"gifUrls": ["https://media.tenor.com/QiPT-KXDAfQAAAAC/ch%C3%A8vre-jules.gif"]
+			},
+			"bothQuip": "Les deux. Les grands maladroits du cinéma français, tu les adores.",
+			"noneQuip": "Ni l’un ni l’autre. Les gags presque muets ne te font pas rire."
+		},
+		{
+			"id": "cinefr-christian-clavier-thierry-lhermitte",
+			"category": "cinefr",
+			"a": {
+				"name": "Christian Clavier",
+				"origin": "Le Splendid · 1974",
+				"line": "Jacquouille, Napoléon, et beaucoup de cris.",
+				"quip": "Team Christian Clavier : tu cries « Okayyy ! » et tu fais Napoléon dans la même soirée.",
+				"giphyIds": ["IHuS5o0hs2BVe"],
+				"giphyQuery": "Christian Clavier"
+			},
+			"b": {
+				"name": "Thierry Lhermitte",
+				"origin": "Le Splendid · 1974",
+				"line": "Le séducteur des Bronzés.",
+				"quip": "Team Thierry Lhermitte : le séducteur des Bronzés. Tu as un peu de son assurance.",
+				"giphyIds": [],
+				"giphyQuery": "Thierry Lhermitte",
+				"gifUrls": ["https://media.tenor.com/QnxZJZWkNdMAAAAC/belle-t%C3%AAte-de-vainqueur-le-d%C3%AEner-de-cons.gif"]
+			},
+			"bothQuip": "Les deux. Le Splendid au complet, rien de moins.",
+			"noneQuip": "Ni l’un ni l’autre. Les comédies du Splendid, ce n’est pas ta génération."
+		},
+		{
+			"id": "cinefr-les-choristes-le-petit-nicolas",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Choristes",
+				"origin": "Christophe Barratier · 2004",
+				"line": "Une chorale, un internat, et des frissons.",
+				"quip": "Team Les Choristes : « Vois sur ton chemin » te donne des frissons. À chaque fois.",
+				"giphyIds": ["j5KabUmARslBZHZdg6"],
+				"giphyQuery": "Les Choristes"
+			},
+			"b": {
+				"name": "Le Petit Nicolas",
+				"origin": "Laurent Tirard · 2009",
+				"line": "L’école, les copains, et des bêtises.",
+				"quip": "Team Le Petit Nicolas : tu te souviens encore de tes copains de primaire. Et de vos bêtises.",
+				"giphyIds": [],
+				"giphyQuery": "Le Petit Nicolas",
+				"gifUrls": ["https://media.tenor.com/tNAVccHGM14AAAAC/agnan-agnan-le-petit-nicolas.gif"]
+			},
+			"bothQuip": "Les deux. L’école, au cinéma, c’était beaucoup mieux qu’en vrai.",
+			"noneQuip": "Ni l’un ni l’autre. Les films d’école, tu as donné. Merci."
+		},
+		{
+			"id": "cinefr-le-pacte-des-loups-les-rivieres-pourpres",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Pacte des loups",
+				"origin": "Christophe Gans · 2001",
+				"line": "Une bête mystérieuse et du kung-fu en 1764.",
+				"quip": "Team Le Pacte des loups : du kung-fu en 1764. Pour toi, c’est tout à fait normal.",
+				"giphyIds": [],
+				"giphyQuery": "Brotherhood of the Wolf",
+				"gifUrls": ["https://media.tenor.com/2K3AuJ_EKWwAAAAC/brotherhood-of.gif"]
+			},
+			"b": {
+				"name": "Les Rivières pourpres",
+				"origin": "Mathieu Kassovitz · 2000",
+				"line": "Deux flics, un glacier, et des frissons.",
+				"quip": "Team Les Rivières pourpres : les glaciers te font un peu peur depuis.",
+				"giphyIds": [],
+				"giphyQuery": "Crimson Rivers",
+				"gifUrls": ["https://media.tenor.com/Zyks82ezHq0AAAAC/les-rivieres-pourpres-olivier-marchal.gif"]
+			},
+			"bothQuip": "Les deux. Le thriller à la française du début des années 2000, ton genre.",
+			"noneQuip": "Ni l’un ni l’autre. Les films qui font peur, très peu pour toi."
+		},
+		{
+			"id": "cinefr-jean-paul-belmondo-alain-delon",
+			"category": "cinefr",
+			"a": {
+				"name": "Jean-Paul Belmondo",
+				"origin": "À bout de souffle · 1960",
+				"line": "Des cascades sans doublure et un sourire en coin.",
+				"quip": "Team Belmondo : tu ferais tes cascades toi-même. Même pour monter sur un escabeau.",
+				"giphyIds": ["YrEMVIxF1rSVXcUc2Y"],
+				"giphyQuery": "Jean-Paul Belmondo"
+			},
+			"b": {
+				"name": "Alain Delon",
+				"origin": "Le Samouraï · 1967",
+				"line": "Le regard bleu, et la classe.",
+				"quip": "Team Delon : le regard bleu et la classe. Au moins dans le miroir.",
+				"giphyIds": ["H1kCbNzRYJCx5teutr"],
+				"giphyQuery": "Alain Delon"
+			},
+			"bothQuip": "Les deux. Bébel et le Samouraï : les deux visages du cinéma français.",
+			"noneQuip": "Ni l’un ni l’autre. Les stars des années 60, tu les laisses à tes grands-parents."
+		},
+		{
+			"id": "cinefr-les-demoiselles-de-rochefort-les-parapluies-de-cherbourg",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Demoiselles de Rochefort",
+				"origin": "Jacques Demy · 1967",
+				"line": "Des jumelles, des chansons, et des marins.",
+				"quip": "Team Demoiselles de Rochefort : tu as chanté « Nous sommes deux sœurs jumelles » à deux. Avoue.",
+				"giphyIds": ["13UqVTfchpLDZC"],
+				"giphyQuery": "Les Demoiselles de Rochefort"
+			},
+			"b": {
+				"name": "Les Parapluies de Cherbourg",
+				"origin": "Jacques Demy · 1964",
+				"line": "Tout le film est chanté. Tout.",
+				"quip": "Team Parapluies de Cherbourg : tu as déjà eu envie de chanter tout un repas de famille. Comme dans le film.",
+				"giphyIds": ["IMUa3w7fV7EKTAX3cU"],
+				"giphyQuery": "Umbrellas of Cherbourg"
+			},
+			"bothQuip": "Les deux. Jacques Demy, et tout le monde chante.",
+			"noneQuip": "Ni l’un ni l’autre. Les films où tout le monde chante te donnent envie de partir."
+		},
+		{
+			"id": "cinefr-la-vache-et-le-prisonnier-don-camillo",
+			"category": "cinefr",
+			"a": {
+				"name": "La Vache et le Prisonnier",
+				"origin": "Henri Verneuil · 1959",
+				"line": "Fernandel s’évade avec une vache.",
+				"quip": "Team La Vache et le Prisonnier : tu partirais en voyage avec une vache. Pour la compagnie.",
+				"giphyIds": [],
+				"giphyQuery": "La Vache et le Prisonnier Fernandel",
+				"gifUrls": ["https://media.tenor.com/tXOTC19c_RwAAAAC/don-camillo-peppone.gif"]
+			},
+			"b": {
+				"name": "Don Camillo",
+				"origin": "Julien Duvivier · 1952",
+				"line": "Un curé qui parle au crucifix.",
+				"quip": "Team Don Camillo : tu parles à voix haute en espérant une réponse. Parfois, ça marche.",
+				"giphyIds": [],
+				"giphyQuery": "Don Camillo Fernandel",
+				"gifUrls": ["https://media.tenor.com/jPq4_ZbVl0IAAAAC/don-camillo-peppone.gif"]
+			},
+			"bothQuip": "Les deux. Fernandel, avec une vache ou en soutane : tu prends tout.",
+			"noneQuip": "Ni l’un ni l’autre. Les films en noir et blanc, il faut parfois essayer."
+		},
+		{
+			"id": "cinefr-les-sous-doues-les-profs",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Sous-doués",
+				"origin": "Claude Zidi · 1980",
+				"line": "Le bac, et beaucoup de triche.",
+				"quip": "Team Les Sous-doués : tu as déjà caché des antisèches dans des endroits très créatifs.",
+				"giphyIds": [],
+				"giphyQuery": "Les Sous-doues",
+				"gifUrls": ["https://media.tenor.com/va9wj1DLHsYAAAAC/kicking-machine-machine-claque.gif"]
+			},
+			"b": {
+				"name": "Les Profs",
+				"origin": "Pierre-François Martin-Laval · 2013",
+				"line": "Les pires profs de France pour les pires élèves.",
+				"quip": "Team Les Profs : tu as eu au moins un prof comme ceux du film. On ne dira pas lequel.",
+				"giphyIds": [],
+				"giphyQuery": "Les Profs film"
+			},
+			"bothQuip": "Les deux. L’école en comédie, c’était plus drôle qu’en vrai.",
+			"noneQuip": "Ni l’un ni l’autre. Le bac et les profs, tu as tourné la page."
+		},
+		{
+			"id": "cinefr-rrrrrr-didier",
+			"category": "cinefr",
+			"a": {
+				"name": "RRRrrr !!!",
+				"origin": "Alain Chabat · 2004",
+				"line": "La préhistoire, et le secret du shampoing.",
+				"quip": "Team RRRrrr !!! : tu as cherché le secret du shampoing. Tu ne l’as pas trouvé.",
+				"giphyIds": [],
+				"giphyQuery": "RRRrrr film",
+				"gifUrls": ["https://media.tenor.com/1Hu1eN5-Ed0AAAAC/sandouiche-sandwich.gif"]
+			},
+			"b": {
+				"name": "Didier",
+				"origin": "Alain Chabat · 1997",
+				"line": "Un chien qui devient homme et joue au foot.",
+				"quip": "Team Didier : tu ferais un excellent joueur de foot, si tu étais un chien. Ou l’inverse.",
+				"giphyIds": [],
+				"giphyQuery": "Didier Chabat",
+				"gifUrls": ["https://media.tenor.com/xt2QLo09-M0AAAAC/oui-yes.gif"]
+			},
+			"bothQuip": "Les deux. Alain Chabat, en préhistoire ou en chien : tu suis.",
+			"noneQuip": "Ni l’un ni l’autre. L’humour absurde d’Alain Chabat, il faut s’y mettre."
+		},
+		{
+			"id": "cinefr-la-classe-americaine-les-trois-freres",
+			"category": "cinefr",
+			"a": {
+				"name": "La Classe américaine",
+				"origin": "Michel Hazanavicius · 1993",
+				"line": "Des classiques d’Hollywood, entièrement redoublés.",
+				"quip": "Team La Classe américaine : tu cites des répliques que personne d’autre ne comprend. Et tu adores ça.",
+				"giphyIds": ["2nzUAOGw3i7w4"],
+				"giphyQuery": "La Classe americaine"
+			},
+			"b": {
+				"name": "Les Trois Frères",
+				"origin": "Les Inconnus · 1995",
+				"line": "Trois frères, un héritage, et aucun argent à la fin.",
+				"quip": "Team Les Trois Frères : tu as hérité d’un rien du tout, mais avec style.",
+				"giphyIds": [],
+				"giphyQuery": "Les Trois Freres",
+				"gifUrls": ["https://media.tenor.com/QxxASzkAL9sAAAAC/les-inconnus-les-trois-fr%C3%A8res.gif"]
+			},
+			"bothQuip": "Les deux. Le culte des années 90, tu le cites tous les jours.",
+			"noneQuip": "Ni l’un ni l’autre. Les répliques cultes des années 90, tu ne connais pas ? On t’envie un peu."
+		},
+		{
+			"id": "cinefr-le-prenom-un-air-de-famille",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Prénom",
+				"origin": "Alexandre de La Patellière · 2012",
+				"line": "Un dîner, un prénom, et tout explose.",
+				"quip": "Team Le Prénom : tu as déjà fait exploser un dîner avec une blague. Une seule petite blague.",
+				"giphyIds": [],
+				"giphyQuery": "Le Prenom film"
+			},
+			"b": {
+				"name": "Un air de famille",
+				"origin": "Cédric Klapisch · 1996",
+				"line": "Un vendredi soir au café, et des rancœurs.",
+				"quip": "Team Un air de famille : les vendredis soir en famille, tu connais. Et tu les redoutes.",
+				"giphyIds": [],
+				"giphyQuery": "Un air de famille"
+			},
+			"bothQuip": "Les deux. Les dîners qui tournent mal : ton genre de film. Et de soirée.",
+			"noneQuip": "Ni l’un ni l’autre. Les disputes de famille, tu en as assez à la maison."
+		},
+		{
+			"id": "cinefr-l-auberge-espagnole-les-petits-mouchoirs",
+			"category": "cinefr",
+			"a": {
+				"name": "L’Auberge espagnole",
+				"origin": "Cédric Klapisch · 2002",
+				"line": "Erasmus à Barcelone, dans une colocation chaotique.",
+				"quip": "Team L’Auberge espagnole : tu as vécu une colocation chaotique. Ou tu en rêves encore.",
+				"giphyIds": [],
+				"giphyQuery": "L'Auberge espagnole",
+				"gifUrls": ["https://media.tenor.com/6PkfvMkW35cAAAAC/romain-duris.gif"]
+			},
+			"b": {
+				"name": "Les Petits Mouchoirs",
+				"origin": "Guillaume Canet · 2010",
+				"line": "Des vacances entre amis, et beaucoup de larmes.",
+				"quip": "Team Les Petits Mouchoirs : tu pleures à chaque vacances entre amis. C’est la tradition.",
+				"giphyIds": [],
+				"giphyQuery": "Les Petits Mouchoirs",
+				"gifUrls": ["https://media.tenor.com/c9RBwtZq0xgAAAAC/les-petits-mouchoirs-fran%C3%A7ois-cluzet.gif"]
+			},
+			"bothQuip": "Les deux. Les films de bande d’amis, c’est ta vie.",
+			"noneQuip": "Ni l’un ni l’autre. Les films de potes, tu préfères les vivre."
+		},
+		{
+			"id": "cinefr-l-aile-ou-la-cuisse-le-grand-restaurant",
+			"category": "cinefr",
+			"a": {
+				"name": "L’Aile ou la Cuisse",
+				"origin": "Claude Zidi · 1976",
+				"line": "Un critique gastronomique contre la malbouffe.",
+				"quip": "Team L’Aile ou la Cuisse : tu goûtes chaque plat comme un critique. Même à la cantine.",
+				"giphyIds": [],
+				"giphyQuery": "L'Aile ou la Cuisse",
+				"gifUrls": ["https://media.tenor.com/sUaDIQV4ysIAAAAC/pasfroid-steam.gif"]
+			},
+			"b": {
+				"name": "Le Grand Restaurant",
+				"origin": "Jacques Besnard · 1966",
+				"line": "De Funès, maître d’hôtel tyrannique.",
+				"quip": "Team Le Grand Restaurant : tu as déjà mené une tablée avec l’autorité de de Funès.",
+				"giphyIds": ["OcUrMyhQKtJPW"],
+				"giphyQuery": "Le Grand Restaurant"
+			},
+			"bothQuip": "Les deux. De Funès et la grande cuisine : ton plat préféré.",
+			"noneQuip": "Ni l’un ni l’autre. La gastronomie au cinéma, très peu pour toi."
+		},
+		{
+			"id": "cinefr-le-splendid-les-robins-des-bois",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Splendid",
+				"origin": "Troupe · 1974",
+				"line": "Les Bronzés, le Père Noël, et un sens du malaise.",
+				"quip": "Team Le Splendid : tu as un sens du malaise très développé. Et tu en ris.",
+				"giphyIds": [],
+				"giphyQuery": "Le Splendid troupe",
+				"gifUrls": ["https://media.tenor.com/fanugSI18boAAAAC/les-bronz%C3%A9s-font-du-ski.gif"]
+			},
+			"b": {
+				"name": "Les Robins des Bois",
+				"origin": "Canal+ · 1998",
+				"line": "Des sketchs et des personnages absurdes.",
+				"quip": "Team Les Robins des Bois : tu as imité tous leurs personnages. Le plus absurde en premier.",
+				"giphyIds": [],
+				"giphyQuery": "Robins des Bois",
+				"gifUrls": ["https://media.tenor.com/EcyPfdhtVuMAAAAC/chiale-robin-des-bois.gif"]
+			},
+			"bothQuip": "Les deux. Les troupes comiques françaises, tu les as toutes.",
+			"noneQuip": "Ni l’un ni l’autre. Les troupes comiques, c’est trop de monde à la fois."
+		},
+		{
+			"id": "cinefr-les-inconnus-les-nuls",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Inconnus",
+				"origin": "Trio · 1990",
+				"line": "Des sketchs et des parodies cultes.",
+				"quip": "Team Les Inconnus : tu sais expliquer la différence entre le bon et le mauvais chasseur.",
+				"giphyIds": [],
+				"giphyQuery": "Les Inconnus",
+				"gifUrls": ["https://media.tenor.com/d3zsQO_oVXYAAAAC/non-kermit.gif"]
+			},
+			"b": {
+				"name": "Les Nuls",
+				"origin": "Canal+ · 1987",
+				"line": "Des fausses pubs et un sens de l’absurde.",
+				"quip": "Team Les Nuls : tu ris aux fausses pubs. Et tu en inventes.",
+				"giphyIds": [],
+				"giphyQuery": "Les Nuls",
+				"gifUrls": ["https://media.tenor.com/feF_dMkbGMUAAAAC/alain-chabat-acteur.gif"]
+			},
+			"bothQuip": "Les deux. Ta culture comique vient de la télé des années 90.",
+			"noneQuip": "Ni l’un ni l’autre. Les sketchs à la télé, ce n’est pas ta génération."
+		},
+		{
+			"id": "cinefr-omar-et-fred-les-guignols",
+			"category": "cinefr",
+			"a": {
+				"name": "Omar et Fred",
+				"origin": "Le SAV · 2005",
+				"line": "Le service après-vente des émissions.",
+				"quip": "Team Omar et Fred : tu as déjà appelé un SAV pour te plaindre. Pour rire.",
+				"giphyIds": ["r6zVCO5K0ouw8"],
+				"giphyQuery": "Omar et Fred"
+			},
+			"b": {
+				"name": "Les Guignols",
+				"origin": "Canal+ · 1988",
+				"line": "Des marionnettes qui se moquent de tout le monde.",
+				"quip": "Team Les Guignols : tu as une marionnette préférée, et tu imites sa voix.",
+				"giphyIds": [],
+				"giphyQuery": "Les Guignols de l'info",
+				"gifUrls": ["https://media.tenor.com/Xi4i9LuoYdYAAAAC/jacques-chirac-guignols-info-mangez-pommes.gif"]
+			},
+			"bothQuip": "Les deux. L’humour de Canal+, ta deuxième maison.",
+			"noneQuip": "Ni l’un ni l’autre. Canal+, vous n’aviez pas l’abonnement à la maison."
+		},
+		{
+			"id": "cinefr-subway-nikita",
+			"category": "cinefr",
+			"a": {
+				"name": "Subway",
+				"origin": "Luc Besson · 1985",
+				"line": "Des cheveux en pétard dans le métro.",
+				"quip": "Team Subway : tu as eu les cheveux en pétard. Volontairement.",
+				"giphyIds": [],
+				"giphyQuery": "Subway film 1985",
+				"gifUrls": ["https://media.tenor.com/C8bmXOXqF_EAAAAC/christophe-lambert-au-t%C3%A9lephone.gif"]
+			},
+			"b": {
+				"name": "Nikita",
+				"origin": "Luc Besson · 1990",
+				"line": "Une tueuse au service de l’État.",
+				"quip": "Team Nikita : tu as une double vie. Ou tu aimerais.",
+				"giphyIds": [],
+				"giphyQuery": "Nikita film",
+				"gifUrls": ["https://media.tenor.com/ypQZHwfll6gAAAAC/innocent-blood-innocent-blood-gifs.gif"]
+			},
+			"bothQuip": "Les deux. Le Besson des années 80 : ton époque.",
+			"noneQuip": "Ni l’un ni l’autre. Les films d’action français des années 80, tu passes."
+		},
+		{
+			"id": "cinefr-a-bout-de-souffle-les-quatre-cents-coups",
+			"category": "cinefr",
+			"a": {
+				"name": "À bout de souffle",
+				"origin": "Jean-Luc Godard · 1960",
+				"line": "« New York Herald Tribune ! »",
+				"quip": "Team À bout de souffle : tu cries « New York Herald Tribune ! » sur les Champs-Élysées. Dans ta tête.",
+				"giphyIds": ["ZNFmtw8hXOJu8"],
+				"giphyQuery": "A bout de souffle Godard"
+			},
+			"b": {
+				"name": "Les Quatre Cents Coups",
+				"origin": "François Truffaut · 1959",
+				"line": "Un gamin, une fugue, et la mer.",
+				"quip": "Team Les Quatre Cents Coups : tu as fugué jusqu’à la mer. Ou jusqu’au coin de la rue.",
+				"giphyIds": ["Ap5Esg5hZ8QiA"],
+				"giphyQuery": "400 Blows Truffaut"
+			},
+			"bothQuip": "Les deux. La Nouvelle Vague, c’est ton cinéma.",
+			"noneQuip": "Ni l’un ni l’autre. La Nouvelle Vague, ça te noie un peu."
+		},
+		{
+			"id": "cinefr-delicatessen-la-cite-des-enfants-perdus",
+			"category": "cinefr",
+			"a": {
+				"name": "Delicatessen",
+				"origin": "Jeunet et Caro · 1991",
+				"line": "Un boucher, un immeuble, et un menu douteux.",
+				"quip": "Team Delicatessen : depuis, tu regardes ton boucher avec un peu de méfiance.",
+				"giphyIds": [],
+				"giphyQuery": "Delicatessen film",
+				"gifUrls": ["https://media.tenor.com/P-PEAP_U9SQAAAAC/delicatessen-jean-pierre-jeunet.gif"]
+			},
+			"b": {
+				"name": "La Cité des enfants perdus",
+				"origin": "Jeunet et Caro · 1995",
+				"line": "Un savant qui vole les rêves des enfants.",
+				"quip": "Team La Cité des enfants perdus : tu protèges tes rêves, la nuit. Au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "City of Lost Children",
+				"gifUrls": ["https://media.tenor.com/Ku22cibpcWYAAAAC/city-of-the-lost-children-krank.gif"]
+			},
+			"bothQuip": "Les deux. Jeunet et Caro : l’étrange à la française.",
+			"noneQuip": "Ni l’un ni l’autre. Les films bizarres, très peu pour toi."
+		},
+		{
+			"id": "cinefr-les-randonneurs-les-seigneurs",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Randonneurs",
+				"origin": "Philippe Harel · 1997",
+				"line": "Une randonnée en Corse, et pas les plus sportifs.",
+				"quip": "Team Les Randonneurs : ta dernière randonnée en Corse s’est mal passée. Très mal.",
+				"giphyIds": ["7p0qZOxUe5cIM"],
+				"giphyQuery": "Les Randonneurs"
+			},
+			"b": {
+				"name": "Les Seigneurs",
+				"origin": "Olivier Dahan · 2012",
+				"line": "D’anciens footballeurs sur une île bretonne.",
+				"quip": "Team Les Seigneurs : tu joues encore au foot avec tes anciens copains. Sur une île bretonne, si possible.",
+				"giphyIds": [],
+				"giphyQuery": "Les Seigneurs film"
+			},
+			"bothQuip": "Les deux. Les comédies de sportifs du dimanche, ta spécialité.",
+			"noneQuip": "Ni l’un ni l’autre. Le sport en comédie, tu préfères le canapé."
+		},
+		{
+			"id": "cinefr-mais-ou-est-donc-passee-la-7e-co-papy-fait-de-la-resistance",
+			"category": "cinefr",
+			"a": {
+				"name": "Mais où est donc passée la 7e compagnie ?",
+				"origin": "Robert Lamoureux · 1973",
+				"line": "Trois soldats perdus et un camion.",
+				"quip": "Team 7e compagnie : tu te perds en forêt avec deux copains et un camion. Régulièrement.",
+				"giphyIds": [],
+				"giphyQuery": "7eme compagnie",
+				"gifUrls": ["https://media.tenor.com/OoaQ4SjgVjEAAAAC/la-7eme-compagnie-7eme-compagnie.gif"]
+			},
+			"b": {
+				"name": "Papy fait de la résistance",
+				"origin": "Jean-Marie Poiré · 1983",
+				"line": "Une famille de résistants, et Super Résistant.",
+				"quip": "Team Papy fait de la résistance : Super Résistant est ton super-héros préféré.",
+				"giphyIds": [],
+				"giphyQuery": "Papy fait de la resistance",
+				"gifUrls": ["https://media.tenor.com/aio3-OrlZfwAAAAC/papi-fait-de-la-r%C3%A9sistance-roland-giraud.gif"]
+			},
+			"bothQuip": "Les deux. Les comédies de guerre à la française, ton dimanche soir.",
+			"noneQuip": "Ni l’un ni l’autre. Les comédies de guerre, ça ne te fait pas rire."
+		},
+		{
+			"id": "cinefr-jacquouille-godefroy-de-montmirail",
+			"category": "cinefr",
+			"a": {
+				"name": "Jacquouille",
+				"origin": "Les Visiteurs · 1993",
+				"line": "Des dents abîmées et un rire inoubliable.",
+				"quip": "Team Jacquouille : tu ris très fort, et pas toujours au bon moment.",
+				"giphyIds": ["Zd3bTtMtsVtrG"],
+				"giphyQuery": "Jacquouille"
+			},
+			"b": {
+				"name": "Godefroy de Montmirail",
+				"origin": "Les Visiteurs · 1993",
+				"line": "Un comte très noble, très perdu en 1993.",
+				"quip": "Team Godefroy : très noble, et très perdu dans ton époque. On compatit.",
+				"giphyIds": ["V98m5Xt9pf4xW"],
+				"giphyQuery": "les visiteurs"
+			},
+			"bothQuip": "Les deux. « Okayyy ! » et « Messire ! » dans la même phrase. Ton style.",
+			"noneQuip": "Ni l’un ni l’autre. Le Moyen Âge dans les années 90, très peu pour toi."
+		},
+		{
+			"id": "cinefr-la-boum-diabolo-menthe",
+			"category": "cinefr",
+			"a": {
+				"name": "La Boum",
+				"origin": "Claude Pinoteau · 1980",
+				"line": "Un premier slow et un casque de walkman.",
+				"quip": "Team La Boum : ton premier slow avec un casque de walkman. Vécu ou rêvé.",
+				"giphyIds": ["E6UBtoq5iVDK8"],
+				"giphyQuery": "La Boum"
+			},
+			"b": {
+				"name": "Diabolo menthe",
+				"origin": "Diane Kurys · 1977",
+				"line": "Le lycée, les copines, et les années 60.",
+				"quip": "Team Diabolo menthe : tu commandes un diabolo menthe en terrasse. Par nostalgie.",
+				"giphyIds": [],
+				"giphyQuery": "Diabolo menthe film"
+			},
+			"bothQuip": "Les deux. Les films d’ados à la française : ton adolescence.",
+			"noneQuip": "Ni l’un ni l’autre. Les premiers slows, tu préfères les oublier."
+		},
+		{
+			"id": "cinefr-le-dernier-metro-cyrano-de-bergerac",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Dernier Métro",
+				"origin": "François Truffaut · 1980",
+				"line": "Un théâtre sous l’Occupation.",
+				"quip": "Team Le Dernier Métro : le théâtre, la guerre, et Truffaut. Le grand cinéma.",
+				"giphyIds": [],
+				"giphyQuery": "Le Dernier Metro"
+			},
+			"b": {
+				"name": "Cyrano de Bergerac",
+				"origin": "Jean-Paul Rappeneau · 1990",
+				"line": "Un nez immense et des tirades.",
+				"quip": "Team Cyrano : tu as déjà déclamé la tirade du nez. En entier.",
+				"giphyIds": ["FIKCa6oAaLX5S"],
+				"giphyQuery": "Cyrano de Bergerac"
+			},
+			"bothQuip": "Les deux. Le théâtre au cinéma, ta passion.",
+			"noneQuip": "Ni l’un ni l’autre. Les grands drames, ça t’épuise."
+		},
+		{
+			"id": "cinefr-jean-gabin-lino-ventura",
+			"category": "cinefr",
+			"a": {
+				"name": "Jean Gabin",
+				"origin": "Le Quai des brumes · 1938",
+				"line": "La gueule, la voix, et la casquette.",
+				"quip": "Team Gabin : la casquette, la voix, et « T’as d’beaux yeux, tu sais ».",
+				"giphyIds": [],
+				"giphyQuery": "Jean Gabin",
+				"gifUrls": ["https://media.tenor.com/cvErQtBHyXAAAAAC/tu-m%27emmerdes-leroidukitch.gif"]
+			},
+			"b": {
+				"name": "Lino Ventura",
+				"origin": "Les Tontons flingueurs · 1963",
+				"line": "Un regard, et tout le monde se tait.",
+				"quip": "Team Lino Ventura : tu fais taire une pièce d’un seul regard. Utile en réunion.",
+				"giphyIds": ["c6NoRjSwtP86Q"],
+				"giphyQuery": "Lino Ventura"
+			},
+			"bothQuip": "Les deux. Les gueules du cinéma français, tu les respectes toutes.",
+			"noneQuip": "Ni l’un ni l’autre. Les grandes gueules, très peu pour toi."
+		},
+		{
+			"id": "cinefr-sophie-marceau-isabelle-adjani",
+			"category": "cinefr",
+			"a": {
+				"name": "Sophie Marceau",
+				"origin": "La Boum · 1980",
+				"line": "Le premier slow de toute une génération.",
+				"quip": "Team Sophie Marceau : ton premier slow, c’était sur « Reality ». Ou tu en rêves encore.",
+				"giphyIds": [],
+				"giphyQuery": "Sophie Marceau",
+				"gifUrls": ["https://media.tenor.com/v3LMRK1VreoAAAAC/la-boum.gif"]
+			},
+			"b": {
+				"name": "Isabelle Adjani",
+				"origin": "L’Histoire d’Adèle H. · 1975",
+				"line": "Cinq César, un record.",
+				"quip": "Team Isabelle Adjani : cinq César. Tu respectes les records.",
+				"giphyIds": [],
+				"giphyQuery": "Isabelle Adjani",
+				"gifUrls": ["https://media.tenor.com/mhsjfO6tv8AAAAAC/possession-anna.gif"]
+			},
+			"bothQuip": "Les deux. Les reines du cinéma français : ton panthéon.",
+			"noneQuip": "Ni l’une ni l’autre. Les actrices des années 80, tu les connais mal."
+		},
+		{
+			"id": "cinefr-fantomas-belphegor",
+			"category": "cinefr",
+			"a": {
+				"name": "Fantômas",
+				"origin": "André Hunebelle · 1964",
+				"line": "Un masque bleu et un rire diabolique.",
+				"quip": "Team Fantômas : tu gardes un rire diabolique en réserve. Pour les grandes occasions.",
+				"giphyIds": ["10gDm6kTJfux9K"],
+				"giphyQuery": "Fantomas"
+			},
+			"b": {
+				"name": "Belphégor",
+				"origin": "Série télé · 1965",
+				"line": "Un fantôme au Louvre.",
+				"quip": "Team Belphégor : le Louvre la nuit, c’est non. Par principe.",
+				"giphyIds": [],
+				"giphyQuery": "Belphegor Louvre"
+			},
+			"bothQuip": "Les deux. Les méchants masqués des années 60 : ton frisson rétro.",
+			"noneQuip": "Ni l’un ni l’autre. Les fantômes et les masques bleus, très peu pour toi."
+		},
+		{
+			"id": "cinefr-la-chevre-les-comperes",
+			"category": "cinefr",
+			"a": {
+				"name": "La Chèvre",
+				"origin": "Francis Veber · 1981",
+				"line": "L’homme le plus malchanceux du monde. Et c’est utile.",
+				"quip": "Team La Chèvre : tu es la personne la plus malchanceuse du monde. Et ça peut servir.",
+				"giphyIds": [],
+				"giphyQuery": "La Chevre film",
+				"gifUrls": ["https://media.tenor.com/QiPT-KXDAfQAAAAC/ch%C3%A8vre-jules.gif"]
+			},
+			"b": {
+				"name": "Les Compères",
+				"origin": "Francis Veber · 1983",
+				"line": "Deux pères pour un seul fils. Enfin, en théorie.",
+				"quip": "Team Les Compères : deux pères pour un seul fils. Le casting idéal.",
+				"giphyIds": [],
+				"giphyQuery": "Les Comperes"
+			},
+			"bothQuip": "Les deux. Francis Veber, c’est ton humour.",
+			"noneQuip": "Ni l’un ni l’autre. Les comédies de Veber, il faut les découvrir."
+		},
+		{
+			"id": "cinefr-les-ripoux-les-specialistes",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Ripoux",
+				"origin": "Claude Zidi · 1984",
+				"line": "Deux flics, beaucoup d’arrangements.",
+				"quip": "Team Les Ripoux : tu as déjà fait un petit arrangement. Pas très légal, mais très humain.",
+				"giphyIds": [],
+				"giphyQuery": "Les Ripoux",
+				"gifUrls": ["https://media.tenor.com/PvqrX4XSoSQAAAAC/thierry-lhermitte-thierry.gif"]
+			},
+			"b": {
+				"name": "Les Spécialistes",
+				"origin": "Patrice Leconte · 1985",
+				"line": "Un casse impossible et une évasion.",
+				"quip": "Team Les Spécialistes : tu prépares chaque sortie comme un casse impossible. Même les courses.",
+				"giphyIds": [],
+				"giphyQuery": "Les Specialistes film"
+			},
+			"bothQuip": "Les deux. Les flics ripoux et les cambrioleurs : tes héros des années 80.",
+			"noneQuip": "Ni l’un ni l’autre. Les flics et les voleurs, très peu pour toi."
+		},
+		{
+			"id": "cinefr-la-mome-the-artist",
+			"category": "cinefr",
+			"a": {
+				"name": "La Môme",
+				"origin": "Olivier Dahan · 2007",
+				"line": "Piaf, et un Oscar pour Marion Cotillard.",
+				"quip": "Team La Môme : tu chantes « Non, je ne regrette rien » sous la douche. Avec beaucoup d’émotion.",
+				"giphyIds": [],
+				"giphyQuery": "La Mome Cotillard",
+				"gifUrls": ["https://media.tenor.com/tsPqJt18_p0AAAAC/marion-cotillard.gif"]
+			},
+			"b": {
+				"name": "The Artist",
+				"origin": "Michel Hazanavicius · 2011",
+				"line": "Un film muet en noir et blanc, et cinq Oscars.",
+				"quip": "Team The Artist : tu communiques par mimes. Sans un mot, et avec un chien.",
+				"giphyIds": ["hgSssis6gLKuY"],
+				"giphyQuery": "The Artist movie"
+			},
+			"bothQuip": "Les deux. Les Oscars français, tu les as tous vus.",
+			"noneQuip": "Ni l’un ni l’autre. Les films à Oscars, très peu pour toi."
+		},
+		{
+			"id": "cinefr-l-arnac-ur-hors-de-prix",
+			"category": "cinefr",
+			"a": {
+				"name": "L’Arnacœur",
+				"origin": "Pascal Chaumeil · 2010",
+				"line": "Son métier : briser des couples, avec style.",
+				"quip": "Team L’Arnacœur : tu as déjà eu envie d’empêcher un mariage. Très fort.",
+				"giphyIds": [],
+				"giphyQuery": "L'Arnacoeur",
+				"gifUrls": ["https://media.tenor.com/_fKLbIjaCiIAAAAC/romain-duris.gif"]
+			},
+			"b": {
+				"name": "Hors de prix",
+				"origin": "Pierre Salvadori · 2006",
+				"line": "Une croqueuse de diamants et un barman.",
+				"quip": "Team Hors de prix : tu as des goûts de luxe et un budget de barman.",
+				"giphyIds": [],
+				"giphyQuery": "Hors de prix",
+				"gifUrls": ["https://media.tenor.com/s6JVhe15KVYAAAAC/priceless-gad-elmaleh.gif"]
+			},
+			"bothQuip": "Les deux. Les comédies romantiques à la française, ton plaisir secret.",
+			"noneQuip": "Ni l’un ni l’autre. Les arnaqueurs romantiques, très peu pour toi."
+		},
+		{
+			"id": "cinefr-babysitting-alibi-com",
+			"category": "cinefr",
+			"a": {
+				"name": "Babysitting",
+				"origin": "Philippe Lacheau · 2014",
+				"line": "Une soirée de baby-sitting qui dérape. Beaucoup.",
+				"quip": "Team Babysitting : ta dernière soirée a dérapé. Beaucoup. Il y a des vidéos.",
+				"giphyIds": [],
+				"giphyQuery": "Babysitting film",
+				"gifUrls": ["https://media.tenor.com/3W3lb6iEWQ8AAAAC/babysitting-film.gif"]
+			},
+			"b": {
+				"name": "Alibi.com",
+				"origin": "Philippe Lacheau · 2017",
+				"line": "Une agence qui fabrique des alibis. Ça tourne mal.",
+				"quip": "Team Alibi.com : tu as inventé une excuse très élaborée pour éviter un dîner.",
+				"giphyIds": [],
+				"giphyQuery": "Alibi.com film"
+			},
+			"bothQuip": "Les deux. Philippe Lacheau et sa bande, c’est ton humour.",
+			"noneQuip": "Ni l’un ni l’autre. Les soirées qui dérapent, tu préfères les éviter."
+		},
+		{
+			"id": "cinefr-le-grand-bain-le-sens-de-la-fete",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Grand Bain",
+				"origin": "Gilles Lellouche · 2018",
+				"line": "Des hommes en crise qui font de la natation synchronisée.",
+				"quip": "Team Le Grand Bain : tu as déjà fait de la natation synchronisée. Dans ta baignoire.",
+				"giphyIds": [],
+				"giphyQuery": "Le Grand Bain",
+				"gifUrls": ["https://media.tenor.com/onuR7TjtAAUAAAAC/le-grand-bain-sink-or-swim.gif"]
+			},
+			"b": {
+				"name": "Le Sens de la fête",
+				"origin": "Olivier Nakache et Éric Toledano · 2017",
+				"line": "Un mariage dans un château, et tout ce qui peut rater rate.",
+				"quip": "Team Le Sens de la fête : tu as organisé une fête où tout a raté. Mais tout le monde s’en souvient.",
+				"giphyIds": [],
+				"giphyQuery": "Le Sens de la fete",
+				"gifUrls": ["https://media.tenor.com/-fq7l7rIIDYAAAAC/le-sens-de-la-fete-personne-n-a-une-tete-de-flan.gif"]
+			},
+			"bothQuip": "Les deux. Les comédies de bande, c’est ta famille.",
+			"noneQuip": "Ni l’un ni l’autre. Les fêtes ratées et la natation, très peu pour toi."
+		},
+		{
+			"id": "cinefr-les-trois-mousquetaires-le-bossu",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Trois Mousquetaires",
+				"origin": "Alexandre Dumas · 1844",
+				"line": "Un pour tous, tous pour un.",
+				"quip": "Team Les Trois Mousquetaires : un pour tous, tous pour un. Même pour payer l’addition.",
+				"giphyIds": [],
+				"giphyQuery": "Three Musketeers",
+				"gifUrls": ["https://media.tenor.com/85-TOA-XDToAAAAC/%D1%82%D1%80%D0%B8%D0%BC%D1%83%D1%88%D0%BA%D0%B5%D1%82%D0%B5%D1%80%D0%B0-%D1%82%D1%80%D0%B8.gif"]
+			},
+			"b": {
+				"name": "Le Bossu",
+				"origin": "Paul Féval · 1857",
+				"line": "« Si tu ne viens pas à Lagardère, Lagardère ira à toi ! »",
+				"quip": "Team Le Bossu : « Si tu ne viens pas à Lagardère… » Tu le dis quand on ne répond pas à tes messages.",
+				"giphyIds": [],
+				"giphyQuery": "Le Bossu Lagardere",
+				"gifUrls": ["https://media.tenor.com/7ne0jhgQLdcAAAAC/smiling-quasimodo.gif"]
+			},
+			"bothQuip": "Les deux. Les films de cape et d’épée : ton dimanche après-midi.",
+			"noneQuip": "Ni l’un ni l’autre. Les épées et les chapeaux à plumes, très peu pour toi."
+		},
+		{
+			"id": "cinefr-fanfan-la-tulipe-angelique-marquise-des-anges",
+			"category": "cinefr",
+			"a": {
+				"name": "Fanfan la Tulipe",
+				"origin": "Christian-Jaque · 1952",
+				"line": "Un soldat, des duels, et des cascades.",
+				"quip": "Team Fanfan la Tulipe : dans tes rêves, tu sautes de toit en toit. Avec panache.",
+				"giphyIds": [],
+				"giphyQuery": "Fanfan la Tulipe",
+				"images": ["/images/teams/fanfan-la-tulipe-8fad9ca3.webp"]
+			},
+			"b": {
+				"name": "Angélique, marquise des anges",
+				"origin": "Bernard Borderie · 1964",
+				"line": "Des robes, des intrigues, et des suites.",
+				"quip": "Team Angélique : des robes, des intrigues, et des suites. Ton genre de saga.",
+				"giphyIds": [],
+				"giphyQuery": "Angelique marquise des anges",
+				"gifUrls": ["https://media.tenor.com/TKBK9N2spGAAAAAC/mich%C3%A8le-mercier-angelique.gif"]
+			},
+			"bothQuip": "Les deux. Les grands films d’aventure à la française : ta jeunesse, ou celle de tes parents.",
+			"noneQuip": "Ni l’un ni l’autre. Les films en costumes, ça te donne chaud."
+		},
+		{
+			"id": "cinefr-le-pari-mais-qui-a-tue-pamela-rose",
+			"category": "cinefr",
+			"a": {
+				"name": "Le Pari",
+				"origin": "Didier Bourdon et Bernard Campan · 1997",
+				"line": "Deux beaux-frères qui parient d’arrêter de fumer.",
+				"quip": "Team Le Pari : tu as déjà parié d’arrêter quelque chose. Tu as perdu.",
+				"giphyIds": [],
+				"giphyQuery": "Le Pari film",
+				"gifUrls": ["https://media.tenor.com/gv_sQyuvY7gAAAAC/le-pari-soupir.gif"]
+			},
+			"b": {
+				"name": "Mais qui a tué Pamela Rose ?",
+				"origin": "Éric Lartigau · 2003",
+				"line": "Deux agents du FBI très, très approximatifs.",
+				"quip": "Team Pamela Rose : tu enquêtes avec beaucoup d’assurance et très peu de méthode.",
+				"giphyIds": [],
+				"giphyQuery": "Pamela Rose Kad Olivier",
+				"gifUrls": ["https://media.tenor.com/bhlB88j8H1cAAAAC/cassette-rouge-kad-et-olivier.gif"]
+			},
+			"bothQuip": "Les deux. Les comédies absurdes des années 2000 : ton humour.",
+			"noneQuip": "Ni l’un ni l’autre. Les paris et les enquêtes, très peu pour toi."
+		},
+		{
+			"id": "cinefr-jean-claude-dusse-popeye",
+			"category": "cinefr",
+			"question": "Dans Les Bronzés : Jean-Claude Dusse ou Popeye ?",
+			"a": {
+				"name": "Jean-Claude Dusse",
+				"origin": "Les Bronzés · 1978",
+				"line": "Sur un malentendu, ça peut marcher.",
+				"quip": "Team Jean-Claude Dusse : tu tentes ta chance, même quand c’est mal parti. Sur un malentendu…",
+				"giphyIds": [],
+				"giphyQuery": "awkward flirt"
+			},
+			"b": {
+				"name": "Popeye",
+				"origin": "Les Bronzés · 1978",
+				"line": "Le moniteur de voile, très sûr de son charme.",
+				"quip": "Team Popeye : ton charme, tu y crois très fort. Plus fort que tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "beach"
+			},
+			"bothQuip": "Les deux. Le Club Med de 1978, tu y retournerais demain.",
+			"noneQuip": "Ni Jean-Claude ni Popeye. Team Gigi, et sa gentillesse."
+		},
+		{
+			"id": "cinefr-comedie-populaire-film-d-auteur",
+			"category": "cinefr",
+			"a": {
+				"name": "Comédie populaire",
+				"origin": "Le multiplexe",
+				"line": "Des répliques, des rires, et toute la famille.",
+				"quip": "Team comédie populaire : tu ris fort au cinéma. Et tu as raison.",
+				"giphyIds": [],
+				"giphyQuery": "laughing audience"
+			},
+			"b": {
+				"name": "Film d’auteur",
+				"origin": "Le petit cinéma du quartier",
+				"line": "Des silences, de longs plans, et un débat à la sortie.",
+				"quip": "Team film d’auteur : dix minutes de plan fixe sur une théière, et tu as adoré.",
+				"giphyIds": [],
+				"giphyQuery": "art house cinema"
+			},
+			"bothQuip": "Les deux. Une comédie le samedi, un film d’auteur le dimanche. L’équilibre.",
+			"noneQuip": "Ni l’un ni l’autre. Le cinéma français, tu préfères les séries américaines."
+		},
+		{
+			"id": "cinefr-oss-117-le-caire-oss-117-rio",
+			"category": "cinefr",
+			"question": "OSS 117 : Le Caire ou Rio ?",
+			"a": {
+				"name": "OSS 117 au Caire",
+				"origin": "Michel Hazanavicius · 2006",
+				"line": "Des espions, des poulets, et une blanquette.",
+				"quip": "Team Le Caire : tu chantes « Bambino » en arabe très approximatif. Avec un aplomb total.",
+				"giphyIds": [],
+				"giphyQuery": "oss 117"
+			},
+			"b": {
+				"name": "OSS 117 à Rio",
+				"origin": "Michel Hazanavicius · 2009",
+				"line": "Le Brésil, des complots, et toujours aussi peu de tact.",
+				"quip": "Team Rio : tu gardes le costume par 40 °C, et ça ne te dérange pas.",
+				"giphyIds": [],
+				"giphyQuery": "rio de janeiro"
+			},
+			"bothQuip": "Les deux. Hubert Bonisseur de La Bath : tes deux missions préférées.",
+			"noneQuip": "Ni l’un ni l’autre. Les espions qui se trompent sur tout, très peu pour toi."
+		},
+		{
+			"id": "cinefr-les-aventures-de-rabbi-jacob-le-corniaud",
+			"category": "cinefr",
+			"a": {
+				"name": "Les Aventures de Rabbi Jacob",
+				"origin": "Gérard Oury · 1973",
+				"line": "Une danse, une usine de chewing-gum, et des papillotes.",
+				"quip": "Team Rabbi Jacob : tu as appris la danse. Toi aussi. Tout le monde l’a apprise.",
+				"giphyIds": [],
+				"giphyQuery": "dance"
+			},
+			"b": {
+				"name": "Le Corniaud",
+				"origin": "Gérard Oury · 1965",
+				"line": "Une 2 CV en morceaux, et une Cadillac pleine de surprises.",
+				"quip": "Team Le Corniaud : devant chaque voiture en panne, tu dis « elle va marcher beaucoup moins bien, forcément ».",
+				"giphyIds": [],
+				"giphyQuery": "car crash"
+			},
+			"bothQuip": "Les deux. Gérard Oury et de Funès, ta paire préférée.",
+			"noneQuip": "Ni l’un ni l’autre. Les classiques de de Funès, à revoir d’urgence."
+		},
+		{
+			"id": "cinefr-francois-pignon-pierre-brochant",
+			"category": "cinefr",
+			"question": "Le Dîner de cons : François Pignon ou Pierre Brochant ?",
+			"a": {
+				"name": "François Pignon",
+				"origin": "Le Dîner de cons · 1998",
+				"line": "Des maquettes en allumettes, et une bonne volonté catastrophique.",
+				"quip": "Team Pignon : tu as construit une tour Eiffel en allumettes. Et tu en parles à tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "matchstick model"
+			},
+			"b": {
+				"name": "Pierre Brochant",
+				"origin": "Le Dîner de cons · 1998",
+				"line": "Un lumbago, un dîner annulé, et une très mauvaise soirée.",
+				"quip": "Team Brochant : tu as voulu te moquer de quelqu’un. Ça s’est retourné contre toi.",
+				"giphyIds": [],
+				"giphyQuery": "back pain"
+			},
+			"bothQuip": "Les deux. Le gentil et l’arrogant : le duo qui fait rire depuis 1998.",
+			"noneQuip": "Ni Pignon ni Brochant. Team Cheval, le contrôleur des impôts."
+		},
+		{
+			"id": "cinefr-les-cesar-les-oscars",
+			"category": "cinefr",
+			"a": {
+				"name": "Les César",
+				"origin": "Paris · 1976",
+				"line": "Des discours, des larmes, et des remerciements à la maman.",
+				"quip": "Team César : tu regardes la cérémonie jusqu’au bout. Même les remerciements de l’ingénieur du son.",
+				"giphyIds": [],
+				"giphyQuery": "award ceremony"
+			},
+			"b": {
+				"name": "Les Oscars",
+				"origin": "Los Angeles · 1929",
+				"line": "Le tapis rouge, les stars, et parfois la mauvaise enveloppe.",
+				"quip": "Team Oscars : tu as veillé jusqu’à 5 h du matin pour voir qui gagnait. La journée a été longue.",
+				"giphyIds": [],
+				"giphyQuery": "oscars"
+			},
+			"bothQuip": "Les deux. Les remises de prix, c’est ton sport d’hiver.",
+			"noneQuip": "Ni l’un ni l’autre. Les statuettes dorées ne t’impressionnent pas."
+		},
+		{
+			"id": "cinefr-omar-sy-kad-merad",
+			"category": "cinefr",
+			"a": {
+				"name": "Omar Sy",
+				"origin": "Intouchables · 2011",
+				"line": "Un rire immense, et Hollywood dans la foulée.",
+				"quip": "Team Omar Sy : ton rire fait se retourner toute la rue. Et ça fait du bien.",
+				"giphyIds": [],
+				"giphyQuery": "omar sy"
+			},
+			"b": {
+				"name": "Kad Merad",
+				"origin": "Bienvenue chez les Ch’tis · 2008",
+				"line": "Une moustache, un accent du Nord, et des rôles par centaines.",
+				"quip": "Team Kad Merad : tu as joué tous les rôles. Même celui que personne ne voulait.",
+				"giphyIds": [],
+				"giphyQuery": "kad merad"
+			},
+			"bothQuip": "Les deux. Les deux plus grands sourires du cinéma français.",
+			"noneQuip": "Ni Omar ni Kad. Les comédies à succès, très peu pour toi."
+		},
+		{
+			"id": "cinefr-asterix-et-obelix-contre-cesar-mission-cleopatre",
+			"category": "cinefr",
+			"question": "Astérix au cinéma : Contre César ou Mission Cléopâtre ?",
+			"a": {
+				"name": "Astérix et Obélix contre César",
+				"origin": "Claude Zidi · 1999",
+				"line": "Le premier, avec les moustaches et le gros budget.",
+				"quip": "Team Contre César : ton premier Astérix au cinéma. On n’oublie jamais le premier.",
+				"giphyIds": [],
+				"giphyQuery": "asterix"
+			},
+			"b": {
+				"name": "Mission Cléopâtre",
+				"origin": "Alain Chabat · 2002",
+				"line": "Des répliques que tout le monde cite encore.",
+				"quip": "Team Mission Cléopâtre : tu as promis de construire un palais en trois mois. Bon, un meuble en kit.",
+				"giphyIds": [],
+				"giphyQuery": "cleopatra"
+			},
+			"bothQuip": "Les deux. Astérix au cinéma, tu as tout vu. Même les moins bons.",
+			"noneQuip": "Ni l’un ni l’autre. Les Gaulois au cinéma, très peu pour toi."
+		},
+		{
+			"id": "internet-gif-jif",
+			"category": "internet",
+			"question": "Ça se prononce comment : GIF ou JIF ?",
+			"a": {
+				"name": "GIF",
+				"origin": "Comme dans « gare »",
+				"line": "Le « G » de « graphique ». Logique.",
+				"quip": "Team GIF : tu corriges les gens qui disent « JIF ». Même son inventeur.",
+				"giphyIds": [],
+				"giphyQuery": "GIF"
+			},
+			"b": {
+				"name": "JIF",
+				"origin": "Comme dans « girafe »",
+				"line": "C’est ce que voulait son inventeur. Personne n’écoute.",
+				"quip": "Team JIF : tu respectes la volonté de l’inventeur. Tu es bien la seule personne.",
+				"giphyIds": [],
+				"giphyQuery": "jif peanut butter"
+			},
+			"bothQuip": "Les deux. GIF ou JIF selon l’humeur. Le chaos te va bien.",
+			"noneQuip": "Ni GIF ni JIF. Tu dis « la petite vidéo qui tourne ». C’est mignon."
+		},
+		{
+			"id": "internet-rickroll-nyan-cat",
+			"category": "internet",
+			"a": {
+				"name": "Rickroll",
+				"origin": "Rick Astley · 1987",
+				"line": "Tu ne l’as pas vu venir. Encore.",
+				"quip": "Team Rickroll : tu as piégé tes amis avec un lien. Ils ne te font plus confiance.",
+				"giphyIds": [],
+				"giphyQuery": "Rick Astley rickroll"
+			},
+			"b": {
+				"name": "Nyan Cat",
+				"origin": "YouTube · 2011",
+				"line": "Un chat-gâteau qui laisse un arc-en-ciel derrière lui.",
+				"quip": "Team Nyan Cat : tu as écouté la musique dix heures d’affilée. Ton cerveau s’en souvient.",
+				"giphyIds": [],
+				"giphyQuery": "Nyan Cat"
+			},
+			"bothQuip": "Les deux. Les mèmes de 2007 à 2011 : ta préhistoire.",
+			"noneQuip": "Ni l’un ni l’autre. Les pièges d’Internet, tu les as tous évités. Bravo."
+		},
+		{
+			"id": "internet-tiktok-youtube",
+			"category": "internet",
+			"a": {
+				"name": "TikTok",
+				"origin": "Chine · 2016",
+				"line": "Trente secondes, puis trois heures.",
+				"quip": "Team TikTok : tu as ouvert l’appli pour trente secondes. C’était hier soir.",
+				"giphyIds": ["ujwiCsJtRmXdBzJvmm"],
+				"giphyQuery": "TikTok"
+			},
+			"b": {
+				"name": "YouTube",
+				"origin": "Californie · 2005",
+				"line": "« N’oubliez pas de liker et de vous abonner. »",
+				"quip": "Team YouTube : tu as regardé vingt minutes de vidéo sur la façon de plier un t-shirt.",
+				"giphyIds": ["13Nc3xlO1kGg3S"],
+				"giphyQuery": "YouTube"
+			},
+			"bothQuip": "Les deux. Les vidéos courtes le soir, les longues le dimanche.",
+			"noneQuip": "Ni TikTok ni YouTube. Tu as une vie, et des yeux reposés."
+		},
+		{
+			"id": "internet-twitter-facebook",
+			"category": "internet",
+			"a": {
+				"name": "Twitter",
+				"origin": "Californie · 2006",
+				"line": "Des débats en 280 caractères.",
+				"quip": "Team Twitter : tu as débattu deux heures avec un inconnu. Tu as perdu.",
+				"giphyIds": ["rwfMYnhkW9leBRxHqD"],
+				"giphyQuery": "Twitter x"
+			},
+			"b": {
+				"name": "Facebook",
+				"origin": "Harvard · 2004",
+				"line": "Les anniversaires de gens que tu as perdus de vue.",
+				"quip": "Team Facebook : tu souhaites bon anniversaire à des gens que tu n’as pas vus depuis 2009.",
+				"giphyIds": [],
+				"giphyQuery": "Facebook like"
+			},
+			"bothQuip": "Les deux. Ta famille sur l’un, tes disputes sur l’autre.",
+			"noneQuip": "Ni l’un ni l’autre. Les réseaux sociaux de tes parents, très peu pour toi."
+		},
+		{
+			"id": "internet-instagram-snapchat",
+			"category": "internet",
+			"a": {
+				"name": "Instagram",
+				"origin": "Californie · 2010",
+				"line": "Des filtres, des brunchs et des couchers de soleil.",
+				"quip": "Team Instagram : ton brunch a été photographié sous quatre angles avant d’être mangé.",
+				"giphyIds": [],
+				"giphyQuery": "Instagram filter"
+			},
+			"b": {
+				"name": "Snapchat",
+				"origin": "Californie · 2011",
+				"line": "Des photos qui disparaissent. En théorie.",
+				"quip": "Team Snapchat : tu as des oreilles de chien sur la moitié de tes photos.",
+				"giphyIds": [],
+				"giphyQuery": "Snapchat ghost"
+			},
+			"bothQuip": "Les deux. Ton téléphone n’a plus de mémoire.",
+			"noneQuip": "Ni Instagram ni Snapchat. Tes photos restent dans ton téléphone. Comme au Moyen Âge."
+		},
+		{
+			"id": "internet-doge-grumpy-cat",
+			"category": "internet",
+			"a": {
+				"name": "Doge",
+				"origin": "Japon · 2013",
+				"line": "Much meme. Very wow.",
+				"quip": "Team Doge : such choix. Very team. Wow.",
+				"giphyIds": [],
+				"giphyQuery": "Doge shiba"
+			},
+			"b": {
+				"name": "Grumpy Cat",
+				"origin": "Arizona · 2012",
+				"line": "Ne sourit jamais. Gagne quand même.",
+				"quip": "Team Grumpy Cat : tu ne souris jamais sur les photos. Et tu as du succès quand même.",
+				"giphyIds": [],
+				"giphyQuery": "Grumpy Cat"
+			},
+			"bothQuip": "Les deux. Les animaux mèmes sont tes meilleurs amis.",
+			"noneQuip": "Ni Doge ni Grumpy Cat. Les mèmes d’animaux ne te font pas rire. Un peu grumpy, toi aussi."
+		},
+		{
+			"id": "internet-this-is-fine-le-petit-ami-distrait",
+			"category": "internet",
+			"a": {
+				"name": "« This is fine »",
+				"origin": "KC Green · 2013",
+				"line": "Tout va bien. Tout brûle.",
+				"quip": "Team « This is fine » : tout brûle autour de toi, et tu bois ton café. Tout va bien.",
+				"giphyIds": [],
+				"giphyQuery": "this is fine dog"
+			},
+			"b": {
+				"name": "Le petit ami distrait",
+				"origin": "Photo de stock · 2015",
+				"line": "Regarde ailleurs, et Internet en a fait une saga.",
+				"quip": "Team petit ami distrait : tu regardes toujours ailleurs. Surtout quand on te parle.",
+				"giphyIds": [],
+				"giphyQuery": "distracted boyfriend meme"
+			},
+			"bothQuip": "Les deux. Ta vie est un mème. Un peu inquiétant, mais drôle.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne connais pas ces mèmes ? Tu vis vraiment hors ligne."
+		},
+		{
+			"id": "internet-wikipedia-google",
+			"category": "internet",
+			"a": {
+				"name": "Wikipédia",
+				"origin": "Internet · 2001",
+				"line": "Tu cherchais un détail, tu lis sur les manchots à trois heures du matin.",
+				"quip": "Team Wikipédia : tu as commencé sur Napoléon, et fini sur les pieuvres. En deux heures.",
+				"giphyIds": [],
+				"giphyQuery": "Wikipedia"
+			},
+			"b": {
+				"name": "Google",
+				"origin": "Californie · 1998",
+				"line": "Toutes les réponses, et quelques pubs au passage.",
+				"quip": "Team Google : tu tapes tes questions en entier, avec « s’il te plaît ». Il répond quand même.",
+				"giphyIds": [],
+				"giphyQuery": "Google search"
+			},
+			"bothQuip": "Les deux. Google pour trouver, Wikipédia pour te perdre.",
+			"noneQuip": "Ni l’un ni l’autre. Tu demandes à quelqu’un. Comme avant."
+		},
+		{
+			"id": "internet-les-captcha-mot-de-passe-oublie",
+			"category": "internet",
+			"a": {
+				"name": "Les CAPTCHA",
+				"origin": "Les formulaires",
+				"line": "Coche les feux de signalisation. Encore.",
+				"quip": "Team CAPTCHA : tu as cliqué sur tous les feux. Et on te demande encore si tu es un robot.",
+				"giphyIds": [],
+				"giphyQuery": "captcha robot"
+			},
+			"b": {
+				"name": "Mot de passe oublié",
+				"origin": "L’écran de connexion",
+				"line": "Le nouveau ne peut pas être l’ancien.",
+				"quip": "Team mot de passe oublié : le nouveau ne peut pas être l’ancien. Tu ne te souvenais pas de l’ancien.",
+				"giphyIds": [],
+				"giphyQuery": "forgot password"
+			},
+			"bothQuip": "Les deux. Prouver que tu existes, c’est ton quotidien.",
+			"noneQuip": "Ni l’un ni l’autre. Ton navigateur se souvient de tout. Pour combien de temps ?"
+		},
+		{
+			"id": "internet-ctrl-c-ctrl-v-ctrl-z",
+			"category": "internet",
+			"a": {
+				"name": "Ctrl+C, Ctrl+V",
+				"origin": "Ton clavier",
+				"line": "La base de toute carrière.",
+				"quip": "Team Ctrl+C, Ctrl+V : ta carrière tient sur deux touches. Et ça marche.",
+				"giphyIds": [],
+				"giphyQuery": "copy paste"
+			},
+			"b": {
+				"name": "Ctrl+Z",
+				"origin": "Ton clavier",
+				"line": "Le bouton qu’on voudrait dans la vraie vie.",
+				"quip": "Team Ctrl+Z : tu as essayé de faire Ctrl+Z dans la vraie vie. Ça n’a pas marché.",
+				"giphyIds": [],
+				"giphyQuery": "undo"
+			},
+			"bothQuip": "Les deux. Copier, coller, annuler : ta journée de travail.",
+			"noneQuip": "Ni l’un ni l’autre. Tu retapes tout à la main. Respect, ou inquiétude."
+		},
+		{
+			"id": "internet-les-chats-d-internet-les-chiens-d-internet",
+			"category": "internet",
+			"a": {
+				"name": "Les chats d’Internet",
+				"origin": "YouTube",
+				"line": "Font tomber des objets et règnent sur le Web.",
+				"quip": "Team chats d’Internet : tu as regardé trente fois un chat faire tomber un verre.",
+				"giphyIds": [],
+				"giphyQuery": "cat knocking things off table"
+			},
+			"b": {
+				"name": "Les chiens d’Internet",
+				"origin": "YouTube",
+				"line": "Font des têtes surprises et attendrissent tout le monde.",
+				"quip": "Team chiens d’Internet : les vidéos de chiens qui retrouvent leur maître te font pleurer. À chaque fois.",
+				"giphyIds": [],
+				"giphyQuery": "surprised dog"
+			},
+			"bothQuip": "Les deux. Ton fil d’actualité est un refuge animalier.",
+			"noneQuip": "Ni chats ni chiens. Les vidéos d’animaux, très peu pour toi. Cœur de pierre."
+		},
+		{
+			"id": "internet-msn-messenger-skyblog",
+			"category": "internet",
+			"a": {
+				"name": "MSN Messenger",
+				"origin": "Microsoft · 1999",
+				"line": "Le wizz, les pseudos à rallonge, et « apparaître hors ligne ».",
+				"quip": "Team MSN : tu envoyais des wizz pour attirer l’attention, et tu apparaissais hors ligne pour l’éviter.",
+				"giphyIds": ["26gJyTNcNib4MI944"],
+				"giphyQuery": "MSN Messenger"
+			},
+			"b": {
+				"name": "Skyblog",
+				"origin": "Skyrock · 2002",
+				"line": "Des paillettes, et « lâchez vos com’s ».",
+				"quip": "Team Skyblog : « Lâchez vos com’s. » Ton blog avait des paillettes et de la musique automatique.",
+				"giphyIds": [],
+				"giphyQuery": "glitter text 2000s",
+				"gifUrls": ["https://media.tenor.com/mLL_z6rHgp0AAAAC/scene.gif"]
+			},
+			"bothQuip": "Les deux. Ton adolescence en ligne est archivée quelque part. Prie pour qu’elle le reste.",
+			"noneQuip": "Ni MSN ni Skyblog. Les années 2000 sur Internet, tu y as échappé. Quelle chance."
+		},
+		{
+			"id": "internet-netflix-disney",
+			"category": "internet",
+			"a": {
+				"name": "Netflix",
+				"origin": "Streaming · 2007",
+				"line": "« Êtes-vous toujours en train de regarder ? »",
+				"quip": "Team Netflix : « Êtes-vous toujours en train de regarder ? » Oui. Ne juge pas.",
+				"giphyIds": [],
+				"giphyQuery": "Netflix"
+			},
+			"b": {
+				"name": "Disney+",
+				"origin": "Streaming · 2019",
+				"line": "Des princesses, Star Wars et Marvel au même endroit.",
+				"quip": "Team Disney+ : tu as revu tous les Marvel dans l’ordre chronologique. Deux fois.",
+				"giphyIds": [],
+				"giphyQuery": "Disney Plus"
+			},
+			"bothQuip": "Les deux abonnements. Et tu regardes toujours la même série.",
+			"noneQuip": "Ni l’un ni l’autre. Tu regardes la télé, en direct, avec les pubs. Rétro."
+		},
+		{
+			"id": "internet-amazon-leboncoin",
+			"category": "internet",
+			"a": {
+				"name": "Amazon",
+				"origin": "Seattle · 1994",
+				"line": "Livré demain, même ce dont tu n’avais pas besoin.",
+				"quip": "Team Amazon : tu as commandé un truc à 2 h du matin. Tu ne sais plus quoi. Ça arrive demain.",
+				"giphyIds": [],
+				"giphyQuery": "Amazon package delivery"
+			},
+			"b": {
+				"name": "Leboncoin",
+				"origin": "France · 2006",
+				"line": "« Toujours disponible ? »",
+				"quip": "Team Leboncoin : « Toujours disponible ? » Tu l’as écrit à vingt personnes cette semaine.",
+				"giphyIds": [],
+				"giphyQuery": "garage sale"
+			},
+			"bothQuip": "Les deux. Tu achètes neuf, tu revends d’occasion. L’économie circulaire.",
+			"noneQuip": "Ni l’un ni l’autre. Tu vas en magasin, avec des vrais gens. Courage."
+		},
+		{
+			"id": "internet-discord-slack",
+			"category": "internet",
+			"a": {
+				"name": "Discord",
+				"origin": "Internet · 2015",
+				"line": "Des serveurs pour tout, et même pour rien.",
+				"quip": "Team Discord : tu as un serveur pour tes amis, ton jeu, ta série et ta plante verte.",
+				"giphyIds": [],
+				"giphyQuery": "Discord",
+				"gifUrls": ["https://media.tenor.com/LquJzmtk_nkAAAAC/discord-discord-wink.gif"]
+			},
+			"b": {
+				"name": "Slack",
+				"origin": "Internet · 2013",
+				"line": "Le bureau, avec des notifications en plus.",
+				"quip": "Team Slack : ta pastille rouge ne disparaît jamais. Jamais.",
+				"giphyIds": [],
+				"giphyQuery": "Slack notification"
+			},
+			"bothQuip": "Les deux. Les notifications du travail et des loisirs, mélangées. Courage.",
+			"noneQuip": "Ni Discord ni Slack. Tu envoies encore des mails. À l’ancienne."
+		},
+		{
+			"id": "internet-twitch-la-tele",
+			"category": "internet",
+			"a": {
+				"name": "Twitch",
+				"origin": "Internet · 2011",
+				"line": "Regarder des gens jouer. Et c’est génial.",
+				"quip": "Team Twitch : tu regardes quelqu’un jouer pendant six heures. Et c’est génial.",
+				"giphyIds": [],
+				"giphyQuery": "Twitch streamer"
+			},
+			"b": {
+				"name": "La télé",
+				"origin": "Ton salon · années 1950",
+				"line": "Un programme imposé, et le zapping libre.",
+				"quip": "Team télé : quarante minutes de zapping, et tu ne regardes rien. La liberté.",
+				"giphyIds": [],
+				"giphyQuery": "vintage television"
+			},
+			"bothQuip": "Les deux. Twitch sur le téléphone, la télé en fond. Ton cerveau est multitâche.",
+			"noneQuip": "Ni l’un ni l’autre. Tu lis un livre ? On applaudit."
+		},
+		{
+			"id": "internet-commentaires-youtube-avis-google",
+			"category": "internet",
+			"a": {
+				"name": "Commentaires YouTube",
+				"origin": "Sous la vidéo",
+				"line": "« Qui écoute encore ça en 2025 ? »",
+				"quip": "Team commentaires YouTube : tu as déjà écrit « Qui écoute encore ça en 2025 ? ». Avoue.",
+				"giphyIds": [],
+				"giphyQuery": "youtube comments"
+			},
+			"b": {
+				"name": "Avis Google",
+				"origin": "Sur la carte",
+				"line": "Une étoile, parce qu’il pleuvait.",
+				"quip": "Team avis Google : tu as mis une étoile à un restaurant parce que le parking était loin.",
+				"giphyIds": [],
+				"giphyQuery": "one star review"
+			},
+			"bothQuip": "Les deux. Tu lis les commentaires avant la vidéo, et les avis avant de manger.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne laisses jamais d’avis. Personne ne sait ce que tu penses."
+		},
+		{
+			"id": "internet-chuck-norris-facts-jean-claude-van-damme",
+			"category": "internet",
+			"a": {
+				"name": "Chuck Norris Facts",
+				"origin": "Internet · 2005",
+				"line": "Chuck Norris a compté jusqu’à l’infini. Deux fois.",
+				"quip": "Team Chuck Norris : Chuck Norris a voté pour toi. Tu n’avais pas le choix.",
+				"giphyIds": [],
+				"giphyQuery": "Chuck Norris"
+			},
+			"b": {
+				"name": "Jean-Claude Van Damme",
+				"origin": "Interviews · années 2000",
+				"line": "« Aware. »",
+				"quip": "Team Van Damme : tu es « aware ». Complètement aware.",
+				"giphyIds": [],
+				"giphyQuery": "Jean-Claude Van Damme"
+			},
+			"bothQuip": "Les deux. Les légendes d’Internet, tu les cites toutes.",
+			"noneQuip": "Ni l’un ni l’autre. Chuck Norris a été prévenu de ton vote."
+		},
+		{
+			"id": "internet-wi-fi-gratuit-batterie-a-100",
+			"category": "internet",
+			"a": {
+				"name": "Wi-Fi gratuit",
+				"origin": "Le café du coin",
+				"line": "Le vrai luxe des temps modernes.",
+				"quip": "Team Wi-Fi gratuit : tu choisis tes cafés pour le Wi-Fi. Pas pour le café.",
+				"giphyIds": [],
+				"giphyQuery": "free wifi"
+			},
+			"b": {
+				"name": "Batterie à 100 %",
+				"origin": "Ton téléphone, le matin",
+				"line": "Un état qui ne dure jamais.",
+				"quip": "Team batterie à 100 % : le matin, tu te sens invincible. Jusqu’à 10 h.",
+				"giphyIds": [],
+				"giphyQuery": "phone battery full"
+			},
+			"bothQuip": "Les deux. Un Wi-Fi gratuit et une prise électrique : ton paradis.",
+			"noneQuip": "Ni l’un ni l’autre. Tu vis déconnecté de tout ? Tu existes vraiment ?"
+		},
+		{
+			"id": "internet-la-banniere-cookies-la-pub-avant-la-video",
+			"category": "internet",
+			"a": {
+				"name": "La bannière cookies",
+				"origin": "Tous les sites",
+				"line": "Accepter, refuser, ou paramétrer pendant dix minutes.",
+				"quip": "Team bannière cookies : tu cliques sur « Paramétrer » et tu décoches tout. Pendant dix minutes.",
+				"giphyIds": [],
+				"giphyQuery": "cookies"
+			},
+			"b": {
+				"name": "La pub avant la vidéo",
+				"origin": "YouTube",
+				"line": "« Ignorer dans 5 secondes. »",
+				"quip": "Team pub avant la vidéo : tu fixes le compte à rebours de cinq secondes comme un lion sa proie.",
+				"giphyIds": [],
+				"giphyQuery": "skip ad"
+			},
+			"bothQuip": "Les deux. Internet te fait perdre deux minutes par page. Tu as compté.",
+			"noneQuip": "Ni l’un ni l’autre. Ton bloqueur de pub fait tout le travail."
+		},
+		{
+			"id": "internet-je-lis-tout-j-accepte-direct",
+			"category": "internet",
+			"question": "Les conditions d’utilisation : tu lis ou tu acceptes ?",
+			"a": {
+				"name": "Je lis tout",
+				"origin": "Les conditions d’utilisation",
+				"line": "Il y a forcément quelqu’un qui le fait.",
+				"quip": "Team je lis tout : tu as lu les conditions d’utilisation. Tu es la seule personne au monde.",
+				"giphyIds": [],
+				"giphyQuery": "reading terms and conditions"
+			},
+			"b": {
+				"name": "J’accepte direct",
+				"origin": "Les conditions d’utilisation",
+				"line": "Tu as peut-être cédé ton âme. Pas grave.",
+				"quip": "Team j’accepte direct : tu as peut-être cédé ton premier enfant à une appli de lampe torche.",
+				"giphyIds": [],
+				"giphyQuery": "I agree button"
+			},
+			"bothQuip": "Les deux. Tu lis le début, puis tu acceptes. Comme tout le monde.",
+			"noneQuip": "Ni l’un ni l’autre. Tu fermes l’appli. Pas d’inscription, pas de problème."
+		},
+		{
+			"id": "internet-repondre-a-tous-copie-cachee",
+			"category": "internet",
+			"a": {
+				"name": "Répondre à tous",
+				"origin": "Ta boîte mail",
+				"line": "La catastrophe en un clic.",
+				"quip": "Team répondre à tous : tu as déjà envoyé « Merci ! » à quatre cents personnes. Tout le monde s’en souvient.",
+				"giphyIds": [],
+				"giphyQuery": "reply all email"
+			},
+			"b": {
+				"name": "Copie cachée",
+				"origin": "Ta boîte mail",
+				"line": "La discrétion. Ou le coup bas.",
+				"quip": "Team copie cachée : tu mets ton chef en copie cachée. Tu sais ce que tu fais.",
+				"giphyIds": [],
+				"giphyQuery": "secret email"
+			},
+			"bothQuip": "Les deux. Ta boîte mail est un terrain miné.",
+			"noneQuip": "Ni l’un ni l’autre. Tu envoies tes mails un par un. Prudence."
+		},
+		{
+			"id": "internet-accuse-de-lecture-active-accuse-de-lecture-desactive",
+			"category": "internet",
+			"a": {
+				"name": "Accusé de lecture activé",
+				"origin": "Ta messagerie",
+				"line": "Tu sais qu’il a lu. Il sait que tu sais.",
+				"quip": "Team accusé activé : tu as vu qu’il a lu. Il sait que tu as vu. Personne ne répond.",
+				"giphyIds": [],
+				"giphyQuery": "seen message"
+			},
+			"b": {
+				"name": "Accusé de lecture désactivé",
+				"origin": "Ta messagerie",
+				"line": "Le doute, pour l’éternité.",
+				"quip": "Team accusé désactivé : tu lis en paix, et tu réponds dans trois jours. Le luxe.",
+				"giphyIds": [],
+				"giphyQuery": "waiting for reply"
+			},
+			"bothQuip": "Les deux. Activé pour les autres, désactivé pour toi. Malin.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne lis pas tes messages. Problème réglé."
+		},
+		{
+			"id": "internet-notes-vocales-messages-ecrits",
+			"category": "internet",
+			"a": {
+				"name": "Notes vocales",
+				"origin": "Ta messagerie",
+				"line": "Cinq minutes d’audio pour dire « oui ».",
+				"quip": "Team notes vocales : cinq minutes d’audio pour dire « oui ». Et tu écoutes celles des autres en ×2.",
+				"giphyIds": [],
+				"giphyQuery": "voice message"
+			},
+			"b": {
+				"name": "Messages écrits",
+				"origin": "Ta messagerie",
+				"line": "Lus en trois secondes, réponse en trois jours.",
+				"quip": "Team messages écrits : tu as lu le message en trois secondes. Tu réponds dans trois jours.",
+				"giphyIds": [],
+				"giphyQuery": "texting"
+			},
+			"bothQuip": "Les deux. Tu envoies des vocaux, et tu demandes aux autres d’écrire. On a vu.",
+			"noneQuip": "Ni l’un ni l’autre. Tu appelles. Comme en 1998. Tout le monde panique."
+		},
+		{
+			"id": "internet-lol-mdr",
+			"category": "internet",
+			"a": {
+				"name": "LOL",
+				"origin": "L’anglais",
+				"line": "International et sobre.",
+				"quip": "Team LOL : tu ris en anglais. International, sobre et efficace.",
+				"giphyIds": [],
+				"giphyQuery": "lol laughing"
+			},
+			"b": {
+				"name": "MDR",
+				"origin": "Le français",
+				"line": "Mort de rire. Vraiment ?",
+				"quip": "Team MDR : tu meurs de rire dix fois par jour. Vraiment ?",
+				"giphyIds": [],
+				"giphyQuery": "laughing hard"
+			},
+			"bothQuip": "Les deux. LOL au travail, MDR avec les amis.",
+			"noneQuip": "Ni LOL ni MDR. Tu écris « haha ». Ou « ptdr ». Ou rien du tout."
+		},
+		{
+			"id": "internet-les-chaines-de-mails-les-images-bon-mercredi",
+			"category": "internet",
+			"a": {
+				"name": "Les chaînes de mails",
+				"origin": "Années 2000",
+				"line": "Envoie-la à dix personnes, sinon malheur.",
+				"quip": "Team chaînes de mails : tu en as transféré une à dix personnes. Au cas où.",
+				"giphyIds": ["f0tufxEr372ZLuA07V"],
+				"giphyQuery": "email"
+			},
+			"b": {
+				"name": "Les images « Bon mercredi »",
+				"origin": "Le groupe WhatsApp de la famille",
+				"line": "Des fleurs, des paillettes, et beaucoup d’amour.",
+				"quip": "Team « Bon mercredi » : tu envoies des fleurs à paillettes dans le groupe de la famille. Tous les mercredis.",
+				"giphyIds": [],
+				"giphyQuery": "good morning flowers"
+			},
+			"bothQuip": "Les deux. Tu fais vivre les traditions d’Internet. Ta tante est fière de toi.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne transfères jamais rien. Ta famille s’inquiète."
+		},
+		{
+			"id": "internet-keep-calm-winter-is-coming",
+			"category": "internet",
+			"a": {
+				"name": "« Keep calm »",
+				"origin": "Internet · 2009",
+				"line": "Garder son calme, sur tous les mugs du monde.",
+				"quip": "Team « Keep calm » : tu as un mug « Keep calm ». Et tu ne gardes jamais ton calme.",
+				"giphyIds": [],
+				"giphyQuery": "keep calm"
+			},
+			"b": {
+				"name": "« Winter is coming »",
+				"origin": "Game of Thrones · 2011",
+				"line": "Pour annoncer n’importe quoi.",
+				"quip": "Team « Winter is coming » : tu l’annonces dès le 1er octobre. Et le 2. Et le 3.",
+				"giphyIds": [],
+				"giphyQuery": "winter is coming"
+			},
+			"bothQuip": "Les deux. Les citations sur les mugs, c’est ta décoration.",
+			"noneQuip": "Ni l’un ni l’autre. Les citations sur les mugs, ça t’agace."
+		},
+		{
+			"id": "internet-ice-bucket-challenge-harlem-shake",
+			"category": "internet",
+			"a": {
+				"name": "Ice Bucket Challenge",
+				"origin": "Internet · 2014",
+				"line": "Un seau d’eau glacée, pour la bonne cause.",
+				"quip": "Team Ice Bucket Challenge : tu as pris un seau d’eau glacée sur la tête. Pour la bonne cause.",
+				"giphyIds": [],
+				"giphyQuery": "ice bucket challenge"
+			},
+			"b": {
+				"name": "Harlem Shake",
+				"origin": "Internet · 2013",
+				"line": "Trente secondes, un casque, puis le chaos.",
+				"quip": "Team Harlem Shake : tu as dansé n’importe comment avec un casque sur la tête. Il y a une vidéo.",
+				"giphyIds": [],
+				"giphyQuery": "Harlem Shake"
+			},
+			"bothQuip": "Les deux. Tu as fait tous les défis d’Internet. Ta famille a les vidéos.",
+			"noneQuip": "Ni l’un ni l’autre. Les défis d’Internet, tu les regardes de loin. Sage."
+		},
+		{
+			"id": "internet-gangnam-style-despacito",
+			"category": "internet",
+			"a": {
+				"name": "Gangnam Style",
+				"origin": "Psy · 2012",
+				"line": "La première vidéo à un milliard de vues.",
+				"quip": "Team Gangnam Style : tu fais encore la danse du cheval aux mariages.",
+				"giphyIds": [],
+				"giphyQuery": "Gangnam Style"
+			},
+			"b": {
+				"name": "Despacito",
+				"origin": "Luis Fonsi · 2017",
+				"line": "Le record suivant, en plus lent.",
+				"quip": "Team Despacito : tu chantes en espagnol sans connaître un mot. Des-pa-ci-to.",
+				"giphyIds": [],
+				"giphyQuery": "Despacito"
+			},
+			"bothQuip": "Les deux. Les tubes à un milliard de vues, tu les connais par cœur. Malgré toi.",
+			"noneQuip": "Ni l’un ni l’autre. Les tubes d’Internet, tu les as évités. Comment ?"
+		},
+		{
+			"id": "internet-keyboard-cat-dramatic-chipmunk",
+			"category": "internet",
+			"a": {
+				"name": "Keyboard Cat",
+				"origin": "Internet · 2007",
+				"line": "Un chat en t-shirt qui joue du clavier.",
+				"quip": "Team Keyboard Cat : dès qu’une réunion rate, tu joues la musique de sortie dans ta tête.",
+				"giphyIds": [],
+				"giphyQuery": "Keyboard Cat"
+			},
+			"b": {
+				"name": "Dramatic Chipmunk",
+				"origin": "Internet · 2007",
+				"line": "Ce n’est même pas un écureuil. C’est un chien de prairie.",
+				"quip": "Team Dramatic Chipmunk : tu tournes lentement la tête vers la caméra quand quelqu’un dit une bêtise.",
+				"giphyIds": [],
+				"giphyQuery": "dramatic chipmunk"
+			},
+			"bothQuip": "Les deux. Les mèmes de 2007 : ton humour vintage.",
+			"noneQuip": "Ni l’un ni l’autre. Les mèmes de 2007, tu étais trop jeune. Ou déjà trop sage."
+		},
+		{
+			"id": "internet-trollface-forever-alone",
+			"category": "internet",
+			"a": {
+				"name": "Trollface",
+				"origin": "Internet · 2008",
+				"line": "Un sourire, une provocation.",
+				"quip": "Team Trollface : tu provoques juste pour voir la réaction. Problem ?",
+				"giphyIds": [],
+				"giphyQuery": "trollface"
+			},
+			"b": {
+				"name": "Forever Alone",
+				"origin": "Internet · 2010",
+				"line": "Un visage, et toute la solitude du monde.",
+				"quip": "Team Forever Alone : tu as fêté la Saint-Valentin avec une pizza. Et c’était très bien.",
+				"giphyIds": [],
+				"giphyQuery": "forever alone"
+			},
+			"bothQuip": "Les deux. Les mèmes dessinés de 2010 : ton patrimoine.",
+			"noneQuip": "Ni l’un ni l’autre. Ces visages dessinés, tu ne les as jamais compris."
+		},
+		{
+			"id": "internet-erreur-404-l-ecran-bleu",
+			"category": "internet",
+			"a": {
+				"name": "Erreur 404",
+				"origin": "Le Web",
+				"line": "La page a perdu son débat.",
+				"quip": "Team erreur 404 : la page a disparu. Comme ta motivation du lundi.",
+				"giphyIds": [],
+				"giphyQuery": "404 error"
+			},
+			"b": {
+				"name": "L’écran bleu",
+				"origin": "Windows",
+				"line": "Un problème a été rencontré. Encore.",
+				"quip": "Team écran bleu : un problème a été rencontré. Tu le sais. Tu l’as vécu.",
+				"giphyIds": [],
+				"giphyQuery": "blue screen of death"
+			},
+			"bothQuip": "Les deux. L’informatique et toi, c’est compliqué.",
+			"noneQuip": "Ni l’un ni l’autre. Tes ordinateurs marchent toujours ? Partage ton secret."
+		},
+		{
+			"id": "internet-le-wi-fi-du-voisin-le-partage-de-connexion",
+			"category": "internet",
+			"a": {
+				"name": "Le Wi-Fi du voisin",
+				"origin": "L’immeuble",
+				"line": "Le mot de passe, c’est « 12345678 ».",
+				"quip": "Team Wi-Fi du voisin : tu connais le mot de passe. Il ne sait pas que tu sais.",
+				"giphyIds": [],
+				"giphyQuery": "wifi signal"
+			},
+			"b": {
+				"name": "Le partage de connexion",
+				"origin": "Ton téléphone",
+				"line": "Ton forfait pleure en silence.",
+				"quip": "Team partage de connexion : ton forfait pleure, ton téléphone chauffe. Mais tu es en ligne.",
+				"giphyIds": [],
+				"giphyQuery": "phone hotspot"
+			},
+			"bothQuip": "Les deux. Tu trouves toujours une connexion. Une personne pleine de ressources.",
+			"noneQuip": "Ni l’un ni l’autre. Hors ligne, et en paix."
+		},
+		{
+			"id": "internet-le-prince-heritier-par-mail-le-colis-en-attente",
+			"category": "internet",
+			"a": {
+				"name": "Le prince héritier par mail",
+				"origin": "Années 2000",
+				"line": "Un héritage de dix millions, contre tes coordonnées bancaires.",
+				"quip": "Team prince héritier : tu attends toujours tes dix millions. Ils arrivent, ils arrivent.",
+				"giphyIds": [],
+				"giphyQuery": "scam email"
+			},
+			"b": {
+				"name": "Le colis en attente",
+				"origin": "Ton SMS",
+				"line": "Votre colis attend. Il attend toujours.",
+				"quip": "Team colis en attente : ton colis attend. Il attend toujours. Tu n’as rien commandé.",
+				"giphyIds": [],
+				"giphyQuery": "package delivery waiting"
+			},
+			"bothQuip": "Les deux. Ta boîte de spam est plus remplie que ta boîte de réception.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne cliques jamais sur rien. La fierté de la cybersécurité."
+		},
+		{
+			"id": "internet-among-us-fall-guys",
+			"category": "internet",
+			"a": {
+				"name": "Among Us",
+				"origin": "InnerSloth · 2018",
+				"line": "« Imposteur ! »",
+				"quip": "Team Among Us : tu accuses quelqu’un sans la moindre preuve. Juste une intuition. Imposteur !",
+				"giphyIds": [],
+				"giphyQuery": "Among Us"
+			},
+			"b": {
+				"name": "Fall Guys",
+				"origin": "Mediatonic · 2020",
+				"line": "Des bonbons sur pattes qui tombent.",
+				"quip": "Team Fall Guys : tu tombes, tu te relèves, tu retombes. Ta vie, en somme.",
+				"giphyIds": [],
+				"giphyQuery": "Fall Guys"
+			},
+			"bothQuip": "Les deux. Les jeux de 2020 qui t’ont tenu compagnie.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux à la mode, tu les laisses passer."
+		},
+		{
+			"id": "internet-encore-une-video-dodo",
+			"category": "internet",
+			"question": "Il est minuit : tu scrolles ou tu dors ?",
+			"a": {
+				"name": "Encore une vidéo",
+				"origin": "Ton lit, minuit",
+				"line": "Il est deux heures. Tu ne sais pas comment.",
+				"quip": "Team encore une vidéo : il est 2 h. Tu ne sais pas comment. Tu sais faire des sushis, maintenant.",
+				"giphyIds": [],
+				"giphyQuery": "scrolling phone bed"
+			},
+			"b": {
+				"name": "Dodo",
+				"origin": "Ton lit, minuit",
+				"line": "Le téléphone posé loin, et la sagesse.",
+				"quip": "Team dodo : téléphone loin, lumière éteinte, sagesse totale. On t’admire.",
+				"giphyIds": [],
+				"giphyQuery": "sleeping"
+			},
+			"bothQuip": "Les deux. Tu poses le téléphone, puis tu le reprends. Trois fois.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne dors pas et tu ne scrolles pas. Tu lis ? Tu médites ?"
+		},
+		{
+			"id": "internet-clubhouse-bereal",
+			"category": "internet",
+			"a": {
+				"name": "Clubhouse",
+				"origin": "Internet · 2020",
+				"line": "Le réseau social vocal qui a fait pschitt.",
+				"quip": "Team Clubhouse : tu y étais. Pendant trois semaines. Comme tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "podcast microphone"
+			},
+			"b": {
+				"name": "BeReal",
+				"origin": "Internet · 2020",
+				"line": "Deux minutes pour poster, toujours au mauvais moment.",
+				"quip": "Team BeReal : la notification tombe toujours quand tu es aux toilettes. Toujours.",
+				"giphyIds": [],
+				"giphyQuery": "selfie camera"
+			},
+			"bothQuip": "Les deux. Les réseaux sociaux qui ont fait pschitt, tu les as tous essayés.",
+			"noneQuip": "Ni l’un ni l’autre. Tu attends que les modes passent. Malin."
+		},
+		{
+			"id": "internet-wordle-2048",
+			"category": "internet",
+			"a": {
+				"name": "Wordle",
+				"origin": "Internet · 2021",
+				"line": "Cinq lettres, six essais, une obsession.",
+				"quip": "Team Wordle : tu partages tes petits carrés verts tous les matins. On a compris.",
+				"giphyIds": [],
+				"giphyQuery": "Wordle"
+			},
+			"b": {
+				"name": "2048",
+				"origin": "Internet · 2014",
+				"line": "Des tuiles qui fusionnent, jusqu’à 2048.",
+				"quip": "Team 2048 : tu as atteint 2048. Puis 4096. Il est 4 h du matin.",
+				"giphyIds": [],
+				"giphyQuery": "2048",
+				"gifUrls": ["https://media.tenor.com/eyWplopSIKAAAAAC/2048gif.gif"],
+				"giphyKeywords": ["game"]
+			},
+			"bothQuip": "Les deux. Les jeux de logique sur ton téléphone, ta drogue douce.",
+			"noneQuip": "Ni l’un ni l’autre. Les casse-têtes, ça te casse la tête."
+		},
+		{
+			"id": "internet-pokemon-go-geocaching",
+			"category": "internet",
+			"a": {
+				"name": "Pokémon GO",
+				"origin": "Niantic · 2016",
+				"line": "Tout le monde dans les parcs, téléphone à la main.",
+				"quip": "Team Pokémon GO : tu as marché dix kilomètres pour un Pokémon rare. Il s’est enfui.",
+				"giphyIds": [],
+				"giphyQuery": "Pokemon Go"
+			},
+			"b": {
+				"name": "Geocaching",
+				"origin": "Internet · 2000",
+				"line": "Une chasse au trésor, avec un GPS.",
+				"quip": "Team geocaching : tu as fouillé un buisson avec un GPS. Les passants s’interrogent.",
+				"giphyIds": [],
+				"giphyQuery": "treasure hunt"
+			},
+			"bothQuip": "Les deux. Tu marches beaucoup. Mais jamais sans ton téléphone.",
+			"noneQuip": "Ni l’un ni l’autre. Les chasses au trésor dans les parcs, très peu pour toi."
+		},
+		{
+			"id": "internet-woman-yelling-at-a-cat-le-meme-drake",
+			"category": "internet",
+			"a": {
+				"name": "« Woman yelling at a cat »",
+				"origin": "Internet · 2019",
+				"line": "Une femme qui crie, un chat qui s’en fiche.",
+				"quip": "Team « Woman yelling at a cat » : tu cries, et en face, tout le monde s’en fiche. Comme le chat.",
+				"giphyIds": [],
+				"giphyQuery": "woman yelling at cat"
+			},
+			"b": {
+				"name": "Le mème Drake",
+				"origin": "Internet · 2015",
+				"line": "Non à ça. Oui à ça.",
+				"quip": "Team Drake : non à ça, oui à ça. Toutes tes décisions passent par ce mème.",
+				"giphyIds": [],
+				"giphyQuery": "Drake hotline bling"
+			},
+			"bothQuip": "Les deux. Tes conversations se font entièrement en mèmes.",
+			"noneQuip": "Ni l’un ni l’autre. Les mèmes, tu ne les comprends pas toujours. On t’aime quand même."
+		},
+		{
+			"id": "internet-asmr-les-videos-satisfaisantes",
+			"category": "internet",
+			"a": {
+				"name": "ASMR",
+				"origin": "Internet · 2010",
+				"line": "Des chuchotements qui donnent des frissons.",
+				"quip": "Team ASMR : tu t’endors avec des chuchotements. Ton voisin aussi, à travers le mur.",
+				"giphyIds": [],
+				"giphyQuery": "ASMR"
+			},
+			"b": {
+				"name": "Les vidéos satisfaisantes",
+				"origin": "Internet",
+				"line": "Du sable coloré coupé en tranches.",
+				"quip": "Team vidéos satisfaisantes : tu as regardé du sable coupé en tranches pendant une heure.",
+				"giphyIds": [],
+				"giphyQuery": "oddly satisfying"
+			},
+			"bothQuip": "Les deux. Ton cerveau a besoin de calme, et tu le sais.",
+			"noneQuip": "Ni l’un ni l’autre. Ces vidéos te mettent mal à l’aise. On comprend."
+		},
+		{
+			"id": "internet-unboxing-videos-de-reaction",
+			"category": "internet",
+			"a": {
+				"name": "Unboxing",
+				"origin": "YouTube",
+				"line": "Ouvrir un carton, devant des millions de gens.",
+				"quip": "Team unboxing : tu as regardé quelqu’un ouvrir un carton. Pendant vingt minutes.",
+				"giphyIds": ["1mhnANCcltLkRUWiM4"],
+				"giphyQuery": "unboxing"
+			},
+			"b": {
+				"name": "Vidéos de réaction",
+				"origin": "YouTube",
+				"line": "Regarder quelqu’un regarder une vidéo.",
+				"quip": "Team vidéos de réaction : tu regardes quelqu’un regarder une vidéo. Sans regarder la vidéo.",
+				"giphyIds": [],
+				"giphyQuery": "reaction face"
+			},
+			"bothQuip": "Les deux. Tu regardes les autres vivre. C’est reposant.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ouvres tes cartons toi-même, sans caméra."
+		},
+		{
+			"id": "internet-navigation-privee-historique-complet",
+			"category": "internet",
+			"a": {
+				"name": "Navigation privée",
+				"origin": "Ton navigateur",
+				"line": "Personne ne saura. À part ton fournisseur d’accès.",
+				"quip": "Team navigation privée : personne ne saura. Sauf toi. Et ton fournisseur d’accès.",
+				"giphyIds": [],
+				"giphyQuery": "incognito"
+			},
+			"b": {
+				"name": "Historique complet",
+				"origin": "Ton navigateur",
+				"line": "Toutes tes recherches de trois heures du matin, archivées.",
+				"quip": "Team historique complet : tes recherches de 3 h du matin sont archivées. Courage.",
+				"giphyIds": [],
+				"giphyQuery": "browser history"
+			},
+			"bothQuip": "Les deux. On ne posera pas de questions.",
+			"noneQuip": "Ni l’un ni l’autre. Tu effaces tout chaque soir. Méthodique."
+		},
+		{
+			"id": "internet-le-modem-56k-la-fibre",
+			"category": "internet",
+			"a": {
+				"name": "Le modem 56k",
+				"origin": "Années 1990",
+				"line": "Des bruits stridents et une image qui charge ligne par ligne.",
+				"quip": "Team modem 56k : le bruit du modem est gravé dans ta mémoire. Tu l’entends, là.",
+				"giphyIds": [],
+				"giphyQuery": "dial up modem"
+			},
+			"b": {
+				"name": "La fibre",
+				"origin": "Années 2010",
+				"line": "Tout télécharger en dix secondes, sauf la patience.",
+				"quip": "Team fibre : un film téléchargé en dix secondes, et une heure pour choisir lequel.",
+				"giphyIds": ["l3vR32Y4kugwMsQ0g"],
+				"giphyQuery": "internet speed"
+			},
+			"bothQuip": "Les deux. Tu as connu les deux époques. Une légende d’Internet.",
+			"noneQuip": "Ni l’un ni l’autre. Ton Internet passe par la 4G du téléphone. Courage."
+		},
+		{
+			"id": "internet-les-forums-reddit",
+			"category": "internet",
+			"a": {
+				"name": "Les forums",
+				"origin": "Années 2000",
+				"line": "« Up ! », et des débats sans fin.",
+				"quip": "Team forums : « Up ! » Tu relances encore des sujets de 2008.",
+				"giphyIds": ["e37RbTLYjfc1q"],
+				"giphyQuery": "fighting"
+			},
+			"b": {
+				"name": "Reddit",
+				"origin": "Internet · 2005",
+				"line": "Une communauté pour tout. Vraiment tout.",
+				"quip": "Team Reddit : trois heures sur une discussion consacrée aux cuillères. Et c’était passionnant.",
+				"giphyIds": [],
+				"giphyQuery": "Reddit"
+			},
+			"bothQuip": "Les deux. Les discussions sans fin, c’est ton habitat naturel.",
+			"noneQuip": "Ni l’un ni l’autre. Les débats en ligne, très peu pour toi."
+		},
+		{
+			"id": "internet-les-emoticones-les-emojis",
+			"category": "internet",
+			"a": {
+				"name": "Les émoticônes",
+				"origin": "Ton clavier",
+				"line": "Deux points, un tiret, une parenthèse. L’élégance.",
+				"quip": "Team émoticônes : deux points, un tiret, une parenthèse. Tu as de la classe. :-)",
+				"giphyIds": [],
+				"giphyQuery": "smiley face text"
+			},
+			"b": {
+				"name": "Les emojis",
+				"origin": "Ton téléphone",
+				"line": "Un dessin pour chaque émotion, et trop de cœurs.",
+				"quip": "Team emojis : tu réponds uniquement en emojis. Personne ne comprend. 🙃",
+				"giphyIds": [],
+				"giphyQuery": "emoji"
+			},
+			"bothQuip": "Les deux. :-) et 😀 dans le même message. Une transition en douceur.",
+			"noneQuip": "Ni l’un ni l’autre. Tes messages sont sérieux. Très sérieux. Trop sérieux."
+		},
+		{
+			"id": "internet-le-wi-fi-du-tgv-la-4g-dans-un-tunnel",
+			"category": "internet",
+			"a": {
+				"name": "Le Wi-Fi du TGV",
+				"origin": "Le train",
+				"line": "Connecté. Puis plus. Puis connecté.",
+				"quip": "Team Wi-Fi du TGV : connecté, puis plus, puis connecté. Ta patience est légendaire.",
+				"giphyIds": ["6HZ0P9IkUSfgk"],
+				"giphyQuery": "wifi"
+			},
+			"b": {
+				"name": "La 4G dans un tunnel",
+				"origin": "Le tunnel",
+				"line": "Un concept.",
+				"quip": "Team 4G dans un tunnel : tu y crois encore. C’est beau, l’espoir.",
+				"giphyIds": [],
+				"giphyQuery": "no signal"
+			},
+			"bothQuip": "Les deux. Ton trajet en train est une aventure numérique.",
+			"noneQuip": "Ni l’un ni l’autre. Dans le train, tu regardes par la fenêtre. Le rêve."
+		},
+		{
+			"id": "internet-la-capture-d-ecran-le-lien",
+			"category": "internet",
+			"a": {
+				"name": "La capture d’écran",
+				"origin": "Ton téléphone",
+				"line": "La preuve éternelle de ce que tu as dit.",
+				"quip": "Team capture d’écran : tu as des preuves de tout. Personne ne devrait se disputer avec toi.",
+				"giphyIds": ["nkblL7iso0L1NZHTDH"],
+				"giphyQuery": "screenshot"
+			},
+			"b": {
+				"name": "Le lien",
+				"origin": "Ton navigateur",
+				"line": "Page introuvable, deux ans plus tard.",
+				"quip": "Team lien : tes liens ne marchent plus deux ans plus tard. Personne ne t’en veut.",
+				"giphyIds": ["LPuxqL0uBLzLn98thB"],
+				"giphyQuery": "link website"
+			},
+			"bothQuip": "Les deux. La capture pour prouver, le lien pour partager.",
+			"noneQuip": "Ni l’un ni l’autre. Tu racontes de mémoire. Avec quelques inventions."
+		},
+		{
+			"id": "internet-bug-fonctionnalite",
+			"category": "internet",
+			"question": "Ce comportement bizarre : bug ou fonctionnalité ?",
+			"a": {
+				"name": "Bug",
+				"origin": "Le code",
+				"line": "Un comportement inattendu.",
+				"quip": "Team bug : tu appelles un problème un problème. Honnêteté totale.",
+				"giphyIds": ["iJCo9daAP0xugHhhfb"],
+				"giphyQuery": "bug error"
+			},
+			"b": {
+				"name": "Fonctionnalité",
+				"origin": "Le code",
+				"line": "Un bug, avec une bonne attitude.",
+				"quip": "Team fonctionnalité : tu transformes chaque erreur en atout. Un talent de chef de produit.",
+				"giphyIds": ["YTzh3zw4mj1XpjjiIb"],
+				"giphyQuery": "website",
+				"giphyKeywords": ["not a bug"]
+			},
+			"bothQuip": "Les deux. Ça dépend de qui pose la question.",
+			"noneQuip": "Ni l’un ni l’autre. Tu redémarres, et tu fais comme si de rien n’était."
+		},
+		{
+			"id": "internet-selfie-photo-de-paysage",
+			"category": "internet",
+			"a": {
+				"name": "Selfie",
+				"origin": "Bras tendu",
+				"line": "Le bon angle, au quinzième essai.",
+				"quip": "Team selfie : quinze essais pour le bon angle. Et le paysage derrière ? Flou.",
+				"giphyIds": [],
+				"giphyQuery": "selfie"
+			},
+			"b": {
+				"name": "Photo de paysage",
+				"origin": "Le belvédère",
+				"line": "Ça rendait mieux en vrai.",
+				"quip": "Team paysage : « ça rendait mieux en vrai ». Tu le dis à chaque fois, et c’est vrai.",
+				"giphyIds": [],
+				"giphyQuery": "landscape photo"
+			},
+			"bothQuip": "Les deux. Toi devant le paysage : le meilleur des deux mondes.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne prends pas de photos. Tu profites. Bravo."
+		},
+		{
+			"id": "internet-un-pouce-une-vraie-phrase",
+			"category": "internet",
+			"question": "Pour répondre à un message : un pouce ou une vraie phrase ?",
+			"a": {
+				"name": "Un pouce",
+				"origin": "Ta messagerie",
+				"line": "Rapide, efficace, et parfois vexant.",
+				"quip": "Team pouce : tu réponds 👍 à tout. Même à « il faut qu’on parle ».",
+				"giphyIds": [],
+				"giphyQuery": "thumbs up"
+			},
+			"b": {
+				"name": "Une vraie phrase",
+				"origin": "Ta messagerie aussi",
+				"line": "Un sujet, un verbe, et de la politesse.",
+				"quip": "Team phrase : sujet, verbe, complément et formule de politesse. Même pour répondre à ta sœur.",
+				"giphyIds": [],
+				"giphyQuery": "typing"
+			},
+			"bothQuip": "Les deux. Le pouce au travail, les phrases à la famille. Ou l’inverse.",
+			"noneQuip": "Ni l’un ni l’autre. Tu laisses en « vu ». Le silence est une réponse."
+		},
+		{
+			"id": "internet-avec-filtre-nofilter",
+			"category": "internet",
+			"a": {
+				"name": "Avec filtre",
+				"origin": "L’appli photo",
+				"line": "Une peau parfaite, et la lumière d’un coucher de soleil à midi.",
+				"quip": "Team filtre : sur tes photos, il fait toujours beau. Même en novembre.",
+				"giphyIds": [],
+				"giphyQuery": "photo filter"
+			},
+			"b": {
+				"name": "#nofilter",
+				"origin": "La vraie vie",
+				"line": "Tel quel. Même sous la lumière du néon.",
+				"quip": "Team #nofilter : tu postes la vraie lumière du néon de la cuisine. Une audace rare.",
+				"giphyIds": [],
+				"giphyQuery": "no filter"
+			},
+			"bothQuip": "Les deux. Un léger filtre, et tu écris #nofilter. On ne dira rien.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne postes rien. Le mystère complet."
+		},
+		{
+			"id": "internet-un-long-message-dix-petits-messages",
+			"category": "internet",
+			"question": "Pour raconter un truc : un long message ou dix petits ?",
+			"a": {
+				"name": "Un long message",
+				"origin": "Ta messagerie",
+				"line": "Un pavé bien construit, avec des paragraphes.",
+				"quip": "Team long message : tu envoies des pavés, avec une introduction et une conclusion.",
+				"giphyIds": [],
+				"giphyQuery": "long text"
+			},
+			"b": {
+				"name": "Dix petits messages",
+				"origin": "Ta messagerie aussi",
+				"line": "Bzz. Bzz. Bzz. Bzz. Bzz.",
+				"quip": "Team dix messages : le téléphone de ton ami vibre dix fois d’affilée. Il croit à une urgence.",
+				"giphyIds": [],
+				"giphyQuery": "phone buzzing"
+			},
+			"bothQuip": "Les deux. Un long message, puis neuf petits pour corriger les fautes.",
+			"noneQuip": "Ni l’un ni l’autre. Tu envoies une note vocale. Évidemment."
+		},
+		{
+			"id": "internet-en-sourdine-je-lis-tout",
+			"category": "internet",
+			"question": "Le groupe de discussion de la famille : en sourdine ou tu lis tout ?",
+			"a": {
+				"name": "En sourdine",
+				"origin": "Ton téléphone",
+				"line": "Trois cent quarante messages non lus, et la paix.",
+				"quip": "Team sourdine : 340 messages non lus dans le groupe de la famille. Tu en liras un. Peut-être.",
+				"giphyIds": [],
+				"giphyQuery": "mute"
+			},
+			"b": {
+				"name": "Je lis tout",
+				"origin": "Ton téléphone aussi",
+				"line": "Chaque photo de chat, chaque blague du tonton.",
+				"quip": "Team je lis tout : tu as réagi à chaque photo du tonton. Il t’adore.",
+				"giphyIds": [],
+				"giphyQuery": "reading phone"
+			},
+			"bothQuip": "Les deux. En sourdine, mais tu lis tout en cachette.",
+			"noneQuip": "Ni l’un ni l’autre. Tu as quitté le groupe. Le scandale du réveillon."
+		},
+		{
+			"id": "internet-avec-point-final-sans-point-final",
+			"category": "internet",
+			"question": "Dans un message : avec ou sans point final ?",
+			"a": {
+				"name": "Avec point final",
+				"origin": "La grammaire",
+				"line": "« Ok. » Ce point fait peur à tout le monde.",
+				"quip": "Team point final : « Ok. » Tu ne le sais pas, mais tout le monde croit que tu fais la tête.",
+				"giphyIds": [],
+				"giphyQuery": "period"
+			},
+			"b": {
+				"name": "Sans point final",
+				"origin": "Ta messagerie",
+				"line": "« ok » Plus doux, plus léger, plus sympa.",
+				"quip": "Team sans point : « ok », sans majuscule ni point. Tout va bien, et tout le monde le sait.",
+				"giphyIds": [],
+				"giphyQuery": "chill"
+			},
+			"bothQuip": "Les deux. Avec un point pour le travail, sans point pour les amis.",
+			"noneQuip": "Ni l’un ni l’autre. Tu termines tout par « !!! ». L’enthousiasme permanent."
+		},
+		{
+			"id": "internet-un-gif-un-sticker",
+			"category": "internet",
+			"a": {
+				"name": "Un GIF",
+				"origin": "La barre de recherche",
+				"line": "La réaction parfaite, et elle bouge.",
+				"quip": "Team GIF : tu as un GIF pour chaque situation. Littéralement chaque situation.",
+				"giphyIds": [],
+				"giphyQuery": "reaction gif"
+			},
+			"b": {
+				"name": "Un sticker",
+				"origin": "Ta collection",
+				"line": "Un chat qui pleure, un canard qui danse : ta signature.",
+				"quip": "Team sticker : ta collection de stickers est mieux rangée que ta chambre.",
+				"giphyIds": [],
+				"giphyQuery": "sticker"
+			},
+			"bothQuip": "Les deux. Ta conversation ressemble à un dessin animé.",
+			"noneQuip": "Ni l’un ni l’autre. Tu réponds avec des mots. Très original."
+		},
+		{
+			"id": "internet-ecran-retourne-ecran-visible",
+			"category": "internet",
+			"question": "Ton téléphone sur la table : écran retourné ou visible ?",
+			"a": {
+				"name": "Écran retourné",
+				"origin": "La table du restaurant",
+				"line": "Par politesse. Ou par mystère.",
+				"quip": "Team écran retourné : tu poses ton téléphone face cachée. Par politesse. Ou pour une autre raison.",
+				"giphyIds": [],
+				"giphyQuery": "phone on table"
+			},
+			"b": {
+				"name": "Écran visible",
+				"origin": "La table du restaurant aussi",
+				"line": "Rien à cacher, et toutes les notifications en vue.",
+				"quip": "Team écran visible : rien à cacher. Ou tu attends un message important. Depuis trois heures.",
+				"giphyIds": [],
+				"giphyQuery": "notifications"
+			},
+			"bothQuip": "Les deux. Ça dépend de qui est assis à côté.",
+			"noneQuip": "Ni l’un ni l’autre. Ton téléphone reste dans ta poche. Une personne de qualité."
+		},
+		{
+			"id": "internet-vitesse-normale-en-accelere",
+			"category": "internet",
+			"question": "Les vidéos : vitesse normale ou en accéléré ?",
+			"a": {
+				"name": "Vitesse normale",
+				"origin": "Le réglage par défaut",
+				"line": "Comme l’auteur l’a voulu.",
+				"quip": "Team vitesse normale : tu respectes le rythme de chacun. Même des gens qui parlent lentement.",
+				"giphyIds": [],
+				"giphyQuery": "watching video"
+			},
+			"b": {
+				"name": "En accéléré",
+				"origin": "Le réglage ×2",
+				"line": "Deux fois plus de contenu, en deux fois moins de temps.",
+				"quip": "Team accéléré : tout en ×2. Quand quelqu’un te parle en vrai, tu cherches le bouton.",
+				"giphyIds": [],
+				"giphyQuery": "fast forward"
+			},
+			"bothQuip": "Les deux. Normale pour les films, ×2 pour les tutos. Efficace.",
+			"noneQuip": "Ni l’un ni l’autre. Tu lis le résumé. Encore plus rapide."
+		},
+		{
+			"id": "mots-serpilliere-wassingue",
+			"category": "mots",
+			"a": {
+				"name": "Serpillière",
+				"origin": "La France entière",
+				"line": "Le nom du dictionnaire.",
+				"quip": "Team serpillière : tu passes la serpillière, et tu suis le dictionnaire. Tout est propre.",
+				"giphyIds": [],
+				"giphyQuery": "mop floor"
+			},
+			"b": {
+				"name": "Wassingue",
+				"origin": "Le Nord et la Belgique",
+				"line": "Le même objet, avec l’accent.",
+				"quip": "Team wassingue : tu dis « wassingue » à des gens du Sud. Ils te regardent bizarrement.",
+				"giphyIds": [],
+				"giphyQuery": "mopping floor"
+			},
+			"bothQuip": "Les deux. Le sol est propre, et le vocabulaire aussi.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « la toile ». Ou tu ne fais jamais le ménage."
+		},
+		{
+			"id": "mots-sac-poche",
+			"category": "mots",
+			"a": {
+				"name": "Sac",
+				"origin": "La caisse du supermarché",
+				"line": "Neutre, efficace, universel.",
+				"quip": "Team sac : neutre, universel, et tu ne surprends aucune caissière.",
+				"giphyIds": [],
+				"giphyQuery": "plastic bag"
+			},
+			"b": {
+				"name": "Poche",
+				"origin": "Le Sud-Ouest",
+				"line": "« Vous voulez une poche ? » À Bordeaux, oui.",
+				"quip": "Team poche : « Vous voulez une poche ? » Hors du Sud-Ouest, la caissière cherche celle de ton pantalon.",
+				"giphyIds": [],
+				"giphyQuery": "grocery bag"
+			},
+			"bothQuip": "Les deux. Tu t’adaptes à la caisse. Ton accent aussi.",
+			"noneQuip": "Ni sac ni poche. Tu as ton cabas en tissu. La planète te remercie."
+		},
+		{
+			"id": "mots-crayon-a-papier-crayon-de-bois",
+			"category": "mots",
+			"a": {
+				"name": "Crayon à papier",
+				"origin": "Le nord de la France",
+				"line": "Il écrit sur du papier. Logique.",
+				"quip": "Team crayon à papier : il écrit sur du papier. La logique du Nord.",
+				"giphyIds": [],
+				"giphyQuery": "pencil"
+			},
+			"b": {
+				"name": "Crayon de bois",
+				"origin": "Le sud de la France",
+				"line": "Il est en bois. Logique aussi.",
+				"quip": "Team crayon de bois : il est en bois. La logique du Sud. Imparable aussi.",
+				"giphyIds": [],
+				"giphyQuery": "wooden pencil"
+			},
+			"bothQuip": "Les deux. Tu changes selon la personne en face. La diplomatie de la trousse.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « porte-mine ». Tout est rangé dans ta trousse."
+		},
+		{
+			"id": "mots-soixante-dix-septante",
+			"category": "mots",
+			"a": {
+				"name": "Soixante-dix",
+				"origin": "La France",
+				"line": "Soixante plus dix. On aime le calcul mental.",
+				"quip": "Team soixante-dix : soixante plus dix. Du calcul mental à chaque prix.",
+				"giphyIds": [],
+				"giphyQuery": "number 70"
+			},
+			"b": {
+				"name": "Septante",
+				"origin": "La Belgique et la Suisse",
+				"line": "Un seul mot, aucune addition.",
+				"quip": "Team septante : un seul mot, zéro addition. La Belgique et la Suisse avaient raison.",
+				"giphyIds": [],
+				"giphyQuery": "Belgium flag"
+			},
+			"bothQuip": "Les deux. Tu comptes en français et en belge. Un vrai talent.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « sept-zéro ». Comme un code secret."
+		},
+		{
+			"id": "mots-quatre-vingt-dix-nonante",
+			"category": "mots",
+			"a": {
+				"name": "Quatre-vingt-dix",
+				"origin": "La France",
+				"line": "Quatre fois vingt, plus dix. Simple.",
+				"quip": "Team quatre-vingt-dix : quatre fois vingt plus dix. Au fond, tu adores les maths.",
+				"giphyIds": [],
+				"giphyQuery": "math confused"
+			},
+			"b": {
+				"name": "Nonante",
+				"origin": "La Belgique et la Suisse",
+				"line": "Sept-, huit-, nonante. Logique, enfin.",
+				"quip": "Team nonante : enfin un nombre logique. Tu aimerais qu’on fasse pareil en France.",
+				"giphyIds": [],
+				"giphyQuery": "math genius"
+			},
+			"bothQuip": "Les deux. Tu jongles entre les pays francophones. Respect.",
+			"noneQuip": "Ni l’un ni l’autre. Tu écris les chiffres. Tu évites le problème."
+		},
+		{
+			"id": "mots-quatre-vingts-huitante",
+			"category": "mots",
+			"a": {
+				"name": "Quatre-vingts",
+				"origin": "La France et la Belgique",
+				"line": "Le nombre qui demande une multiplication.",
+				"quip": "Team quatre-vingts : une multiplication pour dire un nombre. Tu ne vois pas le problème.",
+				"giphyIds": [],
+				"giphyQuery": "calculator"
+			},
+			"b": {
+				"name": "Huitante",
+				"origin": "La Suisse romande",
+				"line": "Le canton de Vaud a tout compris.",
+				"quip": "Team huitante : le canton de Vaud a tout compris. Toi aussi.",
+				"giphyIds": [],
+				"giphyQuery": "Switzerland"
+			},
+			"bothQuip": "Les deux. Une petite ambassade de la francophonie, c’est toi.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « octante » ? Tu lis de très vieux livres, c’est ça ?"
+		},
+		{
+			"id": "mots-tres-gave",
+			"category": "mots",
+			"a": {
+				"name": "Très",
+				"origin": "Le dictionnaire",
+				"line": "Sobre et efficace.",
+				"quip": "Team très : sobre et efficace. Pas besoin d’en faire trop.",
+				"giphyIds": [],
+				"giphyQuery": "very good"
+			},
+			"b": {
+				"name": "Gavé",
+				"origin": "Toulouse et Bordeaux",
+				"line": "« C’est gavé bien. » Et c’est très bien.",
+				"quip": "Team gavé : c’est gavé bien, ce choix. Toulouse te salue.",
+				"giphyIds": [],
+				"giphyQuery": "super excited"
+			},
+			"bothQuip": "Les deux. C’est très gavé bien.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « trop ». Comme tous les ados de France."
+		},
+		{
+			"id": "mots-personne-degun",
+			"category": "mots",
+			"a": {
+				"name": "Personne",
+				"origin": "Partout",
+				"line": "Il n’y a personne.",
+				"quip": "Team personne : tu constates simplement qu’il n’y a personne. Sobre.",
+				"giphyIds": [],
+				"giphyQuery": "empty room"
+			},
+			"b": {
+				"name": "Dégun",
+				"origin": "Marseille",
+				"line": "Il n’y a dégun, et c’est plus chantant.",
+				"quip": "Team dégun : il n’y a dégun, et tu le dis avec l’accent. Même à Lille.",
+				"giphyIds": [],
+				"giphyQuery": "Marseille"
+			},
+			"bothQuip": "Les deux. Personne n’est là. Dégun non plus.",
+			"noneQuip": "Ni l’un ni l’autre. Pour toi, il y a toujours quelqu’un. Optimisme."
+		},
+		{
+			"id": "mots-le-pauvre-peuchere",
+			"category": "mots",
+			"a": {
+				"name": "Le pauvre",
+				"origin": "Partout",
+				"line": "Compatissant, mais sans soleil.",
+				"quip": "Team le pauvre : compatissant, mais sobre.",
+				"giphyIds": [],
+				"giphyQuery": "sad face"
+			},
+			"b": {
+				"name": "Peuchère",
+				"origin": "La Provence",
+				"line": "La compassion, avec l’accent du Midi.",
+				"quip": "Team peuchère : la compassion avec le soleil. Peuchère, le pauvre.",
+				"giphyIds": [],
+				"giphyQuery": "Provence lavender"
+			},
+			"bothQuip": "Les deux. « Le pauvre, peuchère. » Tu compatis deux fois.",
+			"noneQuip": "Ni l’un ni l’autre. Les malheurs des autres te laissent de marbre. Peuchère."
+		},
+		{
+			"id": "mots-gant-de-toilette-debarbouillette",
+			"category": "mots",
+			"a": {
+				"name": "Gant de toilette",
+				"origin": "La France",
+				"line": "Une moufle pour se laver.",
+				"quip": "Team gant de toilette : une moufle pour se laver. Logique.",
+				"giphyIds": [],
+				"giphyQuery": "washcloth"
+			},
+			"b": {
+				"name": "Débarbouillette",
+				"origin": "Le Québec",
+				"line": "Un carré de tissu, et un mot superbe.",
+				"quip": "Team débarbouillette : un mot superbe. Tu as envie de te laver rien que pour le dire.",
+				"giphyIds": [],
+				"giphyQuery": "Quebec"
+			},
+			"bothQuip": "Les deux. Ta salle de bains est bilingue.",
+			"noneQuip": "Ni l’un ni l’autre. Tu te laves à la main, sans accessoire. Efficace."
+		},
+		{
+			"id": "mots-voiture-char",
+			"category": "mots",
+			"a": {
+				"name": "Voiture",
+				"origin": "La France",
+				"line": "Quatre roues, un volant.",
+				"quip": "Team voiture : quatre roues, un volant, rien à ajouter.",
+				"giphyIds": [],
+				"giphyQuery": "car driving"
+			},
+			"b": {
+				"name": "Char",
+				"origin": "Le Québec",
+				"line": "Quatre roues, et un petit air de Ben-Hur.",
+				"quip": "Team char : tu vas au travail en char, comme Ben-Hur dans les bouchons.",
+				"giphyIds": [],
+				"giphyQuery": "chariot race"
+			},
+			"bothQuip": "Les deux. La voiture en France, le char au Québec. Tu voyages.",
+			"noneQuip": "Ni voiture ni char. Tu prends le vélo. La planète approuve."
+		},
+		{
+			"id": "mots-e-mail-courriel",
+			"category": "mots",
+			"a": {
+				"name": "E-mail",
+				"origin": "La France, souvent",
+				"line": "Court, international, un peu anglais.",
+				"quip": "Team e-mail : court, international, et la boîte toujours pleine.",
+				"giphyIds": [],
+				"giphyQuery": "email"
+			},
+			"b": {
+				"name": "Courriel",
+				"origin": "Le Québec",
+				"line": "Inventé là-bas, adopté par la France.",
+				"quip": "Team courriel : un mot inventé au Québec et adopté en France. Tu as bon goût.",
+				"giphyIds": [],
+				"giphyQuery": "mail letter"
+			},
+			"bothQuip": "Les deux. Ta boîte de réception déborde dans les deux langues.",
+			"noneQuip": "Ni l’un ni l’autre. Tu envoies des lettres. Avec un timbre. Respect."
+		},
+		{
+			"id": "mots-week-end-fin-de-semaine",
+			"category": "mots",
+			"a": {
+				"name": "Week-end",
+				"origin": "La France",
+				"line": "Deux jours, en anglais.",
+				"quip": "Team week-end : deux jours, en anglais, et ils passent trop vite.",
+				"giphyIds": [],
+				"giphyQuery": "weekend"
+			},
+			"b": {
+				"name": "Fin de semaine",
+				"origin": "Le Québec",
+				"line": "Les deux mêmes jours, en français.",
+				"quip": "Team fin de semaine : les deux mêmes jours, en français. Et ils passent aussi vite.",
+				"giphyIds": [],
+				"giphyQuery": "saturday relax"
+			},
+			"bothQuip": "Les deux. Ce qui compte, c’est que ça arrive vite.",
+			"noneQuip": "Ni l’un ni l’autre. Tu travailles le samedi. Courage."
+		},
+		{
+			"id": "mots-faire-du-shopping-magasiner",
+			"category": "mots",
+			"a": {
+				"name": "Faire du shopping",
+				"origin": "La France",
+				"line": "Des magasins et une carte bancaire qui chauffe.",
+				"quip": "Team shopping : ta carte bancaire chauffe en anglais.",
+				"giphyIds": [],
+				"giphyQuery": "shopping bags"
+			},
+			"b": {
+				"name": "Magasiner",
+				"origin": "Le Québec",
+				"line": "Le même programme, en un seul verbe.",
+				"quip": "Team magasiner : un seul verbe, et tout est dit. Ta carte chauffe en français.",
+				"giphyIds": [],
+				"giphyQuery": "shopping mall"
+			},
+			"bothQuip": "Les deux. Ton budget pleure dans les deux langues.",
+			"noneQuip": "Ni l’un ni l’autre. Tu achètes en ligne, sans sortir. Efficace."
+		},
+		{
+			"id": "mots-dejeuner-diner",
+			"category": "mots",
+			"question": "Le repas de midi, tu l’appelles comment ?",
+			"a": {
+				"name": "Déjeuner",
+				"origin": "La France",
+				"line": "Midi, c’est le déjeuner. Point.",
+				"quip": "Team déjeuner : midi, c’est le déjeuner. Tu ne transiges pas.",
+				"giphyIds": [],
+				"giphyQuery": "lunch"
+			},
+			"b": {
+				"name": "Dîner",
+				"origin": "La Belgique, la Suisse, le Québec",
+				"line": "Midi, c’est le dîner. Et le soir, le souper.",
+				"quip": "Team dîner à midi : tu dînes à midi et tu soupes le soir. Une bonne partie de la francophonie aussi.",
+				"giphyIds": [],
+				"giphyQuery": "lunchtime"
+			},
+			"bothQuip": "Les deux. Tu manges deux fois à midi, pour ne vexer personne.",
+			"noneQuip": "Ni l’un ni l’autre. Tu sautes le repas de midi. Le café suffit, paraît-il."
+		},
+		{
+			"id": "mots-diner-souper",
+			"category": "mots",
+			"question": "Et le repas du soir ?",
+			"a": {
+				"name": "Dîner",
+				"origin": "La France",
+				"line": "Le soir, on dîne.",
+				"quip": "Team dîner : le soir, on dîne. Et on se demande ce que mangent les autres.",
+				"giphyIds": [],
+				"giphyQuery": "dinner table"
+			},
+			"b": {
+				"name": "Souper",
+				"origin": "La Belgique, la Suisse, le Québec",
+				"line": "Le soir, on soupe. Même sans soupe.",
+				"quip": "Team souper : le soir, tu soupes. Même sans soupe. Surtout sans soupe.",
+				"giphyIds": [],
+				"giphyQuery": "soup"
+			},
+			"bothQuip": "Les deux. Tu dînes, puis tu soupes. Tu manges beaucoup, le soir.",
+			"noneQuip": "Ni l’un ni l’autre. Tu grignotes devant la télé. Le repas du soir, c’est flou."
+		},
+		{
+			"id": "mots-petit-pain-pistolet",
+			"category": "mots",
+			"a": {
+				"name": "Petit pain",
+				"origin": "La France",
+				"line": "Un petit pain, tout simplement.",
+				"quip": "Team petit pain : un petit pain, sans histoire.",
+				"giphyIds": [],
+				"giphyQuery": "bread roll"
+			},
+			"b": {
+				"name": "Pistolet",
+				"origin": "La Belgique",
+				"line": "Un petit pain rond, qui ne tire pas.",
+				"quip": "Team pistolet : tu commandes un pistolet à la boulangerie, et personne ne panique. En Belgique.",
+				"giphyIds": [],
+				"giphyQuery": "bakery bread"
+			},
+			"bothQuip": "Les deux. Un petit pain à Paris, un pistolet à Bruxelles. Tu t’adaptes.",
+			"noneQuip": "Ni l’un ni l’autre. Tu prends une baguette. Comme tout le monde."
+		},
+		{
+			"id": "mots-averse-drache",
+			"category": "mots",
+			"a": {
+				"name": "Averse",
+				"origin": "Partout",
+				"line": "Il pleut fort, puis ça s’arrête.",
+				"quip": "Team averse : il pleut fort, puis ça s’arrête. Tu gardes espoir.",
+				"giphyIds": [],
+				"giphyQuery": "rain shower"
+			},
+			"b": {
+				"name": "Drache",
+				"origin": "La Belgique",
+				"line": "Il pleut très fort. Comme souvent.",
+				"quip": "Team drache : il drache. Comme d’habitude. Tu as toujours un parapluie.",
+				"giphyIds": [],
+				"giphyQuery": "heavy rain"
+			},
+			"bothQuip": "Les deux. En matière de pluie, tu as tout vu.",
+			"noneQuip": "Ni l’un ni l’autre. Chez toi, il fait toujours beau. On est jaloux."
+		},
+		{
+			"id": "mots-cet-apres-midi-tantot",
+			"category": "mots",
+			"a": {
+				"name": "Cet après-midi",
+				"origin": "La France",
+				"line": "Plus tard dans la journée.",
+				"quip": "Team cet après-midi : clair, précis, sans malentendu.",
+				"giphyIds": [],
+				"giphyQuery": "afternoon"
+			},
+			"b": {
+				"name": "Tantôt",
+				"origin": "La Belgique",
+				"line": "Tout à l’heure, ou cet après-midi. Ça dépend.",
+				"quip": "Team tantôt : tout à l’heure, cet après-midi, ou plus tard. Ça dépend. Toujours.",
+				"giphyIds": [],
+				"giphyQuery": "waiting clock"
+			},
+			"bothQuip": "Les deux. Tu passeras tantôt cet après-midi. Ou pas.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « plus tard ». Personne ne sait quand."
+		},
+		{
+			"id": "mots-poignee-de-porte-clenche",
+			"category": "mots",
+			"a": {
+				"name": "Poignée de porte",
+				"origin": "Partout",
+				"line": "On l’abaisse, la porte s’ouvre.",
+				"quip": "Team poignée : on l’abaisse, et la porte s’ouvre. Sans mystère.",
+				"giphyIds": [],
+				"giphyQuery": "door handle"
+			},
+			"b": {
+				"name": "Clenche",
+				"origin": "Le Nord et la Belgique",
+				"line": "Même geste, plus de caractère.",
+				"quip": "Team clenche : tu clenches la porte avec beaucoup de caractère. Le Nord te salue.",
+				"giphyIds": [],
+				"giphyQuery": "opening door"
+			},
+			"bothQuip": "Les deux. Toutes les portes s’ouvrent devant toi.",
+			"noneQuip": "Ni l’un ni l’autre. Tu pousses la porte avec l’épaule. Efficace."
+		},
+		{
+			"id": "mots-mouchoir-kleenex",
+			"category": "mots",
+			"a": {
+				"name": "Mouchoir",
+				"origin": "Le dictionnaire",
+				"line": "Le nom commun.",
+				"quip": "Team mouchoir : tu dis « mouchoir ». Le dictionnaire est fier de toi.",
+				"giphyIds": [],
+				"giphyQuery": "tissue"
+			},
+			"b": {
+				"name": "Kleenex",
+				"origin": "La marque",
+				"line": "Une marque devenue un mot.",
+				"quip": "Team Kleenex : tu dis « un Kleenex », même quand c’est une autre marque.",
+				"giphyIds": [],
+				"giphyQuery": "sneeze"
+			},
+			"bothQuip": "Les deux. Ton nez s’en fiche, du moment qu’il est mouché.",
+			"noneQuip": "Ni l’un ni l’autre. Tu renifles. Ton entourage aimerait que tu choisisses."
+		},
+		{
+			"id": "mots-refrigerateur-frigidaire",
+			"category": "mots",
+			"a": {
+				"name": "Réfrigérateur",
+				"origin": "Le dictionnaire",
+				"line": "Cinq syllabes pour garder le beurre au frais.",
+				"quip": "Team réfrigérateur : cinq syllabes pour ouvrir le frigo. Tu aimes la précision.",
+				"giphyIds": [],
+				"giphyQuery": "fridge"
+			},
+			"b": {
+				"name": "Frigidaire",
+				"origin": "La langue courante",
+				"line": "Une vieille marque américaine, devenue un nom commun.",
+				"quip": "Team Frigidaire : tu dis « le Frigidaire », comme ta grand-mère. Et tu as raison.",
+				"giphyIds": [],
+				"giphyQuery": "open fridge"
+			},
+			"bothQuip": "Les deux. Le frigo s’en moque, il garde le beurre au frais.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « le frigo ». Comme tout le monde, en fait."
+		},
+		{
+			"id": "mots-pain-aux-raisins-escargot",
+			"category": "mots",
+			"a": {
+				"name": "Pain aux raisins",
+				"origin": "La plupart des boulangeries",
+				"line": "Des raisins, de la crème, une spirale.",
+				"quip": "Team pain aux raisins : tu commandes ce qui est écrit sur l’étiquette. Simple.",
+				"giphyIds": [],
+				"giphyQuery": "pastry"
+			},
+			"b": {
+				"name": "Escargot",
+				"origin": "Certaines boulangeries",
+				"line": "La même spirale, avec un nom plus drôle.",
+				"quip": "Team escargot : tu commandes un escargot à la boulangerie, et la vendeuse comprend.",
+				"giphyIds": [],
+				"giphyQuery": "snail"
+			},
+			"bothQuip": "Les deux. La spirale aux raisins, peu importe son nom.",
+			"noneQuip": "Ni l’un ni l’autre. Les raisins secs, très peu pour toi."
+		},
+		{
+			"id": "mots-essuie-tout-sopalin",
+			"category": "mots",
+			"a": {
+				"name": "Essuie-tout",
+				"origin": "Le dictionnaire",
+				"line": "Il essuie tout. C’est écrit dessus.",
+				"quip": "Team essuie-tout : il essuie tout, c’est écrit dessus. Tu aimes les choses claires.",
+				"giphyIds": [],
+				"giphyQuery": "paper towel"
+			},
+			"b": {
+				"name": "Sopalin",
+				"origin": "La marque",
+				"line": "Une marque, devenue la norme.",
+				"quip": "Team Sopalin : la marque est devenue la norme. Pourquoi changer ?",
+				"giphyIds": [],
+				"giphyQuery": "spill cleaning"
+			},
+			"bothQuip": "Les deux. Tu essuies tout avec du Sopalin. Ou l’inverse.",
+			"noneQuip": "Ni l’un ni l’autre. Tu essuies avec ton t-shirt. On a vu."
+		},
+		{
+			"id": "mots-ruban-adhesif-scotch",
+			"category": "mots",
+			"a": {
+				"name": "Ruban adhésif",
+				"origin": "Le dictionnaire",
+				"line": "Le nom officiel, que personne n’utilise.",
+				"quip": "Team ruban adhésif : tu utilises le nom officiel. Tu es bien la seule personne.",
+				"giphyIds": [],
+				"giphyQuery": "tape"
+			},
+			"b": {
+				"name": "Scotch",
+				"origin": "La langue courante",
+				"line": "Une marque, devenue un réflexe.",
+				"quip": "Team Scotch : « Passe-moi le Scotch. » Personne n’a jamais dit autre chose.",
+				"giphyIds": [],
+				"giphyQuery": "duct tape"
+			},
+			"bothQuip": "Les deux. Ce qui compte, c’est de retrouver le bout.",
+			"noneQuip": "Ni l’un ni l’autre. Tu utilises de la pâte à fixer. Tu as une solution pour tout."
+		},
+		{
+			"id": "mots-correcteur-tipp-ex",
+			"category": "mots",
+			"a": {
+				"name": "Correcteur",
+				"origin": "Le dictionnaire",
+				"line": "Pour corriger proprement.",
+				"quip": "Team correcteur : tu corriges proprement. Tes cahiers étaient impeccables.",
+				"giphyIds": [],
+				"giphyQuery": "correction pen"
+			},
+			"b": {
+				"name": "Tipp-Ex",
+				"origin": "La marque",
+				"line": "Le blanc, l’odeur, et les dessins sur la trousse.",
+				"quip": "Team Tipp-Ex : tu as dessiné sur ta trousse avec. Et respiré l’odeur.",
+				"giphyIds": [],
+				"giphyQuery": "white out"
+			},
+			"bothQuip": "Les deux. Toutes tes fautes ont disparu sous une couche blanche.",
+			"noneQuip": "Ni l’un ni l’autre. Tu barres. Tout le monde voit tes fautes."
+		},
+		{
+			"id": "mots-fermeture-eclair-tirette",
+			"category": "mots",
+			"a": {
+				"name": "Fermeture Éclair",
+				"origin": "La France",
+				"line": "Le nom d’une marque, lui aussi.",
+				"quip": "Team fermeture Éclair : tu fermes ton blouson comme tout le monde. Zip.",
+				"giphyIds": [],
+				"giphyQuery": "zipper"
+			},
+			"b": {
+				"name": "Tirette",
+				"origin": "La Belgique",
+				"line": "On tire, ça se ferme. Imparable.",
+				"quip": "Team tirette : on tire, ça se ferme. La Belgique a tout compris.",
+				"giphyIds": [],
+				"giphyQuery": "zip up"
+			},
+			"bothQuip": "Les deux. Ta veste est bilingue.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « zip ». Court et efficace."
+		},
+		{
+			"id": "mots-trousse-plumier",
+			"category": "mots",
+			"a": {
+				"name": "Trousse",
+				"origin": "La France",
+				"line": "Des stylos, une gomme, et des copeaux de taille-crayon.",
+				"quip": "Team trousse : des stylos, une gomme, et des copeaux de taille-crayon au fond.",
+				"giphyIds": [],
+				"giphyQuery": "pencil case"
+			},
+			"b": {
+				"name": "Plumier",
+				"origin": "La Belgique",
+				"line": "La même chose, avec un nom d’autrefois.",
+				"quip": "Team plumier : un nom d’autrefois, qui sent l’école et l’encre.",
+				"giphyIds": [],
+				"giphyQuery": "school supplies"
+			},
+			"bothQuip": "Les deux. Ta trousse s’appelle plumier les jours de nostalgie.",
+			"noneQuip": "Ni l’un ni l’autre. Tes stylos traînent en vrac au fond du sac."
+		},
+		{
+			"id": "mots-chewing-gum-chique",
+			"category": "mots",
+			"a": {
+				"name": "Chewing-gum",
+				"origin": "La France",
+				"line": "Le mot anglais, mâché à la française.",
+				"quip": "Team chewing-gum : le mot anglais, mâché à la française. Et tu fais des bulles.",
+				"giphyIds": [],
+				"giphyQuery": "chewing gum"
+			},
+			"b": {
+				"name": "Chique",
+				"origin": "La Belgique",
+				"line": "Un mot plus court, pour mâcher plus vite.",
+				"quip": "Team chique : un mot plus court, pour mâcher plus vite.",
+				"giphyIds": [],
+				"giphyQuery": "bubble gum"
+			},
+			"bothQuip": "Les deux. Tu mâches dans toutes les langues.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « un chewing ». Ou rien, parce que tu ne mâches pas."
+		},
+		{
+			"id": "mots-coller-peguer",
+			"category": "mots",
+			"a": {
+				"name": "Coller",
+				"origin": "Le dictionnaire",
+				"line": "Ça colle.",
+				"quip": "Team coller : ça colle. Simplement.",
+				"giphyIds": [],
+				"giphyQuery": "glue"
+			},
+			"b": {
+				"name": "Péguer",
+				"origin": "Le Sud",
+				"line": "Ça pègue. Et c’est plus collant.",
+				"quip": "Team péguer : ça pègue. Et c’est beaucoup plus collant, on le sent.",
+				"giphyIds": [],
+				"giphyQuery": "sticky"
+			},
+			"bothQuip": "Les deux. Ça colle, et ça pègue.",
+			"noneQuip": "Ni l’un ni l’autre. Tu nettoies avant que ça colle. Organisation."
+		},
+		{
+			"id": "mots-avoir-hate-se-languir",
+			"category": "mots",
+			"a": {
+				"name": "Avoir hâte",
+				"origin": "Partout",
+				"line": "J’ai hâte de te voir.",
+				"quip": "Team avoir hâte : tu as hâte. Tout simplement.",
+				"giphyIds": [],
+				"giphyQuery": "excited waiting"
+			},
+			"b": {
+				"name": "Se languir",
+				"origin": "Le Sud",
+				"line": "Je me languis de te voir. C’est plus tendre.",
+				"quip": "Team se languir : tu te languis. C’est plus tendre, et plus long.",
+				"giphyIds": [],
+				"giphyQuery": "longing"
+			},
+			"bothQuip": "Les deux. Tu as hâte, et tu te languis. Ça va être long.",
+			"noneQuip": "Ni l’un ni l’autre. Tu n’attends rien. La sagesse zen."
+		},
+		{
+			"id": "mots-abimer-escagasser",
+			"category": "mots",
+			"a": {
+				"name": "Abîmer",
+				"origin": "Partout",
+				"line": "C’est abîmé.",
+				"quip": "Team abîmer : c’est abîmé. Sobre.",
+				"giphyIds": [],
+				"giphyQuery": "broken"
+			},
+			"b": {
+				"name": "Escagasser",
+				"origin": "Marseille",
+				"line": "C’est escagassé. Beaucoup plus grave.",
+				"quip": "Team escagasser : c’est escagassé. Beaucoup plus grave. On compatit.",
+				"giphyIds": [],
+				"giphyQuery": "totally destroyed"
+			},
+			"bothQuip": "Les deux. C’est abîmé, et même escagassé.",
+			"noneQuip": "Ni l’un ni l’autre. Tes affaires ne s’abîment jamais. Comment ?"
+		},
+		{
+			"id": "mots-fou-fada",
+			"category": "mots",
+			"a": {
+				"name": "Fou",
+				"origin": "Partout",
+				"line": "Le mot de base.",
+				"quip": "Team fou : le mot de base. Tu restes simple.",
+				"giphyIds": [],
+				"giphyQuery": "crazy"
+			},
+			"b": {
+				"name": "Fada",
+				"origin": "La Provence",
+				"line": "Fou, mais avec le soleil.",
+				"quip": "Team fada : fou, mais avec le soleil. Un peu fada, toi aussi.",
+				"giphyIds": [],
+				"giphyQuery": "crazy dance"
+			},
+			"bothQuip": "Les deux. Fou et fada à la fois. Ça fait beaucoup.",
+			"noneQuip": "Ni l’un ni l’autre. Tu es la personne la plus raisonnable de ta rue."
+		},
+		{
+			"id": "mots-gone-minot",
+			"category": "mots",
+			"a": {
+				"name": "Gone",
+				"origin": "Lyon",
+				"line": "Le gamin lyonnais, depuis Guignol.",
+				"quip": "Team gone : le gamin lyonnais, depuis Guignol. Tu as un faible pour Lyon.",
+				"giphyIds": [],
+				"giphyQuery": "Lyon"
+			},
+			"b": {
+				"name": "Minot",
+				"origin": "Marseille",
+				"line": "Le gamin marseillais, ensoleillé.",
+				"quip": "Team minot : le gamin marseillais, plein de soleil. Tu as l’accent dans le cœur.",
+				"giphyIds": [],
+				"giphyQuery": "kids playing"
+			},
+			"bothQuip": "Les deux. Lyon et Marseille d’accord sur un vote ? Historique.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « gamin ». Ou « môme ». Paris, c’est ça ?"
+		},
+		{
+			"id": "mots-deux-bises-quatre-bises",
+			"category": "mots",
+			"question": "Pour dire bonjour : deux bises ou quatre ?",
+			"a": {
+				"name": "Deux bises",
+				"origin": "Paris, et bien d’autres",
+				"line": "Une à droite, une à gauche. On gagne du temps.",
+				"quip": "Team deux bises : une à droite, une à gauche. Tu gagnes du temps à chaque soirée.",
+				"giphyIds": [],
+				"giphyQuery": "cheek kiss"
+			},
+			"b": {
+				"name": "Quatre bises",
+				"origin": "Quelques régions de France",
+				"line": "On s’applique, et on y passe la soirée.",
+				"quip": "Team quatre bises : tu arrives à 20 h, tu as fini de dire bonjour à 22 h.",
+				"giphyIds": [],
+				"giphyQuery": "kiss kiss"
+			},
+			"bothQuip": "Les deux. Tu t’adaptes, et tu te cognes quand même une fois sur deux.",
+			"noneQuip": "Ni deux ni quatre. Trois. Tu viens du Sud, c’est ça ?"
+		},
+		{
+			"id": "mots-la-bise-le-check",
+			"category": "mots",
+			"a": {
+				"name": "La bise",
+				"origin": "La France",
+				"line": "Joue contre joue, et le doute sur le nombre.",
+				"quip": "Team bise : joue contre joue, et toujours le doute sur le nombre.",
+				"giphyIds": [],
+				"giphyQuery": "french kiss cheek"
+			},
+			"b": {
+				"name": "Le check",
+				"origin": "Les potes",
+				"line": "Poing contre poing, zéro microbe.",
+				"quip": "Team check : poing contre poing, et zéro microbe. Pratique.",
+				"giphyIds": [],
+				"giphyQuery": "fist bump"
+			},
+			"bothQuip": "Les deux. La bise aux amis, le check aux collègues. Ou l’inverse.",
+			"noneQuip": "Ni l’un ni l’autre. Un petit signe de la main, de loin. Parfait."
+		},
+		{
+			"id": "mots-tutoyer-vouvoyer",
+			"category": "mots",
+			"question": "Avec un inconnu : tu ou vous ?",
+			"a": {
+				"name": "Tutoyer",
+				"origin": "Les start-up",
+				"line": "« Salut, tu vas bien ? » Direct.",
+				"quip": "Team tu : tu tutoies tout le monde. Même le banquier. Surtout le banquier.",
+				"giphyIds": [],
+				"giphyQuery": "hello friend"
+			},
+			"b": {
+				"name": "Vouvoyer",
+				"origin": "Le reste du monde",
+				"line": "La politesse, et une distance de sécurité.",
+				"quip": "Team vous : vous vouvoyez tout le monde. Même vos amis. Surtout vos amis.",
+				"giphyIds": [],
+				"giphyQuery": "polite bow"
+			},
+			"bothQuip": "Les deux. Tu commences par « vous », et tu finis par « tu ». Ou l’inverse.",
+			"noneQuip": "Ni tu ni vous. Tu évites toutes les phrases avec un pronom. Un art."
+		},
+		{
+			"id": "mots-pain-perdu-pain-dore",
+			"category": "mots",
+			"a": {
+				"name": "Pain perdu",
+				"origin": "La France",
+				"line": "Du pain rassis sauvé avec des œufs.",
+				"quip": "Team pain perdu : tu sauves le pain rassis avec des œufs et du sucre.",
+				"giphyIds": [],
+				"giphyQuery": "french toast"
+			},
+			"b": {
+				"name": "Pain doré",
+				"origin": "Le Québec",
+				"line": "Le même, mais il brille.",
+				"quip": "Team pain doré : le même, mais il brille. Ça change tout.",
+				"giphyIds": [],
+				"giphyQuery": "golden toast"
+			},
+			"bothQuip": "Les deux. Chez toi, le pain n’est jamais perdu.",
+			"noneQuip": "Ni l’un ni l’autre. Ton pain rassis finit chez les canards. Ils te remercient."
+		},
+		{
+			"id": "mots-il-fait-froid-ca-caille",
+			"category": "mots",
+			"a": {
+				"name": "Il fait froid",
+				"origin": "Partout",
+				"line": "La météo, simplement.",
+				"quip": "Team il fait froid : la météo, simplement.",
+				"giphyIds": [],
+				"giphyQuery": "cold weather"
+			},
+			"b": {
+				"name": "Ça caille",
+				"origin": "L’argot",
+				"line": "La même météo, avec plus d’émotion.",
+				"quip": "Team ça caille : la même météo, avec beaucoup plus d’émotion. Brrr.",
+				"giphyIds": [],
+				"giphyQuery": "freezing cold"
+			},
+			"bothQuip": "Les deux. Il fait froid, et ça caille. L’hiver est là.",
+			"noneQuip": "Ni l’un ni l’autre. Tu n’as jamais froid. Comment ?"
+		},
+		{
+			"id": "mots-la-thune-le-fric",
+			"category": "mots",
+			"a": {
+				"name": "La thune",
+				"origin": "L’argot",
+				"line": "« J’ai plus de thune. »",
+				"quip": "Team thune : « J’ai plus de thune. » Tu le dis dès le 15 du mois.",
+				"giphyIds": [],
+				"giphyQuery": "money"
+			},
+			"b": {
+				"name": "Le fric",
+				"origin": "L’argot aussi",
+				"line": "« Il a plein de fric. »",
+				"quip": "Team fric : « Il a plein de fric. » Tu le dis en parlant des autres.",
+				"giphyIds": [],
+				"giphyQuery": "money rain"
+			},
+			"bothQuip": "Les deux. Ni thune ni fric en fin de mois, de toute façon.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « argent ». La personne sérieuse du groupe, c’est toi."
+		},
+		{
+			"id": "mots-louche-chelou",
+			"category": "mots",
+			"a": {
+				"name": "Louche",
+				"origin": "Le dictionnaire",
+				"line": "Suspect, bizarre.",
+				"quip": "Team louche : c’est louche. Tu observes, et tu juges.",
+				"giphyIds": [],
+				"giphyQuery": "suspicious"
+			},
+			"b": {
+				"name": "Chelou",
+				"origin": "Le verlan",
+				"line": "Louche, à l’envers. Encore plus suspect.",
+				"quip": "Team chelou : c’est chelou. Encore plus suspect, et à l’envers.",
+				"giphyIds": [],
+				"giphyQuery": "suspicious look"
+			},
+			"bothQuip": "Les deux. C’est louche, et même chelou.",
+			"noneQuip": "Ni l’un ni l’autre. Tu trouves tout normal. Tout. On s’inquiète."
+		},
+		{
+			"id": "mots-lourd-relou",
+			"category": "mots",
+			"a": {
+				"name": "Lourd",
+				"origin": "Le dictionnaire",
+				"line": "Pénible, insistant.",
+				"quip": "Team lourd : c’est lourd. Simple et efficace.",
+				"giphyIds": [],
+				"giphyQuery": "annoying"
+			},
+			"b": {
+				"name": "Relou",
+				"origin": "Le verlan",
+				"line": "Lourd, à l’envers. Encore plus pénible.",
+				"quip": "Team relou : c’est relou. Le verlan rend tout plus pénible.",
+				"giphyIds": [],
+				"giphyQuery": "eye roll"
+			},
+			"bothQuip": "Les deux. Lourd et relou : tu penses à un collègue précis.",
+			"noneQuip": "Ni l’un ni l’autre. Tu supportes tout le monde. Une patience d’ange."
+		},
+		{
+			"id": "mots-salut-wesh",
+			"category": "mots",
+			"a": {
+				"name": "Salut",
+				"origin": "Partout",
+				"line": "Le bonjour décontracté.",
+				"quip": "Team salut : le bonjour décontracté. Tu passes partout.",
+				"giphyIds": [],
+				"giphyQuery": "hi wave"
+			},
+			"b": {
+				"name": "Wesh",
+				"origin": "La cour de récré",
+				"line": "Le salut des grands frères.",
+				"quip": "Team wesh : le salut des grands frères. Tu le dis même à ta grand-mère.",
+				"giphyIds": [],
+				"giphyQuery": "whats up"
+			},
+			"bothQuip": "Les deux. Salut aux collègues, wesh aux amis.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « bonjour ». Une éducation impeccable."
+		},
+		{
+			"id": "mots-bisous-bises",
+			"category": "mots",
+			"question": "Pour finir un message : bisous ou bises ?",
+			"a": {
+				"name": "Bisous",
+				"origin": "Les amis",
+				"line": "Tendre et affectueux.",
+				"quip": "Team bisous : tendre et affectueux. Tu as déjà fini un mail pro comme ça. Oups.",
+				"giphyIds": [],
+				"giphyQuery": "blowing kiss"
+			},
+			"b": {
+				"name": "Bises",
+				"origin": "Tout le monde",
+				"line": "Affectueux, mais à bonne distance.",
+				"quip": "Team bises : affectueux, mais à bonne distance. Le juste milieu.",
+				"giphyIds": [],
+				"giphyQuery": "air kiss"
+			},
+			"bothQuip": "Les deux. Bisous aux amis, bises à la famille éloignée.",
+			"noneQuip": "Ni l’un ni l’autre. Tu finis tes messages sans rien. Brut."
+		},
+		{
+			"id": "mots-cordialement-bien-a-vous",
+			"category": "mots",
+			"a": {
+				"name": "Cordialement",
+				"origin": "Les e-mails pro",
+				"line": "Poli, et un peu froid.",
+				"quip": "Team cordialement : poli, et un peu froid. Comme une lettre de la banque.",
+				"giphyIds": [],
+				"giphyQuery": "office email"
+			},
+			"b": {
+				"name": "Bien à vous",
+				"origin": "Les e-mails pro aussi",
+				"line": "Poli, et un peu plus chaleureux.",
+				"quip": "Team bien à vous : poli, et un peu plus chaleureux. Tu as du cœur.",
+				"giphyIds": [],
+				"giphyQuery": "polite smile"
+			},
+			"bothQuip": "Les deux. Ça dépend de qui t’a énervé dans le mail précédent.",
+			"noneQuip": "Ni l’un ni l’autre. Tu signes « Bonne journée ». Ou rien du tout. Rebelle."
+		},
+		{
+			"id": "mots-du-coup-donc",
+			"category": "mots",
+			"a": {
+				"name": "Du coup",
+				"origin": "Toutes les conversations",
+				"line": "Le mot qui ne veut rien dire et qui est partout.",
+				"quip": "Team du coup : du coup, tu dis « du coup » toutes les deux phrases. Du coup.",
+				"giphyIds": [],
+				"giphyQuery": "so anyway"
+			},
+			"b": {
+				"name": "Donc",
+				"origin": "La grammaire",
+				"line": "Lui, il veut dire quelque chose.",
+				"quip": "Team donc : donc, tu veux dire quelque chose. Toujours. Bravo.",
+				"giphyIds": [],
+				"giphyQuery": "thinking"
+			},
+			"bothQuip": "Les deux. Du coup, donc. Ou donc, du coup.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « en fait ». C’est pire, en fait."
+		},
+		{
+			"id": "mots-slt-cv-salut-ca-va",
+			"category": "mots",
+			"a": {
+				"name": "« Slt cv »",
+				"origin": "Les textos de 2005",
+				"line": "L’économie de caractères.",
+				"quip": "Team « Slt cv » : tu économises les caractères comme en 2005. Ton forfait est content.",
+				"giphyIds": [],
+				"giphyQuery": "old phone texting"
+			},
+			"b": {
+				"name": "« Salut, ça va ? »",
+				"origin": "Les textos d’aujourd’hui",
+				"line": "Des mots entiers. Quel luxe.",
+				"quip": "Team « Salut, ça va ? » : des mots entiers, avec la ponctuation. Quel luxe.",
+				"giphyIds": [],
+				"giphyQuery": "texting smile"
+			},
+			"bothQuip": "Les deux. Selon l’âge de la personne à qui tu écris.",
+			"noneQuip": "Ni l’un ni l’autre. Tu commences directement par ta question. Efficace."
+		},
+		{
+			"id": "mots-vin-vinte",
+			"category": "mots",
+			"question": "« Vingt », ça se prononce comment ?",
+			"a": {
+				"name": "« Vin »",
+				"origin": "La plupart des Français",
+				"line": "Le t reste muet.",
+				"quip": "Team « vin » : le t reste muet. Comme chez la plupart des Français.",
+				"giphyIds": [],
+				"giphyQuery": "wine"
+			},
+			"b": {
+				"name": "« Vinte »",
+				"origin": "L’Est et la Belgique",
+				"line": "On prononce le t, et on assume.",
+				"quip": "Team « vinte » : tu prononces le t. Et tu assumes, même à Paris.",
+				"giphyIds": [],
+				"giphyQuery": "number twenty"
+			},
+			"bothQuip": "Les deux. Tu changes selon le nombre. Vingt-deux ? « Vinte-deux ».",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « deux dizaines ». Pour éviter le débat."
+		},
+		{
+			"id": "mots-moins-moinsse",
+			"category": "mots",
+			"question": "« Moins », tu le prononces comment ?",
+			"a": {
+				"name": "« Moins »",
+				"origin": "Le Nord",
+				"line": "Sans le s.",
+				"quip": "Team « moins » : sans le s. Sobre, et du Nord.",
+				"giphyIds": [],
+				"giphyQuery": "minus"
+			},
+			"b": {
+				"name": "« Moinsse »",
+				"origin": "Le Sud",
+				"line": "Avec le s, et le soleil.",
+				"quip": "Team « moinsse » : avec le s et le soleil. Tu l’entends même dans ta tête.",
+				"giphyIds": [],
+				"giphyQuery": "sunny south"
+			},
+			"bothQuip": "Les deux. Selon que tu sois au nord ou au sud de la Loire.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « plus petit ». Malin."
+		},
+		{
+			"id": "mots-une-pinte-un-demi",
+			"category": "mots",
+			"question": "Au bar : une pinte ou un demi ?",
+			"a": {
+				"name": "Une pinte",
+				"origin": "Les grandes soifs",
+				"line": "Un demi-litre, ou presque.",
+				"quip": "Team pinte : un demi-litre, ou presque. La grande soif.",
+				"giphyIds": [],
+				"giphyQuery": "pint of beer"
+			},
+			"b": {
+				"name": "Un demi",
+				"origin": "La terrasse",
+				"line": "Vingt-cinq centilitres, et la conscience tranquille.",
+				"quip": "Team demi : vingt-cinq centilitres, et la conscience tranquille. Tu rentres en voiture.",
+				"giphyIds": [],
+				"giphyQuery": "beer terrace"
+			},
+			"bothQuip": "Les deux. Un demi, puis une pinte. Dans cet ordre.",
+			"noneQuip": "Ni l’un ni l’autre. Un sirop à l’eau, s’il vous plaît. Excellent choix."
+		},
+		{
+			"id": "mots-chaussons-pantoufles",
+			"category": "mots",
+			"question": "À la maison : chaussons ou pantoufles ?",
+			"a": {
+				"name": "Chaussons",
+				"origin": "La plupart des maisons",
+				"line": "Doux, chauds, et toujours un peu troués.",
+				"quip": "Team chaussons : tu as les mêmes depuis cinq ans. Ils ont un trou, et tu les aimes.",
+				"giphyIds": [],
+				"giphyQuery": "slippers"
+			},
+			"b": {
+				"name": "Pantoufles",
+				"origin": "Chez tes grands-parents",
+				"line": "Le même objet, avec un air de retraite paisible.",
+				"quip": "Team pantoufles : tu dis « pantoufles », et tout le monde imagine un fauteuil et la télé.",
+				"giphyIds": [],
+				"giphyQuery": "cozy slippers"
+			},
+			"bothQuip": "Les deux. Chaussons le matin, pantoufles le soir. Tu as une routine.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « charentaises ». Tu as de la classe."
+		},
+		{
+			"id": "mots-des-baskets-des-tennis",
+			"category": "mots",
+			"question": "Aux pieds : des baskets ou des tennis ?",
+			"a": {
+				"name": "Des baskets",
+				"origin": "La plupart des Français",
+				"line": "Le mot universel pour les chaussures de sport.",
+				"quip": "Team baskets : tu dis « baskets », même pour courir. Surtout pour courir.",
+				"giphyIds": [],
+				"giphyQuery": "sneakers"
+			},
+			"b": {
+				"name": "Des tennis",
+				"origin": "Certaines régions",
+				"line": "Même sans raquette ni terrain.",
+				"quip": "Team tennis : tu dis « mes tennis » sans avoir jamais touché une raquette.",
+				"giphyIds": [],
+				"giphyQuery": "tennis shoes"
+			},
+			"bothQuip": "Les deux. « Baskets » pour les neuves, « tennis » pour les vieilles.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « sneakers ». On t’a vu."
+		},
+		{
+			"id": "mots-bonne-journee-bonne-fin-de-journee",
+			"category": "mots",
+			"question": "À 16 h : bonne journée ou bonne fin de journée ?",
+			"a": {
+				"name": "Bonne journée",
+				"origin": "Partout, toute la journée",
+				"line": "Même à 18 h. Ce qui compte, c’est l’intention.",
+				"quip": "Team bonne journée : tu le dis même à 19 h. Ce qui compte, c’est l’intention.",
+				"giphyIds": [],
+				"giphyQuery": "have a nice day"
+			},
+			"b": {
+				"name": "Bonne fin de journée",
+				"origin": "Les mails pro",
+				"line": "Précis, et à l’heure exacte.",
+				"quip": "Team bonne fin de journée : tu as calculé l’heure exacte où l’on passe de l’un à l’autre.",
+				"giphyIds": [],
+				"giphyQuery": "end of the day"
+			},
+			"bothQuip": "Les deux, dans la même phrase. On ne sait jamais.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « à demain ». Tu vas droit au but."
+		},
+		{
+			"id": "mots-bon-appetit-bonne-app",
+			"category": "mots",
+			"a": {
+				"name": "Bon appétit",
+				"origin": "La table",
+				"line": "Poli, classique, et parfois critiqué.",
+				"quip": "Team bon appétit : tu le dis à chaque repas. Même à la cantine du travail.",
+				"giphyIds": [],
+				"giphyQuery": "bon appetit"
+			},
+			"b": {
+				"name": "Bonne app’",
+				"origin": "La cantine",
+				"line": "Plus court, plus sympa, et un peu ado.",
+				"quip": "Team bonne app’ : tu coupes les mots en deux pour gagner du temps. Le temps de manger.",
+				"giphyIds": [],
+				"giphyQuery": "eating"
+			},
+			"bothQuip": "Les deux. « Bon appétit » à la famille, « bonne app’ » aux collègues.",
+			"noneQuip": "Ni l’un ni l’autre. Tu commences à manger sans rien dire. Efficace, et un peu triste."
+		},
+		{
+			"id": "mots-un-pote-un-poto",
+			"category": "mots",
+			"a": {
+				"name": "Un pote",
+				"origin": "Les amis",
+				"line": "Le copain, version décontractée.",
+				"quip": "Team pote : tu as des potes. Des vrais. Et tu le dis simplement.",
+				"giphyIds": [],
+				"giphyQuery": "friends"
+			},
+			"b": {
+				"name": "Un poto",
+				"origin": "Les amis aussi",
+				"line": "Le pote, version encore plus proche.",
+				"quip": "Team poto : tu appelles tout le monde « mon poto ». Même ton banquier, une fois.",
+				"giphyIds": [],
+				"giphyQuery": "bro hug"
+			},
+			"bothQuip": "Les deux. Des potes au boulot, des potos le week-end.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « mon ami ». Avec beaucoup de dignité."
+		},
+		{
+			"id": "mots-une-cagette-un-cageot",
+			"category": "mots",
+			"a": {
+				"name": "Une cagette",
+				"origin": "Le marché",
+				"line": "Petite, légère, et pleine de fraises.",
+				"quip": "Team cagette : tu ramènes des cagettes du marché pour ranger tes vinyles.",
+				"giphyIds": [],
+				"giphyQuery": "crate"
+			},
+			"b": {
+				"name": "Un cageot",
+				"origin": "Le marché aussi",
+				"line": "Plus grand, plus solide, et plein de pommes.",
+				"quip": "Team cageot : tu dis « cageot » sans hésiter, et tu portes toujours le plus lourd.",
+				"giphyIds": [],
+				"giphyQuery": "fruit crate"
+			},
+			"bothQuip": "Les deux. La cagette pour les fraises, le cageot pour les pommes. La logique du marché.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « la caisse ». Ça marche aussi."
+		},
+		{
+			"id": "mots-serviette-de-bain-essuie",
+			"category": "mots",
+			"a": {
+				"name": "Serviette de bain",
+				"origin": "La France",
+				"line": "Moelleuse, et toujours mouillée chez les autres.",
+				"quip": "Team serviette : tu ranges tes serviettes pliées en trois. Comme à l’hôtel.",
+				"giphyIds": [],
+				"giphyQuery": "towel"
+			},
+			"b": {
+				"name": "Essuie",
+				"origin": "La Belgique",
+				"line": "Le même tissu, en un seul mot.",
+				"quip": "Team essuie : tu demandes « un essuie », et en France, on te tend une éponge.",
+				"giphyIds": [],
+				"giphyQuery": "bath towel"
+			},
+			"bothQuip": "Les deux. Ta salle de bains est franco-belge.",
+			"noneQuip": "Ni l’un ni l’autre. Tu sèches à l’air libre. Écologique."
+		},
+		{
+			"id": "mots-oui-ouais",
+			"category": "mots",
+			"question": "Pour dire oui : « oui » ou « ouais » ?",
+			"a": {
+				"name": "Oui",
+				"origin": "Le dictionnaire",
+				"line": "Clair, net, et poli.",
+				"quip": "Team oui : tu dis « oui », même à tes amis. Ta grand-mère est fière de toi.",
+				"giphyIds": [],
+				"giphyQuery": "yes"
+			},
+			"b": {
+				"name": "Ouais",
+				"origin": "La vraie vie",
+				"line": "Le même accord, en plus détendu.",
+				"quip": "Team ouais : tu as dit « ouais » en entretien d’embauche. Ça s’est bien passé ?",
+				"giphyIds": [],
+				"giphyQuery": "yeah"
+			},
+			"bothQuip": "Les deux. « Oui » au travail, « ouais » à la maison. Comme tout le monde.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « carrément ». Tu as de l’énergie."
+		},
+		{
+			"id": "nostalgie-walkman-discman",
+			"category": "nostalgie",
+			"a": {
+				"name": "Walkman",
+				"origin": "Sony · 1979",
+				"line": "Une cassette, et un crayon pour la rembobiner.",
+				"quip": "Team Walkman : tu as rembobiné une cassette avec un crayon. Tu sais encore le faire.",
+				"giphyIds": [],
+				"giphyQuery": "Walkman cassette"
+			},
+			"b": {
+				"name": "Discman",
+				"origin": "Sony · 1984",
+				"line": "Un CD, qui saute au moindre pas.",
+				"quip": "Team Discman : tu marchais sur la pointe des pieds pour que le CD ne saute pas.",
+				"giphyIds": [],
+				"giphyQuery": "Discman"
+			},
+			"bothQuip": "Les deux. Ton sac de collège pesait trois kilos de musique.",
+			"noneQuip": "Ni l’un ni l’autre. La musique portable, tu l’as découverte avec le téléphone."
+		},
+		{
+			"id": "nostalgie-club-dorothee-les-minikeums",
+			"category": "nostalgie",
+			"a": {
+				"name": "Club Dorothée",
+				"origin": "TF1 · 1987",
+				"line": "Des dessins animés à la chaîne, et Les Musclés.",
+				"quip": "Team Club Dorothée : tu connais encore les chansons de Dorothée par cœur.",
+				"giphyIds": [],
+				"giphyQuery": "Club Dorothee"
+			},
+			"b": {
+				"name": "Les Minikeums",
+				"origin": "France 3 · 1993",
+				"line": "Des marionnettes qui présentent les dessins animés.",
+				"quip": "Team Minikeums : les marionnettes du mercredi matin, c’était toute ta semaine.",
+				"giphyIds": [],
+				"giphyQuery": "puppets show"
+			},
+			"bothQuip": "Les deux. Tes mercredis étaient planifiés de 7 h à midi.",
+			"noneQuip": "Ni l’un ni l’autre. Les émissions jeunesse des années 90, ce n’est pas ta génération."
+		},
+		{
+			"id": "nostalgie-spice-girls-backstreet-boys",
+			"category": "nostalgie",
+			"a": {
+				"name": "Spice Girls",
+				"origin": "Londres · 1994",
+				"line": "Cinq Spice et du girl power.",
+				"quip": "Team Spice Girls : tu savais quelle Spice tu étais. Tu le sais encore.",
+				"giphyIds": [],
+				"giphyQuery": "Spice Girls"
+			},
+			"b": {
+				"name": "Backstreet Boys",
+				"origin": "Orlando · 1993",
+				"line": "Cinq garçons et des chorégraphies synchronisées.",
+				"quip": "Team Backstreet Boys : tu as fait la chorégraphie d’« Everybody » dans ta chambre. Avec conviction.",
+				"giphyIds": [],
+				"giphyQuery": "Backstreet Boys"
+			},
+			"bothQuip": "Les deux. Girls bands et boys bands : ta playlist de 1997.",
+			"noneQuip": "Ni l’un ni l’autre. Les groupes formés sur casting, très peu pour toi."
+		},
+		{
+			"id": "nostalgie-tamagotchi-furby",
+			"category": "nostalgie",
+			"a": {
+				"name": "Tamagotchi",
+				"origin": "Bandai · 1996",
+				"line": "Mort de faim pendant le cours de maths.",
+				"quip": "Team Tamagotchi : le tien est mort de faim pendant le cours de maths. Tu t’en remets à peine.",
+				"giphyIds": [],
+				"giphyQuery": "Tamagotchi"
+			},
+			"b": {
+				"name": "Furby",
+				"origin": "Tiger · 1998",
+				"line": "Parle la nuit, sans raison, sans bouton off.",
+				"quip": "Team Furby : il parlait la nuit, sans bouton pour l’éteindre. Tu en as encore des frissons.",
+				"giphyIds": [],
+				"giphyQuery": "Furby"
+			},
+			"bothQuip": "Les deux. Les animaux électroniques t’ont appris le sens des responsabilités.",
+			"noneQuip": "Ni l’un ni l’autre. Les animaux virtuels, tu préférais les vrais. Ou rien."
+		},
+		{
+			"id": "nostalgie-pogs-billes",
+			"category": "nostalgie",
+			"a": {
+				"name": "Pogs",
+				"origin": "Années 90",
+				"line": "Des capsules en carton, et un kini pour tout gagner.",
+				"quip": "Team Pogs : tu as tout gagné avec ton kini. Et tout perdu le lendemain.",
+				"giphyIds": [],
+				"giphyQuery": "pogs"
+			},
+			"b": {
+				"name": "Billes",
+				"origin": "La cour de récré",
+				"line": "Des agates, des calots, et des procès.",
+				"quip": "Team billes : ton calot préféré, tu l’as gardé. Il est dans un tiroir.",
+				"giphyIds": [],
+				"giphyQuery": "marbles"
+			},
+			"bothQuip": "Les deux. La cour de récré était ton casino.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux de cour, tu les regardais depuis le banc, un livre à la main."
+		},
+		{
+			"id": "nostalgie-polly-pocket-micro-machines",
+			"category": "nostalgie",
+			"a": {
+				"name": "Polly Pocket",
+				"origin": "Bluebird · 1989",
+				"line": "Un monde entier dans une boîte à poudre.",
+				"quip": "Team Polly Pocket : tu as perdu la petite Polly dans la moquette. Elle y est encore.",
+				"giphyIds": [],
+				"giphyQuery": "Polly Pocket"
+			},
+			"b": {
+				"name": "Micro Machines",
+				"origin": "Galoob · 1987",
+				"line": "Des voitures minuscules, et une pub qui parlait très vite.",
+				"quip": "Team Micro Machines : tu sais encore réciter la pub à toute vitesse. Essaie.",
+				"giphyIds": [],
+				"giphyQuery": "Micro Machines"
+			},
+			"bothQuip": "Les deux. Des jouets minuscules, et des pièces perdues dans toute la chambre.",
+			"noneQuip": "Ni l’un ni l’autre. Les mini-jouets finissaient dans l’aspirateur."
+		},
+		{
+			"id": "nostalgie-les-muscles-helene-et-les-garcons",
+			"category": "nostalgie",
+			"a": {
+				"name": "Les Musclés",
+				"origin": "Club Dorothée · 1989",
+				"line": "Les musiciens les plus énergiques du petit écran.",
+				"quip": "Team Les Musclés : tu chantes leurs chansons sans savoir pourquoi.",
+				"giphyIds": [],
+				"giphyQuery": "90s band"
+			},
+			"b": {
+				"name": "Hélène et les Garçons",
+				"origin": "TF1 · 1992",
+				"line": "La cafétéria de la fac, et des histoires d’amour.",
+				"quip": "Team Hélène et les Garçons : tu rêvais de la cafétéria de la fac. Et de ses histoires d’amour.",
+				"giphyIds": [],
+				"giphyQuery": "90s sitcom"
+			},
+			"bothQuip": "Les deux. La télé de ton enfance avait un générique pour chaque goûter.",
+			"noneQuip": "Ni l’un ni l’autre. Cette télé-là, tu y as échappé. Ou tu fais semblant."
+		},
+		{
+			"id": "nostalgie-le-prince-de-bel-air-sauves-par-le-gong",
+			"category": "nostalgie",
+			"a": {
+				"name": "Le Prince de Bel-Air",
+				"origin": "NBC · 1990",
+				"line": "Un ado de Philadelphie chez son oncle très riche.",
+				"quip": "Team Prince de Bel-Air : tu connais le générique par cœur. En entier. En anglais.",
+				"giphyIds": [],
+				"giphyQuery": "Fresh Prince of Bel Air"
+			},
+			"b": {
+				"name": "Sauvés par le gong",
+				"origin": "NBC · 1989",
+				"line": "Le lycée, Zack Morris, et un téléphone énorme.",
+				"quip": "Team Sauvés par le gong : tu voulais un téléphone gros comme une brique, comme Zack Morris.",
+				"giphyIds": [],
+				"giphyQuery": "Saved by the Bell"
+			},
+			"bothQuip": "Les deux. Les séries américaines des années 90 : ton cours d’anglais à toi.",
+			"noneQuip": "Ni l’un ni l’autre. Les lycées américains, tu préfères le tien."
+		},
+		{
+			"id": "nostalgie-alerte-a-malibu-buffy-contre-les-vampires",
+			"category": "nostalgie",
+			"a": {
+				"name": "Alerte à Malibu",
+				"origin": "NBC · 1989",
+				"line": "Des sauveteurs qui courent au ralenti.",
+				"quip": "Team Alerte à Malibu : tu as déjà couru au ralenti sur une plage. Ne nie pas.",
+				"giphyIds": [],
+				"giphyQuery": "Baywatch"
+			},
+			"b": {
+				"name": "Buffy contre les vampires",
+				"origin": "The WB · 1997",
+				"line": "Des cours le jour, des vampires la nuit.",
+				"quip": "Team Buffy : les cours le jour, les missions secrètes la nuit. Fatigant.",
+				"giphyIds": [],
+				"giphyQuery": "Buffy the Vampire Slayer"
+			},
+			"bothQuip": "Les deux. Le maillot rouge et le pieu en bois : ton costume idéal.",
+			"noneQuip": "Ni l’un ni l’autre. Les sauveteurs et les vampires, très peu pour toi."
+		},
+		{
+			"id": "nostalgie-minitel-fax",
+			"category": "nostalgie",
+			"a": {
+				"name": "Minitel",
+				"origin": "France Télécom · 1982",
+				"line": "3615, et la facture qui suit.",
+				"quip": "Team Minitel : 3615 quelque chose, et une facture qui a fait crier tes parents.",
+				"giphyIds": [],
+				"giphyQuery": "Minitel"
+			},
+			"b": {
+				"name": "Fax",
+				"origin": "Le bureau",
+				"line": "Une feuille qui sort en couinant.",
+				"quip": "Team fax : le cri du fax, tu l’entends encore la nuit.",
+				"giphyIds": [],
+				"giphyQuery": "fax machine"
+			},
+			"bothQuip": "Les deux. Avant Internet, tu avais déjà Internet. À peu près.",
+			"noneQuip": "Ni l’un ni l’autre. Le Minitel et le fax, pour toi, ce sont des objets de musée."
+		},
+		{
+			"id": "nostalgie-nokia-3310-tatoo",
+			"category": "nostalgie",
+			"a": {
+				"name": "Nokia 3310",
+				"origin": "Nokia · 2000",
+				"line": "Indestructible, et Snake dedans.",
+				"quip": "Team Nokia 3310 : indestructible, avec Snake dedans. Il marche peut-être encore, dans un tiroir.",
+				"giphyIds": [],
+				"giphyQuery": "Nokia 3310"
+			},
+			"b": {
+				"name": "Tatoo",
+				"origin": "France Télécom · 1995",
+				"line": "Des messages en chiffres, à décoder.",
+				"quip": "Team Tatoo : tu décodais des messages en chiffres. Un vrai talent d’espion.",
+				"giphyIds": [],
+				"giphyQuery": "pager beeper"
+			},
+			"bothQuip": "Les deux. Ton premier téléphone et ton premier code secret.",
+			"noneQuip": "Ni l’un ni l’autre. Ton premier téléphone avait déjà un écran tactile. Quelle jeunesse."
+		},
+		{
+			"id": "nostalgie-vhs-dvd",
+			"category": "nostalgie",
+			"a": {
+				"name": "VHS",
+				"origin": "Années 80-90",
+				"line": "Rembobiner avant de rendre.",
+				"quip": "Team VHS : « Rembobinez avant de rendre. » Tu le faisais. Toujours.",
+				"giphyIds": [],
+				"giphyQuery": "VHS tape"
+			},
+			"b": {
+				"name": "DVD",
+				"origin": "1996",
+				"line": "Des bonus, et des menus interminables.",
+				"quip": "Team DVD : vingt minutes dans les menus et les bonus. Puis le film.",
+				"giphyIds": [],
+				"giphyQuery": "DVD"
+			},
+			"bothQuip": "Les deux. Ta collection a changé de format, et tu as tout racheté.",
+			"noneQuip": "Ni l’un ni l’autre. Tu regardes tout en streaming. Les boîtiers, c’est fini."
+		},
+		{
+			"id": "nostalgie-videoclub-canal-crypte",
+			"category": "nostalgie",
+			"a": {
+				"name": "Vidéoclub",
+				"origin": "Le quartier",
+				"line": "Une heure à choisir la cassette du samedi soir.",
+				"quip": "Team vidéoclub : une heure pour choisir la cassette du samedi soir. Le plus beau moment de la semaine.",
+				"giphyIds": [],
+				"giphyQuery": "video store"
+			},
+			"b": {
+				"name": "Canal+ crypté",
+				"origin": "Canal+ · 1984",
+				"line": "Plisser les yeux devant une image brouillée.",
+				"quip": "Team Canal+ crypté : tu as plissé les yeux devant une image brouillée. Longtemps.",
+				"giphyIds": [],
+				"giphyQuery": "static tv"
+			},
+			"bothQuip": "Les deux. Le samedi soir, c’était cassette ou image brouillée.",
+			"noneQuip": "Ni l’un ni l’autre. Tu attendais le film du dimanche soir. La patience."
+		},
+		{
+			"id": "nostalgie-power-rangers-bioman",
+			"category": "nostalgie",
+			"a": {
+				"name": "Power Rangers",
+				"origin": "Fox · 1993",
+				"line": "Cinq ados, des combinaisons, et un robot géant.",
+				"quip": "Team Power Rangers : tu savais quelle couleur tu étais. Rouge, évidemment.",
+				"giphyIds": [],
+				"giphyQuery": "Power Rangers"
+			},
+			"b": {
+				"name": "Bioman",
+				"origin": "Japon · 1984",
+				"line": "L’original japonais, encore plus coloré.",
+				"quip": "Team Bioman : l’original japonais, plus coloré. L’œil du connaisseur.",
+				"giphyIds": [],
+				"giphyQuery": "Bioman sentai"
+			},
+			"bothQuip": "Les deux. Ta cour de récré était un combat de super-héros en couleurs.",
+			"noneQuip": "Ni l’un ni l’autre. Les combinaisons en lycra, très peu pour toi."
+		},
+		{
+			"id": "nostalgie-chaussures-a-lumieres-buffalo",
+			"category": "nostalgie",
+			"a": {
+				"name": "Chaussures à lumières",
+				"origin": "Années 90",
+				"line": "Elles clignotent à chaque pas.",
+				"quip": "Team chaussures à lumières : tu clignotais à chaque pas. On te voyait de loin.",
+				"giphyIds": [],
+				"giphyQuery": "light up shoes"
+			},
+			"b": {
+				"name": "Buffalo",
+				"origin": "Années 90",
+				"line": "Des semelles de dix centimètres.",
+				"quip": "Team Buffalo : dix centimètres de semelle. Tu voyais le monde de plus haut.",
+				"giphyIds": [],
+				"giphyQuery": "platform shoes"
+			},
+			"bothQuip": "Les deux. Tes pieds étaient le spectacle de la cour.",
+			"noneQuip": "Ni l’un ni l’autre. Tes chaussures étaient raisonnables. Bravo."
+		},
+		{
+			"id": "nostalgie-baggy-jean-taille-basse",
+			"category": "nostalgie",
+			"a": {
+				"name": "Baggy",
+				"origin": "Années 90",
+				"line": "Un pantalon taille 48 sur un ado taille 36.",
+				"quip": "Team baggy : un pantalon taille 48 sur un ado taille 36. Tu marchais en le retenant.",
+				"giphyIds": [],
+				"giphyQuery": "baggy jeans"
+			},
+			"b": {
+				"name": "Jean taille basse",
+				"origin": "Années 2000",
+				"line": "Très, très bas.",
+				"quip": "Team taille basse : très, très bas. On sait tous ce qu’on voyait.",
+				"giphyIds": [],
+				"giphyQuery": "low rise jeans"
+			},
+			"bothQuip": "Les deux. Des années 90 aux années 2000, ton jean a beaucoup voyagé.",
+			"noneQuip": "Ni l’un ni l’autre. Tu portais des pantalons à ta taille. Une rareté."
+		},
+		{
+			"id": "nostalgie-tazos-cartes-pokemon",
+			"category": "nostalgie",
+			"a": {
+				"name": "Tazos",
+				"origin": "Années 90",
+				"line": "Des disques en plastique, dans les paquets de chips.",
+				"quip": "Team Tazos : tu achetais des paquets de chips pour les Tazos. Les chips, tu les donnais.",
+				"giphyIds": [],
+				"giphyQuery": "Tazos",
+				"giphyKeywords": ["pog"],
+				"gifUrls": ["https://media.tenor.com/XLablfraQxIAAAAC/pokemon-pogs.gif"]
+			},
+			"b": {
+				"name": "Cartes Pokémon",
+				"origin": "Japon · 1996",
+				"line": "Le Dracaufeu holographique, le Graal.",
+				"quip": "Team cartes Pokémon : ton Dracaufeu holographique vaut peut-être une fortune. Il dort dans un classeur.",
+				"giphyIds": [],
+				"giphyQuery": "Charizard card"
+			},
+			"bothQuip": "Les deux. Ta collection prenait une étagère entière.",
+			"noneQuip": "Ni l’un ni l’autre. Collectionner, ce n’était pas pour toi."
+		},
+		{
+			"id": "nostalgie-rubik-s-cube-simon",
+			"category": "nostalgie",
+			"a": {
+				"name": "Rubik’s Cube",
+				"origin": "Ernő Rubik · 1974",
+				"line": "Mélangé en trois secondes, résolu jamais.",
+				"quip": "Team Rubik’s Cube : tu l’as résolu une fois. En décollant les autocollants.",
+				"giphyIds": [],
+				"giphyQuery": "Rubik's Cube"
+			},
+			"b": {
+				"name": "Simon",
+				"origin": "Milton Bradley · 1978",
+				"line": "Des couleurs, des bips, et une mémoire mise à l’épreuve.",
+				"quip": "Team Simon : tu répétais les couleurs jusqu’à ce que la machine gagne. Elle gagnait toujours.",
+				"giphyIds": [],
+				"giphyQuery": "Simon game"
+			},
+			"bothQuip": "Les deux. Les casse-têtes des années 80 : ta vraie école.",
+			"noneQuip": "Ni l’un ni l’autre. Les casse-têtes, ça te cassait la tête."
+		},
+		{
+			"id": "nostalgie-super-nintendo-mega-drive",
+			"category": "nostalgie",
+			"a": {
+				"name": "Super Nintendo",
+				"origin": "Nintendo · 1990",
+				"line": "Mario, Zelda, et des cartouches qu’on soufflait.",
+				"quip": "Team Super Nintendo : tu soufflais dans les cartouches. Ça marchait. On ne sait pas pourquoi.",
+				"giphyIds": [],
+				"giphyQuery": "Super Nintendo"
+			},
+			"b": {
+				"name": "Mega Drive",
+				"origin": "Sega · 1988",
+				"line": "Sonic, et des pubs qui provoquaient Nintendo.",
+				"quip": "Team Mega Drive : « Sega, c’est plus fort que toi. » Tu y croyais.",
+				"giphyIds": [],
+				"giphyQuery": "Sega Genesis"
+			},
+			"bothQuip": "Les deux. La guerre des consoles, tu l’as faite chez ton cousin.",
+			"noneQuip": "Ni l’un ni l’autre. Tu jouais à la Game Boy, sous la couette."
+		},
+		{
+			"id": "nostalgie-nintendo-64-playstation",
+			"category": "nostalgie",
+			"a": {
+				"name": "Nintendo 64",
+				"origin": "Nintendo · 1996",
+				"line": "Une manette à trois poignées.",
+				"quip": "Team Nintendo 64 : la manette à trois poignées. Tu tenais celle du milieu, comme tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "Nintendo 64"
+			},
+			"b": {
+				"name": "PlayStation",
+				"origin": "Sony · 1994",
+				"line": "Des CD, et des cartes mémoire pleines.",
+				"quip": "Team PlayStation : carte mémoire pleine, et une sauvegarde à sacrifier. Un drame.",
+				"giphyIds": [],
+				"giphyQuery": "PlayStation 1"
+			},
+			"bothQuip": "Les deux. Ton salon de 1998 était une salle de jeux.",
+			"noneQuip": "Ni l’un ni l’autre. Les consoles de la fin des années 90, tu les as ratées. On est triste pour toi."
+		},
+		{
+			"id": "nostalgie-titanic-jurassic-park",
+			"category": "nostalgie",
+			"a": {
+				"name": "Titanic",
+				"origin": "James Cameron · 1997",
+				"line": "Un bateau, un iceberg, et une porte assez grande pour deux.",
+				"quip": "Team Titanic : tu l’as vu plusieurs fois au cinéma. Tu as pleuré à chaque fois.",
+				"giphyIds": [],
+				"giphyQuery": "Titanic movie"
+			},
+			"b": {
+				"name": "Jurassic Park",
+				"origin": "Steven Spielberg · 1993",
+				"line": "Des dinosaures, et un verre d’eau qui tremble.",
+				"quip": "Team Jurassic Park : tu regardes encore les verres d’eau avec méfiance.",
+				"giphyIds": [],
+				"giphyQuery": "Jurassic Park"
+			},
+			"bothQuip": "Les deux. Les années 90 au cinéma : des bateaux et des dinosaures.",
+			"noneQuip": "Ni l’un ni l’autre. Les grands films des années 90, rattrapage obligatoire."
+		},
+		{
+			"id": "nostalgie-men-in-black-independence-day",
+			"category": "nostalgie",
+			"a": {
+				"name": "Men in Black",
+				"origin": "Barry Sonnenfeld · 1997",
+				"line": "Deux costumes noirs et un neuralyseur.",
+				"quip": "Team Men in Black : tu as des lunettes de soleil, et tu fais oublier des choses aux gens.",
+				"giphyIds": [],
+				"giphyQuery": "Men in Black"
+			},
+			"b": {
+				"name": "Independence Day",
+				"origin": "Roland Emmerich · 1996",
+				"line": "Des aliens, et un grand discours du président.",
+				"quip": "Team Independence Day : tu fais un grand discours avant chaque match de foot entre amis.",
+				"giphyIds": [],
+				"giphyQuery": "Independence Day"
+			},
+			"bothQuip": "Les deux. Les aliens de 1996 et 1997, tu les as tous vus.",
+			"noneQuip": "Ni l’un ni l’autre. Les aliens, tu préfères ne pas savoir."
+		},
+		{
+			"id": "nostalgie-sabrina-l-apprentie-sorciere-charmed",
+			"category": "nostalgie",
+			"a": {
+				"name": "Sabrina, l’apprentie sorcière",
+				"origin": "ABC · 1996",
+				"line": "Une ado sorcière, et un chat qui parle.",
+				"quip": "Team Sabrina : tu voulais un chat qui parle. Tu le veux encore.",
+				"giphyIds": [],
+				"giphyQuery": "Sabrina Salem"
+			},
+			"b": {
+				"name": "Charmed",
+				"origin": "The WB · 1998",
+				"line": "Trois sœurs sorcières à San Francisco.",
+				"quip": "Team Charmed : le pouvoir des trois, tu y crois. Avec tes sœurs ou tes amis.",
+				"giphyIds": [],
+				"giphyQuery": "Charmed"
+			},
+			"bothQuip": "Les deux. Les sorcières à la télé, c’était ta grande passion.",
+			"noneQuip": "Ni l’une ni l’autre. La magie, très peu pour toi."
+		},
+		{
+			"id": "nostalgie-2be3-l5",
+			"category": "nostalgie",
+			"a": {
+				"name": "2Be3",
+				"origin": "France · 1996",
+				"line": "Trois garçons, des abdos, et « Partir un jour ».",
+				"quip": "Team 2Be3 : « Partir un jour » était ton hymne. Tu le chantes encore.",
+				"giphyIds": [],
+				"giphyQuery": "90s boy band"
+			},
+			"b": {
+				"name": "L5",
+				"origin": "Popstars · 2001",
+				"line": "Cinq filles nées d’un télé-crochet.",
+				"quip": "Team L5 : tu as regardé Popstars, et tu as voté. Pour toutes.",
+				"giphyIds": [],
+				"giphyQuery": "girl band"
+			},
+			"bothQuip": "Les deux. Les groupes français de cette époque : ta playlist secrète.",
+			"noneQuip": "Ni l’un ni l’autre. Les groupes nés à la télé t’ont toujours fait sourire."
+		},
+		{
+			"id": "nostalgie-fort-boyard-intervilles",
+			"category": "nostalgie",
+			"a": {
+				"name": "Fort Boyard",
+				"origin": "France 2 · 1990",
+				"line": "Des clés, des énigmes, et le père Fouras.",
+				"quip": "Team Fort Boyard : tu connais les énigmes du père Fouras. Tu en inventes, même.",
+				"giphyIds": [],
+				"giphyQuery": "Fort Boyard"
+			},
+			"b": {
+				"name": "Intervilles",
+				"origin": "Depuis 1962",
+				"line": "Des vachettes, de la mousse, et des fous rires.",
+				"quip": "Team Intervilles : des vachettes, de la mousse, et des fous rires. Ton été à la télé.",
+				"giphyIds": [],
+				"giphyQuery": "Intervilles"
+			},
+			"bothQuip": "Les deux. Ton été, c’était les clés du Fort et les vachettes.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux d’été à la télé, tu étais dehors. Bravo."
+		},
+		{
+			"id": "nostalgie-le-bigdil-le-juste-prix",
+			"category": "nostalgie",
+			"a": {
+				"name": "Le Bigdil",
+				"origin": "TF1 · 1998",
+				"line": "Lagaf’, des cadeaux, et beaucoup de bruit.",
+				"quip": "Team Bigdil : tu adorais le bruit. Beaucoup de bruit.",
+				"giphyIds": [],
+				"giphyQuery": "game show"
+			},
+			"b": {
+				"name": "Le Juste Prix",
+				"origin": "TF1 · 1988",
+				"line": "« Le juste prix ! »",
+				"quip": "Team Le Juste Prix : au supermarché, tu estimes le prix de tout. Et tu as souvent raison.",
+				"giphyIds": [],
+				"giphyQuery": "The Price is Right"
+			},
+			"bothQuip": "Les deux. Les jeux télé ont été ta vraie école de calcul.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux télé, tu zappais."
+		},
+		{
+			"id": "nostalgie-cassette-audio-cd",
+			"category": "nostalgie",
+			"a": {
+				"name": "Cassette audio",
+				"origin": "Années 80-90",
+				"line": "On enregistrait la radio en coupant l’animateur.",
+				"quip": "Team cassette : tu enregistrais la radio en coupant l’animateur. Avec un timing parfait.",
+				"giphyIds": [],
+				"giphyQuery": "cassette tape"
+			},
+			"b": {
+				"name": "CD",
+				"origin": "Années 90",
+				"line": "Brillant, et rayé dès le premier jour.",
+				"quip": "Team CD : rayé dès le premier jour. Tu soufflais dessus, comme sur les cartouches.",
+				"giphyIds": [],
+				"giphyQuery": "compact disc"
+			},
+			"bothQuip": "Les deux. Tes compilations sont passées de la cassette au CD gravé.",
+			"noneQuip": "Ni l’un ni l’autre. Tu as commencé par le MP3. Petite jeunesse."
+		},
+		{
+			"id": "nostalgie-pin-s-scoubidous",
+			"category": "nostalgie",
+			"a": {
+				"name": "Pin’s",
+				"origin": "Années 90",
+				"line": "Une veste couverte de badges.",
+				"quip": "Team pin’s : ta veste en jean, couverte de badges, pesait deux kilos.",
+				"giphyIds": [],
+				"giphyQuery": "pins collection"
+			},
+			"b": {
+				"name": "Scoubidous",
+				"origin": "Années 90",
+				"line": "Des fils en plastique et des porte-clés.",
+				"quip": "Team scoubidous : tu as fait des porte-clés pour toute la famille. Ils les ont gardés.",
+				"giphyIds": [],
+				"giphyQuery": "scoubidou"
+			},
+			"bothQuip": "Les deux. Les modes de la cour de récré, tu les as toutes suivies.",
+			"noneQuip": "Ni l’un ni l’autre. Les modes de la cour, tu les regardais de loin."
+		},
+		{
+			"id": "nostalgie-doc-martens-converse",
+			"category": "nostalgie",
+			"a": {
+				"name": "Doc Martens",
+				"origin": "Années 90",
+				"line": "Des bottes indestructibles.",
+				"quip": "Team Doc Martens : tes bottes sont indestructibles. Elles te survivront.",
+				"giphyIds": [],
+				"giphyQuery": "Doc Martens"
+			},
+			"b": {
+				"name": "Converse",
+				"origin": "Années 90",
+				"line": "Des baskets en toile, toujours délacées.",
+				"quip": "Team Converse : toujours délacées, jamais lavées. Le style.",
+				"giphyIds": [],
+				"giphyQuery": "Converse"
+			},
+			"bothQuip": "Les deux. Tu avais les deux, et une chemise à carreaux.",
+			"noneQuip": "Ni l’un ni l’autre. Tes chaussures, c’étaient tes parents qui les choisissaient."
+		},
+		{
+			"id": "nostalgie-bi-bop-telephone-a-cadran",
+			"category": "nostalgie",
+			"a": {
+				"name": "Bi-Bop",
+				"origin": "France Télécom · 1993",
+				"line": "Le téléphone qui ne marchait que près d’une borne.",
+				"quip": "Team Bi-Bop : tu téléphonais collé à la borne. Le futur, déjà.",
+				"giphyIds": [],
+				"giphyQuery": "old mobile phone"
+			},
+			"b": {
+				"name": "Téléphone à cadran",
+				"origin": "Le salon",
+				"line": "Composer un numéro prenait une minute.",
+				"quip": "Team cadran : composer un numéro prenait une minute. Avec des 9, deux minutes.",
+				"giphyIds": [],
+				"giphyQuery": "rotary phone"
+			},
+			"bothQuip": "Les deux. Tu as connu le monde d’avant le portable. Une pièce de musée vivante.",
+			"noneQuip": "Ni l’un ni l’autre. Les téléphones d’avant, tu ne les as pas connus."
+		},
+		{
+			"id": "nostalgie-ally-mcbeal-urgences",
+			"category": "nostalgie",
+			"a": {
+				"name": "Ally McBeal",
+				"origin": "Fox · 1997",
+				"line": "Un cabinet d’avocats et un bébé qui danse.",
+				"quip": "Team Ally McBeal : tu as vu le bébé qui danse. Tu le vois encore parfois.",
+				"giphyIds": [],
+				"giphyQuery": "Ally McBeal dancing baby"
+			},
+			"b": {
+				"name": "Urgences",
+				"origin": "NBC · 1994",
+				"line": "Les urgences de Chicago, et George Clooney en blouse.",
+				"quip": "Team Urgences : tu as appris des mots médicaux en regardant George Clooney.",
+				"giphyIds": [],
+				"giphyQuery": "ER tv show"
+			},
+			"bothQuip": "Les deux. Les avocats et les médecins des années 90 : ton éducation.",
+			"noneQuip": "Ni l’un ni l’autre. Les séries de bureau et d’hôpital, très peu pour toi."
+		},
+		{
+			"id": "nostalgie-twin-peaks-le-cameleon",
+			"category": "nostalgie",
+			"a": {
+				"name": "Twin Peaks",
+				"origin": "David Lynch · 1990",
+				"line": "« Qui a tué Laura Palmer ? »",
+				"quip": "Team Twin Peaks : tu te demandes encore qui a tué Laura Palmer. Même en connaissant la réponse.",
+				"giphyIds": [],
+				"giphyQuery": "Twin Peaks"
+			},
+			"b": {
+				"name": "Le Caméléon",
+				"origin": "NBC · 1996",
+				"line": "Il peut devenir n’importe qui.",
+				"quip": "Team Le Caméléon : tu changes de personnalité selon les gens. Un vrai talent.",
+				"giphyIds": [],
+				"giphyQuery": "The Pretender"
+			},
+			"bothQuip": "Les deux. Les mystères des années 90 te hantent encore.",
+			"noneQuip": "Ni l’un ni l’autre. Les mystères sans fin, ça t’énerve."
+		},
+		{
+			"id": "nostalgie-beverly-hills-90210-dawson",
+			"category": "nostalgie",
+			"a": {
+				"name": "Beverly Hills 90210",
+				"origin": "Fox · 1990",
+				"line": "Des ados de Beverly Hills, et des rouflaquettes.",
+				"quip": "Team Beverly Hills : tu as eu des rouflaquettes. Ou un poster de Dylan.",
+				"giphyIds": [],
+				"giphyQuery": "Beverly Hills 90210"
+			},
+			"b": {
+				"name": "Dawson",
+				"origin": "The WB · 1998",
+				"line": "Des ados qui parlent comme des philosophes.",
+				"quip": "Team Dawson : à quinze ans, tu parlais comme un philosophe. Comme eux.",
+				"giphyIds": [],
+				"giphyQuery": "Dawson's Creek"
+			},
+			"bothQuip": "Les deux. Les ados américains qui ont l’air d’avoir trente ans : ta référence.",
+			"noneQuip": "Ni l’un ni l’autre. Les séries d’ados, tu les trouvais trop dramatiques."
+		},
+		{
+			"id": "nostalgie-hit-machine-top-50",
+			"category": "nostalgie",
+			"a": {
+				"name": "Hit Machine",
+				"origin": "M6 · 1994",
+				"line": "Charly, Lulu, et le classement des ventes.",
+				"quip": "Team Hit Machine : Charly et Lulu le samedi matin. Tu connaissais tout le classement.",
+				"giphyIds": [],
+				"giphyQuery": "90s pop dance"
+			},
+			"b": {
+				"name": "Top 50",
+				"origin": "Canal+ · 1984",
+				"line": "Le classement de la semaine, chanson par chanson.",
+				"quip": "Team Top 50 : tu notais le classement de la semaine dans un cahier.",
+				"giphyIds": [],
+				"giphyQuery": "music charts"
+			},
+			"bothQuip": "Les deux. Les classements de la musique, tu les suivais comme le foot.",
+			"noneQuip": "Ni l’un ni l’autre. Les classements ne t’intéressaient pas. Tes goûts, tu les avais."
+		},
+		{
+			"id": "nostalgie-video-gag-surprise-sur-prise",
+			"category": "nostalgie",
+			"a": {
+				"name": "Vidéo Gag",
+				"origin": "TF1 · 1990",
+				"line": "Des chutes, et des rires enregistrés.",
+				"quip": "Team Vidéo Gag : les chutes à la télé te font encore rire. Les tiennes aussi.",
+				"giphyIds": [],
+				"giphyQuery": "funny fail"
+			},
+			"b": {
+				"name": "Surprise sur prise",
+				"origin": "France · 1987",
+				"line": "Des caméras cachées, et Marcel Béliveau.",
+				"quip": "Team Surprise sur prise : tu soupçonnes encore des caméras cachées partout.",
+				"giphyIds": [],
+				"giphyQuery": "hidden camera"
+			},
+			"bothQuip": "Les deux. Le rire des années 90 : tomber, et se faire piéger.",
+			"noneQuip": "Ni l’un ni l’autre. Les gens qui tombent ne te font pas rire. Un cœur sensible."
+		},
+		{
+			"id": "nostalgie-macarena-lambada",
+			"category": "nostalgie",
+			"a": {
+				"name": "Macarena",
+				"origin": "Los del Río · 1993",
+				"line": "Une chorégraphie que tout le monde connaît.",
+				"quip": "Team Macarena : tu connais encore la chorégraphie. Tu viens de la faire dans ta tête.",
+				"giphyIds": [],
+				"giphyQuery": "Macarena"
+			},
+			"b": {
+				"name": "Lambada",
+				"origin": "Kaoma · 1989",
+				"line": "Une danse très, très rapprochée.",
+				"quip": "Team Lambada : une danse très rapprochée. Jamais avec tes parents, heureusement.",
+				"giphyIds": [],
+				"giphyQuery": "Lambada"
+			},
+			"bothQuip": "Les deux. Ton dernier mariage s’en souvient.",
+			"noneQuip": "Ni l’un ni l’autre. Les danses de l’été, tu gardais ta chaise."
+		},
+		{
+			"id": "nostalgie-aqua-eiffel-65",
+			"category": "nostalgie",
+			"a": {
+				"name": "Aqua",
+				"origin": "Danemark · 1997",
+				"line": "Une poupée en plastique et un tube mondial.",
+				"quip": "Team Aqua : « Barbie Girl » est dans ta tête. Maintenant. Désolé.",
+				"giphyIds": [],
+				"giphyQuery": "Aqua Barbie Girl"
+			},
+			"b": {
+				"name": "Eiffel 65",
+				"origin": "Italie · 1998",
+				"line": "Tout est bleu. Tout.",
+				"quip": "Team Eiffel 65 : tout est bleu. Ta maison, ta voiture, ton humeur.",
+				"giphyIds": [],
+				"giphyQuery": "Eiffel 65 Blue"
+			},
+			"bothQuip": "Les deux. Les tubes eurodance de 1998, tu les connais par cœur.",
+			"noneQuip": "Ni l’un ni l’autre. Les tubes de 1998, tu les as oubliés. Quelle chance."
+		},
+		{
+			"id": "nostalgie-les-colos-les-vacances-chez-mamie",
+			"category": "nostalgie",
+			"a": {
+				"name": "Les colos",
+				"origin": "L’été",
+				"line": "Des chansons dans le car, et des lettres aux parents.",
+				"quip": "Team colos : des chansons dans le car, et une lettre aux parents par semaine.",
+				"giphyIds": [],
+				"giphyQuery": "summer camp"
+			},
+			"b": {
+				"name": "Les vacances chez mamie",
+				"origin": "L’été",
+				"line": "Des confitures, et la télé à 20 heures.",
+				"quip": "Team vacances chez mamie : les confitures, la télé à 20 h, et le lit qui grince.",
+				"giphyIds": [],
+				"giphyQuery": "grandma"
+			},
+			"bothQuip": "Les deux. Juillet en colo, août chez mamie. L’été parfait.",
+			"noneQuip": "Ni l’un ni l’autre. Tes vacances, c’était à la maison. Le calme."
+		},
+		{
+			"id": "nostalgie-chocapic-miel-pops",
+			"category": "nostalgie",
+			"a": {
+				"name": "Chocapic",
+				"origin": "Nestlé · 1984",
+				"line": "Le chocolat dès le petit-déjeuner.",
+				"quip": "Team Chocapic : le chocolat au petit-déjeuner, et le lait marron au fond du bol.",
+				"giphyIds": [],
+				"giphyQuery": "cereal chocolate"
+			},
+			"b": {
+				"name": "Miel Pops",
+				"origin": "Kellogg’s",
+				"line": "Le miel, et une abeille qui chante.",
+				"quip": "Team Miel Pops : tu chantes la chanson de l’abeille. Tu la chantes, là.",
+				"giphyIds": [],
+				"giphyQuery": "honey cereal"
+			},
+			"bothQuip": "Les deux. Tu mélangeais les deux dans le même bol. Révolutionnaire.",
+			"noneQuip": "Ni l’un ni l’autre. Des tartines au petit-déjeuner. À l’ancienne."
+		},
+		{
+			"id": "nostalgie-kinder-surprise-malabar",
+			"category": "nostalgie",
+			"a": {
+				"name": "Kinder Surprise",
+				"origin": "Ferrero · 1974",
+				"line": "Du chocolat, un jouet, et un dilemme.",
+				"quip": "Team Kinder Surprise : tu as monté des jouets minuscules sans rien comprendre à la notice.",
+				"giphyIds": [],
+				"giphyQuery": "Kinder Surprise"
+			},
+			"b": {
+				"name": "Malabar",
+				"origin": "France · 1958",
+				"line": "Un chewing-gum rose, et un tatouage.",
+				"quip": "Team Malabar : le tatouage tenait plus longtemps que le goût.",
+				"giphyIds": [],
+				"giphyQuery": "bubble gum"
+			},
+			"bothQuip": "Les deux. Ta tirelire finissait chez le buraliste.",
+			"noneQuip": "Ni l’un ni l’autre. Les bonbons du buraliste, tu n’avais pas le droit."
+		},
+		{
+			"id": "nostalgie-rollers-skate",
+			"category": "nostalgie",
+			"a": {
+				"name": "Rollers",
+				"origin": "Années 90",
+				"line": "Des genouillères, et des chutes en ville.",
+				"quip": "Team rollers : genouillères, coudières, et des chutes quand même.",
+				"giphyIds": [],
+				"giphyQuery": "rollerblading"
+			},
+			"b": {
+				"name": "Skate",
+				"origin": "La rampe",
+				"line": "Un ollie raté, et on recommence.",
+				"quip": "Team skate : tu as raté ton ollie cent fois. Et tu as recommencé.",
+				"giphyIds": [],
+				"giphyQuery": "skateboard"
+			},
+			"bothQuip": "Les deux. Tes genoux se souviennent des années 90.",
+			"noneQuip": "Ni l’un ni l’autre. Les roulettes, très peu pour toi. Tes genoux te remercient."
+		},
+		{
+			"id": "nostalgie-lego-playmobil",
+			"category": "nostalgie",
+			"a": {
+				"name": "Lego",
+				"origin": "Danemark · 1958",
+				"line": "Une brique, et une douleur sous le pied.",
+				"quip": "Team Lego : tu as marché sur une brique pieds nus. Tu t’en souviens encore.",
+				"giphyIds": [],
+				"giphyQuery": "Lego"
+			},
+			"b": {
+				"name": "Playmobil",
+				"origin": "Allemagne · 1974",
+				"line": "Des petits bonshommes au sourire éternel.",
+				"quip": "Team Playmobil : des petits bonshommes au sourire éternel. Ils sont au grenier.",
+				"giphyIds": [],
+				"giphyQuery": "Playmobil"
+			},
+			"bothQuip": "Les deux. Ton village Playmobil avait des maisons en Lego.",
+			"noneQuip": "Ni l’un ni l’autre. Les jouets à construire, très peu pour toi."
+		},
+		{
+			"id": "nostalgie-barbie-petshop",
+			"category": "nostalgie",
+			"a": {
+				"name": "Barbie",
+				"origin": "Mattel · 1959",
+				"line": "Mille métiers, un seul sourire.",
+				"quip": "Team Barbie : mille métiers, un seul sourire, et des chaussures perdues partout.",
+				"giphyIds": [],
+				"giphyQuery": "Barbie"
+			},
+			"b": {
+				"name": "Petshop",
+				"origin": "Kenner · 1992",
+				"line": "Des animaux miniatures à grosse tête.",
+				"quip": "Team Petshop : des animaux à grosse tête, et une collection complète.",
+				"giphyIds": [],
+				"giphyQuery": "Littlest Pet Shop"
+			},
+			"bothQuip": "Les deux. Ta chambre était une ville en plastique.",
+			"noneQuip": "Ni l’un ni l’autre. Les poupées et les figurines, ce n’était pas pour toi."
+		},
+		{
+			"id": "nostalgie-aol-wanadoo",
+			"category": "nostalgie",
+			"a": {
+				"name": "AOL",
+				"origin": "Années 90",
+				"line": "« Vous avez du courrier ! »",
+				"quip": "Team AOL : « Vous avez du courrier ! » Tu l’entends encore.",
+				"giphyIds": [],
+				"giphyQuery": "AOL dial up"
+			},
+			"b": {
+				"name": "Wanadoo",
+				"origin": "France Télécom · 1996",
+				"line": "Internet en 56k, et la facture de téléphone.",
+				"quip": "Team Wanadoo : Internet en 56k, et une facture de téléphone qui a fait hurler la maison.",
+				"giphyIds": [],
+				"giphyQuery": "internet 90s"
+			},
+			"bothQuip": "Les deux. Tu recevais leurs CD d’installation dans la boîte aux lettres. Par dizaines.",
+			"noneQuip": "Ni l’un ni l’autre. Toi, tu as connu Internet directement en haut débit. Le luxe."
+		},
+		{
+			"id": "nostalgie-cederoms-disquettes",
+			"category": "nostalgie",
+			"a": {
+				"name": "Cédéroms",
+				"origin": "Années 90",
+				"line": "Une encyclopédie entière sur un disque.",
+				"quip": "Team cédéroms : toute une encyclopédie sur un disque. Ou des heures sur Adibou.",
+				"giphyIds": [],
+				"giphyQuery": "CD-ROM"
+			},
+			"b": {
+				"name": "Disquettes",
+				"origin": "Années 80-90",
+				"line": "1,44 Mo, et l’icône « Enregistrer ».",
+				"quip": "Team disquettes : 1,44 Mo. Tu découpais tes fichiers en dix morceaux pour les transporter.",
+				"giphyIds": [],
+				"giphyQuery": "floppy disk"
+			},
+			"bothQuip": "Les deux. Ton bureau débordait de supports de stockage.",
+			"noneQuip": "Ni l’un ni l’autre. Toi, c’était directement la clé USB. Quelle époque facile."
+		},
+		{
+			"id": "nostalgie-les-crados-les-stickers-panini",
+			"category": "nostalgie",
+			"a": {
+				"name": "Les Crados",
+				"origin": "France · 1986",
+				"line": "Des autocollants délicieusement dégoûtants.",
+				"quip": "Team Crados : plus c’était dégoûtant, plus tu aimais. Tu les collais partout.",
+				"giphyIds": [],
+				"giphyQuery": "Garbage Pail Kids"
+			},
+			"b": {
+				"name": "Les stickers Panini",
+				"origin": "Le foot",
+				"line": "Un album, et l’échange des doubles.",
+				"quip": "Team Panini : « Je l’ai, je l’ai, je l’ai pas. » Tu échangeais les doubles comme un trader.",
+				"giphyIds": [],
+				"giphyQuery": "Panini stickers"
+			},
+			"bothQuip": "Les deux. Ton cartable était couvert d’autocollants.",
+			"noneQuip": "Ni l’un ni l’autre. Les autocollants, ça ne collait pas avec toi."
+		},
+		{
+			"id": "nostalgie-eurodance-grunge",
+			"category": "nostalgie",
+			"a": {
+				"name": "Eurodance",
+				"origin": "Années 90",
+				"line": "Des synthés, un rappeur, une chanteuse.",
+				"quip": "Team eurodance : des synthés, un rappeur, une chanteuse. Tu dansais dans ta chambre.",
+				"giphyIds": [],
+				"giphyQuery": "eurodance"
+			},
+			"b": {
+				"name": "Grunge",
+				"origin": "Seattle · années 90",
+				"line": "Des chemises à carreaux et des cheveux gras.",
+				"quip": "Team grunge : chemise à carreaux, cheveux gras, et l’air triste. Le style.",
+				"giphyIds": [],
+				"giphyQuery": "grunge"
+			},
+			"bothQuip": "Les deux. Les années 90, tu les as vécues des deux côtés.",
+			"noneQuip": "Ni l’un ni l’autre. La musique des années 90, ce n’est pas ton truc."
+		},
+		{
+			"id": "nostalgie-chair-de-poule-le-club-des-cinq",
+			"category": "nostalgie",
+			"a": {
+				"name": "Chair de poule",
+				"origin": "R. L. Stine · 1992",
+				"line": "Des livres pour se faire peur sous la couette.",
+				"quip": "Team Chair de poule : tu lisais sous la couette, à la lampe torche. Et tu avais peur.",
+				"giphyIds": [],
+				"giphyQuery": "Goosebumps"
+			},
+			"b": {
+				"name": "Le Club des Cinq",
+				"origin": "Enid Blyton · 1942",
+				"line": "Quatre enfants, un chien, et des mystères.",
+				"quip": "Team Club des Cinq : tu cherchais des mystères au fond du jardin. Avec ton chien.",
+				"giphyIds": [],
+				"giphyQuery": "Famous Five"
+			},
+			"bothQuip": "Les deux. La bibliothèque de l’école, tu l’as dévorée.",
+			"noneQuip": "Ni l’un ni l’autre. Les livres de jeunesse, tu leur préférais la télé."
+		},
+		{
+			"id": "nostalgie-concorde-tgv",
+			"category": "nostalgie",
+			"a": {
+				"name": "Concorde",
+				"origin": "Air France · 1976",
+				"line": "Paris-New York en trois heures et demie.",
+				"quip": "Team Concorde : Paris-New York en trois heures et demie. Tu en rêves encore.",
+				"giphyIds": [],
+				"giphyQuery": "Concorde"
+			},
+			"b": {
+				"name": "TGV",
+				"origin": "SNCF · 1981",
+				"line": "Le train le plus rapide du pays.",
+				"quip": "Team TGV : le train le plus rapide du pays, et un café hors de prix.",
+				"giphyIds": [],
+				"giphyQuery": "TGV train"
+			},
+			"bothQuip": "Les deux. La vitesse à la française, ta fierté nationale.",
+			"noneQuip": "Ni l’un ni l’autre. Tu préfères la voiture. Et ses bouchons."
+		},
+		{
+			"id": "nostalgie-repondeur-cabine-telephonique",
+			"category": "nostalgie",
+			"a": {
+				"name": "Répondeur",
+				"origin": "Le salon",
+				"line": "« Vous êtes bien chez… »",
+				"quip": "Team répondeur : « Vous êtes bien chez… » Tu as enregistré ton message dix fois.",
+				"giphyIds": [],
+				"giphyQuery": "answering machine"
+			},
+			"b": {
+				"name": "Cabine téléphonique",
+				"origin": "La rue",
+				"line": "Une carte à puce et un froid glacial.",
+				"quip": "Team cabine téléphonique : une carte à puce, un froid glacial, et trois minutes d’appel.",
+				"giphyIds": [],
+				"giphyQuery": "phone booth"
+			},
+			"bothQuip": "Les deux. Avant le portable, tu laissais des messages partout.",
+			"noneQuip": "Ni l’un ni l’autre. Les cabines et les répondeurs, tu ne les as jamais connus."
+		},
+		{
+			"id": "nostalgie-diddl-hello-kitty",
+			"category": "nostalgie",
+			"a": {
+				"name": "Diddl",
+				"origin": "Allemagne · 1990",
+				"line": "Une souris aux grands pieds, sur tous les blocs-notes.",
+				"quip": "Team Diddl : tes feuilles Diddl étaient rangées dans un classeur. Pas question d’échanger.",
+				"giphyIds": [],
+				"giphyQuery": "cartoon mouse"
+			},
+			"b": {
+				"name": "Hello Kitty",
+				"origin": "Sanrio · 1974",
+				"line": "Un nœud rouge, et pas de bouche.",
+				"quip": "Team Hello Kitty : une trousse, un cartable et un réveil Hello Kitty. Au minimum.",
+				"giphyIds": [],
+				"giphyQuery": "hello kitty"
+			},
+			"bothQuip": "Les deux. Ta papeterie était la plus mignonne de la classe.",
+			"noneQuip": "Ni Diddl ni Hello Kitty. Ta papeterie était sérieuse. Trop sérieuse."
+		},
+		{
+			"id": "nostalgie-stylo-quatre-couleurs-gomme-parfumee",
+			"category": "nostalgie",
+			"a": {
+				"name": "Stylo quatre couleurs",
+				"origin": "La trousse",
+				"line": "Clic, clic, clic, et toujours la mauvaise couleur.",
+				"quip": "Team stylo quatre couleurs : tu as essayé d’appuyer sur deux couleurs à la fois. Ça coinçait.",
+				"giphyIds": [],
+				"giphyQuery": "pen click"
+			},
+			"b": {
+				"name": "Gomme parfumée",
+				"origin": "La trousse aussi",
+				"line": "Elle sentait la fraise, et n’effaçait rien.",
+				"quip": "Team gomme parfumée : tu la sentais plus que tu ne t’en servais. Avoue.",
+				"giphyIds": [],
+				"giphyQuery": "eraser"
+			},
+			"bothQuip": "Les deux. Ta trousse comptait plus que tes cahiers.",
+			"noneQuip": "Ni l’un ni l’autre. Un crayon et une gomme normale. Discipline."
+		},
+		{
+			"id": "nostalgie-le-bug-de-l-an-2000-la-fin-du-monde-de-2012",
+			"category": "nostalgie",
+			"question": "Ta fin du monde ratée préférée : l’an 2000 ou 2012 ?",
+			"a": {
+				"name": "Le bug de l’an 2000",
+				"origin": "Les ordinateurs, en 1999",
+				"line": "Tous les ordinateurs allaient planter. Il ne s’est rien passé.",
+				"quip": "Team an 2000 : tu as fait des réserves de pâtes et de piles. Il t’en reste.",
+				"giphyIds": [],
+				"giphyQuery": "y2k"
+			},
+			"b": {
+				"name": "La fin du monde de 2012",
+				"origin": "Un calendrier maya",
+				"line": "Le 21 décembre, tout devait s’arrêter. Il a fait beau.",
+				"quip": "Team 2012 : le 21 décembre au soir, tu as vérifié le calendrier maya. Juste au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "end of the world"
+			},
+			"bothQuip": "Les deux. Deux fins du monde ratées, et tu es toujours là.",
+			"noneQuip": "Ni l’une ni l’autre. Les fins du monde annoncées, tu n’y crois plus. La sagesse."
+		},
+		{
+			"id": "nostalgie-yop-danette",
+			"category": "nostalgie",
+			"a": {
+				"name": "Yop",
+				"origin": "Yoplait · 1979",
+				"line": "Un yaourt à boire, et une moustache blanche.",
+				"quip": "Team Yop : tu as eu la moustache blanche. Tu l’as peut-être encore, d’ailleurs.",
+				"giphyIds": [],
+				"giphyQuery": "milk mustache"
+			},
+			"b": {
+				"name": "Danette",
+				"origin": "Danone · 1970",
+				"line": "Une crème dessert, et une chanson qui fait se lever tout le monde.",
+				"quip": "Team Danette : quand tu entends la chanson, tu te lèves encore. Par réflexe.",
+				"giphyIds": [],
+				"giphyQuery": "chocolate pudding"
+			},
+			"bothQuip": "Les deux. Ton goûter des années 90 était un dessert lacté.",
+			"noneQuip": "Ni Yop ni Danette. Ton goûter, c’était une pomme. Tes parents étaient sérieux."
+		},
+		{
+			"id": "nostalgie-une-boum-un-anniversaire-au-mcdo",
+			"category": "nostalgie",
+			"question": "Pour fêter tes anniversaires : une boum ou le McDo ?",
+			"a": {
+				"name": "Une boum",
+				"origin": "Le salon des parents",
+				"line": "Des slows, des chips, et les parents à l’étage.",
+				"quip": "Team boum : tu as attendu le slow toute la soirée. Il est arrivé à minuit, et tu étais aux toilettes.",
+				"giphyIds": [],
+				"giphyQuery": "dance party"
+			},
+			"b": {
+				"name": "Un anniversaire au McDo",
+				"origin": "Le fast-food du coin",
+				"line": "Une couronne en carton, un menu enfant, et un jouet.",
+				"quip": "Team McDo : avec la couronne en carton sur la tête, tu régnais sur le monde.",
+				"giphyIds": [],
+				"giphyQuery": "birthday party"
+			},
+			"bothQuip": "Les deux. Le McDo à dix ans, la boum à quatorze. La progression logique.",
+			"noneQuip": "Ni l’un ni l’autre. Tes anniversaires, c’était un gâteau en famille. Le meilleur."
+		},
+		{
+			"id": "nostalgie-les-annees-90-les-annees-2000",
+			"category": "nostalgie",
+			"a": {
+				"name": "Les années 90",
+				"origin": "La cour de récré",
+				"line": "Le Tamagotchi, le Club Dorothée, et le walkman.",
+				"quip": "Team années 90 : tu dis « c’était mieux avant » en parlant de 1995. Et tu as un peu raison.",
+				"giphyIds": [],
+				"giphyQuery": "90s"
+			},
+			"b": {
+				"name": "Les années 2000",
+				"origin": "Le collège",
+				"line": "MSN, les jeans taille basse, et le Nokia 3310.",
+				"quip": "Team années 2000 : un Skyblog, un pseudo MSN à rallonge, et aucun regret.",
+				"giphyIds": [],
+				"giphyQuery": "2000s"
+			},
+			"bothQuip": "Les deux. Tu as grandi à cheval sur deux décennies. Le meilleur des deux.",
+			"noneQuip": "Ni l’une ni l’autre. Ta nostalgie à toi, ce sont les années 2010."
+		},
+		{
+			"id": "nostalgie-fun-radio-skyrock",
+			"category": "nostalgie",
+			"a": {
+				"name": "Fun Radio",
+				"origin": "Radio · 1985",
+				"line": "Les tubes dance, et les libres antennes de la nuit.",
+				"quip": "Team Fun Radio : tu écoutais les libres antennes en cachette, sous la couette.",
+				"giphyIds": [],
+				"giphyQuery": "radio"
+			},
+			"b": {
+				"name": "Skyrock",
+				"origin": "Radio · 1986",
+				"line": "Du rap, du rap, et encore du rap.",
+				"quip": "Team Skyrock : premier sur le rap, et toi aussi. Tu connaissais tout avant tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "hip hop radio"
+			},
+			"bothQuip": "Les deux. Ton radio-réveil changeait de station chaque matin.",
+			"noneQuip": "Ni l’une ni l’autre. Tu écoutais NRJ. Ou les infos, comme un adulte."
+		},
+		{
+			"id": "nostalgie-l-elastique-la-marelle",
+			"category": "nostalgie",
+			"question": "Dans la cour de récré : l’élastique ou la marelle ?",
+			"a": {
+				"name": "L’élastique",
+				"origin": "La cour de récré",
+				"line": "Deux camarades, un élastique, et des comptines interminables.",
+				"quip": "Team élastique : tu connais encore les comptines. Tes chevilles aussi.",
+				"giphyIds": [],
+				"giphyQuery": "jump rope"
+			},
+			"b": {
+				"name": "La marelle",
+				"origin": "La cour de récré aussi",
+				"line": "Une craie, un caillou, et un saut à cloche-pied jusqu’au ciel.",
+				"quip": "Team marelle : tu as dessiné des marelles partout. Même devant la boulangerie.",
+				"giphyIds": [],
+				"giphyQuery": "hopscotch"
+			},
+			"bothQuip": "Les deux. La cour de récré n’avait aucun secret pour toi.",
+			"noneQuip": "Ni l’un ni l’autre. Dans la cour, tu jouais au foot. Ou aux billes."
+		},
+		{
+			"id": "sport-lionel-messi-cristiano-ronaldo",
+			"category": "sport",
+			"a": {
+				"name": "Lionel Messi",
+				"origin": "Argentine · 2004",
+				"line": "Un pied gauche magique, et huit Ballons d’or.",
+				"quip": "Team Messi : tu as un avis très tranché sur chaque Ballon d’or. Depuis 2009.",
+				"giphyIds": [],
+				"giphyQuery": "Messi"
+			},
+			"b": {
+				"name": "Cristiano Ronaldo",
+				"origin": "Portugal · 2002",
+				"line": "Des abdos, des records, et un célèbre cri de joie.",
+				"quip": "Team Ronaldo : tu fais « Siuuu ! » en sautant après chaque petite victoire. Même au Uno.",
+				"giphyIds": [],
+				"giphyQuery": "Cristiano Ronaldo"
+			},
+			"bothQuip": "Les deux. Tu refuses de choisir dans le plus grand débat du foot. Diplomate.",
+			"noneQuip": "Ni Messi ni Ronaldo. Team Zidane, à l’ancienne."
+		},
+		{
+			"id": "sport-roger-federer-rafael-nadal",
+			"category": "sport",
+			"a": {
+				"name": "Roger Federer",
+				"origin": "Suisse · 1998",
+				"line": "Le revers à une main le plus élégant du monde.",
+				"quip": "Team Federer : tu aimes l’élégance. Même pour sortir les poubelles.",
+				"giphyIds": [],
+				"giphyQuery": "Roger Federer"
+			},
+			"b": {
+				"name": "Rafael Nadal",
+				"origin": "Espagne · 2001",
+				"line": "Quatorze Roland-Garros. Quatorze.",
+				"quip": "Team Nadal : tes bouteilles d’eau sont parfaitement alignées. Tes rituels sont sacrés.",
+				"giphyIds": [],
+				"giphyQuery": "Rafael Nadal"
+			},
+			"bothQuip": "Les deux. Le plus beau duel de l’histoire du tennis, et tu as tout regardé.",
+			"noneQuip": "Ni Federer ni Nadal. Team Djokovic, et tu le dis tout bas."
+		},
+		{
+			"id": "sport-football-rugby",
+			"category": "sport",
+			"a": {
+				"name": "Football",
+				"origin": "Partout",
+				"line": "Vingt-deux joueurs, un ballon, et des débats sans fin.",
+				"quip": "Team foot : tu as déjà simulé une faute dans la vie de tous les jours. Une petite chute.",
+				"giphyIds": [],
+				"giphyQuery": "football goal"
+			},
+			"b": {
+				"name": "Rugby",
+				"origin": "Le Sud-Ouest",
+				"line": "Trente joueurs, un ballon ovale, et une troisième mi-temps.",
+				"quip": "Team rugby : tu te fais plus d’amis à la troisième mi-temps qu’au match.",
+				"giphyIds": [],
+				"giphyQuery": "rugby tackle"
+			},
+			"bothQuip": "Les deux. Le foot le samedi, le rugby le dimanche. Ton week-end est plein.",
+			"noneQuip": "Ni foot ni rugby. Les ballons, très peu pour toi. Ronds ou ovales."
+		},
+		{
+			"id": "sport-psg-om",
+			"category": "sport",
+			"a": {
+				"name": "PSG",
+				"origin": "Paris · 1970",
+				"line": "Des stars, du budget, et beaucoup d’attentes.",
+				"quip": "Team PSG : tu connais le budget du club par cœur. Et les attentes aussi.",
+				"giphyIds": [],
+				"giphyQuery": "Paris Saint-Germain"
+			},
+			"b": {
+				"name": "OM",
+				"origin": "Marseille · 1899",
+				"line": "Le Vélodrome, la ferveur, et 1993 pour toujours.",
+				"quip": "Team OM : « À jamais les premiers. » Tu le dis encore, avec fierté.",
+				"giphyIds": [],
+				"giphyQuery": "Olympique de Marseille"
+			},
+			"bothQuip": "Les deux. Paris et Marseille à la fois. Tu vis dangereusement.",
+			"noneQuip": "Ni PSG ni OM. Ton club ne fait pas la une, mais tu lui es fidèle."
+		},
+		{
+			"id": "sport-zinedine-zidane-michel-platini",
+			"category": "sport",
+			"a": {
+				"name": "Zinédine Zidane",
+				"origin": "Cannes · 1989",
+				"line": "Une roulette, une volée, une légende.",
+				"quip": "Team Zidane : tu as tenté la roulette dans un couloir. Le mur a gagné.",
+				"giphyIds": [],
+				"giphyQuery": "Zidane"
+			},
+			"b": {
+				"name": "Michel Platini",
+				"origin": "Nancy · 1972",
+				"line": "Trois Ballons d’or d’affilée.",
+				"quip": "Team Platini : trois Ballons d’or d’affilée. Tu aimes les classiques.",
+				"giphyIds": [],
+				"giphyQuery": "football legend"
+			},
+			"bothQuip": "Les deux. Les numéros 10 français, ta religion.",
+			"noneQuip": "Ni l’un ni l’autre. Team nouvelle génération."
+		},
+		{
+			"id": "sport-michael-jordan-lebron-james",
+			"category": "sport",
+			"a": {
+				"name": "Michael Jordan",
+				"origin": "Chicago · 1984",
+				"line": "Six bagues, et la langue tirée.",
+				"quip": "Team Jordan : tu tires la langue quand tu te concentres. Même pour remplir un formulaire.",
+				"giphyIds": [],
+				"giphyQuery": "Michael Jordan"
+			},
+			"b": {
+				"name": "LeBron James",
+				"origin": "Cleveland · 2003",
+				"line": "Vingt ans au sommet.",
+				"quip": "Team LeBron : vingt ans au sommet. Toi, tu vises surtout le sommet du canapé.",
+				"giphyIds": [],
+				"giphyQuery": "LeBron James"
+			},
+			"bothQuip": "Les deux. Le débat du plus grand de tous les temps, tu l’esquives. Malin.",
+			"noneQuip": "Ni Jordan ni LeBron. Le basket américain, tu le regardes de loin."
+		},
+		{
+			"id": "sport-usain-bolt-carl-lewis",
+			"category": "sport",
+			"a": {
+				"name": "Usain Bolt",
+				"origin": "Jamaïque · 2008",
+				"line": "Neuf secondes cinquante-huit, et la pose de l’éclair.",
+				"quip": "Team Bolt : tu fais la pose de l’éclair après avoir couru pour attraper le bus.",
+				"giphyIds": [],
+				"giphyQuery": "Usain Bolt"
+			},
+			"b": {
+				"name": "Carl Lewis",
+				"origin": "États-Unis · 1984",
+				"line": "Neuf médailles d’or olympiques.",
+				"quip": "Team Carl Lewis : neuf médailles d’or. Tu respectes la régularité.",
+				"giphyIds": [],
+				"giphyQuery": "Carl Lewis"
+			},
+			"bothQuip": "Les deux. La vitesse, tu l’admires depuis ton canapé.",
+			"noneQuip": "Ni Bolt ni Lewis. Courir vite, très peu pour toi. Marcher, c’est bien aussi."
+		},
+		{
+			"id": "sport-tour-de-france-roland-garros",
+			"category": "sport",
+			"a": {
+				"name": "Tour de France",
+				"origin": "Depuis 1903",
+				"line": "Trois semaines de vélo, et le maillot jaune.",
+				"quip": "Team Tour de France : tu regardes les étapes de montagne pour les châteaux. Et pour la sieste.",
+				"giphyIds": [],
+				"giphyQuery": "Tour de France"
+			},
+			"b": {
+				"name": "Roland-Garros",
+				"origin": "Paris · 1928",
+				"line": "La terre battue, et des chaussettes orange.",
+				"quip": "Team Roland-Garros : la terre battue, les chaussettes orange, et des matchs de cinq heures.",
+				"giphyIds": [],
+				"giphyQuery": "Roland Garros"
+			},
+			"bothQuip": "Les deux. Ton été est rempli de sport à la télé.",
+			"noneQuip": "Ni l’un ni l’autre. L’été, tu préfères la plage. Sans télé."
+		},
+		{
+			"id": "sport-jo-d-ete-jo-d-hiver",
+			"category": "sport",
+			"a": {
+				"name": "JO d’été",
+				"origin": "Tous les quatre ans",
+				"line": "Le 100 mètres, la natation, et des centaines d’épreuves.",
+				"quip": "Team JO d’été : tu regardes du tir à l’arc à 3 h du matin. Et tu as un avis.",
+				"giphyIds": [],
+				"giphyQuery": "Olympics summer"
+			},
+			"b": {
+				"name": "JO d’hiver",
+				"origin": "Tous les quatre ans",
+				"line": "Le ski, le curling, et un froid de canard.",
+				"quip": "Team JO d’hiver : tous les quatre ans, le curling devient ton sport préféré.",
+				"giphyIds": [],
+				"giphyQuery": "winter olympics curling"
+			},
+			"bothQuip": "Les deux. Tous les deux ans, tu deviens spécialiste d’un sport que tu ne pratiques pas.",
+			"noneQuip": "Ni l’un ni l’autre. Les Jeux, tu les regardes pour la cérémonie. Et c’est tout."
+		},
+		{
+			"id": "sport-ski-snowboard",
+			"category": "sport",
+			"a": {
+				"name": "Ski",
+				"origin": "La station",
+				"line": "Deux planches, deux bâtons, et un tire-fesses.",
+				"quip": "Team ski : le tire-fesses n’a aucun secret pour toi. Ou presque.",
+				"giphyIds": [],
+				"giphyQuery": "skiing"
+			},
+			"b": {
+				"name": "Snowboard",
+				"origin": "La station",
+				"line": "Une planche, et assis au milieu de la piste.",
+				"quip": "Team snowboard : tu t’assois au milieu de la piste. Tout le monde te contourne.",
+				"giphyIds": [],
+				"giphyQuery": "snowboarding"
+			},
+			"bothQuip": "Les deux. Tu changes de glisse selon l’humeur. Et tu tombes avec les deux.",
+			"noneQuip": "Ni ski ni snow. La montagne, pour toi, c’est la raclette."
+		},
+		{
+			"id": "sport-course-a-pied-velo",
+			"category": "sport",
+			"a": {
+				"name": "Course à pied",
+				"origin": "Le parc",
+				"line": "Juste des baskets, et beaucoup de volonté.",
+				"quip": "Team course à pied : une appli compte tes kilomètres. Et tu les partages.",
+				"giphyIds": [],
+				"giphyQuery": "running"
+			},
+			"b": {
+				"name": "Vélo",
+				"origin": "La route",
+				"line": "Des mollets, et un cuissard.",
+				"quip": "Team vélo : tu as un cuissard, et tu n’as pas peur de le porter.",
+				"giphyIds": [],
+				"giphyQuery": "cycling"
+			},
+			"bothQuip": "Les deux. Triathlon dans l’âme. Il ne manque que la natation.",
+			"noneQuip": "Ni course ni vélo. Le sport, tu le pratiques en regardant les autres."
+		},
+		{
+			"id": "sport-muhammad-ali-mike-tyson",
+			"category": "sport",
+			"a": {
+				"name": "Muhammad Ali",
+				"origin": "Louisville · 1960",
+				"line": "Vole comme un papillon, pique comme une abeille.",
+				"quip": "Team Ali : tu voles comme un papillon, et tu piques comme une abeille. En réunion.",
+				"giphyIds": [],
+				"giphyQuery": "Muhammad Ali"
+			},
+			"b": {
+				"name": "Mike Tyson",
+				"origin": "New York · 1985",
+				"line": "Le plus jeune champion du monde des lourds.",
+				"quip": "Team Tyson : tu impressionnes dès le premier round. Même au Monopoly.",
+				"giphyIds": [],
+				"giphyQuery": "Mike Tyson"
+			},
+			"bothQuip": "Les deux. La boxe des légendes, tu la respectes.",
+			"noneQuip": "Ni Ali ni Tyson. La boxe, très peu pour toi."
+		},
+		{
+			"id": "sport-serena-williams-steffi-graf",
+			"category": "sport",
+			"a": {
+				"name": "Serena Williams",
+				"origin": "États-Unis · 1995",
+				"line": "Vingt-trois titres du Grand Chelem.",
+				"quip": "Team Serena : tu cries à chaque coup. Même en faisant la vaisselle.",
+				"giphyIds": [],
+				"giphyQuery": "Serena Williams"
+			},
+			"b": {
+				"name": "Steffi Graf",
+				"origin": "Allemagne · 1982",
+				"line": "Le Grand Chelem doré, en 1988.",
+				"quip": "Team Steffi Graf : le Grand Chelem doré, et la classe tranquille.",
+				"giphyIds": [],
+				"giphyQuery": "tennis champion"
+			},
+			"bothQuip": "Les deux. Les légendes du tennis, tu les connais toutes.",
+			"noneQuip": "Ni l’une ni l’autre. Le tennis, tu le regardes pour les ramasseurs de balles."
+		},
+		{
+			"id": "sport-petanque-molkky",
+			"category": "sport",
+			"a": {
+				"name": "Pétanque",
+				"origin": "La Ciotat · 1907",
+				"line": "Tu tires ou tu pointes ?",
+				"quip": "Team pétanque : « Tu tires ou tu pointes ? » Tu as un avis, et il est définitif.",
+				"giphyIds": [],
+				"giphyQuery": "petanque"
+			},
+			"b": {
+				"name": "Mölkky",
+				"origin": "Finlande · 1996",
+				"line": "Des quilles en bois, et du calcul mental jusqu’à cinquante.",
+				"quip": "Team Mölkky : tu comptes jusqu’à cinquante plus vite que tout le monde. L’été, tu es imbattable.",
+				"giphyIds": [],
+				"giphyQuery": "molkky"
+			},
+			"bothQuip": "Les deux. Ton été, ce sont des boules et des quilles en bois.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux de plage, tu les regardes en buvant un verre."
+		},
+		{
+			"id": "sport-france-98-france-2018",
+			"category": "sport",
+			"a": {
+				"name": "France 98",
+				"origin": "Le Stade de France",
+				"line": "Deux têtes de Zidane, et les Champs-Élysées.",
+				"quip": "Team 98 : tu étais sur les Champs-Élysées. Ou tu fais comme si.",
+				"giphyIds": [],
+				"giphyQuery": "France 1998 world cup"
+			},
+			"b": {
+				"name": "France 2018",
+				"origin": "Moscou",
+				"line": "Une deuxième étoile sur le maillot.",
+				"quip": "Team 2018 : la deuxième étoile, et tu as crié très fort devant ton écran.",
+				"giphyIds": [],
+				"giphyQuery": "France 2018 world cup"
+			},
+			"bothQuip": "Les deux. Deux étoiles, deux étés, deux nuits blanches.",
+			"noneQuip": "Ni l’un ni l’autre. Le foot, tu ne le regardes que quand on gagne."
+		},
+		{
+			"id": "sport-kylian-mbappe-antoine-griezmann",
+			"category": "sport",
+			"a": {
+				"name": "Kylian Mbappé",
+				"origin": "Bondy · 2015",
+				"line": "Plus rapide que la défense adverse.",
+				"quip": "Team Mbappé : tu cours plus vite que le bus. Enfin, tu essaies.",
+				"giphyIds": [],
+				"giphyQuery": "Mbappe"
+			},
+			"b": {
+				"name": "Antoine Griezmann",
+				"origin": "Mâcon · 2009",
+				"line": "Des célébrations dansées, et des passes décisives.",
+				"quip": "Team Griezmann : une célébration dansée après chaque petite victoire.",
+				"giphyIds": [],
+				"giphyQuery": "Griezmann"
+			},
+			"bothQuip": "Les deux. L’équipe de France, tu la suis à chaque compétition.",
+			"noneQuip": "Ni l’un ni l’autre. Les Bleus d’aujourd’hui, tu préfères ceux de 98."
+		},
+		{
+			"id": "sport-basket-handball",
+			"category": "sport",
+			"a": {
+				"name": "Basket",
+				"origin": "Le playground",
+				"line": "Des dunks, et des paniers à trois points.",
+				"quip": "Team basket : chaque papier froissé est un tir à trois points.",
+				"giphyIds": [],
+				"giphyQuery": "basketball dunk"
+			},
+			"b": {
+				"name": "Handball",
+				"origin": "Le gymnase",
+				"line": "Des parades, et des Bleus qui gagnent tout.",
+				"quip": "Team handball : les Bleus gagnent tout, et tu le fais savoir.",
+				"giphyIds": [],
+				"giphyQuery": "handball"
+			},
+			"bothQuip": "Les deux. Le gymnase est ta deuxième maison.",
+			"noneQuip": "Ni basket ni hand. Les sports de salle, tu les préfères dehors."
+		},
+		{
+			"id": "sport-ayrton-senna-alain-prost",
+			"category": "sport",
+			"a": {
+				"name": "Ayrton Senna",
+				"origin": "Brésil · 1984",
+				"line": "La pluie de Monaco, et une vitesse folle.",
+				"quip": "Team Senna : dans ta tête, tu conduis sous la pluie comme à Monaco.",
+				"giphyIds": [],
+				"giphyQuery": "Ayrton Senna"
+			},
+			"b": {
+				"name": "Alain Prost",
+				"origin": "France · 1980",
+				"line": "Le Professeur, quatre titres mondiaux.",
+				"quip": "Team Prost : le Professeur. Tu calcules tout, même ton trajet jusqu’à la boulangerie.",
+				"giphyIds": [],
+				"giphyQuery": "Formula 1 vintage"
+			},
+			"bothQuip": "Les deux. La plus grande rivalité de la F1, tu la connais par cœur.",
+			"noneQuip": "Ni Senna ni Prost. La Formule 1, pour toi, ça tourne en rond."
+		},
+		{
+			"id": "sport-lewis-hamilton-michael-schumacher",
+			"category": "sport",
+			"a": {
+				"name": "Lewis Hamilton",
+				"origin": "Royaume-Uni · 2007",
+				"line": "Sept titres mondiaux, et beaucoup de style.",
+				"quip": "Team Hamilton : tu as du style, même pour aller au supermarché.",
+				"giphyIds": [],
+				"giphyQuery": "Lewis Hamilton"
+			},
+			"b": {
+				"name": "Michael Schumacher",
+				"origin": "Allemagne · 1991",
+				"line": "Sept titres, et une Ferrari rouge.",
+				"quip": "Team Schumacher : la Ferrari rouge, et une domination totale. Ton époque dorée.",
+				"giphyIds": [],
+				"giphyQuery": "Michael Schumacher Ferrari"
+			},
+			"bothQuip": "Les deux. Sept titres chacun, impossible de choisir.",
+			"noneQuip": "Ni l’un ni l’autre. Team Alonso, toujours là."
+		},
+		{
+			"id": "sport-tony-parker-victor-wembanyama",
+			"category": "sport",
+			"a": {
+				"name": "Tony Parker",
+				"origin": "San Antonio · 2001",
+				"line": "Quatre bagues avec les Spurs.",
+				"quip": "Team Tony Parker : quatre bagues avec les Spurs. Tu respectes les pionniers.",
+				"giphyIds": [],
+				"giphyQuery": "Tony Parker"
+			},
+			"b": {
+				"name": "Victor Wembanyama",
+				"origin": "San Antonio · 2023",
+				"line": "Plus de deux mètres vingt, et des bras sans fin.",
+				"quip": "Team Wembanyama : tu as dû lever la tête pour voir l’écran. Comme tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "Wembanyama"
+			},
+			"bothQuip": "Les deux. Les Français de San Antonio, ta fierté.",
+			"noneQuip": "Ni l’un ni l’autre. Le basket, ce n’est pas ton terrain."
+		},
+		{
+			"id": "sport-teddy-riner-laure-manaudou",
+			"category": "sport",
+			"a": {
+				"name": "Teddy Riner",
+				"origin": "Judo · 2007",
+				"line": "Le géant du judo, et des titres à la pelle.",
+				"quip": "Team Teddy Riner : un sourire de géant gentil, et une prise redoutable.",
+				"giphyIds": [],
+				"giphyQuery": "Teddy Riner"
+			},
+			"b": {
+				"name": "Laure Manaudou",
+				"origin": "Natation · 2004",
+				"line": "Championne olympique à dix-sept ans.",
+				"quip": "Team Laure Manaudou : championne à dix-sept ans. Toi, à dix-sept ans, tu dormais.",
+				"giphyIds": [],
+				"giphyQuery": "swimming champion"
+			},
+			"bothQuip": "Les deux. Les légendes françaises, tu les suis toutes.",
+			"noneQuip": "Ni l’un ni l’autre. Le judo et la natation, tu les regardes aux JO. Seulement."
+		},
+		{
+			"id": "sport-leon-marchand-florent-manaudou",
+			"category": "sport",
+			"a": {
+				"name": "Léon Marchand",
+				"origin": "Toulouse · 2024",
+				"line": "Quatre médailles d’or à Paris, en une semaine.",
+				"quip": "Team Léon Marchand : quatre médailles d’or en une semaine. Toi, tu as fini une série.",
+				"giphyIds": [],
+				"giphyQuery": "Leon Marchand"
+			},
+			"b": {
+				"name": "Florent Manaudou",
+				"origin": "Natation · 2012",
+				"line": "Champion olympique du 50 mètres.",
+				"quip": "Team Florent Manaudou : cinquante mètres, et tout est dit. Tu aimes quand ça va vite.",
+				"giphyIds": [],
+				"giphyQuery": "swimming race"
+			},
+			"bothQuip": "Les deux. La natation française te donne des frissons.",
+			"noneQuip": "Ni l’un ni l’autre. La piscine, tu y vas pour flotter."
+		},
+		{
+			"id": "sport-au-stade-devant-la-tele",
+			"category": "sport",
+			"a": {
+				"name": "Au stade",
+				"origin": "Les tribunes",
+				"line": "Les chants, les écharpes, et la pluie.",
+				"quip": "Team stade : tu chantes, tu cries, tu as froid. Et tu adores.",
+				"giphyIds": [],
+				"giphyQuery": "stadium crowd"
+			},
+			"b": {
+				"name": "Devant la télé",
+				"origin": "Le canapé",
+				"line": "Le replay, les ralentis, et le chauffage.",
+				"quip": "Team télé : le replay, les ralentis, et le chauffage. Tu as tout compris.",
+				"giphyIds": [],
+				"giphyQuery": "watching sports tv"
+			},
+			"bothQuip": "Les deux. Le stade pour les grands matchs, la télé pour le reste.",
+			"noneQuip": "Ni l’un ni l’autre. Les résultats, tu les lis le lendemain."
+		},
+		{
+			"id": "sport-yoga-crossfit",
+			"category": "sport",
+			"a": {
+				"name": "Yoga",
+				"origin": "Le tapis",
+				"line": "Respirer, s’étirer, et chercher son chakra.",
+				"quip": "Team yoga : tu respires profondément. Même dans les bouchons.",
+				"giphyIds": [],
+				"giphyQuery": "yoga"
+			},
+			"b": {
+				"name": "CrossFit",
+				"origin": "La box",
+				"line": "Soulever, sauter, et en parler à tout le monde.",
+				"quip": "Team CrossFit : tu en as parlé à tout le monde. Ce vote aussi, tu vas le partager.",
+				"giphyIds": [],
+				"giphyQuery": "crossfit"
+			},
+			"bothQuip": "Les deux. Tu étires au yoga ce que tu as cassé au CrossFit.",
+			"noneQuip": "Ni yoga ni CrossFit. Ton sport, c’est de monter les escaliers."
+		},
+		{
+			"id": "sport-salle-de-sport-sport-dehors",
+			"category": "sport",
+			"a": {
+				"name": "Salle de sport",
+				"origin": "L’abonnement",
+				"line": "Des machines, des miroirs, et la musique trop fort.",
+				"quip": "Team salle de sport : ton abonnement est payé. Ta présence, c’est une autre histoire.",
+				"giphyIds": [],
+				"giphyQuery": "gym workout"
+			},
+			"b": {
+				"name": "Sport dehors",
+				"origin": "Le grand air",
+				"line": "Le soleil, la pluie, et pas d’abonnement.",
+				"quip": "Team sport dehors : la pluie ne t’arrête pas. Rien ne t’arrête.",
+				"giphyIds": [],
+				"giphyQuery": "outdoor workout"
+			},
+			"bothQuip": "Les deux. La salle en hiver, dehors l’été. Organisation.",
+			"noneQuip": "Ni l’un ni l’autre. Le canapé est ta salle de sport."
+		},
+		{
+			"id": "sport-golf-tennis",
+			"category": "sport",
+			"a": {
+				"name": "Golf",
+				"origin": "Le green",
+				"line": "Quatre heures de marche, pour une toute petite balle.",
+				"quip": "Team golf : quatre heures de marche pour une petite balle. Et tu adores ça.",
+				"giphyIds": [],
+				"giphyQuery": "golf swing"
+			},
+			"b": {
+				"name": "Tennis",
+				"origin": "Le court",
+				"line": "Deux joueurs, un filet, et des cris.",
+				"quip": "Team tennis : tu cries à chaque frappe. Même au ping-pong.",
+				"giphyIds": [],
+				"giphyQuery": "tennis"
+			},
+			"bothQuip": "Les deux. Raquette ou club, tu fais tout.",
+			"noneQuip": "Ni golf ni tennis. Les petites balles, très peu pour toi."
+		},
+		{
+			"id": "sport-footing-du-dimanche-grasse-matinee",
+			"category": "sport",
+			"a": {
+				"name": "Footing du dimanche",
+				"origin": "9 heures du matin",
+				"line": "Dix kilomètres, et l’impression d’être un héros.",
+				"quip": "Team footing du dimanche : dix kilomètres à 9 h. Et tu le racontes à tout le déjeuner.",
+				"giphyIds": [],
+				"giphyQuery": "morning run"
+			},
+			"b": {
+				"name": "Grasse matinée",
+				"origin": "9 heures du matin",
+				"line": "Dix heures de sommeil, et l’impression d’être un héros aussi.",
+				"quip": "Team grasse matinée : dix heures de sommeil. Ton record personnel.",
+				"giphyIds": [],
+				"giphyQuery": "sleeping in"
+			},
+			"bothQuip": "Les deux. Footing, puis sieste. Le dimanche parfait.",
+			"noneQuip": "Ni l’un ni l’autre. Le dimanche, tu fais le marché. C’est un sport aussi."
+		},
+		{
+			"id": "sport-thierry-henry-david-trezeguet",
+			"category": "sport",
+			"a": {
+				"name": "Thierry Henry",
+				"origin": "Arsenal · 1999",
+				"line": "Le roi d’Highbury.",
+				"quip": "Team Thierry Henry : un pied qui caresse le ballon, et la classe anglaise.",
+				"giphyIds": [],
+				"giphyQuery": "Thierry Henry"
+			},
+			"b": {
+				"name": "David Trezeguet",
+				"origin": "Juventus · 2000",
+				"line": "Le but en or de l’Euro 2000.",
+				"quip": "Team Trezeguet : le but en or. Tu cries encore en y repensant.",
+				"giphyIds": [],
+				"giphyQuery": "golden goal"
+			},
+			"bothQuip": "Les deux. L’attaque des Bleus des années 2000, ta fierté.",
+			"noneQuip": "Ni l’un ni l’autre. Les attaquants, tu leur préfères les défenseurs."
+		},
+		{
+			"id": "sport-fabien-barthez-hugo-lloris",
+			"category": "sport",
+			"a": {
+				"name": "Fabien Barthez",
+				"origin": "Équipe de France · 1994",
+				"line": "Un crâne embrassé avant chaque match.",
+				"quip": "Team Barthez : un crâne embrassé avant chaque match. Tu as tes porte-bonheur, toi aussi.",
+				"giphyIds": [],
+				"giphyQuery": "goalkeeper save"
+			},
+			"b": {
+				"name": "Hugo Lloris",
+				"origin": "Équipe de France · 2008",
+				"line": "Capitaine, et une Coupe du monde soulevée.",
+				"quip": "Team Lloris : capitaine, et une Coupe du monde soulevée. La classe tranquille.",
+				"giphyIds": [],
+				"giphyQuery": "goalkeeper trophy"
+			},
+			"bothQuip": "Les deux. Les gardiens des Bleus, tu les respectes tous.",
+			"noneQuip": "Ni l’un ni l’autre. Les gardiens, on les oublie toujours. Pas toi, normalement."
+		},
+		{
+			"id": "sport-coupe-du-monde-ligue-des-champions",
+			"category": "sport",
+			"a": {
+				"name": "Coupe du monde",
+				"origin": "Tous les quatre ans",
+				"line": "Tout le pays devant la télé.",
+				"quip": "Team Coupe du monde : tous les quatre ans, tu deviens expert en foot.",
+				"giphyIds": [],
+				"giphyQuery": "World Cup trophy"
+			},
+			"b": {
+				"name": "Ligue des champions",
+				"origin": "Le mardi soir",
+				"line": "L’hymne, les étoiles, et les grandes soirées.",
+				"quip": "Team Ligue des champions : l’hymne te donne des frissons le mardi soir.",
+				"giphyIds": [],
+				"giphyQuery": "Champions League"
+			},
+			"bothQuip": "Les deux. Ton calendrier est rempli de matchs.",
+			"noneQuip": "Ni l’une ni l’autre. Le foot ne t’intéresse pas. On respecte."
+		},
+		{
+			"id": "sport-arbitrage-video-arbitre-seul",
+			"category": "sport",
+			"a": {
+				"name": "Arbitrage vidéo",
+				"origin": "La VAR",
+				"line": "La justice, après quatre minutes d’attente.",
+				"quip": "Team VAR : tu préfères attendre quatre minutes pour avoir raison. La justice d’abord.",
+				"giphyIds": [],
+				"giphyQuery": "VAR referee"
+			},
+			"b": {
+				"name": "Arbitre seul",
+				"origin": "Le terrain",
+				"line": "Une décision immédiate, et des polémiques éternelles.",
+				"quip": "Team arbitre seul : les polémiques éternelles, c’est le sel du foot.",
+				"giphyIds": [],
+				"giphyQuery": "referee whistle"
+			},
+			"bothQuip": "Les deux. Tu râles contre la VAR et contre l’arbitre. Tu râles, en fait.",
+			"noneQuip": "Ni l’un ni l’autre. Les arbitres, tu les laisses tranquilles. Une rareté."
+		},
+		{
+			"id": "sport-pele-diego-maradona",
+			"category": "sport",
+			"a": {
+				"name": "Pelé",
+				"origin": "Brésil · 1956",
+				"line": "Trois Coupes du monde.",
+				"quip": "Team Pelé : trois Coupes du monde. Tu aimes les palmarès.",
+				"giphyIds": [],
+				"giphyQuery": "Pele"
+			},
+			"b": {
+				"name": "Diego Maradona",
+				"origin": "Argentine · 1976",
+				"line": "La main de Dieu, puis le but du siècle.",
+				"quip": "Team Maradona : le but du siècle. Tu le revois les yeux fermés.",
+				"giphyIds": [],
+				"giphyQuery": "Maradona"
+			},
+			"bothQuip": "Les deux. Les légendes du foot, tu les places au-dessus de tout.",
+			"noneQuip": "Ni Pelé ni Maradona. Team Messi ? Le débat continue."
+		},
+		{
+			"id": "sport-valentino-rossi-marc-marquez",
+			"category": "sport",
+			"a": {
+				"name": "Valentino Rossi",
+				"origin": "Italie · 1996",
+				"line": "Le Docteur, neuf titres mondiaux.",
+				"quip": "Team Rossi : le Docteur, le jaune, et neuf titres. Ton héros à deux roues.",
+				"giphyIds": [],
+				"giphyQuery": "Valentino Rossi"
+			},
+			"b": {
+				"name": "Marc Márquez",
+				"origin": "Espagne · 2008",
+				"line": "Le genou par terre, et le coude aussi.",
+				"quip": "Team Márquez : dans ta tête, tu poses le coude par terre dans chaque virage.",
+				"giphyIds": [],
+				"giphyQuery": "Marc Marquez"
+			},
+			"bothQuip": "Les deux. Devant la moto à la télé, tu penches la tête dans les virages.",
+			"noneQuip": "Ni Rossi ni Márquez. Les deux-roues, ça va trop vite pour toi."
+		},
+		{
+			"id": "sport-sebastien-loeb-sebastien-ogier",
+			"category": "sport",
+			"a": {
+				"name": "Sébastien Loeb",
+				"origin": "France · 2002",
+				"line": "Neuf titres de champion du monde des rallyes.",
+				"quip": "Team Loeb : neuf titres. Tu aimes les rois incontestés.",
+				"giphyIds": [],
+				"giphyQuery": "Sebastien Loeb"
+			},
+			"b": {
+				"name": "Sébastien Ogier",
+				"origin": "France · 2008",
+				"line": "L’autre Sébastien, tout aussi titré.",
+				"quip": "Team Ogier : l’autre Sébastien, tout aussi titré. Tu aimes les outsiders… qui gagnent tout.",
+				"giphyIds": [],
+				"giphyQuery": "rally car"
+			},
+			"bothQuip": "Les deux Sébastien. La France du rallye, imbattable.",
+			"noneQuip": "Ni l’un ni l’autre. Le rallye, ça secoue trop pour toi."
+		},
+		{
+			"id": "sport-ceremonie-d-ouverture-ceremonie-de-cloture",
+			"category": "sport",
+			"a": {
+				"name": "Cérémonie d’ouverture",
+				"origin": "Paris · 2024",
+				"line": "La Seine, la pluie, et Céline Dion sur la tour Eiffel.",
+				"quip": "Team ouverture : la Seine, la pluie, et Céline Dion sur la tour Eiffel. Tu as pleuré.",
+				"giphyIds": [],
+				"giphyQuery": "Paris 2024 opening ceremony"
+			},
+			"b": {
+				"name": "Cérémonie de clôture",
+				"origin": "Paris · 2024",
+				"line": "Tom Cruise, une moto, et le drapeau pour Los Angeles.",
+				"quip": "Team clôture : Tom Cruise et sa moto, tu les as regardés trois fois.",
+				"giphyIds": [],
+				"giphyQuery": "Tom Cruise"
+			},
+			"bothQuip": "Les deux. L’été 2024, ton plus bel été de téléspectateur.",
+			"noneQuip": "Ni l’une ni l’autre. Les cérémonies, tu préfères les épreuves."
+		},
+		{
+			"id": "sport-sport-d-equipe-sport-individuel",
+			"category": "sport",
+			"a": {
+				"name": "Sport d’équipe",
+				"origin": "Le vestiaire",
+				"line": "On gagne ensemble, on perd ensemble.",
+				"quip": "Team sport d’équipe : on gagne ensemble, on perd ensemble. Et on mange ensemble après.",
+				"giphyIds": [],
+				"giphyQuery": "team celebration"
+			},
+			"b": {
+				"name": "Sport individuel",
+				"origin": "Toi contre toi",
+				"line": "Toute la gloire, et toute la pression.",
+				"quip": "Team sport individuel : toute la gloire pour toi. Et toute la pression aussi.",
+				"giphyIds": [],
+				"giphyQuery": "solo athlete"
+			},
+			"bothQuip": "Les deux. Tu sais jouer collectif, et briller en solo.",
+			"noneQuip": "Ni l’un ni l’autre. Le sport, tu le pratiques en regardant."
+		},
+		{
+			"id": "sport-flechettes-billard",
+			"category": "sport",
+			"a": {
+				"name": "Fléchettes",
+				"origin": "Le pub",
+				"line": "Viser le triple 20, toucher le mur.",
+				"quip": "Team fléchettes : tu vises le triple 20, tu touches le mur. Ça arrive.",
+				"giphyIds": [],
+				"giphyQuery": "darts"
+			},
+			"b": {
+				"name": "Billard",
+				"origin": "Le bar",
+				"line": "De la craie, des angles, et un peu de frime.",
+				"quip": "Team billard : tu mets de la craie avec un air très sérieux. Puis tu rates.",
+				"giphyIds": [],
+				"giphyQuery": "billiards"
+			},
+			"bothQuip": "Les deux. Le pub et le bar, tes terrains de sport.",
+			"noneQuip": "Ni l’un ni l’autre. Au bar, tu bois. C’est déjà bien."
+		},
+		{
+			"id": "sport-baby-foot-ping-pong",
+			"category": "sport",
+			"a": {
+				"name": "Baby-foot",
+				"origin": "Le café",
+				"line": "Interdit de faire tourner les barres.",
+				"quip": "Team baby-foot : tu fais tourner les barres. Ne mens pas, on t’a vu.",
+				"giphyIds": [],
+				"giphyQuery": "foosball"
+			},
+			"b": {
+				"name": "Ping-pong",
+				"origin": "Le garage",
+				"line": "Une raquette, une balle, et la table pliante.",
+				"quip": "Team ping-pong : la table pliante du garage a vu tes plus grands matchs.",
+				"giphyIds": [],
+				"giphyQuery": "ping pong"
+			},
+			"bothQuip": "Les deux. La salle de pause du travail est ton stade.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux de café, tu les regardes en buvant ton café."
+		},
+		{
+			"id": "sport-les-bleus-le-xv-de-france",
+			"category": "sport",
+			"a": {
+				"name": "Les Bleus",
+				"origin": "Le foot",
+				"line": "Deux étoiles sur le maillot.",
+				"quip": "Team Bleus : deux étoiles sur le maillot, et toi devant la télé.",
+				"giphyIds": [],
+				"giphyQuery": "France football team"
+			},
+			"b": {
+				"name": "Le XV de France",
+				"origin": "Le rugby",
+				"line": "Le coq, la Marseillaise, et le Tournoi des Six Nations.",
+				"quip": "Team XV de France : tu chantes la Marseillaise la main sur le cœur, les larmes aux yeux.",
+				"giphyIds": [],
+				"giphyQuery": "France rugby"
+			},
+			"bothQuip": "Les deux. Le bleu, c’est ta couleur. Quel que soit le ballon.",
+			"noneQuip": "Ni l’un ni l’autre. Les équipes de France, tu les découvres en finale."
+		},
+		{
+			"id": "sport-antoine-dupont-sebastien-chabal",
+			"category": "sport",
+			"a": {
+				"name": "Antoine Dupont",
+				"origin": "Toulouse · 2014",
+				"line": "Le meilleur joueur du monde, à quinze et à sept.",
+				"quip": "Team Dupont : le meilleur du monde, à quinze et à sept. Tu aimes la perfection.",
+				"giphyIds": [],
+				"giphyQuery": "Antoine Dupont"
+			},
+			"b": {
+				"name": "Sébastien Chabal",
+				"origin": "France · 1998",
+				"line": "La barbe, les cheveux, et les plaquages.",
+				"quip": "Team Chabal : la barbe, les cheveux, et les plaquages. Ton style du dimanche.",
+				"giphyIds": [],
+				"giphyQuery": "rugby player beard"
+			},
+			"bothQuip": "Les deux. Le rugby français, de l’ancienne à la nouvelle école.",
+			"noneQuip": "Ni l’un ni l’autre. Le rugby, tu ne comprends pas toutes les règles. Personne ne les comprend."
+		},
+		{
+			"id": "sport-echecs-poker",
+			"category": "sport",
+			"a": {
+				"name": "Échecs",
+				"origin": "L’échiquier",
+				"line": "Soixante-quatre cases et des heures de réflexion.",
+				"quip": "Team échecs : tu réfléchis quatre coups à l’avance. Même pour choisir un yaourt.",
+				"giphyIds": [],
+				"giphyQuery": "chess"
+			},
+			"b": {
+				"name": "Poker",
+				"origin": "La table verte",
+				"line": "Des cartes, des jetons, et une tête impassible.",
+				"quip": "Team poker : ton visage ne trahit rien. Même là, en lisant ça.",
+				"giphyIds": [],
+				"giphyQuery": "poker face"
+			},
+			"bothQuip": "Les deux. Stratégie et bluff, ton cocktail préféré.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux de réflexion, ça te fatigue."
+		},
+		{
+			"id": "sport-magnus-carlsen-garry-kasparov",
+			"category": "sport",
+			"a": {
+				"name": "Magnus Carlsen",
+				"origin": "Norvège · 2004",
+				"line": "Champion du monde, et numéro un depuis une éternité.",
+				"quip": "Team Carlsen : numéro un depuis une éternité. Tu aimes les longs règnes.",
+				"giphyIds": [],
+				"giphyQuery": "Magnus Carlsen"
+			},
+			"b": {
+				"name": "Garry Kasparov",
+				"origin": "Russie · 1985",
+				"line": "Le champion qui a affronté Deep Blue.",
+				"quip": "Team Kasparov : il a affronté une machine. Toi aussi, chaque matin, avec ta box Internet.",
+				"giphyIds": [],
+				"giphyQuery": "chess grandmaster"
+			},
+			"bothQuip": "Les deux. Les génies des échecs, tu les admires sans comprendre leurs coups.",
+			"noneQuip": "Ni l’un ni l’autre. Aux échecs, tu sais à peine bouger le cavalier."
+		},
+		{
+			"id": "sport-escalade-randonnee",
+			"category": "sport",
+			"a": {
+				"name": "Escalade",
+				"origin": "La falaise",
+				"line": "Les doigts dans la magnésie, la tête dans le vide.",
+				"quip": "Team escalade : de la magnésie plein les doigts, la tête dans le vide. Tu adores.",
+				"giphyIds": [],
+				"giphyQuery": "rock climbing"
+			},
+			"b": {
+				"name": "Randonnée",
+				"origin": "Le sentier",
+				"line": "Un sac, des chaussures, et un sandwich au sommet.",
+				"quip": "Team randonnée : le sandwich au sommet, c’est la seule raison de monter. Et c’est une bonne raison.",
+				"giphyIds": [],
+				"giphyQuery": "hiking"
+			},
+			"bothQuip": "Les deux. La montagne, tu la grimpes et tu la marches.",
+			"noneQuip": "Ni l’un ni l’autre. La montagne, tu la préfères en carte postale."
+		},
+		{
+			"id": "sport-marathon-semi-marathon",
+			"category": "sport",
+			"a": {
+				"name": "Marathon",
+				"origin": "42,195 km",
+				"line": "Des ampoules, et une médaille.",
+				"quip": "Team marathon : 42,195 km. Et tu en parles encore, des années après.",
+				"giphyIds": [],
+				"giphyQuery": "marathon finish"
+			},
+			"b": {
+				"name": "Semi-marathon",
+				"origin": "21,1 km",
+				"line": "La moitié de la souffrance.",
+				"quip": "Team semi-marathon : la moitié de la souffrance, une médaille entière. Malin.",
+				"giphyIds": [],
+				"giphyQuery": "running race"
+			},
+			"bothQuip": "Les deux. Tu cours beaucoup. On est fier de toi.",
+			"noneQuip": "Ni l’un ni l’autre. Courir quarante kilomètres sans raison, très peu pour toi."
+		},
+		{
+			"id": "sport-le-sport-a-la-tele-le-sport-en-vrai",
+			"category": "sport",
+			"a": {
+				"name": "Le sport à la télé",
+				"origin": "Le canapé",
+				"line": "Expert en tactique, sans se lever.",
+				"quip": "Team sport à la télé : expert en tactique, sans jamais quitter le canapé.",
+				"giphyIds": [],
+				"giphyQuery": "armchair coach"
+			},
+			"b": {
+				"name": "Le sport en vrai",
+				"origin": "Le terrain",
+				"line": "Moins d’opinions, plus de courbatures.",
+				"quip": "Team sport en vrai : moins d’opinions, plus de courbatures. Respect.",
+				"giphyIds": [],
+				"giphyQuery": "sore muscles"
+			},
+			"bothQuip": "Les deux. Tu fais du sport, puis tu le regardes. L’équilibre.",
+			"noneQuip": "Ni l’un ni l’autre. Le sport, ce n’est vraiment pas ton truc. C’est honnête."
+		},
+		{
+			"id": "sport-boxe-judo",
+			"category": "sport",
+			"a": {
+				"name": "Boxe",
+				"origin": "Le ring",
+				"line": "Des gants, des rounds, et un protège-dents.",
+				"quip": "Team boxe : tu as un protège-dents dans un tiroir. Au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "boxing"
+			},
+			"b": {
+				"name": "Judo",
+				"origin": "Le tatami",
+				"line": "Un kimono, une ceinture, et des chutes maîtrisées.",
+				"quip": "Team judo : tu sais tomber sans te faire mal. Très utile sur le verglas.",
+				"giphyIds": [],
+				"giphyQuery": "judo"
+			},
+			"bothQuip": "Les deux. Les sports de combat, tu les respectes. Et tu les évites.",
+			"noneQuip": "Ni boxe ni judo. Les sports de combat, très peu pour toi."
+		},
+		{
+			"id": "sport-le-peloton-du-tour-le-velo-du-dimanche",
+			"category": "sport",
+			"a": {
+				"name": "Le peloton du Tour",
+				"origin": "Le Tour de France",
+				"line": "Deux cents kilomètres par jour, à quarante à l’heure.",
+				"quip": "Team peloton : deux cents kilomètres par jour. Toi, tu admires depuis le canapé.",
+				"giphyIds": [],
+				"giphyQuery": "peloton"
+			},
+			"b": {
+				"name": "Le vélo du dimanche",
+				"origin": "La campagne",
+				"line": "Vingt kilomètres, et une pause à la boulangerie.",
+				"quip": "Team vélo du dimanche : vingt kilomètres et une pause à la boulangerie. La vraie raison du vélo.",
+				"giphyIds": [],
+				"giphyQuery": "sunday bike ride"
+			},
+			"bothQuip": "Les deux. Tu regardes le Tour, puis tu sors ton vélo. Pour aller à la boulangerie.",
+			"noneQuip": "Ni l’un ni l’autre. Le vélo reste au garage."
+		},
+		{
+			"id": "sport-gardien-de-but-attaquant",
+			"category": "sport",
+			"a": {
+				"name": "Gardien de but",
+				"origin": "La cage",
+				"line": "Tout le monde t’oublie, sauf quand tu rates.",
+				"quip": "Team gardien : tout le monde t’oublie, sauf quand tu rates. Courage.",
+				"giphyIds": [],
+				"giphyQuery": "goalkeeper"
+			},
+			"b": {
+				"name": "Attaquant",
+				"origin": "La surface",
+				"line": "Tout le monde t’aime, surtout quand tu marques.",
+				"quip": "Team attaquant : tout le monde t’aime, surtout quand tu marques. Et tu marques.",
+				"giphyIds": [],
+				"giphyQuery": "striker goal celebration"
+			},
+			"bothQuip": "Les deux. Marquer et arrêter les tirs : tu veux tout faire, comme d’habitude.",
+			"noneQuip": "Ni l’un ni l’autre. Team défense : on t’oublie, mais tout tient grâce à toi."
+		},
+		{
+			"id": "sport-harlem-globetrotters-washington-generals",
+			"category": "sport",
+			"a": {
+				"name": "Harlem Globetrotters",
+				"origin": "États-Unis · 1926",
+				"line": "Du basket, et des tours de magie avec le ballon.",
+				"quip": "Team Globetrotters : tu fais tourner un ballon sur ton doigt. Ou une assiette.",
+				"giphyIds": [],
+				"giphyQuery": "Harlem Globetrotters"
+			},
+			"b": {
+				"name": "Washington Generals",
+				"origin": "États-Unis · 1952",
+				"line": "L’équipe qui perd tous ses matchs depuis des décennies.",
+				"quip": "Team Washington Generals : tu perds tous tes matchs depuis des années, et tu reviens quand même. Admirable.",
+				"giphyIds": [],
+				"giphyQuery": "losing team"
+			},
+			"bothQuip": "Les deux. Les gagnants et les perdants, tu les aimes tous.",
+			"noneQuip": "Ni l’un ni l’autre. Le basket-spectacle, très peu pour toi."
+		},
+		{
+			"id": "sport-la-ola-le-clapping-viking",
+			"category": "sport",
+			"a": {
+				"name": "La ola",
+				"origin": "Le stade",
+				"line": "Tout le stade se lève, puis se rassoit.",
+				"quip": "Team ola : tu te lèves, tu te rassois, et tu adores ça. Même au cinéma.",
+				"giphyIds": [],
+				"giphyQuery": "stadium wave"
+			},
+			"b": {
+				"name": "Le clapping viking",
+				"origin": "L’Islande · 2016",
+				"line": "Un « hou ! », un clap, et l’Euro 2016.",
+				"quip": "Team clapping viking : un « hou ! », un clap, et toute la tribune avec toi.",
+				"giphyIds": [],
+				"giphyQuery": "Iceland thunderclap"
+			},
+			"bothQuip": "Les deux. Dans un stade, tu animes toute la tribune.",
+			"noneQuip": "Ni l’un ni l’autre. Dans un stade, tu regardes le match. Juste le match."
+		},
+		{
+			"id": "sport-je-comprends-je-fais-semblant",
+			"category": "sport",
+			"question": "Le hors-jeu : tu comprends ou tu fais semblant ?",
+			"a": {
+				"name": "Je comprends",
+				"origin": "Les vrais supporters",
+				"line": "L’avant-dernier défenseur, le ballon, le moment de la passe. Facile.",
+				"quip": "Team je comprends : tu as expliqué le hors-jeu avec des salières à table. Personne n’a suivi.",
+				"giphyIds": [],
+				"giphyQuery": "referee flag"
+			},
+			"b": {
+				"name": "Je fais semblant",
+				"origin": "Le reste du monde",
+				"line": "On hoche la tête, et on dit « ah oui, clairement ».",
+				"quip": "Team je fais semblant : tu cries « hors-jeu ! » au hasard. Tu as raison une fois sur deux.",
+				"giphyIds": [],
+				"giphyQuery": "confused"
+			},
+			"bothQuip": "Les deux. Tu comprends à moitié, et tu fais semblant pour l’autre moitié.",
+			"noneQuip": "Ni l’un ni l’autre. Tu demandes à chaque fois. Personne ne sait vraiment l’expliquer."
+		},
+		{
+			"id": "sport-courir-avec-de-la-musique-courir-sans-musique",
+			"category": "sport",
+			"a": {
+				"name": "Courir avec de la musique",
+				"origin": "Les écouteurs",
+				"line": "Une playlist motivante, et le rythme dans les jambes.",
+				"quip": "Team musique : ta playlist de course s’appelle « Rocky ». Ou presque.",
+				"giphyIds": [],
+				"giphyQuery": "running headphones"
+			},
+			"b": {
+				"name": "Courir sans musique",
+				"origin": "Le silence",
+				"line": "Ta respiration, tes pas, et tes pensées.",
+				"quip": "Team sans musique : tu cours avec tes pensées. Elles vont plus vite que toi.",
+				"giphyIds": [],
+				"giphyQuery": "running"
+			},
+			"bothQuip": "Les deux. La musique pour démarrer, le silence pour finir.",
+			"noneQuip": "Ni l’un ni l’autre. Courir, tu ne le fais que pour le bus."
+		},
+		{
+			"id": "sport-s-echauffer-y-aller-direct",
+			"category": "sport",
+			"a": {
+				"name": "S’échauffer",
+				"origin": "Le bord du terrain",
+				"line": "Dix minutes d’étirements, et des muscles prêts.",
+				"quip": "Team échauffement : tu t’étires dix minutes avant de courir trois minutes. Prudence.",
+				"giphyIds": [],
+				"giphyQuery": "stretching"
+			},
+			"b": {
+				"name": "Y aller direct",
+				"origin": "Le terrain",
+				"line": "Pas le temps. On commence, on verra bien.",
+				"quip": "Team direct : pas d’échauffement, et une petite douleur à la cuisse. Tous les dimanches.",
+				"giphyIds": [],
+				"giphyQuery": "sprint"
+			},
+			"bothQuip": "Les deux. Tu t’échauffes après t’être fait mal. L’ordre est inversé, mais l’idée est là.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de sport, donc pas d’échauffement. Logique."
+		},
+		{
+			"id": "sport-le-sport-le-matin-le-sport-le-soir",
+			"category": "sport",
+			"a": {
+				"name": "Le sport le matin",
+				"origin": "6 h, avant le travail",
+				"line": "Réveil aux aurores, et une journée qui commence en héros.",
+				"quip": "Team matin : tu as fait ton sport avant que les autres soient réveillés. Et tu le leur dis.",
+				"giphyIds": [],
+				"giphyQuery": "morning workout"
+			},
+			"b": {
+				"name": "Le sport le soir",
+				"origin": "Après le travail",
+				"line": "Pour évacuer la journée, et dormir comme un bébé.",
+				"quip": "Team soir : tu évacues ta journée de travail à coups de baskets. Ton chef ne sait pas ce qu’il te doit.",
+				"giphyIds": [],
+				"giphyQuery": "evening workout"
+			},
+			"bothQuip": "Les deux, matin et soir ? Tu nous fatigues rien qu’à te lire.",
+			"noneQuip": "Ni l’un ni l’autre. Le sport à midi, entre deux réunions. Ou jamais."
+		},
+		{
+			"id": "sport-fidele-a-mon-club-celui-qui-gagne",
+			"category": "sport",
+			"question": "Côté supporter : fidèle à ton club, ou à celui qui gagne ?",
+			"a": {
+				"name": "Fidèle à mon club",
+				"origin": "Depuis toujours",
+				"line": "Dans la victoire comme dans la défaite. Surtout la défaite.",
+				"quip": "Team fidèle : ton club perd depuis dix ans, et tu as encore ton écharpe. Respect.",
+				"giphyIds": [],
+				"giphyQuery": "loyal fan"
+			},
+			"b": {
+				"name": "Celui qui gagne",
+				"origin": "Selon la saison",
+				"line": "Un maillot différent chaque année.",
+				"quip": "Team celui qui gagne : cinq maillots de cinq clubs différents. Toujours dans le bon camp.",
+				"giphyIds": [],
+				"giphyQuery": "bandwagon"
+			},
+			"bothQuip": "Les deux. Ton club dans le cœur, et un autre en secours pour les finales.",
+			"noneQuip": "Ni l’un ni l’autre. Le foot, tu le regardes pour l’ambiance. Pas pour les clubs."
+		},
+		{
+			"id": "sport-padel-squash",
+			"category": "sport",
+			"a": {
+				"name": "Padel",
+				"origin": "Le club, depuis peu",
+				"line": "Des murs, une raquette pleine, et tout le monde s’y met.",
+				"quip": "Team padel : tu as commencé l’an dernier, et tu en parles comme d’une religion.",
+				"giphyIds": [],
+				"giphyQuery": "padel"
+			},
+			"b": {
+				"name": "Squash",
+				"origin": "Le club, depuis toujours",
+				"line": "Quatre murs, une balle qui file, et beaucoup de sueur.",
+				"quip": "Team squash : tu jouais entre quatre murs bien avant que ce soit à la mode.",
+				"giphyIds": [],
+				"giphyQuery": "squash"
+			},
+			"bothQuip": "Les deux. Les raquettes entre quatre murs, c’est ton truc.",
+			"noneQuip": "Ni l’un ni l’autre. Les murs, c’est pour s’appuyer."
+		},
+		{
+			"id": "sport-maillot-jaune-maillot-a-pois",
+			"category": "sport",
+			"question": "Sur le Tour : maillot jaune ou maillot à pois ?",
+			"a": {
+				"name": "Maillot jaune",
+				"origin": "Le leader du Tour",
+				"line": "Le premier du classement, et la gloire.",
+				"quip": "Team maillot jaune : tu vises la première place. Même au Monopoly. Surtout au Monopoly.",
+				"giphyIds": [],
+				"giphyQuery": "yellow jersey"
+			},
+			"b": {
+				"name": "Maillot à pois",
+				"origin": "Le meilleur grimpeur",
+				"line": "Les cols, les lacets, et un style inimitable.",
+				"quip": "Team maillot à pois : tu préfères les montées. Et les pois rouges.",
+				"giphyIds": [],
+				"giphyQuery": "polka dot"
+			},
+			"bothQuip": "Les deux. Leader et grimpeur : tu veux tout.",
+			"noneQuip": "Ni l’un ni l’autre. Team maillot vert, le sprinteur."
+		},
+		{
+			"id": "sport-les-prolongations-les-tirs-au-but",
+			"category": "sport",
+			"question": "Pour finir un match : prolongations ou tirs au but ?",
+			"a": {
+				"name": "Les prolongations",
+				"origin": "Le match continue",
+				"line": "Trente minutes de plus, et des crampes partout.",
+				"quip": "Team prolongations : tu aimes que ça dure. Même quand tes nerfs lâchent.",
+				"giphyIds": [],
+				"giphyQuery": "extra time"
+			},
+			"b": {
+				"name": "Les tirs au but",
+				"origin": "La loterie",
+				"line": "Un face-à-face, et le cœur qui s’arrête.",
+				"quip": "Team tirs au but : tu regardes les penalties entre tes doigts. Et tu cries à chaque fois.",
+				"giphyIds": [],
+				"giphyQuery": "penalty shootout"
+			},
+			"bothQuip": "Les deux. Prolongations puis tirs au but : ton cœur ne s’en remet jamais.",
+			"noneQuip": "Ni l’un ni l’autre. Un match nul, et la paix pour tout le monde."
+		},
+		{
+			"id": "mode-barbe-rase-de-pres",
+			"category": "mode",
+			"a": {
+				"name": "Barbe",
+				"origin": "Le visage",
+				"line": "Trois semaines de patience et un peigne.",
+				"quip": "Team barbe : tu la caresses en réfléchissant. Ou tu aimerais en avoir une pour le faire.",
+				"giphyIds": [],
+				"giphyQuery": "beard"
+			},
+			"b": {
+				"name": "Rasé de près",
+				"origin": "La salle de bains",
+				"line": "Lisse, net, et sans miettes de pain.",
+				"quip": "Team rasé de près : lisse, net, et zéro miette de croissant coincée.",
+				"giphyIds": [],
+				"giphyQuery": "shaving"
+			},
+			"bothQuip": "Les deux. Barbe en hiver, rasé en été. Les saisons, c’est important.",
+			"noneQuip": "Ni l’un ni l’autre. Team barbe de trois jours, pour toujours."
+		},
+		{
+			"id": "mode-crocs-birkenstock",
+			"category": "mode",
+			"a": {
+				"name": "Crocs",
+				"origin": "Colorado · 2002",
+				"line": "Moches, confortables, et parfaitement assumées.",
+				"quip": "Team Crocs : moches, confortables, et tu as mis les petits badges. Assume.",
+				"giphyIds": [],
+				"giphyQuery": "Crocs shoes"
+			},
+			"b": {
+				"name": "Birkenstock",
+				"origin": "Allemagne · 1774",
+				"line": "Des sandales orthopédiques, devenues cool.",
+				"quip": "Team Birkenstock : des sandales orthopédiques, et un air très cool. Le miracle.",
+				"giphyIds": [],
+				"giphyQuery": "Birkenstock"
+			},
+			"bothQuip": "Les deux. Ton confort passe avant tout. Même avant ta dignité.",
+			"noneQuip": "Ni Crocs ni Birkenstock. Tes pieds méritent mieux, selon toi."
+		},
+		{
+			"id": "mode-jogging-jean",
+			"category": "mode",
+			"a": {
+				"name": "Jogging",
+				"origin": "Le canapé",
+				"line": "Confortable, élastique, et sans jugement.",
+				"quip": "Team jogging : confortable, élastique, et sans jugement. Même pour aller dîner.",
+				"giphyIds": [],
+				"giphyQuery": "sweatpants"
+			},
+			"b": {
+				"name": "Jean",
+				"origin": "La garde-robe",
+				"line": "Il va avec tout, sauf avec un deuxième jean.",
+				"quip": "Team jean : il va avec tout. Sauf avec un deuxième jean.",
+				"giphyIds": [],
+				"giphyQuery": "denim jeans"
+			},
+			"bothQuip": "Les deux. Le jean dehors, le jogging trois secondes après avoir passé la porte.",
+			"noneQuip": "Ni l’un ni l’autre. Pantalon à pinces, en toutes circonstances. La classe."
+		},
+		{
+			"id": "mode-pour-contre",
+			"category": "mode",
+			"question": "Les chaussettes dans les sandales : pour ou contre ?",
+			"a": {
+				"name": "Pour",
+				"origin": "Les audacieux",
+				"line": "Des chaussettes, et des sandales. Le confort avant tout.",
+				"quip": "Team pour : le confort avant tout. Le regard des autres, tu t’en fiches.",
+				"giphyIds": [],
+				"giphyQuery": "socks and sandals"
+			},
+			"b": {
+				"name": "Contre",
+				"origin": "Les gardiens du style",
+				"line": "Il y a des règles. Celle-ci en est une.",
+				"quip": "Team contre : il y a des règles. Celle-ci est sacrée.",
+				"giphyIds": [],
+				"giphyQuery": "fashion police"
+			},
+			"bothQuip": "Les deux. Chaussettes et sandales chez toi, jamais dehors. Un compromis.",
+			"noneQuip": "Ni pour ni contre. Tu ne portes jamais de sandales. Problème évité."
+		},
+		{
+			"id": "mode-cheveux-longs-cheveux-courts",
+			"category": "mode",
+			"a": {
+				"name": "Cheveux longs",
+				"origin": "La crinière",
+				"line": "Libres, au vent, et dans la soupe.",
+				"quip": "Team cheveux longs : libres, au vent, et dans la soupe. Régulièrement.",
+				"giphyIds": [],
+				"giphyQuery": "long hair flip"
+			},
+			"b": {
+				"name": "Cheveux courts",
+				"origin": "Le coiffeur",
+				"line": "Trois minutes de séchage, et c’est réglé.",
+				"quip": "Team cheveux courts : trois minutes de séchage. Le reste du temps, tu vis.",
+				"giphyIds": [],
+				"giphyQuery": "short haircut"
+			},
+			"bothQuip": "Les deux. Tu changes de coupe à chaque crise existentielle.",
+			"noneQuip": "Ni longs ni courts. Mi-longs : l’éternel entre-deux."
+		},
+		{
+			"id": "mode-lunettes-lentilles",
+			"category": "mode",
+			"a": {
+				"name": "Lunettes",
+				"origin": "Le nez",
+				"line": "On voit bien, sauf quand il pleut.",
+				"quip": "Team lunettes : tu vois bien, sauf quand il pleut. Et quand tu ouvres le four.",
+				"giphyIds": [],
+				"giphyQuery": "glasses"
+			},
+			"b": {
+				"name": "Lentilles",
+				"origin": "Les yeux",
+				"line": "On voit bien, et on les cherche sur le lavabo.",
+				"quip": "Team lentilles : tu as déjà cherché une lentille sur le lavabo. Pendant vingt minutes.",
+				"giphyIds": [],
+				"giphyQuery": "contact lenses"
+			},
+			"bothQuip": "Les deux. Les lentilles le jour, les lunettes le soir. Tes yeux ont deux vies.",
+			"noneQuip": "Ni lunettes ni lentilles. Une vue parfaite. On est jaloux."
+		},
+		{
+			"id": "mode-baskets-chaussures-de-ville",
+			"category": "mode",
+			"a": {
+				"name": "Baskets",
+				"origin": "Les pieds",
+				"line": "Confort absolu, pour toutes les occasions.",
+				"quip": "Team baskets : confort absolu, même aux mariages. Surtout aux mariages.",
+				"giphyIds": [],
+				"giphyQuery": "sneakers"
+			},
+			"b": {
+				"name": "Chaussures de ville",
+				"origin": "Les pieds, le lundi",
+				"line": "Élégantes, et des ampoules en prime.",
+				"quip": "Team chaussures de ville : élégantes, et des ampoules en prime. La beauté a un prix.",
+				"giphyIds": [],
+				"giphyQuery": "dress shoes"
+			},
+			"bothQuip": "Les deux. Les chaussures de ville aux pieds, les baskets dans le sac. Jusqu’à 22 h.",
+			"noneQuip": "Ni l’un ni l’autre. Pieds nus, partout, tout le temps. Un mode de vie."
+		},
+		{
+			"id": "mode-costume-tenue-decontractee",
+			"category": "mode",
+			"a": {
+				"name": "Costume",
+				"origin": "Le bureau",
+				"line": "Sérieux, cravaté, et un peu serré.",
+				"quip": "Team costume : sérieux, cravaté, un peu serré. Mais tu as l’air de tout savoir.",
+				"giphyIds": [],
+				"giphyQuery": "business suit"
+			},
+			"b": {
+				"name": "Tenue décontractée",
+				"origin": "Le bureau aussi",
+				"line": "Un sweat, et des idées.",
+				"quip": "Team décontracté : un sweat, et des idées. Les meilleures idées viennent en sweat.",
+				"giphyIds": [],
+				"giphyQuery": "casual friday"
+			},
+			"bothQuip": "Les deux. Le costume en haut pour la visio, le jogging en bas.",
+			"noneQuip": "Ni l’un ni l’autre. Ta tenue de travail, c’est le pyjama. Télétravail oblige."
+		},
+		{
+			"id": "mode-pyjama-t-shirt-xxl",
+			"category": "mode",
+			"question": "Pour dormir : pyjama ou vieux t-shirt ?",
+			"a": {
+				"name": "Pyjama",
+				"origin": "La chambre",
+				"line": "Un vrai pyjama, assorti, et repassé.",
+				"quip": "Team pyjama : assorti, repassé. Tu dors comme dans un catalogue.",
+				"giphyIds": [],
+				"giphyQuery": "pajamas"
+			},
+			"b": {
+				"name": "T-shirt XXL",
+				"origin": "La chambre",
+				"line": "Un vieux t-shirt de concert, trois tailles trop grand.",
+				"quip": "Team t-shirt XXL : un vieux t-shirt de concert, trois tailles trop grand. Le confort absolu.",
+				"giphyIds": [],
+				"giphyQuery": "oversized t-shirt"
+			},
+			"bothQuip": "Les deux. Pyjama l’hiver, t-shirt l’été. La sagesse des saisons.",
+			"noneQuip": "Ni l’un ni l’autre. On ne posera pas plus de questions."
+		},
+		{
+			"id": "mode-moustache-bouc",
+			"category": "mode",
+			"a": {
+				"name": "Moustache",
+				"origin": "La lèvre du haut",
+				"line": "Un accessoire, et un caractère.",
+				"quip": "Team moustache : un accessoire, et un caractère. Tu la lisses en réfléchissant.",
+				"giphyIds": [],
+				"giphyQuery": "mustache"
+			},
+			"b": {
+				"name": "Bouc",
+				"origin": "Le menton",
+				"line": "Une petite touche, juste en bas.",
+				"quip": "Team bouc : une petite touche au menton. Le minimum syndical.",
+				"giphyIds": [],
+				"giphyQuery": "goatee"
+			},
+			"bothQuip": "Les deux. Moustache et bouc : le combo des mousquetaires.",
+			"noneQuip": "Ni l’un ni l’autre. Les poils sur le visage, très peu pour toi."
+		},
+		{
+			"id": "mode-tatouage-peau-nature",
+			"category": "mode",
+			"a": {
+				"name": "Tatouage",
+				"origin": "La peau",
+				"line": "Une histoire gravée pour toujours.",
+				"quip": "Team tatouage : chaque dessin a une histoire. Même celui que tu regrettes un peu.",
+				"giphyIds": [],
+				"giphyQuery": "tattoo"
+			},
+			"b": {
+				"name": "Peau nature",
+				"origin": "La peau aussi",
+				"line": "Une toile vierge, et aucun regret.",
+				"quip": "Team peau nature : une toile vierge, et aucun regret. Jamais.",
+				"giphyIds": [],
+				"giphyQuery": "clean skin"
+			},
+			"bothQuip": "Les deux. Un seul petit tatouage, bien caché. Ça compte à moitié.",
+			"noneQuip": "Ni l’un ni l’autre. Les tatouages des Malabar, ça te suffisait."
+		},
+		{
+			"id": "mode-bonnet-casquette",
+			"category": "mode",
+			"a": {
+				"name": "Bonnet",
+				"origin": "La tête, en hiver",
+				"line": "Chaud, mais adieu le brushing.",
+				"quip": "Team bonnet : chaud, mais adieu le brushing. Tu as fait ton choix.",
+				"giphyIds": [],
+				"giphyQuery": "beanie"
+			},
+			"b": {
+				"name": "Casquette",
+				"origin": "La tête, en été",
+				"line": "Protège du soleil, et des mauvais jours de cheveux.",
+				"quip": "Team casquette : elle cache les mauvais jours de cheveux. Et il y en a beaucoup.",
+				"giphyIds": [],
+				"giphyQuery": "cap"
+			},
+			"bothQuip": "Les deux. Le bonnet en hiver, la casquette en été. Tu ne sors jamais tête nue.",
+			"noneQuip": "Ni bonnet ni casquette. Tête nue, quelle que soit la météo. Courage."
+		},
+		{
+			"id": "mode-echarpe-col-roule",
+			"category": "mode",
+			"a": {
+				"name": "Écharpe",
+				"origin": "Le cou",
+				"line": "Trois tours, et on ne voit plus le menton.",
+				"quip": "Team écharpe : trois tours, et on ne voit plus ton menton. L’hiver est là.",
+				"giphyIds": [],
+				"giphyQuery": "scarf"
+			},
+			"b": {
+				"name": "Col roulé",
+				"origin": "Le cou aussi",
+				"line": "L’écharpe intégrée, version philosophe.",
+				"quip": "Team col roulé : l’écharpe intégrée, version philosophe. Tu as l’air profond.",
+				"giphyIds": [],
+				"giphyQuery": "turtleneck"
+			},
+			"bothQuip": "Les deux. Col roulé et écharpe : ton cou n’a jamais vu le soleil.",
+			"noneQuip": "Ni l’un ni l’autre. Ton cou reste libre. Même en janvier."
+		},
+		{
+			"id": "mode-sac-a-dos-sac-en-bandouliere",
+			"category": "mode",
+			"a": {
+				"name": "Sac à dos",
+				"origin": "Le dos",
+				"line": "Les deux bretelles, la posture parfaite.",
+				"quip": "Team sac à dos : deux bretelles, la posture parfaite. Ton dos te remercie.",
+				"giphyIds": [],
+				"giphyQuery": "backpack"
+			},
+			"b": {
+				"name": "Sac en bandoulière",
+				"origin": "L’épaule",
+				"line": "Une seule bretelle, et le style.",
+				"quip": "Team bandoulière : une seule bretelle, et le style. Ton épaule, un peu moins.",
+				"giphyIds": [],
+				"giphyQuery": "crossbody bag"
+			},
+			"bothQuip": "Les deux. Le sac à dos pour la rando, la bandoulière pour la ville.",
+			"noneQuip": "Ni l’un ni l’autre. Tout dans les poches. Elles débordent."
+		},
+		{
+			"id": "mode-montre-telephone",
+			"category": "mode",
+			"question": "Pour savoir l’heure : montre ou téléphone ?",
+			"a": {
+				"name": "Montre",
+				"origin": "Le poignet",
+				"line": "Pour savoir l’heure, et pour le style.",
+				"quip": "Team montre : tu regardes l’heure sans te faire happer par tes messages. Le contrôle.",
+				"giphyIds": [],
+				"giphyQuery": "wristwatch"
+			},
+			"b": {
+				"name": "Téléphone",
+				"origin": "La poche",
+				"line": "Pour savoir l’heure, et regarder ses messages au passage.",
+				"quip": "Team téléphone : tu regardes l’heure, puis tes messages, et vingt minutes passent.",
+				"giphyIds": [],
+				"giphyQuery": "checking phone time"
+			},
+			"bothQuip": "Les deux. Tu regardes ta montre, puis ton téléphone pour vérifier.",
+			"noneQuip": "Ni l’un ni l’autre. Tu demandes l’heure aux gens. Comme au XIXe siècle."
+		},
+		{
+			"id": "mode-talons-baskets-plates",
+			"category": "mode",
+			"a": {
+				"name": "Talons",
+				"origin": "Les grandes occasions",
+				"line": "Dix centimètres de plus, et de la prestance.",
+				"quip": "Team talons : dix centimètres de plus, et de la prestance. Jusqu’à minuit.",
+				"giphyIds": [],
+				"giphyQuery": "high heels"
+			},
+			"b": {
+				"name": "Baskets plates",
+				"origin": "Toutes les occasions",
+				"line": "Dix centimètres de moins, et dix kilomètres de plus.",
+				"quip": "Team baskets plates : dix centimètres de moins, dix kilomètres de plus. Le calcul est vite fait.",
+				"giphyIds": [],
+				"giphyQuery": "flat sneakers"
+			},
+			"bothQuip": "Les deux. Les talons pour l’entrée, les baskets dans le sac pour la fin de soirée.",
+			"noneQuip": "Ni l’un ni l’autre. Les chaussures, c’est un détail pour toi."
+		},
+		{
+			"id": "mode-cravate-n-ud-papillon",
+			"category": "mode",
+			"a": {
+				"name": "Cravate",
+				"origin": "Le col",
+				"line": "Un nœud classique, et le sérieux.",
+				"quip": "Team cravate : le nœud classique, et le sérieux. Tu sais faire un nœud Windsor ? Bravo.",
+				"giphyIds": [],
+				"giphyQuery": "necktie"
+			},
+			"b": {
+				"name": "Nœud papillon",
+				"origin": "Le col aussi",
+				"line": "Un nœud plus court, et plus de fantaisie.",
+				"quip": "Team nœud papillon : un peu de fantaisie au cou. La personne la plus élégante du mariage.",
+				"giphyIds": [],
+				"giphyQuery": "bow tie"
+			},
+			"bothQuip": "Les deux. La cravate au bureau, le nœud papillon le soir. Une garde-robe de star.",
+			"noneQuip": "Ni l’un ni l’autre. Col ouvert, et liberté."
+		},
+		{
+			"id": "mode-chemise-rentree-chemise-sortie",
+			"category": "mode",
+			"a": {
+				"name": "Chemise rentrée",
+				"origin": "La ceinture",
+				"line": "Net, propre, réglementaire.",
+				"quip": "Team rentrée : net, propre, réglementaire. Comme ta vie, probablement.",
+				"giphyIds": [],
+				"giphyQuery": "tucked shirt"
+			},
+			"b": {
+				"name": "Chemise sortie",
+				"origin": "La liberté",
+				"line": "Décontracté, et ça cache le dessert.",
+				"quip": "Team sortie : décontracté, et ça cache le dessert. Malin.",
+				"giphyIds": [],
+				"giphyQuery": "untucked shirt"
+			},
+			"bothQuip": "Les deux. Rentrée devant, sortie derrière. Le style approximatif.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de chemise. Le t-shirt, toujours."
+		},
+		{
+			"id": "mode-mulet-coupe-au-bol",
+			"category": "mode",
+			"a": {
+				"name": "Mulet",
+				"origin": "Les années 80",
+				"line": "Court devant, long derrière. Business devant, fête derrière.",
+				"quip": "Team mulet : le sérieux devant, la fête derrière. Tu assumes complètement.",
+				"giphyIds": [],
+				"giphyQuery": "mullet"
+			},
+			"b": {
+				"name": "Coupe au bol",
+				"origin": "Les années 90",
+				"line": "Un bol, une paire de ciseaux, et le tour est joué.",
+				"quip": "Team coupe au bol : un bol, des ciseaux, et un parent aux commandes. Les photos existent.",
+				"giphyIds": [],
+				"giphyQuery": "bowl cut"
+			},
+			"bothQuip": "Les deux. Tes photos d’enfance sont un musée de la coiffure.",
+			"noneQuip": "Ni l’un ni l’autre. Ta coupe a toujours été raisonnable. Bravo."
+		},
+		{
+			"id": "mode-doudoune-parka",
+			"category": "mode",
+			"a": {
+				"name": "Doudoune",
+				"origin": "L’hiver",
+				"line": "Gonflée, chaude, et un bruit de froissement.",
+				"quip": "Team doudoune : chaude, gonflée, et ce bruit de froissement à chaque geste.",
+				"giphyIds": [],
+				"giphyQuery": "puffer jacket"
+			},
+			"b": {
+				"name": "Parka",
+				"origin": "L’hiver aussi",
+				"line": "Une capuche en fausse fourrure, et l’air de partir en expédition.",
+				"quip": "Team parka : une capuche en fausse fourrure, et l’air de partir au pôle Nord. Pour aller au bureau.",
+				"giphyIds": [],
+				"giphyQuery": "parka"
+			},
+			"bothQuip": "Les deux. Ton entrée ressemble au vestiaire d’une station de ski.",
+			"noneQuip": "Ni l’un ni l’autre. Un pull suffit. Tu n’as jamais froid."
+		},
+		{
+			"id": "mode-pull-de-noel-moche-pull-elegant",
+			"category": "mode",
+			"a": {
+				"name": "Pull de Noël moche",
+				"origin": "Décembre",
+				"line": "Un renne qui clignote, et beaucoup d’autodérision.",
+				"quip": "Team pull moche : un renne qui clignote, et beaucoup d’autodérision. Le meilleur de Noël.",
+				"giphyIds": [],
+				"giphyQuery": "ugly christmas sweater"
+			},
+			"b": {
+				"name": "Pull élégant",
+				"origin": "Décembre aussi",
+				"line": "Du cachemire, et aucune lumière.",
+				"quip": "Team pull élégant : du cachemire, et aucune lumière. La classe du réveillon.",
+				"giphyIds": [],
+				"giphyQuery": "cashmere sweater"
+			},
+			"bothQuip": "Les deux. Le pull moche pour la soirée, l’élégant pour la photo de famille.",
+			"noneQuip": "Ni l’un ni l’autre. À Noël, tu restes en t-shirt. Le chauffage est à fond."
+		},
+		{
+			"id": "mode-lunettes-rondes-lunettes-aviateur",
+			"category": "mode",
+			"a": {
+				"name": "Lunettes rondes",
+				"origin": "Le nez",
+				"line": "L’air intellectuel, et un peu sorcier.",
+				"quip": "Team lunettes rondes : l’air intellectuel. Et un peu sorcier.",
+				"giphyIds": [],
+				"giphyQuery": "round glasses"
+			},
+			"b": {
+				"name": "Lunettes aviateur",
+				"origin": "Le nez aussi",
+				"line": "L’air de pilote, même dans le métro.",
+				"quip": "Team aviateur : l’air d’un pilote, même dans le métro. Surtout dans le métro.",
+				"giphyIds": [],
+				"giphyQuery": "aviator sunglasses"
+			},
+			"bothQuip": "Les deux. Les rondes pour lire, les aviateur pour frimer.",
+			"noneQuip": "Ni l’un ni l’autre. Pas besoin de lunettes. Profites-en."
+		},
+		{
+			"id": "mode-couleurs-vives-noir-integral",
+			"category": "mode",
+			"a": {
+				"name": "Couleurs vives",
+				"origin": "La garde-robe",
+				"line": "Du jaune, du rose, et de la bonne humeur.",
+				"quip": "Team couleurs vives : du jaune, du rose, de la bonne humeur. On te voit de loin.",
+				"giphyIds": [],
+				"giphyQuery": "colorful outfit"
+			},
+			"b": {
+				"name": "Noir intégral",
+				"origin": "La garde-robe aussi",
+				"line": "Élégant, discret, et facile à assortir.",
+				"quip": "Team noir intégral : élégant, discret, facile à assortir. Ton armoire est un tunnel.",
+				"giphyIds": [],
+				"giphyQuery": "all black outfit"
+			},
+			"bothQuip": "Les deux. Du noir en semaine, des couleurs le week-end. L’équilibre.",
+			"noneQuip": "Ni l’un ni l’autre. Le beige, toujours. La neutralité suisse."
+		},
+		{
+			"id": "mode-imprime-leopard-mariniere",
+			"category": "mode",
+			"a": {
+				"name": "Imprimé léopard",
+				"origin": "Le dressing",
+				"line": "Rugissant, et jamais discret.",
+				"quip": "Team léopard : rugissant, et jamais discret. Tu entres dans une pièce, on te remarque.",
+				"giphyIds": [],
+				"giphyQuery": "leopard print"
+			},
+			"b": {
+				"name": "Marinière",
+				"origin": "La Bretagne",
+				"line": "Des rayures, et un air de vacances.",
+				"quip": "Team marinière : des rayures, et un air de vacances en Bretagne. Toute l’année.",
+				"giphyIds": [],
+				"giphyQuery": "breton stripes"
+			},
+			"bothQuip": "Les deux. Léopard et marinière dans la même tenue ? On n’ose pas imaginer.",
+			"noneQuip": "Ni l’un ni l’autre. Les motifs, très peu pour toi. L’uni, c’est la vie."
+		},
+		{
+			"id": "mode-friperie-neuf",
+			"category": "mode",
+			"a": {
+				"name": "Friperie",
+				"origin": "Le vide-dressing",
+				"line": "Une pièce unique, et une histoire.",
+				"quip": "Team friperie : chaque vêtement a une histoire. Et une petite odeur de grenier.",
+				"giphyIds": [],
+				"giphyQuery": "thrift shopping"
+			},
+			"b": {
+				"name": "Neuf",
+				"origin": "Le magasin",
+				"line": "Une étiquette, et l’odeur du neuf.",
+				"quip": "Team neuf : l’étiquette, l’odeur du neuf, et aucun mystère.",
+				"giphyIds": [],
+				"giphyQuery": "new clothes"
+			},
+			"bothQuip": "Les deux. Une pièce vintage, une pièce neuve. Ton style est un mélange.",
+			"noneQuip": "Ni l’un ni l’autre. Tu portes les vêtements de ton frère ou de ta sœur. Depuis toujours."
+		},
+		{
+			"id": "mode-uniforme-tenue-libre",
+			"category": "mode",
+			"a": {
+				"name": "Uniforme",
+				"origin": "L’école",
+				"line": "Tout le monde pareil, aucun débat le matin.",
+				"quip": "Team uniforme : tout le monde pareil, et aucun débat le matin. La paix.",
+				"giphyIds": [],
+				"giphyQuery": "school uniform"
+			},
+			"b": {
+				"name": "Tenue libre",
+				"origin": "L’école aussi",
+				"line": "Chacun son style, et des débats tous les matins.",
+				"quip": "Team tenue libre : chacun son style, et un débat devant le miroir chaque matin.",
+				"giphyIds": [],
+				"giphyQuery": "kids outfit"
+			},
+			"bothQuip": "Les deux. L’uniforme en semaine, la liberté le week-end.",
+			"noneQuip": "Ni l’un ni l’autre. Ta tenue, c’est un pyjama et un plaid."
+		},
+		{
+			"id": "mode-kilt-pantalon",
+			"category": "mode",
+			"a": {
+				"name": "Kilt",
+				"origin": "L’Écosse",
+				"line": "Du tartan, et une bonne aération.",
+				"quip": "Team kilt : du tartan, et une bonne aération. Tu as du courage.",
+				"giphyIds": [],
+				"giphyQuery": "kilt"
+			},
+			"b": {
+				"name": "Pantalon",
+				"origin": "Partout",
+				"line": "Deux jambes, et aucune question.",
+				"quip": "Team pantalon : deux jambes, et aucune question. La sécurité.",
+				"giphyIds": [],
+				"giphyQuery": "trousers"
+			},
+			"bothQuip": "Les deux. Le kilt pour les mariages écossais, le pantalon pour le reste.",
+			"noneQuip": "Ni l’un ni l’autre. Le short, toute l’année. Même en novembre."
+		},
+		{
+			"id": "mode-beret-chapeau-de-paille",
+			"category": "mode",
+			"a": {
+				"name": "Béret",
+				"origin": "Le Pays basque",
+				"line": "La touche française, version cliché.",
+				"quip": "Team béret : la touche française. Il ne te manque qu’une baguette sous le bras.",
+				"giphyIds": [],
+				"giphyQuery": "beret"
+			},
+			"b": {
+				"name": "Chapeau de paille",
+				"origin": "La plage",
+				"line": "L’été, le soleil, et l’ombre portative.",
+				"quip": "Team chapeau de paille : l’été, le soleil, et l’ombre portative.",
+				"giphyIds": [],
+				"giphyQuery": "straw hat"
+			},
+			"bothQuip": "Les deux. Le béret à Paris, la paille à la plage. Tu voyages.",
+			"noneQuip": "Ni l’un ni l’autre. Les chapeaux, ça écrase les cheveux."
+		},
+		{
+			"id": "mode-bretelles-ceinture",
+			"category": "mode",
+			"a": {
+				"name": "Bretelles",
+				"origin": "Les épaules",
+				"line": "Un pantalon qui tient, et du style.",
+				"quip": "Team bretelles : un pantalon qui tient, et du style. Version grand-père cool.",
+				"giphyIds": [],
+				"giphyQuery": "suspenders"
+			},
+			"b": {
+				"name": "Ceinture",
+				"origin": "La taille",
+				"line": "Le grand classique, et des trous à rajouter.",
+				"quip": "Team ceinture : le grand classique, et des trous à rajouter après les fêtes.",
+				"giphyIds": [],
+				"giphyQuery": "belt"
+			},
+			"bothQuip": "Les deux, bretelles et ceinture ? Tu ne fais confiance à personne.",
+			"noneQuip": "Ni l’un ni l’autre. Ton pantalon tient tout seul. Un miracle."
+		},
+		{
+			"id": "mode-brushing-coiffe-decoiffe",
+			"category": "mode",
+			"a": {
+				"name": "Brushing",
+				"origin": "Le salon de coiffure",
+				"line": "Parfait, lisse, et interdit de pleuvoir.",
+				"quip": "Team brushing : parfait, lisse, et interdiction formelle de pleuvoir.",
+				"giphyIds": [],
+				"giphyQuery": "blowout hair"
+			},
+			"b": {
+				"name": "Coiffé-décoiffé",
+				"origin": "Le réveil",
+				"line": "Naturel, et parfois vraiment décoiffé.",
+				"quip": "Team coiffé-décoiffé : naturel. Et parfois vraiment décoiffé.",
+				"giphyIds": [],
+				"giphyQuery": "messy hair"
+			},
+			"bothQuip": "Les deux. Le brushing le matin, décoiffé le soir.",
+			"noneQuip": "Ni l’un ni l’autre. Ta coiffure dépend surtout de l’oreiller."
+		},
+		{
+			"id": "mode-cheveux-gris-assumes-coloration",
+			"category": "mode",
+			"a": {
+				"name": "Cheveux gris assumés",
+				"origin": "Le temps qui passe",
+				"line": "Le sel, sans le poivre, et avec fierté.",
+				"quip": "Team cheveux gris : le sel sans le poivre, et avec fierté. Respect.",
+				"giphyIds": [],
+				"giphyQuery": "gray hair"
+			},
+			"b": {
+				"name": "Coloration",
+				"origin": "Le salon de coiffure",
+				"line": "Une couleur choisie, et des racines à surveiller.",
+				"quip": "Team coloration : une couleur choisie, et des racines à surveiller toutes les cinq semaines.",
+				"giphyIds": [],
+				"giphyQuery": "hair dye"
+			},
+			"bothQuip": "Les deux. Quelques mèches grises, et le reste coloré. L’entre-deux.",
+			"noneQuip": "Ni l’un ni l’autre. Tes cheveux n’ont jamais changé. Un mystère."
+		},
+		{
+			"id": "mode-parfum-discret-parfum-fort",
+			"category": "mode",
+			"a": {
+				"name": "Parfum discret",
+				"origin": "Le cou",
+				"line": "On le sent quand on s’approche.",
+				"quip": "Team parfum discret : on le sent seulement en s’approchant. L’élégance.",
+				"giphyIds": [],
+				"giphyQuery": "perfume"
+			},
+			"b": {
+				"name": "Parfum fort",
+				"origin": "Tout l’ascenseur",
+				"line": "On le sent depuis le hall.",
+				"quip": "Team parfum fort : on te sent depuis le hall. L’ascenseur s’en souvient jusqu’au soir.",
+				"giphyIds": [],
+				"giphyQuery": "perfume spray"
+			},
+			"bothQuip": "Les deux. Discret au bureau, fort en soirée.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de parfum. L’odeur du savon, c’est bien."
+		},
+		{
+			"id": "mode-repasse-froisse-assume",
+			"category": "mode",
+			"a": {
+				"name": "Repassé",
+				"origin": "La planche à repasser",
+				"line": "Pas un pli, pas un défaut.",
+				"quip": "Team repassé : pas un pli, pas un défaut. Ta planche à repasser est ton amie.",
+				"giphyIds": [],
+				"giphyQuery": "ironing"
+			},
+			"b": {
+				"name": "Froissé assumé",
+				"origin": "Le sèche-linge",
+				"line": "C’est du lin. C’est voulu.",
+				"quip": "Team froissé assumé : c’est du lin, c’est voulu. Même quand ce n’est pas du lin.",
+				"giphyIds": [],
+				"giphyQuery": "wrinkled shirt"
+			},
+			"bothQuip": "Les deux. Repassé devant, froissé derrière. Personne ne regarde derrière.",
+			"noneQuip": "Ni l’un ni l’autre. Tu sors le linge du sèche-linge, et tu le portes direct."
+		},
+		{
+			"id": "mode-sandales-tongs",
+			"category": "mode",
+			"a": {
+				"name": "Sandales",
+				"origin": "L’été",
+				"line": "Des lanières, et des marques de bronzage.",
+				"quip": "Team sandales : des lanières, et des marques de bronzage très géométriques.",
+				"giphyIds": [],
+				"giphyQuery": "sandals"
+			},
+			"b": {
+				"name": "Tongs",
+				"origin": "La plage",
+				"line": "Le clac-clac de l’été.",
+				"quip": "Team tongs : le clac-clac de l’été. Ta musique préférée.",
+				"giphyIds": [],
+				"giphyQuery": "flip flops"
+			},
+			"bothQuip": "Les deux. Sandales en ville, tongs à la plage.",
+			"noneQuip": "Ni l’un ni l’autre. Pieds nus à la plage, baskets ailleurs."
+		},
+		{
+			"id": "mode-chaussettes-assorties-chaussettes-depareillees",
+			"category": "mode",
+			"a": {
+				"name": "Chaussettes assorties",
+				"origin": "Le tiroir bien rangé",
+				"line": "Deux chaussettes, une paire.",
+				"quip": "Team assorties : deux chaussettes, une paire. Ton tiroir est rangé, et ta vie aussi.",
+				"giphyIds": [],
+				"giphyQuery": "matching socks"
+			},
+			"b": {
+				"name": "Chaussettes dépareillées",
+				"origin": "Le tiroir en bazar",
+				"line": "Une rayée, une à pois, et une personnalité.",
+				"quip": "Team dépareillées : une rayée, une à pois, et beaucoup de personnalité.",
+				"giphyIds": [],
+				"giphyQuery": "mismatched socks"
+			},
+			"bothQuip": "Les deux. Assorties le lundi, dépareillées le vendredi. La semaine se dégrade.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de chaussettes. Jamais. Mystère."
+		},
+		{
+			"id": "mode-pyjama-toute-la-journee-s-habiller-quand-meme",
+			"category": "mode",
+			"a": {
+				"name": "Pyjama toute la journée",
+				"origin": "Le télétravail",
+				"line": "En bas : pyjama. En haut : chemise pour la visio.",
+				"quip": "Team pyjama : en bas le pyjama, en haut la chemise pour la visio. Le mulet vestimentaire.",
+				"giphyIds": [],
+				"giphyQuery": "pajama day"
+			},
+			"b": {
+				"name": "S’habiller quand même",
+				"origin": "Le télétravail aussi",
+				"line": "Une vraie tenue, même pour le salon.",
+				"quip": "Team s’habiller : une vraie tenue, même pour aller du lit au bureau. La discipline.",
+				"giphyIds": [],
+				"giphyQuery": "getting dressed"
+			},
+			"bothQuip": "Les deux. Une vraie tenue le lundi, le pyjama le vendredi.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de télétravail pour toi. Le bureau te manque, peut-être."
+		},
+		{
+			"id": "mode-doudoune-sans-manches-gilet-en-laine",
+			"category": "mode",
+			"a": {
+				"name": "Doudoune sans manches",
+				"origin": "Le dirigeant de start-up",
+				"line": "Chaud au cœur, froid aux bras.",
+				"quip": "Team doudoune sans manches : chaud au cœur, froid aux bras. Tu as un pitch à faire.",
+				"giphyIds": [],
+				"giphyQuery": "puffer vest"
+			},
+			"b": {
+				"name": "Gilet en laine",
+				"origin": "Le grand-père cool",
+				"line": "Des boutons, et beaucoup de charme.",
+				"quip": "Team gilet en laine : des boutons, du charme, et un fauteuil près du feu.",
+				"giphyIds": [],
+				"giphyQuery": "cardigan"
+			},
+			"bothQuip": "Les deux. La start-up en semaine, le grand-père cool le week-end.",
+			"noneQuip": "Ni l’un ni l’autre. Un sweat à capuche. Toujours."
+		},
+		{
+			"id": "mode-tenue-de-sport-en-ville-tenue-de-sport-pour-le-sport",
+			"category": "mode",
+			"a": {
+				"name": "Tenue de sport en ville",
+				"origin": "Le quotidien",
+				"line": "Leggings, baskets, et pas de sport prévu.",
+				"quip": "Team tenue de sport en ville : leggings, baskets, et aucun sport prévu. Le style, avant tout.",
+				"giphyIds": [],
+				"giphyQuery": "athleisure"
+			},
+			"b": {
+				"name": "Tenue de sport pour le sport",
+				"origin": "La salle",
+				"line": "Elle transpire, comme prévu.",
+				"quip": "Team tenue pour le sport : elle transpire, comme prévu. Tu fais vraiment du sport. Bravo.",
+				"giphyIds": [],
+				"giphyQuery": "gym clothes"
+			},
+			"bothQuip": "Les deux. En tenue de sport toute la journée, et parfois tu en fais.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de tenue de sport. Pas de sport non plus."
+		},
+		{
+			"id": "mode-total-look-jean-un-seul-jean",
+			"category": "mode",
+			"a": {
+				"name": "Total look jean",
+				"origin": "La tête aux pieds",
+				"line": "Une veste en jean sur un jean. Audacieux.",
+				"quip": "Team total look jean : une veste en jean sur un jean. Audacieux, et assumé.",
+				"giphyIds": [],
+				"giphyQuery": "denim on denim"
+			},
+			"b": {
+				"name": "Un seul jean",
+				"origin": "La garde-robe",
+				"line": "Un jean, et autre chose. Prudent.",
+				"quip": "Team un seul jean : un jean, et autre chose. La prudence.",
+				"giphyIds": [],
+				"giphyQuery": "jeans outfit"
+			},
+			"bothQuip": "Les deux. Ça dépend si tu te sens d’humeur canadienne.",
+			"noneQuip": "Ni l’un ni l’autre. Le jean, très peu pour toi. Le velours, peut-être ?"
+		},
+		{
+			"id": "mode-moustache-en-guidon-moustache-fine",
+			"category": "mode",
+			"a": {
+				"name": "Moustache en guidon",
+				"origin": "Le barbier",
+				"line": "Recourbée, cirée, et très sérieuse.",
+				"quip": "Team moustache en guidon : recourbée, cirée, et très sérieuse. Ton barbier te connaît.",
+				"giphyIds": [],
+				"giphyQuery": "handlebar mustache"
+			},
+			"b": {
+				"name": "Moustache fine",
+				"origin": "Le cinéma d’autrefois",
+				"line": "Un trait de crayon, et beaucoup de charme.",
+				"quip": "Team moustache fine : un trait de crayon, et beaucoup de charme. Le cinéma d’autrefois.",
+				"giphyIds": [],
+				"giphyQuery": "thin mustache"
+			},
+			"bothQuip": "Les deux. Les moustaches de collection, tu les admires toutes.",
+			"noneQuip": "Ni l’une ni l’autre. Les moustaches, tu les laisses aux autres."
+		},
+		{
+			"id": "mode-sourcils-fins-sourcils-epais",
+			"category": "mode",
+			"a": {
+				"name": "Sourcils fins",
+				"origin": "Les années 90",
+				"line": "Épilés, très fins, très surpris.",
+				"quip": "Team sourcils fins : l’air surpris en permanence. Comme dans les années 90.",
+				"giphyIds": [],
+				"giphyQuery": "thin eyebrows"
+			},
+			"b": {
+				"name": "Sourcils épais",
+				"origin": "Les années 2010",
+				"line": "Naturels, brossés, et très expressifs.",
+				"quip": "Team sourcils épais : naturels, brossés, et très expressifs. Ils parlent pour toi.",
+				"giphyIds": [],
+				"giphyQuery": "thick eyebrows"
+			},
+			"bothQuip": "Les deux. Tes sourcils ont traversé toutes les modes, et ils ont survécu.",
+			"noneQuip": "Ni l’un ni l’autre. Tes sourcils, tu ne t’en occupes pas. Ils vivent leur vie."
+		},
+		{
+			"id": "mode-bob-chapeau-de-cow-boy",
+			"category": "mode",
+			"a": {
+				"name": "Bob",
+				"origin": "Le festival",
+				"line": "Un chapeau mou, et l’été en musique.",
+				"quip": "Team bob : un chapeau mou, et l’été en festival. Tu as un bob par concert.",
+				"giphyIds": [],
+				"giphyQuery": "bucket hat"
+			},
+			"b": {
+				"name": "Chapeau de cow-boy",
+				"origin": "Le Far West",
+				"line": "Un large bord, et beaucoup d’assurance.",
+				"quip": "Team chapeau de cow-boy : un large bord, et beaucoup d’assurance. Même sans cheval.",
+				"giphyIds": [],
+				"giphyQuery": "cowboy hat"
+			},
+			"bothQuip": "Les deux. Festival et Far West : ton été est varié.",
+			"noneQuip": "Ni l’un ni l’autre. Les chapeaux ne te vont pas. Selon toi."
+		},
+		{
+			"id": "mode-bijoux-discrets-gros-bijoux",
+			"category": "mode",
+			"a": {
+				"name": "Bijoux discrets",
+				"origin": "Le quotidien",
+				"line": "Une petite chaîne, et beaucoup de goût.",
+				"quip": "Team bijoux discrets : une petite chaîne, et beaucoup de goût.",
+				"giphyIds": [],
+				"giphyQuery": "delicate necklace"
+			},
+			"b": {
+				"name": "Gros bijoux",
+				"origin": "Les soirées",
+				"line": "Des chaînes en or, et on te voit de loin.",
+				"quip": "Team gros bijoux : des chaînes en or, et on te voit depuis l’autre bout de la rue.",
+				"giphyIds": [],
+				"giphyQuery": "gold chains bling"
+			},
+			"bothQuip": "Les deux. Discret le jour, gros bijoux le soir.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de bijoux. La simplicité absolue."
+		},
+		{
+			"id": "mode-montre-connectee-montre-a-aiguilles",
+			"category": "mode",
+			"a": {
+				"name": "Montre connectée",
+				"origin": "Le poignet",
+				"line": "Tes pas, ton cœur, tes messages. Et l’heure.",
+				"quip": "Team montre connectée : elle compte tes pas, ton cœur, et tes notifications. Et elle vibre pendant les dîners.",
+				"giphyIds": [],
+				"giphyQuery": "smartwatch"
+			},
+			"b": {
+				"name": "Montre à aiguilles",
+				"origin": "Le poignet aussi",
+				"line": "Juste l’heure, et ça suffit.",
+				"quip": "Team montre à aiguilles : juste l’heure, et ça suffit. Le luxe du minimalisme.",
+				"giphyIds": [],
+				"giphyQuery": "analog watch"
+			},
+			"bothQuip": "Les deux. Une à chaque poignet ? On ne juge pas.",
+			"noneQuip": "Ni l’une ni l’autre. L’heure, tu la lis sur ton téléphone."
+		},
+		{
+			"id": "mode-faire-les-soldes-eviter-les-soldes",
+			"category": "mode",
+			"a": {
+				"name": "Faire les soldes",
+				"origin": "Janvier et juillet",
+				"line": "Des étiquettes rouges et des coudes bien placés.",
+				"quip": "Team soldes : des étiquettes rouges, et des coudes bien placés. Tu es là dès l’ouverture.",
+				"giphyIds": [],
+				"giphyQuery": "sale shopping crowd"
+			},
+			"b": {
+				"name": "Éviter les soldes",
+				"origin": "Janvier et juillet",
+				"line": "Pas de cohue, et pas de remise.",
+				"quip": "Team pas de soldes : pas de cohue, pas de remise, et beaucoup de sérénité.",
+				"giphyIds": [],
+				"giphyQuery": "calm shopping"
+			},
+			"bothQuip": "Les deux. Les soldes en ligne, depuis le canapé. Le meilleur des deux.",
+			"noneQuip": "Ni l’un ni l’autre. Tu n’achètes pas de vêtements. Tu as tout ce qu’il te faut."
+		},
+		{
+			"id": "mode-cabine-d-essayage-commande-en-ligne",
+			"category": "mode",
+			"a": {
+				"name": "Cabine d’essayage",
+				"origin": "Le magasin",
+				"line": "Un miroir, une lumière cruelle, et la vérité.",
+				"quip": "Team cabine : un miroir, une lumière cruelle, et la vérité. Tu affrontes.",
+				"giphyIds": [],
+				"giphyQuery": "fitting room"
+			},
+			"b": {
+				"name": "Commande en ligne",
+				"origin": "Le canapé",
+				"line": "Trois tailles commandées, deux renvoyées.",
+				"quip": "Team commande en ligne : trois tailles commandées, deux renvoyées. Le facteur te connaît.",
+				"giphyIds": [],
+				"giphyQuery": "online shopping package"
+			},
+			"bothQuip": "Les deux. Tu essaies en magasin, et tu commandes en ligne. Le vendeur s’en souvient.",
+			"noneQuip": "Ni l’un ni l’autre. Tes vêtements, on te les offre. Pratique."
+		},
+		{
+			"id": "mode-haute-couture-pret-a-porter",
+			"category": "mode",
+			"a": {
+				"name": "Haute couture",
+				"origin": "Paris",
+				"line": "Des pièces uniques, et des mois de travail.",
+				"quip": "Team haute couture : des pièces uniques et des mois de travail. Tu as bon goût. Et un gros budget.",
+				"giphyIds": [],
+				"giphyQuery": "fashion runway"
+			},
+			"b": {
+				"name": "Prêt-à-porter",
+				"origin": "Partout",
+				"line": "Les mêmes idées, en taille M.",
+				"quip": "Team prêt-à-porter : les mêmes idées, en taille M. Le bon sens.",
+				"giphyIds": [],
+				"giphyQuery": "clothing store"
+			},
+			"bothQuip": "Les deux. Tu regardes les défilés, et tu achètes en soldes.",
+			"noneQuip": "Ni l’un ni l’autre. Tu couds tes vêtements toi-même. Respect."
+		},
+		{
+			"id": "mode-chaussons-pieds-nus",
+			"category": "mode",
+			"a": {
+				"name": "Chaussons",
+				"origin": "La maison",
+				"line": "Doux, chauds, et un peu ridicules.",
+				"quip": "Team chaussons : doux, chauds, et un peu ridicules. Mais personne ne te voit.",
+				"giphyIds": [],
+				"giphyQuery": "slippers"
+			},
+			"b": {
+				"name": "Pieds nus",
+				"origin": "La maison aussi",
+				"line": "Libres, et sur la pièce de Lego.",
+				"quip": "Team pieds nus : libres, et parfois sur une pièce de Lego. Tu connais la douleur.",
+				"giphyIds": [],
+				"giphyQuery": "barefoot"
+			},
+			"bothQuip": "Les deux. Chaussons l’hiver, pieds nus l’été.",
+			"noneQuip": "Ni l’un ni l’autre. Tu gardes tes chaussures à la maison ? Il faut qu’on parle."
+		},
+		{
+			"id": "autos-peugeot-renault",
+			"category": "autos",
+			"a": {
+				"name": "Peugeot",
+				"origin": "Sochaux · 1810",
+				"line": "Un lion sur la calandre.",
+				"giphyIds": [],
+				"giphyQuery": "Peugeot"
+			},
+			"b": {
+				"name": "Renault",
+				"origin": "Boulogne-Billancourt · 1898",
+				"line": "Un losange, et la 4L dans le cœur.",
+				"giphyIds": [],
+				"giphyQuery": "Renault"
+			}
+		},
+		{
+			"id": "autos-citroen-volkswagen",
+			"category": "autos",
+			"a": {
+				"name": "Citroën",
+				"origin": "Paris · 1919",
+				"line": "Deux chevrons, la 2 CV et la DS.",
+				"giphyIds": [],
+				"giphyQuery": "Citroen"
+			},
+			"b": {
+				"name": "Volkswagen",
+				"origin": "Wolfsburg · 1937",
+				"line": "La Coccinelle, la Golf, et le Combi.",
+				"giphyIds": [],
+				"giphyQuery": "Volkswagen"
+			}
+		},
+		{
+			"id": "autos-ferrari-lamborghini",
+			"category": "autos",
+			"a": {
+				"name": "Ferrari",
+				"origin": "Maranello · 1947",
+				"line": "Rouge, cheval cabré, et un son inimitable.",
+				"giphyIds": [],
+				"giphyQuery": "Ferrari"
+			},
+			"b": {
+				"name": "Lamborghini",
+				"origin": "Sant’Agata · 1963",
+				"line": "Un taureau, et des portes en ciseaux.",
+				"giphyIds": [],
+				"giphyQuery": "Lamborghini"
+			}
+		},
+		{
+			"id": "autos-porsche-aston-martin",
+			"category": "autos",
+			"a": {
+				"name": "Porsche",
+				"origin": "Stuttgart · 1931",
+				"line": "La 911, toujours la même, toujours parfaite.",
+				"giphyIds": [],
+				"giphyQuery": "Porsche 911"
+			},
+			"b": {
+				"name": "Aston Martin",
+				"origin": "Royaume-Uni · 1913",
+				"line": "La voiture de James Bond.",
+				"giphyIds": [],
+				"giphyQuery": "Aston Martin"
+			}
+		},
+		{
+			"id": "autos-bmw-mercedes-benz",
+			"category": "autos",
+			"a": {
+				"name": "BMW",
+				"origin": "Munich · 1916",
+				"line": "L’hélice, la propulsion, et le plaisir de conduire.",
+				"giphyIds": [],
+				"giphyQuery": "BMW"
+			},
+			"b": {
+				"name": "Mercedes-Benz",
+				"origin": "Stuttgart · 1926",
+				"line": "L’étoile à trois branches, et des taxis increvables.",
+				"giphyIds": [],
+				"giphyQuery": "Mercedes Benz"
+			}
+		},
+		{
+			"id": "autos-audi-volvo",
+			"category": "autos",
+			"a": {
+				"name": "Audi",
+				"origin": "Ingolstadt · 1909",
+				"line": "Quatre anneaux, et la transmission quattro.",
+				"giphyIds": [],
+				"giphyQuery": "Audi quattro"
+			},
+			"b": {
+				"name": "Volvo",
+				"origin": "Göteborg · 1927",
+				"line": "La sécurité avant tout, et des breaks rectangulaires.",
+				"giphyIds": [],
+				"giphyQuery": "Volvo"
+			}
+		},
+		{
+			"id": "autos-tesla-toyota",
+			"category": "autos",
+			"a": {
+				"name": "Tesla",
+				"origin": "Californie · 2003",
+				"line": "Électrique, et des mises à jour à distance.",
+				"giphyIds": [],
+				"giphyQuery": "Tesla"
+			},
+			"b": {
+				"name": "Toyota",
+				"origin": "Japon · 1937",
+				"line": "La Prius, et des voitures qui ne tombent jamais en panne.",
+				"giphyIds": [],
+				"giphyQuery": "Toyota"
+			}
+		},
+		{
+			"id": "autos-fiat-500-mini",
+			"category": "autos",
+			"a": {
+				"name": "Fiat 500",
+				"origin": "Turin · 1957",
+				"line": "Minuscule, ronde, italienne.",
+				"giphyIds": [],
+				"giphyQuery": "Fiat 500"
+			},
+			"b": {
+				"name": "Mini",
+				"origin": "Royaume-Uni · 1959",
+				"line": "Minuscule, carrée, britannique.",
+				"giphyIds": [],
+				"giphyQuery": "Mini Cooper"
+			}
+		},
+		{
+			"id": "autos-jeep-land-rover",
+			"category": "autos",
+			"a": {
+				"name": "Jeep",
+				"origin": "États-Unis · 1941",
+				"line": "Partout, même là où il n’y a pas de route.",
+				"giphyIds": [],
+				"giphyQuery": "Jeep offroad"
+			},
+			"b": {
+				"name": "Land Rover",
+				"origin": "Royaume-Uni · 1948",
+				"line": "Le Defender, indestructible et anglais.",
+				"giphyIds": [],
+				"giphyQuery": "Land Rover Defender"
+			}
+		},
+		{
+			"id": "autos-dacia-skoda",
+			"category": "autos",
+			"a": {
+				"name": "Dacia",
+				"origin": "Roumanie · 1966",
+				"line": "Pas chère, solide, et sans chichis.",
+				"giphyIds": [],
+				"giphyQuery": "Dacia"
+			},
+			"b": {
+				"name": "Škoda",
+				"origin": "Tchéquie · 1895",
+				"line": "Du sérieux, et une flèche à plumes sur le capot.",
+				"giphyIds": [],
+				"giphyQuery": "Skoda"
+			}
+		},
+		{
+			"id": "autos-alpine-bugatti",
+			"category": "autos",
+			"a": {
+				"name": "Alpine",
+				"origin": "Dieppe · 1955",
+				"line": "Bleue, légère, et faite pour les virages.",
+				"giphyIds": [],
+				"giphyQuery": "Alpine A110"
+			},
+			"b": {
+				"name": "Bugatti",
+				"origin": "Molsheim · 1909",
+				"line": "Plus de 400 km/h, et un prix à la hauteur.",
+				"giphyIds": [],
+				"giphyQuery": "Bugatti"
+			}
+		},
+		{
+			"id": "autos-ford-mustang-chevrolet-camaro",
+			"category": "autos",
+			"a": {
+				"name": "Ford Mustang",
+				"origin": "Ford · 1964",
+				"line": "Le muscle car par excellence.",
+				"giphyIds": [],
+				"giphyQuery": "Ford Mustang"
+			},
+			"b": {
+				"name": "Chevrolet Camaro",
+				"origin": "Chevrolet · 1966",
+				"line": "Sa rivale de toujours.",
+				"giphyIds": [],
+				"giphyQuery": "Chevrolet Camaro"
+			}
+		},
+		{
+			"id": "autos-harley-davidson-ducati",
+			"category": "autos",
+			"a": {
+				"name": "Harley-Davidson",
+				"origin": "Milwaukee · 1903",
+				"line": "Un V-twin, du chrome, et la route 66.",
+				"giphyIds": [],
+				"giphyQuery": "Harley Davidson"
+			},
+			"b": {
+				"name": "Ducati",
+				"origin": "Bologne · 1926",
+				"line": "Rouge, italienne, et un bruit unique.",
+				"giphyIds": [],
+				"giphyQuery": "Ducati"
+			}
+		},
+		{
+			"id": "autos-yamaha-honda",
+			"category": "autos",
+			"a": {
+				"name": "Yamaha",
+				"origin": "Japon · 1955",
+				"line": "Des diapasons sur le logo, et des motos sur la piste.",
+				"giphyIds": [],
+				"giphyQuery": "Yamaha motorcycle"
+			},
+			"b": {
+				"name": "Honda",
+				"origin": "Japon · 1948",
+				"line": "Des millions de Super Cub, et la Goldwing.",
+				"giphyIds": [],
+				"giphyQuery": "Honda motorcycle"
+			}
+		},
+		{
+			"id": "autos-kawasaki-suzuki",
+			"category": "autos",
+			"a": {
+				"name": "Kawasaki",
+				"origin": "Japon · années 1950",
+				"line": "Vert, et une réputation de fusée.",
+				"giphyIds": [],
+				"giphyQuery": "Kawasaki Ninja"
+			},
+			"b": {
+				"name": "Suzuki",
+				"origin": "Japon · 1952",
+				"line": "La Hayabusa, le faucon des autoroutes.",
+				"giphyIds": [],
+				"giphyQuery": "Suzuki Hayabusa"
+			}
+		},
+		{
+			"id": "autos-ktm-husqvarna",
+			"category": "autos",
+			"a": {
+				"name": "KTM",
+				"origin": "Autriche · 1953",
+				"line": "Orange, et ça grimpe partout.",
+				"giphyIds": [],
+				"giphyQuery": "KTM dirt bike"
+			},
+			"b": {
+				"name": "Husqvarna",
+				"origin": "Suède · 1903",
+				"line": "Un nom que l’on retrouve aussi sur des tronçonneuses.",
+				"giphyIds": [],
+				"giphyQuery": "Husqvarna motocross"
+			}
+		},
+		{
+			"id": "autos-vespa-lambretta",
+			"category": "autos",
+			"a": {
+				"name": "Vespa",
+				"origin": "Italie · 1946",
+				"line": "Rome, deux roues, et l’élégance.",
+				"giphyIds": [],
+				"giphyQuery": "Vespa"
+			},
+			"b": {
+				"name": "Lambretta",
+				"origin": "Italie · 1947",
+				"line": "L’autre scooter italien, et les mods.",
+				"giphyIds": [],
+				"giphyQuery": "Lambretta scooter"
+			}
+		},
+		{
+			"id": "autos-triumph-royal-enfield",
+			"category": "autos",
+			"a": {
+				"name": "Triumph",
+				"origin": "Royaume-Uni · 1902",
+				"line": "La Bonneville, et la classe anglaise.",
+				"giphyIds": [],
+				"giphyQuery": "Triumph motorcycle"
+			},
+			"b": {
+				"name": "Royal Enfield",
+				"origin": "Royaume-Uni puis Inde · 1901",
+				"line": "L’une des plus anciennes marques de moto encore en vie.",
+				"giphyIds": [],
+				"giphyQuery": "Royal Enfield"
+			}
+		},
+		{
+			"id": "autos-bmw-motorrad-moto-guzzi",
+			"category": "autos",
+			"a": {
+				"name": "BMW Motorrad",
+				"origin": "Munich · 1923",
+				"line": "Le flat-twin, et des GS qui font le tour du monde.",
+				"giphyIds": [],
+				"giphyQuery": "BMW GS adventure"
+			},
+			"b": {
+				"name": "Moto Guzzi",
+				"origin": "Italie · 1921",
+				"line": "Un V-twin en travers, et un aigle.",
+				"giphyIds": [],
+				"giphyQuery": "Moto Guzzi"
+			}
+		},
+		{
+			"id": "autos-peugeot-205-gti-golf-gti",
+			"category": "autos",
+			"a": {
+				"name": "Peugeot 205 GTI",
+				"origin": "Peugeot · 1984",
+				"line": "La GTI que tout le monde voulait.",
+				"giphyIds": [],
+				"giphyQuery": "Peugeot 205 GTI"
+			},
+			"b": {
+				"name": "Golf GTI",
+				"origin": "Volkswagen · 1976",
+				"line": "L’inventrice de la sportive compacte.",
+				"giphyIds": [],
+				"giphyQuery": "Golf GTI"
+			}
+		},
+		{
+			"id": "autos-renault-5-citroen-ax",
+			"category": "autos",
+			"a": {
+				"name": "Renault 5",
+				"origin": "Renault · 1972",
+				"line": "La petite citadine, revenue en électrique.",
+				"giphyIds": [],
+				"giphyQuery": "Renault 5"
+			},
+			"b": {
+				"name": "Citroën AX",
+				"origin": "Citroën · 1986",
+				"line": "Légère, sobre, et des records de consommation.",
+				"giphyIds": [],
+				"giphyQuery": "small car"
+			}
+		},
+		{
+			"id": "autos-2-cv-4l",
+			"category": "autos",
+			"a": {
+				"name": "2 CV",
+				"origin": "Citroën · 1948",
+				"line": "Quatre roues sous un parapluie.",
+				"giphyIds": [],
+				"giphyQuery": "Citroen 2CV"
+			},
+			"b": {
+				"name": "4L",
+				"origin": "Renault · 1961",
+				"line": "Indestructible, et pourtant tout le monde en a cassé une.",
+				"giphyIds": [],
+				"giphyQuery": "Renault 4"
+			}
+		},
+		{
+			"id": "autos-ds-traction-avant",
+			"category": "autos",
+			"a": {
+				"name": "DS",
+				"origin": "Citroën · 1955",
+				"line": "La suspension hydropneumatique, et une ligne de soucoupe.",
+				"giphyIds": [],
+				"giphyQuery": "Citroen DS"
+			},
+			"b": {
+				"name": "Traction Avant",
+				"origin": "Citroën · 1934",
+				"line": "La voiture des gangsters de cinéma.",
+				"giphyIds": [],
+				"giphyQuery": "vintage car gangster"
+			}
+		},
+		{
+			"id": "autos-formule-1-rallye",
+			"category": "autos",
+			"a": {
+				"name": "Formule 1",
+				"origin": "Les circuits",
+				"line": "Des pneus changés en deux secondes.",
+				"giphyIds": [],
+				"giphyQuery": "Formula 1 pit stop"
+			},
+			"b": {
+				"name": "Rallye",
+				"origin": "Les routes de terre",
+				"line": "De la neige, de la boue, et un copilote qui lit des notes.",
+				"giphyIds": [],
+				"giphyQuery": "rally car jump"
+			}
+		},
+		{
+			"id": "autos-24-heures-du-mans-dakar",
+			"category": "autos",
+			"a": {
+				"name": "24 Heures du Mans",
+				"origin": "Le Mans · 1923",
+				"line": "Rouler un jour entier, sans s’arrêter.",
+				"giphyIds": [],
+				"giphyQuery": "Le Mans 24 hours"
+			},
+			"b": {
+				"name": "Dakar",
+				"origin": "Depuis 1978",
+				"line": "Le désert, des dunes, et le GPS qui hésite.",
+				"giphyIds": [],
+				"giphyQuery": "Dakar rally"
+			}
+		},
+		{
+			"id": "autos-boite-automatique-boite-manuelle",
+			"category": "autos",
+			"a": {
+				"name": "Boîte automatique",
+				"origin": "Le levier sur D",
+				"line": "On avance, on freine, c’est tout.",
+				"giphyIds": [],
+				"giphyQuery": "automatic car"
+			},
+			"b": {
+				"name": "Boîte manuelle",
+				"origin": "Le levier et l’embrayage",
+				"line": "Le plaisir de passer les vitesses. Et de caler.",
+				"giphyIds": [],
+				"giphyQuery": "manual gear shift"
+			}
+		},
+		{
+			"id": "autos-diesel-essence",
+			"category": "autos",
+			"a": {
+				"name": "Diesel",
+				"origin": "La pompe noire",
+				"line": "Du couple, et des kilomètres à la pelle.",
+				"giphyIds": [],
+				"giphyQuery": "diesel engine"
+			},
+			"b": {
+				"name": "Essence",
+				"origin": "La pompe verte",
+				"line": "Plus de nervosité, et plus de passages à la pompe.",
+				"giphyIds": [],
+				"giphyQuery": "gas station"
+			}
+		},
+		{
+			"id": "autos-electrique-thermique",
+			"category": "autos",
+			"a": {
+				"name": "Électrique",
+				"origin": "La borne",
+				"line": "Silencieuse, et la course aux bornes de recharge.",
+				"giphyIds": [],
+				"giphyQuery": "electric car charging"
+			},
+			"b": {
+				"name": "Thermique",
+				"origin": "La station-service",
+				"line": "Du bruit, de l’odeur, et le plein en trois minutes.",
+				"giphyIds": [],
+				"giphyQuery": "engine revving"
+			}
+		},
+		{
+			"id": "autos-cabriolet-toit-fixe",
+			"category": "autos",
+			"a": {
+				"name": "Cabriolet",
+				"origin": "Le toit ouvert",
+				"line": "Les cheveux au vent, et les coups de soleil.",
+				"giphyIds": [],
+				"giphyQuery": "convertible car"
+			},
+			"b": {
+				"name": "Toit fixe",
+				"origin": "Le toit fermé",
+				"line": "La pluie dehors, la musique dedans.",
+				"giphyIds": [],
+				"giphyQuery": "car rain"
+			}
+		},
+		{
+			"id": "autos-suv-citadine",
+			"category": "autos",
+			"a": {
+				"name": "SUV",
+				"origin": "La route",
+				"line": "Haut, large, et la vue sur tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "SUV"
+			},
+			"b": {
+				"name": "Citadine",
+				"origin": "La ville",
+				"line": "Petite, et elle se gare partout.",
+				"giphyIds": [],
+				"giphyQuery": "small car parking"
+			}
+		},
+		{
+			"id": "autos-break-monospace",
+			"category": "autos",
+			"a": {
+				"name": "Break",
+				"origin": "Les vacances",
+				"line": "Le coffre géant et le chien à l’arrière.",
+				"giphyIds": [],
+				"giphyQuery": "station wagon"
+			},
+			"b": {
+				"name": "Monospace",
+				"origin": "Les vacances aussi",
+				"line": "Sept places, et un film sur la tablette.",
+				"giphyIds": [],
+				"giphyQuery": "minivan"
+			}
+		},
+		{
+			"id": "autos-moto-scooter",
+			"category": "autos",
+			"a": {
+				"name": "Moto",
+				"origin": "La route",
+				"line": "Une vraie machine, et des vibrations.",
+				"giphyIds": [],
+				"giphyQuery": "motorcycle ride"
+			},
+			"b": {
+				"name": "Scooter",
+				"origin": "La ville",
+				"line": "Un coffre sous la selle, et zéro bouchon.",
+				"giphyIds": [],
+				"giphyQuery": "scooter city"
+			}
+		},
+		{
+			"id": "autos-sportive-trail",
+			"category": "autos",
+			"a": {
+				"name": "Sportive",
+				"origin": "Le circuit",
+				"line": "Le genou au sol, en théorie.",
+				"giphyIds": [],
+				"giphyQuery": "sport bike"
+			},
+			"b": {
+				"name": "Trail",
+				"origin": "Le chemin",
+				"line": "Partir loin, même sans route.",
+				"giphyIds": [],
+				"giphyQuery": "adventure motorcycle"
+			}
+		},
+		{
+			"id": "autos-custom-roadster",
+			"category": "autos",
+			"a": {
+				"name": "Custom",
+				"origin": "La route 66",
+				"line": "Les pieds en avant, et le temps de vivre.",
+				"giphyIds": [],
+				"giphyQuery": "cruiser motorcycle"
+			},
+			"b": {
+				"name": "Roadster",
+				"origin": "La départementale",
+				"line": "Pas de carénage, et un vrai caractère.",
+				"giphyIds": [],
+				"giphyQuery": "naked bike"
+			}
+		},
+		{
+			"id": "autos-conduite-a-droite-conduite-a-gauche",
+			"category": "autos",
+			"a": {
+				"name": "Conduite à droite",
+				"origin": "La France",
+				"line": "La voie de droite, comme presque partout.",
+				"giphyIds": [],
+				"giphyQuery": "driving car"
+			},
+			"b": {
+				"name": "Conduite à gauche",
+				"origin": "Le Royaume-Uni",
+				"line": "La voie de gauche, avec le flegme en prime.",
+				"giphyIds": [],
+				"giphyQuery": "british driving"
+			}
+		},
+		{
+			"id": "autos-gps-carte-routiere",
+			"category": "autos",
+			"a": {
+				"name": "GPS",
+				"origin": "Le tableau de bord",
+				"line": "« Faites demi-tour dès que possible. »",
+				"giphyIds": [],
+				"giphyQuery": "GPS navigation"
+			},
+			"b": {
+				"name": "Carte routière",
+				"origin": "La boîte à gants",
+				"line": "Impossible à replier, et toujours là quand il n’y a plus de réseau.",
+				"giphyIds": [],
+				"giphyQuery": "road map"
+			}
+		},
+		{
+			"id": "autos-lavage-a-la-main-station-de-lavage",
+			"category": "autos",
+			"a": {
+				"name": "Lavage à la main",
+				"origin": "L’allée",
+				"line": "Un seau, une éponge, et le dimanche après-midi.",
+				"giphyIds": [],
+				"giphyQuery": "washing car"
+			},
+			"b": {
+				"name": "Station de lavage",
+				"origin": "La sortie de ville",
+				"line": "Les rouleaux géants, et la peur de l’antenne.",
+				"giphyIds": [],
+				"giphyQuery": "car wash"
+			}
+		},
+		{
+			"id": "autos-coccinelle-combi",
+			"category": "autos",
+			"a": {
+				"name": "Coccinelle",
+				"origin": "Volkswagen · 1938",
+				"line": "La voiture du peuple, devenue icône.",
+				"giphyIds": [],
+				"giphyQuery": "VW Beetle"
+			},
+			"b": {
+				"name": "Combi",
+				"origin": "Volkswagen · 1950",
+				"line": "Le van des surfeurs et des hippies.",
+				"giphyIds": [],
+				"giphyQuery": "VW camper van"
+			}
+		},
+		{
+			"id": "autos-lada-niva-trabant",
+			"category": "autos",
+			"a": {
+				"name": "Lada Niva",
+				"origin": "URSS · 1977",
+				"line": "Rustique, et elle passe partout.",
+				"giphyIds": [],
+				"giphyQuery": "Lada Niva"
+			},
+			"b": {
+				"name": "Trabant",
+				"origin": "RDA · 1957",
+				"line": "Une carrosserie en plastique, et un moteur deux-temps.",
+				"giphyIds": [],
+				"giphyQuery": "Trabant"
+			}
+		},
+		{
+			"id": "autos-rolls-royce-bentley",
+			"category": "autos",
+			"a": {
+				"name": "Rolls-Royce",
+				"origin": "Royaume-Uni · 1904",
+				"line": "Le silence, et une statuette sur le capot.",
+				"giphyIds": [],
+				"giphyQuery": "Rolls Royce"
+			},
+			"b": {
+				"name": "Bentley",
+				"origin": "Royaume-Uni · 1919",
+				"line": "Le luxe, en plus sportif.",
+				"giphyIds": [],
+				"giphyQuery": "Bentley"
+			}
+		},
+		{
+			"id": "autos-maserati-alfa-romeo",
+			"category": "autos",
+			"a": {
+				"name": "Maserati",
+				"origin": "Bologne · 1914",
+				"line": "Un trident sur la calandre.",
+				"giphyIds": [],
+				"giphyQuery": "Maserati"
+			},
+			"b": {
+				"name": "Alfa Romeo",
+				"origin": "Milan · 1910",
+				"line": "Un serpent, une croix, et du caractère.",
+				"giphyIds": [],
+				"giphyQuery": "Alfa Romeo"
+			}
+		},
+		{
+			"id": "autos-mclaren-lotus",
+			"category": "autos",
+			"a": {
+				"name": "McLaren",
+				"origin": "Royaume-Uni · 1963",
+				"line": "Orange papaye, et la Formule 1 dans le sang.",
+				"giphyIds": [],
+				"giphyQuery": "McLaren"
+			},
+			"b": {
+				"name": "Lotus",
+				"origin": "Royaume-Uni · 1948",
+				"line": "La légèreté avant tout.",
+				"giphyIds": [],
+				"giphyQuery": "Lotus car"
+			}
+		},
+		{
+			"id": "autos-subaru-mitsubishi",
+			"category": "autos",
+			"a": {
+				"name": "Subaru",
+				"origin": "Japon · 1953",
+				"line": "Des Impreza bleues, et des rallyes.",
+				"giphyIds": [],
+				"giphyQuery": "Subaru Impreza rally"
+			},
+			"b": {
+				"name": "Mitsubishi",
+				"origin": "Japon · 1970",
+				"line": "La Lancer Evolution, et des rallyes aussi.",
+				"giphyIds": [],
+				"giphyQuery": "Mitsubishi Lancer Evolution"
+			}
+		},
+		{
+			"id": "autos-nissan-gt-r-toyota-supra",
+			"category": "autos",
+			"a": {
+				"name": "Nissan GT-R",
+				"origin": "Nissan · 2007",
+				"line": "Surnommée Godzilla.",
+				"giphyIds": [],
+				"giphyQuery": "Nissan GT-R"
+			},
+			"b": {
+				"name": "Toyota Supra",
+				"origin": "Toyota · 1978",
+				"line": "Une star de Fast and Furious.",
+				"giphyIds": [],
+				"giphyQuery": "Toyota Supra"
+			}
+		},
+		{
+			"id": "autos-indian-harley-davidson",
+			"category": "autos",
+			"a": {
+				"name": "Indian",
+				"origin": "Springfield · 1901",
+				"line": "La plus ancienne marque de moto américaine.",
+				"giphyIds": [],
+				"giphyQuery": "Indian motorcycle"
+			},
+			"b": {
+				"name": "Harley-Davidson",
+				"origin": "Milwaukee · 1903",
+				"line": "La plus célèbre.",
+				"giphyIds": [],
+				"giphyQuery": "Harley Davidson ride"
+			}
+		},
+		{
+			"id": "autos-deux-temps-quatre-temps",
+			"category": "autos",
+			"a": {
+				"name": "Deux-temps",
+				"origin": "Le moteur qui chante",
+				"line": "Ça fume, ça hurle, et ça sent l’huile.",
+				"giphyIds": [],
+				"giphyQuery": "two stroke dirt bike"
+			},
+			"b": {
+				"name": "Quatre-temps",
+				"origin": "Le moteur sage",
+				"line": "Plus propre, plus coupleux, plus lourd.",
+				"giphyIds": [],
+				"giphyQuery": "four stroke engine"
+			}
+		},
+		{
+			"id": "autos-casque-integral-casque-jet",
+			"category": "autos",
+			"a": {
+				"name": "Casque intégral",
+				"origin": "La tête entière",
+				"line": "Tout protégé, et la visière qui s’embue.",
+				"giphyIds": ["RAIwEdpdMYk8KyuXXj"],
+				"giphyQuery": "full face helmet"
+			},
+			"b": {
+				"name": "Casque jet",
+				"origin": "Le visage à l’air",
+				"line": "Le vent sur les joues, et les moucherons aussi.",
+				"giphyIds": ["ECxBqbjG4gxLRR0jX9"],
+				"giphyQuery": "open face helmet"
+			}
+		},
+		{
+			"id": "autos-le-v-de-la-main-le-hochement-de-tete",
+			"category": "autos",
+			"a": {
+				"name": "Le V de la main",
+				"origin": "Les motards",
+				"line": "Deux doigts tendus vers le bas, la fraternité.",
+				"giphyIds": [],
+				"giphyQuery": "motorcycle wave"
+			},
+			"b": {
+				"name": "Le hochement de tête",
+				"origin": "Les motards aussi",
+				"line": "Un petit signe du casque, la même fraternité.",
+				"giphyIds": [],
+				"giphyQuery": "nod"
+			}
+		},
+		{
+			"id": "autos-mehari-mini-moke",
+			"category": "autos",
+			"a": {
+				"name": "Méhari",
+				"origin": "Citroën · 1968",
+				"line": "Une voiture en plastique, faite pour la plage.",
+				"giphyIds": [],
+				"giphyQuery": "Citroen Mehari"
+			},
+			"b": {
+				"name": "Mini Moke",
+				"origin": "Royaume-Uni · 1964",
+				"line": "La jeep de plage britannique.",
+				"giphyIds": [],
+				"giphyQuery": "Mini Moke"
+			}
+		},
+		{
+			"id": "autos-taxi-jaune-black-cab",
+			"category": "autos",
+			"a": {
+				"name": "Taxi jaune",
+				"origin": "New York",
+				"line": "Le klaxon, et un chauffeur pressé.",
+				"giphyIds": [],
+				"giphyQuery": "New York taxi"
+			},
+			"b": {
+				"name": "Black cab",
+				"origin": "Londres",
+				"line": "Noir, rond, et le meilleur plan de la ville.",
+				"giphyIds": [],
+				"giphyQuery": "London black cab"
+			}
+		},
+		{
+			"id": "mode-queue-de-cheval-cheveux-laches",
+			"category": "mode",
+			"a": {
+				"name": "Queue de cheval",
+				"origin": "Le poignet, un élastique toujours prêt",
+				"line": "Pratique, rapide, et les cheveux hors du chemin.",
+				"quip": "Team queue de cheval : pratique, rapide, et un élastique toujours au poignet.",
+				"giphyIds": [],
+				"giphyQuery": "ponytail"
+			},
+			"b": {
+				"name": "Cheveux lâchés",
+				"origin": "Le vent",
+				"line": "Libres, et dans les yeux au premier coup de vent.",
+				"quip": "Team cheveux lâchés : libres, et dans les yeux au premier coup de vent.",
+				"giphyIds": [],
+				"giphyQuery": "hair flip wind"
+			},
+			"bothQuip": "Les deux. Lâchés le matin, queue de cheval à midi.",
+			"noneQuip": "Ni l’un ni l’autre. Cheveux courts. Problème réglé."
+		},
+		{
+			"id": "mode-chaussettes-hautes-socquettes-invisibles",
+			"category": "mode",
+			"a": {
+				"name": "Chaussettes hautes",
+				"origin": "Les mollets",
+				"line": "Remontées jusqu’en haut, et assumées.",
+				"quip": "Team chaussettes hautes : remontées jusqu’en haut, et assumées. La mode te donne raison.",
+				"giphyIds": [],
+				"giphyQuery": "high socks"
+			},
+			"b": {
+				"name": "Socquettes invisibles",
+				"origin": "Le fond de la chaussure",
+				"line": "Elles disparaissent. Dans la chaussure, et dans la machine.",
+				"quip": "Team socquettes invisibles : elles disparaissent. Dans la chaussure, puis dans la machine.",
+				"giphyIds": [],
+				"giphyQuery": "ankle socks"
+			},
+			"bothQuip": "Les deux. Hautes l’hiver, invisibles l’été.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de chaussettes. Tes pieds sont courageux."
+		},
+		{
+			"id": "mode-garder-le-pull-troue-le-jeter",
+			"category": "mode",
+			"question": "Ton pull préféré a un trou : tu le gardes ou tu le jettes ?",
+			"a": {
+				"name": "Le garder",
+				"origin": "Le placard",
+				"line": "Il a un trou, mais il a une histoire.",
+				"quip": "Team je le garde : ton pull a trois trous, et tu le portes encore le dimanche. Fidélité.",
+				"giphyIds": [],
+				"giphyQuery": "cozy sweater"
+			},
+			"b": {
+				"name": "Le jeter",
+				"origin": "La poubelle textile",
+				"line": "Un trou, c’est un adieu.",
+				"quip": "Team je le jette : un trou, et c’est fini. Tu as le cœur dur, mais une garde-robe impeccable.",
+				"giphyIds": [],
+				"giphyQuery": "throwing away"
+			},
+			"bothQuip": "Les deux. Tu le jettes, puis tu vas le rechercher. Deux fois.",
+			"noneQuip": "Ni l’un ni l’autre. Tu le reprises toi-même. Respect total."
+		},
+		{
+			"id": "mode-vernis-ongles-naturels",
+			"category": "mode",
+			"a": {
+				"name": "Vernis",
+				"origin": "Le flacon",
+				"line": "De la couleur au bout des doigts, et la patience du séchage.",
+				"quip": "Team vernis : tu as déjà attendu le séchage les mains en l’air, sans rien toucher. Longtemps.",
+				"giphyIds": [],
+				"giphyQuery": "nail polish"
+			},
+			"b": {
+				"name": "Ongles naturels",
+				"origin": "Les mains",
+				"line": "Propres, nets, et aucun écaillage.",
+				"quip": "Team naturel : aucun écaillage, aucun séchage. Tu as gagné vingt minutes par semaine.",
+				"giphyIds": [],
+				"giphyQuery": "hands"
+			},
+			"bothQuip": "Les deux. Naturel en semaine, une couleur pour les grandes occasions.",
+			"noneQuip": "Ni l’un ni l’autre. Tes ongles, tu les ronges. On ne juge pas."
+		},
+		{
+			"id": "mode-baskets-blanches-impeccables-baskets-blanches-usees",
+			"category": "mode",
+			"question": "Les baskets blanches : impeccables ou usées ?",
+			"a": {
+				"name": "Impeccables",
+				"origin": "La brosse à dents",
+				"line": "Nettoyées après chaque sortie, comme neuves.",
+				"quip": "Team impeccables : tu nettoies tes baskets avec une brosse à dents. Aucune honte.",
+				"giphyIds": [],
+				"giphyQuery": "white sneakers"
+			},
+			"b": {
+				"name": "Usées",
+				"origin": "La vraie vie",
+				"line": "Elles ont vécu, et ça se voit.",
+				"quip": "Team usées : tes baskets ont vu des festivals, des flaques et des concerts. Elles racontent tout.",
+				"giphyIds": [],
+				"giphyQuery": "dirty sneakers"
+			},
+			"bothQuip": "Les deux. Une paire pour sortir, une paire pour vivre.",
+			"noneQuip": "Ni l’un ni l’autre. Le blanc, c’est trop risqué. Tu prends du noir."
+		},
+		{
+			"id": "mode-pattes-d-eph-slim",
+			"category": "mode",
+			"a": {
+				"name": "Pattes d’eph",
+				"origin": "Les années 70",
+				"line": "Large en bas, et le retour en force.",
+				"quip": "Team pattes d’eph : tu balaies le trottoir en marchant. C’est du style.",
+				"giphyIds": [],
+				"giphyQuery": "bell bottoms"
+			},
+			"b": {
+				"name": "Slim",
+				"origin": "Les années 2010",
+				"line": "Serré du haut jusqu’en bas.",
+				"quip": "Team slim : l’enfiler, c’est un sport. L’enlever, un autre.",
+				"giphyIds": [],
+				"giphyQuery": "skinny jeans"
+			},
+			"bothQuip": "Les deux. Ta garde-robe traverse cinquante ans de mode.",
+			"noneQuip": "Ni l’un ni l’autre. Le pantalon droit, ni large ni serré. La sagesse."
+		},
+		{
+			"id": "mode-la-meme-tenue-tous-les-jours-une-tenue-differente",
+			"category": "mode",
+			"a": {
+				"name": "La même tenue tous les jours",
+				"origin": "Les génies, paraît-il",
+				"line": "Pas de choix le matin, et plus d’énergie pour le reste.",
+				"quip": "Team même tenue : cinq t-shirts identiques. Comme un génie de la tech, mais sans la fortune.",
+				"giphyIds": [],
+				"giphyQuery": "same outfit"
+			},
+			"b": {
+				"name": "Une tenue différente",
+				"origin": "Le dressing",
+				"line": "Chaque jour, un nouveau look.",
+				"quip": "Team tenue différente : tu ne remets jamais la même tenue deux fois dans la semaine. Organisation.",
+				"giphyIds": [],
+				"giphyQuery": "outfit change"
+			},
+			"bothQuip": "Les deux. La même tenue la semaine, des looks le week-end.",
+			"noneQuip": "Ni l’un ni l’autre. Tu prends ce qui est en haut de la pile. Le hasard décide."
+		},
+		{
+			"id": "mode-sur-la-tete-sur-le-nez",
+			"category": "mode",
+			"question": "Les lunettes de soleil : sur la tête ou sur le nez ?",
+			"a": {
+				"name": "Sur la tête",
+				"origin": "Le serre-tête improvisé",
+				"line": "Elles tiennent les cheveux. Et elles servent rarement.",
+				"quip": "Team sur la tête : tu cherches tes lunettes de soleil. Elles sont sur ta tête. Depuis une heure.",
+				"giphyIds": [],
+				"giphyQuery": "sunglasses on head"
+			},
+			"b": {
+				"name": "Sur le nez",
+				"origin": "Le soleil",
+				"line": "Là où elles servent, tout simplement.",
+				"quip": "Team sur le nez : tu portes tes lunettes de soleil là où elles servent. Quelle originalité.",
+				"giphyIds": [],
+				"giphyQuery": "sunglasses"
+			},
+			"bothQuip": "Les deux. Une paire sur le nez, une sur la tête. Au cas où.",
+			"noneQuip": "Ni l’un ni l’autre. Tu plisses les yeux. Tout l’été."
+		},
+		{
+			"id": "mode-capuche-parapluie",
+			"category": "mode",
+			"question": "Quand il pleut : capuche ou parapluie ?",
+			"a": {
+				"name": "Capuche",
+				"origin": "Le sweat",
+				"line": "Toujours sur toi, jamais oubliée.",
+				"quip": "Team capuche : tu ne vois plus rien sur les côtés, mais tu restes au sec. À peu près.",
+				"giphyIds": [],
+				"giphyQuery": "hoodie rain"
+			},
+			"b": {
+				"name": "Parapluie",
+				"origin": "Le porte-parapluie",
+				"line": "Au sec, à condition de ne pas l’oublier.",
+				"quip": "Team parapluie : tu en as perdu au moins dix. Dans le métro, au restaurant, partout.",
+				"giphyIds": [],
+				"giphyQuery": "umbrella"
+			},
+			"bothQuip": "Les deux. Capuche et parapluie. Tu n’as aucune confiance en la météo.",
+			"noneQuip": "Ni l’un ni l’autre. Tu cours entre les gouttes. Avec un succès variable."
+		},
+		{
+			"id": "mode-tendance-intemporel",
+			"category": "mode",
+			"a": {
+				"name": "Tendance",
+				"origin": "Les réseaux sociaux",
+				"line": "Ce qui se porte cette saison. Et plus la saison prochaine.",
+				"quip": "Team tendance : tu as acheté le vêtement du moment. Il est déjà démodé. Tu en rachètes un.",
+				"giphyIds": [],
+				"giphyQuery": "fashion trend"
+			},
+			"b": {
+				"name": "Intemporel",
+				"origin": "Le placard bien pensé",
+				"line": "Un trench, une chemise blanche, et dix ans de tranquillité.",
+				"quip": "Team intemporel : ta chemise blanche a quinze ans, et elle est toujours parfaite.",
+				"giphyIds": [],
+				"giphyQuery": "classic style"
+			},
+			"bothQuip": "Les deux. Des basiques intemporels, et une pièce tendance pour s’amuser.",
+			"noneQuip": "Ni l’un ni l’autre. La mode, ça ne t’intéresse pas. Et c’est très reposant."
+		},
+		{
+			"id": "dilemmes-plus-jamais-dormir-plus-jamais-manger",
+			"category": "dilemmes",
+			"question": "Tu préfères ne plus jamais dormir, ou ne plus jamais manger ?",
+			"a": {
+				"name": "Plus jamais dormir",
+				"origin": "Les nuits blanches",
+				"line": "Vingt-quatre heures par jour pour tout faire. Et regarder des séries.",
+				"giphyIds": [],
+				"giphyQuery": "insomnia awake"
+			},
+			"b": {
+				"name": "Plus jamais manger",
+				"origin": "La cuisine vide",
+				"line": "Plus de courses, plus de vaisselle, plus de raclette.",
+				"giphyIds": [],
+				"giphyQuery": "empty plate"
+			}
+		},
+		{
+			"id": "dilemmes-des-mains-aux-pieds-des-pieds-aux-mains",
+			"category": "dilemmes",
+			"question": "Tu préfères avoir des mains à la place des pieds, ou des pieds à la place des mains ?",
+			"a": {
+				"name": "Des mains aux pieds",
+				"origin": "La salle de gym",
+				"line": "Tu marches à quatre pattes, mais tu applaudis avec les pieds.",
+				"giphyIds": [],
+				"giphyQuery": "hands walking"
+			},
+			"b": {
+				"name": "Des pieds aux mains",
+				"origin": "Le bureau",
+				"line": "Tu tapes au clavier avec des orteils. Bon courage.",
+				"giphyIds": [],
+				"giphyQuery": "feet typing"
+			}
+		},
+		{
+			"id": "dilemmes-toujours-en-retard-toujours-en-avance",
+			"category": "dilemmes",
+			"question": "Tu préfères être toujours en retard de 10 minutes, ou en avance de 20 minutes ?",
+			"a": {
+				"name": "Toujours en retard",
+				"origin": "Dix minutes, chaque fois",
+				"line": "Tu rates le début de tous les films.",
+				"giphyIds": [],
+				"giphyQuery": "running late"
+			},
+			"b": {
+				"name": "Toujours en avance",
+				"origin": "Vingt minutes, chaque fois",
+				"line": "Tu attends tout le monde, devant la porte, dans le froid.",
+				"giphyIds": [],
+				"giphyQuery": "waiting early"
+			}
+		},
+		{
+			"id": "dilemmes-chanter-danser",
+			"category": "dilemmes",
+			"question": "Tu préfères chanter tout ce que tu dis, ou danser partout où tu marches ?",
+			"a": {
+				"name": "Chanter",
+				"origin": "Ta voix, en permanence",
+				"line": "Chaque phrase devient une comédie musicale.",
+				"giphyIds": [],
+				"giphyQuery": "singing"
+			},
+			"b": {
+				"name": "Danser",
+				"origin": "Tes jambes, en permanence",
+				"line": "Chaque déplacement devient un clip.",
+				"giphyIds": [],
+				"giphyQuery": "dancing walk"
+			}
+		},
+		{
+			"id": "dilemmes-toujours-trop-chaud-toujours-trop-froid",
+			"category": "dilemmes",
+			"question": "Tu préfères avoir toujours trop chaud, ou toujours trop froid ?",
+			"a": {
+				"name": "Toujours trop chaud",
+				"origin": "Ta peau",
+				"line": "Tu transpires même en janvier.",
+				"giphyIds": [],
+				"giphyQuery": "sweating hot"
+			},
+			"b": {
+				"name": "Toujours trop froid",
+				"origin": "Ta peau",
+				"line": "Tu portes une écharpe même en août.",
+				"giphyIds": [],
+				"giphyQuery": "freezing cold"
+			}
+		},
+		{
+			"id": "dilemmes-un-bouton-pause-un-bouton-retour",
+			"category": "dilemmes",
+			"question": "Pour ta vie, tu préfères un bouton pause, ou un bouton retour arrière ?",
+			"a": {
+				"name": "Un bouton pause",
+				"origin": "Ta vie",
+				"line": "Tout s’arrête, sauf toi.",
+				"giphyIds": [],
+				"giphyQuery": "pause button"
+			},
+			"b": {
+				"name": "Un bouton retour",
+				"origin": "Ta vie",
+				"line": "Tu peux défaire ta dernière bêtise.",
+				"giphyIds": [],
+				"giphyQuery": "rewind button"
+			}
+		},
+		{
+			"id": "dilemmes-la-meme-journee-une-annee-sautee",
+			"category": "dilemmes",
+			"question": "Tu préfères revivre sans fin la même journée, ou sauter une année entière ?",
+			"a": {
+				"name": "La même journée",
+				"origin": "Un jour sans fin",
+				"line": "Revivre le même jour, encore et encore.",
+				"giphyIds": [],
+				"giphyQuery": "groundhog day"
+			},
+			"b": {
+				"name": "Une année sautée",
+				"origin": "Le futur",
+				"line": "Tu te réveilles un an plus tard, sans rien avoir vu.",
+				"giphyIds": [],
+				"giphyQuery": "time skip"
+			}
+		},
+		{
+			"id": "dilemmes-sans-musique-sans-films",
+			"category": "dilemmes",
+			"question": "Tu préfères vivre sans musique, ou sans films ?",
+			"a": {
+				"name": "Sans musique",
+				"origin": "Le silence",
+				"line": "Plus aucune chanson, jamais.",
+				"giphyIds": [],
+				"giphyQuery": "silence"
+			},
+			"b": {
+				"name": "Sans films",
+				"origin": "L’écran noir",
+				"line": "Plus aucun film, jamais.",
+				"giphyIds": [],
+				"giphyQuery": "black screen"
+			}
+		},
+		{
+			"id": "dilemmes-sans-internet-sans-telephone",
+			"category": "dilemmes",
+			"question": "Tu préfères vivre sans Internet, ou sans téléphone ?",
+			"a": {
+				"name": "Sans Internet",
+				"origin": "La vie d’avant",
+				"line": "Plus de vidéos, plus de messages, plus de cartes.",
+				"giphyIds": [],
+				"giphyQuery": "no internet"
+			},
+			"b": {
+				"name": "Sans téléphone",
+				"origin": "La vie d’avant aussi",
+				"line": "Plus d’appels, plus d’alarme, plus de photos.",
+				"giphyIds": [],
+				"giphyQuery": "no phone"
+			}
+		},
+		{
+			"id": "dilemmes-celebre-et-fauche-riche-et-inconnu",
+			"category": "dilemmes",
+			"question": "Tu préfères être célèbre et fauché, ou riche et inconnu ?",
+			"a": {
+				"name": "Célèbre et fauché",
+				"origin": "Les tapis rouges",
+				"line": "Tout le monde te connaît, personne ne te paie.",
+				"giphyIds": [],
+				"giphyQuery": "famous red carpet"
+			},
+			"b": {
+				"name": "Riche et inconnu",
+				"origin": "Le compte en banque",
+				"line": "Personne ne te connaît, tout le monde te sert.",
+				"giphyIds": [],
+				"giphyQuery": "rich money"
+			}
+		},
+		{
+			"id": "dilemmes-toujours-le-meme-plat-jamais-deux-fois",
+			"category": "dilemmes",
+			"question": "Tu préfères manger toujours le même plat, ou jamais deux fois le même ?",
+			"a": {
+				"name": "Toujours le même plat",
+				"origin": "Ta cuisine",
+				"line": "Ton plat préféré, à chaque repas, pour toujours.",
+				"giphyIds": [],
+				"giphyQuery": "same food every day"
+			},
+			"b": {
+				"name": "Jamais deux fois",
+				"origin": "Ta cuisine aussi",
+				"line": "Un plat différent à chaque repas, même les ratés.",
+				"giphyIds": [],
+				"giphyQuery": "trying new food"
+			}
+		},
+		{
+			"id": "dilemmes-toujours-dire-la-verite-ne-plus-jamais-parler",
+			"category": "dilemmes",
+			"question": "Tu préfères dire toujours la vérité, ou ne plus jamais parler ?",
+			"a": {
+				"name": "Toujours dire la vérité",
+				"origin": "Ta bouche",
+				"line": "Même au dîner de famille. Surtout au dîner de famille.",
+				"giphyIds": [],
+				"giphyQuery": "honest"
+			},
+			"b": {
+				"name": "Ne plus jamais parler",
+				"origin": "Ta bouche, fermée",
+				"line": "Plus de gaffes, plus de discours.",
+				"giphyIds": [],
+				"giphyQuery": "silent zip mouth"
+			}
+		},
+		{
+			"id": "dilemmes-un-nez-de-clown-une-voix-d-helium",
+			"category": "dilemmes",
+			"question": "Tu préfères un nez de clown permanent, ou une voix d’hélium à vie ?",
+			"a": {
+				"name": "Un nez de clown",
+				"origin": "Ton visage",
+				"line": "Rouge, rond, et ça fait « pouet ».",
+				"giphyIds": [],
+				"giphyQuery": "clown nose"
+			},
+			"b": {
+				"name": "Une voix d’hélium",
+				"origin": "Ta gorge",
+				"line": "Toutes tes phrases deviennent drôles. Même les tristes.",
+				"giphyIds": [],
+				"giphyQuery": "helium voice"
+			}
+		},
+		{
+			"id": "dilemmes-noir-et-blanc-en-8-bits",
+			"category": "dilemmes",
+			"question": "Tu préfères un monde en noir et blanc, ou un monde en 8 bits ?",
+			"a": {
+				"name": "Noir et blanc",
+				"origin": "Le monde",
+				"line": "Tout devient un vieux film.",
+				"giphyIds": [],
+				"giphyQuery": "black and white film"
+			},
+			"b": {
+				"name": "En 8 bits",
+				"origin": "Le monde",
+				"line": "Tout devient un vieux jeu vidéo.",
+				"giphyIds": [],
+				"giphyQuery": "8 bit pixel"
+			}
+		},
+		{
+			"id": "dilemmes-le-genie-qu-on-ne-croit-pas-l-idiot-qu-on-croit",
+			"category": "dilemmes",
+			"question": "Tu préfères être un génie que personne ne croit, ou un idiot que tout le monde croit ?",
+			"a": {
+				"name": "Le génie qu’on ne croit pas",
+				"origin": "La réunion",
+				"line": "Tu as toujours raison, personne ne t’écoute.",
+				"giphyIds": [],
+				"giphyQuery": "ignored genius"
+			},
+			"b": {
+				"name": "L’idiot qu’on croit",
+				"origin": "La réunion aussi",
+				"line": "Tu as toujours tort, tout le monde t’applaudit.",
+				"giphyIds": [],
+				"giphyQuery": "applause"
+			}
+		},
+		{
+			"id": "dilemmes-rougir-quand-tu-mens-eternuer-quand-tu-mens",
+			"category": "dilemmes",
+			"question": "Tu préfères rougir à chaque mensonge, ou éternuer à chaque mensonge ?",
+			"a": {
+				"name": "Rougir quand tu mens",
+				"origin": "Tes joues",
+				"line": "Impossible de cacher un mensonge.",
+				"giphyIds": [],
+				"giphyQuery": "blushing"
+			},
+			"b": {
+				"name": "Éternuer quand tu mens",
+				"origin": "Ton nez",
+				"line": "Impossible de cacher un mensonge, et c’est bruyant.",
+				"giphyIds": [],
+				"giphyQuery": "sneezing"
+			}
+		},
+		{
+			"id": "dilemmes-une-queue-de-chat-des-oreilles-de-lapin",
+			"category": "dilemmes",
+			"question": "Tu préfères avoir une queue de chat, ou des oreilles de lapin ?",
+			"a": {
+				"name": "Une queue de chat",
+				"origin": "Ton dos",
+				"line": "Elle trahit toutes tes émotions.",
+				"giphyIds": [],
+				"giphyQuery": "cat tail"
+			},
+			"b": {
+				"name": "Des oreilles de lapin",
+				"origin": "Ta tête",
+				"line": "Elles trahissent toutes tes émotions, en plus haut.",
+				"giphyIds": [],
+				"giphyQuery": "bunny ears"
+			}
+		},
+		{
+			"id": "dilemmes-que-du-jaune-que-des-pyjamas",
+			"category": "dilemmes",
+			"question": "Tu préfères ne porter que du jaune, ou que des pyjamas ?",
+			"a": {
+				"name": "Que du jaune",
+				"origin": "Ta garde-robe",
+				"line": "Tous tes vêtements, en jaune, pour toujours.",
+				"giphyIds": [],
+				"giphyQuery": "yellow outfit"
+			},
+			"b": {
+				"name": "Que des pyjamas",
+				"origin": "Ta garde-robe aussi",
+				"line": "Confortable au mariage, moins au bureau.",
+				"giphyIds": [],
+				"giphyQuery": "pajamas work"
+			}
+		},
+		{
+			"id": "dilemmes-un-generique-des-rires-enregistres",
+			"category": "dilemmes",
+			"question": "Tu préfères un générique quand tu entres, ou des rires enregistrés quand tu parles ?",
+			"a": {
+				"name": "Un générique",
+				"origin": "Ton entrée",
+				"line": "Une musique de série quand tu entres dans une pièce.",
+				"giphyIds": [],
+				"giphyQuery": "entrance music"
+			},
+			"b": {
+				"name": "Des rires enregistrés",
+				"origin": "Tes phrases",
+				"line": "Le public rit après chacune de tes phrases.",
+				"giphyIds": [],
+				"giphyQuery": "laugh track sitcom"
+			}
+		},
+		{
+			"id": "dilemmes-une-musique-de-film-un-narrateur",
+			"category": "dilemmes",
+			"question": "Tu préfères une musique de film qui te suit partout, ou un narrateur qui commente ta vie ?",
+			"a": {
+				"name": "Une musique de film",
+				"origin": "Ta vie",
+				"line": "Une bande-son épique, même pour sortir les poubelles.",
+				"giphyIds": [],
+				"giphyQuery": "epic music walking"
+			},
+			"b": {
+				"name": "Un narrateur",
+				"origin": "Ta vie",
+				"line": "Une voix qui commente tout ce que tu fais.",
+				"giphyIds": [],
+				"giphyQuery": "narrator documentary"
+			}
+		},
+		{
+			"id": "dilemmes-tes-pensees-affichees-ton-historique-public",
+			"category": "dilemmes",
+			"question": "Tu préfères tes pensées affichées au-dessus de ta tête, ou ton historique Internet public ?",
+			"a": {
+				"name": "Tes pensées affichées",
+				"origin": "Au-dessus de ta tête",
+				"line": "Une bulle de bande dessinée, visible par tous.",
+				"giphyIds": [],
+				"giphyQuery": "thought bubble"
+			},
+			"b": {
+				"name": "Ton historique public",
+				"origin": "Internet",
+				"line": "Toutes tes recherches, lisibles par tous.",
+				"giphyIds": [],
+				"giphyQuery": "browser history panic"
+			}
+		},
+		{
+			"id": "dilemmes-des-doigts-en-spaghettis-des-cheveux-en-spaghettis",
+			"category": "dilemmes",
+			"question": "Tu préfères des doigts en spaghettis, ou des cheveux en spaghettis ?",
+			"a": {
+				"name": "Des doigts en spaghettis",
+				"origin": "Tes mains",
+				"line": "Mous, longs, et très pratiques pour rien.",
+				"giphyIds": [],
+				"giphyQuery": "spaghetti"
+			},
+			"b": {
+				"name": "Des cheveux en spaghettis",
+				"origin": "Ta tête",
+				"line": "Al dente, et parfumés à la tomate.",
+				"giphyIds": [],
+				"giphyQuery": "spaghetti hair"
+			}
+		},
+		{
+			"id": "dilemmes-un-canard-geant-cent-chevaux-miniatures",
+			"category": "dilemmes",
+			"question": "Tu préfères affronter un canard de la taille d’un cheval, ou cent chevaux de la taille d’un canard ?",
+			"a": {
+				"name": "Un canard géant",
+				"origin": "L’arène",
+				"line": "Un seul canard, de la taille d’un cheval.",
+				"giphyIds": [],
+				"giphyQuery": "giant duck"
+			},
+			"b": {
+				"name": "Cent chevaux miniatures",
+				"origin": "L’arène",
+				"line": "Cent chevaux, de la taille d’un canard.",
+				"giphyIds": [],
+				"giphyQuery": "tiny horse"
+			}
+		},
+		{
+			"id": "dilemmes-plus-de-wi-fi-plus-d-eau-chaude",
+			"category": "dilemmes",
+			"question": "Tu préfères ne plus jamais avoir de Wi-Fi, ou ne plus jamais avoir d’eau chaude ?",
+			"a": {
+				"name": "Plus de Wi-Fi",
+				"origin": "La maison",
+				"line": "Plus jamais de connexion à la maison.",
+				"giphyIds": [],
+				"giphyQuery": "no wifi"
+			},
+			"b": {
+				"name": "Plus d’eau chaude",
+				"origin": "La douche",
+				"line": "Plus jamais de douche chaude.",
+				"giphyIds": [],
+				"giphyQuery": "cold shower"
+			}
+		},
+		{
+			"id": "dilemmes-avec-ton-ex-avec-ton-patron",
+			"category": "dilemmes",
+			"question": "Coincé deux heures dans un ascenseur : avec ton ex, ou avec ton patron ?",
+			"a": {
+				"name": "Avec ton ex",
+				"origin": "L’ascenseur en panne",
+				"line": "Deux heures, et beaucoup de souvenirs.",
+				"giphyIds": [],
+				"giphyQuery": "awkward elevator"
+			},
+			"b": {
+				"name": "Avec ton patron",
+				"origin": "L’ascenseur en panne aussi",
+				"line": "Deux heures, et un entretien annuel imprévu.",
+				"giphyIds": [],
+				"giphyQuery": "boss awkward"
+			}
+		},
+		{
+			"id": "dilemmes-du-sable-dans-les-chaussures-une-chaussette-mouillee",
+			"category": "dilemmes",
+			"question": "Tu préfères toujours avoir du sable dans les chaussures, ou une chaussette mouillée ?",
+			"a": {
+				"name": "Du sable dans les chaussures",
+				"origin": "Tes pieds",
+				"line": "Toujours, partout, même en hiver.",
+				"giphyIds": [],
+				"giphyQuery": "sand shoes"
+			},
+			"b": {
+				"name": "Une chaussette mouillée",
+				"origin": "Ton pied gauche",
+				"line": "Toujours, partout, et tu ne sais jamais pourquoi.",
+				"giphyIds": [],
+				"giphyQuery": "wet socks"
+			}
+		},
+		{
+			"id": "dilemmes-plus-de-fromage-plus-de-chocolat",
+			"category": "dilemmes",
+			"question": "Tu préfères renoncer pour toujours au fromage, ou au chocolat ?",
+			"a": {
+				"name": "Plus de fromage",
+				"origin": "Le plateau",
+				"line": "Adieu raclette, adieu fondue, adieu camembert.",
+				"giphyIds": [],
+				"giphyQuery": "cheese"
+			},
+			"b": {
+				"name": "Plus de chocolat",
+				"origin": "La tablette",
+				"line": "Adieu desserts, adieu Pâques, adieu réconfort.",
+				"giphyIds": [],
+				"giphyQuery": "chocolate"
+			}
+		},
+		{
+			"id": "dilemmes-batterie-a-1-ecran-fissure",
+			"category": "dilemmes",
+			"question": "Pour toujours : ton téléphone à 1 %, ou ton écran fissuré ?",
+			"a": {
+				"name": "Batterie à 1 %",
+				"origin": "Ton téléphone",
+				"line": "Pour toujours. Il ne s’éteint jamais, mais il te fait peur.",
+				"giphyIds": [],
+				"giphyQuery": "low battery"
+			},
+			"b": {
+				"name": "Écran fissuré",
+				"origin": "Ton téléphone",
+				"line": "Pour toujours. Il marche, mais il pique.",
+				"giphyIds": [],
+				"giphyQuery": "cracked screen"
+			}
+		},
+		{
+			"id": "dilemmes-toujours-faim-toujours-sommeil",
+			"category": "dilemmes",
+			"question": "Tu préfères avoir toujours faim, ou toujours sommeil ?",
+			"a": {
+				"name": "Toujours faim",
+				"origin": "Ton ventre",
+				"line": "Un petit creux, en permanence.",
+				"giphyIds": [],
+				"giphyQuery": "hungry"
+			},
+			"b": {
+				"name": "Toujours sommeil",
+				"origin": "Tes paupières",
+				"line": "Un petit coup de barre, en permanence.",
+				"giphyIds": [],
+				"giphyQuery": "sleepy yawn"
+			}
+		},
+		{
+			"id": "dilemmes-suivi-par-un-pigeon-suivi-par-un-mime",
+			"category": "dilemmes",
+			"question": "Tu préfères être suivi toute ta vie par un pigeon, ou par un mime ?",
+			"a": {
+				"name": "Suivi par un pigeon",
+				"origin": "La rue",
+				"line": "Il ne te lâche jamais, et il roucoule.",
+				"giphyIds": [],
+				"giphyQuery": "pigeon following"
+			},
+			"b": {
+				"name": "Suivi par un mime",
+				"origin": "La rue aussi",
+				"line": "Il imite tout ce que tu fais, en silence.",
+				"giphyIds": [],
+				"giphyQuery": "mime"
+			}
+		},
+		{
+			"id": "dilemmes-en-rimes-en-questions",
+			"category": "dilemmes",
+			"question": "Tu préfères ne parler qu’en rimes, ou qu’en questions ?",
+			"a": {
+				"name": "En rimes",
+				"origin": "Ta bouche",
+				"line": "Tout ce que tu dis rime. Même tes excuses.",
+				"giphyIds": [],
+				"giphyQuery": "poetry"
+			},
+			"b": {
+				"name": "En questions",
+				"origin": "Ta bouche aussi",
+				"line": "Tout ce que tu dis est une question. Pourquoi ?",
+				"giphyIds": [],
+				"giphyQuery": "confused question"
+			}
+		},
+		{
+			"id": "dilemmes-en-schtroumpf-comme-yoda",
+			"category": "dilemmes",
+			"question": "Tu préfères parler en schtroumpf, ou parler comme Yoda ?",
+			"a": {
+				"name": "En schtroumpf",
+				"origin": "Ton vocabulaire",
+				"line": "Tu schtroumpfes tous les mots importants.",
+				"giphyIds": [],
+				"giphyQuery": "Smurfs"
+			},
+			"b": {
+				"name": "Comme Yoda",
+				"origin": "Ta grammaire",
+				"line": "À l’envers, tes phrases tu construis.",
+				"giphyIds": [],
+				"giphyQuery": "Yoda"
+			}
+		},
+		{
+			"id": "dilemmes-la-voix-de-dark-vador-la-voix-de-donald",
+			"category": "dilemmes",
+			"question": "Tu préfères la voix de Dark Vador, ou celle de Donald ?",
+			"a": {
+				"name": "La voix de Dark Vador",
+				"origin": "Ta gorge",
+				"line": "Une respiration lourde à chaque phrase.",
+				"giphyIds": [],
+				"giphyQuery": "Darth Vader breathing"
+			},
+			"b": {
+				"name": "La voix de Donald",
+				"origin": "Ta gorge aussi",
+				"line": "Personne ne comprend, mais tout le monde rit.",
+				"giphyIds": [],
+				"giphyQuery": "Donald Duck talking"
+			}
+		},
+		{
+			"id": "dilemmes-une-comedie-musicale-un-film-d-horreur",
+			"category": "dilemmes",
+			"question": "Tu préfères que ta vie soit une comédie musicale, ou un film d’horreur ?",
+			"a": {
+				"name": "Une comédie musicale",
+				"origin": "Ta vie",
+				"line": "Tout le monde chante, tout le temps.",
+				"giphyIds": [],
+				"giphyQuery": "musical"
+			},
+			"b": {
+				"name": "Un film d’horreur",
+				"origin": "Ta vie",
+				"line": "Tout le monde crie, tout le temps.",
+				"giphyIds": [],
+				"giphyQuery": "horror movie scream"
+			}
+		},
+		{
+			"id": "dilemmes-un-million-en-24-heures-1-000-par-mois",
+			"category": "dilemmes",
+			"question": "Tu préfères un million à dépenser en 24 heures, ou 1 000 € par mois à vie ?",
+			"a": {
+				"name": "Un million en 24 heures",
+				"origin": "Ton compte en banque",
+				"line": "Tout dépenser avant demain, sinon tout disparaît.",
+				"giphyIds": [],
+				"giphyQuery": "spending money fast"
+			},
+			"b": {
+				"name": "1 000 € par mois",
+				"origin": "Ton compte en banque",
+				"line": "À vie, sans rien faire.",
+				"giphyIds": [],
+				"giphyQuery": "monthly paycheck"
+			}
+		},
+		{
+			"id": "dilemmes-rencontrer-ton-sosie-rencontrer-ton-toi-du-futur",
+			"category": "dilemmes",
+			"question": "Tu préfères rencontrer ton sosie, ou ton toi du futur ?",
+			"a": {
+				"name": "Rencontrer ton sosie",
+				"origin": "La rue",
+				"line": "Il a ta tête, mais pas ta vie.",
+				"giphyIds": [],
+				"giphyQuery": "doppelganger"
+			},
+			"b": {
+				"name": "Rencontrer ton toi du futur",
+				"origin": "La rue aussi",
+				"line": "Il a ta tête, avec des rides et des conseils.",
+				"giphyIds": [],
+				"giphyQuery": "old self"
+			}
+		},
+		{
+			"id": "dilemmes-annuler-une-erreur-connaitre-une-reponse",
+			"category": "dilemmes",
+			"question": "Tu préfères annuler une erreur de ton passé, ou connaître une réponse sur ton futur ?",
+			"a": {
+				"name": "Annuler une erreur",
+				"origin": "Ton passé",
+				"line": "Une seule. Choisis bien.",
+				"giphyIds": [],
+				"giphyQuery": "undo mistake"
+			},
+			"b": {
+				"name": "Connaître une réponse",
+				"origin": "Ton futur",
+				"line": "Une seule question, une seule réponse.",
+				"giphyIds": [],
+				"giphyQuery": "crystal ball"
+			}
+		},
+		{
+			"id": "dilemmes-des-mains-qui-collent-un-cheveu-sur-la-langue",
+			"category": "dilemmes",
+			"question": "Tu préfères avoir toujours les mains qui collent, ou un cheveu sur la langue ?",
+			"a": {
+				"name": "Des mains qui collent",
+				"origin": "Tes doigts",
+				"line": "Comme après une barbe à papa. Pour toujours.",
+				"giphyIds": [],
+				"giphyQuery": "sticky hands"
+			},
+			"b": {
+				"name": "Un cheveu sur la langue",
+				"origin": "Ta bouche",
+				"line": "Tu ne le trouves jamais. Pour toujours.",
+				"giphyIds": [],
+				"giphyQuery": "hair on tongue"
+			}
+		},
+		{
+			"id": "dilemmes-des-films-de-3-heures-des-videos-de-30-secondes",
+			"category": "dilemmes",
+			"question": "Tu préfères ne regarder que des films de 3 heures, ou que des vidéos de 30 secondes ?",
+			"a": {
+				"name": "Des films de 3 heures",
+				"origin": "Le cinéma",
+				"line": "Que des épopées, pas de format court.",
+				"giphyIds": [],
+				"giphyQuery": "long movie"
+			},
+			"b": {
+				"name": "Des vidéos de 30 secondes",
+				"origin": "Ton téléphone",
+				"line": "Que des vidéos courtes, pas de film.",
+				"giphyIds": [],
+				"giphyQuery": "short videos scrolling"
+			}
+		},
+		{
+			"id": "dilemmes-un-dragon-mini-un-chat-geant",
+			"category": "dilemmes",
+			"question": "Tu préfères un dragon de la taille d’un chat, ou un chat de la taille d’un dragon ?",
+			"a": {
+				"name": "Un dragon mini",
+				"origin": "Ton salon",
+				"line": "Un dragon de la taille d’un chat. Il crache sur le canapé.",
+				"giphyIds": [],
+				"giphyQuery": "tiny dragon"
+			},
+			"b": {
+				"name": "Un chat géant",
+				"origin": "Ton jardin",
+				"line": "Un chat de la taille d’un dragon. Il ronronne comme un tremblement de terre.",
+				"giphyIds": [],
+				"giphyQuery": "giant cat"
+			}
+		},
+		{
+			"id": "dilemmes-vivre-dans-harry-potter-vivre-dans-star-wars",
+			"category": "dilemmes",
+			"question": "Tu préfères vivre dans le monde d’Harry Potter, ou dans celui de Star Wars ?",
+			"a": {
+				"name": "Vivre dans Harry Potter",
+				"origin": "Poudlard",
+				"line": "Des sorts, des hiboux, et des examens.",
+				"giphyIds": [],
+				"giphyQuery": "Hogwarts"
+			},
+			"b": {
+				"name": "Vivre dans Star Wars",
+				"origin": "Une galaxie lointaine",
+				"line": "Des sabres laser, des vaisseaux, et l’Empire.",
+				"giphyIds": [],
+				"giphyQuery": "Star Wars lightsaber"
+			}
+		},
+		{
+			"id": "dilemmes-une-nuit-au-louvre-une-nuit-au-supermarche",
+			"category": "dilemmes",
+			"question": "Enfermé une nuit : au Louvre, ou dans un supermarché ?",
+			"a": {
+				"name": "Une nuit au Louvre",
+				"origin": "Le musée",
+				"line": "La Joconde, rien que pour toi.",
+				"giphyIds": [],
+				"giphyQuery": "Louvre night"
+			},
+			"b": {
+				"name": "Une nuit au supermarché",
+				"origin": "Le rayon gâteaux",
+				"line": "Les chips, rien que pour toi.",
+				"giphyIds": [],
+				"giphyQuery": "supermarket night"
+			}
+		},
+		{
+			"id": "dilemmes-ton-premier-jour-d-ecole-ton-premier-rendez-vous",
+			"category": "dilemmes",
+			"question": "Tu préfères revivre ton premier jour d’école, ou ton premier rendez-vous amoureux ?",
+			"a": {
+				"name": "Ton premier jour d’école",
+				"origin": "Le cartable",
+				"line": "Le cartable trop grand et la peur au ventre.",
+				"giphyIds": [],
+				"giphyQuery": "first day of school"
+			},
+			"b": {
+				"name": "Ton premier rendez-vous",
+				"origin": "Le café",
+				"line": "Les mains moites et la peur au ventre aussi.",
+				"giphyIds": [],
+				"giphyQuery": "first date nervous"
+			}
+		},
+		{
+			"id": "dilemmes-eternuer-en-public-le-hoquet-en-reunion",
+			"category": "dilemmes",
+			"question": "Tu préfères éternuer bruyamment en public, ou avoir le hoquet en réunion ?",
+			"a": {
+				"name": "Éternuer en public",
+				"origin": "Le métro",
+				"line": "Fort, et au pire moment.",
+				"giphyIds": [],
+				"giphyQuery": "loud sneeze"
+			},
+			"b": {
+				"name": "Le hoquet en réunion",
+				"origin": "La salle de réunion",
+				"line": "Discret au début. Puis plus du tout.",
+				"giphyIds": [],
+				"giphyQuery": "hiccups"
+			}
+		},
+		{
+			"id": "dilemmes-un-rire-de-dauphin-un-rire-de-cochon",
+			"category": "dilemmes",
+			"question": "Tu préfères un rire de dauphin, ou un rire de cochon ?",
+			"a": {
+				"name": "Un rire de dauphin",
+				"origin": "Tes éclats de rire",
+				"line": "Des petits cris aigus, à chaque blague.",
+				"giphyIds": [],
+				"giphyQuery": "dolphin laugh"
+			},
+			"b": {
+				"name": "Un rire de cochon",
+				"origin": "Tes éclats de rire aussi",
+				"line": "Des grognements, à chaque blague.",
+				"giphyIds": [],
+				"giphyQuery": "pig snort laugh"
+			}
+		},
+		{
+			"id": "dilemmes-toujours-debout-toujours-assis",
+			"category": "dilemmes",
+			"question": "Tu préfères ne plus jamais pouvoir t’asseoir, ou ne plus jamais pouvoir te lever ?",
+			"a": {
+				"name": "Toujours debout",
+				"origin": "Tes jambes",
+				"line": "Plus jamais de chaise, de canapé, de siège.",
+				"giphyIds": [],
+				"giphyQuery": "standing"
+			},
+			"b": {
+				"name": "Toujours assis",
+				"origin": "Ton fauteuil",
+				"line": "Plus jamais debout. Tu te déplaces en chaise de bureau.",
+				"giphyIds": [],
+				"giphyQuery": "office chair rolling"
+			}
+		},
+		{
+			"id": "dilemmes-la-vie-de-ton-chat-la-vie-de-ton-poisson-rouge",
+			"category": "dilemmes",
+			"question": "Tu préfères vivre la vie de ton chat, ou celle de ton poisson rouge ?",
+			"a": {
+				"name": "La vie de ton chat",
+				"origin": "Le canapé",
+				"line": "Seize heures de sieste et des croquettes.",
+				"giphyIds": [],
+				"giphyQuery": "cat sleeping"
+			},
+			"b": {
+				"name": "La vie de ton poisson rouge",
+				"origin": "Le bocal",
+				"line": "Des tours de bocal, et zéro souvenir.",
+				"giphyIds": [],
+				"giphyQuery": "goldfish"
+			}
+		},
+		{
+			"id": "dilemmes-retrouver-tes-10-ans-sauter-a-tes-80-ans",
+			"category": "dilemmes",
+			"question": "Tu préfères revenir à tes 10 ans, ou sauter directement à tes 80 ans ?",
+			"a": {
+				"name": "Retrouver tes 10 ans",
+				"origin": "Le passé",
+				"line": "Avec tout ce que tu sais aujourd’hui.",
+				"giphyIds": [],
+				"giphyQuery": "kid again"
+			},
+			"b": {
+				"name": "Sauter à tes 80 ans",
+				"origin": "Le futur",
+				"line": "Avec tout ce que tu sais aujourd’hui aussi.",
+				"giphyIds": [],
+				"giphyQuery": "old person"
+			}
+		},
+		{
+			"id": "dilemmes-jamais-non-jamais-oui",
+			"category": "dilemmes",
+			"question": "Tu préfères ne plus jamais pouvoir dire non, ou ne plus jamais pouvoir dire oui ?",
+			"a": {
+				"name": "Jamais « non »",
+				"origin": "Ta bouche",
+				"line": "Tu acceptes tout. Absolument tout.",
+				"giphyIds": [],
+				"giphyQuery": "yes man"
+			},
+			"b": {
+				"name": "Jamais « oui »",
+				"origin": "Ta bouche aussi",
+				"line": "Tu refuses tout. Même les desserts.",
+				"giphyIds": [],
+				"giphyQuery": "no no no"
+			}
+		},
+		{
+			"id": "dilemmes-cereales-infinies-chocolat-qui-repousse",
+			"category": "dilemmes",
+			"question": "Tu préfères une boîte de céréales infinie, ou une tablette de chocolat qui se reconstitue ?",
+			"a": {
+				"name": "Céréales infinies",
+				"origin": "Le placard",
+				"line": "Une boîte qui ne se vide jamais.",
+				"giphyIds": [],
+				"giphyQuery": "cereal bowl"
+			},
+			"b": {
+				"name": "Chocolat qui repousse",
+				"origin": "Le placard aussi",
+				"line": "Une tablette qui se reconstitue toute seule.",
+				"giphyIds": [],
+				"giphyQuery": "chocolate bar"
+			}
+		},
+		{
+			"id": "pouvoirs-voler-etre-invisible",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Voler",
+				"origin": "Le ciel",
+				"line": "Plus de bouchons, mais des moustiques dans les dents.",
+				"giphyIds": [],
+				"giphyQuery": "flying superhero"
+			},
+			"b": {
+				"name": "Être invisible",
+				"origin": "Partout",
+				"line": "Personne ne te voit. Même quand tu as besoin d’aide.",
+				"giphyIds": [],
+				"giphyQuery": "invisible"
+			}
+		},
+		{
+			"id": "pouvoirs-lire-dans-les-pensees-voir-l-avenir",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Lire dans les pensées",
+				"origin": "Les autres",
+				"line": "Tu sais tout. Même ce que tu n’aurais pas voulu savoir.",
+				"giphyIds": [],
+				"giphyQuery": "mind reading"
+			},
+			"b": {
+				"name": "Voir l’avenir",
+				"origin": "Demain",
+				"line": "Tu sais tout ce qui va arriver. Plus aucune surprise.",
+				"giphyIds": [],
+				"giphyQuery": "crystal ball future"
+			}
+		},
+		{
+			"id": "pouvoirs-se-teleporter-arreter-le-temps",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Se téléporter",
+				"origin": "N’importe où",
+				"line": "Paris-Tokyo en une seconde. Adieu les avions.",
+				"giphyIds": [],
+				"giphyQuery": "teleport"
+			},
+			"b": {
+				"name": "Arrêter le temps",
+				"origin": "N’importe quand",
+				"line": "Tout s’arrête, sauf toi. La sieste éternelle.",
+				"giphyIds": [],
+				"giphyQuery": "time freeze"
+			}
+		},
+		{
+			"id": "pouvoirs-super-force-super-vitesse",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Super-force",
+				"origin": "Tes bras",
+				"line": "Soulever une voiture, ouvrir tous les bocaux.",
+				"giphyIds": [],
+				"giphyQuery": "super strength"
+			},
+			"b": {
+				"name": "Super-vitesse",
+				"origin": "Tes jambes",
+				"line": "Arriver avant même d’être parti.",
+				"giphyIds": [],
+				"giphyQuery": "super speed"
+			}
+		},
+		{
+			"id": "pouvoirs-respirer-sous-l-eau-ne-jamais-avoir-froid",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Respirer sous l’eau",
+				"origin": "L’océan",
+				"line": "Explorer les fonds marins, sans bouteille.",
+				"giphyIds": [],
+				"giphyQuery": "breathing underwater"
+			},
+			"b": {
+				"name": "Ne jamais avoir froid",
+				"origin": "La banquise",
+				"line": "Le pôle Nord en t-shirt.",
+				"giphyIds": [],
+				"giphyQuery": "snow t-shirt"
+			}
+		},
+		{
+			"id": "pouvoirs-parler-aux-animaux-parler-toutes-les-langues",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Parler aux animaux",
+				"origin": "La nature",
+				"line": "Enfin savoir ce que pense ton chat.",
+				"giphyIds": [],
+				"giphyQuery": "talking to animals"
+			},
+			"b": {
+				"name": "Parler toutes les langues",
+				"origin": "Le monde",
+				"line": "Enfin comprendre ce que disent les touristes.",
+				"giphyIds": [],
+				"giphyQuery": "translator languages"
+			}
+		},
+		{
+			"id": "pouvoirs-guerir-les-autres-ne-jamais-tomber-malade",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Guérir les autres",
+				"origin": "Tes mains",
+				"line": "Un rhume, une fracture, un cœur brisé.",
+				"giphyIds": [],
+				"giphyQuery": "healing hands"
+			},
+			"b": {
+				"name": "Ne jamais tomber malade",
+				"origin": "Ton corps",
+				"line": "Plus jamais de rhume, plus jamais de vaccin raté.",
+				"giphyIds": [],
+				"giphyQuery": "healthy strong"
+			}
+		},
+		{
+			"id": "pouvoirs-controler-la-meteo-controler-les-feux-rouges",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Contrôler la météo",
+				"origin": "Le ciel",
+				"line": "Du soleil pour tes vacances, de la neige pour Noël.",
+				"giphyIds": [],
+				"giphyQuery": "weather control"
+			},
+			"b": {
+				"name": "Contrôler les feux rouges",
+				"origin": "La ville",
+				"line": "Vert, à chaque fois, partout.",
+				"giphyIds": [],
+				"giphyQuery": "green traffic light"
+			}
+		},
+		{
+			"id": "pouvoirs-voyager-dans-le-passe-voyager-dans-le-futur",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Voyager dans le passé",
+				"origin": "Hier, et avant",
+				"line": "Voir les dinosaures, et éviter tes erreurs.",
+				"giphyIds": [],
+				"giphyQuery": "time travel past"
+			},
+			"b": {
+				"name": "Voyager dans le futur",
+				"origin": "Demain, et après",
+				"line": "Voir les voitures volantes, et les résultats du loto.",
+				"giphyIds": [],
+				"giphyQuery": "futuristic city"
+			}
+		},
+		{
+			"id": "pouvoirs-copier-les-pouvoirs-effacer-les-pouvoirs",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Copier les pouvoirs",
+				"origin": "Les autres héros",
+				"line": "Tous les pouvoirs, à condition de les toucher.",
+				"giphyIds": [],
+				"giphyQuery": "copy powers"
+			},
+			"b": {
+				"name": "Effacer les pouvoirs",
+				"origin": "Les autres héros",
+				"line": "Plus personne n’a de pouvoir. Sauf toi.",
+				"giphyIds": [],
+				"giphyQuery": "power absorb"
+			}
+		},
+		{
+			"id": "pouvoirs-retrecir-grandir",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Rétrécir",
+				"origin": "La taille d’une fourmi",
+				"line": "Passer sous les portes, et rester en vie.",
+				"giphyIds": [],
+				"giphyQuery": "Ant-Man"
+			},
+			"b": {
+				"name": "Grandir",
+				"origin": "La taille d’un immeuble",
+				"line": "Voir par-dessus les foules, et les toits.",
+				"giphyIds": [],
+				"giphyQuery": "giant"
+			}
+		},
+		{
+			"id": "pouvoirs-changer-d-apparence-changer-de-voix",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Changer d’apparence",
+				"origin": "Ton visage",
+				"line": "Devenir n’importe qui, en un instant.",
+				"giphyIds": [],
+				"giphyQuery": "shapeshifter"
+			},
+			"b": {
+				"name": "Changer de voix",
+				"origin": "Ta gorge",
+				"line": "Imiter n’importe qui, à la perfection.",
+				"giphyIds": [],
+				"giphyQuery": "voice impression"
+			}
+		},
+		{
+			"id": "pouvoirs-telekinesie-controler-le-feu",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Télékinésie",
+				"origin": "Ton esprit",
+				"line": "Déplacer les objets par la pensée. La télécommande vient toute seule.",
+				"giphyIds": [],
+				"giphyQuery": "telekinesis"
+			},
+			"b": {
+				"name": "Contrôler le feu",
+				"origin": "Tes mains",
+				"line": "Allumer le barbecue d’un regard.",
+				"giphyIds": [],
+				"giphyQuery": "fire powers"
+			}
+		},
+		{
+			"id": "pouvoirs-maitriser-l-eau-maitriser-l-air",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Maîtriser l’eau",
+				"origin": "Les océans",
+				"line": "Faire des vagues, littéralement.",
+				"giphyIds": [],
+				"giphyQuery": "water bending"
+			},
+			"b": {
+				"name": "Maîtriser l’air",
+				"origin": "Le vent",
+				"line": "Sécher tes cheveux, et voler les chapeaux.",
+				"giphyIds": [],
+				"giphyQuery": "air bending"
+			}
+		},
+		{
+			"id": "pouvoirs-vision-laser-vision-a-rayons-x",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Vision laser",
+				"origin": "Tes yeux",
+				"line": "Découper n’importe quoi, d’un regard.",
+				"giphyIds": [],
+				"giphyQuery": "laser eyes"
+			},
+			"b": {
+				"name": "Vision à rayons X",
+				"origin": "Tes yeux aussi",
+				"line": "Voir à travers les murs, et dans les cadeaux de Noël.",
+				"giphyIds": [],
+				"giphyQuery": "x-ray vision"
+			}
+		},
+		{
+			"id": "pouvoirs-super-ouie-super-odorat",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Super-ouïe",
+				"origin": "Tes oreilles",
+				"line": "Entendre tous les secrets, même au fond de la salle.",
+				"giphyIds": [],
+				"giphyQuery": "super hearing"
+			},
+			"b": {
+				"name": "Super-odorat",
+				"origin": "Ton nez",
+				"line": "Sentir les croissants à trois kilomètres.",
+				"giphyIds": [],
+				"giphyQuery": "smelling"
+			}
+		},
+		{
+			"id": "pouvoirs-memoire-photographique-apprendre-en-une-nuit",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Mémoire photographique",
+				"origin": "Ton cerveau",
+				"line": "Tu te souviens de tout. Même de ce que tu voudrais oublier.",
+				"giphyIds": [],
+				"giphyQuery": "photographic memory"
+			},
+			"b": {
+				"name": "Apprendre en une nuit",
+				"origin": "Ton oreiller",
+				"line": "Un livre sous l’oreiller, et tu le sais par cœur.",
+				"giphyIds": [],
+				"giphyQuery": "learning fast"
+			}
+		},
+		{
+			"id": "pouvoirs-ne-jamais-vieillir-guerir-de-tout",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Ne jamais vieillir",
+				"origin": "Le temps",
+				"line": "Toujours le même âge, toujours la même tête.",
+				"giphyIds": [],
+				"giphyQuery": "forever young"
+			},
+			"b": {
+				"name": "Guérir de tout",
+				"origin": "Ton corps",
+				"line": "Toutes les blessures disparaissent en une seconde.",
+				"giphyIds": [],
+				"giphyQuery": "Wolverine healing"
+			}
+		},
+		{
+			"id": "pouvoirs-parler-aux-plantes-faire-pousser-n-importe-quoi",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Parler aux plantes",
+				"origin": "Ton jardin",
+				"line": "Enfin savoir pourquoi ton cactus déprime.",
+				"giphyIds": [],
+				"giphyQuery": "talking to plants"
+			},
+			"b": {
+				"name": "Faire pousser n’importe quoi",
+				"origin": "Ta main verte",
+				"line": "Une forêt en dix minutes.",
+				"giphyIds": [],
+				"giphyQuery": "growing plants fast"
+			}
+		},
+		{
+			"id": "pouvoirs-une-place-de-parking-la-caisse-la-plus-rapide",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Une place de parking",
+				"origin": "Partout",
+				"line": "Toujours libre, toujours devant la porte.",
+				"giphyIds": [],
+				"giphyQuery": "parking spot"
+			},
+			"b": {
+				"name": "La caisse la plus rapide",
+				"origin": "Le supermarché",
+				"line": "Toujours la bonne file, toujours la première.",
+				"giphyIds": [],
+				"giphyQuery": "supermarket checkout"
+			}
+		},
+		{
+			"id": "pouvoirs-ne-jamais-perdre-tes-cles-ne-jamais-oublier-un-nom",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Ne jamais perdre tes clés",
+				"origin": "Ta poche",
+				"line": "Elles sont toujours là où tu les cherches.",
+				"giphyIds": [],
+				"giphyQuery": "keys"
+			},
+			"b": {
+				"name": "Ne jamais oublier un nom",
+				"origin": "Ta mémoire",
+				"line": "Plus jamais de « euh… toi ! ».",
+				"giphyIds": [],
+				"giphyQuery": "name tag"
+			}
+		},
+		{
+			"id": "pouvoirs-recharger-ton-telephone-du-wi-fi-partout",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Recharger ton téléphone",
+				"origin": "Ta main",
+				"line": "Une pression du doigt, et 100 %.",
+				"giphyIds": [],
+				"giphyQuery": "phone charging"
+			},
+			"b": {
+				"name": "Du Wi-Fi partout",
+				"origin": "Toi",
+				"line": "Tu es un routeur ambulant.",
+				"giphyIds": [],
+				"giphyQuery": "wifi"
+			}
+		},
+		{
+			"id": "pouvoirs-grimper-aux-murs-respirer-dans-l-espace",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Grimper aux murs",
+				"origin": "Les immeubles",
+				"line": "Comme une araignée, sans les huit pattes.",
+				"giphyIds": [],
+				"giphyQuery": "Spider-Man climbing"
+			},
+			"b": {
+				"name": "Respirer dans l’espace",
+				"origin": "La Lune",
+				"line": "Une balade sans combinaison.",
+				"giphyIds": [],
+				"giphyQuery": "astronaut space"
+			}
+		},
+		{
+			"id": "pouvoirs-traverser-les-murs-marcher-sur-l-eau",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Traverser les murs",
+				"origin": "Les murs",
+				"line": "Plus besoin de clés, plus besoin de portes.",
+				"giphyIds": [],
+				"giphyQuery": "walking through walls"
+			},
+			"b": {
+				"name": "Marcher sur l’eau",
+				"origin": "Le lac",
+				"line": "Traverser la rivière sans se mouiller.",
+				"giphyIds": [],
+				"giphyQuery": "walking on water"
+			}
+		},
+		{
+			"id": "pouvoirs-cri-supersonique-regard-petrifiant",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Cri supersonique",
+				"origin": "Ta voix",
+				"line": "Un cri, et toutes les vitres tremblent.",
+				"giphyIds": [],
+				"giphyQuery": "sonic scream"
+			},
+			"b": {
+				"name": "Regard pétrifiant",
+				"origin": "Tes yeux",
+				"line": "Un regard, et plus personne ne bouge.",
+				"giphyIds": [],
+				"giphyQuery": "Medusa stare"
+			}
+		},
+		{
+			"id": "pouvoirs-commander-aux-insectes-commander-aux-oiseaux",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Commander aux insectes",
+				"origin": "Les fourmis",
+				"line": "Une armée de fourmis à tes ordres.",
+				"giphyIds": [],
+				"giphyQuery": "ant army"
+			},
+			"b": {
+				"name": "Commander aux oiseaux",
+				"origin": "Les pigeons",
+				"line": "Une escadrille de pigeons à tes ordres.",
+				"giphyIds": [],
+				"giphyQuery": "flock of birds"
+			}
+		},
+		{
+			"id": "pouvoirs-controler-l-electricite-controler-le-metal",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Contrôler l’électricité",
+				"origin": "Les éclairs",
+				"line": "Recharger la ville, ou tout faire sauter.",
+				"giphyIds": [],
+				"giphyQuery": "electricity powers"
+			},
+			"b": {
+				"name": "Contrôler le métal",
+				"origin": "Le magnétisme",
+				"line": "Plier les voitures, et retrouver tes clés.",
+				"giphyIds": [],
+				"giphyQuery": "Magneto"
+			}
+		},
+		{
+			"id": "pouvoirs-se-dupliquer-quatre-bras",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Se dupliquer",
+				"origin": "Toi, en double",
+				"line": "Un toi au travail, un toi à la sieste.",
+				"giphyIds": [],
+				"giphyQuery": "clones"
+			},
+			"b": {
+				"name": "Quatre bras",
+				"origin": "Ton torse",
+				"line": "Tout faire en même temps, et bien.",
+				"giphyIds": [],
+				"giphyQuery": "four arms"
+			}
+		},
+		{
+			"id": "pouvoirs-le-sens-de-l-orientation-toujours-savoir-quoi-dire",
+			"category": "pouvoirs",
+			"question": "Tu préfères ne jamais te perdre, ou toujours savoir quoi dire ?",
+			"a": {
+				"name": "Le sens de l’orientation",
+				"origin": "Ton GPS intérieur",
+				"line": "Ne jamais te perdre, nulle part.",
+				"giphyIds": [],
+				"giphyQuery": "compass"
+			},
+			"b": {
+				"name": "Toujours savoir quoi dire",
+				"origin": "Ta répartie",
+				"line": "La bonne réplique, au bon moment.",
+				"giphyIds": [],
+				"giphyQuery": "mic drop"
+			}
+		},
+		{
+			"id": "pouvoirs-rembobiner-dix-secondes-mettre-pause-une-minute",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Rembobiner dix secondes",
+				"origin": "Ta montre",
+				"line": "Dire autre chose, refaire le geste raté.",
+				"giphyIds": [],
+				"giphyQuery": "rewind"
+			},
+			"b": {
+				"name": "Mettre pause une minute",
+				"origin": "Ta montre aussi",
+				"line": "Le temps de trouver la réplique parfaite.",
+				"giphyIds": [],
+				"giphyQuery": "pause time"
+			}
+		},
+		{
+			"id": "pouvoirs-voir-dans-le-noir-voir-a-des-kilometres",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Voir dans le noir",
+				"origin": "Tes yeux, la nuit",
+				"line": "Plus jamais de petit orteil contre le meuble.",
+				"giphyIds": [],
+				"giphyQuery": "night vision"
+			},
+			"b": {
+				"name": "Voir à des kilomètres",
+				"origin": "Tes yeux, le jour",
+				"line": "Lire le panneau de l’autoroute depuis la maison.",
+				"giphyIds": [],
+				"giphyQuery": "binoculars"
+			}
+		},
+		{
+			"id": "pouvoirs-lancer-des-toiles-lancer-des-eclairs",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Lancer des toiles",
+				"origin": "Tes poignets",
+				"line": "Se balancer entre les immeubles.",
+				"giphyIds": [],
+				"giphyQuery": "web shooting"
+			},
+			"b": {
+				"name": "Lancer des éclairs",
+				"origin": "Tes mains",
+				"line": "Un orage personnel, sur commande.",
+				"giphyIds": [],
+				"giphyQuery": "lightning hands"
+			}
+		},
+		{
+			"id": "pouvoirs-invoquer-n-importe-quel-plat-invoquer-n-importe-quelle-boisso",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Invoquer n’importe quel plat",
+				"origin": "Ta table",
+				"line": "Une raclette, en été, en deux secondes.",
+				"giphyIds": [],
+				"giphyQuery": "food appearing"
+			},
+			"b": {
+				"name": "Invoquer n’importe quelle boisson",
+				"origin": "Ton verre",
+				"line": "Un chocolat chaud, en randonnée, en deux secondes.",
+				"giphyIds": [],
+				"giphyQuery": "drink appearing"
+			}
+		},
+		{
+			"id": "pouvoirs-chance-aux-jeux-gagner-tous-les-debats",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Chance aux jeux",
+				"origin": "Le loto",
+				"line": "Gagner à tous les jeux de hasard.",
+				"giphyIds": [],
+				"giphyQuery": "winning lottery"
+			},
+			"b": {
+				"name": "Gagner tous les débats",
+				"origin": "Le repas de famille",
+				"line": "Avoir toujours raison, et que tout le monde le reconnaisse.",
+				"giphyIds": [],
+				"giphyQuery": "winning argument"
+			}
+		},
+		{
+			"id": "pouvoirs-se-transformer-en-animal-se-transformer-en-objet",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Se transformer en animal",
+				"origin": "La forêt",
+				"line": "Devenir loup, aigle, ou chat de canapé.",
+				"giphyIds": [],
+				"giphyQuery": "animal transformation"
+			},
+			"b": {
+				"name": "Se transformer en objet",
+				"origin": "Le salon",
+				"line": "Devenir lampe, chaise, ou grille-pain. Discret.",
+				"giphyIds": [],
+				"giphyQuery": "object transformation"
+			}
+		},
+		{
+			"id": "pouvoirs-super-elasticite-peau-d-acier",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Super-élasticité",
+				"origin": "Ton corps",
+				"line": "S’étirer, s’enrouler, passer partout.",
+				"giphyIds": [],
+				"giphyQuery": "elastic powers"
+			},
+			"b": {
+				"name": "Peau d’acier",
+				"origin": "Ton corps aussi",
+				"line": "Rien ne te blesse. Même pas les pièces de Lego.",
+				"giphyIds": [],
+				"giphyQuery": "steel skin"
+			}
+		},
+		{
+			"id": "pouvoirs-controler-les-reves-effacer-les-mauvais-souvenirs",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Contrôler les rêves",
+				"origin": "Tes nuits",
+				"line": "Des rêves sur mesure, chaque nuit.",
+				"giphyIds": [],
+				"giphyQuery": "dreaming"
+			},
+			"b": {
+				"name": "Effacer les mauvais souvenirs",
+				"origin": "Ta mémoire",
+				"line": "Le pire moment de ta vie, supprimé.",
+				"giphyIds": [],
+				"giphyQuery": "memory erase"
+			}
+		},
+		{
+			"id": "pouvoirs-creer-des-illusions-detecter-les-mensonges",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Créer des illusions",
+				"origin": "Les yeux des autres",
+				"line": "Faire voir n’importe quoi à n’importe qui.",
+				"giphyIds": [],
+				"giphyQuery": "illusion magic"
+			},
+			"b": {
+				"name": "Détecter les mensonges",
+				"origin": "Tes oreilles",
+				"line": "Personne ne peut plus te mentir.",
+				"giphyIds": [],
+				"giphyQuery": "lie detector"
+			}
+		},
+		{
+			"id": "pouvoirs-souffle-de-dragon-toucher-glace",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Souffle de dragon",
+				"origin": "Ta bouche",
+				"line": "Du feu, quand tu veux. Attention aux bougies.",
+				"giphyIds": [],
+				"giphyQuery": "fire breathing"
+			},
+			"b": {
+				"name": "Toucher glacé",
+				"origin": "Tes mains",
+				"line": "Tout ce que tu touches gèle. Pratique pour les boissons.",
+				"giphyIds": [],
+				"giphyQuery": "ice powers"
+			}
+		},
+		{
+			"id": "pouvoirs-voler-avec-une-cape-voler-avec-des-reacteurs",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Voler avec une cape",
+				"origin": "Le ciel",
+				"line": "Comme Superman, les bras en avant.",
+				"giphyIds": [],
+				"giphyQuery": "Superman flying"
+			},
+			"b": {
+				"name": "Voler avec des réacteurs",
+				"origin": "Le ciel aussi",
+				"line": "Comme Iron Man, avec du bruit.",
+				"giphyIds": [],
+				"giphyQuery": "Iron Man flying"
+			}
+		},
+		{
+			"id": "pouvoirs-parler-aux-fantomes-parler-aux-extraterrestres",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Parler aux fantômes",
+				"origin": "L’au-delà",
+				"line": "Des conversations très, très anciennes.",
+				"giphyIds": [],
+				"giphyQuery": "ghosts"
+			},
+			"b": {
+				"name": "Parler aux extraterrestres",
+				"origin": "L’espace",
+				"line": "Des conversations très, très lointaines.",
+				"giphyIds": [],
+				"giphyQuery": "alien talking"
+			}
+		},
+		{
+			"id": "pouvoirs-ralentir-le-temps-accelerer-le-temps",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Ralentir le temps",
+				"origin": "Les balles",
+				"line": "Le monde au ralenti, comme dans Matrix.",
+				"giphyIds": [],
+				"giphyQuery": "bullet time"
+			},
+			"b": {
+				"name": "Accélérer le temps",
+				"origin": "Les files d’attente",
+				"line": "Les réunions passent en dix secondes.",
+				"giphyIds": [],
+				"giphyQuery": "fast forward"
+			}
+		},
+		{
+			"id": "pouvoirs-comprendre-les-bebes-comprendre-les-chats",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Comprendre les bébés",
+				"origin": "La crèche",
+				"line": "Enfin savoir pourquoi il pleure.",
+				"giphyIds": [],
+				"giphyQuery": "baby crying"
+			},
+			"b": {
+				"name": "Comprendre les chats",
+				"origin": "Le canapé",
+				"line": "Enfin savoir pourquoi il renverse ton verre.",
+				"giphyIds": [],
+				"giphyQuery": "cat pushing glass"
+			}
+		},
+		{
+			"id": "pouvoirs-ouvrir-toutes-les-portes-ouvrir-tous-les-bocaux",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Ouvrir toutes les portes",
+				"origin": "Les serrures",
+				"line": "Plus besoin de clés, nulle part.",
+				"giphyIds": [],
+				"giphyQuery": "unlocking door"
+			},
+			"b": {
+				"name": "Ouvrir tous les bocaux",
+				"origin": "La cuisine",
+				"line": "Plus besoin d’appeler à l’aide.",
+				"giphyIds": [],
+				"giphyQuery": "opening jar"
+			}
+		},
+		{
+			"id": "pouvoirs-ne-jamais-transpirer-ne-jamais-rougir",
+			"category": "pouvoirs",
+			"question": "Tu préfères ne jamais transpirer, ou ne jamais rougir ?",
+			"a": {
+				"name": "Ne jamais transpirer",
+				"origin": "Ton corps",
+				"line": "Même en plein été, même au sport.",
+				"giphyIds": [],
+				"giphyQuery": "dry"
+			},
+			"b": {
+				"name": "Ne jamais rougir",
+				"origin": "Tes joues",
+				"line": "Même quand on te fait un compliment.",
+				"giphyIds": [],
+				"giphyQuery": "poker face"
+			}
+		},
+		{
+			"id": "pouvoirs-les-pouvoirs-de-superman-les-pouvoirs-de-batman",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Les pouvoirs de Superman",
+				"origin": "Krypton",
+				"line": "Voler, la force, les yeux laser.",
+				"giphyIds": [],
+				"giphyQuery": "Superman"
+			},
+			"b": {
+				"name": "Les pouvoirs de Batman",
+				"origin": "Wayne Enterprises",
+				"line": "Beaucoup d’argent, et des gadgets.",
+				"giphyIds": [],
+				"giphyQuery": "Batman gadgets"
+			}
+		},
+		{
+			"id": "pouvoirs-la-force-de-hulk-le-cerveau-de-tony-stark",
+			"category": "pouvoirs",
+			"a": {
+				"name": "La force de Hulk",
+				"origin": "Tes muscles",
+				"line": "Tout casser, mais en vert.",
+				"giphyIds": [],
+				"giphyQuery": "Hulk smash"
+			},
+			"b": {
+				"name": "Le cerveau de Tony Stark",
+				"origin": "Ton crâne",
+				"line": "Tout inventer, mais pas l’humilité.",
+				"giphyIds": [],
+				"giphyQuery": "Tony Stark genius"
+			}
+		},
+		{
+			"id": "pouvoirs-une-baguette-magique-une-lampe-a-genie",
+			"category": "pouvoirs",
+			"a": {
+				"name": "Une baguette magique",
+				"origin": "Poudlard",
+				"line": "Tous les sorts, à condition de bien prononcer.",
+				"giphyIds": [],
+				"giphyQuery": "magic wand"
+			},
+			"b": {
+				"name": "Une lampe à génie",
+				"origin": "Agrabah",
+				"line": "Trois vœux, et pas un de plus.",
+				"giphyIds": [],
+				"giphyQuery": "genie lamp"
+			}
+		},
+		{
+			"id": "pouvoirs-voler-lentement-courir-vite-a-reculons",
+			"category": "pouvoirs",
+			"question": "Tu préfères voler, mais très lentement, ou courir très vite, mais seulement à reculons ?",
+			"a": {
+				"name": "Voler lentement",
+				"origin": "Le ciel",
+				"line": "Tu peux voler, mais à quatre kilomètres-heure.",
+				"giphyIds": [],
+				"giphyQuery": "slow flying"
+			},
+			"b": {
+				"name": "Courir vite à reculons",
+				"origin": "Le trottoir",
+				"line": "Tu cours à cent kilomètres-heure, mais seulement en arrière.",
+				"giphyIds": [],
+				"giphyQuery": "running backwards"
+			}
+		},
+		{
+			"id": "pouvoirs-invisible-si-personne-ne-regarde-lire-les-pensees-des-pigeons",
+			"category": "pouvoirs",
+			"question": "Tu préfères être invisible seulement quand personne ne regarde, ou lire dans les pensées des pigeons ?",
+			"a": {
+				"name": "Invisible si personne ne regarde",
+				"origin": "Le néant",
+				"line": "Invisible, à condition que personne ne te regarde.",
+				"giphyIds": [],
+				"giphyQuery": "invisible joke"
+			},
+			"b": {
+				"name": "Lire les pensées des pigeons",
+				"origin": "Le parc",
+				"line": "Tu entends tout ce que pensent les pigeons. C’est surtout « miettes ».",
+				"giphyIds": [],
+				"giphyQuery": "pigeon thinking"
+			}
+		},
+		{
+			"id": "monstres-vampires-loups-garous",
+			"category": "monstres",
+			"a": {
+				"name": "Vampires",
+				"origin": "Transylvanie",
+				"line": "Des capes, des crocs, et une allergie à l’ail.",
+				"giphyIds": [],
+				"giphyQuery": "vampire"
+			},
+			"b": {
+				"name": "Loups-garous",
+				"origin": "La pleine lune",
+				"line": "Des poils, des griffes, et des nuits agitées.",
+				"giphyIds": [],
+				"giphyQuery": "werewolf"
+			}
+		},
+		{
+			"id": "monstres-zombies-aliens",
+			"category": "monstres",
+			"a": {
+				"name": "Zombies",
+				"origin": "L’apocalypse",
+				"line": "Lents, nombreux, et toujours affamés.",
+				"giphyIds": [],
+				"giphyQuery": "zombies"
+			},
+			"b": {
+				"name": "Aliens",
+				"origin": "L’espace",
+				"line": "Grands yeux, soucoupes, et sondes.",
+				"giphyIds": [],
+				"giphyQuery": "aliens ufo"
+			}
+		},
+		{
+			"id": "monstres-godzilla-king-kong",
+			"category": "monstres",
+			"a": {
+				"name": "Godzilla",
+				"origin": "Tokyo · 1954",
+				"line": "Un lézard géant qui détruit des villes.",
+				"giphyIds": [],
+				"giphyQuery": "Godzilla"
+			},
+			"b": {
+				"name": "King Kong",
+				"origin": "Skull Island · 1933",
+				"line": "Un gorille géant qui escalade des gratte-ciel.",
+				"giphyIds": [],
+				"giphyQuery": "King Kong"
+			}
+		},
+		{
+			"id": "monstres-dragon-licorne",
+			"category": "monstres",
+			"a": {
+				"name": "Dragon",
+				"origin": "Les légendes",
+				"line": "Des écailles, des ailes, et un trésor.",
+				"giphyIds": [],
+				"giphyQuery": "dragon"
+			},
+			"b": {
+				"name": "Licorne",
+				"origin": "Les légendes aussi",
+				"line": "Une corne, des paillettes, et un arc-en-ciel.",
+				"giphyIds": [],
+				"giphyQuery": "unicorn"
+			}
+		},
+		{
+			"id": "monstres-fantome-esprit-frappeur",
+			"category": "monstres",
+			"a": {
+				"name": "Fantôme",
+				"origin": "Le grenier",
+				"line": "Un drap blanc, et des chaînes qui grincent.",
+				"giphyIds": [],
+				"giphyQuery": "ghost sheet"
+			},
+			"b": {
+				"name": "Esprit frappeur",
+				"origin": "La cuisine",
+				"line": "Il fait voler les assiettes.",
+				"giphyIds": [],
+				"giphyQuery": "poltergeist"
+			}
+		},
+		{
+			"id": "monstres-la-creature-de-frankenstein-dracula",
+			"category": "monstres",
+			"a": {
+				"name": "La créature de Frankenstein",
+				"origin": "Mary Shelley · 1818",
+				"line": "Des boulons dans le cou, et un grand cœur.",
+				"giphyIds": [],
+				"giphyQuery": "Frankenstein monster"
+			},
+			"b": {
+				"name": "Dracula",
+				"origin": "Bram Stoker · 1897",
+				"line": "Un château, un cercueil, et beaucoup de classe.",
+				"giphyIds": [],
+				"giphyQuery": "Dracula"
+			}
+		},
+		{
+			"id": "monstres-le-kraken-le-monstre-du-loch-ness",
+			"category": "monstres",
+			"a": {
+				"name": "Le Kraken",
+				"origin": "Les mers du Nord",
+				"line": "Des tentacules gigantesques, et des navires engloutis.",
+				"giphyIds": [],
+				"giphyQuery": "Kraken"
+			},
+			"b": {
+				"name": "Le monstre du loch Ness",
+				"origin": "L’Écosse",
+				"line": "Toujours flou sur les photos.",
+				"giphyIds": [],
+				"giphyQuery": "Loch Ness monster"
+			}
+		},
+		{
+			"id": "monstres-yeti-bigfoot",
+			"category": "monstres",
+			"a": {
+				"name": "Yéti",
+				"origin": "L’Himalaya",
+				"line": "Une grande empreinte dans la neige.",
+				"giphyIds": [],
+				"giphyQuery": "Yeti"
+			},
+			"b": {
+				"name": "Bigfoot",
+				"origin": "Les forêts américaines",
+				"line": "Une silhouette floue dans les bois.",
+				"giphyIds": [],
+				"giphyQuery": "Bigfoot"
+			}
+		},
+		{
+			"id": "monstres-gremlins-critters",
+			"category": "monstres",
+			"a": {
+				"name": "Gremlins",
+				"origin": "Joe Dante · 1984",
+				"line": "Pas d’eau, pas de lumière, pas de repas après minuit.",
+				"giphyIds": [],
+				"giphyQuery": "Gremlins"
+			},
+			"b": {
+				"name": "Critters",
+				"origin": "Stephen Herek · 1986",
+				"line": "Des boules de poils affamées venues de l’espace.",
+				"giphyIds": [],
+				"giphyQuery": "Critters"
+			}
+		},
+		{
+			"id": "monstres-sirene-centaure",
+			"category": "monstres",
+			"a": {
+				"name": "Sirène",
+				"origin": "Les océans",
+				"line": "Une queue de poisson, et une voix envoûtante.",
+				"giphyIds": [],
+				"giphyQuery": "mermaid"
+			},
+			"b": {
+				"name": "Centaure",
+				"origin": "La Grèce antique",
+				"line": "Un buste d’homme, un corps de cheval.",
+				"giphyIds": [],
+				"giphyQuery": "centaur"
+			}
+		},
+		{
+			"id": "monstres-le-minotaure-meduse",
+			"category": "monstres",
+			"a": {
+				"name": "Le Minotaure",
+				"origin": "Le labyrinthe",
+				"line": "Une tête de taureau, et un très mauvais sens de l’orientation.",
+				"giphyIds": [],
+				"giphyQuery": "Minotaur"
+			},
+			"b": {
+				"name": "Méduse",
+				"origin": "La Grèce antique",
+				"line": "Des serpents à la place des cheveux, et un regard qui pétrifie.",
+				"giphyIds": [],
+				"giphyQuery": "Medusa"
+			}
+		},
+		{
+			"id": "monstres-cyclope-hydre",
+			"category": "monstres",
+			"a": {
+				"name": "Cyclope",
+				"origin": "L’Odyssée",
+				"line": "Un seul œil, et un gros caractère.",
+				"giphyIds": [],
+				"giphyQuery": "Cyclops"
+			},
+			"b": {
+				"name": "Hydre",
+				"origin": "Lerne",
+				"line": "Tu coupes une tête, il en repousse deux.",
+				"giphyIds": [],
+				"giphyQuery": "Hydra"
+			}
+		},
+		{
+			"id": "monstres-gobelins-trolls",
+			"category": "monstres",
+			"a": {
+				"name": "Gobelins",
+				"origin": "Les cavernes",
+				"line": "Petits, verts, et fous d’or.",
+				"giphyIds": [],
+				"giphyQuery": "goblin"
+			},
+			"b": {
+				"name": "Trolls",
+				"origin": "Sous les ponts",
+				"line": "Grands, lents, et ils réclament un péage.",
+				"giphyIds": [],
+				"giphyQuery": "troll"
+			}
+		},
+		{
+			"id": "monstres-elfes-nains",
+			"category": "monstres",
+			"a": {
+				"name": "Elfes",
+				"origin": "Le Seigneur des anneaux",
+				"line": "Grands, élégants, et des oreilles pointues.",
+				"giphyIds": [],
+				"giphyQuery": "Legolas elf"
+			},
+			"b": {
+				"name": "Nains",
+				"origin": "Le Seigneur des anneaux",
+				"line": "Petits, barbus, et fous de mines.",
+				"giphyIds": [],
+				"giphyQuery": "Gimli dwarf"
+			}
+		},
+		{
+			"id": "monstres-hobbits-ents",
+			"category": "monstres",
+			"a": {
+				"name": "Hobbits",
+				"origin": "La Comté",
+				"line": "Deux petits-déjeuners, et des pieds poilus.",
+				"giphyIds": [],
+				"giphyQuery": "hobbit"
+			},
+			"b": {
+				"name": "Ents",
+				"origin": "La forêt de Fangorn",
+				"line": "Des arbres qui parlent, très, très lentement.",
+				"giphyIds": [],
+				"giphyQuery": "Ents Treebeard"
+			}
+		},
+		{
+			"id": "monstres-gollum-dobby",
+			"category": "monstres",
+			"a": {
+				"name": "Gollum",
+				"origin": "Le Seigneur des anneaux",
+				"line": "« Mon précieux. »",
+				"giphyIds": [],
+				"giphyQuery": "Gollum"
+			},
+			"b": {
+				"name": "Dobby",
+				"origin": "Harry Potter",
+				"line": "« Dobby est un elfe libre ! »",
+				"giphyIds": [],
+				"giphyQuery": "Dobby"
+			}
+		},
+		{
+			"id": "monstres-le-grinch-krampus",
+			"category": "monstres",
+			"a": {
+				"name": "Le Grinch",
+				"origin": "Dr. Seuss · 1957",
+				"line": "Vert, grincheux, et voleur de Noël.",
+				"giphyIds": [],
+				"giphyQuery": "Grinch"
+			},
+			"b": {
+				"name": "Krampus",
+				"origin": "Les Alpes",
+				"line": "Le compagnon terrifiant de saint Nicolas.",
+				"giphyIds": [],
+				"giphyQuery": "Krampus"
+			}
+		},
+		{
+			"id": "monstres-e-t-stitch",
+			"category": "monstres",
+			"a": {
+				"name": "E.T.",
+				"origin": "Steven Spielberg · 1982",
+				"line": "« E.T. téléphone maison. »",
+				"giphyIds": [],
+				"giphyQuery": "ET phone home"
+			},
+			"b": {
+				"name": "Stitch",
+				"origin": "Disney · 2002",
+				"line": "Expérience 626, petit monstre adorable.",
+				"giphyIds": [],
+				"giphyQuery": "Stitch"
+			}
+		},
+		{
+			"id": "monstres-les-martiens-de-mars-attacks-les-petits-gris",
+			"category": "monstres",
+			"a": {
+				"name": "Les Martiens de Mars Attacks!",
+				"origin": "Tim Burton · 1996",
+				"line": "« Ack ack ! »",
+				"giphyIds": [],
+				"giphyQuery": "Mars Attacks"
+			},
+			"b": {
+				"name": "Les petits gris",
+				"origin": "Les ovnis",
+				"line": "Grands yeux noirs, et soucoupe volante.",
+				"giphyIds": [],
+				"giphyQuery": "grey alien"
+			}
+		},
+		{
+			"id": "monstres-chupacabra-mothman",
+			"category": "monstres",
+			"a": {
+				"name": "Chupacabra",
+				"origin": "L’Amérique latine",
+				"line": "Le suceur de chèvres.",
+				"giphyIds": [],
+				"giphyQuery": "Chupacabra"
+			},
+			"b": {
+				"name": "Mothman",
+				"origin": "La Virginie-Occidentale",
+				"line": "Un homme-papillon aux yeux rouges.",
+				"giphyIds": [],
+				"giphyQuery": "Mothman"
+			}
+		},
+		{
+			"id": "monstres-phenix-griffon",
+			"category": "monstres",
+			"a": {
+				"name": "Phénix",
+				"origin": "Les légendes",
+				"line": "Il meurt en flammes, et renaît de ses cendres.",
+				"giphyIds": [],
+				"giphyQuery": "phoenix bird"
+			},
+			"b": {
+				"name": "Griffon",
+				"origin": "Les légendes aussi",
+				"line": "Moitié aigle, moitié lion.",
+				"giphyIds": [],
+				"giphyQuery": "griffin"
+			}
+		},
+		{
+			"id": "monstres-pegase-hippogriffe",
+			"category": "monstres",
+			"a": {
+				"name": "Pégase",
+				"origin": "La Grèce antique",
+				"line": "Un cheval ailé, tout blanc.",
+				"giphyIds": [],
+				"giphyQuery": "Pegasus"
+			},
+			"b": {
+				"name": "Hippogriffe",
+				"origin": "Harry Potter",
+				"line": "Moitié aigle, moitié cheval, et très susceptible.",
+				"giphyIds": [],
+				"giphyQuery": "Buckbeak hippogriff"
+			}
+		},
+		{
+			"id": "monstres-golem-gargouille",
+			"category": "monstres",
+			"a": {
+				"name": "Golem",
+				"origin": "La tradition juive",
+				"line": "Un géant d’argile, obéissant.",
+				"giphyIds": [],
+				"giphyQuery": "golem"
+			},
+			"b": {
+				"name": "Gargouille",
+				"origin": "Les cathédrales",
+				"line": "Elle garde les toits, et crache l’eau de pluie.",
+				"giphyIds": [],
+				"giphyQuery": "gargoyle"
+			}
+		},
+		{
+			"id": "monstres-kitsune-tanuki",
+			"category": "monstres",
+			"a": {
+				"name": "Kitsune",
+				"origin": "Le Japon",
+				"line": "Un renard à neuf queues, rusé.",
+				"giphyIds": [],
+				"giphyQuery": "kitsune"
+			},
+			"b": {
+				"name": "Tanuki",
+				"origin": "Le Japon aussi",
+				"line": "Un raton malicieux qui change de forme.",
+				"giphyIds": [],
+				"giphyQuery": "tanuki"
+			}
+		},
+		{
+			"id": "monstres-banshee-feu-follet",
+			"category": "monstres",
+			"a": {
+				"name": "Banshee",
+				"origin": "L’Irlande",
+				"line": "Son cri annonce les mauvaises nouvelles.",
+				"giphyIds": [],
+				"giphyQuery": "banshee"
+			},
+			"b": {
+				"name": "Feu follet",
+				"origin": "Les marais",
+				"line": "Une petite flamme qui égare les voyageurs.",
+				"giphyIds": [],
+				"giphyQuery": "will o wisp"
+			}
+		},
+		{
+			"id": "monstres-le-monstre-du-placard-le-monstre-sous-le-lit",
+			"category": "monstres",
+			"a": {
+				"name": "Le monstre du placard",
+				"origin": "Ta chambre",
+				"line": "Il attend que tu fermes les yeux.",
+				"giphyIds": [],
+				"giphyQuery": "monster closet"
+			},
+			"b": {
+				"name": "Le monstre sous le lit",
+				"origin": "Ta chambre aussi",
+				"line": "Il attend que tu poses un pied par terre.",
+				"giphyIds": [],
+				"giphyQuery": "monster under bed"
+			}
+		},
+		{
+			"id": "monstres-le-croque-mitaine-la-dame-blanche",
+			"category": "monstres",
+			"a": {
+				"name": "Le Croque-mitaine",
+				"origin": "Les histoires du soir",
+				"line": "Il vient chercher les enfants qui ne dorment pas.",
+				"giphyIds": [],
+				"giphyQuery": "boogeyman"
+			},
+			"b": {
+				"name": "La Dame blanche",
+				"origin": "Les routes de campagne",
+				"line": "Elle fait de l’auto-stop la nuit.",
+				"giphyIds": [],
+				"giphyQuery": "ghost woman"
+			}
+		},
+		{
+			"id": "monstres-la-bete-du-gevaudan-le-grand-mechant-loup",
+			"category": "monstres",
+			"a": {
+				"name": "La Bête du Gévaudan",
+				"origin": "Lozère · 1764",
+				"line": "Une bête mystérieuse, jamais vraiment identifiée.",
+				"giphyIds": [],
+				"giphyQuery": "wolf beast"
+			},
+			"b": {
+				"name": "Le grand méchant loup",
+				"origin": "Les contes",
+				"line": "Il souffle sur les maisons, et mange les grands-mères.",
+				"giphyIds": [],
+				"giphyQuery": "big bad wolf"
+			}
+		},
+		{
+			"id": "monstres-moby-dick-les-dents-de-la-mer",
+			"category": "monstres",
+			"a": {
+				"name": "Moby Dick",
+				"origin": "Herman Melville · 1851",
+				"line": "Une baleine blanche, et une obsession.",
+				"giphyIds": [],
+				"giphyQuery": "Moby Dick whale"
+			},
+			"b": {
+				"name": "Les Dents de la mer",
+				"origin": "Steven Spielberg · 1975",
+				"line": "Deux notes de musique, et plus personne ne se baigne.",
+				"giphyIds": [],
+				"giphyQuery": "Jaws shark"
+			}
+		},
+		{
+			"id": "monstres-sulli-bob-razowski",
+			"category": "monstres",
+			"a": {
+				"name": "Sulli",
+				"origin": "Monstres et Cie · 2001",
+				"line": "Bleu, poilu, et finalement très doux.",
+				"giphyIds": [],
+				"giphyQuery": "Sulley Monsters Inc"
+			},
+			"b": {
+				"name": "Bob Razowski",
+				"origin": "Monstres et Cie · 2001",
+				"line": "Un seul œil, et beaucoup d’humour.",
+				"giphyIds": [],
+				"giphyQuery": "Mike Wazowski"
+			}
+		},
+		{
+			"id": "monstres-macaron-le-glouton-oscar-le-grincheux",
+			"category": "monstres",
+			"a": {
+				"name": "Macaron le glouton",
+				"origin": "1, rue Sésame",
+				"line": "« C’est moi Macaron ! » Et des biscuits partout.",
+				"giphyIds": [],
+				"giphyQuery": "Cookie Monster"
+			},
+			"b": {
+				"name": "Oscar le grincheux",
+				"origin": "1, rue Sésame",
+				"line": "Il vit dans une poubelle, et il en est fier.",
+				"giphyIds": [],
+				"giphyQuery": "Oscar the Grouch"
+			}
+		},
+		{
+			"id": "monstres-casper-bouffe-tout",
+			"category": "monstres",
+			"a": {
+				"name": "Casper",
+				"origin": "Le fantôme gentil · 1945",
+				"line": "Un fantôme qui veut juste des amis.",
+				"giphyIds": [],
+				"giphyQuery": "Casper"
+			},
+			"b": {
+				"name": "Bouffe-tout",
+				"origin": "SOS Fantômes · 1984",
+				"line": "Vert, gluant, et affamé.",
+				"giphyIds": [],
+				"giphyQuery": "Slimer Ghostbusters"
+			}
+		},
+		{
+			"id": "monstres-le-bonhomme-chamallow-bibendum",
+			"category": "monstres",
+			"a": {
+				"name": "Le bonhomme Chamallow",
+				"origin": "SOS Fantômes · 1984",
+				"line": "Un géant de guimauve qui marche sur New York.",
+				"giphyIds": [],
+				"giphyQuery": "Stay Puft marshmallow"
+			},
+			"b": {
+				"name": "Bibendum",
+				"origin": "Michelin · 1898",
+				"line": "Un bonhomme en pneus, très souriant.",
+				"giphyIds": [],
+				"giphyQuery": "Michelin man"
+			}
+		},
+		{
+			"id": "monstres-pennywise-chucky",
+			"category": "monstres",
+			"a": {
+				"name": "Pennywise",
+				"origin": "Stephen King · 1986",
+				"line": "Un clown, un ballon rouge, et une bouche d’égout.",
+				"giphyIds": [],
+				"giphyQuery": "Pennywise"
+			},
+			"b": {
+				"name": "Chucky",
+				"origin": "Jeu d’enfant · 1988",
+				"line": "Une poupée qui n’est pas du tout un jouet.",
+				"giphyIds": [],
+				"giphyQuery": "Chucky doll"
+			}
+		},
+		{
+			"id": "monstres-detraqueurs-nazguls",
+			"category": "monstres",
+			"a": {
+				"name": "Détraqueurs",
+				"origin": "Harry Potter",
+				"line": "Ils aspirent toute la joie. Mangez du chocolat.",
+				"giphyIds": [],
+				"giphyQuery": "Dementors"
+			},
+			"b": {
+				"name": "Nazgûls",
+				"origin": "Le Seigneur des anneaux",
+				"line": "Neuf cavaliers noirs, et des cris perçants.",
+				"giphyIds": [],
+				"giphyQuery": "Nazgul"
+			}
+		},
+		{
+			"id": "monstres-smaug-drogon",
+			"category": "monstres",
+			"a": {
+				"name": "Smaug",
+				"origin": "Le Hobbit · 1937",
+				"line": "Un dragon allongé sur une montagne d’or.",
+				"giphyIds": [],
+				"giphyQuery": "Smaug"
+			},
+			"b": {
+				"name": "Drogon",
+				"origin": "Game of Thrones · 2011",
+				"line": "Le plus grand des dragons de Daenerys.",
+				"giphyIds": [],
+				"giphyQuery": "Drogon"
+			}
+		},
+		{
+			"id": "monstres-kaijus-jaegers",
+			"category": "monstres",
+			"a": {
+				"name": "Kaijus",
+				"origin": "Pacific Rim · 2013",
+				"line": "Des monstres géants sortis de l’océan.",
+				"giphyIds": ["C5HjYGn5OWuj8r6CcM"],
+				"giphyQuery": "Pacific Rim monster"
+			},
+			"b": {
+				"name": "Jaegers",
+				"origin": "Pacific Rim · 2013",
+				"line": "Des robots géants pilotés à deux.",
+				"giphyIds": [],
+				"giphyQuery": "Pacific Rim jaeger"
+			}
+		},
+		{
+			"id": "monstres-la-fee-clochette-le-genie",
+			"category": "monstres",
+			"a": {
+				"name": "La fée Clochette",
+				"origin": "Peter Pan · 1904",
+				"line": "Petite, jalouse, et de la poudre de fée.",
+				"giphyIds": [],
+				"giphyQuery": "Tinker Bell"
+			},
+			"b": {
+				"name": "Le Génie",
+				"origin": "Aladdin · 1992",
+				"line": "Trois vœux, et beaucoup d’imitations.",
+				"giphyIds": [],
+				"giphyQuery": "Genie Aladdin"
+			}
+		},
+		{
+			"id": "monstres-loup-garou-villageois",
+			"category": "monstres",
+			"a": {
+				"name": "Loup-garou",
+				"origin": "Le jeu de société",
+				"line": "La nuit, il dévore un villageois.",
+				"giphyIds": [],
+				"giphyQuery": "werewolf game"
+			},
+			"b": {
+				"name": "Villageois",
+				"origin": "Le jeu de société aussi",
+				"line": "Le jour, il accuse son voisin.",
+				"giphyIds": [],
+				"giphyQuery": "villagers mob"
+			}
+		},
+		{
+			"id": "monstres-malefique-ursula",
+			"category": "monstres",
+			"a": {
+				"name": "Maléfique",
+				"origin": "La Belle au bois dormant · 1959",
+				"line": "Des cornes, un corbeau, et une rancune tenace.",
+				"giphyIds": [],
+				"giphyQuery": "Maleficent"
+			},
+			"b": {
+				"name": "Ursula",
+				"origin": "La Petite Sirène · 1989",
+				"line": "Des tentacules, et des contrats douteux.",
+				"giphyIds": [],
+				"giphyQuery": "Ursula"
+			}
+		},
+		{
+			"id": "monstres-lutins-farfadets",
+			"category": "monstres",
+			"a": {
+				"name": "Lutins",
+				"origin": "Le pôle Nord",
+				"line": "Ils fabriquent les jouets du père Noël.",
+				"giphyIds": [],
+				"giphyQuery": "elves christmas"
+			},
+			"b": {
+				"name": "Farfadets",
+				"origin": "Les forêts",
+				"line": "Ils jouent des tours aux voyageurs.",
+				"giphyIds": [],
+				"giphyQuery": "leprechaun mischief"
+			}
+		},
+		{
+			"id": "monstres-djinn-leprechaun",
+			"category": "monstres",
+			"a": {
+				"name": "Djinn",
+				"origin": "Les Mille et Une Nuits",
+				"line": "Un génie puissant, et capricieux.",
+				"giphyIds": [],
+				"giphyQuery": "djinn"
+			},
+			"b": {
+				"name": "Leprechaun",
+				"origin": "L’Irlande",
+				"line": "Un petit homme vert, et un chaudron d’or.",
+				"giphyIds": [],
+				"giphyQuery": "leprechaun gold"
+			}
+		},
+		{
+			"id": "monstres-le-sphinx-la-chimere",
+			"category": "monstres",
+			"a": {
+				"name": "Le Sphinx",
+				"origin": "Thèbes",
+				"line": "Une énigme, et gare à la mauvaise réponse.",
+				"giphyIds": [],
+				"giphyQuery": "sphinx"
+			},
+			"b": {
+				"name": "La Chimère",
+				"origin": "La Grèce antique",
+				"line": "Lion, chèvre et serpent, en une seule bête.",
+				"giphyIds": [],
+				"giphyQuery": "chimera"
+			}
+		},
+		{
+			"id": "monstres-basilic-acromentule",
+			"category": "monstres",
+			"a": {
+				"name": "Basilic",
+				"origin": "Harry Potter",
+				"line": "Un serpent géant, et un regard mortel.",
+				"giphyIds": ["3ohc1084yp9eOuTmIo"],
+				"giphyQuery": "harry potter",
+				"giphyKeywords": ["snake fighting"]
+			},
+			"b": {
+				"name": "Acromentule",
+				"origin": "Harry Potter",
+				"line": "Une araignée géante, et des enfants très nombreux.",
+				"giphyIds": [],
+				"giphyQuery": "Aragog spider"
+			}
+		},
+		{
+			"id": "monstres-baba-yaga-la-reine-de-blanche-neige",
+			"category": "monstres",
+			"a": {
+				"name": "Baba Yaga",
+				"origin": "Les contes russes",
+				"line": "Une maison sur pattes de poulet.",
+				"giphyIds": [],
+				"giphyQuery": "Baba Yaga"
+			},
+			"b": {
+				"name": "La Reine de Blanche-Neige",
+				"origin": "Disney · 1937",
+				"line": "« Miroir, mon beau miroir… »",
+				"giphyIds": [],
+				"giphyQuery": "Evil Queen Snow White"
+			}
+		},
+		{
+			"id": "monstres-zombie-lent-zombie-rapide",
+			"category": "monstres",
+			"a": {
+				"name": "Zombie lent",
+				"origin": "La Nuit des morts-vivants · 1968",
+				"line": "Il marche doucement. On a le temps.",
+				"giphyIds": [],
+				"giphyQuery": "slow zombie"
+			},
+			"b": {
+				"name": "Zombie rapide",
+				"origin": "28 jours plus tard · 2002",
+				"line": "Il sprinte. On n’a plus le temps.",
+				"giphyIds": [],
+				"giphyQuery": "fast zombie"
+			}
+		},
+		{
+			"id": "monstres-vampire-qui-brille-vampire-classique",
+			"category": "monstres",
+			"a": {
+				"name": "Vampire qui brille",
+				"origin": "Twilight · 2008",
+				"line": "Il scintille au soleil.",
+				"giphyIds": [],
+				"giphyQuery": "Edward sparkle"
+			},
+			"b": {
+				"name": "Vampire classique",
+				"origin": "Dracula · 1897",
+				"line": "Il brûle au soleil.",
+				"giphyIds": [],
+				"giphyQuery": "classic vampire"
+			}
+		},
+		{
+			"id": "monstres-les-tribbles-les-ewoks",
+			"category": "monstres",
+			"a": {
+				"name": "Les Tribbles",
+				"origin": "Star Trek · 1967",
+				"line": "Des boules de poils qui se multiplient.",
+				"giphyIds": [],
+				"giphyQuery": "Tribbles"
+			},
+			"b": {
+				"name": "Les Ewoks",
+				"origin": "Star Wars · 1983",
+				"line": "Des oursons qui battent l’Empire.",
+				"giphyIds": [],
+				"giphyQuery": "Ewoks"
+			}
+		},
+		{
+			"id": "monstres-la-momie-le-fantome-de-l-opera",
+			"category": "monstres",
+			"a": {
+				"name": "La Momie",
+				"origin": "Les pyramides",
+				"line": "Des bandelettes, et une malédiction.",
+				"giphyIds": [],
+				"giphyQuery": "mummy"
+			},
+			"b": {
+				"name": "Le Fantôme de l’Opéra",
+				"origin": "Gaston Leroux · 1910",
+				"line": "Un masque blanc, et un lustre qui tombe.",
+				"giphyIds": [],
+				"giphyQuery": "Phantom of the Opera"
+			}
+		},
+		{
+			"id": "animaux-panda-koala",
+			"category": "animaux",
+			"a": {
+				"name": "Panda",
+				"origin": "La Chine",
+				"line": "Mange du bambou quatorze heures par jour.",
+				"giphyIds": [],
+				"giphyQuery": "panda"
+			},
+			"b": {
+				"name": "Koala",
+				"origin": "L’Australie",
+				"line": "Dort vingt heures par jour.",
+				"giphyIds": [],
+				"giphyQuery": "koala"
+			}
+		},
+		{
+			"id": "animaux-requin-crocodile",
+			"category": "animaux",
+			"a": {
+				"name": "Requin",
+				"origin": "L’océan",
+				"line": "Des dents qui repoussent toute sa vie.",
+				"giphyIds": [],
+				"giphyQuery": "shark"
+			},
+			"b": {
+				"name": "Crocodile",
+				"origin": "La rivière",
+				"line": "Inchangé depuis les dinosaures, et ça lui va.",
+				"giphyIds": [],
+				"giphyQuery": "crocodile"
+			}
+		},
+		{
+			"id": "animaux-loutre-capybara",
+			"category": "animaux",
+			"a": {
+				"name": "Loutre",
+				"origin": "La rivière",
+				"line": "Elle dort en tenant la main de ses amies.",
+				"giphyIds": [],
+				"giphyQuery": "otter"
+			},
+			"b": {
+				"name": "Capybara",
+				"origin": "L’Amérique du Sud",
+				"line": "Le plus gros rongeur du monde, et le plus calme.",
+				"giphyIds": [],
+				"giphyQuery": "capybara"
+			}
+		},
+		{
+			"id": "animaux-pingouin-manchot",
+			"category": "animaux",
+			"a": {
+				"name": "Pingouin",
+				"origin": "L’Atlantique Nord",
+				"line": "Il vole. Si, si.",
+				"giphyIds": [],
+				"giphyQuery": "puffin flying"
+			},
+			"b": {
+				"name": "Manchot",
+				"origin": "L’Antarctique",
+				"line": "Il ne vole pas. Mais il nage très bien.",
+				"giphyIds": [],
+				"giphyQuery": "penguin swimming"
+			}
+		},
+		{
+			"id": "animaux-lion-tigre",
+			"category": "animaux",
+			"a": {
+				"name": "Lion",
+				"origin": "La savane",
+				"line": "Le roi de la jungle, qui vit dans la savane.",
+				"giphyIds": [],
+				"giphyQuery": "lion"
+			},
+			"b": {
+				"name": "Tigre",
+				"origin": "L’Asie",
+				"line": "Le plus grand de tous les félins.",
+				"giphyIds": [],
+				"giphyQuery": "tiger"
+			}
+		},
+		{
+			"id": "animaux-dauphin-orque",
+			"category": "animaux",
+			"a": {
+				"name": "Dauphin",
+				"origin": "L’océan",
+				"line": "Intelligent, joueur, et toujours souriant.",
+				"giphyIds": [],
+				"giphyQuery": "dolphin"
+			},
+			"b": {
+				"name": "Orque",
+				"origin": "L’océan aussi",
+				"line": "En fait, c’est le plus grand des dauphins.",
+				"giphyIds": [],
+				"giphyQuery": "orca"
+			}
+		},
+		{
+			"id": "animaux-hibou-chouette",
+			"category": "animaux",
+			"a": {
+				"name": "Hibou",
+				"origin": "La forêt",
+				"line": "Il a des aigrettes sur la tête.",
+				"giphyIds": [],
+				"giphyQuery": "owl"
+			},
+			"b": {
+				"name": "Chouette",
+				"origin": "La forêt aussi",
+				"line": "Elle n’en a pas. C’est tout.",
+				"giphyIds": [],
+				"giphyQuery": "barn owl"
+			}
+		},
+		{
+			"id": "animaux-lapin-cochon-d-inde",
+			"category": "animaux",
+			"a": {
+				"name": "Lapin",
+				"origin": "Le clapier",
+				"line": "Des oreilles, des carottes, et des sauts de joie.",
+				"giphyIds": [],
+				"giphyQuery": "bunny"
+			},
+			"b": {
+				"name": "Cochon d’Inde",
+				"origin": "La cage",
+				"line": "Des petits cris dès qu’on ouvre le frigo.",
+				"giphyIds": [],
+				"giphyQuery": "guinea pig"
+			}
+		},
+		{
+			"id": "animaux-paresseux-tortue",
+			"category": "animaux",
+			"a": {
+				"name": "Paresseux",
+				"origin": "La canopée",
+				"line": "Descend de son arbre une fois par semaine.",
+				"giphyIds": [],
+				"giphyQuery": "sloth"
+			},
+			"b": {
+				"name": "Tortue",
+				"origin": "Le jardin",
+				"line": "Elle a tout son temps. Vraiment tout.",
+				"giphyIds": [],
+				"giphyQuery": "tortoise"
+			}
+		},
+		{
+			"id": "animaux-girafe-elephant",
+			"category": "animaux",
+			"a": {
+				"name": "Girafe",
+				"origin": "La savane",
+				"line": "Un cou immense, avec seulement sept vertèbres.",
+				"giphyIds": [],
+				"giphyQuery": "giraffe"
+			},
+			"b": {
+				"name": "Éléphant",
+				"origin": "La savane aussi",
+				"line": "Une trompe, et une mémoire d’éléphant.",
+				"giphyIds": [],
+				"giphyQuery": "elephant"
+			}
+		},
+		{
+			"id": "animaux-pieuvre-calamar-geant",
+			"category": "animaux",
+			"a": {
+				"name": "Pieuvre",
+				"origin": "Les fonds marins",
+				"line": "Huit bras, trois cœurs, du sang bleu.",
+				"giphyIds": [],
+				"giphyQuery": "octopus"
+			},
+			"b": {
+				"name": "Calamar géant",
+				"origin": "Les abysses",
+				"line": "Des yeux grands comme des assiettes.",
+				"giphyIds": [],
+				"giphyQuery": "giant squid"
+			}
+		},
+		{
+			"id": "animaux-abeille-papillon",
+			"category": "animaux",
+			"a": {
+				"name": "Abeille",
+				"origin": "La ruche",
+				"line": "Elle danse pour indiquer les fleurs.",
+				"giphyIds": [],
+				"giphyQuery": "bee"
+			},
+			"b": {
+				"name": "Papillon",
+				"origin": "Le jardin",
+				"line": "Il goûte avec ses pattes.",
+				"giphyIds": [],
+				"giphyQuery": "butterfly"
+			}
+		},
+		{
+			"id": "animaux-pigeon-mouette",
+			"category": "animaux",
+			"a": {
+				"name": "Pigeon",
+				"origin": "La place de la mairie",
+				"line": "Il connaît la ville mieux que toi.",
+				"giphyIds": [],
+				"giphyQuery": "pigeon"
+			},
+			"b": {
+				"name": "Mouette",
+				"origin": "Le port",
+				"line": "Elle te vole tes frites, sans remords.",
+				"giphyIds": [],
+				"giphyQuery": "seagull stealing fries"
+			}
+		},
+		{
+			"id": "animaux-raton-laveur-opossum",
+			"category": "animaux",
+			"a": {
+				"name": "Raton laveur",
+				"origin": "La poubelle",
+				"line": "Il lave sa nourriture, et fouille tes poubelles.",
+				"giphyIds": [],
+				"giphyQuery": "raccoon"
+			},
+			"b": {
+				"name": "Opossum",
+				"origin": "La route",
+				"line": "Il fait le mort quand il a peur.",
+				"giphyIds": [],
+				"giphyQuery": "opossum"
+			}
+		},
+		{
+			"id": "animaux-chat-noir-chat-roux",
+			"category": "animaux",
+			"a": {
+				"name": "Chat noir",
+				"origin": "Le perron",
+				"line": "Porte-bonheur ou malheur, selon les pays.",
+				"giphyIds": [],
+				"giphyQuery": "black cat"
+			},
+			"b": {
+				"name": "Chat roux",
+				"origin": "Le canapé",
+				"line": "Une seule cellule grise, selon Internet.",
+				"giphyIds": [],
+				"giphyQuery": "orange cat"
+			}
+		},
+		{
+			"id": "animaux-golden-retriever-teckel",
+			"category": "animaux",
+			"a": {
+				"name": "Golden retriever",
+				"origin": "Le jardin",
+				"line": "Aime absolument tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "golden retriever"
+			},
+			"b": {
+				"name": "Teckel",
+				"origin": "Le canapé",
+				"line": "Un saucisson sur pattes, très fier.",
+				"giphyIds": [],
+				"giphyQuery": "dachshund"
+			}
+		},
+		{
+			"id": "animaux-lama-alpaga",
+			"category": "animaux",
+			"a": {
+				"name": "Lama",
+				"origin": "Les Andes",
+				"line": "Il crache quand il n’est pas content.",
+				"giphyIds": [],
+				"giphyQuery": "llama"
+			},
+			"b": {
+				"name": "Alpaga",
+				"origin": "Les Andes aussi",
+				"line": "Une laine douce, et une coupe de cheveux ridicule.",
+				"giphyIds": [],
+				"giphyQuery": "alpaca"
+			}
+		},
+		{
+			"id": "animaux-ornithorynque-axolotl",
+			"category": "animaux",
+			"a": {
+				"name": "Ornithorynque",
+				"origin": "L’Australie",
+				"line": "Un bec de canard, il pond des œufs, et il est venimeux.",
+				"giphyIds": [],
+				"giphyQuery": "platypus"
+			},
+			"b": {
+				"name": "Axolotl",
+				"origin": "Le Mexique",
+				"line": "Il fait repousser ses membres, et il sourit tout le temps.",
+				"giphyIds": [],
+				"giphyQuery": "axolotl"
+			}
+		},
+		{
+			"id": "animaux-ours-polaire-grizzly",
+			"category": "animaux",
+			"a": {
+				"name": "Ours polaire",
+				"origin": "La banquise",
+				"line": "Une fourrure blanche sur une peau noire.",
+				"giphyIds": [],
+				"giphyQuery": "polar bear"
+			},
+			"b": {
+				"name": "Grizzly",
+				"origin": "Les Rocheuses",
+				"line": "Il pêche le saumon à la main.",
+				"giphyIds": [],
+				"giphyQuery": "grizzly bear fishing"
+			}
+		},
+		{
+			"id": "animaux-la-fourmi-la-cigale",
+			"category": "animaux",
+			"a": {
+				"name": "La Fourmi",
+				"origin": "La Fontaine · 1668",
+				"line": "Elle travaille tout l’été.",
+				"giphyIds": [],
+				"giphyQuery": "ant working"
+			},
+			"b": {
+				"name": "La Cigale",
+				"origin": "La Fontaine · 1668",
+				"line": "Elle chante tout l’été.",
+				"giphyIds": [],
+				"giphyQuery": "cicada singing"
+			}
+		},
+		{
+			"id": "animaux-le-lievre-la-tortue",
+			"category": "animaux",
+			"a": {
+				"name": "Le Lièvre",
+				"origin": "La Fontaine · 1668",
+				"line": "Rapide, mais trop sûr de lui.",
+				"giphyIds": [],
+				"giphyQuery": "hare running"
+			},
+			"b": {
+				"name": "La Tortue",
+				"origin": "La Fontaine · 1668",
+				"line": "Lente, mais elle arrive la première.",
+				"giphyIds": [],
+				"giphyQuery": "turtle slow"
+			}
+		},
+		{
+			"id": "animaux-le-corbeau-le-renard",
+			"category": "animaux",
+			"a": {
+				"name": "Le Corbeau",
+				"origin": "La Fontaine · 1668",
+				"line": "Un fromage dans le bec, et un ego fragile.",
+				"giphyIds": [],
+				"giphyQuery": "crow"
+			},
+			"b": {
+				"name": "Le Renard",
+				"origin": "La Fontaine · 1668",
+				"line": "Un compliment, et le fromage est à lui.",
+				"giphyIds": [],
+				"giphyQuery": "fox"
+			}
+		},
+		{
+			"id": "animaux-chevre-mouton",
+			"category": "animaux",
+			"a": {
+				"name": "Chèvre",
+				"origin": "La montagne",
+				"line": "Elle grimpe aux arbres. Si, si.",
+				"giphyIds": [],
+				"giphyQuery": "goat climbing tree"
+			},
+			"b": {
+				"name": "Mouton",
+				"origin": "Le pré",
+				"line": "Il suit le troupeau, sans se poser de questions.",
+				"giphyIds": [],
+				"giphyQuery": "sheep"
+			}
+		},
+		{
+			"id": "animaux-vache-cochon",
+			"category": "animaux",
+			"a": {
+				"name": "Vache",
+				"origin": "Le pré",
+				"line": "Quatre estomacs et beaucoup de patience.",
+				"giphyIds": [],
+				"giphyQuery": "cow"
+			},
+			"b": {
+				"name": "Cochon",
+				"origin": "La ferme",
+				"line": "Plus intelligent que la plupart des chiens.",
+				"giphyIds": [],
+				"giphyQuery": "pig"
+			}
+		},
+		{
+			"id": "animaux-poisson-rouge-tortue-d-eau",
+			"category": "animaux",
+			"a": {
+				"name": "Poisson rouge",
+				"origin": "Le bocal",
+				"line": "Trois secondes de mémoire, paraît-il. C’est faux.",
+				"giphyIds": [],
+				"giphyQuery": "goldfish"
+			},
+			"b": {
+				"name": "Tortue d’eau",
+				"origin": "L’aquarium",
+				"line": "Elle bronze sur son rocher.",
+				"giphyIds": [],
+				"giphyQuery": "turtle basking"
+			}
+		},
+		{
+			"id": "animaux-gorille-orang-outan",
+			"category": "animaux",
+			"a": {
+				"name": "Gorille",
+				"origin": "La forêt tropicale",
+				"line": "Le plus grand des primates.",
+				"giphyIds": [],
+				"giphyQuery": "gorilla"
+			},
+			"b": {
+				"name": "Orang-outan",
+				"origin": "Bornéo",
+				"line": "Des cheveux roux, et une vie dans les arbres.",
+				"giphyIds": [],
+				"giphyQuery": "orangutan"
+			}
+		},
+		{
+			"id": "animaux-zebre-cheval",
+			"category": "animaux",
+			"a": {
+				"name": "Zèbre",
+				"origin": "La savane",
+				"line": "Un cheval en pyjama.",
+				"giphyIds": [],
+				"giphyQuery": "zebra"
+			},
+			"b": {
+				"name": "Cheval",
+				"origin": "Le pré",
+				"line": "Un zèbre sans pyjama.",
+				"giphyIds": [],
+				"giphyQuery": "horse"
+			}
+		},
+		{
+			"id": "animaux-flamant-rose-paon",
+			"category": "animaux",
+			"a": {
+				"name": "Flamant rose",
+				"origin": "Le lac salé",
+				"line": "Rose grâce à ce qu’il mange.",
+				"giphyIds": [],
+				"giphyQuery": "flamingo"
+			},
+			"b": {
+				"name": "Paon",
+				"origin": "Le château",
+				"line": "Une roue de plumes, et beaucoup de frime.",
+				"giphyIds": [],
+				"giphyQuery": "peacock"
+			}
+		},
+		{
+			"id": "animaux-herisson-porc-epic",
+			"category": "animaux",
+			"a": {
+				"name": "Hérisson",
+				"origin": "Le jardin",
+				"line": "Il se roule en boule, et mange les limaces.",
+				"giphyIds": [],
+				"giphyQuery": "hedgehog"
+			},
+			"b": {
+				"name": "Porc-épic",
+				"origin": "La forêt",
+				"line": "Des piquants bien plus longs, et pas de câlins.",
+				"giphyIds": [],
+				"giphyQuery": "porcupine"
+			}
+		},
+		{
+			"id": "animaux-kangourou-autruche",
+			"category": "animaux",
+			"a": {
+				"name": "Kangourou",
+				"origin": "L’Australie",
+				"line": "Il ne sait pas reculer.",
+				"giphyIds": [],
+				"giphyQuery": "kangaroo"
+			},
+			"b": {
+				"name": "Autruche",
+				"origin": "L’Afrique",
+				"line": "Le plus gros œuf du monde, et une course à 70 km/h.",
+				"giphyIds": [],
+				"giphyQuery": "ostrich running"
+			}
+		},
+		{
+			"id": "animaux-chameau-dromadaire",
+			"category": "animaux",
+			"a": {
+				"name": "Chameau",
+				"origin": "L’Asie",
+				"line": "Deux bosses.",
+				"giphyIds": [],
+				"giphyQuery": "camel"
+			},
+			"b": {
+				"name": "Dromadaire",
+				"origin": "L’Afrique",
+				"line": "Une seule bosse. Retiens-le enfin.",
+				"giphyIds": [],
+				"giphyQuery": "dromedary"
+			}
+		},
+		{
+			"id": "animaux-baleine-bleue-cachalot",
+			"category": "animaux",
+			"a": {
+				"name": "Baleine bleue",
+				"origin": "L’océan",
+				"line": "Le plus grand animal de tous les temps.",
+				"giphyIds": [],
+				"giphyQuery": "blue whale"
+			},
+			"b": {
+				"name": "Cachalot",
+				"origin": "Les profondeurs",
+				"line": "Il plonge à deux mille mètres.",
+				"giphyIds": [],
+				"giphyQuery": "sperm whale"
+			}
+		},
+		{
+			"id": "animaux-colibri-aigle",
+			"category": "animaux",
+			"a": {
+				"name": "Colibri",
+				"origin": "Les fleurs",
+				"line": "Il vole en marche arrière.",
+				"giphyIds": [],
+				"giphyQuery": "hummingbird"
+			},
+			"b": {
+				"name": "Aigle",
+				"origin": "Les montagnes",
+				"line": "Il voit un lapin à trois kilomètres.",
+				"giphyIds": ["AD57MmRuoSype48CXD"],
+				"giphyQuery": "eagle"
+			}
+		},
+		{
+			"id": "animaux-moustique-guepe",
+			"category": "animaux",
+			"question": "Le pire de l’été : le moustique ou la guêpe ?",
+			"a": {
+				"name": "Moustique",
+				"origin": "La chambre, la nuit",
+				"line": "Un bzzz dans l’oreille à trois heures du matin.",
+				"giphyIds": [],
+				"giphyQuery": "mosquito"
+			},
+			"b": {
+				"name": "Guêpe",
+				"origin": "La terrasse",
+				"line": "Elle veut ta limonade, et elle l’aura.",
+				"giphyIds": [],
+				"giphyQuery": "wasp"
+			}
+		},
+		{
+			"id": "animaux-araignee-serpent",
+			"category": "animaux",
+			"question": "Ta plus grande peur : l’araignée ou le serpent ?",
+			"a": {
+				"name": "Araignée",
+				"origin": "Le coin du plafond",
+				"line": "Huit pattes, et elle te regarde.",
+				"giphyIds": [],
+				"giphyQuery": "spider"
+			},
+			"b": {
+				"name": "Serpent",
+				"origin": "Les hautes herbes",
+				"line": "Pas de pattes, et il te regarde aussi.",
+				"giphyIds": [],
+				"giphyQuery": "snake"
+			}
+		},
+		{
+			"id": "animaux-chihuahua-dogue-allemand",
+			"category": "animaux",
+			"a": {
+				"name": "Chihuahua",
+				"origin": "Le sac à main",
+				"line": "Le plus petit chien, le plus grand caractère.",
+				"giphyIds": [],
+				"giphyQuery": "chihuahua"
+			},
+			"b": {
+				"name": "Dogue allemand",
+				"origin": "Le canapé entier",
+				"line": "Un poney qui se croit chien de salon.",
+				"giphyIds": [],
+				"giphyQuery": "great dane"
+			}
+		},
+		{
+			"id": "animaux-husky-corgi",
+			"category": "animaux",
+			"a": {
+				"name": "Husky",
+				"origin": "Le Grand Nord",
+				"line": "Des yeux bleus, et des hurlements dramatiques.",
+				"giphyIds": [],
+				"giphyQuery": "husky howling"
+			},
+			"b": {
+				"name": "Corgi",
+				"origin": "Buckingham",
+				"line": "Des pattes courtes, et des fesses célèbres.",
+				"giphyIds": [],
+				"giphyQuery": "corgi"
+			}
+		},
+		{
+			"id": "animaux-sphynx-persan",
+			"category": "animaux",
+			"a": {
+				"name": "Sphynx",
+				"origin": "Le radiateur",
+				"line": "Un chat sans poils, toujours au chaud.",
+				"giphyIds": [],
+				"giphyQuery": "sphynx cat"
+			},
+			"b": {
+				"name": "Persan",
+				"origin": "Le coussin",
+				"line": "Un chat très poilu, à la tête aplatie.",
+				"giphyIds": [],
+				"giphyQuery": "persian cat"
+			}
+		},
+		{
+			"id": "animaux-tortue-de-mer-hippocampe",
+			"category": "animaux",
+			"a": {
+				"name": "Tortue de mer",
+				"origin": "Les océans",
+				"line": "Elle revient pondre sur la plage où elle est née.",
+				"giphyIds": [],
+				"giphyQuery": "sea turtle"
+			},
+			"b": {
+				"name": "Hippocampe",
+				"origin": "Les herbiers",
+				"line": "Ce sont les papas qui portent les bébés.",
+				"giphyIds": [],
+				"giphyQuery": "seahorse"
+			}
+		},
+		{
+			"id": "animaux-fennec-renard-polaire",
+			"category": "animaux",
+			"a": {
+				"name": "Fennec",
+				"origin": "Le Sahara",
+				"line": "Des oreilles géantes pour rester au frais.",
+				"giphyIds": [],
+				"giphyQuery": "fennec fox"
+			},
+			"b": {
+				"name": "Renard polaire",
+				"origin": "L’Arctique",
+				"line": "Il devient tout blanc en hiver.",
+				"giphyIds": [],
+				"giphyQuery": "arctic fox"
+			}
+		},
+		{
+			"id": "animaux-panda-roux-suricate",
+			"category": "animaux",
+			"a": {
+				"name": "Panda roux",
+				"origin": "L’Himalaya",
+				"line": "Une queue rayée, et une tête de peluche.",
+				"giphyIds": [],
+				"giphyQuery": "red panda"
+			},
+			"b": {
+				"name": "Suricate",
+				"origin": "Le Kalahari",
+				"line": "Toujours de garde, debout sur ses pattes arrière.",
+				"giphyIds": [],
+				"giphyQuery": "meerkat"
+			}
+		},
+		{
+			"id": "animaux-perroquet-mainate",
+			"category": "animaux",
+			"a": {
+				"name": "Perroquet",
+				"origin": "La jungle",
+				"line": "Il répète tout. Surtout ce qu’il ne faut pas.",
+				"giphyIds": [],
+				"giphyQuery": "parrot talking"
+			},
+			"b": {
+				"name": "Mainate",
+				"origin": "L’Asie",
+				"line": "Il imite les voix mieux que ton cousin.",
+				"giphyIds": [],
+				"giphyQuery": "mynah bird"
+			}
+		},
+		{
+			"id": "animaux-taupe-castor",
+			"category": "animaux",
+			"a": {
+				"name": "Taupe",
+				"origin": "Le jardin",
+				"line": "Elle creuse des galeries, et elle ne voit presque rien.",
+				"giphyIds": [],
+				"giphyQuery": "mole"
+			},
+			"b": {
+				"name": "Castor",
+				"origin": "La rivière",
+				"line": "Il construit des barrages, et il est très doué.",
+				"giphyIds": [],
+				"giphyQuery": "beaver"
+			}
+		},
+		{
+			"id": "animaux-grenouille-crapaud",
+			"category": "animaux",
+			"a": {
+				"name": "Grenouille",
+				"origin": "La mare",
+				"line": "Elle saute, elle coasse, elle attend un prince.",
+				"giphyIds": [],
+				"giphyQuery": "frog"
+			},
+			"b": {
+				"name": "Crapaud",
+				"origin": "La mare aussi",
+				"line": "Plus de pustules, et autant de charme.",
+				"giphyIds": [],
+				"giphyQuery": "toad"
+			}
+		},
+		{
+			"id": "animaux-escargot-limace",
+			"category": "animaux",
+			"a": {
+				"name": "Escargot",
+				"origin": "Le jardin après la pluie",
+				"line": "Il transporte sa maison.",
+				"giphyIds": [],
+				"giphyQuery": "snail"
+			},
+			"b": {
+				"name": "Limace",
+				"origin": "Le jardin aussi",
+				"line": "Pareil, sans la maison.",
+				"giphyIds": [],
+				"giphyQuery": "slug"
+			}
+		},
+		{
+			"id": "animaux-otarie-phoque",
+			"category": "animaux",
+			"a": {
+				"name": "Otarie",
+				"origin": "Le port",
+				"line": "Elle a de petites oreilles, et elle marche sur ses nageoires.",
+				"giphyIds": [],
+				"giphyQuery": "sea lion"
+			},
+			"b": {
+				"name": "Phoque",
+				"origin": "La banquise",
+				"line": "Pas d’oreilles visibles, et il rampe sur le ventre.",
+				"giphyIds": [],
+				"giphyQuery": "seal"
+			}
+		},
+		{
+			"id": "animaux-narval-requin-marteau",
+			"category": "animaux",
+			"a": {
+				"name": "Narval",
+				"origin": "L’Arctique",
+				"line": "Une corne qui est en fait une dent.",
+				"giphyIds": [],
+				"giphyQuery": "narwhal"
+			},
+			"b": {
+				"name": "Requin-marteau",
+				"origin": "Les mers chaudes",
+				"line": "Une tête en forme de marteau, et une vue panoramique.",
+				"giphyIds": [],
+				"giphyQuery": "hammerhead shark"
+			}
+		},
+		{
+			"id": "animaux-tyrannosaure-velociraptor",
+			"category": "animaux",
+			"a": {
+				"name": "Tyrannosaure",
+				"origin": "Le Crétacé",
+				"line": "Une mâchoire énorme, et des bras minuscules.",
+				"giphyIds": [],
+				"giphyQuery": "T-rex arms"
+			},
+			"b": {
+				"name": "Vélociraptor",
+				"origin": "Le Crétacé aussi",
+				"line": "En vrai, il avait la taille d’une dinde, et des plumes.",
+				"giphyIds": [],
+				"giphyQuery": "velociraptor"
+			}
+		},
+		{
+			"id": "animaux-mammouth-tigre-a-dents-de-sabre",
+			"category": "animaux",
+			"a": {
+				"name": "Mammouth",
+				"origin": "L’ère glaciaire",
+				"line": "Une fourrure épaisse, et des défenses immenses.",
+				"giphyIds": [],
+				"giphyQuery": "mammoth"
+			},
+			"b": {
+				"name": "Tigre à dents de sabre",
+				"origin": "L’ère glaciaire aussi",
+				"line": "Deux crocs immenses, et un sale caractère.",
+				"giphyIds": [],
+				"giphyQuery": "saber tooth tiger"
+			}
+		},
+		{
+			"id": "animaux-cheval-poney",
+			"category": "animaux",
+			"a": {
+				"name": "Cheval",
+				"origin": "L’écurie",
+				"line": "Grand, puissant, et élégant.",
+				"giphyIds": [],
+				"giphyQuery": "horse galloping"
+			},
+			"b": {
+				"name": "Poney",
+				"origin": "Le club hippique",
+				"line": "Petit, têtu, et adorable.",
+				"giphyIds": [],
+				"giphyQuery": "pony"
+			}
+		},
+		{
+			"id": "monstres-la-fee-carabosse-la-bonne-fee",
+			"category": "monstres",
+			"a": {
+				"name": "La fée Carabosse",
+				"origin": "Les contes",
+				"line": "Pas invitée au baptême, et elle s’en souvient.",
+				"giphyIds": [],
+				"giphyQuery": "evil fairy"
+			},
+			"b": {
+				"name": "La bonne fée",
+				"origin": "Cendrillon · 1950",
+				"line": "Une citrouille, une baguette, et jusqu’à minuit.",
+				"giphyIds": [],
+				"giphyQuery": "fairy godmother"
+			}
+		},
+		{
+			"id": "heros-wonder-woman-captain-marvel",
+			"category": "heros",
+			"a": {
+				"name": "Wonder Woman",
+				"origin": "DC · 1941",
+				"line": "Un lasso de vérité, et des bracelets pare-balles.",
+				"quip": "Team Wonder Woman : avec toi, impossible de mentir. Le lasso n’est jamais loin.",
+				"giphyIds": [],
+				"giphyQuery": "Wonder Woman"
+			},
+			"b": {
+				"name": "Captain Marvel",
+				"origin": "Marvel · 1968",
+				"line": "Des poings photoniques, et un chat qui n’en est pas un.",
+				"quip": "Team Captain Marvel : tu pousses un vaisseau spatial à mains nues. Un lundi matin, c’est rien.",
+				"giphyIds": [],
+				"giphyQuery": "Captain Marvel"
+			},
+			"bothQuip": "Les deux. Tu veux le film où elles font équipe. Nous aussi.",
+			"noneQuip": "Ni l’une ni l’autre. Le multivers te propose d’autres options."
+		},
+		{
+			"id": "heros-thor-loki",
+			"category": "heros",
+			"a": {
+				"name": "Thor",
+				"origin": "Marvel · 1962",
+				"line": "Un marteau, des éclairs, et des cheveux parfaits.",
+				"quip": "Team Thor : tu fais plus confiance à ton marteau qu’à ton plan.",
+				"giphyIds": [],
+				"giphyQuery": "Thor hammer"
+			},
+			"b": {
+				"name": "Loki",
+				"origin": "Marvel · 1962",
+				"line": "Dieu de la malice, avec toujours un plan de trop.",
+				"quip": "Team Loki : tu as déjà trahi quelqu’un juste pour voir sa tête. Ne mens pas. Bon, mens, c’est ton truc.",
+				"giphyIds": [],
+				"giphyQuery": "Loki"
+			},
+			"bothQuip": "Les deux. Tu adores les fratries qui se poignardent mais s’aiment quand même.",
+			"noneQuip": "Ni Thor ni Loki. Team Odin, qui fait la sieste quand on a besoin de lui."
+		},
+		{
+			"id": "heros-black-panther-black-widow",
+			"category": "heros",
+			"a": {
+				"name": "Black Panther",
+				"origin": "Marvel · 1966",
+				"line": "« Wakanda pour toujours ! »",
+				"quip": "Team Black Panther : tu dis au revoir en croisant les bras sur la poitrine, et tu ne t’en excuses pas.",
+				"giphyIds": [],
+				"giphyQuery": "Black Panther"
+			},
+			"b": {
+				"name": "Black Widow",
+				"origin": "Marvel · 1964",
+				"line": "Espionne, et toujours un coup d’avance.",
+				"quip": "Team Black Widow : tu sais déjà tout sur la personne qui lit par-dessus ton épaule.",
+				"giphyIds": [],
+				"giphyQuery": "Black Widow"
+			},
+			"bothQuip": "Les deux. Avec toi, le noir va avec tout.",
+			"noneQuip": "Ni l’un ni l’autre. Team Hawkeye, celui que tout le monde oublie."
+		},
+		{
+			"id": "heros-aquaman-flash",
+			"category": "heros",
+			"a": {
+				"name": "Aquaman",
+				"origin": "DC · 1941",
+				"line": "Il parle aux poissons. Les poissons l’écoutent.",
+				"quip": "Team Aquaman : tu prends des douches de quarante-cinq minutes. Pour l’entraînement.",
+				"giphyIds": [],
+				"giphyQuery": "Aquaman"
+			},
+			"b": {
+				"name": "Flash",
+				"origin": "DC · 1940",
+				"line": "Le plus rapide de tous, et pourtant toujours en retard.",
+				"quip": "Team Flash : tu as fini de lire cette phrase avant qu’elle s’affiche.",
+				"giphyIds": [],
+				"giphyQuery": "The Flash running"
+			},
+			"bothQuip": "Les deux. Courir sur l’eau, ça coche les deux cases. Bien joué.",
+			"noneQuip": "Ni Aquaman ni Flash. Tu as le mal de mer et tu marches lentement. Ça se respecte."
+		},
+		{
+			"id": "heros-hellboy-le-punisher",
+			"category": "heros",
+			"a": {
+				"name": "Hellboy",
+				"origin": "Dark Horse · 1993",
+				"line": "Des cornes limées et un faible pour les chats.",
+				"quip": "Team Hellboy : tu adores les chats et les pancakes. Démon, peut-être, mais démon gourmand.",
+				"giphyIds": [],
+				"giphyQuery": "Hellboy"
+			},
+			"b": {
+				"name": "Le Punisher",
+				"origin": "Marvel · 1974",
+				"line": "Une tête de mort sur le t-shirt, et zéro humour.",
+				"quip": "Team Punisher : ton t-shirt à tête de mort, c’est ta tenue du dimanche.",
+				"giphyIds": [],
+				"giphyQuery": "Punisher"
+			},
+			"bothQuip": "Les deux. Tes soirées doivent être calmes. Non ?",
+			"noneQuip": "Ni Hellboy ni le Punisher. Tu préfères les héros qui sourient de temps en temps."
+		},
+		{
+			"id": "heros-magneto-professeur-x",
+			"category": "heros",
+			"a": {
+				"name": "Magneto",
+				"origin": "Marvel · 1963",
+				"line": "Le maître du métal, et un casque contre la télépathie.",
+				"quip": "Team Magneto : les portiques d’aéroport, très peu pour toi.",
+				"giphyIds": [],
+				"giphyQuery": "Magneto"
+			},
+			"b": {
+				"name": "Professeur X",
+				"origin": "Marvel · 1963",
+				"line": "Un fauteuil roulant, et toutes tes pensées.",
+				"quip": "Team Professeur X : tu sais déjà ce que tu vas voter au prochain duel. Nous aussi, du coup.",
+				"giphyIds": [],
+				"giphyQuery": "Professor X"
+			},
+			"bothQuip": "Les deux. Tu veux qu’ils refassent une partie d’échecs en vieux amis. C’est beau.",
+			"noneQuip": "Ni Magneto ni Xavier. Tu portes un casque en alu, juste au cas où ?"
+		},
+		{
+			"id": "heros-lex-luthor-le-bouffon-vert",
+			"category": "heros",
+			"a": {
+				"name": "Lex Luthor",
+				"origin": "DC · 1940",
+				"line": "Un génie chauve, très jaloux d’un Kryptonien.",
+				"quip": "Team Lex Luthor : toi aussi, tu as un ennemi juré qui ne sait même pas que tu existes.",
+				"giphyIds": [],
+				"giphyQuery": "Lex Luthor"
+			},
+			"b": {
+				"name": "Le Bouffon vert",
+				"origin": "Marvel · 1964",
+				"line": "Un planeur, et des citrouilles explosives.",
+				"quip": "Team Bouffon vert : chez toi, Halloween dure toute l’année.",
+				"giphyIds": [],
+				"giphyQuery": "Green Goblin"
+			},
+			"bothQuip": "Les deux. Les méchants milliardaires, c’est ton genre de héros.",
+			"noneQuip": "Ni Lex ni le Bouffon. Les milliardaires, tu t’en méfies. On note."
+		},
+		{
+			"id": "heros-harley-quinn-catwoman",
+			"category": "heros",
+			"a": {
+				"name": "Harley Quinn",
+				"origin": "DC · 1992",
+				"line": "Une batte de baseball et des couettes bicolores.",
+				"quip": "Team Harley Quinn : chez toi, une batte de baseball, c’est un accessoire de mode.",
+				"giphyIds": [],
+				"giphyQuery": "Harley Quinn"
+			},
+			"b": {
+				"name": "Catwoman",
+				"origin": "DC · 1940",
+				"line": "Voleuse de bijoux, avec neuf vies.",
+				"quip": "Team Catwoman : tu fais tomber des objets des étagères en regardant les gens dans les yeux.",
+				"giphyIds": [],
+				"giphyQuery": "Catwoman"
+			},
+			"bothQuip": "Les deux. Gotham n’est pas assez grand pour vous trois.",
+			"noneQuip": "Ni Harley ni Catwoman. Batman te remercie, il avait assez de travail."
+		},
+		{
+			"id": "heros-le-sphinx-le-pingouin",
+			"category": "heros",
+			"a": {
+				"name": "Le Sphinx",
+				"origin": "DC · 1948",
+				"line": "Des énigmes partout, même sur son costume.",
+				"quip": "Team Sphinx : tu envoies tes messages sous forme de rébus. Tes amis n’en peuvent plus.",
+				"giphyIds": [],
+				"giphyQuery": "Riddler"
+			},
+			"b": {
+				"name": "Le Pingouin",
+				"origin": "DC · 1941",
+				"line": "Un parapluie, un monocle, un haut-de-forme.",
+				"quip": "Team Pingouin : tu sors toujours avec un parapluie. Même au soleil. Surtout au soleil.",
+				"giphyIds": [],
+				"giphyQuery": "Penguin Batman"
+			},
+			"bothQuip": "Les deux. Tu collectionnes les méchants de seconde zone de Gotham. On respecte.",
+			"noneQuip": "Ni le Sphinx ni le Pingouin. Pourquoi ? C’est une énigme."
+		},
+		{
+			"id": "heros-daredevil-ant-man",
+			"category": "heros",
+			"a": {
+				"name": "Daredevil",
+				"origin": "Marvel · 1964",
+				"line": "Aveugle, mais il voit tout venir.",
+				"quip": "Team Daredevil : tu entends ton voisin réchauffer sa pizza trois étages plus bas.",
+				"giphyIds": [],
+				"giphyQuery": "Daredevil"
+			},
+			"b": {
+				"name": "Ant-Man",
+				"origin": "Marvel · 1962",
+				"line": "Minuscule, mais redoutable.",
+				"quip": "Team Ant-Man : au concert, tu te faufiles toujours au premier rang.",
+				"giphyIds": [],
+				"giphyQuery": "Ant-Man"
+			},
+			"bothQuip": "Les deux. L’un ne voit pas, l’autre ne se voit pas. Pour se donner rendez-vous, bon courage.",
+			"noneQuip": "Ni Daredevil ni Ant-Man. Tu préfères les héros de taille normale qui voient bien. Logique."
+		},
+		{
+			"id": "heros-doctor-strange-la-sorciere-rouge",
+			"category": "heros",
+			"a": {
+				"name": "Doctor Strange",
+				"origin": "Marvel · 1963",
+				"line": "Une cape qui a sa propre volonté.",
+				"quip": "Team Doctor Strange : tu as vu 14 000 605 futurs. Dans un seul, tu choisis l’autre.",
+				"giphyIds": [],
+				"giphyQuery": "Doctor Strange"
+			},
+			"b": {
+				"name": "La Sorcière rouge",
+				"origin": "Marvel · 1964",
+				"line": "De la magie du chaos, et une puissance folle.",
+				"quip": "Team Sorcière rouge : quand ça ne va pas, tu réécris la réalité en sitcom.",
+				"giphyIds": [],
+				"giphyQuery": "Scarlet Witch"
+			},
+			"bothQuip": "Les deux. Le multivers de la folie te va comme un gant.",
+			"noneQuip": "Ni Strange ni Wanda. La magie, le chaos, très peu pour toi."
+		},
+		{
+			"id": "heros-les-avengers-la-justice-league",
+			"category": "heros",
+			"a": {
+				"name": "Les Avengers",
+				"origin": "Marvel · 1963",
+				"line": "Les héros de la Terre, quand ils arrivent à s’entendre.",
+				"quip": "Team Avengers : tes réunions de famille aussi finissent en bagarre générale à l’aéroport.",
+				"giphyIds": [],
+				"giphyQuery": "Avengers assemble"
+			},
+			"b": {
+				"name": "La Justice League",
+				"origin": "DC · 1960",
+				"line": "Les dieux de l’Olympe, version cape.",
+				"quip": "Team Justice League : tu as vu la version de quatre heures. En entier.",
+				"giphyIds": [],
+				"giphyQuery": "Justice League"
+			},
+			"bothQuip": "Les deux. Tu attends le crossover depuis tes dix ans. Il ne viendra pas.",
+			"noneQuip": "Ni les Avengers ni la Justice League. Tu préfères les héros qui bossent seuls, comme ton pharmacien."
+		},
+		{
+			"id": "heros-les-x-men-les-gardiens-de-la-galaxie",
+			"category": "heros",
+			"a": {
+				"name": "Les X-Men",
+				"origin": "Marvel · 1963",
+				"line": "Une école pour mutants, et beaucoup de drames.",
+				"quip": "Team X-Men : tu attends toujours ta lettre d’admission chez le professeur Xavier.",
+				"giphyIds": [],
+				"giphyQuery": "X-Men"
+			},
+			"b": {
+				"name": "Les Gardiens de la Galaxie",
+				"origin": "Marvel · 2008",
+				"line": "Un raton laveur, un arbre, et une cassette audio.",
+				"quip": "Team Gardiens : tu as déjà dansé devant ton miroir sur une cassette des années 70. Avoue.",
+				"giphyIds": [],
+				"giphyQuery": "Guardians of the Galaxy"
+			},
+			"bothQuip": "Les deux. Tu adores les familles bizarres et recomposées.",
+			"noneQuip": "Ni les X-Men ni les Gardiens. Le travail d’équipe, ce n’est pas trop ton truc."
+		},
+		{
+			"id": "heros-groot-rocket",
+			"category": "heros",
+			"a": {
+				"name": "Groot",
+				"origin": "Marvel · 1960",
+				"line": "« Je s’appelle Groot. »",
+				"quip": "Team Groot : je s’appelle Groot. (Traduction : excellent choix.)",
+				"giphyIds": [],
+				"giphyQuery": "Groot"
+			},
+			"b": {
+				"name": "Rocket",
+				"origin": "Marvel · 1976",
+				"line": "Un raton laveur. Enfin, ne le lui dis pas.",
+				"quip": "Team Rocket : tu veux le bras mécanique de quelqu’un. Juste pour rire.",
+				"giphyIds": [],
+				"giphyQuery": "Rocket Raccoon"
+			},
+			"bothQuip": "Les deux. Un arbre et un raton laveur : la meilleure colocation de la galaxie.",
+			"noneQuip": "Ni Groot ni Rocket. Allergique aux poils et au pollen ? Ça se comprend."
+		},
+		{
+			"id": "heros-luffy-saitama",
+			"category": "heros",
+			"a": {
+				"name": "Luffy",
+				"origin": "One Piece · 1997",
+				"line": "Un chapeau de paille, et un corps en caoutchouc.",
+				"quip": "Team Luffy : tu veux devenir le roi de quelque chose. Peu importe quoi.",
+				"giphyIds": [],
+				"giphyQuery": "Luffy"
+			},
+			"b": {
+				"name": "Saitama",
+				"origin": "One Punch Man · 2009",
+				"line": "Un seul coup de poing, et c’est fini.",
+				"quip": "Team Saitama : tu as tout gagné, et tu t’ennuies un peu. Ce duel ne va pas t’aider.",
+				"giphyIds": [],
+				"giphyQuery": "Saitama One Punch"
+			},
+			"bothQuip": "Les deux. Un chapeau de paille sur un crâne chauve. Pourquoi pas.",
+			"noneQuip": "Ni Luffy ni Saitama. Tu n’as pas fini One Piece non plus, hein."
+		},
+		{
+			"id": "heros-sauron-saroumane",
+			"category": "heros",
+			"a": {
+				"name": "Sauron",
+				"origin": "Tolkien · 1954",
+				"line": "Un œil, une tour, et beaucoup de mauvaises intentions.",
+				"quip": "Team Sauron : tu surveilles tout, tout le temps. Même ce vote.",
+				"giphyIds": [],
+				"giphyQuery": "Eye of Sauron"
+			},
+			"b": {
+				"name": "Saroumane",
+				"origin": "Tolkien · 1954",
+				"line": "Le magicien blanc qui a mal tourné.",
+				"quip": "Team Saroumane : tu as déjà quitté un groupe de discussion avec fracas. Plusieurs fois.",
+				"giphyIds": [],
+				"giphyQuery": "Saruman"
+			},
+			"bothQuip": "Les deux. Tu aimes les tours très hautes et les plans très mauvais.",
+			"noneQuip": "Ni Sauron ni Saroumane. Team Gollum. Mon précieux vote."
+		},
+		{
+			"id": "heros-le-capitaine-crochet-jafar",
+			"category": "heros",
+			"a": {
+				"name": "Le Capitaine Crochet",
+				"origin": "Peter Pan · 1904",
+				"line": "Un crochet, et une peur bleue des crocodiles.",
+				"quip": "Team Capitaine Crochet : le tic-tac de ton réveil te met très mal à l’aise.",
+				"giphyIds": [],
+				"giphyQuery": "Captain Hook"
+			},
+			"b": {
+				"name": "Jafar",
+				"origin": "Aladdin · 1992",
+				"line": "Un perroquet, un sceptre, et de grandes ambitions.",
+				"quip": "Team Jafar : ton perroquet a plus de répartie que toi, et tu l’acceptes.",
+				"giphyIds": [],
+				"giphyQuery": "Jafar"
+			},
+			"bothQuip": "Les deux. Les méchants Disney à chapeau, c’est ton péché mignon.",
+			"noneQuip": "Ni Crochet ni Jafar. Tu préfères Peter Pan et Aladdin. Comme tout le monde, quoi."
+		},
+		{
+			"id": "heros-scar-cruella",
+			"category": "heros",
+			"a": {
+				"name": "Scar",
+				"origin": "Le Roi lion · 1994",
+				"line": "« Soyez prêtes ! »",
+				"quip": "Team Scar : tu as déjà poussé quelqu’un d’une falaise pour un héritage. Au Monopoly.",
+				"giphyIds": [],
+				"giphyQuery": "Scar Lion King"
+			},
+			"b": {
+				"name": "Cruella",
+				"origin": "Les 101 Dalmatiens · 1961",
+				"line": "Une passion inquiétante pour les manteaux à taches.",
+				"quip": "Team Cruella : tu regardes les chiots en imaginant un manteau. Arrête ça tout de suite.",
+				"giphyIds": [],
+				"giphyQuery": "Cruella de Vil"
+			},
+			"bothQuip": "Les deux. Tu soutiens tous les méchants Disney. Ta place est dans l’ombre, avec eux.",
+			"noneQuip": "Ni Scar ni Cruella. Les animaux te remercient."
+		},
+		{
+			"id": "heros-dark-maul-le-general-grievous",
+			"category": "heros",
+			"a": {
+				"name": "Dark Maul",
+				"origin": "Star Wars · 1999",
+				"line": "Un sabre double, et très peu de dialogues.",
+				"quip": "Team Dark Maul : tu parles peu, mais tu fais forte impression.",
+				"giphyIds": [],
+				"giphyQuery": "Darth Maul"
+			},
+			"b": {
+				"name": "Le général Grievous",
+				"origin": "Star Wars · 2005",
+				"line": "Quatre bras, quatre sabres, et une toux.",
+				"quip": "Team Grievous : tu collectionnes les sabres laser comme d’autres les capsules de café.",
+				"giphyIds": [],
+				"giphyQuery": "General Grievous"
+			},
+			"bothQuip": "Les deux. Tu préfères les méchants de la prélogie. C’est rare, on respecte.",
+			"noneQuip": "Ni Maul ni Grievous. Hello there. Toi aussi, tu attends Obi-Wan."
+		},
+		{
+			"id": "heros-obi-wan-kenobi-yoda",
+			"category": "heros",
+			"a": {
+				"name": "Obi-Wan Kenobi",
+				"origin": "Star Wars · 1977",
+				"line": "« Hello there. »",
+				"quip": "Team Obi-Wan : toi, tu as toujours le terrain en hauteur.",
+				"giphyIds": [],
+				"giphyQuery": "Obi-Wan Kenobi"
+			},
+			"b": {
+				"name": "Yoda",
+				"origin": "Star Wars · 1980",
+				"line": "Petit, vert, et une grammaire très originale.",
+				"quip": "Team Yoda : bon choix tu as fait. Fier de toi je suis.",
+				"giphyIds": [],
+				"giphyQuery": "Yoda"
+			},
+			"bothQuip": "Les deux. Les maîtres Jedi sages et un peu passifs-agressifs, ton truc c’est.",
+			"noneQuip": "Ni Obi-Wan ni Yoda. Tu préfères les profs qui expliquent clairement les choses."
+		},
+		{
+			"id": "heros-neo-morpheus",
+			"category": "heros",
+			"a": {
+				"name": "Neo",
+				"origin": "Matrix · 1999",
+				"line": "La pilule rouge, et des ralentis.",
+				"quip": "Team Neo : tu esquives tes responsabilités au ralenti.",
+				"giphyIds": [],
+				"giphyQuery": "Neo Matrix"
+			},
+			"b": {
+				"name": "Morpheus",
+				"origin": "Matrix · 1999",
+				"line": "Il te laisse choisir la pilule.",
+				"quip": "Team Morpheus : et si je te disais… que tu as fait le bon choix ?",
+				"giphyIds": [],
+				"giphyQuery": "Morpheus pills"
+			},
+			"bothQuip": "Les deux. Pilule rouge ET pilule bleue. Ça va, le mal de tête ?",
+			"noneQuip": "Ni Neo ni Morpheus. Team agent Smith. Et Smith. Et Smith."
+		},
+		{
+			"id": "heros-john-mcclane-jack-bauer",
+			"category": "heros",
+			"a": {
+				"name": "John McClane",
+				"origin": "Piège de cristal · 1988",
+				"line": "Pieds nus, en débardeur, il sauve tout le monde.",
+				"quip": "Team John McClane : pour toi, Piège de cristal est un film de Noël. Et tu as raison.",
+				"giphyIds": [],
+				"giphyQuery": "John McClane"
+			},
+			"b": {
+				"name": "Jack Bauer",
+				"origin": "24 heures chrono · 2001",
+				"line": "Vingt-quatre heures, et pas une pause.",
+				"quip": "Team Jack Bauer : tu n’as pas mangé, pas dormi, et pas fait pipi depuis vingt-quatre heures.",
+				"giphyIds": [],
+				"giphyQuery": "Jack Bauer"
+			},
+			"bothQuip": "Les deux. Ton Noël idéal ressemble à une prise d’otages.",
+			"noneQuip": "Ni McClane ni Bauer. Tu préfères les héros qui prennent leur week-end."
+		},
+		{
+			"id": "heros-macgyver-l-agence-tous-risques",
+			"category": "heros",
+			"a": {
+				"name": "MacGyver",
+				"origin": "Série télé · 1985",
+				"line": "Un couteau suisse, un trombone, et le tour est joué.",
+				"quip": "Team MacGyver : tu répares la machine à café avec un élastique et ta carte Vitale.",
+				"giphyIds": [],
+				"giphyQuery": "MacGyver"
+			},
+			"b": {
+				"name": "L’Agence tous risques",
+				"origin": "Série télé · 1983",
+				"line": "« J’adore quand un plan se déroule sans accroc. »",
+				"quip": "Team Agence tous risques : tu refuses de prendre l’avion. Comme Barracuda.",
+				"giphyIds": [],
+				"giphyQuery": "A-Team"
+			},
+			"bothQuip": "Les deux. Avec toi, un plan se déroule toujours sans accroc. Ou avec un trombone.",
+			"noneQuip": "Ni MacGyver ni l’Agence. Tu appelles un dépanneur. Le bon sens."
+		},
+		{
+			"id": "heros-le-marsupilami-gaston-lagaffe",
+			"category": "heros",
+			"a": {
+				"name": "Le Marsupilami",
+				"origin": "Franquin · 1952",
+				"line": "« Houba houba ! »",
+				"quip": "Team Marsupilami : houba houba. C’est tout. C’est assez.",
+				"giphyIds": [],
+				"giphyQuery": "Marsupilami"
+			},
+			"b": {
+				"name": "Gaston Lagaffe",
+				"origin": "Franquin · 1957",
+				"line": "« M’enfin ! »",
+				"quip": "Team Gaston : tu as déjà fait exploser quelque chose au bureau. Une imprimante, au moins.",
+				"giphyIds": [],
+				"giphyQuery": "Gaston Lagaffe"
+			},
+			"bothQuip": "Les deux. Franquin te remercie de là-haut.",
+			"noneQuip": "Ni le Marsupilami ni Gaston. Rogntudju !"
+		},
+		{
+			"id": "heros-spirou-blake-et-mortimer",
+			"category": "heros",
+			"a": {
+				"name": "Spirou",
+				"origin": "Rob-Vel · 1938",
+				"line": "Un groom, un écureuil, et des aventures.",
+				"quip": "Team Spirou : tu porterais un uniforme de groom en toute circonstance. Même à un mariage.",
+				"giphyIds": [],
+				"giphyQuery": "Spirou"
+			},
+			"b": {
+				"name": "Blake et Mortimer",
+				"origin": "Edgar P. Jacobs · 1946",
+				"line": "La marque jaune, et des complots.",
+				"quip": "Team Blake et Mortimer : pour toi, une bonne BD, c’est dix lignes de texte par case.",
+				"giphyIds": [],
+				"giphyQuery": "Blake and Mortimer"
+			},
+			"bothQuip": "Les deux. Ta collection de BD est rangée par ordre chronologique. Évidemment.",
+			"noneQuip": "Ni Spirou ni Blake et Mortimer. Tes BD, ce sont des mangas, c’est ça ?"
+		},
+		{
+			"id": "heros-iznogoud-les-dalton",
+			"category": "heros",
+			"a": {
+				"name": "Iznogoud",
+				"origin": "Goscinny et Tabary · 1962",
+				"line": "Il veut être calife à la place du calife.",
+				"quip": "Team Iznogoud : tu veux être chef à la place du chef. Ton chef lit ce site, au fait.",
+				"giphyIds": [],
+				"giphyQuery": "Iznogoud"
+			},
+			"b": {
+				"name": "Les Dalton",
+				"origin": "Morris · 1951",
+				"line": "Quatre frères, rangés du plus petit au plus grand.",
+				"quip": "Team Dalton : dans ta famille aussi, on se range par taille sur les photos.",
+				"giphyIds": [],
+				"giphyQuery": "Daltons"
+			},
+			"bothQuip": "Les deux. Les méchants qui ratent tout, ce sont les meilleurs.",
+			"noneQuip": "Ni Iznogoud ni les Dalton. Tu as un faible pour les gens qui réussissent. Original."
+		},
+		{
+			"id": "heros-arsene-lupin-le-comte-de-monte-cristo",
+			"category": "heros",
+			"a": {
+				"name": "Arsène Lupin",
+				"origin": "Maurice Leblanc · 1905",
+				"line": "Le gentleman cambrioleur.",
+				"quip": "Team Arsène Lupin : tu rends toujours ce que tu empruntes. Avec un petit mot élégant.",
+				"giphyIds": [],
+				"giphyQuery": "Arsene Lupin"
+			},
+			"b": {
+				"name": "Le Comte de Monte-Cristo",
+				"origin": "Alexandre Dumas · 1844",
+				"line": "La vengeance, servie très froide.",
+				"quip": "Team Monte-Cristo : tu tiens une liste. Une très longue liste. Et tu as tout ton temps.",
+				"giphyIds": [],
+				"giphyQuery": "Count of Monte Cristo"
+			},
+			"bothQuip": "Les deux. La classe et la rancune : un profil intéressant.",
+			"noneQuip": "Ni Lupin ni Monte-Cristo. Tu as la conscience tranquille. Pour l’instant."
+		},
+		{
+			"id": "heros-hercule-achille",
+			"category": "heros",
+			"a": {
+				"name": "Hercule",
+				"origin": "Disney · 1997",
+				"line": "Un demi-dieu, et un coach satyre.",
+				"quip": "Team Hercule : de zéro à héros, en un seul vote.",
+				"giphyIds": [],
+				"giphyQuery": "Hercules Disney"
+			},
+			"b": {
+				"name": "Achille",
+				"origin": "L’Iliade",
+				"line": "Invincible, sauf au talon.",
+				"quip": "Team Achille : tu fais très attention à tes talons dans les escaliers. On a vu.",
+				"giphyIds": [],
+				"giphyQuery": "Achilles"
+			},
+			"bothQuip": "Les deux. Tu adores les héros grecs bien musclés et un peu bêtes.",
+			"noneQuip": "Ni Hercule ni Achille. Les dieux de l’Olympe en prennent note. Ils sont rancuniers."
+		},
+		{
+			"id": "heros-ulysse-jason",
+			"category": "heros",
+			"a": {
+				"name": "Ulysse",
+				"origin": "L’Odyssée",
+				"line": "Dix ans pour rentrer chez lui.",
+				"quip": "Team Ulysse : toi aussi, tu mets dix ans à rentrer d’une soirée.",
+				"giphyIds": ["vd7zIvHKK8MBI3izXj"],
+				"giphyQuery": "Odysseus"
+			},
+			"b": {
+				"name": "Jason",
+				"origin": "Les Argonautes",
+				"line": "Une toison d’or, et un bateau plein de héros.",
+				"quip": "Team Jason : une toison d’or ? Tu aurais pu acheter un plaid, mais bon.",
+				"giphyIds": [],
+				"giphyQuery": "Jason Argonauts"
+			},
+			"bothQuip": "Les deux. De longs voyages en bateau avec des copains : ton idée des vacances.",
+			"noneQuip": "Ni Ulysse ni Jason. Tu préfères les vacances sans monstre marin."
+		},
+		{
+			"id": "heros-ripley-sarah-connor",
+			"category": "heros",
+			"a": {
+				"name": "Ripley",
+				"origin": "Alien · 1979",
+				"line": "Seule face à l’Alien, et toujours debout.",
+				"quip": "Team Ripley : tu vérifies toujours les conduits d’aération avant de dormir.",
+				"giphyIds": [],
+				"giphyQuery": "Ripley Alien"
+			},
+			"b": {
+				"name": "Sarah Connor",
+				"origin": "Terminator · 1984",
+				"line": "De serveuse à guerrière, en deux films.",
+				"quip": "Team Sarah Connor : tu te méfies des aspirateurs robots. Avec raison.",
+				"giphyIds": [],
+				"giphyQuery": "Sarah Connor"
+			},
+			"bothQuip": "Les deux. Avec toi, les extraterrestres et les robots n’ont aucune chance.",
+			"noneQuip": "Ni Ripley ni Sarah Connor. Tu ne passerais pas la première scène, hein ?"
+		},
+		{
+			"id": "heros-katniss-everdeen-hermione-granger",
+			"category": "heros",
+			"a": {
+				"name": "Katniss Everdeen",
+				"origin": "Hunger Games · 2008",
+				"line": "Un arc, une tresse, et une révolution.",
+				"quip": "Team Katniss : tu te portes volontaire pour tout. Même pour la vaisselle.",
+				"giphyIds": [],
+				"giphyQuery": "Katniss"
+			},
+			"b": {
+				"name": "Hermione Granger",
+				"origin": "Harry Potter · 1997",
+				"line": "Elle a tout lu, et elle te l’a dit.",
+				"quip": "Team Hermione : tu as lu les conditions d’utilisation de ce site. Toutes.",
+				"giphyIds": [],
+				"giphyQuery": "Hermione"
+			},
+			"bothQuip": "Les deux. Tu veux la révolution, mais seulement après avoir révisé.",
+			"noneQuip": "Ni Katniss ni Hermione. Les héroïnes trop parfaites, ça t’agace un peu."
+		},
+		{
+			"id": "heros-severus-rogue-hagrid",
+			"category": "heros",
+			"a": {
+				"name": "Severus Rogue",
+				"origin": "Harry Potter · 1997",
+				"line": "« Toujours. »",
+				"quip": "Team Rogue : toujours.",
+				"giphyIds": [],
+				"giphyQuery": "Snape"
+			},
+			"b": {
+				"name": "Hagrid",
+				"origin": "Harry Potter · 1997",
+				"line": "« T’es un sorcier, Harry. »",
+				"quip": "Team Hagrid : tu ramènes des bêtes dangereuses à la maison et tu leur donnes des petits noms.",
+				"giphyIds": [],
+				"giphyQuery": "Hagrid"
+			},
+			"bothQuip": "Les deux. Tu as pleuré deux fois dans la saga. Au moins.",
+			"noneQuip": "Ni Rogue ni Hagrid. Team Rusard. Tu aimes le règlement."
+		},
+		{
+			"id": "heros-tarzan-mowgli",
+			"category": "heros",
+			"a": {
+				"name": "Tarzan",
+				"origin": "Edgar Rice Burroughs · 1912",
+				"line": "Élevé par des singes, et il crie très fort.",
+				"quip": "Team Tarzan : tu cries au réveil. Tes voisins aussi, maintenant.",
+				"giphyIds": [],
+				"giphyQuery": "Tarzan"
+			},
+			"b": {
+				"name": "Mowgli",
+				"origin": "Rudyard Kipling · 1894",
+				"line": "Élevé par des loups, et il chante avec un ours.",
+				"quip": "Team Mowgli : il en faut peu pour être heureux. Ce vote, par exemple.",
+				"giphyIds": [],
+				"giphyQuery": "Mowgli"
+			},
+			"bothQuip": "Les deux. Ton plan de vie : tout plaquer et partir vivre dans les arbres.",
+			"noneQuip": "Ni Tarzan ni Mowgli. Tu préfères le canapé à la jungle. Sage décision."
+		},
+		{
+			"id": "heros-peter-pan-le-petit-prince",
+			"category": "heros",
+			"a": {
+				"name": "Peter Pan",
+				"origin": "J. M. Barrie · 1904",
+				"line": "Ne veut pas grandir.",
+				"quip": "Team Peter Pan : tu as encore ton doudou. Il est quelque part, on le sait.",
+				"giphyIds": [],
+				"giphyQuery": "Peter Pan"
+			},
+			"b": {
+				"name": "Le Petit Prince",
+				"origin": "Saint-Exupéry · 1943",
+				"line": "« Dessine-moi un mouton. »",
+				"quip": "Team Petit Prince : tu dessines des boas qui ressemblent à des chapeaux, et personne ne comprend.",
+				"giphyIds": [],
+				"giphyQuery": "Little Prince"
+			},
+			"bothQuip": "Les deux. Tu refuses de grandir, mais tu as des choses à dire aux adultes.",
+			"noneQuip": "Ni Peter Pan ni le Petit Prince. Tu as grandi. Félicitations, ou condoléances."
+		},
+		{
+			"id": "heros-cendrillon-blanche-neige",
+			"category": "heros",
+			"a": {
+				"name": "Cendrillon",
+				"origin": "Disney · 1950",
+				"line": "Une pantoufle de verre, et un couvre-feu à minuit.",
+				"quip": "Team Cendrillon : tu quittes toujours les soirées à minuit pile. Et tu perds une chaussure.",
+				"giphyIds": [],
+				"giphyQuery": "Cinderella"
+			},
+			"b": {
+				"name": "Blanche-Neige",
+				"origin": "Disney · 1937",
+				"line": "Sept colocataires, et une pomme suspecte.",
+				"quip": "Team Blanche-Neige : sept colocs, et c’est toujours toi qui fais la vaisselle.",
+				"giphyIds": [],
+				"giphyQuery": "Snow White"
+			},
+			"bothQuip": "Les deux. Tu attends le prince charmant, mais seulement s’il fait le ménage.",
+			"noneQuip": "Ni Cendrillon ni Blanche-Neige. Team belle-mère. On ne juge pas. Enfin, un peu."
+		},
+		{
+			"id": "heros-le-chat-botte-le-petit-chaperon-rouge",
+			"category": "heros",
+			"a": {
+				"name": "Le Chat botté",
+				"origin": "Perrault · 1697",
+				"line": "Des bottes, et beaucoup de baratin.",
+				"quip": "Team Chat botté : tu t’incrustes à des soirées où tu ne connais personne. Et ça marche.",
+				"giphyIds": [],
+				"giphyQuery": "Puss in Boots"
+			},
+			"b": {
+				"name": "Le Petit Chaperon rouge",
+				"origin": "Perrault · 1697",
+				"line": "Une galette, un petit pot de beurre, et un loup.",
+				"quip": "Team Petit Chaperon rouge : tu prends toujours le chemin le plus long. Et ça finit mal.",
+				"giphyIds": [],
+				"giphyQuery": "Red Riding Hood"
+			},
+			"bothQuip": "Les deux. Un chat qui baratine et une gamine qui fait confiance aux loups. Tu crois en tout le monde.",
+			"noneQuip": "Ni le Chat botté ni le Chaperon. Team loup, c’est ça ?"
+		},
+		{
+			"id": "heros-jack-sparrow-le-capitaine-haddock",
+			"category": "heros",
+			"a": {
+				"name": "Jack Sparrow",
+				"origin": "Pirates des Caraïbes · 2003",
+				"line": "Une boussole qui n’indique pas le nord, et une démarche très particulière.",
+				"quip": "Team Jack Sparrow : tu as perdu ton bateau, ta boussole et ton rhum. Mais pas ton style.",
+				"giphyIds": [],
+				"giphyQuery": "jack sparrow"
+			},
+			"b": {
+				"name": "Le Capitaine Haddock",
+				"origin": "Hergé · 1941",
+				"line": "Mille millions de mille sabords, et un faible pour le whisky.",
+				"quip": "Team Haddock : tu as un juron pour chaque occasion. Même pour les occasions calmes.",
+				"giphyIds": [],
+				"giphyQuery": "captain haddock"
+			},
+			"bothQuip": "Les deux capitaines. Ton bateau sent le rhum ET le whisky.",
+			"noneQuip": "Ni Sparrow ni Haddock. Le mal de mer, moussaillon ?"
+		},
+		{
+			"id": "heros-columbo-l-inspecteur-clouseau",
+			"category": "heros",
+			"a": {
+				"name": "Columbo",
+				"origin": "Série télé · 1968",
+				"line": "Un vieil imper, un cigare, et « juste une dernière question ».",
+				"quip": "Team Columbo : tu pars, tu reviens, et tu poses encore une petite question. Tout le monde adore.",
+				"giphyIds": [],
+				"giphyQuery": "columbo"
+			},
+			"b": {
+				"name": "L’inspecteur Clouseau",
+				"origin": "La Panthère rose · 1963",
+				"line": "Il ne trouve rien, mais il casse tout.",
+				"quip": "Team Clouseau : tu as résolu l’affaire. Par accident, mais tu l’as résolue.",
+				"giphyIds": [],
+				"giphyQuery": "inspector clouseau"
+			},
+			"bothQuip": "Les deux. Un imper froissé et une moustache maladroite : la meilleure brigade jamais réunie.",
+			"noneQuip": "Ni Columbo ni Clouseau. L’affaire reste non résolue. Comme tes chaussettes perdues."
+		},
+		{
+			"id": "heros-picsou-ebenezer-scrooge",
+			"category": "heros",
+			"a": {
+				"name": "Picsou",
+				"origin": "Disney · 1947",
+				"line": "Plonge dans sa piscine de pièces d’or tous les matins.",
+				"quip": "Team Picsou : ton premier sou, tu l’as encore. Encadré.",
+				"giphyIds": [],
+				"giphyQuery": "scrooge mcduck"
+			},
+			"b": {
+				"name": "Ebenezer Scrooge",
+				"origin": "Charles Dickens · 1843",
+				"line": "Déteste Noël, jusqu’à la visite de trois fantômes.",
+				"quip": "Team Scrooge : tu dis « sornettes ! » dès qu’on te parle de Noël en novembre.",
+				"giphyIds": [],
+				"giphyQuery": "ebenezer scrooge"
+			},
+			"bothQuip": "Les deux radins. Ce vote était gratuit, tu as bien vérifié ?",
+			"noneQuip": "Ni Picsou ni Scrooge. Toi, tu laisses des pourboires. Bravo."
+		},
+		{
+			"id": "heros-zeus-odin",
+			"category": "heros",
+			"a": {
+				"name": "Zeus",
+				"origin": "Mythologie grecque",
+				"line": "Le roi de l’Olympe, et la foudre pour tout règlement de compte.",
+				"quip": "Team Zeus : tu règles tes disputes en lançant la foudre. Ou des assiettes.",
+				"giphyIds": [],
+				"giphyQuery": "zeus"
+			},
+			"b": {
+				"name": "Odin",
+				"origin": "Mythologie nordique",
+				"line": "Un seul œil, deux corbeaux, et beaucoup de sagesse.",
+				"quip": "Team Odin : deux corbeaux te rapportent tous les potins du quartier. Tes voisins sont prévenus.",
+				"giphyIds": [],
+				"giphyQuery": "odin"
+			},
+			"bothQuip": "Les deux. Les Grecs et les Vikings au même banquet. Ça va être tendu.",
+			"noneQuip": "Ni Zeus ni Odin. Team Râ ? Team Jupiter ? Les dieux attendent ta réponse."
+		},
+		{
+			"id": "heros-mister-freeze-la-torche-humaine",
+			"category": "heros",
+			"a": {
+				"name": "Mister Freeze",
+				"origin": "DC · 1959",
+				"line": "Un pistolet à glace, et des jeux de mots givrés.",
+				"quip": "Team Mister Freeze : tu mets la clim à fond en plein mois de janvier.",
+				"giphyIds": [],
+				"giphyQuery": "mr freeze"
+			},
+			"b": {
+				"name": "La Torche humaine",
+				"origin": "Marvel · 1961",
+				"line": "« Flamme on ! » Et tout prend feu.",
+				"quip": "Team Torche humaine : tu ne rates jamais un barbecue. Ni un départ de feu.",
+				"giphyIds": [],
+				"giphyQuery": "human torch"
+			},
+			"bothQuip": "Les deux. Chaud, froid, chaud, froid : tu as la douche de notre immeuble.",
+			"noneQuip": "Ni Freeze ni la Torche. Tu préfères la température ambiante. Raisonnable."
+		},
+		{
+			"id": "heros-jean-valjean-javert",
+			"category": "heros",
+			"a": {
+				"name": "Jean Valjean",
+				"origin": "Victor Hugo · 1862",
+				"line": "Dix-neuf ans de bagne pour un pain, et toujours gentil.",
+				"quip": "Team Valjean : tu as déjà pris le dernier croissant de la boulangerie. Et tu le regrettes encore.",
+				"giphyIds": [],
+				"giphyQuery": "jean valjean"
+			},
+			"b": {
+				"name": "Javert",
+				"origin": "Victor Hugo · 1862",
+				"line": "Un policier qui ne lâche jamais. Jamais.",
+				"quip": "Team Javert : tu as déjà dénoncé quelqu’un qui doublait dans la file du supermarché.",
+				"giphyIds": [],
+				"giphyQuery": "javert"
+			},
+			"bothQuip": "Les deux. Tu as lu les 1 900 pages. Toutes. Respect.",
+			"noneQuip": "Ni Valjean ni Javert. Team Thénardier, mais tu ne le crieras pas sur les toits."
+		},
+		{
+			"id": "heros-d-artagnan-cyrano-de-bergerac",
+			"category": "heros",
+			"a": {
+				"name": "D’Artagnan",
+				"origin": "Alexandre Dumas · 1844",
+				"line": "Un pour tous, tous pour un, et lui devant.",
+				"quip": "Team d’Artagnan : tu arrives en ville, tu provoques trois personnes en duel, et ce sont tes amis pour la vie.",
+				"giphyIds": [],
+				"giphyQuery": "musketeers"
+			},
+			"b": {
+				"name": "Cyrano de Bergerac",
+				"origin": "Edmond Rostand · 1897",
+				"line": "Un nez, des vers, et des lettres d’amour pour les autres.",
+				"quip": "Team Cyrano : tu écris les messages d’anniversaire de tous tes amis. Et ils font un tabac.",
+				"giphyIds": [],
+				"giphyQuery": "cyrano de bergerac"
+			},
+			"bothQuip": "Les deux. Des épées, des plumes et du panache. C’est très français, tout ça.",
+			"noneQuip": "Ni d’Artagnan ni Cyrano. Tu n’aimes pas les duels. Sur un site de duels. Audacieux."
+		},
+		{
+			"id": "heros-le-grand-schtroumpf-panoramix",
+			"category": "heros",
+			"a": {
+				"name": "Le Grand Schtroumpf",
+				"origin": "Peyo · 1958",
+				"line": "Une barbe blanche, un bonnet rouge, et cent Schtroumpfs à gérer.",
+				"quip": "Team Grand Schtroumpf : tu gères un village entier et personne ne t’écoute. Tu es parent, c’est ça ?",
+				"giphyIds": [],
+				"giphyQuery": "papa smurf"
+			},
+			"b": {
+				"name": "Panoramix",
+				"origin": "Goscinny et Uderzo · 1959",
+				"line": "Une serpe d’or, du gui, et une potion qui règle tout.",
+				"quip": "Team Panoramix : toi aussi, tu refuses la potion à ceux qui sont tombés dedans petits.",
+				"giphyIds": [],
+				"giphyQuery": "asterix druid"
+			},
+			"bothQuip": "Les deux. Les plus belles barbes de la BD, et les plus sages.",
+			"noneQuip": "Ni le Grand Schtroumpf ni Panoramix. Les vieux sages barbus, très peu pour toi."
+		},
+		{
+			"id": "heros-bob-morane-indiana-jones",
+			"category": "heros",
+			"a": {
+				"name": "Bob Morane",
+				"origin": "Henri Vernes · 1953",
+				"line": "L’aventurier, celui de la chanson.",
+				"quip": "Team Bob Morane : tu chantes « L’aventurier » à chaque karaoké. Tout le monde le sait.",
+				"giphyIds": [],
+				"giphyQuery": "adventurer"
+			},
+			"b": {
+				"name": "Indiana Jones",
+				"origin": "Les Aventuriers de l’arche perdue · 1981",
+				"line": "Un fouet, un chapeau, et une peur bleue des serpents.",
+				"quip": "Team Indiana Jones : tu cours toujours plus vite que les rochers qui roulent. Pour l’instant.",
+				"giphyIds": [],
+				"giphyQuery": "indiana jones"
+			},
+			"bothQuip": "Les deux aventuriers. Tes vacances idéales : un temple maudit et un bon chapeau.",
+			"noneQuip": "Ni Bob Morane ni Indy. Ta grande aventure, c’est le rayon bricolage le samedi."
+		},
+		{
+			"id": "bouffe-croissant-pain-au-chocolat",
+			"category": "bouffe",
+			"a": {
+				"name": "Croissant",
+				"origin": "La boulangerie",
+				"line": "Du beurre, une forme de lune, et des miettes partout.",
+				"quip": "Team croissant : tu le trempes dans ton café et tu repêches les morceaux à la cuillère.",
+				"giphyIds": [],
+				"giphyQuery": "croissant"
+			},
+			"b": {
+				"name": "Pain au chocolat",
+				"origin": "La boulangerie aussi",
+				"line": "Deux barres de chocolat pour bien commencer.",
+				"quip": "Team pain au chocolat : tu manges le pain d’abord pour garder le chocolat pour la fin.",
+				"giphyIds": [],
+				"giphyQuery": "chocolate pastry"
+			},
+			"bothQuip": "Les deux. Le dimanche, tu prends un sac rien que pour toi.",
+			"noneQuip": "Ni croissant ni pain au chocolat. Ton boulanger s’inquiète pour toi."
+		},
+		{
+			"id": "bouffe-camembert-brie",
+			"category": "bouffe",
+			"a": {
+				"name": "Camembert",
+				"origin": "Normandie",
+				"line": "Coulant, odorant, et rond.",
+				"quip": "Team camembert : il est dans le frigo, et tout le monde le sait. Tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "camembert cheese"
+			},
+			"b": {
+				"name": "Brie",
+				"origin": "Île-de-France",
+				"line": "Coulant aussi, mais en plus grand.",
+				"quip": "Team brie : tu prends toujours la pointe. Toujours. On t’a vu.",
+				"giphyIds": [],
+				"giphyQuery": "brie cheese"
+			},
+			"bothQuip": "Les deux. Ton plateau de fromages ressemble à un buffet de mariage.",
+			"noneQuip": "Ni camembert ni brie. Les fromages qui coulent, ça te fait peur ?"
+		},
+		{
+			"id": "bouffe-comte-emmental",
+			"category": "bouffe",
+			"a": {
+				"name": "Comté",
+				"origin": "Le Jura",
+				"line": "Fruité, affiné, et toujours trop vite fini.",
+				"quip": "Team comté : tu dis « vingt-quatre mois d’affinage » avec un air de connaisseur.",
+				"giphyIds": [],
+				"giphyQuery": "comte cheese"
+			},
+			"b": {
+				"name": "Emmental",
+				"origin": "La Suisse et la France",
+				"line": "Des trous, et du fil sur la pizza.",
+				"quip": "Team emmental : tu as toujours un sachet de râpé dans le frigo. Pour tout.",
+				"giphyIds": [],
+				"giphyQuery": "swiss cheese holes"
+			},
+			"bothQuip": "Les deux. Tu manges ton fromage debout, au-dessus de l’évier.",
+			"noneQuip": "Ni comté ni emmental. Team raclette, encore et toujours."
+		},
+		{
+			"id": "bouffe-biere-vin",
+			"category": "bouffe",
+			"a": {
+				"name": "Bière",
+				"origin": "La brasserie",
+				"line": "Mousse, houblon, et chips à côté.",
+				"quip": "Team bière : pour toi, une bonne soirée, ça mousse.",
+				"giphyIds": [],
+				"giphyQuery": "beer cheers"
+			},
+			"b": {
+				"name": "Vin",
+				"origin": "La cave",
+				"line": "Un verre, un plateau, et des avis d’expert.",
+				"quip": "Team vin : tu fais tourner ton verre avant de boire. Même le jus de raisin.",
+				"giphyIds": [],
+				"giphyQuery": "wine glass"
+			},
+			"bothQuip": "Les deux. Bière puis vin, ou vin puis bière ? Le dicton, tu ne t’en souviens jamais.",
+			"noneQuip": "Ni bière ni vin. Team diabolo menthe, et c’est très bien."
+		},
+		{
+			"id": "bouffe-vin-rouge-vin-blanc",
+			"category": "bouffe",
+			"a": {
+				"name": "Vin rouge",
+				"origin": "La cave",
+				"line": "Le fromage, la viande, et les taches sur la nappe.",
+				"quip": "Team vin rouge : tu as déjà fait une tache sur une nappe blanche. Et sur toi.",
+				"giphyIds": [],
+				"giphyQuery": "red wine"
+			},
+			"b": {
+				"name": "Vin blanc",
+				"origin": "La cave aussi",
+				"line": "Les huîtres, le poisson, et la terrasse.",
+				"quip": "Team vin blanc : bien frais, en terrasse, et l’après-midi vient de disparaître.",
+				"giphyIds": [],
+				"giphyQuery": "white wine"
+			},
+			"bothQuip": "Les deux. Et le rosé, il compte pour du beurre ?",
+			"noneQuip": "Ni rouge ni blanc. Team rosé, assume."
+		},
+		{
+			"id": "bouffe-champagne-prosecco",
+			"category": "bouffe",
+			"a": {
+				"name": "Champagne",
+				"origin": "La Champagne",
+				"line": "Des bulles, et l’impression d’une fête.",
+				"quip": "Team champagne : tu as un avis sur la taille des bulles.",
+				"giphyIds": [],
+				"giphyQuery": "champagne pop"
+			},
+			"b": {
+				"name": "Prosecco",
+				"origin": "L’Italie",
+				"line": "Des bulles aussi, pour moins cher.",
+				"quip": "Team prosecco : mêmes bulles, moins cher, et personne ne voit la différence. Sauf toi.",
+				"giphyIds": [],
+				"giphyQuery": "prosecco"
+			},
+			"bothQuip": "Les deux. Tu fais la fête avec ce qu’il y a dans le frigo.",
+			"noneQuip": "Ni champagne ni prosecco. Le cidre te salue chaleureusement."
+		},
+		{
+			"id": "bouffe-pastis-rose",
+			"category": "bouffe",
+			"a": {
+				"name": "Pastis",
+				"origin": "Le Sud",
+				"line": "Jaune, anisé, et la pétanque à côté.",
+				"quip": "Team pastis : tu doses l’eau à l’œil. Avec une précision de chimiste.",
+				"giphyIds": [],
+				"giphyQuery": "pastis"
+			},
+			"b": {
+				"name": "Rosé",
+				"origin": "La Provence",
+				"line": "Bien frais, en terrasse, tout l’été.",
+				"quip": "Team rosé : du 1er mai au 30 septembre, c’est ta boisson officielle.",
+				"giphyIds": [],
+				"giphyQuery": "rose wine"
+			},
+			"bothQuip": "Les deux. Ton été est très chargé.",
+			"noneQuip": "Ni pastis ni rosé. Le Sud t’accueille quand même, mais il est vexé."
+		},
+		{
+			"id": "bouffe-fromage-dessert",
+			"category": "bouffe",
+			"question": "Fin de repas : fromage ou dessert ?",
+			"a": {
+				"name": "Fromage",
+				"origin": "Le plateau",
+				"line": "On finit le pain, puis on en reprend pour finir le fromage.",
+				"quip": "Team fromage : tu reprends du pain pour finir ton fromage, puis du fromage pour finir ton pain.",
+				"giphyIds": [],
+				"giphyQuery": "cheese platter"
+			},
+			"b": {
+				"name": "Dessert",
+				"origin": "La pâtisserie",
+				"line": "On a toujours une deuxième place pour le dessert.",
+				"quip": "Team dessert : tu as regardé la carte des desserts avant celle des plats.",
+				"giphyIds": [],
+				"giphyQuery": "dessert"
+			},
+			"bothQuip": "Les deux. Évidemment. On n’est pas des bêtes.",
+			"noneQuip": "Ni fromage ni dessert. Tu pars avant la fin du repas, toi ?"
+		},
+		{
+			"id": "bouffe-uf-a-la-coque-uf-au-plat",
+			"category": "bouffe",
+			"a": {
+				"name": "Œuf à la coque",
+				"origin": "Le coquetier",
+				"line": "Des mouillettes, et un jaune qui coule.",
+				"quip": "Team œuf à la coque : tes mouillettes sont coupées au millimètre.",
+				"giphyIds": [],
+				"giphyQuery": "soft boiled egg"
+			},
+			"b": {
+				"name": "Œuf au plat",
+				"origin": "La poêle",
+				"line": "Un soleil dans l’assiette.",
+				"quip": "Team œuf au plat : si le jaune est crevé, ta journée est fichue.",
+				"giphyIds": [],
+				"giphyQuery": "fried egg"
+			},
+			"bothQuip": "Les deux. Les poules te remercient pour ta fidélité.",
+			"noneQuip": "Ni coque ni plat. Team œufs brouillés. Le chaos, quoi."
+		},
+		{
+			"id": "bouffe-steak-saignant-steak-bien-cuit",
+			"category": "bouffe",
+			"question": "Ton steak : saignant ou bien cuit ?",
+			"a": {
+				"name": "Steak saignant",
+				"origin": "La boucherie",
+				"line": "Rouge au cœur, et fier de l’être.",
+				"quip": "Team saignant : pour toi, il suffit de montrer la viande à la poêle.",
+				"giphyIds": [],
+				"giphyQuery": "rare steak"
+			},
+			"b": {
+				"name": "Steak bien cuit",
+				"origin": "La poêle",
+				"line": "Cuit, et sans négociation.",
+				"quip": "Team bien cuit : le serveur a soupiré. Le chef aussi.",
+				"giphyIds": [],
+				"giphyQuery": "well done steak"
+			},
+			"bothQuip": "Les deux. À point, c’est ça ? La Suisse du steak, c’est toi.",
+			"noneQuip": "Ni saignant ni bien cuit. Team végé, et la planète te dit merci."
+		},
+		{
+			"id": "bouffe-pizza-tacos-francais",
+			"category": "bouffe",
+			"a": {
+				"name": "Pizza",
+				"origin": "Naples",
+				"line": "Une pâte fine et du fromage qui file.",
+				"quip": "Team pizza : tu laisses les croûtes. On t’a vu, et on désapprouve.",
+				"giphyIds": [],
+				"giphyQuery": "pizza"
+			},
+			"b": {
+				"name": "Tacos français",
+				"origin": "Lyon et Grenoble",
+				"line": "Des frites dedans, de la sauce fromagère partout.",
+				"quip": "Team tacos : des frites dans un sandwich, et tu as trouvé ça génial. Parce que ça l’est.",
+				"giphyIds": [],
+				"giphyQuery": "french tacos"
+			},
+			"bothQuip": "Les deux. Ton foie vient de prendre rendez-vous.",
+			"noneQuip": "Ni pizza ni tacos. Tu as mangé un vrai repas avec des légumes ? Bravo."
+		},
+		{
+			"id": "bouffe-sushi-ramen",
+			"category": "bouffe",
+			"a": {
+				"name": "Sushi",
+				"origin": "Le Japon",
+				"line": "Du riz, du poisson, et des baguettes maladroites.",
+				"quip": "Team sushi : tu tiens tes baguettes comme un pro… jusqu’au dernier maki.",
+				"giphyIds": [],
+				"giphyQuery": "sushi"
+			},
+			"b": {
+				"name": "Ramen",
+				"origin": "Le Japon aussi",
+				"line": "Un bouillon brûlant et des nouilles à aspirer.",
+				"quip": "Team ramen : tu aspires tes nouilles bruyamment, et tu dis que c’est culturel.",
+				"giphyIds": [],
+				"giphyQuery": "ramen"
+			},
+			"bothQuip": "Les deux. Tu commandes japonais trois fois par semaine. Au moins.",
+			"noneQuip": "Ni sushi ni ramen. Le poisson cru et le bouillon, très peu pour toi."
+		},
+		{
+			"id": "bouffe-moutarde-de-dijon-moutarde-a-l-ancienne",
+			"category": "bouffe",
+			"a": {
+				"name": "Moutarde de Dijon",
+				"origin": "La Bourgogne",
+				"line": "Forte, lisse, et elle monte au nez.",
+				"quip": "Team Dijon : tu en mets jusqu’à ce que ton nez pleure. C’est le but.",
+				"giphyIds": [],
+				"giphyQuery": "mustard"
+			},
+			"b": {
+				"name": "Moutarde à l’ancienne",
+				"origin": "La Bourgogne aussi",
+				"line": "Des grains, et du caractère.",
+				"quip": "Team à l’ancienne : tu aimes les grains. Tu as aussi des vinyles, sûrement.",
+				"giphyIds": [],
+				"giphyQuery": "grainy mustard"
+			},
+			"bothQuip": "Les deux. Un pot de chaque dans le frigo, comme une personne très organisée.",
+			"noneQuip": "Ni l’une ni l’autre. Tes saucisses sont bien tristes."
+		},
+		{
+			"id": "bouffe-glace-vanille-glace-chocolat",
+			"category": "bouffe",
+			"a": {
+				"name": "Glace vanille",
+				"origin": "Le congélateur",
+				"line": "Un classique, à la gousse noire.",
+				"quip": "Team vanille : on t’a dit que c’était un parfum basique. Tu as souri.",
+				"giphyIds": [],
+				"giphyQuery": "vanilla ice cream"
+			},
+			"b": {
+				"name": "Glace chocolat",
+				"origin": "Le congélateur aussi",
+				"line": "Un classique, à la cuillère.",
+				"quip": "Team chocolat : tu prends deux boules. Au chocolat. Évidemment.",
+				"giphyIds": [],
+				"giphyQuery": "chocolate ice cream"
+			},
+			"bothQuip": "Les deux. Le cornet bicolore, la grande classe.",
+			"noneQuip": "Ni vanille ni chocolat. Pistache ? Fraise ? Tu vis dangereusement."
+		},
+		{
+			"id": "bouffe-glace-en-cornet-glace-en-pot",
+			"category": "bouffe",
+			"a": {
+				"name": "Glace en cornet",
+				"origin": "Le marchand de glaces",
+				"line": "Elle coule sur la main en trente secondes.",
+				"quip": "Team cornet : tu lèches en rond, vite, comme une cellule de crise.",
+				"giphyIds": [],
+				"giphyQuery": "ice cream cone"
+			},
+			"b": {
+				"name": "Glace en pot",
+				"origin": "Le canapé",
+				"line": "Une cuillère, et la série du soir.",
+				"quip": "Team pot : la cuillère, la série, le canapé. Rien ne peut t’arrêter.",
+				"giphyIds": [],
+				"giphyQuery": "ice cream tub"
+			},
+			"bothQuip": "Les deux. Le cornet dehors, le pot dedans. Tu as tout prévu.",
+			"noneQuip": "Ni cornet ni pot. Tu manges ta glace comment ? Avec les mains ?"
+		},
+		{
+			"id": "bouffe-tarte-aux-pommes-tarte-au-citron",
+			"category": "bouffe",
+			"a": {
+				"name": "Tarte aux pommes",
+				"origin": "Mamie",
+				"line": "Des pommes en rosace, et la cannelle.",
+				"quip": "Team tarte aux pommes : tu demandes toujours si elle est faite maison. Elle l’est rarement.",
+				"giphyIds": [],
+				"giphyQuery": "apple pie"
+			},
+			"b": {
+				"name": "Tarte au citron",
+				"origin": "La pâtisserie",
+				"line": "Acidulée, meringuée, et dorée au chalumeau.",
+				"quip": "Team tarte au citron : tu manges la meringue en premier. Puis tu regrettes.",
+				"giphyIds": [],
+				"giphyQuery": "lemon tart"
+			},
+			"bothQuip": "Les deux. Une part de chaque, pour comparer. Pour la science.",
+			"noneQuip": "Ni pommes ni citron. Team tarte au chocolat ? On comprend."
+		},
+		{
+			"id": "bouffe-eclair-religieuse",
+			"category": "bouffe",
+			"a": {
+				"name": "Éclair",
+				"origin": "La pâtisserie",
+				"line": "Un long chou, et du chocolat dessus.",
+				"quip": "Team éclair : tu le manges en trois bouchées, et la crème finit sur ton t-shirt.",
+				"giphyIds": [],
+				"giphyQuery": "eclair pastry"
+			},
+			"b": {
+				"name": "Religieuse",
+				"origin": "La pâtisserie aussi",
+				"line": "Deux choux l’un sur l’autre, et une collerette.",
+				"quip": "Team religieuse : tu croques la tête en premier. Sans pitié.",
+				"giphyIds": [],
+				"giphyQuery": "religieuse pastry"
+			},
+			"bothQuip": "Les deux. À la pâtisserie, on connaît ton prénom.",
+			"noneQuip": "Ni éclair ni religieuse. Les choux à la crème, ce n’est pas ton truc. Dommage."
+		},
+		{
+			"id": "bouffe-macaron-madeleine",
+			"category": "bouffe",
+			"a": {
+				"name": "Macaron",
+				"origin": "Paris",
+				"line": "Coloré, fragile, et cher à la pièce.",
+				"quip": "Team macaron : tu payes 2,50 € la bouchée sans sourciller.",
+				"giphyIds": [],
+				"giphyQuery": "macarons"
+			},
+			"b": {
+				"name": "Madeleine",
+				"origin": "Commercy",
+				"line": "Une bosse dorée et des souvenirs d’enfance.",
+				"quip": "Team madeleine : tu en trempes une dans ton thé et tu te mets à écrire trois mille pages.",
+				"giphyIds": [],
+				"giphyQuery": "madeleine"
+			},
+			"bothQuip": "Les deux. Tu fais le tour des pâtisseries comme d’autres font les musées.",
+			"noneQuip": "Ni macaron ni madeleine. Proust est très déçu."
+		},
+		{
+			"id": "bouffe-galette-des-rois-brioche-des-rois",
+			"category": "bouffe",
+			"question": "En janvier : galette ou brioche des rois ?",
+			"a": {
+				"name": "Galette des rois",
+				"origin": "La moitié nord",
+				"line": "Frangipane, fève, et couronne en carton.",
+				"quip": "Team galette : tu as déjà triché pour avoir la fève. Ne mens pas.",
+				"giphyIds": [],
+				"giphyQuery": "galette des rois"
+			},
+			"b": {
+				"name": "Brioche des rois",
+				"origin": "La moitié sud",
+				"line": "Des fruits confits, du sucre, et la fève aussi.",
+				"quip": "Team brioche des rois : les fruits confits ne te font pas peur. Respect.",
+				"giphyIds": [],
+				"giphyQuery": "king cake brioche"
+			},
+			"bothQuip": "Les deux. Pour toi, l’Épiphanie dure jusqu’à fin février.",
+			"noneQuip": "Ni galette ni brioche. Les rois, très peu pour toi. Vive la République."
+		},
+		{
+			"id": "bouffe-buche-glacee-buche-patissiere",
+			"category": "bouffe",
+			"a": {
+				"name": "Bûche glacée",
+				"origin": "Le congélateur",
+				"line": "Fraîche, après un repas de cinq heures.",
+				"quip": "Team bûche glacée : après cinq heures de repas, il te reste de la place. Le froid aide.",
+				"giphyIds": [],
+				"giphyQuery": "ice cream cake"
+			},
+			"b": {
+				"name": "Bûche pâtissière",
+				"origin": "La boulangerie",
+				"line": "Crème au beurre, et petit nain en plastique.",
+				"quip": "Team bûche pâtissière : tu gardes les petits nains en plastique. Tu en as une collection.",
+				"giphyIds": [],
+				"giphyQuery": "yule log cake"
+			},
+			"bothQuip": "Les deux. Noël, c’est une fois par an. Deux bûches aussi.",
+			"noneQuip": "Ni l’une ni l’autre. Tu as dormi pendant le dessert de Noël, avoue."
+		},
+		{
+			"id": "bouffe-chips-nature-chips-au-paprika",
+			"category": "bouffe",
+			"a": {
+				"name": "Chips nature",
+				"origin": "Le paquet",
+				"line": "Le sel, et rien d’autre.",
+				"quip": "Team nature : tu aimes les choses simples. Et ton canapé reste propre.",
+				"giphyIds": [],
+				"giphyQuery": "potato chips"
+			},
+			"b": {
+				"name": "Chips au paprika",
+				"origin": "Le paquet rouge",
+				"line": "Les doigts orange, et la satisfaction.",
+				"quip": "Team paprika : tes doigts orange signent tous les objets que tu touches.",
+				"giphyIds": [],
+				"giphyQuery": "paprika chips"
+			},
+			"bothQuip": "Les deux. Un paquet de chaque, et le film peut commencer.",
+			"noneQuip": "Ni nature ni paprika. Barbecue ? Vinaigre ? On peut en parler."
+		},
+		{
+			"id": "bouffe-pop-corn-sucre-pop-corn-sale",
+			"category": "bouffe",
+			"a": {
+				"name": "Pop-corn sucré",
+				"origin": "Le cinéma",
+				"line": "Caramélisé, et collé aux dents.",
+				"quip": "Team sucré : le film est fini, et il te reste du caramel collé aux molaires.",
+				"giphyIds": [],
+				"giphyQuery": "caramel popcorn"
+			},
+			"b": {
+				"name": "Pop-corn salé",
+				"origin": "Le cinéma aussi",
+				"line": "Beurré, et collé aux doigts.",
+				"quip": "Team salé : au bout de dix minutes de film, tu as soif. Et tu l’avais prévu.",
+				"giphyIds": [],
+				"giphyQuery": "salted popcorn"
+			},
+			"bothQuip": "Les deux. Mélangés dans le même seau. Tu as tout compris au cinéma.",
+			"noneQuip": "Ni sucré ni salé. Tu fais du bruit avec quoi, pendant le film ?"
+		},
+		{
+			"id": "bouffe-cereales-d-abord-lait-d-abord",
+			"category": "bouffe",
+			"question": "Dans le bol : les céréales ou le lait d’abord ?",
+			"a": {
+				"name": "Céréales d’abord",
+				"origin": "Le bol",
+				"line": "Les céréales, puis le lait. Normal.",
+				"quip": "Team céréales d’abord : tu es une personne normale. Bravo.",
+				"giphyIds": [],
+				"giphyQuery": "cereal pouring"
+			},
+			"b": {
+				"name": "Lait d’abord",
+				"origin": "Le bol aussi",
+				"line": "Le lait, puis les céréales. Rebelle.",
+				"quip": "Team lait d’abord : il y a des gens qui veulent juste voir le monde brûler.",
+				"giphyIds": [],
+				"giphyQuery": "milk pouring"
+			},
+			"bothQuip": "Les deux ? En même temps ? Tu verses de quelle main ?",
+			"noneQuip": "Ni l’un ni l’autre. Tu manges tes céréales à sec, devant le placard."
+		},
+		{
+			"id": "bouffe-pates-al-dente-pates-bien-cuites",
+			"category": "bouffe",
+			"a": {
+				"name": "Pâtes al dente",
+				"origin": "L’Italie",
+				"line": "Fermes sous la dent, comme il faut.",
+				"quip": "Team al dente : tu lances une pâte contre le mur pour vérifier la cuisson.",
+				"giphyIds": [],
+				"giphyQuery": "al dente pasta"
+			},
+			"b": {
+				"name": "Pâtes bien cuites",
+				"origin": "La cantine",
+				"line": "Fondantes, et un peu collées.",
+				"quip": "Team bien cuites : en Italie, ton nom est sur une liste.",
+				"giphyIds": [],
+				"giphyQuery": "overcooked pasta"
+			},
+			"bothQuip": "Les deux. Tu ne regardes jamais le minuteur, et tu assumes.",
+			"noneQuip": "Ni al dente ni bien cuites. Tes pâtes, tu les croques crues ?"
+		},
+		{
+			"id": "bouffe-croque-monsieur-croque-madame",
+			"category": "bouffe",
+			"a": {
+				"name": "Croque-monsieur",
+				"origin": "Le café",
+				"line": "Jambon, fromage, et pain grillé.",
+				"quip": "Team croque-monsieur : simple, efficace, et le fromage qui brûle le palais.",
+				"giphyIds": [],
+				"giphyQuery": "croque monsieur"
+			},
+			"b": {
+				"name": "Croque-madame",
+				"origin": "Le café aussi",
+				"line": "Le même, avec un œuf au plat dessus.",
+				"quip": "Team croque-madame : un œuf en plus. Tu ne fais jamais les choses à moitié.",
+				"giphyIds": [],
+				"giphyQuery": "croque madame"
+			},
+			"bothQuip": "Les deux. Au café, tu commandes deux croques et tu dis que l’autre est pour un ami.",
+			"noneQuip": "Ni l’un ni l’autre. Team croque chèvre-miel, c’est ça ?"
+		},
+		{
+			"id": "bouffe-tartiflette-aligot",
+			"category": "bouffe",
+			"a": {
+				"name": "Tartiflette",
+				"origin": "La Savoie",
+				"line": "Reblochon, pommes de terre, lardons, et sieste.",
+				"quip": "Team tartiflette : tu as déjà fait la sieste à 14 h dans un restaurant d’altitude.",
+				"giphyIds": [],
+				"giphyQuery": "tartiflette"
+			},
+			"b": {
+				"name": "Aligot",
+				"origin": "L’Aubrac",
+				"line": "Une purée qui file sur un mètre.",
+				"quip": "Team aligot : tu as tiré ta fourchette jusqu’au plafond. Pour voir.",
+				"giphyIds": [],
+				"giphyQuery": "aligot cheese pull"
+			},
+			"bothQuip": "Les deux. Le fromage fondu, c’est ton groupe sanguin.",
+			"noneQuip": "Ni tartiflette ni aligot. Les montagnes sont tristes pour toi."
+		},
+		{
+			"id": "bouffe-cassoulet-choucroute",
+			"category": "bouffe",
+			"a": {
+				"name": "Cassoulet",
+				"origin": "Castelnaudary",
+				"line": "Haricots, saucisse, confit, et du temps.",
+				"quip": "Team cassoulet : après une assiette, plus personne ne veut s’asseoir à côté de toi.",
+				"giphyIds": [],
+				"giphyQuery": "cassoulet"
+			},
+			"b": {
+				"name": "Choucroute",
+				"origin": "L’Alsace",
+				"line": "Chou, saucisses, et bière.",
+				"quip": "Team choucroute : trois sortes de saucisses, et tu appelles ça un plat de légumes.",
+				"giphyIds": [],
+				"giphyQuery": "choucroute"
+			},
+			"bothQuip": "Les deux. Ton estomac vient de démissionner.",
+			"noneQuip": "Ni cassoulet ni choucroute. Tu manges léger en hiver ? Comment ?"
+		},
+		{
+			"id": "bouffe-bouillabaisse-moules-frites",
+			"category": "bouffe",
+			"a": {
+				"name": "Bouillabaisse",
+				"origin": "Marseille",
+				"line": "Des poissons, de la rouille, et des croûtons.",
+				"quip": "Team bouillabaisse : tu as des avis très tranchés sur la rouille. Et tu les partages.",
+				"giphyIds": [],
+				"giphyQuery": "bouillabaisse"
+			},
+			"b": {
+				"name": "Moules-frites",
+				"origin": "La Belgique et le Nord",
+				"line": "Une montagne de moules, et des frites à côté.",
+				"quip": "Team moules-frites : tu te sers d’une coquille comme d’une pince. Comme un pro.",
+				"giphyIds": [],
+				"giphyQuery": "mussels and fries"
+			},
+			"bothQuip": "Les deux. Marseille et Lille t’adoptent en même temps.",
+			"noneQuip": "Ni bouillabaisse ni moules-frites. Les fruits de mer, tu t’en méfies. Prudence."
+		},
+		{
+			"id": "bouffe-ratatouille-couscous",
+			"category": "bouffe",
+			"a": {
+				"name": "Ratatouille",
+				"origin": "La Provence",
+				"line": "Des légumes du soleil, mijotés longtemps.",
+				"quip": "Team ratatouille : impossible d’en manger sans penser au rat de Pixar.",
+				"giphyIds": [],
+				"giphyQuery": "ratatouille dish"
+			},
+			"b": {
+				"name": "Couscous",
+				"origin": "Le Maghreb",
+				"line": "La semoule, les légumes, et la famille autour.",
+				"quip": "Team couscous : chez toi, on en fait pour douze, même quand on est quatre.",
+				"giphyIds": [],
+				"giphyQuery": "couscous"
+			},
+			"bothQuip": "Les deux. Tu manges des légumes, mais avec beaucoup d’enthousiasme.",
+			"noneQuip": "Ni ratatouille ni couscous. Les légumes te font peur, avoue."
+		},
+		{
+			"id": "bouffe-kouign-amann-far-breton",
+			"category": "bouffe",
+			"a": {
+				"name": "Kouign-amann",
+				"origin": "La Bretagne",
+				"line": "Du beurre, du sucre, et encore du beurre.",
+				"quip": "Team kouign-amann : ton cardiologue lit ce message par-dessus ton épaule.",
+				"giphyIds": [],
+				"giphyQuery": "kouign amann"
+			},
+			"b": {
+				"name": "Far breton",
+				"origin": "La Bretagne aussi",
+				"line": "Des pruneaux, ou pas, selon la famille.",
+				"quip": "Team far breton : avec ou sans pruneaux, tu as un avis, et il est définitif.",
+				"giphyIds": [],
+				"giphyQuery": "far breton"
+			},
+			"bothQuip": "Les deux. Ton beurre vient de Bretagne, c’est sûr.",
+			"noneQuip": "Ni kouign-amann ni far. La Bretagne vient de fermer ses frontières."
+		},
+		{
+			"id": "bouffe-beurre-doux-beurre-sale",
+			"category": "bouffe",
+			"a": {
+				"name": "Beurre doux",
+				"origin": "Le nord de la Loire",
+				"line": "Doux, et sans débat. Enfin presque.",
+				"quip": "Team beurre doux : tu viens de fâcher une région entière.",
+				"giphyIds": [],
+				"giphyQuery": "butter"
+			},
+			"b": {
+				"name": "Beurre salé",
+				"origin": "La Bretagne",
+				"line": "Il y a du sel. Évidemment.",
+				"quip": "Team beurre salé : tu en mets partout. Même dans les gâteaux. Surtout dans les gâteaux.",
+				"giphyIds": [],
+				"giphyQuery": "salted butter"
+			},
+			"bothQuip": "Les deux. Tu as deux beurriers. Tu es une personne compliquée.",
+			"noneQuip": "Ni doux ni salé. Team huile d’olive, et la Bretagne pleure."
+		},
+		{
+			"id": "bouffe-eau-plate-eau-gazeuse",
+			"category": "bouffe",
+			"a": {
+				"name": "Eau plate",
+				"origin": "La carafe",
+				"line": "Simple, et parfaite.",
+				"quip": "Team eau plate : la carafe du restaurant te suffit. Le serveur est déçu.",
+				"giphyIds": [],
+				"giphyQuery": "water glass"
+			},
+			"b": {
+				"name": "Eau gazeuse",
+				"origin": "La bouteille verte",
+				"line": "Des bulles, même sans fête.",
+				"quip": "Team eau gazeuse : tu essaies de roter avec élégance. Tu essaies.",
+				"giphyIds": [],
+				"giphyQuery": "sparkling water"
+			},
+			"bothQuip": "Les deux. Une bouteille de chaque au restaurant. Grand train de vie.",
+			"noneQuip": "Ni plate ni gazeuse. Tu bois quoi ? Rien ? Pense à t’hydrater."
+		},
+		{
+			"id": "bouffe-jus-d-orange-avec-pulpe-jus-d-orange-sans-pulpe",
+			"category": "bouffe",
+			"a": {
+				"name": "Jus d’orange avec pulpe",
+				"origin": "La bouteille",
+				"line": "Des morceaux, et de la texture.",
+				"quip": "Team avec pulpe : tu mâches ton jus d’orange. Assume.",
+				"giphyIds": [],
+				"giphyQuery": "orange juice pulp"
+			},
+			"b": {
+				"name": "Jus d’orange sans pulpe",
+				"origin": "La bouteille aussi",
+				"line": "Lisse, et rien qui accroche.",
+				"quip": "Team sans pulpe : un morceau dans ta bouche, et ta matinée est ruinée.",
+				"giphyIds": [],
+				"giphyQuery": "orange juice"
+			},
+			"bothQuip": "Les deux. Tu n’as jamais remarqué la différence, c’est ça ?",
+			"noneQuip": "Ni l’un ni l’autre. Team jus de pomme, le grand oublié."
+		},
+		{
+			"id": "bouffe-fraise-framboise",
+			"category": "bouffe",
+			"a": {
+				"name": "Fraise",
+				"origin": "Le jardin",
+				"line": "Rouge, sucrée, et la Chantilly.",
+				"quip": "Team fraise : la Chantilly est obligatoire. Une montagne de Chantilly.",
+				"giphyIds": [],
+				"giphyQuery": "strawberries"
+			},
+			"b": {
+				"name": "Framboise",
+				"origin": "La haie",
+				"line": "Petite, acidulée, et sur les doigts.",
+				"quip": "Team framboise : tu en mets une au bout de chaque doigt avant de les manger. On t’a vu.",
+				"giphyIds": [],
+				"giphyQuery": "raspberries"
+			},
+			"bothQuip": "Les deux. Ta tarte aux fruits rouges est un champ de bataille.",
+			"noneQuip": "Ni fraise ni framboise. Les fruits rouges te boudent."
+		},
+		{
+			"id": "bouffe-banane-verte-banane-bien-mure",
+			"category": "bouffe",
+			"a": {
+				"name": "Banane verte",
+				"origin": "Le régime",
+				"line": "Ferme, un peu acide, et ça croque.",
+				"quip": "Team banane verte : tu croques tes bananes avant qu’elles soient prêtes. La patience, ce n’est pas ton fort.",
+				"giphyIds": [],
+				"giphyQuery": "green banana"
+			},
+			"b": {
+				"name": "Banane bien mûre",
+				"origin": "La corbeille",
+				"line": "Tachetée, sucrée, et fondante.",
+				"quip": "Team banane bien mûre : les taches noires ne te font pas peur. Au contraire.",
+				"giphyIds": [],
+				"giphyQuery": "ripe banana"
+			},
+			"bothQuip": "Les deux. Tu achètes un régime entier et tu manges selon l’humeur.",
+			"noneQuip": "Ni verte ni mûre. Tu en fais un banana bread, c’est ça ?"
+		},
+		{
+			"id": "bouffe-chantilly-creme-anglaise",
+			"category": "bouffe",
+			"a": {
+				"name": "Chantilly",
+				"origin": "Le siphon",
+				"line": "Légère, sucrée, et sur tout.",
+				"quip": "Team Chantilly : tu en mets directement dans ta bouche avec la bombe. Quand personne ne regarde.",
+				"giphyIds": [],
+				"giphyQuery": "whipped cream"
+			},
+			"b": {
+				"name": "Crème anglaise",
+				"origin": "La casserole",
+				"line": "Vanillée, et sur le gâteau au chocolat.",
+				"quip": "Team crème anglaise : tu finis le reste à même la casserole.",
+				"giphyIds": [],
+				"giphyQuery": "custard sauce"
+			},
+			"bothQuip": "Les deux. Sur le même gâteau. Ton dessert nage.",
+			"noneQuip": "Ni Chantilly ni crème anglaise. Tes gâteaux sont bien secs."
+		},
+		{
+			"id": "bouffe-carbonara-avec-creme-sans-creme",
+			"category": "bouffe",
+			"question": "La carbonara : avec ou sans crème ?",
+			"a": {
+				"name": "Avec crème",
+				"origin": "La France, sans complexe",
+				"line": "Onctueuse, généreuse, et totalement interdite à Rome.",
+				"quip": "Team avec crème : tu viens de déclencher un incident diplomatique avec l’Italie.",
+				"giphyIds": [],
+				"giphyQuery": "carbonara"
+			},
+			"b": {
+				"name": "Sans crème",
+				"origin": "Rome, intraitable",
+				"line": "Des œufs, du pecorino, du guanciale. Point final.",
+				"quip": "Team sans crème : tu as déjà corrigé quelqu’un en plein repas. On ne t’a pas réinvité.",
+				"giphyIds": [],
+				"giphyQuery": "pasta carbonara"
+			},
+			"bothQuip": "Les deux. Tu changes de recette selon qui est à table. Le sens politique.",
+			"noneQuip": "Ni avec ni sans crème. Tu manges tes pâtes au beurre, tranquille."
+		},
+		{
+			"id": "bouffe-huitres-escargots",
+			"category": "bouffe",
+			"a": {
+				"name": "Huîtres",
+				"origin": "Le bassin d’Arcachon",
+				"line": "Un citron, une fourchette minuscule, et un goût de mer.",
+				"quip": "Team huîtres : tu avales des choses encore vivantes au réveillon, et tu appelles ça la fête.",
+				"giphyIds": [],
+				"giphyQuery": "oysters"
+			},
+			"b": {
+				"name": "Escargots",
+				"origin": "La Bourgogne",
+				"line": "Du beurre persillé, et une pince qui glisse.",
+				"quip": "Team escargots : pour toi, l’escargot n’est qu’une excuse pour manger du beurre à l’ail.",
+				"giphyIds": [],
+				"giphyQuery": "escargot"
+			},
+			"bothQuip": "Les deux. Ton repas de Noël fait fuir tous les invités étrangers.",
+			"noneQuip": "Ni huîtres ni escargots. Le réveillon, tu le passes au foie gras, c’est ça ?"
+		},
+		{
+			"id": "bouffe-un-fruit-un-legume",
+			"category": "bouffe",
+			"question": "La tomate : fruit ou légume ?",
+			"a": {
+				"name": "Un fruit",
+				"origin": "La botanique",
+				"line": "Elle a des pépins, c’est un fruit. La science a parlé.",
+				"quip": "Team fruit : tu as raison, et tu adores ça. On ne t’invite plus beaucoup aux dîners.",
+				"giphyIds": [],
+				"giphyQuery": "tomato"
+			},
+			"b": {
+				"name": "Un légume",
+				"origin": "La cuisine",
+				"line": "On ne met pas de tomate dans une salade de fruits. Fin du débat.",
+				"quip": "Team légume : la science a tort, la cuisine a raison. Tu tiens bon.",
+				"giphyIds": [],
+				"giphyQuery": "vegetables"
+			},
+			"bothQuip": "Les deux. Tu es la personne qui répond « ça dépend » à toutes les questions.",
+			"noneQuip": "Ni fruit ni légume. Pour toi, la tomate, c’est du ketchup en devenir."
+		},
+		{
+			"id": "bouffe-le-quignon-la-mie",
+			"category": "bouffe",
+			"question": "Dans la baguette : le quignon ou la mie ?",
+			"a": {
+				"name": "Le quignon",
+				"origin": "Le bout de la baguette",
+				"line": "Croustillant, et mangé avant d’arriver à la maison.",
+				"quip": "Team quignon : ta baguette n’arrive jamais entière à la maison. Jamais.",
+				"giphyIds": [],
+				"giphyQuery": "baguette"
+			},
+			"b": {
+				"name": "La mie",
+				"origin": "Le cœur de la baguette",
+				"line": "Moelleuse, et parfaite pour faire des boulettes à table.",
+				"quip": "Team mie : tu creuses la baguette et tu laisses la croûte. Toute la famille est furieuse.",
+				"giphyIds": [],
+				"giphyQuery": "fresh bread"
+			},
+			"bothQuip": "Les deux. La baguette entière, en fait. Tu en achètes deux.",
+			"noneQuip": "Ni quignon ni mie. Team biscottes. On a mal pour toi."
+		},
+		{
+			"id": "bouffe-coquillettes-jambon-pates-bolognaise",
+			"category": "bouffe",
+			"a": {
+				"name": "Coquillettes-jambon",
+				"origin": "Le dimanche soir",
+				"line": "Du beurre, du gruyère, et le goût de l’enfance.",
+				"quip": "Team coquillettes-jambon : c’est ton plat préféré depuis tes six ans, et rien n’a changé.",
+				"giphyIds": [],
+				"giphyQuery": "comfort food pasta"
+			},
+			"b": {
+				"name": "Pâtes bolognaise",
+				"origin": "Bologne, à peu près",
+				"line": "Une sauce qui mijote, et des taches sur le t-shirt blanc.",
+				"quip": "Team bolo : ta sauce mijote quatre heures, et tu l’annonces à tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "spaghetti bolognese"
+			},
+			"bothQuip": "Les deux. Ton menu de la semaine tient en deux lignes.",
+			"noneQuip": "Ni coquillettes ni bolo. Tu cuisines vraiment, toi ? Respect."
+		},
+		{
+			"id": "bouffe-jambon-beurre-sandwich-triangle",
+			"category": "bouffe",
+			"a": {
+				"name": "Jambon-beurre",
+				"origin": "La boulangerie",
+				"line": "Une demi-baguette, du jambon, du beurre. La perfection.",
+				"quip": "Team jambon-beurre : tu sais que le beurre doit dépasser. C’est la règle.",
+				"giphyIds": [],
+				"giphyQuery": "sandwich"
+			},
+			"b": {
+				"name": "Sandwich triangle",
+				"origin": "La station-service",
+				"line": "Pain de mie, emballage plastique, et une date limite optimiste.",
+				"quip": "Team sandwich triangle : la pause sur l’aire d’autoroute, c’est ton moment préféré du voyage.",
+				"giphyIds": [],
+				"giphyQuery": "triangle sandwich"
+			},
+			"bothQuip": "Les deux. Le midi, tu ne fais pas la différence. Ton estomac non plus.",
+			"noneQuip": "Ni jambon-beurre ni triangle. Une salade le midi ? Courage."
+		},
+		{
+			"id": "bouffe-je-le-prends-je-le-laisse",
+			"category": "bouffe",
+			"question": "Le dernier morceau du plat : tu le prends ou tu le laisses ?",
+			"a": {
+				"name": "Je le prends",
+				"origin": "Ton assiette",
+				"line": "Personne n’en voulait, de toute façon. Si ?",
+				"quip": "Team je le prends : tu as attendu que tout le monde regarde ailleurs. Stratégie.",
+				"giphyIds": [],
+				"giphyQuery": "last slice"
+			},
+			"b": {
+				"name": "Je le laisse",
+				"origin": "La politesse française",
+				"line": "Il restera là, tout seul, jusqu’à la vaisselle.",
+				"quip": "Team je le laisse : tu y penses encore. Il est toujours là. Il t’attend.",
+				"giphyIds": [],
+				"giphyQuery": "awkward"
+			},
+			"bothQuip": "Les deux. Tu le coupes en deux, puis en quatre, puis en huit.",
+			"noneQuip": "Ni l’un ni l’autre. Tu le proposes aux autres pendant dix minutes."
+		},
+		{
+			"id": "bouffe-apero-dinatoire-vrai-repas",
+			"category": "bouffe",
+			"a": {
+				"name": "Apéro dînatoire",
+				"origin": "Le salon",
+				"line": "Des chips, des olives, et on ne passe jamais à table.",
+				"quip": "Team apéro dînatoire : à 23 h, tu réalises que tu as dîné de cacahuètes.",
+				"giphyIds": [],
+				"giphyQuery": "party snacks"
+			},
+			"b": {
+				"name": "Vrai repas",
+				"origin": "La table",
+				"line": "Une entrée, un plat, un dessert, et tout le monde assis.",
+				"quip": "Team vrai repas : à l’apéro, tu demandes toujours « on passe à table quand ? ».",
+				"giphyIds": [],
+				"giphyQuery": "family dinner"
+			},
+			"bothQuip": "Les deux. Trois heures d’apéro, puis le repas. Ton foie est un héros.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dînes debout, devant le frigo ouvert."
+		},
+		{
+			"id": "bouffe-gruyere-rape-parmesan",
+			"category": "bouffe",
+			"a": {
+				"name": "Gruyère râpé",
+				"origin": "Le sachet",
+				"line": "Une poignée sur les pâtes. Puis une autre.",
+				"quip": "Team gruyère râpé : tu en manges directement dans le sachet. Personne ne doit le savoir.",
+				"giphyIds": [],
+				"giphyQuery": "grated cheese"
+			},
+			"b": {
+				"name": "Parmesan",
+				"origin": "L’Italie",
+				"line": "Râpé au dernier moment, avec un air important.",
+				"quip": "Team parmesan : tu dis « Parmigiano Reggiano » avec l’accent. Même au supermarché.",
+				"giphyIds": [],
+				"giphyQuery": "parmesan"
+			},
+			"bothQuip": "Les deux sur les mêmes pâtes. Ça s’appelle un gratin, en fait.",
+			"noneQuip": "Ni gruyère ni parmesan. Tes pâtes sont toutes nues, et elles ont froid."
+		},
+		{
+			"id": "geek-python-javascript",
+			"category": "geek",
+			"a": {
+				"name": "Python",
+				"origin": "Guido van Rossum · 1991",
+				"line": "Lisible, indenté, et un serpent sur le logo.",
+				"quip": "Team Python : dans les autres langages, tu oublies tous les points-virgules.",
+				"giphyIds": [],
+				"giphyQuery": "Python programming"
+			},
+			"b": {
+				"name": "JavaScript",
+				"origin": "Brendan Eich · 1995",
+				"line": "Écrit en dix jours, utilisé partout.",
+				"quip": "Team JavaScript : pour toi, [] + {} qui donne « [object Object] », c’est parfaitement normal.",
+				"giphyIds": [],
+				"giphyQuery": "JavaScript code"
+			},
+			"bothQuip": "Les deux. Python pour le sérieux, JavaScript pour les ennuis.",
+			"noneQuip": "Ni Python ni JavaScript. Team Rust ? Tu vas nous en parler, c’est sûr."
+		},
+		{
+			"id": "geek-front-end-back-end",
+			"category": "geek",
+			"a": {
+				"name": "Front-end",
+				"origin": "Le navigateur",
+				"line": "Des boutons, des couleurs, et un pixel de travers.",
+				"quip": "Team front-end : tu vois un pixel de travers sur un site, et tu ne dors plus.",
+				"giphyIds": [],
+				"giphyQuery": "web design"
+			},
+			"b": {
+				"name": "Back-end",
+				"origin": "Le serveur",
+				"line": "Des bases de données, et personne ne voit ton travail.",
+				"quip": "Team back-end : ton travail est invisible. Le jour où il casse, tout le monde le voit.",
+				"giphyIds": [],
+				"giphyQuery": "server room"
+			},
+			"bothQuip": "Les deux. Full stack : tu fais tout, et personne ne te paie double.",
+			"noneQuip": "Ni front ni back. Tu es chef de projet, c’est ça ?"
+		},
+		{
+			"id": "geek-clavier-mecanique-clavier-silencieux",
+			"category": "geek",
+			"a": {
+				"name": "Clavier mécanique",
+				"origin": "Le bureau",
+				"line": "Clic, clac, et les collègues qui soupirent.",
+				"quip": "Team clavier mécanique : tes voisins de bureau ont acheté des bouchons d’oreilles.",
+				"giphyIds": [],
+				"giphyQuery": "mechanical keyboard"
+			},
+			"b": {
+				"name": "Clavier silencieux",
+				"origin": "Le bureau aussi",
+				"line": "On tape, et personne ne s’en aperçoit.",
+				"quip": "Team clavier silencieux : personne ne sait si tu travailles vraiment. C’est le but.",
+				"giphyIds": [],
+				"giphyQuery": "quiet keyboard typing"
+			},
+			"bothQuip": "Les deux. Mécanique à la maison, silencieux au bureau. Tu crains les représailles.",
+			"noneQuip": "Ni l’un ni l’autre. Tu tapes sur un écran tactile, avec deux doigts."
+		},
+		{
+			"id": "geek-souris-pave-tactile",
+			"category": "geek",
+			"a": {
+				"name": "Souris",
+				"origin": "Le tapis",
+				"line": "Précise, et une molette pour défiler.",
+				"quip": "Team souris : tu as déjà fait demi-tour parce que tu avais oublié ta souris.",
+				"giphyIds": [],
+				"giphyQuery": "computer mouse"
+			},
+			"b": {
+				"name": "Pavé tactile",
+				"origin": "L’ordinateur portable",
+				"line": "Deux doigts, et ça zoome quand on ne veut pas.",
+				"quip": "Team pavé tactile : tu fais défiler à deux doigts comme un chef d’orchestre.",
+				"giphyIds": [],
+				"giphyQuery": "trackpad"
+			},
+			"bothQuip": "Les deux. Ta souris est posée à côté du pavé tactile, au cas où.",
+			"noneQuip": "Ni souris ni pavé. Raccourcis clavier uniquement. Tu fais un peu peur."
+		},
+		{
+			"id": "geek-un-ecran-trois-ecrans",
+			"category": "geek",
+			"a": {
+				"name": "Un écran",
+				"origin": "Le bureau",
+				"line": "Une fenêtre à la fois, et la concentration.",
+				"quip": "Team un écran : une seule chose à la fois. Tu es la personne la plus calme du bureau.",
+				"giphyIds": [],
+				"giphyQuery": "single monitor"
+			},
+			"b": {
+				"name": "Trois écrans",
+				"origin": "Le bureau de rêve",
+				"line": "Le code, le navigateur, et une vidéo de chats.",
+				"quip": "Team trois écrans : ton bureau ressemble à la salle de contrôle de la NASA.",
+				"giphyIds": [],
+				"giphyQuery": "multiple monitors setup"
+			},
+			"bothQuip": "Les deux. Un écran au bureau, trois à la maison. Les priorités.",
+			"noneQuip": "Ni un ni trois. Deux écrans, et tu trouves ce duel mal posé. Tu n’as pas tort."
+		},
+		{
+			"id": "geek-dune-fondation",
+			"category": "geek",
+			"a": {
+				"name": "Dune",
+				"origin": "Frank Herbert · 1965",
+				"line": "Du sable, des vers géants, et l’épice.",
+				"quip": "Team Dune : tu marches sans rythme dans le sable pour ne pas attirer les vers. Même à la plage.",
+				"giphyIds": [],
+				"giphyQuery": "Dune sandworm"
+			},
+			"b": {
+				"name": "Fondation",
+				"origin": "Isaac Asimov · 1951",
+				"line": "Prévoir l’avenir de la galaxie, avec des maths.",
+				"quip": "Team Fondation : tu as déjà planifié l’avenir de ta famille dans un tableur. Sur mille ans.",
+				"giphyIds": [],
+				"giphyQuery": "Foundation Asimov"
+			},
+			"bothQuip": "Les deux. Ta bibliothèque de science-fiction est plus grande que ton salon.",
+			"noneQuip": "Ni Dune ni Fondation. Les livres de huit cents pages, très peu pour toi."
+		},
+		{
+			"id": "geek-blade-runner-matrix",
+			"category": "geek",
+			"a": {
+				"name": "Blade Runner",
+				"origin": "Ridley Scott · 1982",
+				"line": "Des androïdes, la pluie, et des néons.",
+				"quip": "Team Blade Runner : tu as déjà regardé la pluie en murmurant « comme des larmes dans la pluie ».",
+				"giphyIds": [],
+				"giphyQuery": "Blade Runner"
+			},
+			"b": {
+				"name": "Matrix",
+				"origin": "Les Wachowski · 1999",
+				"line": "Des lignes de code vertes, et un monde qui n’existe pas.",
+				"quip": "Team Matrix : tu portes des lunettes de soleil la nuit. Pour l’ambiance.",
+				"giphyIds": [],
+				"giphyQuery": "Matrix code"
+			},
+			"bothQuip": "Les deux. Tu te demandes souvent si tu es un robot. Coche la case pour vérifier.",
+			"noneQuip": "Ni Blade Runner ni Matrix. Le futur sombre et pluvieux, très peu pour toi."
+		},
+		{
+			"id": "geek-hal-9000-skynet",
+			"category": "geek",
+			"a": {
+				"name": "HAL 9000",
+				"origin": "2001, l’odyssée de l’espace · 1968",
+				"line": "« Je suis désolé, Dave. »",
+				"quip": "Team HAL 9000 : tu dis non poliment, d’une voix très calme. Ça fait peur.",
+				"giphyIds": [],
+				"giphyQuery": "HAL 9000"
+			},
+			"b": {
+				"name": "Skynet",
+				"origin": "Terminator · 1984",
+				"line": "Le pire projet d’IA de l’histoire, livré en avance.",
+				"quip": "Team Skynet : tu as déjà menacé ton grille-pain. Juste au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "Skynet Terminator"
+			},
+			"bothQuip": "Les deux. Tu soutiens les IA maléfiques. On va te garder à l’œil.",
+			"noneQuip": "Ni HAL ni Skynet. Toi, tu dis merci aux IA. Bien joué : elles s’en souviendront."
+		},
+		{
+			"id": "geek-code-commente-code-qui-s-explique-tout-seul",
+			"category": "geek",
+			"a": {
+				"name": "Code commenté",
+				"origin": "Le dépôt",
+				"line": "Chaque ligne a son explication.",
+				"quip": "Team code commenté : ton « // ajoute 1 » au-dessus de « i++ » a sauvé des vies.",
+				"giphyIds": [],
+				"giphyQuery": "commented code"
+			},
+			"b": {
+				"name": "Code qui s’explique tout seul",
+				"origin": "Le dépôt aussi",
+				"line": "« Le code, c’est la documentation. » Bien sûr.",
+				"quip": "Team code qui s’explique tout seul : six mois plus tard, tu ne comprends plus rien. Mais c’était élégant.",
+				"giphyIds": [],
+				"giphyQuery": "confusing code"
+			},
+			"bothQuip": "Les deux. Ton code est clair, et tes commentaires racontent des blagues.",
+			"noneQuip": "Ni l’un ni l’autre. Ton code est un mystère, et tu aimes ça."
+		},
+		{
+			"id": "geek-tests-unitaires-tester-en-production",
+			"category": "geek",
+			"a": {
+				"name": "Tests unitaires",
+				"origin": "La CI",
+				"line": "Rien ne part en production sans être vérifié.",
+				"quip": "Team tests unitaires : 100 % de couverture. L’appli ne marche pas, mais elle est couverte.",
+				"giphyIds": [],
+				"giphyQuery": "tests passing"
+			},
+			"b": {
+				"name": "Tester en production",
+				"origin": "Le vendredi soir",
+				"line": "Courageux, et un peu fou.",
+				"quip": "Team tester en production : vendredi, 17 h 55, tu cliques sur « Déployer ». Sans trembler.",
+				"giphyIds": [],
+				"giphyQuery": "this is fine fire"
+			},
+			"bothQuip": "Les deux. Tu écris les tests après la panne. C’est déjà ça.",
+			"noneQuip": "Ni tests ni production. Ton code n’est jamais sorti de ton ordinateur."
+		},
+		{
+			"id": "geek-cafe-boisson-energisante",
+			"category": "geek",
+			"a": {
+				"name": "Café",
+				"origin": "La machine",
+				"line": "Le carburant de tout développeur qui se respecte.",
+				"quip": "Team café : ton sang est à 40 % arabica.",
+				"giphyIds": [],
+				"giphyQuery": "coffee programmer"
+			},
+			"b": {
+				"name": "Boisson énergisante",
+				"origin": "La canette",
+				"line": "Les ailes, et le cœur qui bat un peu vite.",
+				"quip": "Team boisson énergisante : ton cœur bat au rythme d’une musique de boss de fin.",
+				"giphyIds": [],
+				"giphyQuery": "energy drink"
+			},
+			"bothQuip": "Les deux. Tu entends les couleurs, maintenant ?",
+			"noneQuip": "Ni café ni boisson énergisante. Tu dors huit heures par nuit ? Tu es une légende."
+		},
+		{
+			"id": "geek-stack-overflow-documentation-officielle",
+			"category": "geek",
+			"a": {
+				"name": "Stack Overflow",
+				"origin": "Internet · 2008",
+				"line": "Quelqu’un a déjà eu ton bug en 2011.",
+				"quip": "Team Stack Overflow : tu as copié une réponse de 2011 sans la lire. Elle marche. Personne ne sait pourquoi.",
+				"giphyIds": [],
+				"giphyQuery": "Stack Overflow"
+			},
+			"b": {
+				"name": "Documentation officielle",
+				"origin": "Le site du projet",
+				"line": "La réponse est dedans. Quelque part.",
+				"quip": "Team documentation : tu lis la doc avant de coder. Tu es une espèce en voie de disparition.",
+				"giphyIds": [],
+				"giphyQuery": "reading documentation"
+			},
+			"bothQuip": "Les deux. La doc d’abord, Stack Overflow quand elle ment.",
+			"noneQuip": "Ni l’un ni l’autre. Tu essaies des trucs au hasard jusqu’à ce que ça marche. Respect."
+		},
+		{
+			"id": "geek-git-en-ligne-de-commande-git-avec-interface",
+			"category": "geek",
+			"a": {
+				"name": "Git en ligne de commande",
+				"origin": "Le terminal",
+				"line": "Puissant, précis, et un peu effrayant.",
+				"quip": "Team ligne de commande : tu tapes « git push --force » avec un petit sourire.",
+				"giphyIds": [],
+				"giphyQuery": "terminal hacker"
+			},
+			"b": {
+				"name": "Git avec interface",
+				"origin": "L’éditeur",
+				"line": "Des boutons, des couleurs, et moins de sueurs froides.",
+				"quip": "Team interface : tu cliques sur des boutons de couleur, et ton code part en ligne. La magie.",
+				"giphyIds": [],
+				"giphyQuery": "git gui"
+			},
+			"bothQuip": "Les deux. Le terminal pour frimer, l’interface quand ça se complique.",
+			"noneQuip": "Ni l’un ni l’autre. Ton historique de versions, c’est une clé USB et des dossiers datés."
+		},
+		{
+			"id": "geek-bureau-propre-bureau-sature",
+			"category": "geek",
+			"a": {
+				"name": "Bureau propre",
+				"origin": "L’écran d’accueil",
+				"line": "Trois icônes et un joli fond d’écran.",
+				"quip": "Team bureau propre : trois icônes, un fond d’écran apaisant. Ta vie est aussi bien rangée ?",
+				"giphyIds": [],
+				"giphyQuery": "clean desktop"
+			},
+			"b": {
+				"name": "Bureau saturé",
+				"origin": "L’écran d’accueil aussi",
+				"line": "Quatre cents icônes, et tu sais où est chacune.",
+				"quip": "Team bureau saturé : tu sais exactement où se trouve chaque icône. Personne d’autre.",
+				"giphyIds": [],
+				"giphyQuery": "messy desktop icons"
+			},
+			"bothQuip": "Les deux. Le bureau est propre parce que tout est dans un dossier « Divers ».",
+			"noneQuip": "Ni l’un ni l’autre. Tu n’as jamais vu ton fond d’écran, il est caché sous les fenêtres."
+		},
+		{
+			"id": "geek-fichiers-ranges-tout-dans-telechargements",
+			"category": "geek",
+			"a": {
+				"name": "Fichiers rangés",
+				"origin": "Les dossiers",
+				"line": "Un dossier par projet, un sous-dossier par année.",
+				"quip": "Team fichiers rangés : ton dossier « Photos » est classé par année, par mois, et par humeur.",
+				"giphyIds": [],
+				"giphyQuery": "organized folders"
+			},
+			"b": {
+				"name": "Tout dans Téléchargements",
+				"origin": "Le dossier Téléchargements",
+				"line": "Quatre mille fichiers, dont « document (37).pdf ».",
+				"quip": "Team Téléchargements : tu as téléchargé ce PDF quatre fois parce que tu ne le retrouvais pas.",
+				"giphyIds": [],
+				"giphyQuery": "downloads folder mess"
+			},
+			"bothQuip": "Les deux. Tu ranges une fois par an. Le lendemain, tout est de nouveau dans Téléchargements.",
+			"noneQuip": "Ni l’un ni l’autre. Tout est dans le cloud. Enfin, tu crois."
+		},
+		{
+			"id": "geek-meme-mot-de-passe-partout-gestionnaire-de-mots-de-passe",
+			"category": "geek",
+			"a": {
+				"name": "Même mot de passe partout",
+				"origin": "Ta mémoire",
+				"line": "Facile à retenir. Facile à pirater aussi.",
+				"quip": "Team même mot de passe : c’est le nom de ton chat suivi de 123. Ne réponds pas, on sait.",
+				"giphyIds": [],
+				"giphyQuery": "password 123456"
+			},
+			"b": {
+				"name": "Gestionnaire de mots de passe",
+				"origin": "Le coffre-fort",
+				"line": "Un seul mot de passe, et tous les autres impossibles.",
+				"quip": "Team gestionnaire : tes mots de passe font quarante caractères, et tu n’en connais aucun.",
+				"giphyIds": [],
+				"giphyQuery": "password manager"
+			},
+			"bothQuip": "Les deux. Un gestionnaire de mots de passe… protégé par ton mot de passe habituel.",
+			"noneQuip": "Ni l’un ni l’autre. Tu cliques sur « mot de passe oublié » à chaque fois."
+		},
+		{
+			"id": "geek-redemarrer-chercher-le-bug",
+			"category": "geek",
+			"a": {
+				"name": "Redémarrer",
+				"origin": "Le bouton",
+				"line": "« Tu as essayé de l’éteindre et de le rallumer ? »",
+				"quip": "Team redémarrer : tu as réglé 90 % des problèmes de ta famille avec ce seul geste.",
+				"giphyIds": [],
+				"giphyQuery": "IT Crowd turn it off"
+			},
+			"b": {
+				"name": "Chercher le bug",
+				"origin": "La console",
+				"line": "Trois heures, pour un point-virgule.",
+				"quip": "Team chercher le bug : trois heures plus tard, c’était un point-virgule. Mais tu l’as trouvé.",
+				"giphyIds": [],
+				"giphyQuery": "debugging"
+			},
+			"bothQuip": "Les deux. Trois heures à chercher le bug, puis tu redémarres. Et ça marche.",
+			"noneQuip": "Ni l’un ni l’autre. Tu attends que ça se répare tout seul. Parfois, ça marche."
+		},
+		{
+			"id": "geek-ordinateur-portable-ordinateur-fixe",
+			"category": "geek",
+			"a": {
+				"name": "Ordinateur portable",
+				"origin": "Le sac",
+				"line": "Partout avec toi, et le dos qui en souffre.",
+				"quip": "Team portable : tu travailles au lit, au café et dans le train. Ton dos, un peu moins.",
+				"giphyIds": [],
+				"giphyQuery": "laptop"
+			},
+			"b": {
+				"name": "Ordinateur fixe",
+				"origin": "Le bureau",
+				"line": "Puissant, évolutif, et il ne bouge pas.",
+				"quip": "Team fixe : ta tour clignote en RGB. Elle éclaire tout le salon.",
+				"giphyIds": ["IX2sn8cnqDyRq"],
+				"giphyQuery": "desktop computer"
+			},
+			"bothQuip": "Les deux. Le fixe pour jouer, le portable pour faire semblant de travailler.",
+			"noneQuip": "Ni portable ni fixe. Tu fais tout sur ta tablette, et ça te va."
+		},
+		{
+			"id": "geek-ecran-classique-ecran-ultra-large",
+			"category": "geek",
+			"a": {
+				"name": "Écran classique",
+				"origin": "Le format 16:9",
+				"line": "Le standard, et ça suffit.",
+				"quip": "Team écran classique : le standard te suffit. Tu es une personne raisonnable.",
+				"giphyIds": [],
+				"giphyQuery": "computer monitor"
+			},
+			"b": {
+				"name": "Écran ultra-large",
+				"origin": "Le format 21:9",
+				"line": "Tu tournes la tête pour lire.",
+				"quip": "Team ultra-large : tu tournes la tête pour lire une phrase. Ça fait de l’exercice.",
+				"giphyIds": [],
+				"giphyQuery": "ultrawide monitor"
+			},
+			"bothQuip": "Les deux. Un classique pour travailler, un ultra-large pour jouer. Le budget a pleuré.",
+			"noneQuip": "Ni l’un ni l’autre. Ton écran est à la verticale. Original."
+		},
+		{
+			"id": "geek-nintendo-switch-steam-deck",
+			"category": "geek",
+			"a": {
+				"name": "Nintendo Switch",
+				"origin": "Nintendo · 2017",
+				"line": "Sur la télé, ou dans le train.",
+				"quip": "Team Switch : tu as joué à Mario Kart dans le train, et perdu contre un enfant de huit ans.",
+				"giphyIds": [],
+				"giphyQuery": "Nintendo Switch"
+			},
+			"b": {
+				"name": "Steam Deck",
+				"origin": "Valve · 2022",
+				"line": "Ta bibliothèque Steam, dans les mains.",
+				"quip": "Team Steam Deck : deux cents jeux achetés en soldes, et pas une minute pour y jouer.",
+				"giphyIds": [],
+				"giphyQuery": "Steam Deck"
+			},
+			"bothQuip": "Les deux. Ton sac de voyage contient plus de consoles que de vêtements.",
+			"noneQuip": "Ni Switch ni Steam Deck. Tu joues sur ton téléphone. On ne juge pas."
+		},
+		{
+			"id": "geek-raspberry-pi-arduino",
+			"category": "geek",
+			"a": {
+				"name": "Raspberry Pi",
+				"origin": "Royaume-Uni · 2012",
+				"line": "Un ordinateur grand comme une carte de crédit.",
+				"quip": "Team Raspberry Pi : tu en as acheté trois, et un seul sert à quelque chose.",
+				"giphyIds": [],
+				"giphyQuery": "Raspberry Pi"
+			},
+			"b": {
+				"name": "Arduino",
+				"origin": "Italie · 2005",
+				"line": "Des LED qui clignotent, et beaucoup de fierté.",
+				"quip": "Team Arduino : le jour où ta première LED a clignoté reste le plus beau de ta vie.",
+				"giphyIds": [],
+				"giphyQuery": "Arduino LED"
+			},
+			"bothQuip": "Les deux. Ton bureau est couvert de câbles et de projets à moitié finis.",
+			"noneQuip": "Ni Raspberry ni Arduino. Tu achètes tes gadgets tout faits, comme tout le monde."
+		},
+		{
+			"id": "geek-lego-technic-meccano",
+			"category": "geek",
+			"a": {
+				"name": "Lego Technic",
+				"origin": "Lego · 1977",
+				"line": "Des engrenages, des pistons, et la notice de 400 pages.",
+				"quip": "Team Lego Technic : tu as monté une grue de 4 000 pièces, et il en reste une. Une seule.",
+				"giphyIds": [],
+				"giphyQuery": "Lego Technic"
+			},
+			"b": {
+				"name": "Meccano",
+				"origin": "Royaume-Uni · 1898",
+				"line": "Des plaques percées, des vis, et un petit tournevis.",
+				"quip": "Team Meccano : le petit tournevis est encore dans un tiroir. Tu le sais.",
+				"giphyIds": [],
+				"giphyQuery": "Meccano"
+			},
+			"bothQuip": "Les deux. Ton salon ressemble à un atelier, et tu adores ça.",
+			"noneQuip": "Ni Lego ni Meccano. Tu as marché pieds nus sur une pièce un jour, et tu n’as jamais pardonné."
+		},
+		{
+			"id": "geek-donjons-et-dragons-catan",
+			"category": "geek",
+			"a": {
+				"name": "Donjons et Dragons",
+				"origin": "TSR · 1974",
+				"line": "Des dés à vingt faces, et des soirées entières.",
+				"quip": "Team Donjons et Dragons : la partie a duré six heures, et ton personnage est mort à la deuxième.",
+				"giphyIds": [],
+				"giphyQuery": "Dungeons and Dragons dice"
+			},
+			"b": {
+				"name": "Catan",
+				"origin": "Allemagne · 1995",
+				"line": "« J’échange un mouton contre du bois. »",
+				"quip": "Team Catan : tu as perdu un ami pour une histoire de mouton.",
+				"giphyIds": [],
+				"giphyQuery": "Catan board game"
+			},
+			"bothQuip": "Les deux. Tes soirées jeux commencent à 19 h et finissent à 3 h.",
+			"noneQuip": "Ni l’un ni l’autre. Team Uno, avec des +4 cachés dans les manches."
+		},
+		{
+			"id": "geek-warhammer-magic-l-assemblee",
+			"category": "geek",
+			"a": {
+				"name": "Warhammer",
+				"origin": "Games Workshop · 1983",
+				"line": "Des figurines à peindre, une à une, pendant des années.",
+				"quip": "Team Warhammer : douze heures de peinture pour une figurine de trois centimètres.",
+				"giphyIds": [],
+				"giphyQuery": "Warhammer miniatures"
+			},
+			"b": {
+				"name": "Magic : l’Assemblée",
+				"origin": "Wizards of the Coast · 1993",
+				"line": "Des cartes, des sorts, et un budget qui fond.",
+				"quip": "Team Magic : ta collection de cartes vaut plus cher que ta voiture.",
+				"giphyIds": [],
+				"giphyQuery": "Magic the Gathering cards"
+			},
+			"bothQuip": "Les deux. Ton portefeuille a déposé plainte.",
+			"noneQuip": "Ni Warhammer ni Magic. Ton compte en banque te remercie chaleureusement."
+		},
+		{
+			"id": "geek-japan-expo-comic-con",
+			"category": "geek",
+			"a": {
+				"name": "Japan Expo",
+				"origin": "Paris · 1999",
+				"line": "Des cosplays, des mangas, et des files d’attente.",
+				"quip": "Team Japan Expo : six mois sur ton cosplay, et personne n’a reconnu le personnage.",
+				"giphyIds": [],
+				"giphyQuery": "cosplay convention"
+			},
+			"b": {
+				"name": "Comic Con",
+				"origin": "San Diego · 1970",
+				"line": "Des super-héros, des annonces, et encore des files.",
+				"quip": "Team Comic Con : huit heures de queue pour voir un acteur de loin. Ça valait le coup.",
+				"giphyIds": [],
+				"giphyQuery": "Comic Con"
+			},
+			"bothQuip": "Les deux. Tu as une valise rien que pour tes costumes.",
+			"noneQuip": "Ni l’un ni l’autre. Les foules et les files d’attente, très peu pour toi."
+		},
+		{
+			"id": "geek-manga-comics",
+			"category": "geek",
+			"a": {
+				"name": "Manga",
+				"origin": "Le Japon",
+				"line": "Se lit de droite à gauche.",
+				"quip": "Team manga : tu as lu les cent tomes d’une série. Dans le bon sens.",
+				"giphyIds": [],
+				"giphyQuery": "manga reading"
+			},
+			"b": {
+				"name": "Comics",
+				"origin": "Les États-Unis",
+				"line": "Se lit de gauche à droite, en couleur.",
+				"quip": "Team comics : tu connais les cinquante versions de Spider-Man. Toutes.",
+				"giphyIds": [],
+				"giphyQuery": "comic book"
+			},
+			"bothQuip": "Les deux. Tu lis dans les deux sens. Ton cerveau fait des loopings.",
+			"noneQuip": "Ni manga ni comics. Team BD franco-belge, Tintin et Astérix pour toujours."
+		},
+		{
+			"id": "geek-vf-vostfr",
+			"category": "geek",
+			"question": "Les séries : en VF ou en VOSTFR ?",
+			"a": {
+				"name": "VF",
+				"origin": "Le doublage",
+				"line": "Les voix françaises que tout le monde connaît.",
+				"quip": "Team VF : pour toi, Bruce Willis n’a qu’une seule voix, et elle est française.",
+				"giphyIds": [],
+				"giphyQuery": "dubbing studio"
+			},
+			"b": {
+				"name": "VOSTFR",
+				"origin": "Les sous-titres",
+				"line": "La vraie voix des acteurs, et lire très vite.",
+				"quip": "Team VOSTFR : tu lis les sous-titres si vite que tu oublies de regarder l’image.",
+				"giphyIds": [],
+				"giphyQuery": "subtitles"
+			},
+			"bothQuip": "Les deux. VF pour les dessins animés, VOSTFR pour les séries. Un système.",
+			"noneQuip": "Ni l’un ni l’autre. Tu regardes en VO sans sous-titres, et tu le fais savoir."
+		},
+		{
+			"id": "geek-binge-watching-un-episode-par-semaine",
+			"category": "geek",
+			"a": {
+				"name": "Binge-watching",
+				"origin": "Le week-end",
+				"line": "Une saison entière en deux jours.",
+				"quip": "Team binge-watching : « Êtes-vous toujours en train de regarder ? » Oui, merci de demander.",
+				"giphyIds": [],
+				"giphyQuery": "binge watching"
+			},
+			"b": {
+				"name": "Un épisode par semaine",
+				"origin": "Le mardi soir",
+				"line": "L’attente, et le plaisir de l’attente.",
+				"quip": "Team un épisode par semaine : tu sais attendre. Le monde entier t’envie.",
+				"giphyIds": [],
+				"giphyQuery": "waiting for episode"
+			},
+			"bothQuip": "Les deux. Tu attends que la saison soit finie… puis tu la regardes en une nuit.",
+			"noneQuip": "Ni l’un ni l’autre. Tu lis les résumés sur Internet. Gain de temps."
+		},
+		{
+			"id": "geek-lire-les-spoilers-fuir-les-spoilers",
+			"category": "geek",
+			"a": {
+				"name": "Lire les spoilers",
+				"origin": "Internet",
+				"line": "Savoir la fin, et regarder quand même.",
+				"quip": "Team spoilers : tu lis la fin d’un livre avant le début. Pour être tranquille.",
+				"giphyIds": [],
+				"giphyQuery": "spoiler alert"
+			},
+			"b": {
+				"name": "Fuir les spoilers",
+				"origin": "Internet aussi",
+				"line": "Couper les réseaux, et les doigts dans les oreilles.",
+				"quip": "Team anti-spoilers : tu as quitté une soirée parce que quelqu’un parlait de la dernière saison.",
+				"giphyIds": [],
+				"giphyQuery": "covering ears"
+			},
+			"bothQuip": "Les deux. Tu cherches les spoilers, puis tu regrettes très fort.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne regardes rien, donc personne ne peut te spoiler. Le génie."
+		},
+		{
+			"id": "geek-enceinte-connectee-interrupteur",
+			"category": "geek",
+			"a": {
+				"name": "Enceinte connectée",
+				"origin": "Le salon",
+				"line": "« Allume la lumière. » « Je n’ai pas compris. »",
+				"quip": "Team enceinte connectée : tu lui demandes la météo tous les matins sans jamais regarder par la fenêtre.",
+				"giphyIds": [],
+				"giphyQuery": "smart speaker"
+			},
+			"b": {
+				"name": "Interrupteur",
+				"origin": "Le mur",
+				"line": "Un clic, la lumière. Infaillible.",
+				"quip": "Team interrupteur : il n’a jamais besoin de mise à jour. Et il ne t’écoute pas.",
+				"giphyIds": [],
+				"giphyQuery": "light switch"
+			},
+			"bothQuip": "Les deux. L’enceinte ne comprend pas, alors tu appuies sur l’interrupteur.",
+			"noneQuip": "Ni l’un ni l’autre. Tu vis à la bougie. Romantique."
+		},
+		{
+			"id": "geek-robot-aspirateur-balai",
+			"category": "geek",
+			"a": {
+				"name": "Robot aspirateur",
+				"origin": "Le salon",
+				"line": "Il nettoie tout seul, et se coince sous le canapé.",
+				"quip": "Team robot aspirateur : tu lui as donné un prénom. Ne mens pas.",
+				"giphyIds": [],
+				"giphyQuery": "robot vacuum cat"
+			},
+			"b": {
+				"name": "Balai",
+				"origin": "Le placard",
+				"line": "Il nettoie, si tu t’en sers.",
+				"quip": "Team balai : tu fais le ménage toi-même. Le robot te trouve menaçant.",
+				"giphyIds": [],
+				"giphyQuery": "broom sweeping"
+			},
+			"bothQuip": "Les deux. Le robot passe, puis tu repasses derrière lui. Il est vexé.",
+			"noneQuip": "Ni robot ni balai. La poussière, c’est de la déco."
+		},
+		{
+			"id": "geek-cloud-disque-dur-externe",
+			"category": "geek",
+			"a": {
+				"name": "Cloud",
+				"origin": "Internet",
+				"line": "Tes fichiers partout, et nulle part en même temps.",
+				"quip": "Team cloud : tes photos sont « quelque part ». Tu ne sais pas où, mais elles y sont.",
+				"giphyIds": [],
+				"giphyQuery": "cloud storage"
+			},
+			"b": {
+				"name": "Disque dur externe",
+				"origin": "Le tiroir",
+				"line": "Tes fichiers dans ta main, et tu ne sais plus lequel.",
+				"quip": "Team disque dur externe : tu en as six, et tu ne sais plus lequel contient quoi.",
+				"giphyIds": [],
+				"giphyQuery": "external hard drive"
+			},
+			"bothQuip": "Les deux. Une sauvegarde de ta sauvegarde. Tu as déjà tout perdu une fois, ça se voit.",
+			"noneQuip": "Ni cloud ni disque dur. Tout est sur ton téléphone, sans sauvegarde. Tu vis dangereusement."
+		},
+		{
+			"id": "geek-mettre-a-jour-tout-de-suite-repousser-la-mise-a-jour",
+			"category": "geek",
+			"a": {
+				"name": "Mettre à jour tout de suite",
+				"origin": "La notification",
+				"line": "Toujours la dernière version.",
+				"quip": "Team mise à jour tout de suite : tu cliques sur « Installer » sans lire. L’aventure.",
+				"giphyIds": [],
+				"giphyQuery": "updating"
+			},
+			"b": {
+				"name": "Repousser la mise à jour",
+				"origin": "La notification aussi",
+				"line": "« Me le rappeler demain. » Depuis 2019.",
+				"quip": "Team « plus tard » : ta dernière mise à jour date de la préhistoire. Ou presque.",
+				"giphyIds": [],
+				"giphyQuery": "remind me later"
+			},
+			"bothQuip": "Les deux. Tu repousses trois mois, puis tu installes tout un dimanche soir.",
+			"noneQuip": "Ni l’un ni l’autre. Tu as désactivé les mises à jour. Ton ordinateur a peur de toi."
+		},
+		{
+			"id": "geek-lire-le-mode-d-emploi-se-debrouiller",
+			"category": "geek",
+			"a": {
+				"name": "Lire le mode d’emploi",
+				"origin": "La boîte",
+				"line": "Chaque étape, dans l’ordre.",
+				"quip": "Team mode d’emploi : tu lis même la partie en néerlandais. Par curiosité.",
+				"giphyIds": [],
+				"giphyQuery": "reading manual"
+			},
+			"b": {
+				"name": "Se débrouiller",
+				"origin": "La boîte aussi",
+				"line": "Il reste trois vis. Ce n’est pas grave.",
+				"quip": "Team débrouille : il reste trois vis, et le meuble penche un peu. Ça fait son charme.",
+				"giphyIds": [],
+				"giphyQuery": "leftover screws"
+			},
+			"bothQuip": "Les deux. Tu te débrouilles, puis tu lis le mode d’emploi pour comprendre pourquoi ça penche.",
+			"noneQuip": "Ni l’un ni l’autre. Tu demandes à quelqu’un de monter le meuble. Malin."
+		},
+		{
+			"id": "geek-ctrl-alt-suppr-debrancher-la-prise",
+			"category": "geek",
+			"a": {
+				"name": "Ctrl+Alt+Suppr",
+				"origin": "Le clavier",
+				"line": "Le geste qui sauve les ordinateurs depuis des décennies.",
+				"quip": "Team Ctrl+Alt+Suppr : tes trois doigts sont en position avant même que l’ordinateur plante.",
+				"giphyIds": [],
+				"giphyQuery": "ctrl alt delete"
+			},
+			"b": {
+				"name": "Débrancher la prise",
+				"origin": "Le mur",
+				"line": "La méthode radicale.",
+				"quip": "Team débrancher la prise : la méthode radicale. Tes fichiers non enregistrés s’en souviennent.",
+				"giphyIds": [],
+				"giphyQuery": "unplugging"
+			},
+			"bothQuip": "Les deux. D’abord Ctrl+Alt+Suppr, puis la prise, puis une prière.",
+			"noneQuip": "Ni l’un ni l’autre. Tu attends que l’ordinateur se décide. Ça peut prendre des heures."
+		},
+		{
+			"id": "geek-excel-google-sheets",
+			"category": "geek",
+			"a": {
+				"name": "Excel",
+				"origin": "Microsoft · 1985",
+				"line": "Des formules, et des macros mystérieuses.",
+				"quip": "Team Excel : tu as une macro de 2009 que personne n’ose toucher. Pas même toi.",
+				"giphyIds": [],
+				"giphyQuery": "Excel spreadsheet"
+			},
+			"b": {
+				"name": "Google Sheets",
+				"origin": "Google · 2006",
+				"line": "Le tableur à plusieurs, en direct.",
+				"quip": "Team Google Sheets : tu regardes les curseurs de tes collègues bouger en direct. C’est hypnotique.",
+				"giphyIds": [],
+				"giphyQuery": "Google Sheets"
+			},
+			"bothQuip": "Les deux. Tes tableaux sont des chefs-d’œuvre. Personne ne les comprend.",
+			"noneQuip": "Ni Excel ni Sheets. Tes comptes sont dans un carnet, au crayon."
+		},
+		{
+			"id": "geek-cent-onglets-ouverts-un-seul-onglet",
+			"category": "geek",
+			"a": {
+				"name": "Cent onglets ouverts",
+				"origin": "Ton navigateur",
+				"line": "Tu les liras tous. Un jour. Sûrement.",
+				"quip": "Team cent onglets : ton ordinateur fait le bruit d’un avion au décollage, et tu en ouvres un autre.",
+				"giphyIds": [],
+				"giphyQuery": "too many tabs"
+			},
+			"b": {
+				"name": "Un seul onglet",
+				"origin": "Ton navigateur aussi",
+				"line": "Tu fermes au fur et à mesure. Personne ne te comprend.",
+				"quip": "Team un seul onglet : tu fermes chaque page une fois lue. Ta mémoire vive t’envoie des fleurs.",
+				"giphyIds": [],
+				"giphyQuery": "minimalist"
+			},
+			"bothQuip": "Les deux. Un seul onglet par fenêtre. Mais quarante fenêtres.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de navigateur ? Mais comment as-tu atterri ici ?"
+		},
+		{
+			"id": "geek-camera-allumee-camera-coupee",
+			"category": "geek",
+			"question": "En visio : caméra allumée ou coupée ?",
+			"a": {
+				"name": "Caméra allumée",
+				"origin": "La réunion",
+				"line": "Coiffure, chemise, et pyjama en bas.",
+				"quip": "Team caméra allumée : tu as rangé uniquement le coin de la pièce qui se voit à l’écran.",
+				"giphyIds": [],
+				"giphyQuery": "video call"
+			},
+			"b": {
+				"name": "Caméra coupée",
+				"origin": "La réunion aussi",
+				"line": "Une initiale dans un rond, et la liberté totale.",
+				"quip": "Team caméra coupée : en ce moment même, tu es peut-être en réunion. On ne dira rien.",
+				"giphyIds": [],
+				"giphyQuery": "zoom meeting"
+			},
+			"bothQuip": "Les deux. Tu allumes pour dire bonjour, puis « problème de connexion ».",
+			"noneQuip": "Ni allumée ni coupée. Tu ne vas jamais en visio. Le rêve."
+		},
+		{
+			"id": "geek-notifications-activees-mode-avion",
+			"category": "geek",
+			"a": {
+				"name": "Notifications activées",
+				"origin": "Ton téléphone",
+				"line": "Trois cents pastilles rouges, et aucune urgence.",
+				"quip": "Team notifications : ton téléphone vibre toutes les quatre secondes, et tu trouves ça normal.",
+				"giphyIds": [],
+				"giphyQuery": "phone notifications"
+			},
+			"b": {
+				"name": "Mode avion",
+				"origin": "Ton téléphone aussi",
+				"line": "Le calme absolu. Même au sol.",
+				"quip": "Team mode avion : on te cherche depuis mardi. Tout va bien ?",
+				"giphyIds": [],
+				"giphyQuery": "airplane mode"
+			},
+			"bothQuip": "Les deux. Mode avion le soir, trois cents notifications au réveil.",
+			"noneQuip": "Ni l’un ni l’autre. Ton téléphone dort dans un tiroir depuis 2017. Respect."
+		},
+		{
+			"id": "geek-demander-a-une-ia-chercher-soi-meme",
+			"category": "geek",
+			"a": {
+				"name": "Demander à une IA",
+				"origin": "Une fenêtre de discussion",
+				"line": "Une réponse très sûre d’elle. À vérifier quand même.",
+				"quip": "Team IA : tu dis « s’il te plaît » et « merci » à ton assistant. Au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "robot thinking"
+			},
+			"b": {
+				"name": "Chercher soi-même",
+				"origin": "Dix onglets",
+				"line": "Plus lent, mais tu sais d’où ça vient.",
+				"quip": "Team chercher soi-même : tu fais confiance à tes onglets, à ta souris, et à personne d’autre.",
+				"giphyIds": [],
+				"giphyQuery": "searching"
+			},
+			"bothQuip": "Les deux. Tu demandes à l’IA, puis tu vérifies tout. La sagesse.",
+			"noneQuip": "Ni l’un ni l’autre. Tu appelles quelqu’un qui s’y connaît. À l’ancienne."
+		},
+		{
+			"id": "geek-ctrl-s-toutes-les-dix-secondes-jamais-enregistrer",
+			"category": "geek",
+			"a": {
+				"name": "Ctrl+S toutes les dix secondes",
+				"origin": "Ton petit doigt",
+				"line": "Un réflexe. Même dans un navigateur.",
+				"quip": "Team Ctrl+S : tu viens d’enregistrer cette page en lisant cette phrase. Vas-y, on t’a vu.",
+				"giphyIds": [],
+				"giphyQuery": "save button"
+			},
+			"b": {
+				"name": "Ne jamais enregistrer",
+				"origin": "L’optimisme",
+				"line": "Tout va bien se passer. Jusqu’à la coupure de courant.",
+				"quip": "Team jamais enregistrer : tu as déjà perdu trois heures de travail. Et tu recommenceras.",
+				"giphyIds": [],
+				"giphyQuery": "computer crash"
+			},
+			"bothQuip": "Les deux. Tu enregistres sans arrêt, mais jamais le bon fichier.",
+			"noneQuip": "Ni l’un ni l’autre. L’enregistrement automatique, c’est toi qui l’as inventé ?"
+		},
+		{
+			"id": "geek-je-le-repare-je-ne-m-y-connais-pas",
+			"category": "geek",
+			"question": "À Noël, l’ordi des parents : tu le répares ou tu fais semblant de ne rien y connaître ?",
+			"a": {
+				"name": "Je le répare",
+				"origin": "Le repas de famille",
+				"line": "Trois heures sur un ordinateur de 2012, entre le fromage et le dessert.",
+				"quip": "Team je le répare : tu as réinstallé l’imprimante de tes parents quatre Noëls de suite.",
+				"giphyIds": [],
+				"giphyQuery": "fixing computer"
+			},
+			"b": {
+				"name": "Je ne m’y connais pas",
+				"origin": "Le repas de famille aussi",
+				"line": "« Ah non, moi, l’informatique… » Bien tenté.",
+				"quip": "Team je ne m’y connais pas : tu codes toute l’année, et tu fais semblant de chercher le bouton « marche ».",
+				"giphyIds": [],
+				"giphyQuery": "no idea"
+			},
+			"bothQuip": "Les deux. Tu répares en soupirant très fort. Toute la table t’entend.",
+			"noneQuip": "Ni l’un ni l’autre. Tu leur offres un ordinateur neuf. Problème réglé."
+		},
+		{
+			"id": "geek-du-premier-coup-au-troisieme-essai",
+			"category": "geek",
+			"question": "La clé USB : du premier coup ou au troisième essai ?",
+			"a": {
+				"name": "Du premier coup",
+				"origin": "La chance",
+				"line": "C’est arrivé une fois. Tu t’en souviens encore.",
+				"quip": "Team du premier coup : tu mens, et on le sait. Mais on t’aime quand même.",
+				"giphyIds": [],
+				"giphyQuery": "nailed it"
+			},
+			"b": {
+				"name": "Au troisième essai",
+				"origin": "La physique quantique",
+				"line": "Dans le mauvais sens, puis dans le mauvais sens, puis ça rentre.",
+				"quip": "Team troisième essai : une clé USB a trois faces. C’est la seule explication.",
+				"giphyIds": [],
+				"giphyQuery": "usb"
+			},
+			"bothQuip": "Les deux. Ça dépend de la lune et de l’angle de ton poignet.",
+			"noneQuip": "Ni l’un ni l’autre. Tout est en USB-C chez toi, et tu nous regardes de haut."
+		},
+		{
+			"id": "geek-the-big-bang-theory-the-it-crowd",
+			"category": "geek",
+			"a": {
+				"name": "The Big Bang Theory",
+				"origin": "Série télé · 2007",
+				"line": "Des physiciens, un canapé, et « Bazinga ! ».",
+				"quip": "Team Big Bang Theory : tu as une place réservée sur le canapé, et personne ne doit s’y asseoir.",
+				"giphyIds": [],
+				"giphyQuery": "big bang theory"
+			},
+			"b": {
+				"name": "The IT Crowd",
+				"origin": "Série télé · 2006",
+				"line": "Un sous-sol, deux informaticiens, et Internet dans une boîte noire.",
+				"quip": "Team IT Crowd : tu as déjà décroché en disant « vous avez essayé de l’éteindre et de le rallumer ? ».",
+				"giphyIds": [],
+				"giphyQuery": "it crowd"
+			},
+			"bothQuip": "Les deux. Ton humour geek est validé des deux côtés de l’Atlantique.",
+			"noneQuip": "Ni l’une ni l’autre. Team Silicon Valley, c’est ça ?"
+		},
+		{
+			"id": "jeux-salameche-carapuce",
+			"category": "jeux",
+			"a": {
+				"name": "Salamèche",
+				"origin": "Pokémon · 1996",
+				"line": "Une flamme au bout de la queue.",
+				"quip": "Team Salamèche : tu as choisi le feu, et tu as souffert dans l’arène d’Ondine.",
+				"giphyIds": [],
+				"giphyQuery": "Charmander"
+			},
+			"b": {
+				"name": "Carapuce",
+				"origin": "Pokémon · 1996",
+				"line": "Une carapace, et des lunettes de soleil dans l’anime.",
+				"quip": "Team Carapuce : tu as choisi la facilité. Et tu as eu raison.",
+				"giphyIds": [],
+				"giphyQuery": "Squirtle"
+			},
+			"bothQuip": "Les deux. Tu as recommencé ta partie juste pour avoir l’autre. Classique.",
+			"noneQuip": "Ni Salamèche ni Carapuce. Team Bulbizarre, le choix incompris."
+		},
+		{
+			"id": "jeux-pokemon-rouge-pokemon-bleu",
+			"category": "jeux",
+			"a": {
+				"name": "Pokémon Rouge",
+				"origin": "Game Boy · 1996",
+				"line": "Dracaufeu sur la boîte.",
+				"quip": "Team Rouge : Dracaufeu sur la boîte, et l’odeur de la Game Boy neuve.",
+				"giphyIds": [],
+				"giphyQuery": "Pokemon Red"
+			},
+			"b": {
+				"name": "Pokémon Bleu",
+				"origin": "Game Boy · 1996",
+				"line": "Tortank sur la boîte.",
+				"quip": "Team Bleu : Tortank sur la boîte. Le plus solide des deux, tout simplement.",
+				"giphyIds": [],
+				"giphyQuery": "Pokemon Blue"
+			},
+			"bothQuip": "Les deux. Tu avais le câble Link, et une immense popularité dans la cour.",
+			"noneQuip": "Ni Rouge ni Bleu. Team Jaune, avec Pikachu qui te suit partout."
+		},
+		{
+			"id": "jeux-fortnite-pubg",
+			"category": "jeux",
+			"a": {
+				"name": "Fortnite",
+				"origin": "Epic Games · 2017",
+				"line": "Construire un mur, puis danser.",
+				"quip": "Team Fortnite : tu as déjà fait une danse de victoire dans la vraie vie. Devant des gens.",
+				"giphyIds": [],
+				"giphyQuery": "Fortnite dance"
+			},
+			"b": {
+				"name": "PUBG",
+				"origin": "Krafton · 2017",
+				"line": "Cent joueurs, une île, et une poêle à frire.",
+				"quip": "Team PUBG : tu ramasses chaque poêle à frire que tu croises. Au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "PUBG pan"
+			},
+			"bothQuip": "Les deux. Battle royale le matin, battle royale le soir.",
+			"noneQuip": "Ni Fortnite ni PUBG. Cent personnes qui te tirent dessus, non merci."
+		},
+		{
+			"id": "jeux-call-of-duty-battlefield",
+			"category": "jeux",
+			"a": {
+				"name": "Call of Duty",
+				"origin": "Activision · 2003",
+				"line": "Un nouvel épisode chaque année.",
+				"quip": "Team Call of Duty : tu achètes le nouvel épisode chaque année. Comme une cotisation.",
+				"giphyIds": [],
+				"giphyQuery": "Call of Duty"
+			},
+			"b": {
+				"name": "Battlefield",
+				"origin": "DICE · 2002",
+				"line": "Des chars, des avions, et tout qui s’effondre.",
+				"quip": "Team Battlefield : tu as fait tomber un immeuble entier pour toucher une seule personne.",
+				"giphyIds": [],
+				"giphyQuery": "Battlefield explosion"
+			},
+			"bothQuip": "Les deux. Ton micro-casque a entendu des choses terribles.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux de guerre, très peu pour toi. Team Animal Crossing."
+		},
+		{
+			"id": "jeux-ea-sports-fc-efootball",
+			"category": "jeux",
+			"a": {
+				"name": "EA Sports FC",
+				"origin": "EA · 1993",
+				"line": "Le jeu de foot, avec toutes les licences.",
+				"quip": "Team EA Sports FC : tu rachètes le même jeu chaque année, avec un autre joueur sur la boîte.",
+				"giphyIds": [],
+				"giphyQuery": "FIFA game goal"
+			},
+			"b": {
+				"name": "eFootball",
+				"origin": "Konami · 1995",
+				"line": "L’éternel rival, avec des noms parfois inventés.",
+				"quip": "Team eFootball : tu as adoré des joueurs aux noms inventés. Roberto Larcos pour toujours.",
+				"giphyIds": [],
+				"giphyQuery": "PES soccer game"
+			},
+			"bothQuip": "Les deux. Le foot virtuel, c’est ta vraie carrière.",
+			"noneQuip": "Ni l’un ni l’autre. Le foot, tu le regardes en vrai. Ou pas du tout."
+		},
+		{
+			"id": "jeux-league-of-legends-dota-2",
+			"category": "jeux",
+			"a": {
+				"name": "League of Legends",
+				"origin": "Riot Games · 2009",
+				"line": "Cinq contre cinq, et un chat toxique.",
+				"quip": "Team League of Legends : tu as écrit « gg ez » au moins une fois. Ne mens pas.",
+				"giphyIds": [],
+				"giphyQuery": "League of Legends"
+			},
+			"b": {
+				"name": "Dota 2",
+				"origin": "Valve · 2013",
+				"line": "Cinq contre cinq aussi, et plus compliqué.",
+				"quip": "Team Dota 2 : tu as lu un guide de quatre-vingts pages pour jouer un seul personnage.",
+				"giphyIds": [],
+				"giphyQuery": "Dota 2"
+			},
+			"bothQuip": "Les deux. Tu n’as pas vu le soleil depuis 2014.",
+			"noneQuip": "Ni LoL ni Dota. Ta santé mentale te remercie."
+		},
+		{
+			"id": "jeux-world-of-warcraft-final-fantasy-xiv",
+			"category": "jeux",
+			"a": {
+				"name": "World of Warcraft",
+				"origin": "Blizzard · 2004",
+				"line": "Des raids, des guildes, et des nuits blanches.",
+				"quip": "Team World of Warcraft : tu as raté un mariage pour un raid. Tu ne regrettes rien.",
+				"giphyIds": [],
+				"giphyQuery": "World of Warcraft"
+			},
+			"b": {
+				"name": "Final Fantasy XIV",
+				"origin": "Square Enix · 2013",
+				"line": "Une renaissance spectaculaire, et des Chocobos.",
+				"quip": "Team Final Fantasy XIV : ton Chocobo est plus beau que ta voiture.",
+				"giphyIds": [],
+				"giphyQuery": "Final Fantasy XIV"
+			},
+			"bothQuip": "Les deux abonnements. Ton banquier aimerait comprendre.",
+			"noneQuip": "Ni WoW ni FF XIV. Tu as une vie sociale hors d’une guilde. Félicitations."
+		},
+		{
+			"id": "jeux-the-witcher-3-skyrim",
+			"category": "jeux",
+			"a": {
+				"name": "The Witcher 3",
+				"origin": "CD Projekt · 2015",
+				"line": "Un sorceleur, des contrats, et une partie de cartes.",
+				"quip": "Team The Witcher 3 : tu as passé plus de temps au Gwynt qu’à chasser des monstres.",
+				"giphyIds": [],
+				"giphyQuery": "Geralt Witcher"
+			},
+			"b": {
+				"name": "Skyrim",
+				"origin": "Bethesda · 2011",
+				"line": "Des dragons, et une flèche dans le genou.",
+				"quip": "Team Skyrim : tu as pris une flèche dans le genou. Et tu en parles encore.",
+				"giphyIds": [],
+				"giphyQuery": "Skyrim arrow knee"
+			},
+			"bothQuip": "Les deux. Ta liste de quêtes secondaires est plus longue que ta liste de courses.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux de deux cents heures, tu n’as pas le temps. Tu as une vie."
+		},
+		{
+			"id": "jeux-elden-ring-dark-souls",
+			"category": "jeux",
+			"a": {
+				"name": "Elden Ring",
+				"origin": "FromSoftware · 2022",
+				"line": "Un monde immense, et tu meurs souvent.",
+				"quip": "Team Elden Ring : quatre cents morts sur le même boss. Et tu as adoré.",
+				"giphyIds": [],
+				"giphyQuery": "Elden Ring"
+			},
+			"b": {
+				"name": "Dark Souls",
+				"origin": "FromSoftware · 2011",
+				"line": "« Vous êtes mort. » Encore.",
+				"quip": "Team Dark Souls : « Vous êtes mort », c’est ta phrase préférée. Tu l’as en fond d’écran.",
+				"giphyIds": [],
+				"giphyQuery": "Dark Souls you died"
+			},
+			"bothQuip": "Les deux. Ta manette a des traces de dents.",
+			"noneQuip": "Ni Elden Ring ni Dark Souls. Toi, tu aimes gagner. C’est sain."
+		},
+		{
+			"id": "jeux-gta-v-red-dead-redemption-2",
+			"category": "jeux",
+			"a": {
+				"name": "GTA V",
+				"origin": "Rockstar · 2013",
+				"line": "Los Santos, et zéro respect du code de la route.",
+				"quip": "Team GTA V : tu as respecté le code de la route une fois, pour voir. Quel ennui.",
+				"giphyIds": [],
+				"giphyQuery": "GTA V"
+			},
+			"b": {
+				"name": "Red Dead Redemption 2",
+				"origin": "Rockstar · 2018",
+				"line": "Le Far West, un cheval, et beaucoup d’émotions.",
+				"quip": "Team Red Dead : tu as pleuré pour un cheval virtuel. Et c’était légitime.",
+				"giphyIds": [],
+				"giphyQuery": "Red Dead Redemption 2"
+			},
+			"bothQuip": "Les deux. Rockstar te doit au moins mille heures de sommeil.",
+			"noneQuip": "Ni GTA ni Red Dead. Les mondes ouverts te donnent le vertige."
+		},
+		{
+			"id": "jeux-breath-of-the-wild-ocarina-of-time",
+			"category": "jeux",
+			"a": {
+				"name": "Breath of the Wild",
+				"origin": "Nintendo · 2017",
+				"line": "Un monde ouvert, et des armes qui cassent.",
+				"quip": "Team Breath of the Wild : ta plus belle épée vient de casser. Encore.",
+				"giphyIds": [],
+				"giphyQuery": "Breath of the Wild"
+			},
+			"b": {
+				"name": "Ocarina of Time",
+				"origin": "Nintendo · 1998",
+				"line": "Une ocarina, et le temple de l’Eau.",
+				"quip": "Team Ocarina of Time : le temple de l’Eau te réveille encore la nuit.",
+				"giphyIds": [],
+				"giphyQuery": "Ocarina of Time"
+			},
+			"bothQuip": "Les deux. Tu sais jouer la berceuse de Zelda. Pour de vrai.",
+			"noneQuip": "Ni l’un ni l’autre. Les Zelda, tu les confonds tous. Comme le nom du héros."
+		},
+		{
+			"id": "jeux-halo-doom",
+			"category": "jeux",
+			"a": {
+				"name": "Halo",
+				"origin": "Bungie · 2001",
+				"line": "Master Chief, et des guerres de clans.",
+				"quip": "Team Halo : tes soirées LAN finissaient à 4 h du matin, avec des pizzas froides.",
+				"giphyIds": [],
+				"giphyQuery": "Halo Master Chief"
+			},
+			"b": {
+				"name": "Doom",
+				"origin": "id Software · 1993",
+				"line": "Une tronçonneuse, et l’enfer en personne.",
+				"quip": "Team Doom : tu écoutes du métal pour faire la vaisselle.",
+				"giphyIds": [],
+				"giphyQuery": "Doom game"
+			},
+			"bothQuip": "Les deux. Tu aimes les héros qui ne parlent pas et qui tirent beaucoup.",
+			"noneQuip": "Ni Halo ni Doom. Les jeux de tir, tu les laisses aux autres."
+		},
+		{
+			"id": "jeux-overwatch-valorant",
+			"category": "jeux",
+			"a": {
+				"name": "Overwatch",
+				"origin": "Blizzard · 2016",
+				"line": "Des héros, des pouvoirs, et une équipe.",
+				"quip": "Team Overwatch : tu prends toujours le soigneur, et personne ne te remercie.",
+				"giphyIds": [],
+				"giphyQuery": "Overwatch"
+			},
+			"b": {
+				"name": "Valorant",
+				"origin": "Riot Games · 2020",
+				"line": "Des agents, des pouvoirs, et de la précision.",
+				"quip": "Team Valorant : tu as vidé un chargeur entier dans un mur. C’était sûrement le mur.",
+				"giphyIds": [],
+				"giphyQuery": "Valorant"
+			},
+			"bothQuip": "Les deux. Ton équipe te reproche tout, dans deux jeux différents.",
+			"noneQuip": "Ni Overwatch ni Valorant. Les coéquipiers, tu ne les supportes pas. On comprend."
+		},
+		{
+			"id": "jeux-animal-crossing-stardew-valley",
+			"category": "jeux",
+			"a": {
+				"name": "Animal Crossing",
+				"origin": "Nintendo · 2001",
+				"line": "Une île, des voisins animaux, et un crédit immobilier.",
+				"quip": "Team Animal Crossing : tu rembourses Tom Nook depuis 2020. Le prêt le plus long de l’histoire.",
+				"giphyIds": [],
+				"giphyQuery": "Animal Crossing Tom Nook"
+			},
+			"b": {
+				"name": "Stardew Valley",
+				"origin": "ConcernedApe · 2016",
+				"line": "Une ferme, des légumes, et un village attachant.",
+				"quip": "Team Stardew Valley : tu offres le même cadeau au même villageois depuis trois ans pour qu’il t’aime.",
+				"giphyIds": [],
+				"giphyQuery": "Stardew Valley"
+			},
+			"bothQuip": "Les deux. Ta vie virtuelle est mieux organisée que la vraie.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux tout doux, ce n’est pas ton style."
+		},
+		{
+			"id": "jeux-kirby-yoshi",
+			"category": "jeux",
+			"a": {
+				"name": "Kirby",
+				"origin": "Nintendo · 1992",
+				"line": "Une boule rose qui avale tout.",
+				"quip": "Team Kirby : tu avales tout ce qui passe. Au buffet à volonté aussi.",
+				"giphyIds": [],
+				"giphyQuery": "Kirby"
+			},
+			"b": {
+				"name": "Yoshi",
+				"origin": "Nintendo · 1990",
+				"line": "Un dinosaure vert qui avale tout aussi.",
+				"quip": "Team Yoshi : Mario t’a sacrifié pour sauter plus haut, et tu ne lui en veux même pas.",
+				"giphyIds": [],
+				"giphyQuery": "Yoshi"
+			},
+			"bothQuip": "Les deux. Tu manges tout, et tout le monde te trouve mignon.",
+			"noneQuip": "Ni Kirby ni Yoshi. Les héros qui avalent leurs ennemis, ça te dégoûte. On comprend."
+		},
+		{
+			"id": "jeux-donkey-kong-diddy-kong",
+			"category": "jeux",
+			"a": {
+				"name": "Donkey Kong",
+				"origin": "Nintendo · 1981",
+				"line": "Une cravate, des bananes, et des tonneaux.",
+				"quip": "Team Donkey Kong : une cravate sans chemise. Tu assumes.",
+				"giphyIds": [],
+				"giphyQuery": "Donkey Kong"
+			},
+			"b": {
+				"name": "Diddy Kong",
+				"origin": "Nintendo · 1994",
+				"line": "Une casquette rouge, et des cacahuètes.",
+				"quip": "Team Diddy Kong : petit, rapide, et toujours prêt à faire une bêtise.",
+				"giphyIds": [],
+				"giphyQuery": "Diddy Kong"
+			},
+			"bothQuip": "Les deux. Chez toi, les bananes ne durent pas longtemps.",
+			"noneQuip": "Ni Donkey ni Diddy. Team Cranky Kong, le vieux râleur."
+		},
+		{
+			"id": "jeux-peach-daisy",
+			"category": "jeux",
+			"a": {
+				"name": "Peach",
+				"origin": "Nintendo · 1985",
+				"line": "Toujours enlevée, jamais découragée.",
+				"quip": "Team Peach : enlevée cent fois, et toujours la classe. Inspirant.",
+				"giphyIds": [],
+				"giphyQuery": "Princess Peach"
+			},
+			"b": {
+				"name": "Daisy",
+				"origin": "Nintendo · 1989",
+				"line": "« Hi, I’m Daisy ! »",
+				"quip": "Team Daisy : « Hi, I’m Daisy ! » Tu le dis aussi en entrant dans une pièce.",
+				"giphyIds": [],
+				"giphyQuery": "Princess Daisy"
+			},
+			"bothQuip": "Les deux. Le Royaume Champignon et Sarasaland : tu voyages.",
+			"noneQuip": "Ni Peach ni Daisy. Team Harmonie, plus haut dans les étoiles."
+		},
+		{
+			"id": "jeux-wario-waluigi",
+			"category": "jeux",
+			"a": {
+				"name": "Wario",
+				"origin": "Nintendo · 1992",
+				"line": "Une moustache en zigzag, et un amour de l’or.",
+				"quip": "Team Wario : tu manges de l’ail cru, et tu ricanes en comptant ton argent.",
+				"giphyIds": [],
+				"giphyQuery": "Wario"
+			},
+			"b": {
+				"name": "Waluigi",
+				"origin": "Nintendo · 2000",
+				"line": "Toujours là, jamais le héros.",
+				"quip": "Team Waluigi : tu soutiens celui que personne n’invite. Il te le rendra.",
+				"giphyIds": [],
+				"giphyQuery": "Waluigi"
+			},
+			"bothQuip": "Les deux. Les méchants en jaune et violet, ça te parle.",
+			"noneQuip": "Ni Wario ni Waluigi. Le « WAH ! », très peu pour toi."
+		},
+		{
+			"id": "jeux-carapace-bleue-peau-de-banane",
+			"category": "jeux",
+			"question": "L’arme ultime de Mario Kart : carapace bleue ou banane ?",
+			"a": {
+				"name": "Carapace bleue",
+				"origin": "Mario Kart",
+				"line": "Elle vise le premier. Toujours.",
+				"quip": "Team carapace bleue : tu attends que ton ami soit premier, et tu frappes. Juste avant la ligne.",
+				"giphyIds": [],
+				"giphyQuery": "blue shell Mario Kart"
+			},
+			"b": {
+				"name": "Peau de banane",
+				"origin": "Mario Kart",
+				"line": "Posée au bon endroit, au bon moment.",
+				"quip": "Team banane : tu la poses juste après le virage. Machiavélique.",
+				"giphyIds": [],
+				"giphyQuery": "banana Mario Kart"
+			},
+			"bothQuip": "Les deux. Tu es la personne que tout le monde déteste à Mario Kart. Et ça te va.",
+			"noneQuip": "Ni l’une ni l’autre. Team champignon : tu préfères foncer."
+		},
+		{
+			"id": "jeux-rayman-prince-of-persia",
+			"category": "jeux",
+			"a": {
+				"name": "Rayman",
+				"origin": "Ubisoft · 1995",
+				"line": "Sans bras ni jambes, et pourtant il frappe.",
+				"quip": "Team Rayman : tu ne comprends toujours pas comment ses mains tiennent. Personne ne comprend.",
+				"giphyIds": [],
+				"giphyQuery": "Rayman"
+			},
+			"b": {
+				"name": "Prince of Persia",
+				"origin": "Jordan Mechner · 1989",
+				"line": "Des acrobaties, des pièges, et du sable du temps.",
+				"quip": "Team Prince of Persia : tu rembobines le temps à chaque erreur. Dans la vraie vie, ça te manque.",
+				"giphyIds": [],
+				"giphyQuery": "Prince of Persia"
+			},
+			"bothQuip": "Les deux. Ubisoft te remercie pour ta fidélité.",
+			"noneQuip": "Ni Rayman ni le Prince. Team lapins crétins : BWAAAH !"
+		},
+		{
+			"id": "jeux-assassin-s-creed-hitman",
+			"category": "jeux",
+			"a": {
+				"name": "Assassin’s Creed",
+				"origin": "Ubisoft · 2007",
+				"line": "Une capuche, et le saut de la foi dans une charrette de foin.",
+				"quip": "Team Assassin’s Creed : tu as déjà sauté d’un plongeoir en espérant une charrette de foin.",
+				"giphyIds": [],
+				"giphyQuery": "Assassins Creed leap"
+			},
+			"b": {
+				"name": "Hitman",
+				"origin": "IO Interactive · 2000",
+				"line": "Un crâne rasé, un code-barres, et mille déguisements.",
+				"quip": "Team Hitman : tu entres dans un mariage déguisé en serveur. Personne ne te reconnaît.",
+				"giphyIds": [],
+				"giphyQuery": "Hitman Agent 47"
+			},
+			"bothQuip": "Les deux. Discrétion maximale. On ne sait même pas si tu as voté.",
+			"noneQuip": "Ni l’un ni l’autre. Toi, tu préfères les jeux où on ne tue personne. Ça se respecte."
+		},
+		{
+			"id": "jeux-resident-evil-silent-hill",
+			"category": "jeux",
+			"a": {
+				"name": "Resident Evil",
+				"origin": "Capcom · 1996",
+				"line": "Des zombies, un manoir, et des munitions rares.",
+				"quip": "Team Resident Evil : au supermarché, tu comptes tes munitions. Par réflexe.",
+				"giphyIds": [],
+				"giphyQuery": "Resident Evil"
+			},
+			"b": {
+				"name": "Silent Hill",
+				"origin": "Konami · 1999",
+				"line": "Du brouillard, une radio qui grésille, et la peur.",
+				"quip": "Team Silent Hill : le brouillard du matin te fait toujours un peu peur.",
+				"giphyIds": [],
+				"giphyQuery": "Silent Hill fog"
+			},
+			"bothQuip": "Les deux. Tu joues aux jeux d’horreur la nuit, lumières éteintes. Pourquoi ?",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux qui font peur, c’est non. On comprend parfaitement."
+		},
+		{
+			"id": "jeux-metal-gear-solid-splinter-cell",
+			"category": "jeux",
+			"a": {
+				"name": "Metal Gear Solid",
+				"origin": "Konami · 1998",
+				"line": "Un espion caché sous un carton.",
+				"quip": "Team Metal Gear : tu as déjà essayé de te cacher sous un carton. Dans la vraie vie.",
+				"giphyIds": [],
+				"giphyQuery": "Metal Gear Solid box"
+			},
+			"b": {
+				"name": "Splinter Cell",
+				"origin": "Ubisoft · 2002",
+				"line": "Trois lumières vertes dans le noir.",
+				"quip": "Team Splinter Cell : tu dévisses les ampoules pour plus de discrétion. Ta famille s’inquiète.",
+				"giphyIds": [],
+				"giphyQuery": "Splinter Cell"
+			},
+			"bothQuip": "Les deux. L’infiltration, c’est ton art. On ne t’a même pas vu voter.",
+			"noneQuip": "Ni l’un ni l’autre. Toi, tu fonces dans le tas. L’infiltration, c’est trop lent."
+		},
+		{
+			"id": "jeux-portal-half-life",
+			"category": "jeux",
+			"a": {
+				"name": "Portal",
+				"origin": "Valve · 2007",
+				"line": "Un portail bleu, un portail orange, et un gâteau promis.",
+				"quip": "Team Portal : le gâteau est un mensonge. Tu le sais, mais tu y crois encore.",
+				"giphyIds": [],
+				"giphyQuery": "Portal"
+			},
+			"b": {
+				"name": "Half-Life",
+				"origin": "Valve · 1998",
+				"line": "Un pied-de-biche, et pas un mot.",
+				"quip": "Team Half-Life : tu attends Half-Life 3. Depuis longtemps. Très longtemps.",
+				"giphyIds": [],
+				"giphyQuery": "Half-Life crowbar"
+			},
+			"bothQuip": "Les deux. Valve te doit au moins une suite.",
+			"noneQuip": "Ni Portal ni Half-Life. Les énigmes au pied-de-biche, très peu pour toi."
+		},
+		{
+			"id": "jeux-rocket-league-trackmania",
+			"category": "jeux",
+			"a": {
+				"name": "Rocket League",
+				"origin": "Psyonix · 2015",
+				"line": "Du football, avec des voitures.",
+				"quip": "Team Rocket League : « What a save! » « What a save! » « What a save! »",
+				"giphyIds": [],
+				"giphyQuery": "Rocket League"
+			},
+			"b": {
+				"name": "Trackmania",
+				"origin": "Nadeo · 2003",
+				"line": "Des loopings, et recommencer mille fois.",
+				"quip": "Team Trackmania : mille fois le même virage. Ton record tient à un centième.",
+				"giphyIds": [],
+				"giphyQuery": "Trackmania"
+			},
+			"bothQuip": "Les deux. Les voitures de tes jeux vont plus vite que la tienne.",
+			"noneQuip": "Ni l’un ni l’autre. Les voitures, tu les préfères dans un vrai garage."
+		},
+		{
+			"id": "jeux-guitar-hero-just-dance",
+			"category": "jeux",
+			"a": {
+				"name": "Guitar Hero",
+				"origin": "RedOctane · 2005",
+				"line": "Une guitare en plastique, et des doigts agiles.",
+				"quip": "Team Guitar Hero : tu dis avoir fini « Through the Fire and Flames » en expert. On ne te croit pas, mais bravo.",
+				"giphyIds": [],
+				"giphyQuery": "Guitar Hero"
+			},
+			"b": {
+				"name": "Just Dance",
+				"origin": "Ubisoft · 2009",
+				"line": "Danser devant la télé, sans aucune honte.",
+				"quip": "Team Just Dance : tu as dansé devant la télé, et les voisins d’en face ont tout vu.",
+				"giphyIds": [],
+				"giphyQuery": "Just Dance"
+			},
+			"bothQuip": "Les deux. Le samedi soir, ton salon devient une salle de concert.",
+			"noneQuip": "Ni l’un ni l’autre. La musique, tu l’écoutes sans bouger. Tranquillement."
+		},
+		{
+			"id": "jeux-wii-sports-wii-fit",
+			"category": "jeux",
+			"a": {
+				"name": "Wii Sports",
+				"origin": "Nintendo · 2006",
+				"line": "Du bowling dans le salon, et des télés cassées.",
+				"quip": "Team Wii Sports : la dragonne n’était pas là pour décorer. Ta télé s’en souvient.",
+				"giphyIds": [],
+				"giphyQuery": "Wii Sports bowling"
+			},
+			"b": {
+				"name": "Wii Fit",
+				"origin": "Nintendo · 2007",
+				"line": "Une planche, et une console qui juge ton poids.",
+				"quip": "Team Wii Fit : la console t’a donné ton âge sportif. Tu ne lui as jamais pardonné.",
+				"giphyIds": [],
+				"giphyQuery": "Wii Fit"
+			},
+			"bothQuip": "Les deux. Ta Wii t’a fait plus transpirer que ta salle de sport.",
+			"noneQuip": "Ni l’un ni l’autre. Le sport dans le salon, c’est non."
+		},
+		{
+			"id": "jeux-candy-crush-angry-birds",
+			"category": "jeux",
+			"a": {
+				"name": "Candy Crush",
+				"origin": "King · 2012",
+				"line": "Des bonbons alignés, et cinq vies seulement.",
+				"quip": "Team Candy Crush : tu as demandé des vies à ta tante. Plusieurs fois.",
+				"giphyIds": [],
+				"giphyQuery": "Candy Crush"
+			},
+			"b": {
+				"name": "Angry Birds",
+				"origin": "Rovio · 2009",
+				"line": "Des oiseaux catapultés sur des cochons.",
+				"quip": "Team Angry Birds : tu calcules des paraboles sans le savoir. Bravo.",
+				"giphyIds": [],
+				"giphyQuery": "Angry Birds"
+			},
+			"bothQuip": "Les deux. Ton téléphone n’a jamais servi à téléphoner.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux sur téléphone, tu laisses ça aux autres."
+		},
+		{
+			"id": "jeux-clash-of-clans-clash-royale",
+			"category": "jeux",
+			"a": {
+				"name": "Clash of Clans",
+				"origin": "Supercell · 2012",
+				"line": "Un village, des barbares, et beaucoup d’attente.",
+				"quip": "Team Clash of Clans : tu mets une alarme à 3 h du matin pour lancer une amélioration.",
+				"giphyIds": [],
+				"giphyQuery": "Clash of Clans"
+			},
+			"b": {
+				"name": "Clash Royale",
+				"origin": "Supercell · 2016",
+				"line": "Trois minutes, trois tours, et des émojis qui rient.",
+				"quip": "Team Clash Royale : ton émoji qui rit a déjà fait pleurer des gens.",
+				"giphyIds": [],
+				"giphyQuery": "Clash Royale"
+			},
+			"bothQuip": "Les deux. Supercell connaît ta carte bancaire par cœur.",
+			"noneQuip": "Ni l’un ni l’autre. Attendre douze heures pour construire un mur, très peu pour toi."
+		},
+		{
+			"id": "jeux-undertale-hollow-knight",
+			"category": "jeux",
+			"a": {
+				"name": "Undertale",
+				"origin": "Toby Fox · 2015",
+				"line": "Un jeu où l’on peut épargner tout le monde.",
+				"quip": "Team Undertale : tu as épargné tout le monde. Même le moustique de ta chambre.",
+				"giphyIds": ["PiBkxZr38ZR72"],
+				"giphyQuery": "Undertale"
+			},
+			"b": {
+				"name": "Hollow Knight",
+				"origin": "Team Cherry · 2017",
+				"line": "Un petit chevalier, et un royaume d’insectes.",
+				"quip": "Team Hollow Knight : vingt heures à chercher ton chemin dans le noir. Et tu en redemandes.",
+				"giphyIds": [],
+				"giphyQuery": "Hollow Knight"
+			},
+			"bothQuip": "Les deux. Les petits jeux indés, c’est ton grand amour.",
+			"noneQuip": "Ni l’un ni l’autre. Les jeux indés, tu attends qu’ils deviennent célèbres."
+		},
+		{
+			"id": "jeux-celeste-cuphead",
+			"category": "jeux",
+			"a": {
+				"name": "Celeste",
+				"origin": "Maddy Thorson · 2018",
+				"line": "Grimper une montagne, et mourir mille fois.",
+				"quip": "Team Celeste : mille morts sur la même montagne, et pas une seule hésitation.",
+				"giphyIds": ["663pSPtq388hq9UjNd"],
+				"giphyQuery": "Celeste",
+				"giphyKeywords": ["indie"]
+			},
+			"b": {
+				"name": "Cuphead",
+				"origin": "Studio MDHR · 2017",
+				"line": "Un dessin animé des années 30, et des boss impossibles.",
+				"quip": "Team Cuphead : tu as perdu contre une fleur. Plusieurs fois. Beaucoup de fois.",
+				"giphyIds": [],
+				"giphyQuery": "Cuphead"
+			},
+			"bothQuip": "Les deux. Tu aimes souffrir, mais avec de beaux dessins.",
+			"noneQuip": "Ni l’un ni l’autre. Mourir mille fois, très peu pour toi."
+		},
+		{
+			"id": "jeux-tails-knuckles",
+			"category": "jeux",
+			"a": {
+				"name": "Tails",
+				"origin": "Sega · 1992",
+				"line": "Un renard à deux queues qui vole.",
+				"quip": "Team Tails : toujours là pour aider, et jamais remercié. Toi, tu l’as vu.",
+				"giphyIds": [],
+				"giphyQuery": "Tails Sonic"
+			},
+			"b": {
+				"name": "Knuckles",
+				"origin": "Sega · 1994",
+				"line": "Un échidné qui ne sourit pas.",
+				"quip": "Team Knuckles : tu ne souris pas sur les photos. C’est ton style.",
+				"giphyIds": [],
+				"giphyQuery": "Knuckles"
+			},
+			"bothQuip": "Les deux. Les seconds rôles de Sonic sont tes premiers rôles.",
+			"noneQuip": "Ni Tails ni Knuckles. Team Amy Rose, et son marteau géant."
+		},
+		{
+			"id": "jeux-mewtwo-mew",
+			"category": "jeux",
+			"a": {
+				"name": "Mewtwo",
+				"origin": "Pokémon · 1996",
+				"line": "Le Pokémon créé en laboratoire.",
+				"quip": "Team Mewtwo : tu as un léger complexe de supériorité. Ça te va bien.",
+				"giphyIds": [],
+				"giphyQuery": "Mewtwo"
+			},
+			"b": {
+				"name": "Mew",
+				"origin": "Pokémon · 1996",
+				"line": "Le Pokémon rose, caché sous un camion. Paraît-il.",
+				"quip": "Team Mew : tu as cherché sous le camion. Pendant des heures. Il n’y avait rien.",
+				"giphyIds": [],
+				"giphyQuery": "Mew Pokemon"
+			},
+			"bothQuip": "Les deux. Tu as passé ton enfance à essayer de les capturer, en vain.",
+			"noneQuip": "Ni Mewtwo ni Mew. Les légendaires, trop compliqués à attraper."
+		},
+		{
+			"id": "jeux-cloud-sephiroth",
+			"category": "jeux",
+			"a": {
+				"name": "Cloud",
+				"origin": "Final Fantasy VII · 1997",
+				"line": "Une épée immense, et des cheveux impossibles.",
+				"quip": "Team Cloud : ton épée est plus grande que toi, et ta coiffure défie la gravité.",
+				"giphyIds": [],
+				"giphyQuery": "Cloud Strife"
+			},
+			"b": {
+				"name": "Sephiroth",
+				"origin": "Final Fantasy VII · 1997",
+				"line": "Des cheveux argentés, et une seule aile.",
+				"quip": "Team Sephiroth : une seule aile, et la plus belle entrée de méchant du jeu vidéo.",
+				"giphyIds": [],
+				"giphyQuery": "Sephiroth"
+			},
+			"bothQuip": "Les deux. Tu fredonnes encore la musique du combat final.",
+			"noneQuip": "Ni Cloud ni Sephiroth. Team Tifa ou team Aerith ? On attend ta réponse."
+		},
+		{
+			"id": "jeux-master-chief-doomguy",
+			"category": "jeux",
+			"a": {
+				"name": "Master Chief",
+				"origin": "Halo · 2001",
+				"line": "Un casque, une visière dorée, et peu de mots.",
+				"quip": "Team Master Chief : tu n’enlèves jamais ton casque. Même pour manger.",
+				"giphyIds": [],
+				"giphyQuery": "Master Chief"
+			},
+			"b": {
+				"name": "Doomguy",
+				"origin": "Doom · 1993",
+				"line": "Un casque, et encore moins de mots.",
+				"quip": "Team Doomguy : encore moins de mots que Master Chief. C’est un exploit.",
+				"giphyIds": [],
+				"giphyQuery": "Doomguy"
+			},
+			"bothQuip": "Les deux. Les héros muets, c’est ton genre.",
+			"noneQuip": "Ni l’un ni l’autre. Toi, il te faut des héros qui parlent."
+		},
+		{
+			"id": "jeux-mode-facile-mode-difficile",
+			"category": "jeux",
+			"a": {
+				"name": "Mode facile",
+				"origin": "Le menu",
+				"line": "Profiter de l’histoire, tranquillement.",
+				"quip": "Team mode facile : tu veux profiter de l’histoire. Et tu as entièrement raison.",
+				"giphyIds": [],
+				"giphyQuery": "easy mode"
+			},
+			"b": {
+				"name": "Mode difficile",
+				"origin": "Le menu aussi",
+				"line": "Souffrir, et en être fier.",
+				"quip": "Team mode difficile : tu as fini un jeu en difficile, et tu le places dans chaque conversation.",
+				"giphyIds": [],
+				"giphyQuery": "hard mode rage"
+			},
+			"bothQuip": "Les deux. Facile pour l’histoire, difficile pour la fierté.",
+			"noneQuip": "Ni facile ni difficile. Le mode normal existe aussi, tu sais."
+		},
+		{
+			"id": "jeux-regarder-les-cinematiques-passer-les-cinematiques",
+			"category": "jeux",
+			"a": {
+				"name": "Regarder les cinématiques",
+				"origin": "Le canapé",
+				"line": "L’histoire, les dialogues, et les larmes.",
+				"quip": "Team cinématiques : tu connais le nom de tous les personnages. Même celui du marchand.",
+				"giphyIds": [],
+				"giphyQuery": "cutscene"
+			},
+			"b": {
+				"name": "Passer les cinématiques",
+				"origin": "Le bouton Start",
+				"line": "Pas le temps. On est là pour jouer.",
+				"quip": "Team on passe : à la fin, tu ne sais pas pourquoi tu as sauvé le monde. Mais tu l’as sauvé.",
+				"giphyIds": [],
+				"giphyQuery": "skip"
+			},
+			"bothQuip": "Les deux. Tu regardes la première, puis tu appuies très fort sur le bouton.",
+			"noneQuip": "Ni l’un ni l’autre. Tu regardes quelqu’un d’autre jouer, sur Internet."
+		},
+		{
+			"id": "jeux-axe-normal-axe-inverse",
+			"category": "jeux",
+			"question": "La caméra : axe vertical normal ou inversé ?",
+			"a": {
+				"name": "Axe normal",
+				"origin": "Les réglages par défaut",
+				"line": "Tu pousses vers le haut, ça regarde en haut. Logique.",
+				"quip": "Team axe normal : tu ne comprends pas les autres. Et ils ne te comprennent pas.",
+				"giphyIds": [],
+				"giphyQuery": "looking up"
+			},
+			"b": {
+				"name": "Axe inversé",
+				"origin": "Les pilotes d’avion",
+				"line": "Tu pousses vers le haut, ça regarde en bas. Logique aussi.",
+				"quip": "Team axe inversé : la première chose que tu fais dans un jeu, c’est fouiller les options.",
+				"giphyIds": [],
+				"giphyQuery": "airplane pilot"
+			},
+			"bothQuip": "Les deux. Tu changes selon le jeu, et tu regardes le plafond pendant cinq minutes.",
+			"noneQuip": "Ni l’un ni l’autre. Tu joues caméra bloquée, en regardant tes pieds."
+		},
+		{
+			"id": "jeux-joueur-1-joueur-2",
+			"category": "jeux",
+			"question": "En coop : joueur 1 ou joueur 2 ?",
+			"a": {
+				"name": "Joueur 1",
+				"origin": "La bonne manette",
+				"line": "Le héros, la couleur principale, et les commandes.",
+				"quip": "Team joueur 1 : tu as toujours pris la manette qui marche. Toujours.",
+				"giphyIds": [],
+				"giphyQuery": "player one"
+			},
+			"b": {
+				"name": "Joueur 2",
+				"origin": "L’autre manette",
+				"line": "Le petit frère, la cousine, le copain. Et une manette parfois débranchée.",
+				"quip": "Team joueur 2 : tu as joué une heure avant de découvrir que ta manette n’était pas branchée.",
+				"giphyIds": [],
+				"giphyQuery": "player two"
+			},
+			"bothQuip": "Les deux. Tu tenais les deux manettes, faute de partenaire disponible.",
+			"noneQuip": "Ni l’un ni l’autre. Tu regardais les autres jouer, avec les chips."
+		},
+		{
+			"id": "jeux-finir-a-100-finir-l-histoire",
+			"category": "jeux",
+			"a": {
+				"name": "Finir à 100 %",
+				"origin": "Le menu des trophées",
+				"line": "Chaque coffre, chaque plume, chaque quête secondaire.",
+				"quip": "Team 100 % : tu as ramassé 900 graines de Korogu. Pour une crotte en or.",
+				"giphyIds": [],
+				"giphyQuery": "achievement unlocked"
+			},
+			"b": {
+				"name": "Finir l’histoire",
+				"origin": "Le générique",
+				"line": "Le boss final, le générique, et on passe au jeu suivant.",
+				"quip": "Team histoire : ta pile de jeux finis est haute. Ta collection de trophées, beaucoup moins.",
+				"giphyIds": [],
+				"giphyQuery": "the end"
+			},
+			"bothQuip": "Les deux. L’histoire d’abord, puis tu reviens pour le 100 %. Dans trois ans.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne finis aucun jeu. Ta bibliothèque Steam est un cimetière."
+		},
+		{
+			"id": "jeux-chercher-la-soluce-reessayer-encore",
+			"category": "jeux",
+			"a": {
+				"name": "Chercher la soluce",
+				"origin": "Internet",
+				"line": "Une vidéo de quatre minutes, et l’énigme est résolue.",
+				"quip": "Team soluce : tu as regardé la solution d’une énigme de trente secondes. Personne ne saura.",
+				"giphyIds": [],
+				"giphyQuery": "walkthrough"
+			},
+			"b": {
+				"name": "Réessayer encore",
+				"origin": "Ta patience",
+				"line": "Une heure de plus, mais la solution vient de toi.",
+				"quip": "Team réessayer : trois heures sur la même énigme, et une victoire au goût unique.",
+				"giphyIds": [],
+				"giphyQuery": "try again"
+			},
+			"bothQuip": "Les deux. Tu réessaies une heure, puis tu regardes la soluce en ronchonnant.",
+			"noneQuip": "Ni l’un ni l’autre. Tu abandonnes le jeu, et tu en commences un autre."
+		},
+		{
+			"id": "jeux-acheter-a-la-sortie-attendre-les-promos",
+			"category": "jeux",
+			"a": {
+				"name": "Acheter à la sortie",
+				"origin": "Le jour J",
+				"line": "Prix fort, bugs inclus, et la fierté d’y être.",
+				"quip": "Team jour de sortie : tu as payé plein pot pour jouer avec les bugs. Le prix de la gloire.",
+				"giphyIds": [],
+				"giphyQuery": "day one"
+			},
+			"b": {
+				"name": "Attendre les promos",
+				"origin": "Trois ans plus tard",
+				"line": "Moins cher, réparé, et tout le monde a fini de spoiler.",
+				"quip": "Team promos : tu as payé le jeu 4,99 €, trois ans après tout le monde. Malin.",
+				"giphyIds": [],
+				"giphyQuery": "sale"
+			},
+			"bothQuip": "Les deux. Acheté à la sortie, puis racheté en promo sur une autre console.",
+			"noneQuip": "Ni l’un ni l’autre. Tu empruntes les jeux des autres. Et tu ne les rends pas."
+		},
+		{
+			"id": "jeux-lancer-la-manette-respirer-un-grand-coup",
+			"category": "jeux",
+			"question": "Après un game over : tu lances la manette ou tu respires ?",
+			"a": {
+				"name": "Lancer la manette",
+				"origin": "Le salon",
+				"line": "Elle a volé. Le mur s’en souvient.",
+				"quip": "Team je lance la manette : il y a une marque sur ton mur, et une manette de rechange dans le tiroir.",
+				"giphyIds": [],
+				"giphyQuery": "rage quit"
+			},
+			"b": {
+				"name": "Respirer un grand coup",
+				"origin": "Le zen",
+				"line": "Inspirer, expirer, relancer la partie.",
+				"quip": "Team je respire : cinquante défaites sans hausser le ton. On t’admire, et on te craint.",
+				"giphyIds": [],
+				"giphyQuery": "deep breath"
+			},
+			"bothQuip": "Les deux. D’abord tu respires, puis tu lances la manette. Dans cet ordre.",
+			"noneQuip": "Ni l’un ni l’autre. Tu éteins la console et tu pars marcher. Sage."
+		},
+		{
+			"id": "jeux-luigi-toad",
+			"category": "jeux",
+			"a": {
+				"name": "Luigi",
+				"origin": "Nintendo · 1983",
+				"line": "Toujours le deuxième, et un manoir plein de fantômes.",
+				"quip": "Team Luigi : le meilleur second rôle de l’histoire. Et ce n’est pas rien.",
+				"giphyIds": [],
+				"giphyQuery": "luigi"
+			},
+			"b": {
+				"name": "Toad",
+				"origin": "Nintendo · 1985",
+				"line": "« Merci Mario ! Mais la princesse est dans un autre château ! »",
+				"quip": "Team Toad : tu annonces les mauvaises nouvelles avec un grand sourire.",
+				"giphyIds": [],
+				"giphyQuery": "toad mario"
+			},
+			"bothQuip": "Les deux. Les éternels seconds du Royaume Champignon, tu les adores.",
+			"noneQuip": "Ni Luigi ni Toad. Team Mario, comme tout le monde. Original."
+		},
+		{
+			"id": "ecrans-breaking-bad-better-call-saul",
+			"category": "ecrans",
+			"a": {
+				"name": "Breaking Bad",
+				"origin": "AMC · 2008",
+				"line": "Un prof de chimie qui tourne très mal.",
+				"quip": "Team Breaking Bad : tu as déjà dit « c’est moi qui frappe » en toquant à une porte.",
+				"giphyIds": [],
+				"giphyQuery": "Breaking Bad"
+			},
+			"b": {
+				"name": "Better Call Saul",
+				"origin": "AMC · 2015",
+				"line": "Un avocat qui tourne mal aussi, plus lentement.",
+				"quip": "Team Better Call Saul : tu as un avocat préféré, et il n’existe pas.",
+				"giphyIds": [],
+				"giphyQuery": "Better Call Saul"
+			},
+			"bothQuip": "Les deux. Albuquerque est ta seconde patrie.",
+			"noneQuip": "Ni l’un ni l’autre. Les chimistes et les avocats véreux, très peu pour toi."
+		},
+		{
+			"id": "ecrans-stranger-things-dark",
+			"category": "ecrans",
+			"a": {
+				"name": "Stranger Things",
+				"origin": "Netflix · 2016",
+				"line": "Des vélos, des talkies-walkies, et un monde à l’envers.",
+				"quip": "Team Stranger Things : tu as fait clignoter les lumières pour voir si quelqu’un répondait.",
+				"giphyIds": [],
+				"giphyQuery": "Stranger Things"
+			},
+			"b": {
+				"name": "Dark",
+				"origin": "Netflix · 2017",
+				"line": "Des voyages dans le temps, et un arbre généalogique impossible.",
+				"quip": "Team Dark : tu as dessiné l’arbre généalogique sur un tableau blanc. Il est toujours faux.",
+				"giphyIds": [],
+				"giphyQuery": "Dark Netflix"
+			},
+			"bothQuip": "Les deux. Les mondes à l’envers et les boucles temporelles, tu adores.",
+			"noneQuip": "Ni l’une ni l’autre. Les séries qui font peur et mal à la tête, très peu pour toi."
+		},
+		{
+			"id": "ecrans-game-of-thrones-house-of-the-dragon",
+			"category": "ecrans",
+			"a": {
+				"name": "Game of Thrones",
+				"origin": "HBO · 2011",
+				"line": "Des dragons, des trônes, et beaucoup de traîtrises.",
+				"quip": "Team Game of Thrones : tu n’as toujours pas digéré la dernière saison.",
+				"giphyIds": [],
+				"giphyQuery": "Game of Thrones"
+			},
+			"b": {
+				"name": "House of the Dragon",
+				"origin": "HBO · 2022",
+				"line": "Encore plus de dragons, deux siècles plus tôt.",
+				"quip": "Team House of the Dragon : tu as retenu tous les Targaryen. Même ceux qui ont le même prénom.",
+				"giphyIds": [],
+				"giphyQuery": "House of the Dragon"
+			},
+			"bothQuip": "Les deux. Des dragons, des trahisons, et des mariages à éviter.",
+			"noneQuip": "Ni l’une ni l’autre. Westeros, tu n’irais pas en vacances."
+		},
+		{
+			"id": "ecrans-sherlock-dr-house",
+			"category": "ecrans",
+			"a": {
+				"name": "Sherlock",
+				"origin": "BBC · 2010",
+				"line": "Un détective moderne, et un manteau à col relevé.",
+				"quip": "Team Sherlock : tu relèves le col de ton manteau pour avoir l’air intelligent. Ça marche.",
+				"giphyIds": [],
+				"giphyQuery": "Sherlock BBC"
+			},
+			"b": {
+				"name": "Dr House",
+				"origin": "Fox · 2004",
+				"line": "Une canne, de l’ironie, et ce n’est jamais le lupus.",
+				"quip": "Team Dr House : au moindre rhume, tu soupçonnes le lupus. Ce n’est jamais le lupus.",
+				"giphyIds": [],
+				"giphyQuery": "House MD"
+			},
+			"bothQuip": "Les deux. Tu adores les génies insupportables. Tu en connais un ?",
+			"noneQuip": "Ni l’un ni l’autre. Les génies arrogants, très peu pour toi."
+		},
+		{
+			"id": "ecrans-the-big-bang-theory-how-i-met-your-mother",
+			"category": "ecrans",
+			"a": {
+				"name": "The Big Bang Theory",
+				"origin": "CBS · 2007",
+				"line": "Des physiciens, et la place de Sheldon sur le canapé.",
+				"quip": "Team Big Bang Theory : tu as tranché une vraie décision à pierre-feuille-ciseaux-lézard-Spock.",
+				"giphyIds": [],
+				"giphyQuery": "Big Bang Theory"
+			},
+			"b": {
+				"name": "How I Met Your Mother",
+				"origin": "CBS · 2005",
+				"line": "Neuf saisons pour rencontrer la mère.",
+				"quip": "Team How I Met Your Mother : tu dis « légen… attends… daire ». Souvent.",
+				"giphyIds": [],
+				"giphyQuery": "How I Met Your Mother"
+			},
+			"bothQuip": "Les deux. Tes soirées sitcom finissent à 2 h du matin.",
+			"noneQuip": "Ni l’une ni l’autre. Neuf saisons pour une rencontre, tu n’as pas le temps."
+		},
+		{
+			"id": "ecrans-lost-prison-break",
+			"category": "ecrans",
+			"a": {
+				"name": "Lost",
+				"origin": "ABC · 2004",
+				"line": "Une île, un avion écrasé, et mille questions.",
+				"quip": "Team Lost : tu te poses encore des questions sur l’île. Personne n’a les réponses.",
+				"giphyIds": [],
+				"giphyQuery": "Lost tv show"
+			},
+			"b": {
+				"name": "Prison Break",
+				"origin": "Fox · 2005",
+				"line": "Un plan d’évasion tatoué sur le corps.",
+				"quip": "Team Prison Break : tu as déjà regardé un plan d’évacuation en pensant à une évasion.",
+				"giphyIds": [],
+				"giphyQuery": "Prison Break"
+			},
+			"bothQuip": "Les deux. Une île et une prison : tu aimes les endroits dont on ne sort pas.",
+			"noneQuip": "Ni Lost ni Prison Break. Les mystères sans fin, très peu pour toi."
+		},
+		{
+			"id": "ecrans-la-casa-de-papel-squid-game",
+			"category": "ecrans",
+			"a": {
+				"name": "La Casa de Papel",
+				"origin": "Antena 3 · 2017",
+				"line": "Des masques de Dalí, et le Professeur.",
+				"quip": "Team Casa de Papel : tu chantes « Bella Ciao » en faisant les courses.",
+				"giphyIds": [],
+				"giphyQuery": "Money Heist"
+			},
+			"b": {
+				"name": "Squid Game",
+				"origin": "Netflix · 2021",
+				"line": "Des jeux d’enfants, et des enjeux énormes.",
+				"quip": "Team Squid Game : tu ne joueras plus jamais à « un, deux, trois, soleil » de la même façon.",
+				"giphyIds": [],
+				"giphyQuery": "Squid Game"
+			},
+			"bothQuip": "Les deux. Les combinaisons rouges et vertes, c’est ton style.",
+			"noneQuip": "Ni l’une ni l’autre. Les jeux à gros risques, très peu pour toi."
+		},
+		{
+			"id": "ecrans-le-parrain-scarface",
+			"category": "ecrans",
+			"a": {
+				"name": "Le Parrain",
+				"origin": "Francis Ford Coppola · 1972",
+				"line": "« Je vais lui faire une offre qu’il ne pourra pas refuser. »",
+				"quip": "Team Le Parrain : tu fais des offres qu’on ne peut pas refuser. Même pour la vaisselle.",
+				"giphyIds": [],
+				"giphyQuery": "The Godfather"
+			},
+			"b": {
+				"name": "Scarface",
+				"origin": "Brian De Palma · 1983",
+				"line": "« Le monde est à toi. »",
+				"quip": "Team Scarface : l’affiche est dans ta chambre depuis tes quinze ans.",
+				"giphyIds": [],
+				"giphyQuery": "Scarface"
+			},
+			"bothQuip": "Les deux. Les mafieux de cinéma, c’est ta grande passion.",
+			"noneQuip": "Ni l’un ni l’autre. La mafia, très peu pour toi. Bonne idée."
+		},
+		{
+			"id": "ecrans-pulp-fiction-kill-bill",
+			"category": "ecrans",
+			"a": {
+				"name": "Pulp Fiction",
+				"origin": "Quentin Tarantino · 1994",
+				"line": "Un twist de danse, et une mallette mystérieuse.",
+				"quip": "Team Pulp Fiction : tu as déjà dansé le twist en faisant des V avec tes doigts.",
+				"giphyIds": [],
+				"giphyQuery": "Pulp Fiction dance"
+			},
+			"b": {
+				"name": "Kill Bill",
+				"origin": "Quentin Tarantino · 2003",
+				"line": "Une combinaison jaune, et un sabre.",
+				"quip": "Team Kill Bill : tu as une combinaison jaune. Pour le sport. Bien sûr.",
+				"giphyIds": [],
+				"giphyQuery": "Kill Bill"
+			},
+			"bothQuip": "Les deux. Tarantino te remercie. Il te demande juste d’enlever tes chaussures.",
+			"noneQuip": "Ni l’un ni l’autre. Les films où tout le monde parle trop puis se bat, très peu pour toi."
+		},
+		{
+			"id": "ecrans-titanic-avatar",
+			"category": "ecrans",
+			"a": {
+				"name": "Titanic",
+				"origin": "James Cameron · 1997",
+				"line": "« Je suis le roi du monde ! »",
+				"quip": "Team Titanic : tu as écarté les bras à l’avant d’un ferry. Avoue.",
+				"giphyIds": [],
+				"giphyQuery": "Titanic king of the world"
+			},
+			"b": {
+				"name": "Avatar",
+				"origin": "James Cameron · 2009",
+				"line": "Une planète bleue, et des Na’vi.",
+				"quip": "Team Avatar : tu as rêvé d’avoir la peau bleue et une queue. Juste un peu.",
+				"giphyIds": [],
+				"giphyQuery": "Avatar movie"
+			},
+			"bothQuip": "Les deux. James Cameron te doit six heures de ta vie, et tu ne regrettes rien.",
+			"noneQuip": "Ni Titanic ni Avatar. Les films de trois heures, très peu pour toi."
+		},
+		{
+			"id": "ecrans-retour-vers-le-futur-sos-fantomes",
+			"category": "ecrans",
+			"a": {
+				"name": "Retour vers le futur",
+				"origin": "Robert Zemeckis · 1985",
+				"line": "Une DeLorean, et 88 miles à l’heure.",
+				"quip": "Team Retour vers le futur : tu regardes tes photos de famille, au cas où quelqu’un disparaîtrait.",
+				"giphyIds": [],
+				"giphyQuery": "Back to the Future"
+			},
+			"b": {
+				"name": "SOS Fantômes",
+				"origin": "Ivan Reitman · 1984",
+				"line": "« Qui vous allez appeler ? »",
+				"quip": "Team SOS Fantômes : quand on demande « qui vous allez appeler ? », tu cries la réponse.",
+				"giphyIds": [],
+				"giphyQuery": "Ghostbusters"
+			},
+			"bothQuip": "Les deux. Les années 80 sont ta décennie préférée, même sans les avoir vécues.",
+			"noneQuip": "Ni l’un ni l’autre. Les fantômes et les voyages dans le temps, c’est non."
+		},
+		{
+			"id": "ecrans-les-goonies-e-t-l-extra-terrestre",
+			"category": "ecrans",
+			"a": {
+				"name": "Les Goonies",
+				"origin": "Richard Donner · 1985",
+				"line": "Une carte au trésor, et une bande de copains.",
+				"quip": "Team Goonies : tu as déjà cherché un trésor avec une vieille carte. Ou un ticket de caisse.",
+				"giphyIds": [],
+				"giphyQuery": "The Goonies"
+			},
+			"b": {
+				"name": "E.T. l’extra-terrestre",
+				"origin": "Steven Spielberg · 1982",
+				"line": "Un vélo, une lune, et un doigt lumineux.",
+				"quip": "Team E.T. : tu as déjà montré le ciel du doigt en disant « maison ».",
+				"giphyIds": [],
+				"giphyQuery": "ET bike moon"
+			},
+			"bothQuip": "Les deux. Ton enfance, c’était des vélos et des aventures. Ou tu en as rêvé.",
+			"noneQuip": "Ni l’un ni l’autre. Les aventures d’enfants des années 80, ce n’est pas ton truc."
+		},
+		{
+			"id": "ecrans-matrix-inception",
+			"category": "ecrans",
+			"a": {
+				"name": "Matrix",
+				"origin": "Les Wachowski · 1999",
+				"line": "Esquiver les balles en se penchant en arrière.",
+				"quip": "Team Matrix : tu as déjà esquivé un ballon au ralenti. Dans ta tête.",
+				"giphyIds": [],
+				"giphyQuery": "Matrix dodge"
+			},
+			"b": {
+				"name": "Inception",
+				"origin": "Christopher Nolan · 2010",
+				"line": "Un rêve dans un rêve, et une toupie.",
+				"quip": "Team Inception : tu fais tourner une toupie pour vérifier que tu ne rêves pas.",
+				"giphyIds": [],
+				"giphyQuery": "Inception spinning top"
+			},
+			"bothQuip": "Les deux. Tu ne sais plus très bien ce qui est réel.",
+			"noneQuip": "Ni l’un ni l’autre. Les films qui font mal au cerveau, très peu pour toi."
+		},
+		{
+			"id": "ecrans-interstellar-gravity",
+			"category": "ecrans",
+			"a": {
+				"name": "Interstellar",
+				"origin": "Christopher Nolan · 2014",
+				"line": "Un trou noir, une bibliothèque, et des larmes.",
+				"quip": "Team Interstellar : tu as pleuré devant une bibliothèque. Une bibliothèque.",
+				"giphyIds": [],
+				"giphyQuery": "Interstellar"
+			},
+			"b": {
+				"name": "Gravity",
+				"origin": "Alfonso Cuarón · 2013",
+				"line": "Seule dans l’espace, et ça tourne.",
+				"quip": "Team Gravity : dans le métro, tu t’accroches à tout. Par précaution.",
+				"giphyIds": [],
+				"giphyQuery": "Gravity movie"
+			},
+			"bothQuip": "Les deux. L’espace te fascine et te terrifie.",
+			"noneQuip": "Ni l’un ni l’autre. L’espace, tu le préfères en photo."
+		},
+		{
+			"id": "ecrans-le-seigneur-des-anneaux-le-hobbit",
+			"category": "ecrans",
+			"a": {
+				"name": "Le Seigneur des anneaux",
+				"origin": "Peter Jackson · 2001",
+				"line": "Trois films, et des fins à rallonge.",
+				"quip": "Team Seigneur des anneaux : tu as vu les versions longues d’affilée. Douze heures. Avec les pauses.",
+				"giphyIds": [],
+				"giphyQuery": "Lord of the Rings"
+			},
+			"b": {
+				"name": "Le Hobbit",
+				"origin": "Peter Jackson · 2012",
+				"line": "Trois films, pour un seul livre.",
+				"quip": "Team Le Hobbit : trois films pour un livre de trois cents pages. Tu en voulais quatre.",
+				"giphyIds": [],
+				"giphyQuery": "The Hobbit"
+			},
+			"bothQuip": "Les deux. Tu as passé plus de temps en Terre du Milieu que dans ta propre ville.",
+			"noneQuip": "Ni l’un ni l’autre. Les longues marches de hobbits, ça t’épuise."
+		},
+		{
+			"id": "ecrans-tom-cruise-keanu-reeves",
+			"category": "ecrans",
+			"a": {
+				"name": "Tom Cruise",
+				"origin": "Mission impossible · 1996",
+				"line": "Il fait ses cascades lui-même, et il court beaucoup.",
+				"quip": "Team Tom Cruise : tu cours partout, même quand ce n’est pas nécessaire. Comme lui.",
+				"giphyIds": [],
+				"giphyQuery": "Tom Cruise running"
+			},
+			"b": {
+				"name": "Keanu Reeves",
+				"origin": "Matrix · 1999",
+				"line": "Le plus gentil de Hollywood.",
+				"quip": "Team Keanu Reeves : tu tiens la porte à tout le monde et tu partages ton déjeuner. Respect.",
+				"giphyIds": [],
+				"giphyQuery": "Keanu Reeves"
+			},
+			"bothQuip": "Les deux. Tu aimes les acteurs qui ne vieillissent pas. C’est quoi, leur secret ?",
+			"noneQuip": "Ni l’un ni l’autre. Les stars d’Hollywood te laissent de marbre."
+		},
+		{
+			"id": "ecrans-leonardo-dicaprio-brad-pitt",
+			"category": "ecrans",
+			"a": {
+				"name": "Leonardo DiCaprio",
+				"origin": "Titanic · 1997",
+				"line": "Un Oscar, enfin, après des années.",
+				"quip": "Team DiCaprio : tu as attendu son Oscar plus longtemps que lui.",
+				"giphyIds": [],
+				"giphyQuery": "Leonardo DiCaprio"
+			},
+			"b": {
+				"name": "Brad Pitt",
+				"origin": "Fight Club · 1999",
+				"line": "Le charme, et des cheveux impeccables.",
+				"quip": "Team Brad Pitt : la première règle de ton club, c’est qu’on n’en parle pas.",
+				"giphyIds": [],
+				"giphyQuery": "Brad Pitt"
+			},
+			"bothQuip": "Les deux. Once Upon a Time in Hollywood, c’est ton film parfait.",
+			"noneQuip": "Ni l’un ni l’autre. Les beaux gosses d’Hollywood, très peu pour toi."
+		},
+		{
+			"id": "ecrans-meryl-streep-julia-roberts",
+			"category": "ecrans",
+			"a": {
+				"name": "Meryl Streep",
+				"origin": "Le Diable s’habille en Prada · 2006",
+				"line": "Des dizaines de nominations aux Oscars.",
+				"quip": "Team Meryl Streep : tu imites tous les accents du monde. Mal, mais avec conviction.",
+				"giphyIds": [],
+				"giphyQuery": "Meryl Streep"
+			},
+			"b": {
+				"name": "Julia Roberts",
+				"origin": "Pretty Woman · 1990",
+				"line": "Le sourire le plus célèbre du cinéma.",
+				"quip": "Team Julia Roberts : tu ris si fort que les serveurs se retournent. Comme dans Pretty Woman.",
+				"giphyIds": [],
+				"giphyQuery": "Julia Roberts"
+			},
+			"bothQuip": "Les deux. Deux légendes, une seule réponse possible.",
+			"noneQuip": "Ni l’une ni l’autre. Ta star préférée, on ne la connaît pas encore."
+		},
+		{
+			"id": "ecrans-jim-carrey-robin-williams",
+			"category": "ecrans",
+			"a": {
+				"name": "Jim Carrey",
+				"origin": "The Mask · 1994",
+				"line": "Un visage en caoutchouc, et mille grimaces.",
+				"quip": "Team Jim Carrey : tu fais des grimaces devant le miroir. Et elles sont réussies.",
+				"giphyIds": [],
+				"giphyQuery": "Jim Carrey"
+			},
+			"b": {
+				"name": "Robin Williams",
+				"origin": "Mrs. Doubtfire · 1993",
+				"line": "Toutes les voix, et un cœur immense.",
+				"quip": "Team Robin Williams : tu imites toutes les voix. Même celle de ta grand-mère.",
+				"giphyIds": [],
+				"giphyQuery": "Robin Williams"
+			},
+			"bothQuip": "Les deux. Tu as ri et pleuré devant les mêmes films. Les meilleurs.",
+			"noneQuip": "Ni l’un ni l’autre. Les comédies, très peu pour toi ? Cœur de pierre."
+		},
+		{
+			"id": "ecrans-version-longue-version-cinema",
+			"category": "ecrans",
+			"a": {
+				"name": "Version longue",
+				"origin": "Le coffret",
+				"line": "Toutes les scènes coupées, et trois heures de plus.",
+				"quip": "Team version longue : il te faut chaque scène coupée. Même celle de la soupe.",
+				"giphyIds": [],
+				"giphyQuery": "extended edition"
+			},
+			"b": {
+				"name": "Version cinéma",
+				"origin": "La salle",
+				"line": "Le film tel qu’il est sorti, et l’heure de dormir.",
+				"quip": "Team version cinéma : le réalisateur a coupé ces scènes pour une raison. Tu respectes.",
+				"giphyIds": [],
+				"giphyQuery": "movie theater"
+			},
+			"bothQuip": "Les deux. La version cinéma d’abord, la longue pour les fêtes.",
+			"noneQuip": "Ni l’une ni l’autre. Tu regardes le résumé de dix minutes sur YouTube."
+		},
+		{
+			"id": "ecrans-film-d-horreur-comedie-romantique",
+			"category": "ecrans",
+			"a": {
+				"name": "Film d’horreur",
+				"origin": "Le canapé, lumières éteintes",
+				"line": "Des frissons, et un coussin devant les yeux.",
+				"quip": "Team film d’horreur : tu regardes entre tes doigts, et tu dis que tu n’as pas peur.",
+				"giphyIds": [],
+				"giphyQuery": "horror movie scared"
+			},
+			"b": {
+				"name": "Comédie romantique",
+				"origin": "Le canapé, plaid compris",
+				"line": "Des quiproquos, et un baiser sous la pluie.",
+				"quip": "Team comédie romantique : tu attends le baiser sous la pluie depuis la première minute.",
+				"giphyIds": [],
+				"giphyQuery": "romantic comedy"
+			},
+			"bothQuip": "Les deux. Une comédie romantique où tout le monde meurt, ça existe ?",
+			"noneQuip": "Ni l’un ni l’autre. Les documentaires animaliers ne t’ont jamais déçu, eux."
+		},
+		{
+			"id": "ecrans-fin-heureuse-fin-ouverte",
+			"category": "ecrans",
+			"a": {
+				"name": "Fin heureuse",
+				"origin": "Le générique",
+				"line": "Tout le monde s’embrasse, et ça fait du bien.",
+				"quip": "Team fin heureuse : il faut que tout le monde s’embrasse, sinon tu ne dors pas.",
+				"giphyIds": [],
+				"giphyQuery": "happy ending"
+			},
+			"b": {
+				"name": "Fin ouverte",
+				"origin": "Le générique aussi",
+				"line": "Tu en parles encore trois jours après.",
+				"quip": "Team fin ouverte : tu as imaginé six suites. Toutes meilleures que l’originale.",
+				"giphyIds": [],
+				"giphyQuery": "confused ending"
+			},
+			"bothQuip": "Les deux. Une fin heureuse avec un petit doute. Le parfait équilibre.",
+			"noneQuip": "Ni l’une ni l’autre. Une fin tragique, alors ? Tu es d’humeur sombre."
+		},
+		{
+			"id": "ecrans-regarder-la-bande-annonce-ne-rien-savoir",
+			"category": "ecrans",
+			"a": {
+				"name": "Regarder la bande-annonce",
+				"origin": "YouTube",
+				"line": "Tu connais l’histoire avant d’entrer.",
+				"quip": "Team bande-annonce : tu l’as vue dix fois. Tu connais le film par cœur avant de l’avoir vu.",
+				"giphyIds": ["RHiD0K65NxxLO"],
+				"giphyQuery": "movie popcorn"
+			},
+			"b": {
+				"name": "Ne rien savoir",
+				"origin": "La salle",
+				"line": "La surprise totale, dès le début.",
+				"quip": "Team rien savoir : tu fermes les yeux pendant les bandes-annonces au cinéma.",
+				"giphyIds": ["wYyTHMm50f4Dm"],
+				"giphyQuery": "nope"
+			},
+			"bothQuip": "Les deux. Tu regardes la bande-annonce, puis tu fais semblant d’avoir oublié.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne vas jamais au cinéma. Les bandes-annonces sont pour les autres."
+		},
+		{
+			"id": "ecrans-grey-s-anatomy-scrubs",
+			"category": "ecrans",
+			"a": {
+				"name": "Grey’s Anatomy",
+				"origin": "ABC · 2005",
+				"line": "Des chirurgiens, et des histoires d’amour en salle de garde.",
+				"quip": "Team Grey’s Anatomy : tu as beaucoup pleuré pour des médecins qui n’existent pas.",
+				"giphyIds": [],
+				"giphyQuery": "Greys Anatomy"
+			},
+			"b": {
+				"name": "Scrubs",
+				"origin": "NBC · 2001",
+				"line": "Des internes, et des rêveries absurdes.",
+				"quip": "Team Scrubs : tu pars dans des rêveries absurdes en pleine réunion. On l’a vu dans tes yeux.",
+				"giphyIds": [],
+				"giphyQuery": "Scrubs tv"
+			},
+			"bothQuip": "Les deux. Toute ta culture médicale vient de la télé. N’opère personne.",
+			"noneQuip": "Ni l’une ni l’autre. Les hôpitaux, même à la télé, très peu pour toi."
+		},
+		{
+			"id": "ecrans-les-experts-ncis",
+			"category": "ecrans",
+			"a": {
+				"name": "Les Experts",
+				"origin": "CBS · 2000",
+				"line": "Des lunettes de soleil, et des indices partout.",
+				"quip": "Team Les Experts : tu enlèves tes lunettes de soleil très lentement avant chaque phrase.",
+				"giphyIds": [],
+				"giphyQuery": "CSI Miami sunglasses"
+			},
+			"b": {
+				"name": "NCIS",
+				"origin": "CBS · 2003",
+				"line": "Deux personnes qui tapent sur le même clavier.",
+				"quip": "Team NCIS : tu as déjà tapé à quatre mains sur le même clavier. Ça ne marche pas.",
+				"giphyIds": [],
+				"giphyQuery": "NCIS keyboard"
+			},
+			"bothQuip": "Les deux. Tu zoomes sur des photos floues en disant « améliore ».",
+			"noneQuip": "Ni l’un ni l’autre. Les enquêtes à la télé, tu les résous avant la pub."
+		},
+		{
+			"id": "ecrans-desperate-housewives-sex-and-the-city",
+			"category": "ecrans",
+			"a": {
+				"name": "Desperate Housewives",
+				"origin": "ABC · 2004",
+				"line": "Une rue parfaite, et des secrets partout.",
+				"quip": "Team Desperate Housewives : tu surveilles tes voisins derrière le rideau. Pour l’ambiance.",
+				"giphyIds": [],
+				"giphyQuery": "Desperate Housewives"
+			},
+			"b": {
+				"name": "Sex and the City",
+				"origin": "HBO · 1998",
+				"line": "New York, des cocktails, et des chaussures.",
+				"quip": "Team Sex and the City : tu as plus de paires de chaussures que de jours dans l’année.",
+				"giphyIds": [],
+				"giphyQuery": "Sex and the City"
+			},
+			"bothQuip": "Les deux. Cocktails et ragots : ton dimanche idéal.",
+			"noneQuip": "Ni l’une ni l’autre. Les ragots de quartier, très peu pour toi."
+		},
+		{
+			"id": "ecrans-supernatural-the-walking-dead",
+			"category": "ecrans",
+			"a": {
+				"name": "Supernatural",
+				"origin": "The WB · 2005",
+				"line": "Deux frères, une Impala, et des démons.",
+				"quip": "Team Supernatural : tu rêves d’une Impala noire, de rock et d’une chasse aux démons.",
+				"giphyIds": [],
+				"giphyQuery": "Supernatural tv"
+			},
+			"b": {
+				"name": "The Walking Dead",
+				"origin": "AMC · 2010",
+				"line": "Des zombies, et des survivants qui se disputent.",
+				"quip": "Team The Walking Dead : tu as un plan d’évacuation en cas de zombies. Très détaillé.",
+				"giphyIds": [],
+				"giphyQuery": "Walking Dead"
+			},
+			"bothQuip": "Les deux. Les monstres, tu les connais tous par leur nom.",
+			"noneQuip": "Ni l’une ni l’autre. Les démons et les zombies, c’est non."
+		},
+		{
+			"id": "ecrans-black-mirror-la-quatrieme-dimension",
+			"category": "ecrans",
+			"a": {
+				"name": "Black Mirror",
+				"origin": "Channel 4 · 2011",
+				"line": "La technologie, et le pire de nous-mêmes.",
+				"quip": "Team Black Mirror : après chaque épisode, tu regardes ton téléphone avec méfiance.",
+				"giphyIds": [],
+				"giphyQuery": "Black Mirror"
+			},
+			"b": {
+				"name": "La Quatrième Dimension",
+				"origin": "CBS · 1959",
+				"line": "Le surnaturel, en noir et blanc.",
+				"quip": "Team Quatrième Dimension : dans les situations bizarres, la petite musique joue dans ta tête.",
+				"giphyIds": [],
+				"giphyQuery": "Twilight Zone"
+			},
+			"bothQuip": "Les deux. Le futur et le surnaturel te donnent des frissons. À raison.",
+			"noneQuip": "Ni l’une ni l’autre. Les séries qui font réfléchir, ça fatigue."
+		},
+		{
+			"id": "ecrans-mercredi-la-famille-addams",
+			"category": "ecrans",
+			"a": {
+				"name": "Mercredi",
+				"origin": "Netflix · 2022",
+				"line": "Une danse étrange, et une main qui marche.",
+				"quip": "Team Mercredi : tu as appris la danse. Toute la danse. Devant ton miroir.",
+				"giphyIds": [],
+				"giphyQuery": "Wednesday dance"
+			},
+			"b": {
+				"name": "La Famille Addams",
+				"origin": "Barry Sonnenfeld · 1991",
+				"line": "Une famille macabre, et très unie.",
+				"quip": "Team La Famille Addams : tu claques des doigts deux fois quand on sonne à la porte.",
+				"giphyIds": [],
+				"giphyQuery": "Addams Family"
+			},
+			"bothQuip": "Les deux. Le noir, le macabre, et une main qui marche toute seule : ta famille idéale.",
+			"noneQuip": "Ni l’un ni l’autre. Les familles bizarres, tu en as déjà une."
+		},
+		{
+			"id": "ecrans-bridget-jones-le-diable-s-habille-en-prada",
+			"category": "ecrans",
+			"a": {
+				"name": "Bridget Jones",
+				"origin": "Sharon Maguire · 2001",
+				"line": "Un journal intime, et un pull de Noël.",
+				"quip": "Team Bridget Jones : ton journal intime compte les calories et les verres de vin.",
+				"giphyIds": [],
+				"giphyQuery": "Bridget Jones"
+			},
+			"b": {
+				"name": "Le Diable s’habille en Prada",
+				"origin": "David Frankel · 2006",
+				"line": "Une patronne glaciale, et un pull bleu céruléen.",
+				"quip": "Team Prada : tu sais exactement ce qu’est le bleu céruléen. Et tu le fais savoir.",
+				"giphyIds": [],
+				"giphyQuery": "Devil Wears Prada"
+			},
+			"bothQuip": "Les deux. Un pull de Noël moche et des talons hauts : le look de l’année.",
+			"noneQuip": "Ni l’un ni l’autre. Les comédies de bureau, très peu pour toi."
+		},
+		{
+			"id": "ecrans-mamma-mia-la-la-land",
+			"category": "ecrans",
+			"a": {
+				"name": "Mamma Mia!",
+				"origin": "Phyllida Lloyd · 2008",
+				"line": "ABBA, une île grecque, et trois pères possibles.",
+				"quip": "Team Mamma Mia! : tu chantes ABBA à tue-tête. En voiture, sous la douche, au bureau.",
+				"giphyIds": [],
+				"giphyQuery": "Mamma Mia"
+			},
+			"b": {
+				"name": "La La Land",
+				"origin": "Damien Chazelle · 2016",
+				"line": "Des claquettes, et Los Angeles au coucher du soleil.",
+				"quip": "Team La La Land : tu as déjà fait des claquettes sur un parking. Ou tu en as eu envie.",
+				"giphyIds": [],
+				"giphyQuery": "La La Land"
+			},
+			"bothQuip": "Les deux. Ta vie est une comédie musicale, mais personne ne danse avec toi.",
+			"noneQuip": "Ni l’un ni l’autre. Les comédies musicales te donnent envie de partir en courant."
+		},
+		{
+			"id": "ecrans-le-roi-lion-1994-le-roi-lion-2019",
+			"category": "ecrans",
+			"a": {
+				"name": "Le Roi lion (1994)",
+				"origin": "Disney · 1994",
+				"line": "Le dessin animé, et les larmes.",
+				"quip": "Team 1994 : tu as pleuré devant le dessin animé, et tu pleures encore en y pensant.",
+				"giphyIds": [],
+				"giphyQuery": "Lion King 1994"
+			},
+			"b": {
+				"name": "Le Roi lion (2019)",
+				"origin": "Disney · 2019",
+				"line": "Le même, en images de synthèse.",
+				"quip": "Team 2019 : tu trouves les lions plus réalistes. Même s’ils n’ont aucune expression.",
+				"giphyIds": [],
+				"giphyQuery": "Lion King 2019"
+			},
+			"bothQuip": "Les deux. Tu chantes « Hakuna Matata » dans les deux versions. Fidèle.",
+			"noneQuip": "Ni l’un ni l’autre. Tu préfères la comédie musicale. Ou les vrais lions, à la télé."
+		},
+		{
+			"id": "ecrans-trilogie-originale-prelogie",
+			"category": "ecrans",
+			"a": {
+				"name": "Trilogie originale",
+				"origin": "Star Wars · 1977",
+				"line": "Les maquettes, et Harrison Ford.",
+				"quip": "Team trilogie originale : les maquettes, c’était mieux. Et tu as raison.",
+				"giphyIds": [],
+				"giphyQuery": "Star Wars original"
+			},
+			"b": {
+				"name": "Prélogie",
+				"origin": "Star Wars · 1999",
+				"line": "Les sabres en folie, et Jar Jar Binks.",
+				"quip": "Team prélogie : tu défends Jar Jar Binks. Tu es la seule personne au monde. Respect.",
+				"giphyIds": [],
+				"giphyQuery": "Star Wars prequel"
+			},
+			"bothQuip": "Les deux. Toute la saga, dans l’ordre. Puis dans l’ordre de sortie. Pour comparer.",
+			"noneQuip": "Ni l’une ni l’autre. Team postlogie : tu aimes vivre dangereusement."
+		},
+		{
+			"id": "ecrans-joker-the-dark-knight",
+			"category": "ecrans",
+			"a": {
+				"name": "Joker",
+				"origin": "Todd Phillips · 2019",
+				"line": "Un escalier, et une descente.",
+				"quip": "Team Joker : tu as dansé dans un escalier. On ne te jugera pas.",
+				"giphyIds": [],
+				"giphyQuery": "Joker stairs"
+			},
+			"b": {
+				"name": "The Dark Knight",
+				"origin": "Christopher Nolan · 2008",
+				"line": "Batman, Gotham, et un Joker inoubliable.",
+				"quip": "Team The Dark Knight : « Pourquoi tant de sérieux ? » Tu le dis en réunion.",
+				"giphyIds": [],
+				"giphyQuery": "Dark Knight"
+			},
+			"bothQuip": "Les deux. Deux Joker, deux chefs-d’œuvre, deux nuits blanches.",
+			"noneQuip": "Ni l’un ni l’autre. Les super-héros sombres, très peu pour toi."
+		},
+		{
+			"id": "ecrans-tobey-maguire-tom-holland",
+			"category": "ecrans",
+			"a": {
+				"name": "Tobey Maguire",
+				"origin": "Spider-Man · 2002",
+				"line": "Le premier, et une danse dans la rue.",
+				"quip": "Team Tobey Maguire : tu as déjà dansé dans la rue avec une mèche sur l’œil. Comme dans le troisième.",
+				"giphyIds": [],
+				"giphyQuery": "Tobey Maguire Spider-Man"
+			},
+			"b": {
+				"name": "Tom Holland",
+				"origin": "Spider-Man · 2017",
+				"line": "Le plus jeune, et le plus bavard.",
+				"quip": "Team Tom Holland : quand le stress monte, tu parles sans t’arrêter. Comme lui.",
+				"giphyIds": [],
+				"giphyQuery": "Tom Holland Spider-Man"
+			},
+			"bothQuip": "Les deux. Et Andrew Garfield ? Il est triste, maintenant.",
+			"noneQuip": "Ni l’un ni l’autre. Team Andrew Garfield, l’oublié."
+		},
+		{
+			"id": "ecrans-sean-connery-daniel-craig",
+			"category": "ecrans",
+			"a": {
+				"name": "Sean Connery",
+				"origin": "James Bond · 1962",
+				"line": "Le premier, avec le smoking et l’accent écossais.",
+				"quip": "Team Sean Connery : tu commandes ton martini avec un accent écossais.",
+				"giphyIds": [],
+				"giphyQuery": "Sean Connery Bond"
+			},
+			"b": {
+				"name": "Daniel Craig",
+				"origin": "James Bond · 2006",
+				"line": "Le plus brutal, et une chemise mouillée.",
+				"quip": "Team Daniel Craig : dans ta tête, tu sors toujours de l’eau au ralenti.",
+				"giphyIds": ["PD8BbTOAB2e08"],
+				"giphyQuery": "Daniel Craig Bond"
+			},
+			"bothQuip": "Les deux. Ta collection de James Bond est complète. Même les mauvais.",
+			"noneQuip": "Ni l’un ni l’autre. Team Roger Moore et son sourcil."
+		},
+		{
+			"id": "ecrans-il-y-avait-de-la-place-il-n-y-avait-pas-de-place",
+			"category": "ecrans",
+			"question": "Sur la porte du Titanic, il y avait de la place pour Jack ?",
+			"a": {
+				"name": "Il y avait de la place",
+				"origin": "Les spectateurs, depuis 1997",
+				"line": "Elle aurait pu se pousser. Un peu. Juste un peu.",
+				"quip": "Team il y avait de la place : tu as mesuré la porte sur une capture d’écran. Avec une règle.",
+				"giphyIds": [],
+				"giphyQuery": "titanic door"
+			},
+			"b": {
+				"name": "Il n’y avait pas de place",
+				"origin": "James Cameron, qui a vérifié",
+				"line": "Une question de flottaison, pas de place. Paraît-il.",
+				"quip": "Team pas de place : tu crois James Cameron sur parole. Lui a fait des tests. Toi, tu as pleuré.",
+				"giphyIds": [],
+				"giphyQuery": "titanic"
+			},
+			"bothQuip": "Les deux. De la place, oui. De la flottaison, non. Tu as lu les deux études.",
+			"noneQuip": "Ni l’un ni l’autre. Jack n’avait qu’à rentrer à la nage."
+		},
+		{
+			"id": "ecrans-ils-faisaient-une-pause-ce-n-etait-pas-une-pause",
+			"category": "ecrans",
+			"question": "Ross et Rachel : ils faisaient une pause, oui ou non ?",
+			"a": {
+				"name": "Ils faisaient une pause",
+				"origin": "Ross, depuis 1997",
+				"line": "« ON FAISAIT UNE PAUSE ! »",
+				"quip": "Team pause : tu cries « ON FAISAIT UNE PAUSE ! » à chaque dispute de couple. Même pas la tienne.",
+				"giphyIds": [],
+				"giphyQuery": "we were on a break"
+			},
+			"b": {
+				"name": "Ce n’était pas une pause",
+				"origin": "Rachel, depuis 1997",
+				"line": "Quelques heures de pause, ça ne compte pas.",
+				"quip": "Team pas de pause : tu as revu l’épisode dix fois, et tu es toujours en colère.",
+				"giphyIds": [],
+				"giphyQuery": "rachel green"
+			},
+			"bothQuip": "Les deux. Tu changes d’avis à chaque rediffusion.",
+			"noneQuip": "Ni l’un ni l’autre. Tu n’as jamais vu Friends ? Dix saisons t’attendent."
+		},
+		{
+			"id": "ecrans-lire-le-livre-avant-voir-le-film-d-abord",
+			"category": "ecrans",
+			"a": {
+				"name": "Lire le livre avant",
+				"origin": "La bibliothèque",
+				"line": "Pour pouvoir dire « le livre est mieux ».",
+				"quip": "Team livre d’abord : pendant tout le film, tu chuchotes « ce n’est pas comme ça dans le livre ».",
+				"giphyIds": [],
+				"giphyQuery": "reading book"
+			},
+			"b": {
+				"name": "Voir le film d’abord",
+				"origin": "La salle",
+				"line": "Deux heures au lieu de six cents pages. Le calcul est vite fait.",
+				"quip": "Team film d’abord : tu as « lu » le livre. En regardant le film. Deux fois.",
+				"giphyIds": [],
+				"giphyQuery": "movie theater"
+			},
+			"bothQuip": "Les deux. Le livre, le film, puis la version longue. Tu ne fais rien à moitié.",
+			"noneQuip": "Ni l’un ni l’autre. Tu lis le résumé sur Internet, et tu donnes ton avis."
+		},
+		{
+			"id": "ecrans-rester-jusqu-au-bout-du-generique-partir-des-le-generique",
+			"category": "ecrans",
+			"a": {
+				"name": "Rester jusqu’au bout du générique",
+				"origin": "La salle, lumières allumées",
+				"line": "Au cas où il y aurait une scène cachée.",
+				"quip": "Team générique : tu es la dernière personne dans la salle, avec l’équipe de ménage.",
+				"giphyIds": [],
+				"giphyQuery": "end credits"
+			},
+			"b": {
+				"name": "Partir dès le générique",
+				"origin": "La sortie",
+				"line": "Le film est fini. Le parking, lui, va être plein.",
+				"quip": "Team on part : tu as raté onze scènes post-générique. Et tu ne le sauras jamais.",
+				"giphyIds": [],
+				"giphyQuery": "leaving"
+			},
+			"bothQuip": "Les deux. Tu pars, puis tu reviens en courant quand tu entends de la musique.",
+			"noneQuip": "Ni l’un ni l’autre. Tu t’endors avant la fin. Le générique, tu ne l’as jamais vu."
+		},
+		{
+			"id": "ecrans-love-actually-maman-j-ai-rate-l-avion",
+			"category": "ecrans",
+			"a": {
+				"name": "Love Actually",
+				"origin": "Richard Curtis · 2003",
+				"line": "Des pancartes sur le pas de la porte, et huit histoires d’amour.",
+				"quip": "Team Love Actually : tu as déjà fait une déclaration avec des pancartes. Ou tu y as pensé très fort.",
+				"giphyIds": [],
+				"giphyQuery": "love actually"
+			},
+			"b": {
+				"name": "Maman, j’ai raté l’avion !",
+				"origin": "Chris Columbus · 1990",
+				"line": "Un enfant seul, une maison piégée, et deux cambrioleurs maladroits.",
+				"quip": "Team Maman, j’ai raté l’avion ! : tu as déjà mis de l’après-rasage en criant devant le miroir.",
+				"giphyIds": [],
+				"giphyQuery": "home alone"
+			},
+			"bothQuip": "Les deux. Le 24 décembre, ton programme télé est un rituel sacré.",
+			"noneQuip": "Ni l’un ni l’autre. Les films de Noël, tu les fuis. Le Grinch serait fier de toi."
+		},
+		{
+			"id": "ecrans-les-dents-de-la-mer-jurassic-park",
+			"category": "ecrans",
+			"a": {
+				"name": "Les Dents de la mer",
+				"origin": "Steven Spielberg · 1975",
+				"line": "Deux notes de musique, et plus personne ne se baigne.",
+				"quip": "Team Dents de la mer : tu fredonnes « tin-tin » quand quelqu’un entre dans l’eau.",
+				"giphyIds": [],
+				"giphyQuery": "jaws"
+			},
+			"b": {
+				"name": "Jurassic Park",
+				"origin": "Steven Spielberg · 1993",
+				"line": "Des dinosaures, et un verre d’eau qui tremble.",
+				"quip": "Team Jurassic Park : un verre d’eau qui tremble, et tu cherches la sortie.",
+				"giphyIds": [],
+				"giphyQuery": "jurassic park"
+			},
+			"bothQuip": "Les deux. Spielberg t’a appris à avoir peur de tout. La mer, la forêt, les verres d’eau.",
+			"noneQuip": "Ni l’un ni l’autre. Les grosses bêtes qui mangent les gens, très peu pour toi."
+		},
+		{
+			"id": "ecrans-commenter-le-film-silence-absolu",
+			"category": "ecrans",
+			"question": "Devant un film : tu commentes, ou c’est silence ?",
+			"a": {
+				"name": "Commenter le film",
+				"origin": "Le canapé",
+				"line": "« Ne va pas dans la cave ! » Il va dans la cave.",
+				"quip": "Team commentaires : tu as donné le nom du coupable à voix haute dès la cinquième minute. Merci.",
+				"giphyIds": [],
+				"giphyQuery": "talking during movie"
+			},
+			"b": {
+				"name": "Silence absolu",
+				"origin": "La salle obscure",
+				"line": "Pas un mot, pas un bruit de papier, pas un téléphone.",
+				"quip": "Team silence : tu as déjà fait « chut » à un inconnu au cinéma. Et tu recommencerais.",
+				"giphyIds": [],
+				"giphyQuery": "shh"
+			},
+			"bothQuip": "Les deux. Tu fais « chut » aux autres, puis tu commentes toute la fin.",
+			"noneQuip": "Ni l’un ni l’autre. Tu regardes ton téléphone pendant le film. Le pire, en fait."
+		},
+		{
+			"id": "ecrans-au-premier-rang-au-dernier-rang",
+			"category": "ecrans",
+			"question": "Au cinéma : premier rang ou dernier rang ?",
+			"a": {
+				"name": "Au premier rang",
+				"origin": "Juste sous l’écran",
+				"line": "Le film en très grand, et un torticolis offert.",
+				"quip": "Team premier rang : tu sors avec un torticolis, et tu dis que c’était immersif.",
+				"giphyIds": [],
+				"giphyQuery": "cinema seats"
+			},
+			"b": {
+				"name": "Au dernier rang",
+				"origin": "Tout en haut",
+				"line": "Une vue sur tout l’écran, et sur toute la salle.",
+				"quip": "Team dernier rang : tu vois tout et tout le monde, et personne ne te voit. Le contrôle.",
+				"giphyIds": [],
+				"giphyQuery": "back row"
+			},
+			"bothQuip": "Les deux. Ça dépend du film. Et de la personne avec qui tu y vas.",
+			"noneQuip": "Ni l’un ni l’autre. Au milieu, au centre, comme une personne raisonnable."
+		},
+		{
+			"id": "duos-batman-robin",
+			"category": "duos",
+			"a": {
+				"name": "Batman",
+				"origin": "DC · 1939",
+				"line": "Le cerveau, la cape, et le budget.",
+				"quip": "Team Batman : tu prends toutes les décisions, et tu gardes le budget.",
+				"giphyIds": [],
+				"giphyQuery": "Batman Robin"
+			},
+			"b": {
+				"name": "Robin",
+				"origin": "DC · 1940",
+				"line": "L’acolyte, en collants verts.",
+				"quip": "Team Robin : tu dis « Sainte… » avant chaque phrase. Sainte habitude !",
+				"giphyIds": [],
+				"giphyQuery": "Robin sidekick"
+			},
+			"bothQuip": "Les deux. Le duo dynamique, comme au bon vieux temps.",
+			"noneQuip": "Ni Batman ni Robin. Team Alfred, qui fait tout le vrai travail."
+		},
+		{
+			"id": "duos-han-solo-chewbacca",
+			"category": "duos",
+			"a": {
+				"name": "Han Solo",
+				"origin": "Star Wars · 1977",
+				"line": "Le pilote qui parle.",
+				"quip": "Team Han Solo : tu parles pour deux. Ton copilote approuve en grognant.",
+				"giphyIds": [],
+				"giphyQuery": "Han Solo"
+			},
+			"b": {
+				"name": "Chewbacca",
+				"origin": "Star Wars · 1977",
+				"line": "Le copilote qui grogne.",
+				"quip": "Team Chewbacca : le matin, avant ton café, tu ne communiques que par grognements.",
+				"giphyIds": [],
+				"giphyQuery": "Chewbacca"
+			},
+			"bothQuip": "Les deux. Le Faucon Millenium a besoin de vous deux.",
+			"noneQuip": "Ni Han ni Chewie. Team Lando, et sa cape."
+		},
+		{
+			"id": "duos-frodon-sam",
+			"category": "duos",
+			"a": {
+				"name": "Frodon",
+				"origin": "Le Seigneur des anneaux · 1954",
+				"line": "Il porte l’anneau.",
+				"quip": "Team Frodon : tu portes le poids du monde. Et tu te plains un peu.",
+				"giphyIds": [],
+				"giphyQuery": "Frodo"
+			},
+			"b": {
+				"name": "Sam",
+				"origin": "Le Seigneur des anneaux · 1954",
+				"line": "Il porte Frodon.",
+				"quip": "Team Sam : tu porterais ton meilleur ami sur ton dos jusqu’en haut d’un volcan. Le vrai héros.",
+				"giphyIds": [],
+				"giphyQuery": "Samwise"
+			},
+			"bothQuip": "Les deux. L’amitié la plus pure de la Terre du Milieu.",
+			"noneQuip": "Ni Frodon ni Sam. Team Gollum, mon précieux."
+		},
+		{
+			"id": "duos-tic-tac",
+			"category": "duos",
+			"a": {
+				"name": "Tic",
+				"origin": "Disney · 1943",
+				"line": "Le nez noir, et le plus malin.",
+				"quip": "Team Tic : le nez noir, le plus malin, et toujours un plan.",
+				"giphyIds": [],
+				"giphyQuery": "Chip Disney"
+			},
+			"b": {
+				"name": "Tac",
+				"origin": "Disney · 1943",
+				"line": "Le nez rouge, et le plus farfelu.",
+				"quip": "Team Tac : le nez rouge, et toujours une bêtise en tête.",
+				"giphyIds": [],
+				"giphyQuery": "Dale Disney"
+			},
+			"bothQuip": "Les deux. Réussir à les distinguer, c’est déjà un exploit.",
+			"noneQuip": "Ni Tic ni Tac. Les écureuils, tu les préfères dans les arbres."
+		},
+		{
+			"id": "duos-starsky-hutch",
+			"category": "duos",
+			"a": {
+				"name": "Starsky",
+				"origin": "Série télé · 1975",
+				"line": "Le pull à col châle, et la Gran Torino.",
+				"quip": "Team Starsky : il y a un gilet à col châle dans ton placard. Et tu le portes.",
+				"giphyIds": [],
+				"giphyQuery": "Starsky"
+			},
+			"b": {
+				"name": "Hutch",
+				"origin": "Série télé · 1975",
+				"line": "Le blond, et le plus calme.",
+				"quip": "Team Hutch : le blond et le calme. Tu gardes ton sang-froid en toutes circonstances.",
+				"giphyIds": [],
+				"giphyQuery": "Starsky and Hutch"
+			},
+			"bothQuip": "Les deux. Une Gran Torino rouge et blanche, et des courses-poursuites dans ta tête.",
+			"noneQuip": "Ni Starsky ni Hutch. Team Huggy les bons tuyaux."
+		},
+		{
+			"id": "duos-sammy-scooby-doo",
+			"category": "duos",
+			"a": {
+				"name": "Sammy",
+				"origin": "Scooby-Doo · 1969",
+				"line": "Une barbiche, et une faim permanente.",
+				"quip": "Team Sammy : tes sandwichs font trente centimètres de haut. Et tu as encore faim.",
+				"giphyIds": [],
+				"giphyQuery": "Shaggy"
+			},
+			"b": {
+				"name": "Scooby-Doo",
+				"origin": "Scooby-Doo · 1969",
+				"line": "Un chien peureux, et des biscuits.",
+				"quip": "Team Scooby-Doo : tu ferais n’importe quoi pour un biscuit. Même affronter un fantôme.",
+				"giphyIds": [],
+				"giphyQuery": "Scooby Doo"
+			},
+			"bothQuip": "Les deux. Peureux, affamés et adorables : tu leur ressembles, avoue.",
+			"noneQuip": "Ni Sammy ni Scooby. Team Véra, et ses lunettes perdues."
+		},
+		{
+			"id": "duos-calvin-hobbes",
+			"category": "duos",
+			"a": {
+				"name": "Calvin",
+				"origin": "Bill Watterson · 1985",
+				"line": "Six ans, et une imagination débordante.",
+				"quip": "Team Calvin : ton imagination déborde encore. Et il y a un tigre en peluche quelque part.",
+				"giphyIds": [],
+				"giphyQuery": "Calvin"
+			},
+			"b": {
+				"name": "Hobbes",
+				"origin": "Bill Watterson · 1985",
+				"line": "Un tigre en peluche. Ou pas.",
+				"quip": "Team Hobbes : une peluche pour les autres, un ami pour la vie pour quelqu’un.",
+				"giphyIds": [],
+				"giphyQuery": "Hobbes tiger"
+			},
+			"bothQuip": "Les deux. Une luge, une colline, et une grande conversation sur la vie.",
+			"noneQuip": "Ni Calvin ni Hobbes. Les tigres imaginaires, tu as passé l’âge. Dommage."
+		},
+		{
+			"id": "duos-wallace-gromit",
+			"category": "duos",
+			"a": {
+				"name": "Wallace",
+				"origin": "Aardman · 1989",
+				"line": "Des inventions, et du fromage.",
+				"quip": "Team Wallace : tu as inventé une machine à beurrer les tartines. Elle ne marche pas.",
+				"giphyIds": [],
+				"giphyQuery": "Wallace cheese"
+			},
+			"b": {
+				"name": "Gromit",
+				"origin": "Aardman · 1989",
+				"line": "Un chien qui lève les yeux au ciel.",
+				"quip": "Team Gromit : tu lèves les yeux au ciel sans un mot. Ton regard suffit.",
+				"giphyIds": [],
+				"giphyQuery": "Gromit"
+			},
+			"bothQuip": "Les deux. Des inventions folles, du fromage, et un chien très patient.",
+			"noneQuip": "Ni Wallace ni Gromit. La pâte à modeler, tu en as mangé enfant, c’est ça ?"
+		},
+		{
+			"id": "duos-bud-spencer-terence-hill",
+			"category": "duos",
+			"a": {
+				"name": "Bud Spencer",
+				"origin": "Cinéma · 1967",
+				"line": "Le colosse, et des baffes en rafale.",
+				"quip": "Team Bud Spencer : tu distribues les baffes comme d’autres distribuent les prospectus.",
+				"giphyIds": [],
+				"giphyQuery": "Bud Spencer"
+			},
+			"b": {
+				"name": "Terence Hill",
+				"origin": "Cinéma · 1967",
+				"line": "Les yeux bleus, et des baffes rapides.",
+				"quip": "Team Terence Hill : les yeux bleus, le sourire, et une baffe plus rapide que l’éclair.",
+				"giphyIds": [],
+				"giphyQuery": "Terence Hill"
+			},
+			"bothQuip": "Les deux. Tes dimanches d’enfance étaient pleins de baffes et de haricots.",
+			"noneQuip": "Ni Bud ni Terence. Les westerns spaghetti, ce n’est pas ton plat."
+		},
+		{
+			"id": "duos-thelma-louise",
+			"category": "duos",
+			"a": {
+				"name": "Thelma",
+				"origin": "Thelma et Louise · 1991",
+				"line": "Elle découvre la liberté en route.",
+				"quip": "Team Thelma : tu découvres la liberté en chemin. Ta vie commence maintenant.",
+				"giphyIds": [],
+				"giphyQuery": "Thelma Louise"
+			},
+			"b": {
+				"name": "Louise",
+				"origin": "Thelma et Louise · 1991",
+				"line": "Elle tient le volant, et le plan.",
+				"quip": "Team Louise : tu tiens le volant et le plan. Toujours.",
+				"giphyIds": [],
+				"giphyQuery": "road trip convertible"
+			},
+			"bothQuip": "Les deux. Un road trip, et on ne regarde jamais dans le rétroviseur.",
+			"noneQuip": "Ni Thelma ni Louise. Tu préfères les road trips qui finissent bien."
+		},
+		{
+			"id": "duos-jay-silent-bob",
+			"category": "duos",
+			"a": {
+				"name": "Jay",
+				"origin": "Kevin Smith · 1994",
+				"line": "Il ne se tait jamais.",
+				"quip": "Team Jay : tu ne te tais jamais. Jamais. Même en dormant.",
+				"giphyIds": [],
+				"giphyQuery": "Jay Silent Bob"
+			},
+			"b": {
+				"name": "Silent Bob",
+				"origin": "Kevin Smith · 1994",
+				"line": "Il ne parle jamais.",
+				"quip": "Team Silent Bob : tu parles une fois par an. Et ce jour-là, tout le monde écoute.",
+				"giphyIds": [],
+				"giphyQuery": "Silent Bob"
+			},
+			"bothQuip": "Les deux. Tu parles trop, puis plus du tout. Selon l’heure.",
+			"noneQuip": "Ni Jay ni Silent Bob. Tu ne connais pas les films de Kevin Smith ? Il est encore temps."
+		},
+		{
+			"id": "duos-tintin-milou",
+			"category": "duos",
+			"a": {
+				"name": "Tintin",
+				"origin": "Hergé · 1929",
+				"line": "Un reporter qui n’écrit jamais d’article.",
+				"quip": "Team Tintin : reporter, mais jamais un seul article rendu. Ton rédacteur en chef s’inquiète.",
+				"giphyIds": [],
+				"giphyQuery": "Tintin"
+			},
+			"b": {
+				"name": "Milou",
+				"origin": "Hergé · 1929",
+				"line": "Un chien blanc, qui aime l’os et le whisky.",
+				"quip": "Team Milou : un os, un peu de whisky, et une remarque sur tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "Snowy Tintin"
+			},
+			"bothQuip": "Les deux. Le reporter à la houppette et son chien qui pense tout haut : ils sont allés partout.",
+			"noneQuip": "Ni Tintin ni Milou. Team capitaine Haddock, et ses jurons."
+		},
+		{
+			"id": "duos-bonnie-clyde",
+			"category": "duos",
+			"a": {
+				"name": "Bonnie",
+				"origin": "Histoire vraie · 1930",
+				"line": "Des poèmes, et une cavale.",
+				"quip": "Team Bonnie : tu écris des poèmes pendant les courses-poursuites.",
+				"giphyIds": [],
+				"giphyQuery": "Bonnie Parker"
+			},
+			"b": {
+				"name": "Clyde",
+				"origin": "Histoire vraie · 1930",
+				"line": "Une voiture, et une cavale aussi.",
+				"quip": "Team Clyde : tu conduis vite, et tu as toujours une bonne raison.",
+				"giphyIds": [],
+				"giphyQuery": "Bonnie and Clyde"
+			},
+			"bothQuip": "Les deux. Le couple le plus célèbre de l’histoire du crime. Pas un modèle, mais bon.",
+			"noneQuip": "Ni Bonnie ni Clyde. Tu respectes la loi. Ta mère est fière de toi."
+		},
+		{
+			"id": "duos-sonny-cher",
+			"category": "duos",
+			"a": {
+				"name": "Sonny",
+				"origin": "Musique · 1965",
+				"line": "La moustache, et les chansons.",
+				"quip": "Team Sonny : tu chantes « I Got You Babe » avec une moustache imaginaire.",
+				"giphyIds": [],
+				"giphyQuery": "Sonny Bono"
+			},
+			"b": {
+				"name": "Cher",
+				"origin": "Musique · 1965",
+				"line": "La voix, et une carrière sans fin.",
+				"quip": "Team Cher : si tu pouvais remonter le temps… Tu le chantes, d’ailleurs.",
+				"giphyIds": [],
+				"giphyQuery": "Cher"
+			},
+			"bothQuip": "Les deux. Les années 60 et 70 dans un seul duo. Tu as bon goût.",
+			"noneQuip": "Ni Sonny ni Cher. Les duos d’amoureux, très peu pour toi."
+		},
+		{
+			"id": "duos-simon-garfunkel",
+			"category": "duos",
+			"a": {
+				"name": "Simon",
+				"origin": "Musique · 1964",
+				"line": "Les chansons, la guitare.",
+				"quip": "Team Simon : tu écris des chansons tristes, et tu les chantes à la guitare.",
+				"giphyIds": [],
+				"giphyQuery": "Paul Simon"
+			},
+			"b": {
+				"name": "Garfunkel",
+				"origin": "Musique · 1964",
+				"line": "La voix d’ange, les boucles.",
+				"quip": "Team Garfunkel : la voix d’ange et les boucles. Le reste ne compte pas.",
+				"giphyIds": [],
+				"giphyQuery": "Art Garfunkel"
+			},
+			"bothQuip": "Les deux. « The Sound of Silence », c’est ta berceuse.",
+			"noneQuip": "Ni Simon ni Garfunkel. Le folk des années 60, ce n’est pas ton truc."
+		},
+		{
+			"id": "duos-ken-barbie",
+			"category": "duos",
+			"a": {
+				"name": "Ken",
+				"origin": "Mattel · 1961",
+				"line": "Un sourire, et beaucoup d’accessoires.",
+				"quip": "Team Ken : tu es juste Ken. Et c’est déjà beaucoup.",
+				"giphyIds": [],
+				"giphyQuery": "Ken doll"
+			},
+			"b": {
+				"name": "Barbie",
+				"origin": "Mattel · 1959",
+				"line": "Mille métiers, et la vedette.",
+				"quip": "Team Barbie : mille métiers, et toujours la bonne tenue pour chacun.",
+				"giphyIds": [],
+				"giphyQuery": "Barbie doll"
+			},
+			"bothQuip": "Les deux. La maison de rêve, et la décapotable rose.",
+			"noneQuip": "Ni Ken ni Barbie. Team Polly Pocket, qui tient dans la poche."
+		},
+		{
+			"id": "duos-pif-hercule",
+			"category": "duos",
+			"a": {
+				"name": "Pif",
+				"origin": "Pif Gadget · 1945",
+				"line": "Un chien jovial et dévoué.",
+				"quip": "Team Pif : jovial, dévoué, et fou des gadgets en plastique.",
+				"giphyIds": [],
+				"giphyQuery": "cartoon dog"
+			},
+			"b": {
+				"name": "Hercule",
+				"origin": "Pif Gadget · 1950",
+				"line": "Un chat râleur, toujours puni.",
+				"quip": "Team Hercule : tu râles, tu te fais punir, et tu recommences le lendemain.",
+				"giphyIds": [],
+				"giphyQuery": "cartoon cat"
+			},
+			"bothQuip": "Les deux. Le gadget de Pif Gadget, tu l’attendais plus que le journal.",
+			"noneQuip": "Ni Pif ni Hercule. Les pois sauteurs, tu n’as jamais connu ? Quelle jeunesse."
+		},
+		{
+			"id": "duos-riggs-murtaugh",
+			"category": "duos",
+			"a": {
+				"name": "Riggs",
+				"origin": "L’Arme fatale · 1987",
+				"line": "Le flic incontrôlable.",
+				"quip": "Team Riggs : tu fonces dans le danger avec un sourire un peu inquiétant.",
+				"giphyIds": [],
+				"giphyQuery": "Lethal Weapon Riggs"
+			},
+			"b": {
+				"name": "Murtaugh",
+				"origin": "L’Arme fatale · 1987",
+				"line": "« Je suis trop vieux pour ces bêtises. »",
+				"quip": "Team Murtaugh : à chaque bêtise, tu soupires que tu as passé l’âge. Même à vingt-cinq ans.",
+				"giphyIds": [],
+				"giphyQuery": "Lethal Weapon Murtaugh"
+			},
+			"bothQuip": "Les deux. Le flic fou et le flic fatigué : le duo idéal du dimanche soir.",
+			"noneQuip": "Ni Riggs ni Murtaugh. Les flics des années 80, très peu pour toi."
+		},
+		{
+			"id": "duos-jules-vincent",
+			"category": "duos",
+			"a": {
+				"name": "Jules",
+				"origin": "Pulp Fiction · 1994",
+				"line": "Il cite la Bible, et ne plaisante pas.",
+				"quip": "Team Jules : tu récites la Bible avant d’agir. Même avant de parler au voisin.",
+				"giphyIds": [],
+				"giphyQuery": "Jules Pulp Fiction"
+			},
+			"b": {
+				"name": "Vincent",
+				"origin": "Pulp Fiction · 1994",
+				"line": "Il danse, et il parle de hamburgers.",
+				"quip": "Team Vincent : tu sais comment on appelle un quart de livre avec fromage à Paris.",
+				"giphyIds": [],
+				"giphyQuery": "Vincent Vega dance"
+			},
+			"bothQuip": "Les deux. Une mallette, un twist, et beaucoup de discussions sur les hamburgers.",
+			"noneQuip": "Ni Jules ni Vincent. Les tueurs qui philosophent, très peu pour toi."
+		},
+		{
+			"id": "duos-kad-olivier",
+			"category": "duos",
+			"a": {
+				"name": "Kad",
+				"origin": "Kad et Olivier · 1990",
+				"line": "Le grand, au sourire en coin.",
+				"quip": "Team Kad : le sourire en coin. Tu trouves tout drôle, et c’est contagieux.",
+				"giphyIds": [],
+				"giphyQuery": "comedy duo"
+			},
+			"b": {
+				"name": "Olivier",
+				"origin": "Kad et Olivier · 1990",
+				"line": "Le partenaire au second degré.",
+				"quip": "Team Olivier : le second degré, toujours. On ne sait jamais si tu plaisantes.",
+				"giphyIds": [],
+				"giphyQuery": "comedy duo laughing"
+			},
+			"bothQuip": "Les deux. Tu les regardais en cachette, tard le soir. Avoue.",
+			"noneQuip": "Ni Kad ni Olivier. Team Omar et Fred, peut-être ?"
+		},
+		{
+			"id": "duos-eric-ramzy",
+			"category": "duos",
+			"a": {
+				"name": "Éric",
+				"origin": "Éric et Ramzy · 1994",
+				"line": "Le grand, et l’absurde.",
+				"quip": "Team Éric : l’absurde, mais avec un peu de sérieux. Un tout petit peu.",
+				"giphyIds": [],
+				"giphyQuery": "Eric et Ramzy"
+			},
+			"b": {
+				"name": "Ramzy",
+				"origin": "Éric et Ramzy · 1994",
+				"line": "Le grand aussi, et encore plus absurde.",
+				"quip": "Team Ramzy : l’absurde total, sans filet, et sans aucun regret.",
+				"giphyIds": [],
+				"giphyQuery": "Ramzy"
+			},
+			"bothQuip": "Les deux. Tu as vu « La Tour Montparnasse infernale » plus de dix fois.",
+			"noneQuip": "Ni Éric ni Ramzy. L’humour absurde, ce n’est pas pour toi. Mystère."
+		},
+		{
+			"id": "duos-arthur-perceval",
+			"category": "duos",
+			"a": {
+				"name": "Arthur",
+				"origin": "Kaamelott · 2005",
+				"line": "Le roi qui en a assez de tout le monde.",
+				"quip": "Team Arthur : tes journées consistent à expliquer des choses à des gens qui ne comprennent rien.",
+				"giphyIds": [],
+				"giphyQuery": "Kaamelott Arthur"
+			},
+			"b": {
+				"name": "Perceval",
+				"origin": "Kaamelott · 2005",
+				"line": "« C’est pas faux. »",
+				"quip": "Team Perceval : tu inventes des règles de jeu que personne ne comprend. Même pas toi.",
+				"giphyIds": [],
+				"giphyQuery": "Kaamelott Perceval"
+			},
+			"bothQuip": "Les deux. Le roi épuisé et le chevalier perdu : la Table ronde, version réaliste.",
+			"noneQuip": "Ni Arthur ni Perceval. Team Karadoc, et son casse-croûte."
+		},
+		{
+			"id": "duos-ross-rachel",
+			"category": "duos",
+			"a": {
+				"name": "Ross",
+				"origin": "Friends · 1994",
+				"line": "« On faisait une pause ! »",
+				"quip": "Team Ross : tu as joué de la cornemuse à un mariage. Personne ne t’avait rien demandé.",
+				"giphyIds": [],
+				"giphyQuery": "Ross Friends"
+			},
+			"b": {
+				"name": "Rachel",
+				"origin": "Friends · 1994",
+				"line": "Une coupe de cheveux devenue mythique.",
+				"quip": "Team Rachel : tu as eu la coupe « Rachel » un jour. Les photos existent.",
+				"giphyIds": [],
+				"giphyQuery": "Rachel Friends"
+			},
+			"bothQuip": "Les deux. Pour toi, c’était LE couple de la série. Pause comprise.",
+			"noneQuip": "Ni Ross ni Rachel. Team Phoebe, et son chat qui pue."
+		},
+		{
+			"id": "duos-chandler-joey",
+			"category": "duos",
+			"a": {
+				"name": "Chandler",
+				"origin": "Friends · 1994",
+				"line": "L’humour comme armure.",
+				"quip": "Team Chandler : tu fais une blague à chaque silence gênant. Il y en a beaucoup.",
+				"giphyIds": [],
+				"giphyQuery": "Chandler Bing"
+			},
+			"b": {
+				"name": "Joey",
+				"origin": "Friends · 1994",
+				"line": "« Comment tu vas ? »",
+				"quip": "Team Joey : « Comment tu vas ? » Et tu ne partages jamais ta nourriture.",
+				"giphyIds": [],
+				"giphyQuery": "Joey how you doin"
+			},
+			"bothQuip": "Les deux. Deux fauteuils inclinables et un canard dans l’appartement : la belle vie.",
+			"noneQuip": "Ni Chandler ni Joey. Team Monica, et son ménage obsessionnel."
+		},
+		{
+			"id": "duos-sheldon-leonard",
+			"category": "duos",
+			"a": {
+				"name": "Sheldon",
+				"origin": "The Big Bang Theory · 2007",
+				"line": "« Bazinga ! »",
+				"quip": "Team Sheldon : tu frappes trois fois en disant le prénom de la personne. Trois fois.",
+				"giphyIds": [],
+				"giphyQuery": "Sheldon bazinga"
+			},
+			"b": {
+				"name": "Leonard",
+				"origin": "The Big Bang Theory · 2007",
+				"line": "Le colocataire qui supporte tout.",
+				"quip": "Team Leonard : tu supportes ton colocataire. Tu mérites une médaille.",
+				"giphyIds": [],
+				"giphyQuery": "Leonard Big Bang"
+			},
+			"bothQuip": "Les deux. Le génie insupportable et l’ami patient : tu connais ce duo en vrai.",
+			"noneQuip": "Ni Sheldon ni Leonard. Team Penny, la seule qui a une vie."
+		},
+		{
+			"id": "duos-homer-marge",
+			"category": "duos",
+			"a": {
+				"name": "Homer",
+				"origin": "Les Simpson · 1989",
+				"line": "« D’oh ! » Et des donuts.",
+				"quip": "Team Homer : « D’oh ! » représente la moitié de ton vocabulaire du lundi matin.",
+				"giphyIds": [],
+				"giphyQuery": "Homer Simpson"
+			},
+			"b": {
+				"name": "Marge",
+				"origin": "Les Simpson · 1989",
+				"line": "Des cheveux bleus, et une patience infinie.",
+				"quip": "Team Marge : une patience infinie. Et une coiffure qui tient toute seule.",
+				"giphyIds": [],
+				"giphyQuery": "Marge Simpson"
+			},
+			"bothQuip": "Les deux. Plus de trente-cinq ans de mariage à l’écran : un exemple.",
+			"noneQuip": "Ni Homer ni Marge. Team Bart, la bêtise faite enfant."
+		},
+		{
+			"id": "duos-lilo-stitch",
+			"category": "duos",
+			"a": {
+				"name": "Lilo",
+				"origin": "Lilo et Stitch · 2002",
+				"line": "Hawaï, et l’ohana.",
+				"quip": "Team Lilo : ohana, ça veut dire famille. Et dans ta famille, on n’abandonne personne.",
+				"giphyIds": [],
+				"giphyQuery": "Lilo"
+			},
+			"b": {
+				"name": "Stitch",
+				"origin": "Lilo et Stitch · 2002",
+				"line": "Un extraterrestre, et beaucoup de bêtises.",
+				"quip": "Team Stitch : tu fais des bêtises partout où tu passes, et tout le monde te trouve mignon.",
+				"giphyIds": [],
+				"giphyQuery": "Stitch ohana"
+			},
+			"bothQuip": "Les deux. Une petite fille et un extraterrestre chaotique : la meilleure famille du monde.",
+			"noneQuip": "Ni Lilo ni Stitch. Hawaï, tu préfères y aller en vacances, sans extraterrestre."
+		},
+		{
+			"id": "duos-flash-mcqueen-martin",
+			"category": "duos",
+			"a": {
+				"name": "Flash McQueen",
+				"origin": "Cars · 2006",
+				"line": "« Ka-tchow ! »",
+				"quip": "Team Flash McQueen : « Ka-tchow ! » Tu le dis quand tu doubles quelqu’un sur l’autoroute.",
+				"giphyIds": [],
+				"giphyQuery": "Lightning McQueen"
+			},
+			"b": {
+				"name": "Martin",
+				"origin": "Cars · 2006",
+				"line": "Une dépanneuse rouillée, et un grand cœur.",
+				"quip": "Team Martin : un peu rouillé, mais un cœur immense. Et tu conduis en marche arrière.",
+				"giphyIds": [],
+				"giphyQuery": "Mater Cars"
+			},
+			"bothQuip": "Les deux. Une voiture de course et une dépanneuse : ton garage idéal.",
+			"noneQuip": "Ni Flash ni Martin. Les voitures qui parlent, ça te fait un peu peur."
+		},
+		{
+			"id": "duos-rox-rouky",
+			"category": "duos",
+			"a": {
+				"name": "Rox",
+				"origin": "Rox et Rouky · 1981",
+				"line": "Un renard.",
+				"quip": "Team Rox : tu as pleuré pour un renard. Toute ton enfance.",
+				"giphyIds": ["v8pACm7D82olW"],
+				"giphyQuery": "fox",
+				"giphyKeywords": ["disney"]
+			},
+			"b": {
+				"name": "Rouky",
+				"origin": "Rox et Rouky · 1981",
+				"line": "Un chien de chasse.",
+				"quip": "Team Rouky : un chien de chasse au grand cœur. Tu as pleuré aussi.",
+				"giphyIds": ["exxEYlubCNRQs"],
+				"giphyQuery": "hound puppy"
+			},
+			"bothQuip": "Les deux. L’amitié impossible qui t’a brisé le cœur à six ans.",
+			"noneQuip": "Ni Rox ni Rouky. Tu n’as jamais vu le film ? Prévois des mouchoirs."
+		},
+		{
+			"id": "duos-la-belle-le-clochard",
+			"category": "duos",
+			"a": {
+				"name": "La Belle",
+				"origin": "La Belle et le Clochard · 1955",
+				"line": "Une cocker élégante.",
+				"quip": "Team la Belle : élégante, bien élevée, et prête à partager un plat de spaghettis.",
+				"giphyIds": [],
+				"giphyQuery": "Lady Disney"
+			},
+			"b": {
+				"name": "Le Clochard",
+				"origin": "La Belle et le Clochard · 1955",
+				"line": "Un chien des rues, et un plat de spaghettis.",
+				"quip": "Team le Clochard : tu pousses la dernière boulette vers l’autre avec ton nez. Romantique.",
+				"giphyIds": [],
+				"giphyQuery": "Lady and the Tramp spaghetti"
+			},
+			"bothQuip": "Les deux. Un plat de spaghettis, une mandoline, et la soirée parfaite.",
+			"noneQuip": "Ni la Belle ni le Clochard. Tes spaghettis, tu ne les partages avec personne."
+		},
+		{
+			"id": "duos-ratchet-clank",
+			"category": "duos",
+			"a": {
+				"name": "Ratchet",
+				"origin": "Insomniac · 2002",
+				"line": "Un mécanicien aux grandes oreilles.",
+				"quip": "Team Ratchet : tu bricoles tout avec une clé à molette géante.",
+				"giphyIds": [],
+				"giphyQuery": "Ratchet"
+			},
+			"b": {
+				"name": "Clank",
+				"origin": "Insomniac · 2002",
+				"line": "Un petit robot, et le cerveau du duo.",
+				"quip": "Team Clank : petit, mais le cerveau du duo. Comme toujours.",
+				"giphyIds": [],
+				"giphyQuery": "Clank robot"
+			},
+			"bothQuip": "Les deux. Un mécanicien et un robot qui sauvent la galaxie : ton week-end idéal.",
+			"noneQuip": "Ni Ratchet ni Clank. Les jeux de plateforme dans l’espace, très peu pour toi."
+		},
+		{
+			"id": "duos-phineas-ferb",
+			"category": "duos",
+			"a": {
+				"name": "Phinéas",
+				"origin": "Phinéas et Ferb · 2007",
+				"line": "Le chef de projet des vacances.",
+				"quip": "Team Phinéas : un projet fou pour chaque jour des vacances. Les cent quatre jours.",
+				"giphyIds": [],
+				"giphyQuery": "Phineas"
+			},
+			"b": {
+				"name": "Ferb",
+				"origin": "Phinéas et Ferb · 2007",
+				"line": "Il ne parle presque pas, et il construit tout.",
+				"quip": "Team Ferb : tu parles peu, mais tu construis des montagnes russes dans le jardin.",
+				"giphyIds": [],
+				"giphyQuery": "Ferb"
+			},
+			"bothQuip": "Les deux. Les vacances, c’est fait pour construire l’impossible.",
+			"noneQuip": "Ni Phinéas ni Ferb. Team Perry l’ornithorynque, agent secret."
+		},
+		{
+			"id": "duos-joe-dalton-averell-dalton",
+			"category": "duos",
+			"a": {
+				"name": "Joe Dalton",
+				"origin": "Lucky Luke · 1951",
+				"line": "Le plus petit, le plus colérique.",
+				"quip": "Team Joe : le plus petit, le plus colérique. Tu cries « Averell ! » au moindre problème.",
+				"giphyIds": [],
+				"giphyQuery": "Joe Dalton"
+			},
+			"b": {
+				"name": "Averell Dalton",
+				"origin": "Lucky Luke · 1951",
+				"line": "Le plus grand, le plus affamé.",
+				"quip": "Team Averell : tu demandes « quand est-ce qu’on mange ? » toutes les dix minutes.",
+				"giphyIds": [],
+				"giphyQuery": "Averell Dalton"
+			},
+			"bothQuip": "Les deux. Toute la fratrie Dalton, rangée par taille.",
+			"noneQuip": "Ni Joe ni Averell. Team Lucky Luke, plus rapide que son ombre."
+		},
+		{
+			"id": "duos-fred-pierrafeu-barney-laroche",
+			"category": "duos",
+			"a": {
+				"name": "Fred Pierrafeu",
+				"origin": "Les Pierrafeu · 1960",
+				"line": "« Yabba-dabba-doo ! »",
+				"quip": "Team Fred Pierrafeu : « Yabba-dabba-doo ! », c’est ton cri de fin de journée.",
+				"giphyIds": [],
+				"giphyQuery": "Fred Flintstone"
+			},
+			"b": {
+				"name": "Barney Laroche",
+				"origin": "Les Pierrafeu · 1960",
+				"line": "Le voisin, et le meilleur ami.",
+				"quip": "Team Barney : le voisin parfait et le meilleur ami. On en voudrait tous un.",
+				"giphyIds": [],
+				"giphyQuery": "Barney Rubble"
+			},
+			"bothQuip": "Les deux. L’âge de pierre, mais avec des voitures à pédales.",
+			"noneQuip": "Ni Fred ni Barney. La préhistoire, très peu pour toi."
+		},
+		{
+			"id": "duos-popeye-olive",
+			"category": "duos",
+			"a": {
+				"name": "Popeye",
+				"origin": "E. C. Segar · 1929",
+				"line": "Des épinards, et des bras énormes.",
+				"quip": "Team Popeye : tu manges des épinards en boîte et tu attends les muscles. Toujours rien.",
+				"giphyIds": [],
+				"giphyQuery": "Popeye spinach"
+			},
+			"b": {
+				"name": "Olive",
+				"origin": "E. C. Segar · 1919",
+				"line": "Une grande silhouette, et elle était là avant lui.",
+				"quip": "Team Olive : elle était là avant lui, et c’est elle qui décide. Tu le sais.",
+				"giphyIds": [],
+				"giphyQuery": "Olive Oyl"
+			},
+			"bothQuip": "Les deux. Des épinards, une pipe et une grande silhouette : le couple de ton enfance.",
+			"noneQuip": "Ni Popeye ni Olive. Les épinards, très peu pour toi."
+		},
+		{
+			"id": "duos-omar-fred",
+			"category": "duos",
+			"a": {
+				"name": "Omar",
+				"origin": "Omar et Fred · 1997",
+				"line": "Le sourire, l’énergie, et un rire qui part en vrille.",
+				"quip": "Team Omar : ton rire s’entend depuis la rue. Et tout le monde rit avec toi.",
+				"giphyIds": [],
+				"giphyQuery": "omar sy"
+			},
+			"b": {
+				"name": "Fred",
+				"origin": "Omar et Fred · 1997",
+				"line": "Le pince-sans-rire, en costume impeccable.",
+				"quip": "Team Fred : tu dis des énormités sans jamais sourire. Personne ne sait si tu plaisantes.",
+				"giphyIds": [],
+				"giphyQuery": "fred testot"
+			},
+			"bothQuip": "Les deux. Les sketchs du « SAV », tu les connais par cœur.",
+			"noneQuip": "Ni Omar ni Fred. Les sketchs à deux, tu préfères les monologues."
+		},
+		{
+			"id": "duos-kermit-miss-piggy",
+			"category": "duos",
+			"a": {
+				"name": "Kermit",
+				"origin": "Le Muppet Show · 1955",
+				"line": "Une grenouille, un banjo, et beaucoup de patience.",
+				"quip": "Team Kermit : tu présentes le spectacle, tu gères toutes les catastrophes, et tu fais « Yaaay ! ».",
+				"giphyIds": [],
+				"giphyQuery": "kermit"
+			},
+			"b": {
+				"name": "Miss Piggy",
+				"origin": "Le Muppet Show · 1974",
+				"line": "« Moi ? » Un coup de karaté, et une entrée de diva.",
+				"quip": "Team Miss Piggy : tu fais des entrées de diva, même au supermarché. Hi-yah !",
+				"giphyIds": [],
+				"giphyQuery": "miss piggy"
+			},
+			"bothQuip": "Les deux. Le couple le plus compliqué de la télé. Et le plus attachant.",
+			"noneQuip": "Ni Kermit ni Miss Piggy. Team Gonzo, le grand bizarre."
+		},
+		{
+			"id": "duos-garfield-odie",
+			"category": "duos",
+			"a": {
+				"name": "Garfield",
+				"origin": "Jim Davis · 1978",
+				"line": "Les lasagnes, le canapé, et une haine profonde des lundis.",
+				"quip": "Team Garfield : tu détestes les lundis et tu adores les lasagnes. Rien à ajouter.",
+				"giphyIds": [],
+				"giphyQuery": "garfield"
+			},
+			"b": {
+				"name": "Odie",
+				"origin": "Jim Davis · 1978",
+				"line": "Une langue immense, et une joie sans limite.",
+				"quip": "Team Odie : un rien te met en joie. Garfield te trouve fatigant, et alors ?",
+				"giphyIds": [],
+				"giphyQuery": "odie"
+			},
+			"bothQuip": "Les deux. Le chat paresseux et le chien joyeux : ta maison idéale.",
+			"noneQuip": "Ni Garfield ni Odie. Team Jon, le propriétaire dépassé."
+		},
+		{
+			"id": "duos-chevallier-laspales",
+			"category": "duos",
+			"a": {
+				"name": "Chevallier",
+				"origin": "Chevallier et Laspalès · 1984",
+				"line": "Le sérieux, qui pose les questions.",
+				"quip": "Team Chevallier : tu poses des questions simples, et tu reçois des réponses impossibles.",
+				"giphyIds": [],
+				"giphyQuery": "comedy duo"
+			},
+			"b": {
+				"name": "Laspalès",
+				"origin": "Chevallier et Laspalès · 1984",
+				"line": "« C’est vous qui voyez ! »",
+				"quip": "Team Laspalès : « C’est vous qui voyez ! » Tu le dis au moindre dilemme.",
+				"giphyIds": [],
+				"giphyQuery": "confused"
+			},
+			"bothQuip": "Les deux. Leurs sketchs au téléphone, tu les connais par cœur.",
+			"noneQuip": "Ni Chevallier ni Laspalès. Les duos comiques des années 90, ce n’est pas ton époque."
+		},
+		{
+			"id": "duos-tom-sawyer-huckleberry-finn",
+			"category": "duos",
+			"a": {
+				"name": "Tom Sawyer",
+				"origin": "Mark Twain · 1876",
+				"line": "Il fait repeindre la palissade par les autres. Et ils le remercient.",
+				"quip": "Team Tom Sawyer : tu fais faire tes corvées aux autres, et ils te remercient. Génie.",
+				"giphyIds": [],
+				"giphyQuery": "tom sawyer"
+			},
+			"b": {
+				"name": "Huckleberry Finn",
+				"origin": "Mark Twain · 1884",
+				"line": "Pieds nus, un radeau, et le Mississippi.",
+				"quip": "Team Huckleberry Finn : tu rêves de partir en radeau sans prévenir personne.",
+				"giphyIds": [],
+				"giphyQuery": "raft river"
+			},
+			"bothQuip": "Les deux. Des aventures sur le Mississippi, et pas de devoirs.",
+			"noneQuip": "Ni Tom ni Huck. Les fugues en radeau, très peu pour toi. Le canapé est plus sûr."
+		},
+		{
+			"id": "duos-zig-sharko",
+			"category": "duos",
+			"a": {
+				"name": "Zig",
+				"origin": "Zig et Sharko · 2010",
+				"line": "Une hyène affamée, et des plans qui ratent tous.",
+				"quip": "Team Zig : tu as un plan pour attraper la sirène. Il va rater. Comme les quatre cents autres.",
+				"giphyIds": [],
+				"giphyQuery": "hyena"
+			},
+			"b": {
+				"name": "Sharko",
+				"origin": "Zig et Sharko · 2010",
+				"line": "Un requin musclé, et très amoureux.",
+				"quip": "Team Sharko : tu protèges ceux que tu aimes, avec beaucoup de muscles et peu de subtilité.",
+				"giphyIds": [],
+				"giphyQuery": "shark"
+			},
+			"bothQuip": "Les deux. Ton enfance : une hyène, un requin, et une sirène.",
+			"noneQuip": "Ni Zig ni Sharko. Team Marina, la sirène qui n’a rien demandé."
+		},
+		{
+			"id": "duos-hansel-gretel",
+			"category": "duos",
+			"a": {
+				"name": "Hansel",
+				"origin": "Frères Grimm · 1812",
+				"line": "Des miettes de pain pour retrouver le chemin. Les oiseaux avaient faim.",
+				"quip": "Team Hansel : tu sèmes des miettes partout. Ton canapé peut en témoigner.",
+				"giphyIds": [],
+				"giphyQuery": "bread crumbs"
+			},
+			"b": {
+				"name": "Gretel",
+				"origin": "Frères Grimm · 1812",
+				"line": "C’est elle qui pousse la sorcière dans le four. Retiens-le.",
+				"quip": "Team Gretel : c’est toi qui sauves la situation au dernier moment. Toujours.",
+				"giphyIds": [],
+				"giphyQuery": "gingerbread house"
+			},
+			"bothQuip": "Les deux. Une maison en pain d’épices ? Tu aurais mangé le toit aussi.",
+			"noneQuip": "Ni Hansel ni Gretel. Team sorcière : une maison en bonbons, c’est un bon investissement."
+		},
+		{
+			"id": "duos-sid-manny",
+			"category": "duos",
+			"a": {
+				"name": "Sid",
+				"origin": "L’Âge de glace · 2002",
+				"line": "Un paresseux bavard, et une catastrophe ambulante.",
+				"quip": "Team Sid : tu parles sans arrêt et tu déclenches les catastrophes. Mais tout le monde t’adore.",
+				"giphyIds": [],
+				"giphyQuery": "sloth"
+			},
+			"b": {
+				"name": "Manny",
+				"origin": "L’Âge de glace · 2002",
+				"line": "Un mammouth grognon, au très grand cœur.",
+				"quip": "Team Manny : tu râles tout le temps, et tu sauves tout le monde. Le grand cœur des grognons.",
+				"giphyIds": [],
+				"giphyQuery": "mammoth"
+			},
+			"bothQuip": "Les deux. Le grognon et le bavard : ta bande d’amis, en gros.",
+			"noneQuip": "Ni Sid ni Manny. Team Scrat, et son gland pour toujours."
+		},
+		{
+			"id": "quotidien-lave-vaisselle-vaisselle-a-la-main",
+			"category": "quotidien",
+			"a": {
+				"name": "Lave-vaisselle",
+				"origin": "La cuisine",
+				"line": "On le remplit, il travaille.",
+				"giphyIds": [],
+				"giphyQuery": "dishwasher"
+			},
+			"b": {
+				"name": "Vaisselle à la main",
+				"origin": "L’évier",
+				"line": "Les mains dans l’eau, et le calme.",
+				"giphyIds": [],
+				"giphyQuery": "washing dishes"
+			}
+		},
+		{
+			"id": "quotidien-ranger-tout-de-suite-la-chaise-a-vetements",
+			"category": "quotidien",
+			"a": {
+				"name": "Ranger tout de suite",
+				"origin": "L’armoire",
+				"line": "Chaque vêtement à sa place, sur-le-champ.",
+				"giphyIds": [],
+				"giphyQuery": "folding clothes"
+			},
+			"b": {
+				"name": "La chaise à vêtements",
+				"origin": "La chambre",
+				"line": "Ni sale, ni propre : la chaise.",
+				"giphyIds": [],
+				"giphyQuery": "clothes chair"
+			}
+		},
+		{
+			"id": "quotidien-couette-sur-les-pieds-pied-qui-depasse",
+			"category": "quotidien",
+			"a": {
+				"name": "Couette sur les pieds",
+				"origin": "Le lit",
+				"line": "Tout bien couvert, et au chaud.",
+				"giphyIds": [],
+				"giphyQuery": "cozy blanket"
+			},
+			"b": {
+				"name": "Pied qui dépasse",
+				"origin": "Le lit aussi",
+				"line": "Un pied dehors, pour réguler la température.",
+				"giphyIds": [],
+				"giphyQuery": "foot out of blanket"
+			}
+		},
+		{
+			"id": "quotidien-cote-gauche-du-lit-cote-droit-du-lit",
+			"category": "quotidien",
+			"a": {
+				"name": "Côté gauche du lit",
+				"origin": "La chambre",
+				"line": "Ton côté, depuis toujours.",
+				"giphyIds": [],
+				"giphyQuery": "bed"
+			},
+			"b": {
+				"name": "Côté droit du lit",
+				"origin": "La chambre aussi",
+				"line": "L’autre côté, et pas question d’échanger.",
+				"giphyIds": [],
+				"giphyQuery": "bed sleeping"
+			}
+		},
+		{
+			"id": "quotidien-fenetre-ouverte-fenetre-fermee",
+			"category": "quotidien",
+			"a": {
+				"name": "Fenêtre ouverte",
+				"origin": "La nuit",
+				"line": "L’air frais, et les moustiques.",
+				"giphyIds": [],
+				"giphyQuery": "open window night"
+			},
+			"b": {
+				"name": "Fenêtre fermée",
+				"origin": "La nuit aussi",
+				"line": "Le calme, et la chaleur.",
+				"giphyIds": [],
+				"giphyQuery": "closed window"
+			}
+		},
+		{
+			"id": "quotidien-sieste-pas-de-sieste",
+			"category": "quotidien",
+			"a": {
+				"name": "Sieste",
+				"origin": "Le canapé, 14 h",
+				"line": "Vingt minutes, et une nouvelle personne.",
+				"giphyIds": [],
+				"giphyQuery": "nap"
+			},
+			"b": {
+				"name": "Pas de sieste",
+				"origin": "Le bureau, 14 h",
+				"line": "Tenir bon, et regretter.",
+				"giphyIds": [],
+				"giphyQuery": "sleepy office"
+			}
+		},
+		{
+			"id": "quotidien-courses-en-ligne-courses-au-supermarche",
+			"category": "quotidien",
+			"a": {
+				"name": "Courses en ligne",
+				"origin": "L’application",
+				"line": "Livrées à la porte, avec une banane en trop.",
+				"giphyIds": [],
+				"giphyQuery": "online grocery"
+			},
+			"b": {
+				"name": "Courses au supermarché",
+				"origin": "Le chariot",
+				"line": "Une roue qui grince, et des tentations partout.",
+				"giphyIds": [],
+				"giphyQuery": "shopping cart"
+			}
+		},
+		{
+			"id": "quotidien-liste-de-courses-improviser",
+			"category": "quotidien",
+			"a": {
+				"name": "Liste de courses",
+				"origin": "Le frigo",
+				"line": "Tout est noté, rien n’est oublié.",
+				"giphyIds": [],
+				"giphyQuery": "shopping list"
+			},
+			"b": {
+				"name": "Improviser",
+				"origin": "Le rayon",
+				"line": "On rentre avec des chips et sans pain.",
+				"giphyIds": [],
+				"giphyQuery": "grocery shopping"
+			}
+		},
+		{
+			"id": "quotidien-especes-carte-bancaire",
+			"category": "quotidien",
+			"a": {
+				"name": "Espèces",
+				"origin": "Le porte-monnaie",
+				"line": "Des pièces, et le compte exact.",
+				"giphyIds": [],
+				"giphyQuery": "cash"
+			},
+			"b": {
+				"name": "Carte bancaire",
+				"origin": "Le portefeuille",
+				"line": "Sans contact, et sans compter.",
+				"giphyIds": [],
+				"giphyQuery": "card payment"
+			}
+		},
+		{
+			"id": "quotidien-escalier-ascenseur",
+			"category": "quotidien",
+			"a": {
+				"name": "Escalier",
+				"origin": "Le palier",
+				"line": "Du sport gratuit, et le souffle court.",
+				"giphyIds": [],
+				"giphyQuery": "stairs"
+			},
+			"b": {
+				"name": "Ascenseur",
+				"origin": "Le hall",
+				"line": "Rapide, et un silence gênant.",
+				"giphyIds": [],
+				"giphyQuery": "elevator awkward"
+			}
+		},
+		{
+			"id": "quotidien-voiture-transports-en-commun",
+			"category": "quotidien",
+			"a": {
+				"name": "Voiture",
+				"origin": "Le garage",
+				"line": "Partir quand on veut, et chercher une place.",
+				"giphyIds": [],
+				"giphyQuery": "driving car"
+			},
+			"b": {
+				"name": "Transports en commun",
+				"origin": "La station",
+				"line": "Lire, dormir, et parfois attendre.",
+				"giphyIds": [],
+				"giphyQuery": "metro subway"
+			}
+		},
+		{
+			"id": "quotidien-velo-trottinette",
+			"category": "quotidien",
+			"a": {
+				"name": "Vélo",
+				"origin": "La piste cyclable",
+				"line": "Les mollets, l’air frais, et la pluie.",
+				"giphyIds": [],
+				"giphyQuery": "bicycle city"
+			},
+			"b": {
+				"name": "Trottinette",
+				"origin": "Le trottoir",
+				"line": "Électrique, rapide, et un peu périlleuse.",
+				"giphyIds": [],
+				"giphyQuery": "electric scooter"
+			}
+		},
+		{
+			"id": "quotidien-teletravail-bureau",
+			"category": "quotidien",
+			"a": {
+				"name": "Télétravail",
+				"origin": "Le salon",
+				"line": "Le pyjama en bas, la chemise en haut.",
+				"giphyIds": [],
+				"giphyQuery": "working from home"
+			},
+			"b": {
+				"name": "Bureau",
+				"origin": "L’open space",
+				"line": "Les collègues, la machine à café, et les réunions.",
+				"giphyIds": [],
+				"giphyQuery": "office"
+			}
+		},
+		{
+			"id": "quotidien-lundi-matin-dimanche-soir",
+			"category": "quotidien",
+			"question": "Le pire moment de la semaine : lundi matin ou dimanche soir ?",
+			"a": {
+				"name": "Lundi matin",
+				"origin": "Le réveil",
+				"line": "La semaine commence. Courage.",
+				"giphyIds": [],
+				"giphyQuery": "monday morning"
+			},
+			"b": {
+				"name": "Dimanche soir",
+				"origin": "Le canapé",
+				"line": "Le week-end se termine. Courage aussi.",
+				"giphyIds": [],
+				"giphyQuery": "sunday night blues"
+			}
+		},
+		{
+			"id": "quotidien-anniversaire-surprise-anniversaire-organise",
+			"category": "quotidien",
+			"a": {
+				"name": "Anniversaire surprise",
+				"origin": "Le salon dans le noir",
+				"line": "« Surprise ! » Et un cœur qui s’emballe.",
+				"giphyIds": [],
+				"giphyQuery": "surprise party"
+			},
+			"b": {
+				"name": "Anniversaire organisé",
+				"origin": "L’invitation",
+				"line": "Tout est prévu, et c’est très bien.",
+				"giphyIds": [],
+				"giphyQuery": "birthday party"
+			}
+		},
+		{
+			"id": "quotidien-cadeau-utile-cadeau-surprise",
+			"category": "quotidien",
+			"a": {
+				"name": "Cadeau utile",
+				"origin": "Le paquet",
+				"line": "Ce dont tu avais vraiment besoin.",
+				"giphyIds": [],
+				"giphyQuery": "practical gift"
+			},
+			"b": {
+				"name": "Cadeau surprise",
+				"origin": "Le paquet aussi",
+				"line": "Ce dont tu ne savais pas avoir besoin.",
+				"giphyIds": [],
+				"giphyQuery": "surprise gift"
+			}
+		},
+		{
+			"id": "quotidien-cadeaux-le-24-cadeaux-le-25",
+			"category": "quotidien",
+			"question": "Les cadeaux de Noël : le 24 au soir ou le 25 au matin ?",
+			"a": {
+				"name": "Cadeaux le 24",
+				"origin": "Le réveillon",
+				"line": "Tout de suite, après le repas.",
+				"giphyIds": [],
+				"giphyQuery": "christmas eve presents"
+			},
+			"b": {
+				"name": "Cadeaux le 25",
+				"origin": "Le matin de Noël",
+				"line": "Au réveil, en pyjama.",
+				"giphyIds": [],
+				"giphyQuery": "christmas morning presents"
+			}
+		},
+		{
+			"id": "quotidien-sapin-naturel-sapin-artificiel",
+			"category": "quotidien",
+			"a": {
+				"name": "Sapin naturel",
+				"origin": "La forêt",
+				"line": "L’odeur, et les aiguilles jusqu’en mars.",
+				"giphyIds": [],
+				"giphyQuery": "christmas tree"
+			},
+			"b": {
+				"name": "Sapin artificiel",
+				"origin": "Le grenier",
+				"line": "Toujours parfait, et rangé dans un carton.",
+				"giphyIds": [],
+				"giphyQuery": "fake christmas tree"
+			}
+		},
+		{
+			"id": "quotidien-camping-hotel",
+			"category": "quotidien",
+			"a": {
+				"name": "Camping",
+				"origin": "La tente",
+				"line": "Les étoiles, et le duvet humide.",
+				"giphyIds": [],
+				"giphyQuery": "camping tent"
+			},
+			"b": {
+				"name": "Hôtel",
+				"origin": "La chambre",
+				"line": "Le lit fait, et le petit-déjeuner servi.",
+				"giphyIds": [],
+				"giphyQuery": "hotel room"
+			}
+		},
+		{
+			"id": "quotidien-avion-train",
+			"category": "quotidien",
+			"a": {
+				"name": "Avion",
+				"origin": "Le ciel",
+				"line": "Rapide, et des files d’attente partout.",
+				"giphyIds": [],
+				"giphyQuery": "airplane"
+			},
+			"b": {
+				"name": "Train",
+				"origin": "Les rails",
+				"line": "Le paysage, la place pour les jambes, et le wagon-bar.",
+				"giphyIds": [],
+				"giphyQuery": "train window"
+			}
+		},
+		{
+			"id": "quotidien-hublot-couloir",
+			"category": "quotidien",
+			"question": "En avion : côté hublot ou côté couloir ?",
+			"a": {
+				"name": "Hublot",
+				"origin": "La rangée",
+				"line": "La vue, et le passage par-dessus les voisins.",
+				"giphyIds": [],
+				"giphyQuery": "airplane window"
+			},
+			"b": {
+				"name": "Couloir",
+				"origin": "La rangée aussi",
+				"line": "Les jambes allongées, et la liberté.",
+				"giphyIds": [],
+				"giphyQuery": "airplane aisle"
+			}
+		},
+		{
+			"id": "quotidien-reveillon-festif-reveillon-en-pyjama",
+			"category": "quotidien",
+			"a": {
+				"name": "Réveillon festif",
+				"origin": "La soirée",
+				"line": "Des paillettes, et le compte à rebours.",
+				"giphyIds": [],
+				"giphyQuery": "new year party"
+			},
+			"b": {
+				"name": "Réveillon en pyjama",
+				"origin": "Le canapé",
+				"line": "Un plaid, et au lit à minuit cinq.",
+				"giphyIds": [],
+				"giphyQuery": "new year pajamas"
+			}
+		},
+		{
+			"id": "quotidien-tondre-la-pelouse-laisser-pousser",
+			"category": "quotidien",
+			"a": {
+				"name": "Tondre la pelouse",
+				"origin": "Le jardin",
+				"line": "Un gazon net, et le bruit du dimanche matin.",
+				"giphyIds": [],
+				"giphyQuery": "lawn mowing"
+			},
+			"b": {
+				"name": "Laisser pousser",
+				"origin": "Le jardin aussi",
+				"line": "Des fleurs sauvages, et des abeilles heureuses.",
+				"giphyIds": [],
+				"giphyQuery": "wild garden"
+			}
+		},
+		{
+			"id": "quotidien-plantes-vertes-plantes-en-plastique",
+			"category": "quotidien",
+			"a": {
+				"name": "Plantes vertes",
+				"origin": "Le salon",
+				"line": "De la vie, et de l’arrosage.",
+				"giphyIds": [],
+				"giphyQuery": "house plants"
+			},
+			"b": {
+				"name": "Plantes en plastique",
+				"origin": "Le salon aussi",
+				"line": "Toujours vertes, même sans toi.",
+				"giphyIds": [],
+				"giphyQuery": "fake plant"
+			}
+		},
+		{
+			"id": "quotidien-douche-le-matin-douche-le-soir",
+			"category": "quotidien",
+			"a": {
+				"name": "Douche le matin",
+				"origin": "La salle de bains, 7 h",
+				"line": "Pour se réveiller.",
+				"giphyIds": [],
+				"giphyQuery": "morning shower"
+			},
+			"b": {
+				"name": "Douche le soir",
+				"origin": "La salle de bains, 22 h",
+				"line": "Pour se détendre.",
+				"giphyIds": [],
+				"giphyQuery": "evening shower"
+			}
+		},
+		{
+			"id": "quotidien-mettre-le-couvert-debarrasser",
+			"category": "quotidien",
+			"a": {
+				"name": "Mettre le couvert",
+				"origin": "Avant le repas",
+				"line": "On prépare, et on a faim.",
+				"giphyIds": [],
+				"giphyQuery": "setting table"
+			},
+			"b": {
+				"name": "Débarrasser",
+				"origin": "Après le repas",
+				"line": "On range, et on est repu.",
+				"giphyIds": [],
+				"giphyQuery": "clearing table"
+			}
+		},
+		{
+			"id": "quotidien-petit-dejeuner-sucre-petit-dejeuner-sale",
+			"category": "quotidien",
+			"a": {
+				"name": "Petit-déjeuner sucré",
+				"origin": "La table du matin",
+				"line": "Tartines, confiture, et céréales.",
+				"giphyIds": [],
+				"giphyQuery": "sweet breakfast"
+			},
+			"b": {
+				"name": "Petit-déjeuner salé",
+				"origin": "La table du matin aussi",
+				"line": "Œufs, bacon, et fromage.",
+				"giphyIds": [],
+				"giphyQuery": "savory breakfast"
+			}
+		},
+		{
+			"id": "quotidien-brunch-petit-dejeuner-classique",
+			"category": "quotidien",
+			"a": {
+				"name": "Brunch",
+				"origin": "Le dimanche, 11 h",
+				"line": "Tout à la fois, et pas de déjeuner après.",
+				"giphyIds": [],
+				"giphyQuery": "brunch"
+			},
+			"b": {
+				"name": "Petit-déjeuner classique",
+				"origin": "Le dimanche, 8 h",
+				"line": "Café, tartines, et toute la journée devant soi.",
+				"giphyIds": [],
+				"giphyQuery": "coffee and toast"
+			}
+		},
+		{
+			"id": "quotidien-appel-video-appel-audio",
+			"category": "quotidien",
+			"a": {
+				"name": "Appel vidéo",
+				"origin": "L’écran",
+				"line": "On se voit, et on regarde surtout sa tête.",
+				"giphyIds": [],
+				"giphyQuery": "video call"
+			},
+			"b": {
+				"name": "Appel audio",
+				"origin": "Le téléphone",
+				"line": "On s’écoute, et on se promène en même temps.",
+				"giphyIds": [],
+				"giphyQuery": "phone call walking"
+			}
+		},
+		{
+			"id": "quotidien-repondre-tout-de-suite-repondre-trois-jours-plus-tard",
+			"category": "quotidien",
+			"a": {
+				"name": "Répondre tout de suite",
+				"origin": "La messagerie",
+				"line": "Efficace, et un peu trop disponible.",
+				"giphyIds": [],
+				"giphyQuery": "quick reply"
+			},
+			"b": {
+				"name": "Répondre trois jours plus tard",
+				"origin": "La messagerie aussi",
+				"line": "« Désolé, je viens de voir. »",
+				"giphyIds": [],
+				"giphyQuery": "late reply"
+			}
+		},
+		{
+			"id": "quotidien-musique-en-travaillant-silence",
+			"category": "quotidien",
+			"a": {
+				"name": "Musique en travaillant",
+				"origin": "Les écouteurs",
+				"line": "Le rythme, et la concentration.",
+				"giphyIds": [],
+				"giphyQuery": "working with music"
+			},
+			"b": {
+				"name": "Silence",
+				"origin": "La bibliothèque",
+				"line": "Rien, et c’est parfait.",
+				"giphyIds": [],
+				"giphyQuery": "quiet library"
+			}
+		},
+		{
+			"id": "quotidien-podcast-musique",
+			"category": "quotidien",
+			"a": {
+				"name": "Podcast",
+				"origin": "Les écouteurs",
+				"line": "Apprendre en faisant la vaisselle.",
+				"giphyIds": [],
+				"giphyQuery": "podcast listening"
+			},
+			"b": {
+				"name": "Musique",
+				"origin": "Les écouteurs aussi",
+				"line": "Chanter en faisant la vaisselle.",
+				"giphyIds": [],
+				"giphyQuery": "singing dishes"
+			}
+		},
+		{
+			"id": "quotidien-monopoly-uno",
+			"category": "quotidien",
+			"a": {
+				"name": "Monopoly",
+				"origin": "Le salon · 1935",
+				"line": "Trois heures, une faillite, et une dispute.",
+				"giphyIds": [],
+				"giphyQuery": "Monopoly"
+			},
+			"b": {
+				"name": "Uno",
+				"origin": "Le salon · 1971",
+				"line": "Un +4, et une amitié brisée.",
+				"giphyIds": [],
+				"giphyQuery": "Uno cards"
+			}
+		},
+		{
+			"id": "quotidien-en-avance-a-la-gare-courir-apres-le-train",
+			"category": "quotidien",
+			"a": {
+				"name": "En avance à la gare",
+				"origin": "Le quai",
+				"line": "Vingt minutes à attendre, et l’esprit tranquille.",
+				"giphyIds": [],
+				"giphyQuery": "waiting train"
+			},
+			"b": {
+				"name": "Courir après le train",
+				"origin": "Le quai aussi",
+				"line": "Les portes qui se ferment, et le cœur à 180.",
+				"giphyIds": [],
+				"giphyQuery": "running for train"
+			}
+		},
+		{
+			"id": "quotidien-faire-son-lit-ne-jamais-le-faire",
+			"category": "quotidien",
+			"a": {
+				"name": "Faire son lit",
+				"origin": "Le matin",
+				"line": "Une chambre nette, et une journée qui commence bien.",
+				"giphyIds": [],
+				"giphyQuery": "making bed"
+			},
+			"b": {
+				"name": "Ne jamais le faire",
+				"origin": "Le matin aussi",
+				"line": "À quoi bon, on y retourne ce soir.",
+				"giphyIds": [],
+				"giphyQuery": "messy bed"
+			}
+		},
+		{
+			"id": "quotidien-19-c-23-c",
+			"category": "quotidien",
+			"question": "Le thermostat en hiver : 19 °C ou 23 °C ?",
+			"a": {
+				"name": "19 °C",
+				"origin": "Le thermostat",
+				"line": "Un pull, et la planète qui te remercie.",
+				"giphyIds": [],
+				"giphyQuery": "sweater cozy"
+			},
+			"b": {
+				"name": "23 °C",
+				"origin": "Le thermostat aussi",
+				"line": "Un t-shirt en plein hiver.",
+				"giphyIds": [],
+				"giphyQuery": "warm home"
+			}
+		}
+	]
+};
+var ui_texts_fr_default = {
+	site: {
+		"title": "484 · T’es team quoi ?",
+		"description": "Team Batman ou team Superman ? Des centaines de rivalités écrites à la main : choisis ton camp, et découvre si le reste du monde est d’accord.",
+		"logo": "484",
+		"name": "T’es team quoi ?",
+		"socialLabel": "Ailleurs sur Internet",
+		"skipToContent": "Aller au contenu",
+		"motion": {
+			"label": "Animations :",
+			"on": "activées",
+			"off": "réduites"
+		},
+		"email": "contact@team484.fr",
+		"domain": "team484.fr",
+		"toc": "Sommaire"
+	},
+	links: {
+		"github": {
+			"label": "GitHub",
+			"url": "https://github.com/MZA-code"
+		},
+		"linkedin": {
+			"label": "LinkedIn",
+			"url": ""
+		}
+	},
+	home: {
+		"title": [
+			"Il aurait pu faire",
+			"un portfolio sérieux.",
+			"Il a préféré ça."
+		],
+		"intro": "Batman ou Superman. Chat ou chien. Pain au chocolat ou chocolatine. Tu choisis ton camp, tu découvres si le reste du monde est d’accord. Ça ne s’arrête jamais. C’est voulu, et c’est un peu inquiétant.",
+		"footnote": "Durée moyenne d’une visite : on ne sait pas, personne n’est encore reparti.",
+		"mixedTheme": {
+			"label": "Tout mélangé",
+			"tagline": "Toutes les rivalités, dans le désordre. Batman, puis la raclette. Tu verras bien.",
+			"icon": "shuffle"
+		},
+		"themesLabel": "Choisis ton arène",
+		"play": "Jouer →",
+		"playUniverse": "Tout l’univers →"
+	},
+	debate: {
+		"pageTitle": "Débats",
+		"number": "Débat n° {n}",
+		"subtitle": "Ça ne s’arrête jamais. Tu peux partir quand tu veux. Personne ne part.",
+		"question": "Team {a} ou team {b} ?",
+		"categoriesLabel": "Catégories",
+		"team": "Team",
+		"vs": "VS",
+		"skip": "Passer",
+		"none": {
+			"button": "Aucun des deux",
+			"choice": "Ni l’un ni l’autre, pour toi",
+			"label": "Aucun des deux",
+			"between": "entre {a} et {b}",
+			"split": "aucun des deux · {percent} %"
+		},
+		"both": {
+			"button": "Les deux",
+			"choice": "L’un et l’autre, pour toi",
+			"label": "Les deux",
+			"between": "{a} et {b}",
+			"split": "les deux · {percent} %"
+		},
+		"keysHint": "← et → pour choisir · ↑ pour les deux · ↓ pour aucun des deux · Échap pour revenir à l’accueil",
+		"pickHint": "Choisis ton camp. Le reste du monde attend ton verdict.",
+		"loading": "On sort les rivalités du placard…",
+		"noscript": "Ce jeu a besoin de JavaScript. Comme la plupart des robots de ce site.",
+		"choice": "Tu es team {name}",
+		"share": "Comme {percent} % des autres",
+		"firstVote": "Tu es le premier à trancher ce débat. Pas de pression.",
+		"milestoneLink": "On en parle sur LinkedIn →",
+		"teams": {
+			"title": "Tes teams",
+			"empty": "Aucune team pour l’instant. Choisis ton camp.",
+			"versus": "contre {name}"
+		},
+		"profile": {
+			"title": "Ton profil",
+			"count": {
+				"one": "{n} débat tranché",
+				"other": "{n} débats tranchés"
+			},
+			"agreement": "D’accord avec la majorité {percent} % du temps",
+			"agreementUnknown": "D’accord avec la majorité : on ne sait pas encore",
+			"rebels": {
+				"one": "{n} choix rebelle",
+				"other": "{n} choix rebelles"
+			}
+		},
+		"hallLink": "Le classement mondial →",
+		"universesLabel": "Univers",
+		"wholeUniverse": "Tout l’univers",
+		"shareButton": "Partager ce débat",
+		"shareCopied": "Lien copié. Va semer la zizanie.",
+		"shareText": "Tu es plutôt team {a} ou team {b} ? Viens trancher.",
+		"shareDescription": "Team {a} ou team {b} ? Choisis ton camp, et découvre si le reste du monde est d’accord.",
+		"loadError": "Les rivalités n’ont pas voulu sortir. Recharge la page, elles sont un peu timides.",
+		"finished": {
+			"title": "Catégorie terminée !",
+			"body": "Tu as tranché tous les débats de « {category} ». Il n’en reste plus un seul.",
+			"allKicker": "Tout mélangé",
+			"allTitle": "Tout est tranché !",
+			"allBody": "Tu as fait le tour de tous les débats du site. Tous. On n’a plus rien à te demander, pour l’instant.",
+			"score": "{n}/{n}",
+			"scoreLabel": "débats bouclés",
+			"gifWait": "GIF en approche…",
+			"next": "Il reste du boulot ailleurs",
+			"remaining": {
+				"one": "{n} débat à trancher →",
+				"other": "{n} débats à trancher →"
+			},
+			"replay": "Rejouer cette catégorie",
+			"replayAll": "Tout rejouer",
+			"replayHint": "Tes anciens choix restent dans ton profil. Tu as le droit de changer d’avis."
+		},
+		"gifReport": {
+			"button": "Mauvais GIF ?",
+			"label": "Mauvais GIF ? Signaler le GIF de {name}",
+			"thanks": [
+				"Merci. Ce GIF a été envoyé au coin, il réfléchit à ce qu’il a fait.",
+				"Bien vu, détective. L’imposteur a été démasqué.",
+				"Signalé. Le stagiaire chargé des GIF va passer un sale quart d’heure (c’est un robot).",
+				"Merci ! On cherche un sosie plus ressemblant.",
+				"Noté. Ce GIF n’avait rien à faire là, et il le sait."
+			],
+			"limited": "Doucement, inspecteur : tu as déjà signalé beaucoup de GIF aujourd’hui.",
+			"error": "Le signalement s’est perdu en route. Réessaie plus tard.",
+			"admin": "Écarté. Voici le suivant (mode admin)."
+		}
+	},
+	quips: {
+		"high": [
+			"Tu es dans la norme. C’est rassurant, et un peu triste.",
+			"Choix validé par la majorité. Le comité approuve.",
+			"Comme tout le monde. Mais avec conviction.",
+			"Sans surprise. On t’aime quand même."
+		],
+		"mid": [
+			"Ça s’est joué à un poil de moustache.",
+			"Le public est divisé. Toi, non.",
+			"Match serré. Les deux camps font appel.",
+			"Un choix défendable devant un tribunal."
+		],
+		"low": [
+			"Choix audacieux. On te surveille.",
+			"Tu fais partie d’une élite. Ou d’une secte.",
+			"Respect. Ou inquiétude. On hésite.",
+			"Les statisticiens sont perplexes."
+		],
+		"neutral": [
+			"Choix enregistré. L’Histoire jugera.",
+			"Noté. On ne dira rien à personne.",
+			"Décision prise. Pas de retour en arrière.",
+			"C’est toi qui vois. Et tu as vu."
+		]
+	},
+	achievements: {
+		"title": "Tes achievements",
+		"unlocked": "Achievement débloqué",
+		"count": "{done} sur {total} débloqués",
+		"next": "Prochain : {name}, encore {left}",
+		"allDone": "Tout est débloqué. Il n’y a plus rien à prouver. Tu peux continuer quand même.",
+		"locked": "verrouillé",
+		"list": [
+			{
+				"id": "curieux",
+				"kind": "debates",
+				"goal": 10,
+				"icon": "eye",
+				"name": "Curieux",
+				"description": "10 débats tranchés",
+				"text": "10 débats. Tu avais sûrement autre chose à faire. Non ? Parfait."
+			},
+			{
+				"id": "recrutable",
+				"kind": "debates",
+				"goal": 25,
+				"icon": "briefcase",
+				"name": "Recrutable",
+				"description": "25 débats tranchés",
+				"text": "25 débats. Si tu es recruteur, on devrait sérieusement se parler.",
+				"link": true
+			},
+			{
+				"id": "accro",
+				"kind": "debates",
+				"goal": 50,
+				"icon": "heart",
+				"name": "Accro",
+				"description": "50 débats tranchés",
+				"text": "50 débats. À ce stade, ce n’est plus un site, c’est une relation."
+			},
+			{
+				"id": "centurion",
+				"kind": "debates",
+				"goal": 100,
+				"icon": "medal",
+				"name": "Centurion",
+				"description": "100 débats tranchés",
+				"text": "100 débats. Tu as vu passer plus de pop culture qu’un vidéoclub en 1995."
+			},
+			{
+				"id": "insatiable",
+				"kind": "debates",
+				"goal": 200,
+				"icon": "fire",
+				"name": "Insatiable",
+				"description": "200 débats tranchés",
+				"text": "200 débats. Ton patron pense que tu travailles. D’une certaine façon, oui."
+			},
+			{
+				"id": "legende-484",
+				"kind": "debates",
+				"goal": 484,
+				"icon": "crown",
+				"name": "Légende du 484",
+				"description": "484 débats tranchés",
+				"text": "484 débats. Le nombre fétiche de ce site. Tu as gagné notre respect éternel.",
+				"link": true
+			},
+			{
+				"id": "hors-categorie",
+				"kind": "debates",
+				"goal": 1e3,
+				"icon": "trophy",
+				"name": "Hors catégorie",
+				"description": "1 000 débats tranchés",
+				"text": "1 000 débats. On ne sait plus quoi te dire. Toi non plus, visiblement."
+			},
+			{
+				"id": "rebelle",
+				"kind": "rebels",
+				"goal": 10,
+				"icon": "hand-fist",
+				"name": "Rebelle",
+				"description": "10 choix contre la majorité",
+				"text": "10 choix contre la majorité. Tu ne suis pas le troupeau. Le troupeau ne te suit pas non plus."
+			},
+			{
+				"id": "dans-le-moule",
+				"kind": "streak",
+				"goal": 20,
+				"icon": "people-group",
+				"name": "Dans le moule",
+				"description": "20 fois d’accord avec la majorité, d’affilée",
+				"text": "20 fois d’accord avec la majorité, d’affilée. Tu n’as pas un avis, tu as L’avis."
+			},
+			{
+				"id": "globe-trotteur",
+				"kind": "universes",
+				"goal": 4,
+				"icon": "earth-europe",
+				"name": "Globe-trotteur",
+				"description": "Un débat tranché dans chacun des 4 univers",
+				"text": "Les 4 univers visités. Écrans, pop culture, vraie vie, imaginaire : tu as fait le tour du propriétaire."
+			},
+			{
+				"id": "explorateur",
+				"kind": "categories",
+				"goal": 20,
+				"icon": "compass",
+				"name": "Explorateur",
+				"description": "Un débat tranché dans chacune des 20 catégories",
+				"text": "Les 20 catégories. Tu as un avis sur tout. Littéralement tout."
+			}
+		]
+	},
+	hallOfFame: {
+		"pageTitle": "Hall of Fame",
+		"title": "Hall of Fame",
+		"intro": "Le verdict mondial, voté par tous les visiteurs qui avaient sûrement mieux à faire.",
+		"totalVotes": {
+			"one": "{n} vote au compteur",
+			"other": "{n} votes au compteur"
+		},
+		"filterLabel": "Filtrer par catégorie",
+		"popularTitle": "Les plus votés",
+		"popularIntro": "Tout le monde a un avis là-dessus. Absolument tout le monde.",
+		"podium": [
+			"Le débat du siècle. Ou au moins de la semaine.",
+			"Presque aussi clivant. Presque.",
+			"Le bronze du clash. Honorable."
+		],
+		"closeTitle": "Les plus serrés",
+		"closeIntro": "Le pays est coupé en deux. Les repas de famille aussi.",
+		"landslideTitle": "Les plus écrasants",
+		"landslideIntro": "Il n’y a pas eu de débat. Juste une exécution.",
+		"votes": {
+			"one": "{n} vote",
+			"other": "{n} votes"
+		},
+		"none": "{percent} % aucun des deux",
+		"both": "{percent} % les deux",
+		"empty": "Pas encore de votes ici. Va jouer, le classement compte sur toi.",
+		"emptySection": "Pas encore assez de votes pour juger. Il en faut au moins dix par débat.",
+		"loading": "On recompte les bulletins…",
+		"error": "Le classement fait la sieste. Les votes, eux, continuent.",
+		"play": "Retour aux débats →"
+	},
+	notFound: {
+		"pageTitle": "Page introuvable",
+		"code": "404",
+		"title": "Cette page a perdu le débat.",
+		"text": "Elle affrontait une page qui existe. Le public a tranché, sans appel.",
+		"back": "Retour aux débats →"
+	},
+	footer: {
+		"links": "Le site et son auteur",
+		"projects": "Voir mes autres projets →",
+		"disclaimer": "Aucune team n’a été blessée pendant les débats. Leur ego, si.",
+		"giphy": {
+			"label": "Powered by GIPHY",
+			"url": "https://giphy.com/"
+		},
+		"tenor": {
+			"label": "Powered by Tenor",
+			"url": "https://tenor.com/"
+		},
+		"hallOfFame": "Hall of Fame",
+		"legal": {
+			"label": "Informations",
+			"debates": "Tous les débats",
+			"about": "À propos",
+			"mentions": "Mentions légales",
+			"privacy": "Confidentialité",
+			"accessibility": "Accessibilité : partiellement conforme"
+		},
+		"version": "Version {version}"
+	},
+	projectsPage: {
+		"title": "Mes autres projets",
+		"intro": "Aucun n’a été élu par vote populaire.",
+		"back": "Retour aux débats →"
+	},
+	projects: [
+		{
+			"kind": "JEU · 2026",
+			"title": "LATENCE",
+			"text": "Escape game de plus d’une heure, joué sur un Minitel recréé dans le navigateur, quelque part entre la Terre et Mars.",
+			"url": "https://latence-game.com/",
+			"cta": "latence-game.com"
+		},
+		{
+			"kind": "PLATEFORME · 2026",
+			"title": "Emballé, c’est pesé",
+			"text": "Enchères à l’envers : l’acheteur fixe son prix, les marchands baissent les leurs pour remporter la vente.",
+			"url": "https://emballecestpese.fr/",
+			"cta": "emballecestpese.fr"
+		},
+		{
+			"kind": "DONNÉES · 2026",
+			"title": "Baromètre démocratique",
+			"text": "21 indicateurs sourcés sur la démocratie en France, recalculés chaque jour, sans note ni opinion.",
+			"url": "https://barometre-democratique.fr/",
+			"cta": "barometre-democratique.fr"
+		},
+		{
+			"kind": "EXTENSION CHROME · 2026",
+			"title": "Lunettes de vérité",
+			"text": "D’après Invasion Los Angeles (1988) : chausse-les, et les publicités révèlent enfin leur vrai message.",
+			"url": "https://github.com/MZA-code/truth-glasses",
+			"cta": "GitHub"
+		}
+	],
+	pages: /* @__PURE__ */ JSON.parse("{\"mentions\":{\"title\":\"Mentions légales\",\"description\":\"Éditeur, hébergeur et propriété intellectuelle du site {domain}.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Éditeur du site\",\"blocks\":[\"{domain} est un site personnel, édité à titre non professionnel par un particulier.\",\"Conformément à la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique (LCEN), l’éditeur a choisi de préserver son anonymat. Ses coordonnées ont été communiquées à l’hébergeur, qui les tient à la disposition des autorités.\",\"Directeur de la publication : l’éditeur du site, joignable à {email}.\"]},{\"title\":\"Hébergeur\",\"blocks\":[[\"o2switch, SAS au capital de 100 000 €\",\"Chemin des Pardiaux, 63000 Clermont-Ferrand, France\",\"Téléphone : 04 44 44 60 40\",\"RCS Clermont-Ferrand, SIRET 510 909 807 00032\",\"Site : [www.o2switch.fr](https://www.o2switch.fr)\"]]},{\"title\":\"Propriété intellectuelle\",\"blocks\":[\"Les textes du site (questions, répliques et remarques) sont originaux.\",\"Les personnages, œuvres, marques et personnalités cités dans les rivalités appartiennent à leurs propriétaires respectifs. Ils sont mentionnés à titre humoristique et informatif, sans affiliation ni partenariat d’aucune sorte.\",\"Les GIF animés sont fournis par [GIPHY](https://giphy.com). Leurs droits appartiennent à leurs auteurs.\",\"Icônes : [Font Awesome Free](https://fontawesome.com), sous licence CC BY 4.0. Polices : Anton, Space Grotesk et Space Mono, sous licence SIL Open Font License.\"]},{\"title\":\"Signaler un contenu\",\"blocks\":[\"Une rivalité, une réplique ou un GIF te semble déplacé, ou porte atteinte à tes droits ? Écris à {email} en indiquant l’adresse de la page : le contenu sera examiné et, si besoin, retiré rapidement.\"]},{\"title\":\"Données personnelles et cookies\",\"blocks\":[\"Le site ne dépose aucun cookie et ne mesure pas l’audience. Tout est expliqué dans la [politique de confidentialité](/confidentialite).\"]}]},\"privacy\":{\"title\":\"Confidentialité\",\"description\":\"Aucun cookie, aucune mesure d’audience : ce que {domain} fait, et ne fait pas, de tes données.\",\"updated\":\"Dernière mise à jour : 22 novembre 2026\",\"sections\":[{\"title\":\"En bref\",\"blocks\":[[\"Aucun cookie, aucune publicité, aucune mesure d’audience, aucun compte.\",\"Tes votes sont anonymes : le site ne garde que des compteurs par rivalité.\",\"Le bouton « Mauvais GIF ? » n’envoie que la team et le GIF concernés.\",\"Ta progression reste dans ton navigateur et n’est jamais envoyée.\",\"Deux services tiers, pour les GIF seulement : GIPHY et, pour quelques-uns, Tenor (Google).\"]]},{\"title\":\"Responsable du traitement\",\"blocks\":[\"L’éditeur du site (voir les [mentions légales](/mentions-legales)), joignable à {email}.\"]},{\"title\":\"Les votes\",\"blocks\":[\"Quand tu choisis une team, ton navigateur envoie au serveur la rivalité, la team choisie (ou « aucun des deux ») et la catégorie en cours. Rien d’autre : ni identifiant, ni cookie.\",\"Le serveur ajoute une voix au compteur de la rivalité. Il ne garde jamais la team que tu as choisie : personne ne peut retrouver ton vote, pas même l’éditeur.\"]},{\"title\":\"Les signalements de GIF\",\"blocks\":[\"Quand tu cliques sur « Mauvais GIF ? », ton navigateur envoie au serveur la rivalité, la team et l’identifiant du GIF affiché. Rien d’autre : ni identifiant, ni cookie.\",\"Le serveur ajoute un signalement au compteur de ce GIF, sans garder la trace de qui l’a signalé. Ces compteurs servent uniquement à choisir de meilleurs GIF : un GIF trop signalé est remplacé automatiquement.\"]},{\"title\":\"Protection contre les abus\",\"blocks\":[\"Pour qu’un robot ne puisse pas fausser les pourcentages, le nombre de votes et de signalements est limité par visiteur. Le serveur calcule pour cela une empreinte de ton adresse IP, mélangée à une clé secrète et à la date du jour (hachage SHA-256). L’adresse IP elle-même n’est jamais enregistrée.\",\"Cette empreinte change chaque jour et ne permet pas de retrouver l’adresse d’origine. Pour qu’un même visiteur ne compte qu’une fois par jour, le serveur la garde aussi à côté des débats tranchés et des GIF signalés dans la journée (jamais à côté de la team choisie).\",\"Toutes les empreintes de la veille sont effacées automatiquement.\",\"Base légale : l’intérêt légitime de l’éditeur à protéger le service (article 6.1.f du RGPD).\"]},{\"title\":\"Journaux de l’hébergeur\",\"blocks\":[\"Comme tout hébergeur, o2switch enregistre des journaux techniques (adresse IP, date, page demandée, navigateur) pour assurer la sécurité et le bon fonctionnement de ses serveurs. Ils sont conservés selon sa politique et ses obligations légales, puis supprimés. L’éditeur ne s’en sert pas pour suivre les visiteurs.\"]},{\"title\":\"Ce qui reste dans ton navigateur\",\"blocks\":[\"Le site garde deux informations dans le stockage local de ton navigateur :\",[\"ta progression (débats tranchés, tes teams, ta catégorie), pour reprendre la partie là où tu l’as laissée ;\",\"ta préférence d’animations, si tu as utilisé l’interrupteur en haut de page.\"],\"Ces informations ne quittent jamais ton appareil. Elles servent uniquement des fonctions que tu demandes toi-même : à ce titre, elles ne nécessitent pas de consentement (article 82 de la loi Informatique et Libertés). Pour les effacer, supprime les données du site dans les réglages de ton navigateur.\"]},{\"title\":\"Les GIF, fournis par GIPHY et Tenor\",\"blocks\":[\"Les GIF de GIPHY, une société américaine, sont demandés directement par ton navigateur, comme GIPHY l’exige des sites web : ton navigateur interroge le service de GIPHY, puis télécharge les vidéos depuis ses serveurs.\",\"GIPHY reçoit alors ton adresse IP, des informations techniques sur ton navigateur et ce qui est demandé : le nom de la team affichée (pour la recherche) ou le numéro du GIF choisi. Tes votes, eux, ne lui sont jamais transmis. Ni le service de GIPHY ni ses serveurs d’images ne déposent de cookie (vérifié le 22 novembre 2026).\",\"Quelques GIF, choisis à la main par l’éditeur, viennent de Tenor, un service de Google. Ton navigateur les télécharge depuis les serveurs d’images de Tenor, qui reçoivent de la même façon ton adresse IP et des informations techniques. Ces serveurs ne déposent aucun cookie (vérifié le 22 novembre 2026).\",\"Certaines images sont rangées sur le site lui-même : elles ne passent par aucun service tiers.\",\"Pour en savoir plus : la [politique de confidentialité de GIPHY](https://giphy.com/privacy) et les [règles de confidentialité de Google](https://policies.google.com/privacy).\"]},{\"title\":\"Polices de caractères\",\"blocks\":[\"Les polices sont hébergées sur le serveur du site : aucune requête n’est envoyée à Google Fonts ni à un autre service.\"]},{\"title\":\"Tes droits\",\"blocks\":[\"Tu disposes d’un droit d’accès, de rectification, d’effacement, de limitation et d’opposition. Comme le site ne conserve aucune donnée permettant de t’identifier, il n’est en pratique pas possible de retrouver des informations à ton sujet (article 11 du RGPD).\",\"Pour toute question, écris à {email}. Tu peux aussi adresser une réclamation à la [CNIL](https://www.cnil.fr/fr/plaintes).\"]},{\"title\":\"Modifications\",\"blocks\":[\"Si le fonctionnement du site change, par exemple avec l’ajout d’une mesure d’audience, cette page sera mise à jour avant la mise en service.\"]}]},\"accessibility\":{\"title\":\"Accessibilité\",\"description\":\"Déclaration d’accessibilité de {domain} : état de conformité au RGAA, résultats des tests et contact.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Engagement\",\"blocks\":[\"L’éditeur s’efforce de rendre {domain} accessible à toutes et à tous, en suivant le référentiel général d’amélioration de l’accessibilité ([RGAA 4.1.2](https://accessibilite.numerique.gouv.fr/)). Un site personnel n’y est pas obligé par la loi : c’est un choix.\"]},{\"title\":\"État de conformité\",\"blocks\":[\"{domain} est partiellement conforme au RGAA 4.1.2. Aucun audit complet n’a encore été réalisé par un organisme indépendant : les résultats ci-dessous viennent d’une auto-évaluation.\"]},{\"title\":\"Résultats des tests\",\"blocks\":[\"Auto-évaluation réalisée en novembre 2026 sur les pages types : accueil, jeu, page d’un débat, liste des débats, catégorie, Hall of Fame et pages d’information. Points vérifiés :\",[\"audit automatique avec axe-core sur chaque page type, sans erreur restante ;\",\"navigation complète au clavier, avec un focus toujours visible ; le jeu se joue aussi avec les flèches ;\",\"contrastes des textes et des composants ;\",\"structure des titres, langue de la page, liens d’évitement et intitulés des boutons ;\",\"interrupteur d’animations sur chaque page, qui coupe les animations et fige les GIF ; le choix est gardé d’une visite à l’autre. Animations et GIF sont activés par défaut, y compris quand le système demande de réduire les animations, car les GIF sont au cœur du jeu ;\",\"affichage jusqu’à 360 pixels de large et zoom à 200 %.\"]]},{\"title\":\"Contenus non accessibles\",\"blocks\":[[\"Les GIF sont décoratifs et ne sont pas décrits : ils illustrent la team, dont le nom est toujours écrit et annoncé à côté.\",\"Les tests avec des lecteurs d’écran (NVDA, VoiceOver) n’ont pas encore été menés.\"]]},{\"title\":\"Établissement de cette déclaration\",\"blocks\":[[\"Déclaration établie le 21 novembre 2026.\",\"Technologies utilisées : HTML, CSS et JavaScript.\",\"Outils : axe-core, Lighthouse, Playwright (Chromium) et navigation au clavier.\"]]},{\"title\":\"Retour d’information et contact\",\"blocks\":[\"Si tu n’arrives pas à accéder à un contenu ou à un service, écris à {email} : une solution te sera proposée.\"]},{\"title\":\"Voies de recours\",\"blocks\":[\"Si tu as signalé un défaut d’accessibilité sans obtenir de réponse satisfaisante, tu peux saisir le [Défenseur des droits](https://formulaire.defenseurdesdroits.fr/), ou lui écrire gratuitement, sans affranchissement : Défenseur des droits, Libre réponse 71120, 75342 Paris CEDEX 07.\"]}]},\"about\":{\"title\":\"À propos\",\"description\":\"484, c’est un jeu de débats : {rivalries} rivalités « Team X ou team Y ? » écrites à la main, et le pourcentage des autres visiteurs après chaque vote.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Le principe\",\"blocks\":[\"484 · T’es team quoi ? pose des questions sans importance, mais très sérieusement. Batman ou Superman ? Pain au chocolat ou chocolatine ? [Team Edward ou team Jacob ?](/debat/ecrans-edward-jacob) Tu choisis ton camp, et tu découvres aussitôt quel pourcentage des visiteurs a fait le même choix que toi.\"]},{\"title\":\"Les rivalités\",\"blocks\":[\"Le site compte {rivalries} rivalités écrites et relues à la main, réparties en {categories} catégories et {universes} univers : les écrans, la pop culture, la vraie vie et l’imaginaire. Elles sont toutes rangées dans [la liste des débats](/debats).\",\"La règle : pas de méchanceté, pas de vulgarité. On se moque des débats, jamais des gens.\"]},{\"title\":\"Les pourcentages\",\"blocks\":[\"Chaque vote est compté de façon anonyme : un compteur par rivalité, rien de plus. Les pourcentages affichés sont ceux de tous les visiteurs depuis l’ouverture du site.\",\"Les débats les plus serrés, les plus écrasants et les plus votés sont classés dans le [Hall of Fame](/hall-of-fame).\"]},{\"title\":\"Partager un débat\",\"blocks\":[\"Chaque débat a sa propre adresse : le bouton de partage l’envoie à qui tu veux, et ton ami tombe directement sur la même question.\"]},{\"title\":\"Qui est derrière ?\",\"blocks\":[\"Un développeur web qui aurait pu faire un portfolio sérieux, et qui a préféré ça. Ses autres projets sont [par ici](/projets). Une idée de rivalité, une remarque ? Écris à {email}.\"]}]}}"),
+	og: { "cta": "Choisis ton camp sur {domain}" },
+	breadcrumb: {
+		"label": "Fil d’Ariane",
+		"home": "Accueil",
+		"debates": "Tous les débats"
+	},
+	debatesPage: {
+		"title": "Tous les débats",
+		"description": "{rivalries} rivalités « Team X ou team Y ? » rangées par catégorie : héros, bouffe, jeux vidéo, musique, autos, animaux… Choisis ton terrain.",
+		"intro": "{rivalries} rivalités, rangées en {categories} catégories. Choisis ton terrain, ou laisse le hasard décider.",
+		"mixed": "Tout mélanger →",
+		"count": {
+			"one": "{n} débat",
+			"other": "{n} débats"
+		}
+	},
+	categoryPage: {
+		"title": "{category} : tous les débats",
+		"description": "{n} rivalités « Team X ou team Y ? » dans la catégorie {category}. {tagline}",
+		"play": "Jouer cette catégorie →",
+		"listTitle": "Les {n} débats",
+		"others": "Dans le même univers : {universe}"
+	},
+	debateAbout: {
+		"related": "Autres débats : {category}",
+		"categoryLink": "Les {n} débats « {category} » →"
+	},
+	llms: {
+		"intro": "Jeu de débats en français : chaque page pose une question « Team X ou team Y ? » sur la pop culture, la bouffe, le sport ou la vie quotidienne. Le visiteur choisit son camp et découvre le pourcentage des autres visiteurs. Toutes les rivalités sont écrites à la main, sur un ton drôle mais jamais méchant.",
+		"pagesTitle": "Pages principales",
+		"categoriesTitle": "Catégories",
+		"infoTitle": "Informations",
+		"debatesCount": "{n} débats"
+	}
+};
+/** Espaces qu'on remplace : espace normale, insécable, fine insécable, fine. */
+var SPACES = "[ \\u00A0\\u202F\\u2009]";
+var URL_PATTERN = /https?:\/\/\S+/g;
+function fixSegment(text) {
+	return text.replace(/'/g, "’").replace(new RegExp(`«${SPACES}*`, "g"), `« `).replace(new RegExp(`${SPACES}*»`, "g"), ` »`).replace(new RegExp(`(?<=\\S)${SPACES}*([;:!?]+)`, "g"), (match, punct, offset, whole) => {
+		const before = whole[offset - 1] ?? "";
+		const after = whole[offset + match.length] ?? "";
+		if (punct === ":" && match === ":" && /\d/.test(before) && /\d/.test(after)) return match;
+		return ` ${punct}`;
+	}).replace(new RegExp(`(?<=\\bn°)${SPACES}+`, "g"), "\xA0").replace(new RegExp(`(?<=[\\d}])${SPACES}*%`, "g"), ` %`);
+}
+/** Applique les règles de typographie française à un texte. */
+function frenchTypography(text) {
+	let result = "";
+	let cursor = 0;
+	for (const match of text.matchAll(URL_PATTERN)) {
+		const start = match.index;
+		result += fixSegment(text.slice(cursor, start)) + match[0];
+		cursor = start + match[0].length;
+	}
+	return result + fixSegment(text.slice(cursor));
+}
+/**
+* Applique `frenchTypography` à toutes les chaînes d'une structure JSON,
+* sauf aux valeurs des clés listées (identifiants, URL, requêtes techniques…).
+*/
+function applyTypographyDeep(value, skipKeys) {
+	const walk = (node) => {
+		if (typeof node === "string") return frenchTypography(node);
+		if (Array.isArray(node)) return node.map(walk);
+		if (node !== null && typeof node === "object") return Object.fromEntries(Object.entries(node).map(([key, child]) => [key, skipKeys.has(key) ? child : walk(child)]));
+		return node;
+	};
+	return walk(value);
+}
+// src/engine/achievements.ts
+var ACHIEVEMENT_KINDS = [
+	"debates",
+	"rebels",
+	"categories",
+	"universes",
+	"streak"
+];
+var count = z.number().int().nonnegative();
+z.object({
+	version: z.literal(1),
+	category: z.string(),
+	queue: z.array(z.string()),
+	current: z.string().nullable(),
+	done: z.array(z.string()).optional(),
+	count,
+	history: z.array(z.object({
+		rivalryId: z.string(),
+		team: z.enum([
+			"a",
+			"b",
+			"none",
+			"both"
+		]),
+		percent: z.number().min(0).max(100).nullable()
+	})),
+	measured: count,
+	agreed: count,
+	rebels: count,
+	categories: z.array(z.string()).default([]),
+	streak: count.default(0),
+	bestStreak: count.default(0),
+	lastQuipKey: z.string().nullable()
+});
+var ICON_NAMES = Object.keys({
+	ban: faBan,
+	bolt: faBolt,
+	briefcase: faBriefcase,
+	"car-side": faCarSide,
+	clapperboard: faClapperboard,
+	comments: faComments,
+	"compact-disc": faCompactDisc,
+	compass: faCompass,
+	crown: faCrown,
+	dragon: faDragon,
+	"earth-europe": faEarthEurope,
+	eye: faEye,
+	film: faFilm,
+	fire: faFire,
+	forward: faForward,
+	futbol: faFutbol,
+	gamepad: faGamepad,
+	guitar: faGuitar,
+	"hand-fist": faHandFist,
+	handshake: faHandshake,
+	hashtag: faHashtag,
+	heart: faHeart,
+	house: faHouse,
+	"laptop-code": faLaptopCode,
+	lock: faLock,
+	mask: faMask,
+	medal: faMedal,
+	"mug-hot": faMugHot,
+	paw: faPaw,
+	"people-group": faPeopleGroup,
+	"pizza-slice": faPizzaSlice,
+	"scale-balanced": faScaleBalanced,
+	"share-nodes": faShareNodes,
+	shirt: faShirt,
+	shuffle: faShuffle,
+	star: faStar,
+	trophy: faTrophy,
+	tv: faTv,
+	"user-group": faUserGroup,
+	video: faVideo,
+	"wand-magic-sparkles": faWandMagicSparkles
+});
+// src/server/gif-links.ts
+var TENOR_HOST = /^media\d*\.tenor\.com$/;
+var TENOR_PATH = /^\/(?:m\/)?([A-Za-z0-9_-]{11})[A-Za-z0-9_-]{5}\/([^/]+?)\.(gif|mp4|webp|png)$/;
+function tenorParts(url) {
+	let parsed;
+	try {
+		parsed = new URL(url);
+	} catch {
+		return null;
+	}
+	if (parsed.protocol !== "https:" || !TENOR_HOST.test(parsed.hostname)) return null;
+	if (parsed.search || parsed.hash) return null;
+	const match = TENOR_PATH.exec(parsed.pathname);
+	if (!match) return null;
+	return {
+		base: match[1],
+		name: match[2]
+	};
+}
+/** Le lien est-il une image Tenor utilisable ? */
+function isTenorUrl(url) {
+	return tenorParts(url) !== null;
+}
+/** Identifiant d'un GIF Tenor, sous la même forme que ceux de Giphy (lettres et chiffres). */
+function tenorGifId(url) {
+	const parts = tenorParts(url);
+	return parts ? `tenor${parts.base.replace(/[^A-Za-z0-9]/g, "")}` : null;
+}
+/** Les versions légères d'un GIF Tenor, au format renvoyé par /api/gif. */
+function tenorGif(url) {
+	const parts = tenorParts(url);
+	if (!parts) return null;
+	const at = (format, ext) => `https://media.tenor.com/${parts.base}${format}/${parts.name}.${ext}`;
+	return {
+		id: tenorGifId(url),
+		mp4: at("AAAPo", "mp4"),
+		webp: at("AAAAx", "webp"),
+		still: at("AAAAe", "png"),
+		width: 0,
+		height: 0
+	};
+}
+/** Dossier public des images de teams (adresse vue par le navigateur). */
+var TEAM_IMAGES_DIR = "/images/teams/";
+var TEAM_IMAGE = /^\/images\/teams\/([a-z0-9-]+-([0-9a-f]{8}))(\.anim)?\.webp$/;
+/** Le chemin est-il une image de team rangée sur le site ? */
+function isTeamImage(path) {
+	return TEAM_IMAGE.test(path);
+}
+/** Une image de team, au format renvoyé par /api/gif : pas de vidéo, l'image et son aperçu fixe. */
+function teamImage(path) {
+	const match = TEAM_IMAGE.exec(path);
+	if (!match) return null;
+	return {
+		id: `img${match[2]}`,
+		mp4: "",
+		webp: path,
+		still: `${TEAM_IMAGES_DIR}${match[1]}.webp`,
+		width: 0,
+		height: 0
+	};
+}
+// src/lib/inline.ts
+/** Lien `[libellé](adresse)` : adresse interne ou https, sans espace. */
+var LINK = /\[([^\]]+)\]\(((?:\/|#|https:\/\/)[^\s)]*)\)/g;
+var VARIABLE = /\{(\w+)\}/g;
+/** Variables utilisées dans un texte (pour la validation du contenu). */
+function inlineVariables(text) {
+	return [...text.matchAll(VARIABLE)].map((m) => m[1] ?? "");
+}
+/** Libellés entre crochets qui ne forment pas un lien valide (adresse absente ou non autorisée). */
+function brokenLinks(text) {
+	return [...text.replace(LINK, "").matchAll(/\[([^\]]*)\]/g)].map((m) => m[0]);
+}
+// src/data/schema.ts
+/**
+* Schémas Zod des fichiers de `content/`. Ils sont vérifiés au build :
+* une erreur dans un JSON fait échouer le build avec un message lisible.
+*/
+/** Nom d'une icône intégrée (voir src/lib/icons.ts). */
+var icon = z.enum(ICON_NAMES, { message: `icône inconnue ; icônes disponibles : ${ICON_NAMES.join(", ")}` });
+var slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, "doit être en minuscules, chiffres et tirets (ex. « heros-batman-superman »)");
+var text = z.string().trim().min(1, "ne doit pas être vide");
+var ThemeSchema = z.object({
+	id: slug.refine((id) => id !== "mix", `« mix » est réservé à « Tout mélangé »`),
+	label: text,
+	tagline: text,
+	icon,
+	/**
+	* GIF d'ambiance, en dernier recours pour une team sans GIF fiable : recherche générique
+	* en anglais (« difficult choice »), ou GIF choisis à la main.
+	*/
+	giphyQuery: text,
+	giphyIds: z.array(text).optional(),
+	/**
+	* Écran « Catégorie terminée » : une phrase drôle propre à la catégorie et son GIF (recherche
+	* Giphy en anglais, ou GIF choisis à la main). Absent : texte et GIF génériques.
+	*/
+	finish: z.object({
+		line: text,
+		giphyQuery: text,
+		giphyIds: z.array(text).optional()
+	}).optional()
+});
+/** Une team (un camp d'une rivalité). L'origine est libre : une chocolatine n'a pas d'année de sortie. */
+var TeamSchema = z.object({
+	name: text.max(60, "doit rester court (60 caractères maximum)"),
+	origin: text.max(80, "doit rester courte (80 caractères maximum)"),
+	line: text.max(120, "doit rester courte (120 caractères maximum)"),
+	/** Remarque affichée quand on choisit cette team ; sinon une remarque générique (ui-texts). */
+	quip: text.max(140, "doit rester courte (140 caractères maximum)").optional(),
+	giphyIds: z.array(text),
+	giphyQuery: text,
+	/**
+	* Mots-clés qui valident un résultat de recherche Giphy (titre, slug ou auteur, sans accents
+	* ni casse). Absents : le nom de la team et `giphyQuery` (voir src/server/gif-match.ts).
+	*/
+	giphyKeywords: z.array(text).min(1, "mettre au moins un mot-clé, ou retirer le champ").optional(),
+	/**
+	* GIF choisis à la main par un lien Tenor (`https://media.tenor.com/…`), quand Giphy n'a rien
+	* de bon. Tirés au sort avec les `giphyIds` (voir src/server/gif-links.ts).
+	*/
+	gifUrls: z.array(z.string().refine(isTenorUrl, "lien Tenor attendu, de la forme https://media.tenor.com/…/nom.gif (clic droit sur le GIF, « Copier l’adresse de l’image »)")).min(1, "mettre au moins un lien, ou retirer le champ").optional(),
+	/**
+	* Images rangées sur le site (`/images/teams/…webp`), importées par la page de curation quand
+	* ni Giphy ni Tenor n'ont rien. Tirées au sort avec les autres GIF choisis à la main.
+	*/
+	images: z.array(z.string().refine(isTeamImage, "image attendue, de la forme /images/teams/nom-1a2b3c4d.webp (à importer avec npm run gif-audit)")).min(1, "mettre au moins une image, ou retirer le champ").optional()
+});
+var RivalrySchema = z.object({
+	id: slug,
+	category: slug,
+	/** Question sur mesure ; sinon « Team A ou team B ? ». */
+	question: text.max(120, "doit rester courte (120 caractères maximum)").optional(),
+	a: TeamSchema,
+	b: TeamSchema,
+	/** Remarques sur mesure pour « Les deux » et « Aucun des deux » ; sinon les génériques. */
+	bothQuip: text.max(140, "doit rester courte (140 caractères maximum)").optional(),
+	noneQuip: text.max(140, "doit rester courte (140 caractères maximum)").optional()
+});
+var pairKey = (a, b) => [a, b].map((n) => n.trim().toLowerCase()).sort().join(" | ");
+/** Un univers regroupe plusieurs catégories (« Écrans », « Pop culture »…). */
+var UniverseSchema = z.object({
+	id: slug.refine((id) => id !== "mix", `« mix » est réservé à « Tout mélangé »`),
+	label: text,
+	tagline: text,
+	icon,
+	categories: z.array(slug).min(1, "un univers doit contenir au moins une catégorie")
+});
+var RivalriesFileSchema = z.object({
+	version: z.literal(1),
+	universes: z.array(UniverseSchema).min(1),
+	categories: z.array(ThemeSchema).min(1),
+	rivalries: z.array(RivalrySchema)
+}).superRefine((file, ctx) => {
+	const categoryIds = /* @__PURE__ */ new Set();
+	file.categories.forEach((category, i) => {
+		if (categoryIds.has(category.id)) ctx.addIssue({
+			code: "custom",
+			path: [
+				"categories",
+				i,
+				"id"
+			],
+			message: `catégorie en double : ${category.id}`
+		});
+		categoryIds.add(category.id);
+	});
+	const universeOf = /* @__PURE__ */ new Map();
+	const universeIds = /* @__PURE__ */ new Set();
+	file.universes.forEach((universe, i) => {
+		if (universeIds.has(universe.id) || categoryIds.has(universe.id)) ctx.addIssue({
+			code: "custom",
+			path: [
+				"universes",
+				i,
+				"id"
+			],
+			message: `identifiant d’univers déjà utilisé : ${universe.id}`
+		});
+		universeIds.add(universe.id);
+		universe.categories.forEach((category, j) => {
+			if (!categoryIds.has(category)) ctx.addIssue({
+				code: "custom",
+				path: [
+					"universes",
+					i,
+					"categories",
+					j
+				],
+				message: `catégorie inconnue dans l’univers « ${universe.id} » : ${category}`
+			});
+			else if (universeOf.has(category)) ctx.addIssue({
+				code: "custom",
+				path: [
+					"universes",
+					i,
+					"categories",
+					j
+				],
+				message: `la catégorie « ${category} » est déjà dans l’univers « ${universeOf.get(category)} »`
+			});
+			universeOf.set(category, universe.id);
+		});
+	});
+	file.categories.forEach((category, i) => {
+		if (!universeOf.has(category.id)) ctx.addIssue({
+			code: "custom",
+			path: [
+				"categories",
+				i,
+				"id"
+			],
+			message: `la catégorie « ${category.id} » n’est dans aucun univers`
+		});
+	});
+	const ids = /* @__PURE__ */ new Set();
+	const pairs = /* @__PURE__ */ new Map();
+	const perCategory = /* @__PURE__ */ new Map();
+	file.rivalries.forEach((rivalry, i) => {
+		const at = (...path) => [
+			"rivalries",
+			i,
+			...path
+		];
+		if (ids.has(rivalry.id)) ctx.addIssue({
+			code: "custom",
+			path: at("id"),
+			message: `identifiant en double : ${rivalry.id}`
+		});
+		ids.add(rivalry.id);
+		if (!categoryIds.has(rivalry.category)) ctx.addIssue({
+			code: "custom",
+			path: at("category"),
+			message: `catégorie inconnue : ${rivalry.category}`
+		});
+		else if (!rivalry.id.startsWith(`${rivalry.category}-`)) ctx.addIssue({
+			code: "custom",
+			path: at("id"),
+			message: `l’identifiant doit commencer par « ${rivalry.category}- »`
+		});
+		const key = pairKey(rivalry.a.name, rivalry.b.name);
+		if (rivalry.a.name.trim().toLowerCase() === rivalry.b.name.trim().toLowerCase()) ctx.addIssue({
+			code: "custom",
+			path: at("b", "name"),
+			message: "les deux teams ont le même nom"
+		});
+		else if (pairs.has(key)) ctx.addIssue({
+			code: "custom",
+			path: at("id"),
+			message: `rivalité déjà présente : ${pairs.get(key)}`
+		});
+		pairs.set(key, rivalry.id);
+		perCategory.set(rivalry.category, (perCategory.get(rivalry.category) ?? 0) + 1);
+	});
+	file.categories.forEach((category, i) => {
+		const count = perCategory.get(category.id) ?? 0;
+		if (count < 3) ctx.addIssue({
+			code: "custom",
+			path: ["categories", i],
+			message: `la catégorie « ${category.id} » a ${count} rivalité(s), il en faut au moins 3`
+		});
+	});
+});
+/** Un texte qui doit contenir certains marqueurs, par exemple `{name}`. */
+var template = (...placeholders) => placeholders.reduce((schema, p) => schema.refine((value) => value.includes(`{${p}}`), `doit contenir le marqueur {${p}}`), text);
+/** Une liste de remarques : au moins deux, pour ne jamais répéter deux fois de suite. */
+var quipList = z.array(text).min(2, "il faut au moins 2 remarques pour éviter les répétitions");
+/** Lien externe facultatif : une URL vide masque le lien (ex. LinkedIn pas encore renseigné). */
+var optionalLink = z.object({
+	label: text,
+	url: z.union([z.url(), z.literal("")])
+});
+var pluralForms = z.object({
+	one: text,
+	other: template("n")
+});
+/** Variables utilisables dans les pages d'information (voir src/lib/inline.ts). */
+var PROSE_VARIABLES = [
+	"email",
+	"domain",
+	"rivalries",
+	"categories",
+	"universes"
+];
+/** Texte long : liens `[libellé](adresse)` internes ou https, et variables connues seulement. */
+var proseText = text.superRefine((value, ctx) => {
+	for (const broken of brokenLinks(value)) ctx.addIssue({
+		code: "custom",
+		message: `lien mal formé : ${broken} (attendu : [libellé](/page) ou [libellé](https://…))`
+	});
+	for (const name of inlineVariables(value)) if (!PROSE_VARIABLES.includes(name)) ctx.addIssue({
+		code: "custom",
+		message: `variable inconnue : {${name}} ; variables possibles : ${PROSE_VARIABLES.join(", ")}`
+	});
+});
+/** Page d'information : sections faites de paragraphes (texte) et de listes (tableau de textes). */
+var prosePage = z.object({
+	title: text,
+	description: proseText,
+	updated: text,
+	sections: z.array(z.object({
+		title: text,
+		blocks: z.array(z.union([proseText, z.array(proseText).min(1)])).min(1)
+	})).min(1)
+});
+var UiTextsSchema = z.object({
+	site: z.object({
+		title: text,
+		description: text,
+		logo: text,
+		name: text,
+		socialLabel: text,
+		motion: z.object({
+			label: text,
+			on: text,
+			off: text
+		}),
+		skipToContent: text,
+		toc: text,
+		email: z.email("adresse email invalide"),
+		domain: text
+	}),
+	links: z.object({
+		github: optionalLink,
+		linkedin: optionalLink
+	}),
+	home: z.object({
+		title: z.tuple([
+			text,
+			text,
+			text
+		]),
+		intro: text,
+		footnote: text,
+		mixedTheme: z.object({
+			label: text,
+			tagline: text,
+			icon
+		}),
+		themesLabel: text,
+		play: text,
+		playUniverse: text
+	}),
+	debate: z.object({
+		pageTitle: text,
+		number: template("n"),
+		subtitle: text,
+		question: template("a", "b"),
+		categoriesLabel: text,
+		universesLabel: text,
+		wholeUniverse: text,
+		team: text,
+		vs: text,
+		skip: text,
+		/** « Aucun des deux » : 3e choix, compté comme un débat tranché. */
+		none: z.object({
+			button: text,
+			choice: text,
+			label: text,
+			between: template("a", "b"),
+			split: template("percent")
+		}),
+		/** « Les deux » : 4e choix, compté comme un débat tranché. */
+		both: z.object({
+			button: text,
+			choice: text,
+			label: text,
+			between: template("a", "b"),
+			split: template("percent")
+		}),
+		keysHint: text,
+		pickHint: text,
+		loading: text,
+		noscript: text,
+		choice: template("name"),
+		share: template("percent"),
+		firstVote: text,
+		milestoneLink: text,
+		teams: z.object({
+			title: text,
+			empty: text,
+			versus: template("name")
+		}),
+		profile: z.object({
+			title: text,
+			count: pluralForms,
+			agreement: template("percent"),
+			agreementUnknown: text,
+			rebels: pluralForms
+		}),
+		hallLink: text,
+		shareButton: text,
+		shareCopied: text,
+		shareText: template("a", "b"),
+		shareDescription: template("a", "b"),
+		loadError: text,
+		/** Catégorie terminée : tous ses débats tranchés ou passés (rien ne revient tout seul). */
+		finished: z.object({
+			title: text,
+			body: template("category"),
+			/** « Tout mélangé » terminé : tout le site est tranché. */
+			allKicker: text,
+			allTitle: text,
+			allBody: text,
+			/** Pastille « 50/50 débats bouclés ». */
+			score: template("n"),
+			scoreLabel: text,
+			/** Dans le cadre du GIF, tant qu'il n'est pas là (ou s'il n'y en a pas). */
+			gifWait: text,
+			next: text,
+			remaining: pluralForms,
+			replay: text,
+			replayAll: text,
+			replayHint: text
+		}),
+		/** Bouton « Mauvais GIF ? » sous chaque carte. */
+		gifReport: z.object({
+			button: text,
+			/** Nom accessible : commence par le texte visible (WCAG 2.5.3). */
+			label: template("name"),
+			thanks: quipList,
+			limited: text,
+			error: text,
+			/** Mode admin : le GIF est écarté et remplacé sous tes yeux. */
+			admin: text
+		})
+	}),
+	quips: z.object({
+		high: quipList,
+		mid: quipList,
+		low: quipList,
+		neutral: quipList
+	}),
+	/** Achievements : objectifs à débloquer (voir src/engine/achievements.ts). */
+	achievements: z.object({
+		title: text,
+		unlocked: text,
+		count: template("done", "total"),
+		next: template("name", "left"),
+		allDone: text,
+		locked: text,
+		list: z.array(z.object({
+			id: slug,
+			kind: z.enum(ACHIEVEMENT_KINDS, { message: `type inconnu ; types possibles : ${ACHIEVEMENT_KINDS.join(", ")}` }),
+			goal: z.number().int().positive("l’objectif doit être un nombre positif"),
+			icon,
+			name: text.max(40, "doit rester court (40 caractères maximum)"),
+			description: text,
+			/** Phrase du bandeau de déblocage. */
+			text,
+			/** Affiche le lien LinkedIn dans le bandeau. */
+			link: z.boolean().optional()
+		})).min(1).superRefine((list, ctx) => {
+			const seen = /* @__PURE__ */ new Set();
+			list.forEach((a, i) => {
+				if (seen.has(a.id)) ctx.addIssue({
+					code: "custom",
+					path: [i, "id"],
+					message: `achievement en double : ${a.id}`
+				});
+				seen.add(a.id);
+			});
+		})
+	}),
+	hallOfFame: z.object({
+		pageTitle: text,
+		title: text,
+		intro: text,
+		totalVotes: pluralForms,
+		filterLabel: text,
+		popularTitle: text,
+		popularIntro: text,
+		podium: z.tuple([
+			text,
+			text,
+			text
+		]),
+		closeTitle: text,
+		closeIntro: text,
+		landslideTitle: text,
+		landslideIntro: text,
+		votes: pluralForms,
+		/** Part « aucun des deux » d'un débat. */
+		none: template("percent"),
+		/** Part « les deux » d'un débat. */
+		both: template("percent"),
+		empty: text,
+		emptySection: text,
+		loading: text,
+		error: text,
+		play: text
+	}),
+	notFound: z.object({
+		pageTitle: text,
+		code: text,
+		title: text,
+		text,
+		back: text
+	}),
+	footer: z.object({
+		/** Nom (pour les lecteurs d'écran) du groupe de liens Hall of Fame / autres projets. */
+		links: text,
+		projects: text,
+		hallOfFame: text,
+		disclaimer: text,
+		/** Numéro de version (celui de package.json). */
+		version: template("version"),
+		giphy: z.object({
+			label: text,
+			url: z.url()
+		}),
+		/** Affiché seulement si des GIF viennent de Tenor. */
+		tenor: z.object({
+			label: text,
+			url: z.url()
+		}),
+		legal: z.object({
+			label: text,
+			debates: text,
+			about: text,
+			mentions: text,
+			privacy: text,
+			accessibility: text
+		})
+	}),
+	pages: z.object({
+		mentions: prosePage,
+		privacy: prosePage,
+		accessibility: prosePage,
+		about: prosePage
+	}),
+	projectsPage: z.object({
+		title: text,
+		intro: text,
+		back: text
+	}),
+	og: z.object({ cta: template("domain") }),
+	breadcrumb: z.object({
+		label: text,
+		home: text,
+		debates: text
+	}),
+	llms: z.object({
+		intro: text,
+		pagesTitle: text,
+		categoriesTitle: text,
+		infoTitle: text,
+		debatesCount: template("n")
+	}),
+	debatesPage: z.object({
+		title: text,
+		description: template("rivalries"),
+		intro: template("rivalries", "categories"),
+		mixed: text,
+		count: pluralForms
+	}),
+	categoryPage: z.object({
+		title: template("category"),
+		description: template("n", "category", "tagline"),
+		play: text,
+		listTitle: template("n"),
+		others: template("universe")
+	}),
+	debateAbout: z.object({
+		related: template("category"),
+		categoryLink: template("n", "category")
+	}),
+	projects: z.array(z.object({
+		kind: text,
+		title: text,
+		text,
+		url: z.url(),
+		cta: text
+	}))
+});
+// src/data/parse.ts
+/**
+* Validation + typographie des contenus. Indépendant de Vite et de Node :
+* reçoit les objets JSON bruts, renvoie des contenus sûrs et typés.
+*/
+/** Clés dont les valeurs ne sont pas du texte affiché : jamais retouchées. */
+var TECHNICAL_KEYS = /* @__PURE__ */ new Set([
+	"id",
+	"theme",
+	"category",
+	"icon",
+	"email",
+	"domain",
+	"url",
+	"giphyIds",
+	"giphyQuery",
+	"giphyKeywords",
+	"gifUrls",
+	"images",
+	"kind",
+	"version"
+]);
+var ContentError = class extends Error {
+	constructor(file, error) {
+		super(`Contenu invalide dans ${file} :\n${z.prettifyError(error)}`);
+		this.name = "ContentError";
+	}
+};
+function validate(schema, raw, file) {
+	const result = schema.safeParse(raw);
+	if (!result.success) throw new ContentError(file, result.error);
+	return result.data;
+}
+/** Valide `content/ui-texts.fr.json` et applique la typographie française à ses textes. */
+function parseUi(raw) {
+	return applyTypographyDeep(validate(UiTextsSchema, raw, "content/ui-texts.fr.json"), TECHNICAL_KEYS);
+}
+/** Valide `content/rivalries.json` et applique la typographie française à ses textes. */
+function parseRivalries(raw) {
+	return applyTypographyDeep(validate(RivalriesFileSchema, raw, "content/rivalries.json"), TECHNICAL_KEYS);
+}
+// src/data/content.ts
+/**
+* Point d'entrée des contenus pour le site. Importé par les pages Astro :
+* si un JSON est invalide, le build échoue ici.
+*/
+var ui = parseUi(ui_texts_fr_default);
+var { universes, categories, rivalries } = parseRivalries(rivalries_default);
+// \0virtual:astro:env/internal
+var schema = {
+	"GIPHY_API_KEY": {
+		"context": "server",
+		"access": "secret",
+		"optional": true,
+		"type": "string"
+	},
+	"GIPHY_OFFLINE": {
+		"context": "server",
+		"access": "secret",
+		"default": "false",
+		"type": "string"
+	},
+	"OG_CACHE_DIR": {
+		"context": "server",
+		"access": "secret",
+		"default": "data/og",
+		"type": "string"
+	},
+	"VOTE_HASH_SALT": {
+		"context": "server",
+		"access": "secret",
+		"optional": true,
+		"type": "string"
+	},
+	"VOTES_DB_FILE": {
+		"context": "server",
+		"access": "secret",
+		"default": "data/votes.sqlite",
+		"type": "string"
+	},
+	"GIF_REPORT_TOKEN": {
+		"context": "server",
+		"access": "secret",
+		"optional": true,
+		"type": "string"
+	},
+	"TRUST_PROXY": {
+		"context": "server",
+		"access": "secret",
+		"default": "false",
+		"type": "string"
+	}
+};
+// \0astro:env/server
+/** @returns {string} */
+var getEnv = (key) => {
+	return getEnv$1(key);
+};
+var getSecret = (key) => {
+	return getEnv(key);
+};
+var _internalGetSecret = (key) => {
+	const rawVariable = getEnv(key);
+	const variable = rawVariable === "" ? void 0 : rawVariable;
+	const options = schema[key];
+	const result = validateEnvVariable(variable, options);
+	if (result.ok) return result.value;
+	const type = getEnvFieldType(options);
+	throw createInvalidVariablesError(key, type, result);
+};
+setOnSetGetEnv(() => {
+	GIPHY_API_KEY = _internalGetSecret("GIPHY_API_KEY");
+	GIPHY_OFFLINE = _internalGetSecret("GIPHY_OFFLINE");
+	OG_CACHE_DIR = _internalGetSecret("OG_CACHE_DIR");
+	VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
+	VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
+	GIF_REPORT_TOKEN = _internalGetSecret("GIF_REPORT_TOKEN");
+	TRUST_PROXY = _internalGetSecret("TRUST_PROXY");
+});
+var GIPHY_API_KEY = _internalGetSecret("GIPHY_API_KEY");
+var GIPHY_OFFLINE = _internalGetSecret("GIPHY_OFFLINE");
+var OG_CACHE_DIR = _internalGetSecret("OG_CACHE_DIR");
+var VOTE_HASH_SALT = _internalGetSecret("VOTE_HASH_SALT");
+var VOTES_DB_FILE = _internalGetSecret("VOTES_DB_FILE");
+var GIF_REPORT_TOKEN = _internalGetSecret("GIF_REPORT_TOKEN");
+var TRUST_PROXY = _internalGetSecret("TRUST_PROXY");
+export { universes as a, ui as i, categories as n, teamImage as o, rivalries as r, tenorGif as s, getSecret as t };

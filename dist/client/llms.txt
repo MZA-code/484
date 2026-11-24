@@ -6,8 +6,8 @@ Jeu de débats en français : chaque page pose une question « Team X ou team
 
 ## Pages principales
 
-- [Tous les débats](https://team484.fr/debats): 1 026 rivalités « Team X ou team Y ? » rangées par catégorie : héros, bouffe, jeux vidéo, musique, autos, animaux… Choisis ton terrain.
-- [À propos](https://team484.fr/a-propos): 484, c’est un jeu de débats : 1 026 rivalités « Team X ou team Y ? » écrites à la main, et le pourcentage des autres visiteurs après chaque vote.
+- [Tous les débats](https://team484.fr/debats): 1 114 rivalités « Team X ou team Y ? » rangées par catégorie : héros, bouffe, jeux vidéo, musique, autos, animaux… Choisis ton terrain.
+- [À propos](https://team484.fr/a-propos): 484, c’est un jeu de débats : 1 114 rivalités « Team X ou team Y ? » écrites à la main, et le pourcentage des autres visiteurs après chaque vote.
 - [Hall of Fame](https://team484.fr/hall-of-fame): Le verdict mondial, voté par tous les visiteurs qui avaient sûrement mieux à faire.
 
 ## Catégories
@@ -15,18 +15,18 @@ Jeu de débats en français : chaque page pose une question « Team X ou team
 - [Héros et vilains](https://team484.fr/categorie/heros): Des capes, des masques, et des egos surdimensionnés. (59 débats)
 - [Bouffe qui divise](https://team484.fr/categorie/bouffe): Ces débats ont gâché plus de repas de famille que la politique. (59 débats)
 - [Tech et geek](https://team484.fr/categorie/geek): Les guerres saintes de l’informatique. Aucun survivant. (58 débats)
-- [Jeux vidéo](https://team484.fr/categorie/jeux): Manette en main, amitiés en jeu. (50 débats)
-- [Ciné et séries](https://team484.fr/categorie/ecrans): Pop-corn, canapé, et des avis très tranchés. (50 débats)
-- [Duos à départager](https://team484.fr/categorie/duos): Ils sont inséparables. Toi, tu vas devoir choisir. (50 débats)
+- [Jeux vidéo](https://team484.fr/categorie/jeux): Manette en main, amitiés en jeu. (58 débats)
+- [Ciné et séries](https://team484.fr/categorie/ecrans): Pop-corn, canapé, et des avis très tranchés. (58 débats)
+- [Duos à départager](https://team484.fr/categorie/duos): Ils sont inséparables. Toi, tu vas devoir choisir. (58 débats)
 - [Vie quotidienne](https://team484.fr/categorie/quotidien): Les petites guerres de tous les jours. (50 débats)
-- [Musique](https://team484.fr/categorie/musique): Ces débats ont fini plus de soirées que la police. (50 débats)
-- [Dessins animés](https://team484.fr/categorie/dessins): Le samedi matin, devant la télé, en pyjama. Choisis ton camp. (50 débats)
-- [Ciné français](https://team484.fr/categorie/cinefr): Des répliques que ton oncle cite encore à chaque repas. (50 débats)
-- [Internet et memes](https://team484.fr/categorie/internet): Le savoir de toute l’humanité, utilisé surtout pour regarder des chats. (50 débats)
-- [Mots de chez nous](https://team484.fr/categorie/mots): La France, la Belgique, la Suisse et le Québec ne parlent pas tout à fait la même langue. (50 débats)
-- [Nostalgie années 90](https://team484.fr/categorie/nostalgie): Avant les smartphones, il y avait ça. Et on était heureux. (50 débats)
-- [Sport](https://team484.fr/categorie/sport): Des débats plus tendus qu’une finale aux tirs au but. (50 débats)
-- [Mode et looks](https://team484.fr/categorie/mode): Le miroir n’a jamais menti. Toi, peut-être. (50 débats)
+- [Musique](https://team484.fr/categorie/musique): Ces débats ont fini plus de soirées que la police. (58 débats)
+- [Dessins animés](https://team484.fr/categorie/dessins): Le samedi matin, devant la télé, en pyjama. Choisis ton camp. (58 débats)
+- [Ciné français](https://team484.fr/categorie/cinefr): Des répliques que ton oncle cite encore à chaque repas. (58 débats)
+- [Internet et memes](https://team484.fr/categorie/internet): Le savoir de toute l’humanité, utilisé surtout pour regarder des chats. (58 débats)
+- [Mots de chez nous](https://team484.fr/categorie/mots): La France, la Belgique, la Suisse et le Québec ne parlent pas tout à fait la même langue. (58 débats)
+- [Nostalgie années 90](https://team484.fr/categorie/nostalgie): Avant les smartphones, il y avait ça. Et on était heureux. (58 débats)
+- [Sport](https://team484.fr/categorie/sport): Des débats plus tendus qu’une finale aux tirs au but. (58 débats)
+- [Mode et looks](https://team484.fr/categorie/mode): Le miroir n’a jamais menti. Toi, peut-être. (58 débats)
 - [Autos et motos](https://team484.fr/categorie/autos): Des marques, des moteurs, et des clubs de fans prêts à en découdre. (50 débats)
 - [Dilemmes absurdes](https://team484.fr/categorie/dilemmes): Aucune bonne réponse. Seulement des mauvaises, et des pires. (50 débats)
 - [Superpouvoirs](https://team484.fr/categorie/pouvoirs): Choisis bien : aucun remboursement, aucun échange. (50 débats)
