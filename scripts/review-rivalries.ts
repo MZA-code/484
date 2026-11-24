@@ -25,7 +25,10 @@ for (const category of categories) {
     lines.push(`### ${r.question ?? `Team ${r.a.name} ou team ${r.b.name} ?`}`, '');
     for (const team of [r.a, r.b]) {
       lines.push(`- **${team.name}** — ${team.origin} — ${team.line}`);
+      if (team.quip) lines.push(`  - *Si choisi :* ${team.quip}`);
     }
+    if (r.bothQuip) lines.push(`- *Les deux :* ${r.bothQuip}`);
+    if (r.noneQuip) lines.push(`- *Aucun des deux :* ${r.noneQuip}`);
     lines.push('');
   }
 }

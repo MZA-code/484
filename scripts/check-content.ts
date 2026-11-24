@@ -19,8 +19,9 @@ try {
     const curated = teams.filter(
       (t) => t.giphyIds.length + (t.gifUrls?.length ?? 0) + (t.images?.length ?? 0) > 0,
     ).length;
+    const written = list.filter((r) => r.a.quip && r.b.quip && r.bothQuip && r.noneQuip).length;
     console.log(
-      `  ${category.label.padEnd(22)} ${String(list.length).padStart(3)} rivalités · ${curated}/${teams.length} teams avec GIF choisis`,
+      `  ${category.label.padEnd(22)} ${String(list.length).padStart(3)} rivalités · ${curated}/${teams.length} teams avec GIF choisis · ${written}/${list.length} avec remarques`,
     );
   }
   console.log(`\n  Total : ${rivalries.length} rivalités`);

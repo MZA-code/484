@@ -19,6 +19,8 @@ interface Props {
   achievement: Achievement | null;
   texts: DebateData['texts'];
   reducedMotion: boolean;
+  /** Passe au duel suivant, à la fin du décompte. */
+  onNext: () => void;
 }
 
 /** Fait défiler un nombre de 0 jusqu'à `target` (ou l'affiche tout de suite si les animations sont réduites). */
@@ -96,23 +98,21 @@ function splitParts(result: VoteResult, share: number): Parts | null {
 /** En dessous de cette part, le pourcentage n'est pas écrit dans la barre (pas la place). */
 const MIN_LABEL_PERCENT = 10;
 
-/** Durée d'affichage du bandeau, une fois la remarque arrivée. */
-export const RESULT_LIFETIME_MS = 10_000;
-/** Durée de la sortie en douceur du bandeau. */
-const CLOSE_MS = 350;
+/** Délai avant le duel suivant, une fois la remarque arrivée (assez pour lire, pas plus). */
+export const RESULT_LIFETIME_MS = 6_000;
 
 /**
- * Durée de vie du bandeau `key` : il se ferme `RESULT_LIFETIME_MS` après `ready`. Le décompte
- * se met en pause quand on survole ou parcourt le bandeau au clavier, et quand l'onglet est caché.
+ * Décompte du bandeau `key` : `onExpire` est appelé `RESULT_LIFETIME_MS` après `ready`. Il se met
+ * en pause quand on survole ou parcourt le bandeau au clavier, et quand l'onglet est caché.
  */
-function useLifetime(key: number | null, ready: boolean, reduced: boolean) {
+function useLifetime(key: number | null, ready: boolean, onExpire: () => void) {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [tabHidden, setTabHidden] = useState(false);
-  const [closing, setClosing] = useState<number | null>(null);
-  const [closed, setClosed] = useState<number | null>(null);
   /** Temps restant du bandeau en cours (remis à plein à chaque nouveau vote). */
   const remaining = useRef({ key, ms: RESULT_LIFETIME_MS });
+  const expire = useRef(onExpire);
+  expire.current = onExpire;
   const paused = hovered || focused || tabHidden;
 
   useEffect(() => {
@@ -121,41 +121,38 @@ function useLifetime(key: number | null, ready: boolean, reduced: boolean) {
     return () => document.removeEventListener('visibilitychange', onVisibility);
   }, []);
 
+  // Nouveau bandeau : on repart sans pause. Un lien du bandeau qui avait le focus a pu disparaître
+  // sans le rendre (pas de focusout dans certains navigateurs).
+  useEffect(() => setFocused(false), [key]);
+
   useEffect(() => {
     if (remaining.current.key !== key) remaining.current = { key, ms: RESULT_LIFETIME_MS };
-    if (key === null || !ready || paused || closing === key) return;
+    if (key === null || !ready || paused) return;
     const started = performance.now();
-    const timer = window.setTimeout(() => setClosing(key), remaining.current.ms);
+    const timer = window.setTimeout(() => expire.current(), remaining.current.ms);
     return () => {
       window.clearTimeout(timer);
       if (remaining.current.key === key) remaining.current.ms -= performance.now() - started;
     };
-  }, [key, ready, paused, closing]);
-
-  useEffect(() => {
-    if (closing === null) return;
-    const timer = window.setTimeout(() => setClosed(closing), reduced ? 0 : CLOSE_MS);
-    return () => window.clearTimeout(timer);
-  }, [closing, reduced]);
+  }, [key, ready, paused]);
 
   return {
     paused,
-    closing: key !== null && closing === key,
-    closed: key !== null && closed === key,
     handlers: {
-      onMouseEnter: () => setHovered(true),
-      onMouseLeave: () => setHovered(false),
+      // Souris seulement : sur écran tactile, un tap « survolerait » le bandeau pour de bon.
+      onPointerEnter: (event: PointerEvent) => setHovered(event.pointerType === 'mouse'),
+      onPointerLeave: () => setHovered(false),
       onFocusIn: () => setFocused(true),
       onFocusOut: () => setFocused(false),
     },
   };
 }
 
-export function Result({ result, rivalry, colors, achievement, texts, reducedMotion }: Props) {
+export function Result(props: Props) {
+  const { result, rivalry, colors, achievement, texts, reducedMotion, onNext } = props;
   const t = texts.debate;
-  const life = useLifetime(result?.id ?? null, !!result?.quip, reducedMotion);
-  // Bandeau refermé : on revient à l'aide du départ, jusqu'au vote suivant.
-  const reached = life.closed ? null : achievement;
+  const life = useLifetime(result?.id ?? null, !!result?.quip, onNext);
+  const reached = achievement;
   const choice = result?.team;
   const team =
     result && rivalry && (choice === 'a' || choice === 'b') ? rivalry[choice] : undefined;
@@ -177,7 +174,7 @@ export function Result({ result, rivalry, colors, achievement, texts, reducedMot
     <>
       {/* Le résultat se colle en bas de l'écran : visible sans défiler, sans décaler les cartes. */}
       <div
-        class={`result-dock${result && rivalry && !life.closed ? ' is-docked' : ''}${life.closing ? ' is-closing' : ''}`}
+        class={`result-dock${result && rivalry ? ' is-docked' : ''}`}
         aria-live="polite"
         {...life.handlers}
       >
@@ -199,9 +196,9 @@ export function Result({ result, rivalry, colors, achievement, texts, reducedMot
             )}
           </div>
         )}
-        {result && rivalry && choiceText && !life.closed ? (
+        {result && rivalry && choiceText ? (
           <div class="result" key={result.id}>
-            {/* Le temps qui reste avant que le bandeau se referme. */}
+            {/* Le temps qui reste avant le duel suivant. */}
             {result.quip && (
               <span
                 class="result-timer"
@@ -212,16 +209,21 @@ export function Result({ result, rivalry, colors, achievement, texts, reducedMot
                 }}
               />
             )}
-            <p class="result-choice">
+            {/* Le choix et sa part ne sont plus écrits (la remarque et la barre les disent) : on les garde pour les lecteurs d'écran. */}
+            <p class="visually-hidden">
               {choiceText}
-              {share !== null && (
-                <span class="result-share">
-                  {' · '}
-                  <span aria-hidden="true">{formatText(t.share, { percent: shown ?? 0 })}</span>
-                  <span class="visually-hidden">{shareText}</span>
-                </span>
-              )}
+              {share !== null && ` · ${shareText}`}
             </p>
+            {result.quip ? (
+              <p class="result-quip pop">{result.quip}</p>
+            ) : (
+              <p class="result-quip result-pending" aria-hidden="true">
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+              </p>
+            )}
+            {outcome?.kind === 'first' && <p class="result-first pop">{t.firstVote}</p>}
             {/* La barre aux couleurs des cartes : la team de gauche contre la team de droite. */}
             {parts && (
               <div class="result-meter" aria-hidden="true">
@@ -263,16 +265,6 @@ export function Result({ result, rivalry, colors, achievement, texts, reducedMot
                   <span class={choice === 'b' ? 'is-picked' : undefined}>{rivalry.b.name}</span>
                 </span>
               </div>
-            )}
-            {outcome?.kind === 'first' && <p class="result-first pop">{t.firstVote}</p>}
-            {result.quip ? (
-              <p class="result-quip pop">{result.quip}</p>
-            ) : (
-              <p class="result-quip result-pending" aria-hidden="true">
-                <span>.</span>
-                <span>.</span>
-                <span>.</span>
-              </p>
             )}
           </div>
         ) : (

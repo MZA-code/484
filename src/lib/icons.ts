@@ -1,11 +1,12 @@
 /**
- * Icônes des catégories et des univers.
+ * Icônes des catégories, des univers et des boutons du jeu.
  *
  * Icônes : Font Awesome Free 7 (https://fontawesome.com), sous licence CC BY 4.0 ; code sous licence MIT.
  * Seules les icônes listées ici sont intégrées, en SVG en ligne au build : pas de police,
  * pas de script, aucune requête de plus. Pour en ajouter une : l'importer, puis l'ajouter à ICONS.
  */
 import {
+  faBan,
   faBolt,
   faBriefcase,
   faCarSide,
@@ -19,10 +20,12 @@ import {
   faEye,
   faFilm,
   faFire,
+  faForward,
   faFutbol,
   faGamepad,
   faGuitar,
   faHandFist,
+  faHandshake,
   faHashtag,
   faHeart,
   faHouse,
@@ -35,6 +38,7 @@ import {
   faPeopleGroup,
   faPizzaSlice,
   faScaleBalanced,
+  faShareNodes,
   faShirt,
   faShuffle,
   faStar,
@@ -47,6 +51,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const ICONS = {
+  ban: faBan,
   bolt: faBolt,
   briefcase: faBriefcase,
   'car-side': faCarSide,
@@ -60,10 +65,12 @@ const ICONS = {
   eye: faEye,
   film: faFilm,
   fire: faFire,
+  forward: faForward,
   futbol: faFutbol,
   gamepad: faGamepad,
   guitar: faGuitar,
   'hand-fist': faHandFist,
+  handshake: faHandshake,
   hashtag: faHashtag,
   heart: faHeart,
   house: faHouse,
@@ -76,6 +83,7 @@ const ICONS = {
   'people-group': faPeopleGroup,
   'pizza-slice': faPizzaSlice,
   'scale-balanced': faScaleBalanced,
+  'share-nodes': faShareNodes,
   shirt: faShirt,
   shuffle: faShuffle,
   star: faStar,

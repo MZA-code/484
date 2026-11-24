@@ -6,7 +6,7 @@
  * le texte visible). Le nom suit l'étiquette dans le code, pour être lu « Team Edward, Twilight… » ;
  * le CSS (order) le replace sous l'origine à l'écran.
  */
-import type { Team } from '../../engine';
+import type { Choice, Team } from '../../engine';
 import type { Exit } from './useDebate';
 import { GifFrame } from './GifFrame';
 import type { DebateTeam } from './types';
@@ -19,27 +19,35 @@ interface Props {
   /** Image fixe au lieu de la vidéo (prefers-reduced-motion). */
   stillOnly: boolean;
   color: string;
-  /** Sortie en cours : cette team a gagné, a perdu, ou on passe la rivalité. */
+  /** Choix fait sur ce duel, qui reste affiché tranché jusqu'au suivant (null avant le vote). */
+  decided: Choice | null;
+  /** Sortie en cours (vers le duel suivant), ou null. */
   exit: Exit;
   label: string;
   onChoose: (team: Team) => void;
 }
 
-/** Classe de sortie : la team choisie « gagne », l'autre tombe ; un passage fait tout disparaître. */
-function exitClass(exit: Exit, side: Team): string {
-  if (!exit) return '';
+/**
+ * Classes d'état : la team choisie « gagne » (soulevée), l'autre s'efface à moitié
+ * et le reste tant que le duel tranché est affiché ; à la sortie, elle disparaît. Un passage
+ * fait tout disparaître.
+ */
+function stateClass(decided: Choice | null, exit: Exit, side: Team): string {
   if (exit === 'skip') return ' is-leaving';
+  if (!decided) return '';
+  const out = exit ? ' is-out' : '';
   // « Aucun des deux » : les deux cartes tombent ; « les deux » : les deux gagnent.
-  if (exit === 'none') return ' is-rejected';
-  if (exit === 'both') return ' is-chosen';
-  return exit === side ? ' is-chosen' : ' is-rejected';
+  if (decided === 'none') return ` is-rejected${out}`;
+  if (decided === 'both') return ' is-chosen';
+  return decided === side ? ' is-chosen' : ` is-rejected${out}`;
 }
 
-export function TeamCard({ team, side, gifKey, stillOnly, color, exit, label, onChoose }: Props) {
+export function TeamCard(props: Props) {
+  const { team, side, gifKey, stillOnly, color, decided, exit, label, onChoose } = props;
   return (
     <button
       type="button"
-      class={`team-card team-card--${side}${exitClass(exit, side)}`}
+      class={`team-card team-card--${side}${stateClass(decided, exit, side)}`}
       style={{ '--card': color }}
       onClick={() => onChoose(side)}
     >

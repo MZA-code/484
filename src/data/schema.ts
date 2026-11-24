@@ -48,6 +48,8 @@ export const TeamSchema = z.object({
   name: text.max(60, 'doit rester court (60 caractères maximum)'),
   origin: text.max(80, 'doit rester courte (80 caractères maximum)'),
   line: text.max(120, 'doit rester courte (120 caractères maximum)'),
+  /** Remarque affichée quand on choisit cette team ; sinon une remarque générique (ui-texts). */
+  quip: text.max(140, 'doit rester courte (140 caractères maximum)').optional(),
   giphyIds: z.array(text),
   giphyQuery: text,
   /**
@@ -94,6 +96,9 @@ export const RivalrySchema = z.object({
   question: text.max(120, 'doit rester courte (120 caractères maximum)').optional(),
   a: TeamSchema,
   b: TeamSchema,
+  /** Remarques sur mesure pour « Les deux » et « Aucun des deux » ; sinon les génériques. */
+  bothQuip: text.max(140, 'doit rester courte (140 caractères maximum)').optional(),
+  noneQuip: text.max(140, 'doit rester courte (140 caractères maximum)').optional(),
 });
 
 /** Rivalités minimum par catégorie pour éviter de revoir la même trop vite. */

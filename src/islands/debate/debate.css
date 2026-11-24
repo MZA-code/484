@@ -154,39 +154,150 @@
 }
 
 .vs {
+  position: relative;
   align-self: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  color: var(--ink);
+  /*
+   * Droit comme le reste du site, cerné de noir façon BD (pour ressortir même posé sur une carte de la même couleur),
+   * avec l'ombre dure des cartes. drop-shadow suit la découpe des deux moitiés.
+   */
+  --vs-stroke: 3px;
+  --vs-shadow: 4px;
+  filter: drop-shadow(var(--vs-stroke) 0 0 var(--ink))
+    drop-shadow(calc(-1 * var(--vs-stroke)) 0 0 var(--ink))
+    drop-shadow(0 var(--vs-stroke) 0 var(--ink))
+    drop-shadow(0 calc(-1 * var(--vs-stroke)) 0 var(--ink))
+    drop-shadow(var(--vs-shadow) var(--vs-shadow) 0 var(--fg));
+}
+
+/*
+ * Deux moitiés de même taille, découpées en biais de part et d'autre du centre ; la fente est
+ * une barre oblique crème (sous les moitiés), si bien que l'ombre reste d'un seul tenant.
+ */
+.vs::before,
+.vs::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(55.5% 0, 62.5% 0, 44.5% 100%, 37.5% 100%);
+}
+
+.vs::before {
+  background: var(--fg);
+}
+
+/* L'éclair dans la fente, au moment du choc. */
+.vs::after {
+  z-index: 1;
+  background: var(--yellow);
+  opacity: 0;
+  animation: vs-spark 520ms ease-out 300ms;
+}
+
+.vs-half {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 84px;
-  height: 84px;
-  margin: 0 auto;
-  border-radius: 50%;
-  background: var(--fg);
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 2.25rem;
-  /* Apparaît à chaque nouvelle rivalité, puis une onde pulse autour, comme un signal. */
-  animation:
-    vs-in 420ms var(--ease-out) backwards,
-    vs-pulse 2.4s var(--ease-out) 420ms infinite;
 }
 
-@keyframes vs-in {
+/* Chaque lettre au centre de sa moitié, le V un peu haut, le S un peu bas. */
+.vs-v {
+  padding: 0 0 6% 7%;
+  background: var(--vs-a, var(--yellow));
+  clip-path: polygon(0 0, 55.5% 0, 37.5% 100%, 0 100%);
+  animation:
+    vs-v-in 380ms var(--ease-out) backwards,
+    vs-v-clash 3s var(--ease-out) 1.2s infinite;
+}
+
+.vs-s {
+  justify-content: flex-end;
+  padding: 6% 7% 0 0;
+  background: var(--vs-b, var(--pink));
+  clip-path: polygon(62.5% 0, 100% 0, 100% 100%, 44.5% 100%);
+  animation:
+    vs-s-in 380ms var(--ease-out) backwards,
+    vs-s-clash 3s var(--ease-out) 1.2s infinite;
+}
+
+/* Les lettres dessinées (voir VsLetter) : un peu plus de la moitié de la hauteur. */
+.vs-letter {
+  width: auto;
+  height: 46%;
+  overflow: visible;
+  /* En italique : seules les lettres penchent, le carré reste droit. */
+  transform: skewX(-12deg);
+}
+
+@keyframes vs-v-in {
   from {
     opacity: 0;
-    transform: scale(0.6);
+    transform: translate(-28px, -18px);
   }
 }
 
-@keyframes vs-pulse {
+@keyframes vs-s-in {
   from {
-    box-shadow: 0 0 0 0 rgb(255 255 255 / 0.35);
+    opacity: 0;
+    transform: translate(28px, 18px);
   }
-  70%,
+}
+
+/* Toutes les trois secondes, les deux moitiés s'écartent et se recognent. */
+@keyframes vs-v-clash {
+  0%,
+  72%,
+  100% {
+    transform: none;
+  }
+  80% {
+    transform: translate(-5px, -3px);
+  }
+  86% {
+    transform: translate(1px, 1px);
+  }
+}
+
+@keyframes vs-s-clash {
+  0%,
+  72%,
+  100% {
+    transform: none;
+  }
+  80% {
+    transform: translate(5px, 3px);
+  }
+  86% {
+    transform: translate(-1px, -1px);
+  }
+}
+
+@keyframes vs-spark {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
   to {
-    box-shadow: 0 0 0 18px rgb(255 255 255 / 0);
+    opacity: 0;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .vs *,
+  :root:not([data-motion='full']) .vs::after {
+    animation: none;
+  }
+}
+
+:root[data-motion='reduced'] .vs *,
+:root[data-motion='reduced'] .vs::after {
+  animation: none;
 }
 
 /* Une carte et, dessous, son bouton « Mauvais GIF ? ». */
@@ -268,7 +379,11 @@
   transition: transform 260ms var(--ease-out);
 }
 
-/* Sorties : la team choisie se soulève (ombre rose, tampon ✓), l'autre s'efface ; un passage fait tout disparaître. */
+/*
+ * Duel tranché : la team choisie se soulève (ombre rose), l'autre s'efface à moitié
+ * et reste ainsi tant que le résultat est affiché ; à la sortie elle disparaît. Un passage fait
+ * tout disparaître.
+ */
 .team-card.is-leaving,
 .team-card.is-chosen,
 .team-card.is-rejected {
@@ -285,26 +400,20 @@
   animation: card-win 130ms var(--ease-out) forwards;
 }
 
-.team-card.is-chosen::after {
-  content: '✓';
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  border: 4px solid var(--ink);
-  border-radius: 50%;
-  background: var(--fg);
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 2.25rem;
-  animation: stamp 160ms var(--ease-out) both;
+.team-card.is-rejected {
+  opacity: 0.35;
+  filter: grayscale(0.8);
+  transform: translateY(16px) scale(0.96);
+  transition:
+    opacity 260ms var(--ease-out),
+    filter 260ms var(--ease-out),
+    transform 260ms var(--ease-out);
 }
 
-.team-card.is-rejected {
-  animation: card-fall 130ms var(--ease-in) forwards;
+.team-card.is-rejected.is-out {
+  opacity: 0;
+  transition-duration: 130ms;
+  transition-timing-function: var(--ease-in);
 }
 
 @keyframes card-leave {
@@ -318,20 +427,6 @@
   to {
     transform: translate(-6px, -6px);
     box-shadow: 14px 14px 0 var(--pink);
-  }
-}
-
-@keyframes card-fall {
-  to {
-    opacity: 0;
-    transform: translateY(24px) scale(0.97);
-  }
-}
-
-@keyframes stamp {
-  from {
-    transform: scale(1.6);
-    opacity: 0;
   }
 }
 
@@ -539,6 +634,10 @@
 }
 
 .skip-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-height: 48px;
   padding: 8px 20px;
   border: 2px solid var(--fg);
@@ -548,6 +647,13 @@
   font-size: 0.875rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+/* Icône des boutons sous les cartes, à la couleur du texte. */
+.action-icon {
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
 }
 
 .skip-button:hover {
@@ -598,11 +704,11 @@
 
 /* ─── Résultat et palier ─────────────────────────────────────────────────── */
 
+/* Décollé du bord bas (et de la barre du navigateur sur téléphone) : on le lit sans baisser les yeux. */
 .result-dock.is-docked {
   position: sticky;
-  bottom: 0;
+  bottom: calc(clamp(16px, 7vh, 64px) + env(safe-area-inset-bottom, 0px));
   z-index: 3;
-  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 /* Le bandeau glisse depuis le bas à chaque vote. */
@@ -614,25 +720,16 @@
   gap: 8px;
   padding: 14px 24px;
   background: #1e1e1e;
-  border-top: 2px solid #3a3a3a;
-  box-shadow: 0 -12px 32px rgb(0 0 0 / 0.55);
+  border: 2px solid #3a3a3a;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.7);
 }
 
-.result-choice {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-}
-
-.result-choice span {
-  display: inline-block;
-}
-
-/* Décompte avant fermeture : un filet jaune sur le bord haut, qui se vide de droite à gauche. */
+/* Décompte avant le duel suivant : un filet jaune sur le bord haut, qui se vide de droite à gauche. */
 .result-timer {
   position: absolute;
   top: -2px;
-  right: 0;
-  left: 0;
+  right: -2px;
+  left: -2px;
   height: 2px;
   background: var(--yellow);
   transform-origin: left;
@@ -647,17 +744,20 @@
   }
 }
 
-/* Le temps écoulé, le bandeau redescend en douceur. */
-.result-dock.is-closing .result,
-.result-dock.is-closing .milestone {
-  animation: result-down 350ms var(--ease-in) forwards;
+/* Votes figés pendant que le duel tranché reste affiché ; le choix fait reste marqué. */
+.skip-button:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
-@keyframes result-down {
-  to {
-    opacity: 0;
-    transform: translateY(100%);
-  }
+.skip-button:disabled:hover {
+  background: none;
+}
+
+.skip-button.is-picked:disabled {
+  opacity: 1;
+  background: var(--fg);
+  color: var(--ink);
 }
 
 @keyframes result-up {
@@ -665,10 +765,6 @@
     opacity: 0;
     transform: translateY(100%);
   }
-}
-
-.result-share {
-  font-variant-numeric: tabular-nums;
 }
 
 /* Barre aux couleurs des cartes : la team de gauche contre la team de droite, collées. */
@@ -961,15 +1057,6 @@
     box-shadow: 2px 2px 0 var(--fg);
   }
 
-  .team-card.is-chosen::after {
-    top: 8px;
-    right: 8px;
-    width: 40px;
-    height: 40px;
-    border-width: 3px;
-    font-size: 1.375rem;
-  }
-
   .team-tag {
     padding: 3px 6px;
     font-size: 0.6875rem;
@@ -1001,14 +1088,15 @@
   .vs {
     position: absolute;
     z-index: 2;
-    /* Au centre du GIF : marge + étiquette + espace + moitié du cadre 4:3, moins la moitié de la pastille. */
+    /* Au centre du GIF : marge + étiquette + espace + moitié du cadre 4:3, moins la moitié du VS. */
     top: 72px;
-    top: calc(10px + 22px + 8px + ((100cqw - 14px) / 2 - 20px) * 0.375 - 24px);
-    left: calc(50% - 24px);
-    width: 48px;
-    height: 48px;
+    top: calc(10px + 22px + 8px + ((100cqw - 14px) / 2 - 20px) * 0.375 - 23px);
+    left: calc(50% - 23px);
+    width: 46px;
+    height: 46px;
     margin: 0;
-    font-size: 1.375rem;
+    --vs-stroke: 2px;
+    --vs-shadow: 3px;
   }
 
   .gif-report {

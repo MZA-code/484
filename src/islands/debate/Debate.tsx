@@ -14,6 +14,7 @@ import {
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
 import { useReducedMotion } from '../../lib/motion';
+import { AchievementIcon } from './AchievementIcon';
 import { Finished, type Suggestion } from './Finished';
 import { GifReport } from './GifReport';
 import { preloadGif, teamGifKey } from './gifs';
@@ -23,6 +24,32 @@ import { TeamCard } from './TeamCard';
 import type { DebateData, DebateRivalry } from './types';
 import { useDebate } from './useDebate';
 import './debate.css';
+
+/**
+ * Lettres du VS, dessinées (lettrage) : épaisses, noires, avec l'ombre crème décalée des cartes.
+ * Le V est un tracé plein aux pointes coupées net, le S un seul trait épais.
+ */
+const VS_PATHS = {
+  v: { d: 'M8 6H40L50 64L60 6H92L65 114H35Z', fill: true },
+  s: {
+    d: 'M80 32C80 17 67 9 50 9C32 9 21 19 21 34C21 50 35 55 50 60C65 65 79 70 79 86C79 101 67 111 50 111C32 111 21 102 21 87',
+    fill: false,
+  },
+} as const;
+
+function VsLetter({ letter }: { letter: keyof typeof VS_PATHS }) {
+  const { d, fill } = VS_PATHS[letter];
+  const paint = (color: string) =>
+    fill
+      ? { fill: color }
+      : { fill: 'none', stroke: color, 'stroke-width': 22, 'stroke-linecap': 'butt' as const };
+  return (
+    <svg class="vs-letter" viewBox="0 0 100 120" aria-hidden="true">
+      <path d={d} transform="translate(7 7)" {...paint('var(--fg)')} />
+      <path d={d} {...paint('var(--ink)')} />
+    </svg>
+  );
+}
 
 /** Catégories proposées sur l'écran de fin. */
 const MAX_SUGGESTIONS = 4;
@@ -60,8 +87,20 @@ export default function Debate({
   data: DebateData;
   initialRivalry?: string | undefined;
 }) {
-  const { state, ctx, shown, exit, result, achievement, choose, skip, selectCategory, replay } =
-    useDebate(data, initialRivalry);
+  const {
+    state,
+    ctx,
+    shown,
+    exit,
+    decided,
+    result,
+    achievement,
+    choose,
+    next,
+    skip,
+    selectCategory,
+    replay,
+  } = useDebate(data, initialRivalry);
   const [copied, setCopied] = useState(false);
   const t = data.texts.debate;
   const reducedMotion = useReducedMotion();
@@ -119,7 +158,8 @@ export default function Debate({
   }, [shown, state, ctx, labels]);
 
   // Clavier : ← team de gauche, → team de droite, ↑ les deux, ↓ aucun des deux,
-  // Échap retour à l'accueil.
+  // Échap retour à l'accueil. Duel tranché à l'écran : une flèche ou Entrée passe au suivant
+  // (un double appui ne vote donc jamais sur un duel qu'on n'a pas encore vu).
   useEffect(() => {
     const keys: Record<string, Choice> = {
       ArrowLeft: 'a',
@@ -130,7 +170,12 @@ export default function Debate({
     const onKey = (event: KeyboardEvent) => {
       if (shouldIgnoreKey(event)) return;
       const picked = keys[event.key];
-      if (picked) {
+      // Entrée sur un bouton ou un lien garde son sens : on ne la prend que hors de tout contrôle.
+      const enter = event.key === 'Enter' && event.target === document.body;
+      if (decided !== null && (picked || enter)) {
+        event.preventDefault();
+        if (!event.repeat) next();
+      } else if (picked) {
         event.preventDefault();
         if (event.repeat) return;
         choose(picked);
@@ -140,13 +185,15 @@ export default function Debate({
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [choose]);
+  }, [choose, next, decided]);
 
   const activeUniverse = universeOf(ctx.catalog, state.category);
   const rivalry = shown === null ? undefined : byId.get(shown);
   if (shown !== null && !rivalry) return null;
   const lastRivalry = result ? byId.get(result.rivalryId) : undefined;
   const lastColors = teamColors(result?.rivalryId ?? rivalry?.id ?? '');
+  // Le moteur compte déjà le vote : le duel tranché encore affiché garde son numéro.
+  const number = debateNumber(state) - (decided === null ? 0 : 1);
 
   /** La rivalité affichée : question, deux cartes, autres réponses. */
   const debateStage = (rivalry: DebateRivalry) => {
@@ -168,6 +215,7 @@ export default function Debate({
           gifKey={teamGifKey(rivalry.id, side)}
           stillOnly={reducedMotion}
           color={colors[side === 'a' ? 0 : 1]}
+          decided={decided}
           exit={exit}
           label={t.team}
           onChoose={choose}
@@ -192,27 +240,52 @@ export default function Debate({
 
         <div class="arena">
           {card('a')}
-          <span class="vs" aria-hidden="true" key={`vs-${rivalry.id}`}>
-            {t.vs}
+          {/* « V » et « S » aux couleurs des deux cartes, séparés par une fente en biais. */}
+          <span
+            class="vs"
+            aria-hidden="true"
+            key={`vs-${rivalry.id}`}
+            style={{ '--vs-a': colors[0], '--vs-b': colors[1] }}
+          >
+            <span class="vs-half vs-v">
+              <VsLetter letter="v" />
+            </span>
+            <span class="vs-half vs-s">
+              <VsLetter letter="s" />
+            </span>
           </span>
           {card('b')}
         </div>
 
         {/* En haut, les deux autres réponses ; en dessous, passer et partager (pas des votes). */}
+        {/* Duel tranché : les votes et « Passer » se figent, le choix fait reste marqué. */}
         <div class="debate-actions">
           <div class="debate-actions-row">
-            <button type="button" class="skip-button both-button" onClick={() => choose('both')}>
-              {t.both.button}
-            </button>
-            <button type="button" class="skip-button none-button" onClick={() => choose('none')}>
-              {t.none.button}
-            </button>
+            {(['both', 'none'] as const).map((answer) => (
+              <button
+                key={answer}
+                type="button"
+                class={`skip-button ${answer}-button${decided === answer ? ' is-picked' : ''}`}
+                disabled={decided !== null}
+                onClick={() => choose(answer)}
+              >
+                <AchievementIcon svg={data.icons[answer]} class="action-icon" />
+                {t[answer].button}
+              </button>
+            ))}
           </div>
           <div class="debate-actions-row debate-actions-row--minor">
-            <button type="button" class="skip-button pass-button" onClick={skip}>
+            <button
+              type="button"
+              class="skip-button pass-button"
+              disabled={decided !== null}
+              onClick={skip}
+            >
+              <AchievementIcon svg={data.icons.skip} class="action-icon" />
               {t.skip}
             </button>
             <button type="button" class="skip-button share-button" onClick={onShare}>
+              <AchievementIcon svg={data.icons.share} class="action-icon" />
               {t.shareButton}
             </button>
           </div>
@@ -263,8 +336,8 @@ export default function Debate({
       {rivalry && (
         <div class="debate-head">
           <p class="debate-number">
-            <span class="debate-number-value" key={state.count}>
-              {formatText(t.number, { n: debateNumber(state) })}
+            <span class="debate-number-value" key={number}>
+              {formatText(t.number, { n: number })}
             </span>
           </p>
           <p class="debate-subtitle">{t.subtitle}</p>
@@ -295,6 +368,7 @@ export default function Debate({
           rivalry={lastRivalry}
           colors={lastColors}
           achievement={achievement}
+          onNext={next}
           texts={data.texts}
         />
       </div>

@@ -8,6 +8,8 @@ export interface DebateTeam {
   name: string;
   origin: string;
   line: string;
+  /** Remarque sur mesure quand on choisit cette team. */
+  quip?: string | undefined;
 }
 
 export interface DebateRivalry {
@@ -16,6 +18,9 @@ export interface DebateRivalry {
   question?: string | undefined;
   a: DebateTeam;
   b: DebateTeam;
+  /** Remarques sur mesure pour « Les deux » et « Aucun des deux ». */
+  bothQuip?: string | undefined;
+  noneQuip?: string | undefined;
 }
 
 /** Dessin SVG d'une icône, préparé au build (l'îlot n'embarque pas toute la bibliothèque). */
@@ -34,6 +39,8 @@ export interface DebateData {
   /** `finishLine` : phrase de l'écran « Catégorie terminée » (sinon le texte générique). */
   categories: { id: string; label: string; finishLine?: string | undefined }[];
   rivalries: DebateRivalry[];
+  /** Icônes des boutons sous les cartes. */
+  icons: Record<'both' | 'none' | 'skip' | 'share', IconPath>;
   texts: Pick<UiTexts, 'debate' | 'quips'> & {
     achievements: AchievementTexts;
     mixedLabel: string;

@@ -2,8 +2,10 @@
  * Contrôleur de l'îlot : relie le moteur pur à Preact, au stockage local, à l'URL et à l'API.
  *
  * L'état du moteur est mis à jour tout de suite (un pourcentage qui arrive pendant
- * l'animation ne peut pas être écrasé). Seule la rivalité affichée reste en place
- * pendant la courte sortie des cartes, puis la suivante entre.
+ * l'animation ne peut pas être écrasé). Seule la rivalité affichée reste en place :
+ * après un vote, le duel tranché reste à l'écran avec son résultat, jusqu'à `next()`
+ * (fin du décompte du bandeau, ou une touche) ; un passage, lui,
+ * enchaîne tout de suite. La rivalité suivante entre après la courte sortie des cartes.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import {
@@ -29,7 +31,7 @@ import {
 } from '../../engine';
 import { prefersReducedMotion } from '../../lib/motion';
 import { catalogFrom, categoryFromSearch, initialDebate } from './init';
-import type { DebateData } from './types';
+import type { DebateData, DebateRivalry } from './types';
 import { sendVote } from './votes';
 
 /** Durée de sortie des cartes avant l'entrée de la rivalité suivante (< 300 ms avec l'entrée). */
@@ -50,6 +52,14 @@ export interface VoteResult {
   /** Votes des quatre choix (détail sous la barre), si l'API les a donnés. */
   split: { a: number; b: number; none: number; both: number } | null;
   quip: string | null;
+}
+
+/** Remarque écrite pour ce choix sur ce duel, s'il y en a une. */
+export function customQuip(rivalry: DebateRivalry | undefined, choice: Choice): string | undefined {
+  if (!rivalry) return undefined;
+  if (choice === 'both') return rivalry.bothQuip;
+  if (choice === 'none') return rivalry.noneQuip;
+  return rivalry[choice].quip;
 }
 
 /** Un achievement tel que décrit dans les textes du site. */
@@ -75,6 +85,10 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
   /** Rivalité affichée : en retard de 120 ms sur le moteur pendant l'animation de sortie. */
   const [shown, setShown] = useState(state.current);
   const [exit, setExit] = useState<Exit>(null);
+  /** Choix fait sur le duel affiché : il reste à l'écran, tranché, jusqu'à `next()`. */
+  const [decided, setDecided] = useState<Choice | null>(null);
+  const decidedRef = useRef<Choice | null>(null);
+  decidedRef.current = decided;
   const [result, setResult] = useState<VoteResult | null>(null);
   /** Achievement qui vient d'être débloqué (bandeau), ou null. */
   const [achievement, setAchievement] = useState<Achievement | null>(null);
@@ -113,25 +127,45 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
     if (url.href !== window.location.href) window.history.replaceState(null, '', url);
   }, [shown, state.category]);
 
-  /** Applique un nouvel état et fait entrer sa rivalité (après la sortie de l'ancienne). */
-  const advance = useCallback((next: DebateState, how: Exclude<Exit, null>) => {
-    setState(next);
+  /** Fait sortir la rivalité affichée puis entrer `nextShown` (ou l'écran de fin si null). */
+  const leave = useCallback((nextShown: string | null, how: Exclude<Exit, null>) => {
     if (prefersReducedMotion()) {
-      setShown(next.current);
+      setShown(nextShown);
+      setDecided(null);
       return;
     }
     busy.current = true;
     setExit(how);
     window.setTimeout(() => {
-      setShown(next.current);
+      setShown(nextShown);
+      setDecided(null);
       setExit(null);
       busy.current = false;
     }, EXIT_MS);
   }, []);
 
+  /** Applique un nouvel état et fait entrer sa rivalité tout de suite (passage, catégorie). */
+  const advance = useCallback(
+    (next: DebateState, how: Exclude<Exit, null>) => {
+      setState(next);
+      leave(next.current, how);
+    },
+    [leave],
+  );
+
+  /** Après un vote : on quitte le duel tranché pour le suivant. */
+  const next = useCallback(() => {
+    const how = decidedRef.current;
+    if (busy.current || how === null) return;
+    pendingVote.current = -1;
+    setResult(null);
+    setAchievement(null);
+    leave(stateRef.current.current, how);
+  }, [leave]);
+
   const choose = useCallback(
     (team: Choice) => {
-      if (busy.current) return;
+      if (busy.current || decidedRef.current !== null) return;
       const current = stateRef.current;
       const rivalryId = current.current;
       if (rivalryId === null) return; // catégorie terminée : plus rien à trancher
@@ -141,7 +175,9 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
 
       setResult({ id, rivalryId, team, outcome: null, quip: null, split: null });
       setAchievement(null);
-      advance(transition.state, team);
+      // Le duel tranché reste affiché, avec son résultat : le suivant attend `next()`.
+      setState(transition.state);
+      setDecided(team);
 
       void sendVote({ rivalryId, team, category: current.category }).then((pair) => {
         const outcome = shareOutcome(pair);
@@ -150,7 +186,14 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
           setState((s) => recordOutcome(s, rivalryId, outcome));
           return;
         }
-        const quip = debateQuip(stateRef.current, data.texts.quips, outcome, ctx.rng);
+        // Remarque sur mesure du duel si elle existe, sinon une générique selon le pourcentage.
+        const custom = customQuip(
+          data.rivalries.find((r) => r.id === rivalryId),
+          team,
+        );
+        const quip = custom
+          ? { text: custom, state: stateRef.current }
+          : debateQuip(stateRef.current, data.texts.quips, outcome, ctx.rng);
         setState((s) => ({
           ...recordOutcome(s, rivalryId, outcome),
           lastQuipKey: quip.state.lastQuipKey,
@@ -159,11 +202,11 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
         setResult((r) => (r && r.id === id ? { ...r, outcome, quip: quip.text, split } : r));
       });
     },
-    [ctx, data, advance],
+    [ctx, data],
   );
 
   const skip = useCallback(() => {
-    if (busy.current || stateRef.current.current === null) return;
+    if (busy.current || decidedRef.current !== null || stateRef.current.current === null) return;
     pendingVote.current = -1;
     setResult(null);
     setAchievement(null);
@@ -190,7 +233,21 @@ export function useDebate(data: DebateData, initialRivalry?: string) {
     const next = replayCategory(stateRef.current, ctx);
     setState(next);
     setShown(next.current);
+    setDecided(null);
   }, [ctx]);
 
-  return { state, ctx, shown, exit, result, achievement, choose, skip, selectCategory, replay };
+  return {
+    state,
+    ctx,
+    shown,
+    exit,
+    decided,
+    result,
+    achievement,
+    choose,
+    next,
+    skip,
+    selectCategory,
+    replay,
+  };
 }

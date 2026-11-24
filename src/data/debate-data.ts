@@ -3,15 +3,11 @@
  * Servies une seule fois en JSON (/data/debate.json), puis gardées en cache par le navigateur :
  * les 750 pages de débat restent légères au lieu d'embarquer chacune toutes les rivalités.
  */
-import type { DebateData } from '../islands/debate/types';
+import type { DebateData, DebateTeam } from '../islands/debate/types';
 import { iconSvg } from '../lib/icons';
 import { categories, rivalries, ui, universes } from './content';
 
-const team = ({ name, origin, line }: { name: string; origin: string; line: string }) => ({
-  name,
-  origin,
-  line,
-});
+const team = ({ name, origin, line, quip }: DebateTeam) => ({ name, origin, line, quip });
 
 export function buildDebateData(): DebateData {
   return {
@@ -27,7 +23,15 @@ export function buildDebateData(): DebateData {
       question: r.question,
       a: team(r.a),
       b: team(r.b),
+      bothQuip: r.bothQuip,
+      noneQuip: r.noneQuip,
     })),
+    icons: {
+      both: iconSvg('handshake'),
+      none: iconSvg('ban'),
+      skip: iconSvg('forward'),
+      share: iconSvg('share-nodes'),
+    },
     texts: {
       debate: ui.debate,
       quips: ui.quips,
