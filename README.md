@@ -1,4 +1,4 @@
-# 484 · Lequel tu préfères ?
+# 484 · T’es team quoi ?
 
 Team Batman ou team Superman ? Chat ou chien ? Pain au chocolat ou chocolatine ? Des rivalités écrites à la main, tu choisis ton camp, et tu découvres si le reste du monde est d’accord.
 

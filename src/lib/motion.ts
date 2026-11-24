@@ -1,7 +1,7 @@
 /**
- * Préférence d'animations. Par défaut, le site suit le réglage du système
- * (`prefers-reduced-motion`) ; l'interrupteur « Animations » de l'en-tête permet
- * de forcer les animations ou de les couper, choix gardé dans le stockage local.
+ * Préférence d'animations. Par défaut, animations et GIF sont activés ; l'interrupteur
+ * « Animations » de l'en-tête permet de les couper, choix gardé dans le stockage local
+ * (voir motion-pref.ts).
  *
  * La préférence est posée sur <html data-motion="full|reduced"> dès le chargement
  * (script en ligne du gabarit), pour que le CSS et les îlots la lisent tout de suite.

@@ -162,7 +162,7 @@ function render(state: DebateState, banner: string[]): void {
   const category =
     r.category !== state.category ? ` ${ansi.dim(`· ${categoryLabels.get(r.category)}`)}` : '';
   const out = [
-    `${ansi.card('#FFD23F', ansi.bold('484'))} ${ansi.bold('LEQUEL TU PRÉFÈRES ?')}   ${ansi.dim(`[${categoryLabels.get(state.category)}]`)}`,
+    `${ansi.card('#FFD23F', ansi.bold('484'))} ${ansi.bold('T’ES TEAM QUOI ?')}   ${ansi.dim(`[${categoryLabels.get(state.category)}]`)}`,
     '',
     `${ansi.bold(formatText(ui.debate.number, { n: debateNumber(state) }).toUpperCase())}  ${ansi.dim(ui.debate.subtitle)}`,
     '',

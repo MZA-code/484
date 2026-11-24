@@ -1,9 +1,9 @@
 {
   "site": {
-    "title": "484 · Lequel tu préfères ?",
+    "title": "484 · T’es team quoi ?",
     "description": "Team Batman ou team Superman ? Des centaines de rivalités écrites à la main : choisis ton camp, et découvre si le reste du monde est d’accord.",
     "logo": "484",
-    "name": "Lequel tu préfères ?",
+    "name": "T’es team quoi ?",
     "socialLabel": "Ailleurs sur Internet",
     "skipToContent": "Aller au contenu",
     "motion": {
@@ -531,7 +531,7 @@
               "navigation complète au clavier, avec un focus toujours visible ; le jeu se joue aussi avec les flèches ;",
               "contrastes des textes et des composants ;",
               "structure des titres, langue de la page, liens d’évitement et intitulés des boutons ;",
-              "respect du réglage « réduire les animations » du système, et interrupteur d’animations sur chaque page, qui fige aussi les GIF ;",
+              "interrupteur d’animations sur chaque page, qui coupe les animations et fige les GIF ; le choix est gardé d’une visite à l’autre. Animations et GIF sont activés par défaut, y compris quand le système demande de réduire les animations, car les GIF sont au cœur du jeu ;",
               "affichage jusqu’à 360 pixels de large et zoom à 200 %."
             ]
           ]
@@ -577,7 +577,7 @@
         {
           "title": "Le principe",
           "blocks": [
-            "484 · Lequel tu préfères ? pose des questions sans importance, mais très sérieusement. Batman ou Superman ? Pain au chocolat ou chocolatine ? [Team Edward ou team Jacob ?](/debat/ecrans-edward-jacob) Tu choisis ton camp, et tu découvres aussitôt quel pourcentage des visiteurs a fait le même choix que toi."
+            "484 · T’es team quoi ? pose des questions sans importance, mais très sérieusement. Batman ou Superman ? Pain au chocolat ou chocolatine ? [Team Edward ou team Jacob ?](/debat/ecrans-edward-jacob) Tu choisis ton camp, et tu découvres aussitôt quel pourcentage des visiteurs a fait le même choix que toi."
           ]
         },
         {

@@ -1,8 +1,8 @@
 {
   "name": "484-duels",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "private": true,
-  "description": "Lequel tu préfères ? Duels infinis entre icônes de la pop culture.",
+  "description": "T’es team quoi ? Duels infinis entre icônes de la pop culture.",
   "type": "module",
   "engines": {
     "node": ">=24"

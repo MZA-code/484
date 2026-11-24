@@ -229,8 +229,9 @@ p {
 }
 
 /*
- * Respect de prefers-reduced-motion : aucune animation, transitions instantanées.
- * L'interrupteur « Animations » de l'en-tête peut forcer l'un ou l'autre (data-motion).
+ * Animations réduites : aucune animation, transitions instantanées. Le gabarit pose toujours
+ * data-motion (« full » par défaut, « reduced » si l'interrupteur de l'en-tête les a coupées) ;
+ * le réglage du système ne compte que si data-motion manque.
  */
 @media (prefers-reduced-motion: reduce) {
   :root:not([data-motion='full']) *,

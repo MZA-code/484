@@ -2,9 +2,11 @@
  * Préférence d'animations, sans dépendance : utilisable par les îlots Preact comme par les
  * petits scripts des pages statiques (accueil).
  *
- * Par défaut, le site suit le réglage du système (`prefers-reduced-motion`) ; l'interrupteur
- * « Animations » de l'en-tête permet de forcer les animations ou de les couper. La préférence
- * est posée sur <html data-motion="full|reduced"> dès le chargement (script du gabarit).
+ * Par défaut, animations et GIF sont activés (« full »), quel que soit le réglage du système :
+ * les GIF sont le cœur du jeu. L'interrupteur « Animations » de l'en-tête permet de les couper
+ * (choix gardé dans le stockage local). La préférence est posée sur
+ * <html data-motion="full|reduced"> dès le chargement (script du gabarit) ; sans elle (cas
+ * qui ne devrait pas arriver), on retombe sur le réglage du système.
  */
 
 export const MOTION_STORAGE_KEY = '484:motion';

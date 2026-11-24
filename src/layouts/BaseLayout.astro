@@ -11,7 +11,7 @@ import { OG_HEIGHT, OG_WIDTH, ogImagePath } from '../lib/og-path';
 import { serializeJsonLd } from '../lib/seo';
 
 interface Props {
-  /** Titre de l'onglet, avant « · 484 · Lequel tu préfères ? ». Absent sur l'accueil. */
+  /** Titre de l'onglet, avant « · 484 · T’es team quoi ? ». Absent sur l'accueil. */
   title?: string | undefined;
   description?: string | undefined;
   /** Chemin de l'image de partage ; par défaut, l'image générale du site. */
@@ -64,15 +64,16 @@ const usesTenor = rivalries.some(
     <meta name="theme-color" content="#121212" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
-      // Préférence d'animations choisie avec l'interrupteur (voir src/lib/motion.ts),
-      // posée avant l'affichage pour éviter tout clignotement.
+      // Préférence d'animations (voir src/lib/motion.ts), posée avant l'affichage pour éviter
+      // tout clignotement. Par défaut, animations et GIF activés, même si le système demande
+      // de les réduire : les GIF sont le cœur du jeu. L'interrupteur les coupe (choix gardé).
+      let motion = null;
       try {
-        const motion = localStorage.getItem('484:motion');
-        if (motion === 'full' || motion === 'reduced')
-          document.documentElement.dataset.motion = motion;
+        motion = localStorage.getItem('484:motion');
       } catch {
-        // Stockage indisponible : on suit simplement le réglage du système.
+        // Stockage indisponible : on garde le choix par défaut.
       }
+      document.documentElement.dataset.motion = motion === 'reduced' ? 'reduced' : 'full';
       // Mode admin (voir src/lib/admin.ts) : #admin=<jeton> l'active, #admin=off le coupe.
       try {
         const match = /^#admin=(.+)$/.exec(location.hash);
