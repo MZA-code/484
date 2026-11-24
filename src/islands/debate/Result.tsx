@@ -99,7 +99,7 @@ function splitParts(result: VoteResult, share: number): Parts | null {
 const MIN_LABEL_PERCENT = 10;
 
 /** Délai avant le duel suivant, une fois la remarque arrivée (assez pour lire, pas plus). */
-export const RESULT_LIFETIME_MS = 6_000;
+export const RESULT_LIFETIME_MS = 3_500;
 
 /**
  * Décompte du bandeau `key` : `onExpire` est appelé `RESULT_LIFETIME_MS` après `ready`. Il se met

@@ -380,3 +380,8 @@ L'écran « Catégorie terminée » de la 1.7.0 était trop plat. Il devient une
 - **Titre** : « 484 · Lequel tu préfères ? » devient « 484 · T’es team quoi ? », plus proche du domaine team484.fr et du jeu (« Tu es team Batman »). Choisi par l’utilisateur parmi quatre propositions.
 - **Animations et GIF activés par défaut**, même quand le système demande de réduire les animations : en navigation privée sur un Windows aux animations coupées, les GIF restaient figés, alors qu’ils sont le cœur du jeu. Le gabarit pose toujours `data-motion` (« full » sauf choix « reduced » gardé par l’interrupteur). L’interrupteur de l’en-tête reste sur chaque page pour tout couper (moyen d’arrêt exigé par le critère 2.2.2) ; la déclaration d’accessibilité est mise à jour.
 - **Remarques écrites** pour les 50 duels de « Bouffe qui divise », et 9 nouveaux duels (carbonara avec ou sans crème, la tomate fruit ou légume, le dernier morceau du plat…).
+
+## D39 — Duel tranché affiché 3,5 s, remarques de « Tech et geek » (version 1.9.1)
+
+- **3,5 s au lieu de 6 s** avant le duel suivant (toujours une fois la remarque arrivée) : en production, 6 s cassaient le rythme. Seule la durée change ; pas de clic pour passer ni de décompte lancé dès le vote (proposés, non retenus).
+- **Remarques écrites** pour les 50 duels de « Tech et geek », et 8 nouveaux duels (cent onglets ouverts, caméra en visio, la clé USB du premier coup…).
