@@ -385,3 +385,9 @@ L'écran « Catégorie terminée » de la 1.7.0 était trop plat. Il devient une
 
 - **3,5 s au lieu de 6 s** avant le duel suivant (toujours une fois la remarque arrivée) : en production, 6 s cassaient le rythme. Seule la durée change ; pas de clic pour passer ni de décompte lancé dès le vote (proposés, non retenus).
 - **Remarques écrites** pour les 50 duels de « Tech et geek », et 8 nouveaux duels (cent onglets ouverts, caméra en visio, la clé USB du premier coup…).
+
+## D40 — Remarques écrites pour onze catégories de plus (version 1.9.2)
+
+- **Remarques sur mesure** pour Jeux vidéo, Ciné et séries, Duos à départager, Musique, Dessins animés, Ciné français, Internet et memes, Mots de chez nous, Nostalgie années 90, Sport et Mode et looks (14 catégories sur 20 en tout). Ton : drôle, jamais méchant ; aucune phrase n’accorde « tu » au masculin ou au féminin (le genre du visiteur est inconnu) ; pour les personnes réelles, on reste sur leurs exploits et leurs gimmicks, sans vie privée ni santé.
+- **88 nouveaux duels** (8 par catégorie) : 1 114 duels au total. Leurs teams n’ont pas encore de GIF choisi.
+- Restent à écrire : Vie quotidienne, Autos et motos, Dilemmes absurdes, Superpouvoirs, Monstres et créatures, Animaux.
