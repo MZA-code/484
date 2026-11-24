@@ -1006,6 +1006,7 @@ var rivalries_default = {
 				"name": "Mac",
 				"origin": "Apple · 1984",
 				"line": "Ça marche. Ne demande pas pourquoi.",
+				"quip": "Team Mac : tu as déjà dit « ça n’arriverait pas sur Mac ». Plusieurs fois. Au même ami.",
 				"giphyIds": [],
 				"giphyQuery": "Mac computer Apple"
 			},
@@ -1013,9 +1014,12 @@ var rivalries_default = {
 				"name": "PC",
 				"origin": "IBM · 1981",
 				"line": "Tu peux tout changer. Tu vas tout changer.",
+				"quip": "Team PC : tu as changé ta carte graphique avant ta brosse à dents.",
 				"giphyIds": [],
 				"giphyQuery": "PC gaming setup"
-			}
+			},
+			"bothQuip": "Les deux. Un Mac pour la frime, un PC pour jouer. Ton compte en banque pleure.",
+			"noneQuip": "Ni Mac ni PC. Tu fais tout sur ton téléphone, même ta déclaration d’impôts."
 		},
 		{
 			"id": "geek-iphone-android",
@@ -1024,6 +1028,7 @@ var rivalries_default = {
 				"name": "iPhone",
 				"origin": "Apple · 2007",
 				"line": "Des bulles bleues, et un chargeur jamais compatible.",
+				"quip": "Team iPhone : quand une bulle verte apparaît dans le groupe, tu soupires.",
 				"giphyIds": [],
 				"giphyQuery": "iPhone"
 			},
@@ -1031,9 +1036,12 @@ var rivalries_default = {
 				"name": "Android",
 				"origin": "Google · 2008",
 				"line": "La liberté totale, et quatorze applis préinstallées.",
+				"quip": "Team Android : tu as passé trois heures à personnaliser ton écran d’accueil. Il est magnifique.",
 				"giphyIds": [],
 				"giphyQuery": "Android robot"
-			}
+			},
+			"bothQuip": "Les deux. Un téléphone pro, un perso, et deux chargeurs différents dans le sac.",
+			"noneQuip": "Ni iPhone ni Android. Tu as encore un Nokia 3310, et il marche."
 		},
 		{
 			"id": "geek-playstation-xbox",
@@ -1042,6 +1050,7 @@ var rivalries_default = {
 				"name": "PlayStation",
 				"origin": "Sony · 1994",
 				"line": "Le CD qui tourne, la démo qui charge.",
+				"quip": "Team PlayStation : tu as le bruit de démarrage de la PS1 dans la tête. Là, maintenant.",
 				"giphyIds": [],
 				"giphyQuery": "PlayStation"
 			},
@@ -1049,9 +1058,12 @@ var rivalries_default = {
 				"name": "Xbox",
 				"origin": "Microsoft · 2001",
 				"line": "Une manette énorme, et Halo dedans.",
+				"quip": "Team Xbox : tes pouces ont pris la forme de la manette.",
 				"giphyIds": [],
 				"giphyQuery": "Xbox"
-			}
+			},
+			"bothQuip": "Les deux. Il y a plus de câbles derrière ta télé que dans un central téléphonique.",
+			"noneQuip": "Ni PlayStation ni Xbox. Team Nintendo, et aucun regret."
 		},
 		{
 			"id": "geek-tabulations-espaces",
@@ -1061,6 +1073,7 @@ var rivalries_default = {
 				"name": "Tabulations",
 				"origin": "Ton éditeur de code",
 				"line": "Une touche, toute l’indentation. Efficace.",
+				"quip": "Team tabulations : une touche au lieu de quatre. À l’échelle d’une vie, le gain de temps est énorme.",
 				"giphyIds": [],
 				"giphyQuery": "keyboard typing fast"
 			},
@@ -1068,9 +1081,12 @@ var rivalries_default = {
 				"name": "Espaces",
 				"origin": "Ton éditeur de code",
 				"line": "Quatre appuis, zéro ambiguïté. Paraît-il.",
+				"quip": "Team espaces : tu as déjà refusé une demande de fusion pour une indentation. Ne nie pas.",
 				"giphyIds": [],
 				"giphyQuery": "space bar keyboard"
-			}
+			},
+			"bothQuip": "Les deux. Dans le même fichier. Tes collègues vont te retrouver.",
+			"noneQuip": "Ni tabulations ni espaces. Tout ton code tient sur une seule ligne."
 		},
 		{
 			"id": "geek-vim-emacs",
@@ -1079,6 +1095,7 @@ var rivalries_default = {
 				"name": "Vim",
 				"origin": "Bram Moolenaar · 1991",
 				"line": "Facile à ouvrir. Impossible à quitter.",
+				"quip": "Team Vim : tu as ouvert Vim une fois en 2016. Tu cherches encore comment le quitter.",
 				"giphyIds": [],
 				"giphyQuery": "vim exit"
 			},
@@ -1086,9 +1103,12 @@ var rivalries_default = {
 				"name": "Emacs",
 				"origin": "Richard Stallman · 1976",
 				"line": "Un éditeur de texte. Et un système d’exploitation. Et un mode de vie.",
+				"quip": "Team Emacs : tu lis tes mails, tu joues à Tetris et tu codes sans jamais quitter ton éditeur.",
 				"giphyIds": [],
 				"giphyQuery": "programmer hacker"
-			}
+			},
+			"bothQuip": "Les deux. Les guerres de religion, tu les fais toutes.",
+			"noneQuip": "Ni Vim ni Emacs. Team Bloc-notes, et tu le vis très bien."
 		},
 		{
 			"id": "geek-mode-sombre-mode-clair",
@@ -1097,6 +1117,7 @@ var rivalries_default = {
 				"name": "Mode sombre",
 				"origin": "Les réglages, tout en bas",
 				"line": "Pour coder la nuit et avoir l’air mystérieux.",
+				"quip": "Team mode sombre : si tu pouvais, tu mettrais aussi ton grille-pain en mode sombre.",
 				"giphyIds": [],
 				"giphyQuery": "dark mode"
 			},
@@ -1104,9 +1125,12 @@ var rivalries_default = {
 				"name": "Mode clair",
 				"origin": "Les réglages par défaut",
 				"line": "Pour ceux qui codent en terrasse.",
+				"quip": "Team mode clair : à minuit, ton écran éclaire toute la pièce. Et les voisins.",
 				"giphyIds": [],
 				"giphyQuery": "sunglasses bright light"
-			}
+			},
+			"bothQuip": "Les deux. Clair le jour, sombre la nuit, en automatique. Une personne équilibrée.",
+			"noneQuip": "Ni sombre ni clair. Ton écran est vert sur noir, comme en 1985."
 		},
 		{
 			"id": "geek-windows-linux",
@@ -1115,6 +1139,7 @@ var rivalries_default = {
 				"name": "Windows",
 				"origin": "Microsoft · 1985",
 				"line": "Une mise à jour s’installe. Ne pas éteindre.",
+				"quip": "Team Windows : tu as appris à aimer l’écran bleu. Un peu.",
 				"giphyIds": [],
 				"giphyQuery": "Windows update"
 			},
@@ -1122,9 +1147,12 @@ var rivalries_default = {
 				"name": "Linux",
 				"origin": "Linus Torvalds · 1991",
 				"line": "Gratuit, libre, il suffit de recompiler le noyau.",
+				"quip": "Team Linux : tu as déjà dit « en fait, j’utilise Arch » sans que personne ne demande.",
 				"giphyIds": [],
 				"giphyQuery": "Linux penguin Tux"
-			}
+			},
+			"bothQuip": "Les deux. Double démarrage, et tu ne sais jamais lequel va se lancer.",
+			"noneQuip": "Ni Windows ni Linux. Team Mac, mais tu n’as pas osé le dire."
 		},
 		{
 			"id": "geek-chrome-firefox",
@@ -1133,6 +1161,7 @@ var rivalries_default = {
 				"name": "Chrome",
 				"origin": "Google · 2008",
 				"line": "Rapide, efficace, et affamé de mémoire vive.",
+				"quip": "Team Chrome : ton ordinateur chauffe assez pour cuire un œuf. Mais c’est rapide.",
 				"giphyIds": [],
 				"giphyQuery": "Google Chrome"
 			},
@@ -1140,9 +1169,12 @@ var rivalries_default = {
 				"name": "Firefox",
 				"origin": "Mozilla · 2004",
 				"line": "Un renard, une conscience, et des extensions partout.",
+				"quip": "Team Firefox : tu as installé quinze extensions, dont trois que tu ne comprends pas.",
 				"giphyIds": [],
 				"giphyQuery": "Firefox fox"
-			}
+			},
+			"bothQuip": "Les deux. Un pour le travail, un pour… le reste. On ne pose pas de questions.",
+			"noneQuip": "Ni Chrome ni Firefox. Team Internet Explorer ? Tu es encore là ?"
 		},
 		{
 			"id": "geek-star-wars-star-trek",
@@ -1151,6 +1183,7 @@ var rivalries_default = {
 				"name": "Star Wars",
 				"origin": "George Lucas · 1977",
 				"line": "« Que la Force soit avec toi. »",
+				"quip": "Team Star Wars : tu as déjà fait le bruit du sabre laser avec une baguette de pain.",
 				"giphyIds": [],
 				"giphyQuery": "Star Wars"
 			},
@@ -1158,9 +1191,12 @@ var rivalries_default = {
 				"name": "Star Trek",
 				"origin": "Gene Roddenberry · 1966",
 				"line": "« Longue vie et prospérité. »",
+				"quip": "Team Star Trek : tu fais le salut vulcain, et tu y arrives du premier coup.",
 				"giphyIds": [],
 				"giphyQuery": "Star Trek Spock"
-			}
+			},
+			"bothQuip": "Les deux. Ne dis surtout pas ça dans une convention. Tu risques ta vie.",
+			"noneQuip": "Ni Star Wars ni Star Trek. Les étoiles, tu les regardes depuis ton jardin."
 		},
 		{
 			"id": "geek-livre-papier-liseuse",
@@ -1169,6 +1205,7 @@ var rivalries_default = {
 				"name": "Livre papier",
 				"origin": "Gutenberg · vers 1450",
 				"line": "L’odeur, le poids, et le marque-page oublié dedans.",
+				"quip": "Team livre papier : ta bibliothèque déborde, et tu viens d’en acheter trois autres.",
 				"giphyIds": [],
 				"giphyQuery": "reading book"
 			},
@@ -1176,9 +1213,12 @@ var rivalries_default = {
 				"name": "Liseuse",
 				"origin": "Ta poche",
 				"line": "Mille livres dans la poche, aucune odeur.",
+				"quip": "Team liseuse : tu lis au lit, dans le noir, sans réveiller personne. Le rêve.",
 				"giphyIds": [],
 				"giphyQuery": "e-reader kindle"
-			}
+			},
+			"bothQuip": "Les deux. Liseuse en vacances, papier à la maison, et une pile à lire jusqu’au plafond.",
+			"noneQuip": "Ni papier ni liseuse. Team livres audio, les oreilles grandes ouvertes."
 		},
 		{
 			"id": "geek-merge-rebase",
@@ -1188,6 +1228,7 @@ var rivalries_default = {
 				"name": "Merge",
 				"origin": "Git · 2005",
 				"line": "L’histoire telle qu’elle s’est passée.",
+				"quip": "Team merge : ton historique Git ressemble à un plan de métro. Mais il est honnête.",
 				"giphyIds": [],
 				"giphyQuery": "merge traffic"
 			},
@@ -1195,9 +1236,12 @@ var rivalries_default = {
 				"name": "Rebase",
 				"origin": "Git · 2005",
 				"line": "L’histoire telle qu’on aurait voulu qu’elle se passe.",
+				"quip": "Team rebase : tu réécris l’histoire. Parfois avec un --force. Tes collègues tremblent.",
 				"giphyIds": [],
 				"giphyQuery": "rewrite history"
-			}
+			},
+			"bothQuip": "Les deux. Ça dépend de qui relit ta demande de fusion.",
+			"noneQuip": "Ni merge ni rebase. Tu t’envoies tes fichiers par mail : « v2_final_VRAIMENT_final »."
 		},
 		{
 			"id": "geek-azerty-qwerty",
@@ -1206,6 +1250,7 @@ var rivalries_default = {
 				"name": "AZERTY",
 				"origin": "Les claviers français",
 				"line": "Le point en majuscule. On s’y est fait.",
+				"quip": "Team AZERTY : tu tapes un point avec la touche majuscule, et tu trouves ça normal.",
 				"giphyIds": [],
 				"giphyQuery": "keyboard typing"
 			},
@@ -1213,9 +1258,12 @@ var rivalries_default = {
 				"name": "QWERTY",
 				"origin": "Machine à écrire · 1873",
 				"line": "Le standard mondial. Sauf ici.",
+				"quip": "Team QWERTY : depuis que tu as changé de clavier, tes mots de passe sont un mystère.",
 				"giphyIds": [],
 				"giphyQuery": "typewriter"
-			}
+			},
+			"bothQuip": "Les deux. Tu changes de clavier selon l’ordinateur et tu tapes « qzerty » tous les matins.",
+			"noneQuip": "Ni AZERTY ni QWERTY. Team BÉPO. On respecte, même sans comprendre."
 		},
 		{
 			"id": "geek-wi-fi-cable",
@@ -1224,6 +1272,7 @@ var rivalries_default = {
 				"name": "Wi-Fi",
 				"origin": "Partout",
 				"line": "Ça capte partout. Sauf dans ta chambre.",
+				"quip": "Team Wi-Fi : tu fais le tour de l’appartement en brandissant ton téléphone pour capter.",
 				"giphyIds": [],
 				"giphyQuery": "wifi signal"
 			},
@@ -1231,9 +1280,12 @@ var rivalries_default = {
 				"name": "Câble Ethernet",
 				"origin": "Derrière le meuble télé",
 				"line": "Moche, mais jamais en panne.",
+				"quip": "Team câble : un câble de vingt mètres traverse ton salon. Il est beau, ton câble.",
 				"giphyIds": [],
 				"giphyQuery": "ethernet cable"
-			}
+			},
+			"bothQuip": "Les deux. Le câble pour jouer, le Wi-Fi pour le reste. Le réseau parfait.",
+			"noneQuip": "Ni Wi-Fi ni câble. Tu vis en 4G, et ton forfait souffre."
 		},
 		{
 			"id": "geek-clippy-siri",
@@ -1242,6 +1294,7 @@ var rivalries_default = {
 				"name": "Le trombone de Word",
 				"origin": "Microsoft Office · 1997",
 				"line": "« On dirait que vous écrivez une lettre. »",
+				"quip": "Team Trombone : il voulait juste aider. Personne ne l’a jamais remercié. Toi, si.",
 				"giphyIds": [],
 				"giphyQuery": "Clippy Microsoft Office"
 			},
@@ -1249,9 +1302,12 @@ var rivalries_default = {
 				"name": "Siri",
 				"origin": "Apple · 2011",
 				"line": "« Je n’ai pas bien compris. »",
+				"quip": "Team Siri : tu lui as déjà demandé « tu m’aimes ? ». Avoue.",
 				"giphyIds": [],
 				"giphyQuery": "Siri iPhone"
-			}
+			},
+			"bothQuip": "Les deux. Tu aimes les assistants qui ne comprennent rien. Ça rassure.",
+			"noneQuip": "Ni le Trombone ni Siri. Tu te débrouilles sans assistant, comme au Moyen Âge."
 		},
 		{
 			"id": "jeux-mario-sonic",
@@ -16118,6 +16174,7 @@ var rivalries_default = {
 				"name": "Python",
 				"origin": "Guido van Rossum · 1991",
 				"line": "Lisible, indenté, et un serpent sur le logo.",
+				"quip": "Team Python : dans les autres langages, tu oublies tous les points-virgules.",
 				"giphyIds": [],
 				"giphyQuery": "Python programming"
 			},
@@ -16125,9 +16182,12 @@ var rivalries_default = {
 				"name": "JavaScript",
 				"origin": "Brendan Eich · 1995",
 				"line": "Écrit en dix jours, utilisé partout.",
+				"quip": "Team JavaScript : pour toi, [] + {} qui donne « [object Object] », c’est parfaitement normal.",
 				"giphyIds": [],
 				"giphyQuery": "JavaScript code"
-			}
+			},
+			"bothQuip": "Les deux. Python pour le sérieux, JavaScript pour les ennuis.",
+			"noneQuip": "Ni Python ni JavaScript. Team Rust ? Tu vas nous en parler, c’est sûr."
 		},
 		{
 			"id": "geek-front-end-back-end",
@@ -16136,6 +16196,7 @@ var rivalries_default = {
 				"name": "Front-end",
 				"origin": "Le navigateur",
 				"line": "Des boutons, des couleurs, et un pixel de travers.",
+				"quip": "Team front-end : tu vois un pixel de travers sur un site, et tu ne dors plus.",
 				"giphyIds": [],
 				"giphyQuery": "web design"
 			},
@@ -16143,9 +16204,12 @@ var rivalries_default = {
 				"name": "Back-end",
 				"origin": "Le serveur",
 				"line": "Des bases de données, et personne ne voit ton travail.",
+				"quip": "Team back-end : ton travail est invisible. Le jour où il casse, tout le monde le voit.",
 				"giphyIds": [],
 				"giphyQuery": "server room"
-			}
+			},
+			"bothQuip": "Les deux. Full stack : tu fais tout, et personne ne te paie double.",
+			"noneQuip": "Ni front ni back. Tu es chef de projet, c’est ça ?"
 		},
 		{
 			"id": "geek-clavier-mecanique-clavier-silencieux",
@@ -16154,6 +16218,7 @@ var rivalries_default = {
 				"name": "Clavier mécanique",
 				"origin": "Le bureau",
 				"line": "Clic, clac, et les collègues qui soupirent.",
+				"quip": "Team clavier mécanique : tes voisins de bureau ont acheté des bouchons d’oreilles.",
 				"giphyIds": [],
 				"giphyQuery": "mechanical keyboard"
 			},
@@ -16161,9 +16226,12 @@ var rivalries_default = {
 				"name": "Clavier silencieux",
 				"origin": "Le bureau aussi",
 				"line": "On tape, et personne ne s’en aperçoit.",
+				"quip": "Team clavier silencieux : personne ne sait si tu travailles vraiment. C’est le but.",
 				"giphyIds": [],
 				"giphyQuery": "quiet keyboard typing"
-			}
+			},
+			"bothQuip": "Les deux. Mécanique à la maison, silencieux au bureau. Tu crains les représailles.",
+			"noneQuip": "Ni l’un ni l’autre. Tu tapes sur un écran tactile, avec deux doigts."
 		},
 		{
 			"id": "geek-souris-pave-tactile",
@@ -16172,6 +16240,7 @@ var rivalries_default = {
 				"name": "Souris",
 				"origin": "Le tapis",
 				"line": "Précise, et une molette pour défiler.",
+				"quip": "Team souris : tu as déjà fait demi-tour parce que tu avais oublié ta souris.",
 				"giphyIds": [],
 				"giphyQuery": "computer mouse"
 			},
@@ -16179,9 +16248,12 @@ var rivalries_default = {
 				"name": "Pavé tactile",
 				"origin": "L’ordinateur portable",
 				"line": "Deux doigts, et ça zoome quand on ne veut pas.",
+				"quip": "Team pavé tactile : tu fais défiler à deux doigts comme un chef d’orchestre.",
 				"giphyIds": [],
 				"giphyQuery": "trackpad"
-			}
+			},
+			"bothQuip": "Les deux. Ta souris est posée à côté du pavé tactile, au cas où.",
+			"noneQuip": "Ni souris ni pavé. Raccourcis clavier uniquement. Tu fais un peu peur."
 		},
 		{
 			"id": "geek-un-ecran-trois-ecrans",
@@ -16190,6 +16262,7 @@ var rivalries_default = {
 				"name": "Un écran",
 				"origin": "Le bureau",
 				"line": "Une fenêtre à la fois, et la concentration.",
+				"quip": "Team un écran : une seule chose à la fois. Tu es la personne la plus calme du bureau.",
 				"giphyIds": [],
 				"giphyQuery": "single monitor"
 			},
@@ -16197,9 +16270,12 @@ var rivalries_default = {
 				"name": "Trois écrans",
 				"origin": "Le bureau de rêve",
 				"line": "Le code, le navigateur, et une vidéo de chats.",
+				"quip": "Team trois écrans : ton bureau ressemble à la salle de contrôle de la NASA.",
 				"giphyIds": [],
 				"giphyQuery": "multiple monitors setup"
-			}
+			},
+			"bothQuip": "Les deux. Un écran au bureau, trois à la maison. Les priorités.",
+			"noneQuip": "Ni un ni trois. Deux écrans, et tu trouves ce duel mal posé. Tu n’as pas tort."
 		},
 		{
 			"id": "geek-dune-fondation",
@@ -16208,6 +16284,7 @@ var rivalries_default = {
 				"name": "Dune",
 				"origin": "Frank Herbert · 1965",
 				"line": "Du sable, des vers géants, et l’épice.",
+				"quip": "Team Dune : tu marches sans rythme dans le sable pour ne pas attirer les vers. Même à la plage.",
 				"giphyIds": [],
 				"giphyQuery": "Dune sandworm"
 			},
@@ -16215,9 +16292,12 @@ var rivalries_default = {
 				"name": "Fondation",
 				"origin": "Isaac Asimov · 1951",
 				"line": "Prévoir l’avenir de la galaxie, avec des maths.",
+				"quip": "Team Fondation : tu as déjà planifié l’avenir de ta famille dans un tableur. Sur mille ans.",
 				"giphyIds": [],
 				"giphyQuery": "Foundation Asimov"
-			}
+			},
+			"bothQuip": "Les deux. Ta bibliothèque de science-fiction est plus grande que ton salon.",
+			"noneQuip": "Ni Dune ni Fondation. Les livres de huit cents pages, très peu pour toi."
 		},
 		{
 			"id": "geek-blade-runner-matrix",
@@ -16226,6 +16306,7 @@ var rivalries_default = {
 				"name": "Blade Runner",
 				"origin": "Ridley Scott · 1982",
 				"line": "Des androïdes, la pluie, et des néons.",
+				"quip": "Team Blade Runner : tu as déjà regardé la pluie en murmurant « comme des larmes dans la pluie ».",
 				"giphyIds": [],
 				"giphyQuery": "Blade Runner"
 			},
@@ -16233,9 +16314,12 @@ var rivalries_default = {
 				"name": "Matrix",
 				"origin": "Les Wachowski · 1999",
 				"line": "Des lignes de code vertes, et un monde qui n’existe pas.",
+				"quip": "Team Matrix : tu portes des lunettes de soleil la nuit. Pour l’ambiance.",
 				"giphyIds": [],
 				"giphyQuery": "Matrix code"
-			}
+			},
+			"bothQuip": "Les deux. Tu te demandes souvent si tu es un robot. Coche la case pour vérifier.",
+			"noneQuip": "Ni Blade Runner ni Matrix. Le futur sombre et pluvieux, très peu pour toi."
 		},
 		{
 			"id": "geek-hal-9000-skynet",
@@ -16244,6 +16328,7 @@ var rivalries_default = {
 				"name": "HAL 9000",
 				"origin": "2001, l’odyssée de l’espace · 1968",
 				"line": "« Je suis désolé, Dave. »",
+				"quip": "Team HAL 9000 : tu dis non poliment, d’une voix très calme. Ça fait peur.",
 				"giphyIds": [],
 				"giphyQuery": "HAL 9000"
 			},
@@ -16251,9 +16336,12 @@ var rivalries_default = {
 				"name": "Skynet",
 				"origin": "Terminator · 1984",
 				"line": "Le pire projet d’IA de l’histoire, livré en avance.",
+				"quip": "Team Skynet : tu as déjà menacé ton grille-pain. Juste au cas où.",
 				"giphyIds": [],
 				"giphyQuery": "Skynet Terminator"
-			}
+			},
+			"bothQuip": "Les deux. Tu soutiens les IA maléfiques. On va te garder à l’œil.",
+			"noneQuip": "Ni HAL ni Skynet. Toi, tu dis merci aux IA. Bien joué : elles s’en souviendront."
 		},
 		{
 			"id": "geek-code-commente-code-qui-s-explique-tout-seul",
@@ -16262,6 +16350,7 @@ var rivalries_default = {
 				"name": "Code commenté",
 				"origin": "Le dépôt",
 				"line": "Chaque ligne a son explication.",
+				"quip": "Team code commenté : ton « // ajoute 1 » au-dessus de « i++ » a sauvé des vies.",
 				"giphyIds": [],
 				"giphyQuery": "commented code"
 			},
@@ -16269,9 +16358,12 @@ var rivalries_default = {
 				"name": "Code qui s’explique tout seul",
 				"origin": "Le dépôt aussi",
 				"line": "« Le code, c’est la documentation. » Bien sûr.",
+				"quip": "Team code qui s’explique tout seul : six mois plus tard, tu ne comprends plus rien. Mais c’était élégant.",
 				"giphyIds": [],
 				"giphyQuery": "confusing code"
-			}
+			},
+			"bothQuip": "Les deux. Ton code est clair, et tes commentaires racontent des blagues.",
+			"noneQuip": "Ni l’un ni l’autre. Ton code est un mystère, et tu aimes ça."
 		},
 		{
 			"id": "geek-tests-unitaires-tester-en-production",
@@ -16280,6 +16372,7 @@ var rivalries_default = {
 				"name": "Tests unitaires",
 				"origin": "La CI",
 				"line": "Rien ne part en production sans être vérifié.",
+				"quip": "Team tests unitaires : 100 % de couverture. L’appli ne marche pas, mais elle est couverte.",
 				"giphyIds": [],
 				"giphyQuery": "tests passing"
 			},
@@ -16287,9 +16380,12 @@ var rivalries_default = {
 				"name": "Tester en production",
 				"origin": "Le vendredi soir",
 				"line": "Courageux, et un peu fou.",
+				"quip": "Team tester en production : vendredi, 17 h 55, tu cliques sur « Déployer ». Sans trembler.",
 				"giphyIds": [],
 				"giphyQuery": "this is fine fire"
-			}
+			},
+			"bothQuip": "Les deux. Tu écris les tests après la panne. C’est déjà ça.",
+			"noneQuip": "Ni tests ni production. Ton code n’est jamais sorti de ton ordinateur."
 		},
 		{
 			"id": "geek-cafe-boisson-energisante",
@@ -16298,6 +16394,7 @@ var rivalries_default = {
 				"name": "Café",
 				"origin": "La machine",
 				"line": "Le carburant de tout développeur qui se respecte.",
+				"quip": "Team café : ton sang est à 40 % arabica.",
 				"giphyIds": [],
 				"giphyQuery": "coffee programmer"
 			},
@@ -16305,9 +16402,12 @@ var rivalries_default = {
 				"name": "Boisson énergisante",
 				"origin": "La canette",
 				"line": "Les ailes, et le cœur qui bat un peu vite.",
+				"quip": "Team boisson énergisante : ton cœur bat au rythme d’une musique de boss de fin.",
 				"giphyIds": [],
 				"giphyQuery": "energy drink"
-			}
+			},
+			"bothQuip": "Les deux. Tu entends les couleurs, maintenant ?",
+			"noneQuip": "Ni café ni boisson énergisante. Tu dors huit heures par nuit ? Tu es une légende."
 		},
 		{
 			"id": "geek-stack-overflow-documentation-officielle",
@@ -16316,6 +16416,7 @@ var rivalries_default = {
 				"name": "Stack Overflow",
 				"origin": "Internet · 2008",
 				"line": "Quelqu’un a déjà eu ton bug en 2011.",
+				"quip": "Team Stack Overflow : tu as copié une réponse de 2011 sans la lire. Elle marche. Personne ne sait pourquoi.",
 				"giphyIds": [],
 				"giphyQuery": "Stack Overflow"
 			},
@@ -16323,9 +16424,12 @@ var rivalries_default = {
 				"name": "Documentation officielle",
 				"origin": "Le site du projet",
 				"line": "La réponse est dedans. Quelque part.",
+				"quip": "Team documentation : tu lis la doc avant de coder. Tu es une espèce en voie de disparition.",
 				"giphyIds": [],
 				"giphyQuery": "reading documentation"
-			}
+			},
+			"bothQuip": "Les deux. La doc d’abord, Stack Overflow quand elle ment.",
+			"noneQuip": "Ni l’un ni l’autre. Tu essaies des trucs au hasard jusqu’à ce que ça marche. Respect."
 		},
 		{
 			"id": "geek-git-en-ligne-de-commande-git-avec-interface",
@@ -16334,6 +16438,7 @@ var rivalries_default = {
 				"name": "Git en ligne de commande",
 				"origin": "Le terminal",
 				"line": "Puissant, précis, et un peu effrayant.",
+				"quip": "Team ligne de commande : tu tapes « git push --force » avec un petit sourire.",
 				"giphyIds": [],
 				"giphyQuery": "terminal hacker"
 			},
@@ -16341,9 +16446,12 @@ var rivalries_default = {
 				"name": "Git avec interface",
 				"origin": "L’éditeur",
 				"line": "Des boutons, des couleurs, et moins de sueurs froides.",
+				"quip": "Team interface : tu cliques sur des boutons de couleur, et ton code part en ligne. La magie.",
 				"giphyIds": [],
 				"giphyQuery": "git gui"
-			}
+			},
+			"bothQuip": "Les deux. Le terminal pour frimer, l’interface quand ça se complique.",
+			"noneQuip": "Ni l’un ni l’autre. Ton historique de versions, c’est une clé USB et des dossiers datés."
 		},
 		{
 			"id": "geek-bureau-propre-bureau-sature",
@@ -16352,6 +16460,7 @@ var rivalries_default = {
 				"name": "Bureau propre",
 				"origin": "L’écran d’accueil",
 				"line": "Trois icônes et un joli fond d’écran.",
+				"quip": "Team bureau propre : trois icônes, un fond d’écran apaisant. Ta vie est aussi bien rangée ?",
 				"giphyIds": [],
 				"giphyQuery": "clean desktop"
 			},
@@ -16359,9 +16468,12 @@ var rivalries_default = {
 				"name": "Bureau saturé",
 				"origin": "L’écran d’accueil aussi",
 				"line": "Quatre cents icônes, et tu sais où est chacune.",
+				"quip": "Team bureau saturé : tu sais exactement où se trouve chaque icône. Personne d’autre.",
 				"giphyIds": [],
 				"giphyQuery": "messy desktop icons"
-			}
+			},
+			"bothQuip": "Les deux. Le bureau est propre parce que tout est dans un dossier « Divers ».",
+			"noneQuip": "Ni l’un ni l’autre. Tu n’as jamais vu ton fond d’écran, il est caché sous les fenêtres."
 		},
 		{
 			"id": "geek-fichiers-ranges-tout-dans-telechargements",
@@ -16370,6 +16482,7 @@ var rivalries_default = {
 				"name": "Fichiers rangés",
 				"origin": "Les dossiers",
 				"line": "Un dossier par projet, un sous-dossier par année.",
+				"quip": "Team fichiers rangés : ton dossier « Photos » est classé par année, par mois, et par humeur.",
 				"giphyIds": [],
 				"giphyQuery": "organized folders"
 			},
@@ -16377,9 +16490,12 @@ var rivalries_default = {
 				"name": "Tout dans Téléchargements",
 				"origin": "Le dossier Téléchargements",
 				"line": "Quatre mille fichiers, dont « document (37).pdf ».",
+				"quip": "Team Téléchargements : tu as téléchargé ce PDF quatre fois parce que tu ne le retrouvais pas.",
 				"giphyIds": [],
 				"giphyQuery": "downloads folder mess"
-			}
+			},
+			"bothQuip": "Les deux. Tu ranges une fois par an. Le lendemain, tout est de nouveau dans Téléchargements.",
+			"noneQuip": "Ni l’un ni l’autre. Tout est dans le cloud. Enfin, tu crois."
 		},
 		{
 			"id": "geek-meme-mot-de-passe-partout-gestionnaire-de-mots-de-passe",
@@ -16388,6 +16504,7 @@ var rivalries_default = {
 				"name": "Même mot de passe partout",
 				"origin": "Ta mémoire",
 				"line": "Facile à retenir. Facile à pirater aussi.",
+				"quip": "Team même mot de passe : c’est le nom de ton chat suivi de 123. Ne réponds pas, on sait.",
 				"giphyIds": [],
 				"giphyQuery": "password 123456"
 			},
@@ -16395,9 +16512,12 @@ var rivalries_default = {
 				"name": "Gestionnaire de mots de passe",
 				"origin": "Le coffre-fort",
 				"line": "Un seul mot de passe, et tous les autres impossibles.",
+				"quip": "Team gestionnaire : tes mots de passe font quarante caractères, et tu n’en connais aucun.",
 				"giphyIds": [],
 				"giphyQuery": "password manager"
-			}
+			},
+			"bothQuip": "Les deux. Un gestionnaire de mots de passe… protégé par ton mot de passe habituel.",
+			"noneQuip": "Ni l’un ni l’autre. Tu cliques sur « mot de passe oublié » à chaque fois."
 		},
 		{
 			"id": "geek-redemarrer-chercher-le-bug",
@@ -16406,6 +16526,7 @@ var rivalries_default = {
 				"name": "Redémarrer",
 				"origin": "Le bouton",
 				"line": "« Tu as essayé de l’éteindre et de le rallumer ? »",
+				"quip": "Team redémarrer : tu as réglé 90 % des problèmes de ta famille avec ce seul geste.",
 				"giphyIds": [],
 				"giphyQuery": "IT Crowd turn it off"
 			},
@@ -16413,9 +16534,12 @@ var rivalries_default = {
 				"name": "Chercher le bug",
 				"origin": "La console",
 				"line": "Trois heures, pour un point-virgule.",
+				"quip": "Team chercher le bug : trois heures plus tard, c’était un point-virgule. Mais tu l’as trouvé.",
 				"giphyIds": [],
 				"giphyQuery": "debugging"
-			}
+			},
+			"bothQuip": "Les deux. Trois heures à chercher le bug, puis tu redémarres. Et ça marche.",
+			"noneQuip": "Ni l’un ni l’autre. Tu attends que ça se répare tout seul. Parfois, ça marche."
 		},
 		{
 			"id": "geek-ordinateur-portable-ordinateur-fixe",
@@ -16424,6 +16548,7 @@ var rivalries_default = {
 				"name": "Ordinateur portable",
 				"origin": "Le sac",
 				"line": "Partout avec toi, et le dos qui en souffre.",
+				"quip": "Team portable : tu travailles au lit, au café et dans le train. Ton dos, un peu moins.",
 				"giphyIds": [],
 				"giphyQuery": "laptop"
 			},
@@ -16431,9 +16556,12 @@ var rivalries_default = {
 				"name": "Ordinateur fixe",
 				"origin": "Le bureau",
 				"line": "Puissant, évolutif, et il ne bouge pas.",
+				"quip": "Team fixe : ta tour clignote en RGB. Elle éclaire tout le salon.",
 				"giphyIds": ["IX2sn8cnqDyRq"],
 				"giphyQuery": "desktop computer"
-			}
+			},
+			"bothQuip": "Les deux. Le fixe pour jouer, le portable pour faire semblant de travailler.",
+			"noneQuip": "Ni portable ni fixe. Tu fais tout sur ta tablette, et ça te va."
 		},
 		{
 			"id": "geek-ecran-classique-ecran-ultra-large",
@@ -16442,6 +16570,7 @@ var rivalries_default = {
 				"name": "Écran classique",
 				"origin": "Le format 16:9",
 				"line": "Le standard, et ça suffit.",
+				"quip": "Team écran classique : le standard te suffit. Tu es une personne raisonnable.",
 				"giphyIds": [],
 				"giphyQuery": "computer monitor"
 			},
@@ -16449,9 +16578,12 @@ var rivalries_default = {
 				"name": "Écran ultra-large",
 				"origin": "Le format 21:9",
 				"line": "Tu tournes la tête pour lire.",
+				"quip": "Team ultra-large : tu tournes la tête pour lire une phrase. Ça fait de l’exercice.",
 				"giphyIds": [],
 				"giphyQuery": "ultrawide monitor"
-			}
+			},
+			"bothQuip": "Les deux. Un classique pour travailler, un ultra-large pour jouer. Le budget a pleuré.",
+			"noneQuip": "Ni l’un ni l’autre. Ton écran est à la verticale. Original."
 		},
 		{
 			"id": "geek-nintendo-switch-steam-deck",
@@ -16460,6 +16592,7 @@ var rivalries_default = {
 				"name": "Nintendo Switch",
 				"origin": "Nintendo · 2017",
 				"line": "Sur la télé, ou dans le train.",
+				"quip": "Team Switch : tu as joué à Mario Kart dans le train, et perdu contre un enfant de huit ans.",
 				"giphyIds": [],
 				"giphyQuery": "Nintendo Switch"
 			},
@@ -16467,9 +16600,12 @@ var rivalries_default = {
 				"name": "Steam Deck",
 				"origin": "Valve · 2022",
 				"line": "Ta bibliothèque Steam, dans les mains.",
+				"quip": "Team Steam Deck : deux cents jeux achetés en soldes, et pas une minute pour y jouer.",
 				"giphyIds": [],
 				"giphyQuery": "Steam Deck"
-			}
+			},
+			"bothQuip": "Les deux. Ton sac de voyage contient plus de consoles que de vêtements.",
+			"noneQuip": "Ni Switch ni Steam Deck. Tu joues sur ton téléphone. On ne juge pas."
 		},
 		{
 			"id": "geek-raspberry-pi-arduino",
@@ -16478,6 +16614,7 @@ var rivalries_default = {
 				"name": "Raspberry Pi",
 				"origin": "Royaume-Uni · 2012",
 				"line": "Un ordinateur grand comme une carte de crédit.",
+				"quip": "Team Raspberry Pi : tu en as acheté trois, et un seul sert à quelque chose.",
 				"giphyIds": [],
 				"giphyQuery": "Raspberry Pi"
 			},
@@ -16485,9 +16622,12 @@ var rivalries_default = {
 				"name": "Arduino",
 				"origin": "Italie · 2005",
 				"line": "Des LED qui clignotent, et beaucoup de fierté.",
+				"quip": "Team Arduino : le jour où ta première LED a clignoté reste le plus beau de ta vie.",
 				"giphyIds": [],
 				"giphyQuery": "Arduino LED"
-			}
+			},
+			"bothQuip": "Les deux. Ton bureau est couvert de câbles et de projets à moitié finis.",
+			"noneQuip": "Ni Raspberry ni Arduino. Tu achètes tes gadgets tout faits, comme tout le monde."
 		},
 		{
 			"id": "geek-lego-technic-meccano",
@@ -16496,6 +16636,7 @@ var rivalries_default = {
 				"name": "Lego Technic",
 				"origin": "Lego · 1977",
 				"line": "Des engrenages, des pistons, et la notice de 400 pages.",
+				"quip": "Team Lego Technic : tu as monté une grue de 4 000 pièces, et il en reste une. Une seule.",
 				"giphyIds": [],
 				"giphyQuery": "Lego Technic"
 			},
@@ -16503,9 +16644,12 @@ var rivalries_default = {
 				"name": "Meccano",
 				"origin": "Royaume-Uni · 1898",
 				"line": "Des plaques percées, des vis, et un petit tournevis.",
+				"quip": "Team Meccano : le petit tournevis est encore dans un tiroir. Tu le sais.",
 				"giphyIds": [],
 				"giphyQuery": "Meccano"
-			}
+			},
+			"bothQuip": "Les deux. Ton salon ressemble à un atelier, et tu adores ça.",
+			"noneQuip": "Ni Lego ni Meccano. Tu as marché pieds nus sur une pièce un jour, et tu n’as jamais pardonné."
 		},
 		{
 			"id": "geek-donjons-et-dragons-catan",
@@ -16514,6 +16658,7 @@ var rivalries_default = {
 				"name": "Donjons et Dragons",
 				"origin": "TSR · 1974",
 				"line": "Des dés à vingt faces, et des soirées entières.",
+				"quip": "Team Donjons et Dragons : la partie a duré six heures, et ton personnage est mort à la deuxième.",
 				"giphyIds": [],
 				"giphyQuery": "Dungeons and Dragons dice"
 			},
@@ -16521,9 +16666,12 @@ var rivalries_default = {
 				"name": "Catan",
 				"origin": "Allemagne · 1995",
 				"line": "« J’échange un mouton contre du bois. »",
+				"quip": "Team Catan : tu as perdu un ami pour une histoire de mouton.",
 				"giphyIds": [],
 				"giphyQuery": "Catan board game"
-			}
+			},
+			"bothQuip": "Les deux. Tes soirées jeux commencent à 19 h et finissent à 3 h.",
+			"noneQuip": "Ni l’un ni l’autre. Team Uno, avec des +4 cachés dans les manches."
 		},
 		{
 			"id": "geek-warhammer-magic-l-assemblee",
@@ -16532,6 +16680,7 @@ var rivalries_default = {
 				"name": "Warhammer",
 				"origin": "Games Workshop · 1983",
 				"line": "Des figurines à peindre, une à une, pendant des années.",
+				"quip": "Team Warhammer : douze heures de peinture pour une figurine de trois centimètres.",
 				"giphyIds": [],
 				"giphyQuery": "Warhammer miniatures"
 			},
@@ -16539,9 +16688,12 @@ var rivalries_default = {
 				"name": "Magic : l’Assemblée",
 				"origin": "Wizards of the Coast · 1993",
 				"line": "Des cartes, des sorts, et un budget qui fond.",
+				"quip": "Team Magic : ta collection de cartes vaut plus cher que ta voiture.",
 				"giphyIds": [],
 				"giphyQuery": "Magic the Gathering cards"
-			}
+			},
+			"bothQuip": "Les deux. Ton portefeuille a déposé plainte.",
+			"noneQuip": "Ni Warhammer ni Magic. Ton compte en banque te remercie chaleureusement."
 		},
 		{
 			"id": "geek-japan-expo-comic-con",
@@ -16550,6 +16702,7 @@ var rivalries_default = {
 				"name": "Japan Expo",
 				"origin": "Paris · 1999",
 				"line": "Des cosplays, des mangas, et des files d’attente.",
+				"quip": "Team Japan Expo : six mois sur ton cosplay, et personne n’a reconnu le personnage.",
 				"giphyIds": [],
 				"giphyQuery": "cosplay convention"
 			},
@@ -16557,9 +16710,12 @@ var rivalries_default = {
 				"name": "Comic Con",
 				"origin": "San Diego · 1970",
 				"line": "Des super-héros, des annonces, et encore des files.",
+				"quip": "Team Comic Con : huit heures de queue pour voir un acteur de loin. Ça valait le coup.",
 				"giphyIds": [],
 				"giphyQuery": "Comic Con"
-			}
+			},
+			"bothQuip": "Les deux. Tu as une valise rien que pour tes costumes.",
+			"noneQuip": "Ni l’un ni l’autre. Les foules et les files d’attente, très peu pour toi."
 		},
 		{
 			"id": "geek-manga-comics",
@@ -16568,6 +16724,7 @@ var rivalries_default = {
 				"name": "Manga",
 				"origin": "Le Japon",
 				"line": "Se lit de droite à gauche.",
+				"quip": "Team manga : tu as lu les cent tomes d’une série. Dans le bon sens.",
 				"giphyIds": [],
 				"giphyQuery": "manga reading"
 			},
@@ -16575,9 +16732,12 @@ var rivalries_default = {
 				"name": "Comics",
 				"origin": "Les États-Unis",
 				"line": "Se lit de gauche à droite, en couleur.",
+				"quip": "Team comics : tu connais les cinquante versions de Spider-Man. Toutes.",
 				"giphyIds": [],
 				"giphyQuery": "comic book"
-			}
+			},
+			"bothQuip": "Les deux. Tu lis dans les deux sens. Ton cerveau fait des loopings.",
+			"noneQuip": "Ni manga ni comics. Team BD franco-belge, Tintin et Astérix pour toujours."
 		},
 		{
 			"id": "geek-vf-vostfr",
@@ -16587,6 +16747,7 @@ var rivalries_default = {
 				"name": "VF",
 				"origin": "Le doublage",
 				"line": "Les voix françaises que tout le monde connaît.",
+				"quip": "Team VF : pour toi, Bruce Willis n’a qu’une seule voix, et elle est française.",
 				"giphyIds": [],
 				"giphyQuery": "dubbing studio"
 			},
@@ -16594,9 +16755,12 @@ var rivalries_default = {
 				"name": "VOSTFR",
 				"origin": "Les sous-titres",
 				"line": "La vraie voix des acteurs, et lire très vite.",
+				"quip": "Team VOSTFR : tu lis les sous-titres si vite que tu oublies de regarder l’image.",
 				"giphyIds": [],
 				"giphyQuery": "subtitles"
-			}
+			},
+			"bothQuip": "Les deux. VF pour les dessins animés, VOSTFR pour les séries. Un système.",
+			"noneQuip": "Ni l’un ni l’autre. Tu regardes en VO sans sous-titres, et tu le fais savoir."
 		},
 		{
 			"id": "geek-binge-watching-un-episode-par-semaine",
@@ -16605,6 +16769,7 @@ var rivalries_default = {
 				"name": "Binge-watching",
 				"origin": "Le week-end",
 				"line": "Une saison entière en deux jours.",
+				"quip": "Team binge-watching : « Êtes-vous toujours en train de regarder ? » Oui, merci de demander.",
 				"giphyIds": [],
 				"giphyQuery": "binge watching"
 			},
@@ -16612,9 +16777,12 @@ var rivalries_default = {
 				"name": "Un épisode par semaine",
 				"origin": "Le mardi soir",
 				"line": "L’attente, et le plaisir de l’attente.",
+				"quip": "Team un épisode par semaine : tu sais attendre. Le monde entier t’envie.",
 				"giphyIds": [],
 				"giphyQuery": "waiting for episode"
-			}
+			},
+			"bothQuip": "Les deux. Tu attends que la saison soit finie… puis tu la regardes en une nuit.",
+			"noneQuip": "Ni l’un ni l’autre. Tu lis les résumés sur Internet. Gain de temps."
 		},
 		{
 			"id": "geek-lire-les-spoilers-fuir-les-spoilers",
@@ -16623,6 +16791,7 @@ var rivalries_default = {
 				"name": "Lire les spoilers",
 				"origin": "Internet",
 				"line": "Savoir la fin, et regarder quand même.",
+				"quip": "Team spoilers : tu lis la fin d’un livre avant le début. Pour être tranquille.",
 				"giphyIds": [],
 				"giphyQuery": "spoiler alert"
 			},
@@ -16630,9 +16799,12 @@ var rivalries_default = {
 				"name": "Fuir les spoilers",
 				"origin": "Internet aussi",
 				"line": "Couper les réseaux, et les doigts dans les oreilles.",
+				"quip": "Team anti-spoilers : tu as quitté une soirée parce que quelqu’un parlait de la dernière saison.",
 				"giphyIds": [],
 				"giphyQuery": "covering ears"
-			}
+			},
+			"bothQuip": "Les deux. Tu cherches les spoilers, puis tu regrettes très fort.",
+			"noneQuip": "Ni l’un ni l’autre. Tu ne regardes rien, donc personne ne peut te spoiler. Le génie."
 		},
 		{
 			"id": "geek-enceinte-connectee-interrupteur",
@@ -16641,6 +16813,7 @@ var rivalries_default = {
 				"name": "Enceinte connectée",
 				"origin": "Le salon",
 				"line": "« Allume la lumière. » « Je n’ai pas compris. »",
+				"quip": "Team enceinte connectée : tu lui demandes la météo tous les matins sans jamais regarder par la fenêtre.",
 				"giphyIds": [],
 				"giphyQuery": "smart speaker"
 			},
@@ -16648,9 +16821,12 @@ var rivalries_default = {
 				"name": "Interrupteur",
 				"origin": "Le mur",
 				"line": "Un clic, la lumière. Infaillible.",
+				"quip": "Team interrupteur : il n’a jamais besoin de mise à jour. Et il ne t’écoute pas.",
 				"giphyIds": [],
 				"giphyQuery": "light switch"
-			}
+			},
+			"bothQuip": "Les deux. L’enceinte ne comprend pas, alors tu appuies sur l’interrupteur.",
+			"noneQuip": "Ni l’un ni l’autre. Tu vis à la bougie. Romantique."
 		},
 		{
 			"id": "geek-robot-aspirateur-balai",
@@ -16659,6 +16835,7 @@ var rivalries_default = {
 				"name": "Robot aspirateur",
 				"origin": "Le salon",
 				"line": "Il nettoie tout seul, et se coince sous le canapé.",
+				"quip": "Team robot aspirateur : tu lui as donné un prénom. Ne mens pas.",
 				"giphyIds": [],
 				"giphyQuery": "robot vacuum cat"
 			},
@@ -16666,9 +16843,12 @@ var rivalries_default = {
 				"name": "Balai",
 				"origin": "Le placard",
 				"line": "Il nettoie, si tu t’en sers.",
+				"quip": "Team balai : tu fais le ménage toi-même. Le robot te trouve menaçant.",
 				"giphyIds": [],
 				"giphyQuery": "broom sweeping"
-			}
+			},
+			"bothQuip": "Les deux. Le robot passe, puis tu repasses derrière lui. Il est vexé.",
+			"noneQuip": "Ni robot ni balai. La poussière, c’est de la déco."
 		},
 		{
 			"id": "geek-cloud-disque-dur-externe",
@@ -16677,6 +16857,7 @@ var rivalries_default = {
 				"name": "Cloud",
 				"origin": "Internet",
 				"line": "Tes fichiers partout, et nulle part en même temps.",
+				"quip": "Team cloud : tes photos sont « quelque part ». Tu ne sais pas où, mais elles y sont.",
 				"giphyIds": [],
 				"giphyQuery": "cloud storage"
 			},
@@ -16684,9 +16865,12 @@ var rivalries_default = {
 				"name": "Disque dur externe",
 				"origin": "Le tiroir",
 				"line": "Tes fichiers dans ta main, et tu ne sais plus lequel.",
+				"quip": "Team disque dur externe : tu en as six, et tu ne sais plus lequel contient quoi.",
 				"giphyIds": [],
 				"giphyQuery": "external hard drive"
-			}
+			},
+			"bothQuip": "Les deux. Une sauvegarde de ta sauvegarde. Tu as déjà tout perdu une fois, ça se voit.",
+			"noneQuip": "Ni cloud ni disque dur. Tout est sur ton téléphone, sans sauvegarde. Tu vis dangereusement."
 		},
 		{
 			"id": "geek-mettre-a-jour-tout-de-suite-repousser-la-mise-a-jour",
@@ -16695,6 +16879,7 @@ var rivalries_default = {
 				"name": "Mettre à jour tout de suite",
 				"origin": "La notification",
 				"line": "Toujours la dernière version.",
+				"quip": "Team mise à jour tout de suite : tu cliques sur « Installer » sans lire. L’aventure.",
 				"giphyIds": [],
 				"giphyQuery": "updating"
 			},
@@ -16702,9 +16887,12 @@ var rivalries_default = {
 				"name": "Repousser la mise à jour",
 				"origin": "La notification aussi",
 				"line": "« Me le rappeler demain. » Depuis 2019.",
+				"quip": "Team « plus tard » : ta dernière mise à jour date de la préhistoire. Ou presque.",
 				"giphyIds": [],
 				"giphyQuery": "remind me later"
-			}
+			},
+			"bothQuip": "Les deux. Tu repousses trois mois, puis tu installes tout un dimanche soir.",
+			"noneQuip": "Ni l’un ni l’autre. Tu as désactivé les mises à jour. Ton ordinateur a peur de toi."
 		},
 		{
 			"id": "geek-lire-le-mode-d-emploi-se-debrouiller",
@@ -16713,6 +16901,7 @@ var rivalries_default = {
 				"name": "Lire le mode d’emploi",
 				"origin": "La boîte",
 				"line": "Chaque étape, dans l’ordre.",
+				"quip": "Team mode d’emploi : tu lis même la partie en néerlandais. Par curiosité.",
 				"giphyIds": [],
 				"giphyQuery": "reading manual"
 			},
@@ -16720,9 +16909,12 @@ var rivalries_default = {
 				"name": "Se débrouiller",
 				"origin": "La boîte aussi",
 				"line": "Il reste trois vis. Ce n’est pas grave.",
+				"quip": "Team débrouille : il reste trois vis, et le meuble penche un peu. Ça fait son charme.",
 				"giphyIds": [],
 				"giphyQuery": "leftover screws"
-			}
+			},
+			"bothQuip": "Les deux. Tu te débrouilles, puis tu lis le mode d’emploi pour comprendre pourquoi ça penche.",
+			"noneQuip": "Ni l’un ni l’autre. Tu demandes à quelqu’un de monter le meuble. Malin."
 		},
 		{
 			"id": "geek-ctrl-alt-suppr-debrancher-la-prise",
@@ -16731,6 +16923,7 @@ var rivalries_default = {
 				"name": "Ctrl+Alt+Suppr",
 				"origin": "Le clavier",
 				"line": "Le geste qui sauve les ordinateurs depuis des décennies.",
+				"quip": "Team Ctrl+Alt+Suppr : tes trois doigts sont en position avant même que l’ordinateur plante.",
 				"giphyIds": [],
 				"giphyQuery": "ctrl alt delete"
 			},
@@ -16738,9 +16931,12 @@ var rivalries_default = {
 				"name": "Débrancher la prise",
 				"origin": "Le mur",
 				"line": "La méthode radicale.",
+				"quip": "Team débrancher la prise : la méthode radicale. Tes fichiers non enregistrés s’en souviennent.",
 				"giphyIds": [],
 				"giphyQuery": "unplugging"
-			}
+			},
+			"bothQuip": "Les deux. D’abord Ctrl+Alt+Suppr, puis la prise, puis une prière.",
+			"noneQuip": "Ni l’un ni l’autre. Tu attends que l’ordinateur se décide. Ça peut prendre des heures."
 		},
 		{
 			"id": "geek-excel-google-sheets",
@@ -16749,6 +16945,7 @@ var rivalries_default = {
 				"name": "Excel",
 				"origin": "Microsoft · 1985",
 				"line": "Des formules, et des macros mystérieuses.",
+				"quip": "Team Excel : tu as une macro de 2009 que personne n’ose toucher. Pas même toi.",
 				"giphyIds": [],
 				"giphyQuery": "Excel spreadsheet"
 			},
@@ -16756,9 +16953,191 @@ var rivalries_default = {
 				"name": "Google Sheets",
 				"origin": "Google · 2006",
 				"line": "Le tableur à plusieurs, en direct.",
+				"quip": "Team Google Sheets : tu regardes les curseurs de tes collègues bouger en direct. C’est hypnotique.",
 				"giphyIds": [],
 				"giphyQuery": "Google Sheets"
-			}
+			},
+			"bothQuip": "Les deux. Tes tableaux sont des chefs-d’œuvre. Personne ne les comprend.",
+			"noneQuip": "Ni Excel ni Sheets. Tes comptes sont dans un carnet, au crayon."
+		},
+		{
+			"id": "geek-cent-onglets-ouverts-un-seul-onglet",
+			"category": "geek",
+			"a": {
+				"name": "Cent onglets ouverts",
+				"origin": "Ton navigateur",
+				"line": "Tu les liras tous. Un jour. Sûrement.",
+				"quip": "Team cent onglets : ton ordinateur fait le bruit d’un avion au décollage, et tu en ouvres un autre.",
+				"giphyIds": [],
+				"giphyQuery": "too many tabs"
+			},
+			"b": {
+				"name": "Un seul onglet",
+				"origin": "Ton navigateur aussi",
+				"line": "Tu fermes au fur et à mesure. Personne ne te comprend.",
+				"quip": "Team un seul onglet : tu fermes chaque page une fois lue. Ta mémoire vive t’envoie des fleurs.",
+				"giphyIds": [],
+				"giphyQuery": "minimalist"
+			},
+			"bothQuip": "Les deux. Un seul onglet par fenêtre. Mais quarante fenêtres.",
+			"noneQuip": "Ni l’un ni l’autre. Pas de navigateur ? Mais comment as-tu atterri ici ?"
+		},
+		{
+			"id": "geek-camera-allumee-camera-coupee",
+			"category": "geek",
+			"question": "En visio : caméra allumée ou coupée ?",
+			"a": {
+				"name": "Caméra allumée",
+				"origin": "La réunion",
+				"line": "Coiffure, chemise, et pyjama en bas.",
+				"quip": "Team caméra allumée : tu as rangé uniquement le coin de la pièce qui se voit à l’écran.",
+				"giphyIds": [],
+				"giphyQuery": "video call"
+			},
+			"b": {
+				"name": "Caméra coupée",
+				"origin": "La réunion aussi",
+				"line": "Une initiale dans un rond, et la liberté totale.",
+				"quip": "Team caméra coupée : en ce moment même, tu es peut-être en réunion. On ne dira rien.",
+				"giphyIds": [],
+				"giphyQuery": "zoom meeting"
+			},
+			"bothQuip": "Les deux. Tu allumes pour dire bonjour, puis « problème de connexion ».",
+			"noneQuip": "Ni allumée ni coupée. Tu ne vas jamais en visio. Le rêve."
+		},
+		{
+			"id": "geek-notifications-activees-mode-avion",
+			"category": "geek",
+			"a": {
+				"name": "Notifications activées",
+				"origin": "Ton téléphone",
+				"line": "Trois cents pastilles rouges, et aucune urgence.",
+				"quip": "Team notifications : ton téléphone vibre toutes les quatre secondes, et tu trouves ça normal.",
+				"giphyIds": [],
+				"giphyQuery": "phone notifications"
+			},
+			"b": {
+				"name": "Mode avion",
+				"origin": "Ton téléphone aussi",
+				"line": "Le calme absolu. Même au sol.",
+				"quip": "Team mode avion : on te cherche depuis mardi. Tout va bien ?",
+				"giphyIds": [],
+				"giphyQuery": "airplane mode"
+			},
+			"bothQuip": "Les deux. Mode avion le soir, trois cents notifications au réveil.",
+			"noneQuip": "Ni l’un ni l’autre. Ton téléphone dort dans un tiroir depuis 2017. Respect."
+		},
+		{
+			"id": "geek-demander-a-une-ia-chercher-soi-meme",
+			"category": "geek",
+			"a": {
+				"name": "Demander à une IA",
+				"origin": "Une fenêtre de discussion",
+				"line": "Une réponse très sûre d’elle. À vérifier quand même.",
+				"quip": "Team IA : tu dis « s’il te plaît » et « merci » à ton assistant. Au cas où.",
+				"giphyIds": [],
+				"giphyQuery": "robot thinking"
+			},
+			"b": {
+				"name": "Chercher soi-même",
+				"origin": "Dix onglets",
+				"line": "Plus lent, mais tu sais d’où ça vient.",
+				"quip": "Team chercher soi-même : tu fais confiance à tes onglets, à ta souris, et à personne d’autre.",
+				"giphyIds": [],
+				"giphyQuery": "searching"
+			},
+			"bothQuip": "Les deux. Tu demandes à l’IA, puis tu vérifies tout. La sagesse.",
+			"noneQuip": "Ni l’un ni l’autre. Tu appelles quelqu’un qui s’y connaît. À l’ancienne."
+		},
+		{
+			"id": "geek-ctrl-s-toutes-les-dix-secondes-jamais-enregistrer",
+			"category": "geek",
+			"a": {
+				"name": "Ctrl+S toutes les dix secondes",
+				"origin": "Ton petit doigt",
+				"line": "Un réflexe. Même dans un navigateur.",
+				"quip": "Team Ctrl+S : tu viens d’enregistrer cette page en lisant cette phrase. Vas-y, on t’a vu.",
+				"giphyIds": [],
+				"giphyQuery": "save button"
+			},
+			"b": {
+				"name": "Ne jamais enregistrer",
+				"origin": "L’optimisme",
+				"line": "Tout va bien se passer. Jusqu’à la coupure de courant.",
+				"quip": "Team jamais enregistrer : tu as déjà perdu trois heures de travail. Et tu recommenceras.",
+				"giphyIds": [],
+				"giphyQuery": "computer crash"
+			},
+			"bothQuip": "Les deux. Tu enregistres sans arrêt, mais jamais le bon fichier.",
+			"noneQuip": "Ni l’un ni l’autre. L’enregistrement automatique, c’est toi qui l’as inventé ?"
+		},
+		{
+			"id": "geek-je-le-repare-je-ne-m-y-connais-pas",
+			"category": "geek",
+			"question": "À Noël, l’ordi des parents : tu le répares ou tu fais semblant de ne rien y connaître ?",
+			"a": {
+				"name": "Je le répare",
+				"origin": "Le repas de famille",
+				"line": "Trois heures sur un ordinateur de 2012, entre le fromage et le dessert.",
+				"quip": "Team je le répare : tu as réinstallé l’imprimante de tes parents quatre Noëls de suite.",
+				"giphyIds": [],
+				"giphyQuery": "fixing computer"
+			},
+			"b": {
+				"name": "Je ne m’y connais pas",
+				"origin": "Le repas de famille aussi",
+				"line": "« Ah non, moi, l’informatique… » Bien tenté.",
+				"quip": "Team je ne m’y connais pas : tu codes toute l’année, et tu fais semblant de chercher le bouton « marche ».",
+				"giphyIds": [],
+				"giphyQuery": "no idea"
+			},
+			"bothQuip": "Les deux. Tu répares en soupirant très fort. Toute la table t’entend.",
+			"noneQuip": "Ni l’un ni l’autre. Tu leur offres un ordinateur neuf. Problème réglé."
+		},
+		{
+			"id": "geek-du-premier-coup-au-troisieme-essai",
+			"category": "geek",
+			"question": "La clé USB : du premier coup ou au troisième essai ?",
+			"a": {
+				"name": "Du premier coup",
+				"origin": "La chance",
+				"line": "C’est arrivé une fois. Tu t’en souviens encore.",
+				"quip": "Team du premier coup : tu mens, et on le sait. Mais on t’aime quand même.",
+				"giphyIds": [],
+				"giphyQuery": "nailed it"
+			},
+			"b": {
+				"name": "Au troisième essai",
+				"origin": "La physique quantique",
+				"line": "Dans le mauvais sens, puis dans le mauvais sens, puis ça rentre.",
+				"quip": "Team troisième essai : une clé USB a trois faces. C’est la seule explication.",
+				"giphyIds": [],
+				"giphyQuery": "usb"
+			},
+			"bothQuip": "Les deux. Ça dépend de la lune et de l’angle de ton poignet.",
+			"noneQuip": "Ni l’un ni l’autre. Tout est en USB-C chez toi, et tu nous regardes de haut."
+		},
+		{
+			"id": "geek-the-big-bang-theory-the-it-crowd",
+			"category": "geek",
+			"a": {
+				"name": "The Big Bang Theory",
+				"origin": "Série télé · 2007",
+				"line": "Des physiciens, un canapé, et « Bazinga ! ».",
+				"quip": "Team Big Bang Theory : tu as une place réservée sur le canapé, et personne ne doit s’y asseoir.",
+				"giphyIds": [],
+				"giphyQuery": "big bang theory"
+			},
+			"b": {
+				"name": "The IT Crowd",
+				"origin": "Série télé · 2006",
+				"line": "Un sous-sol, deux informaticiens, et Internet dans une boîte noire.",
+				"quip": "Team IT Crowd : tu as déjà décroché en disant « vous avez essayé de l’éteindre et de le rallumer ? ».",
+				"giphyIds": [],
+				"giphyQuery": "it crowd"
+			},
+			"bothQuip": "Les deux. Ton humour geek est validé des deux côtés de l’Atlantique.",
+			"noneQuip": "Ni l’une ni l’autre. Team Silicon Valley, c’est ça ?"
 		},
 		{
 			"id": "jeux-salameche-carapuce",
