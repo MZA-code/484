@@ -697,6 +697,7 @@ var rivalries_default = {
 				"name": "Pain au chocolat",
 				"origin": "La moitié nord de la France",
 				"line": "Deux barres de chocolat, zéro débat. Enfin presque.",
+				"quip": "Team pain au chocolat : quand on te dit « chocolatine », tu fais semblant de ne pas avoir entendu.",
 				"giphyIds": [],
 				"giphyQuery": "pain au chocolat"
 			},
@@ -704,9 +705,12 @@ var rivalries_default = {
 				"name": "Chocolatine",
 				"origin": "Le Sud-Ouest, fièrement",
 				"line": "Le Sud-Ouest n’a jamais cédé. Il ne cédera pas.",
+				"quip": "Team chocolatine : tu corriges les gens à la boulangerie. Même ceux qui ne t’ont rien demandé.",
 				"giphyIds": [],
 				"giphyQuery": "chocolate croissant"
-			}
+			},
+			"bothQuip": "Les deux ? Tu changes de mot selon le département. La diplomatie de la viennoiserie, c’est toi.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dis « petit pain au chocolat » ? Il y a pire. Pas beaucoup."
 		},
 		{
 			"id": "bouffe-pizza-ananas",
@@ -716,6 +720,7 @@ var rivalries_default = {
 				"name": "Avec ananas",
 				"origin": "Canada · 1962",
 				"line": "Inventée au Canada. Hawaï n’a rien demandé.",
+				"quip": "Team ananas : quelque part à Naples, une grand-mère vient de perdre connaissance.",
 				"giphyIds": [],
 				"giphyQuery": "pineapple pizza"
 			},
@@ -723,9 +728,12 @@ var rivalries_default = {
 				"name": "Sans ananas",
 				"origin": "Naples, depuis toujours",
 				"line": "Quelque part en Italie, une grand-mère approuve.",
+				"quip": "Team sans ananas : pour toi, un fruit sur une pizza, c’est un motif de rupture.",
 				"giphyIds": [],
 				"giphyQuery": "pizza margherita"
-			}
+			},
+			"bothQuip": "Les deux ? Tu manges la moitié hawaïenne en surveillant l’autre moitié du coin de l’œil.",
+			"noneQuip": "Aucun des deux. Toi, c’est kebab, on a compris."
 		},
 		{
 			"id": "bouffe-nutella-confiture",
@@ -734,6 +742,7 @@ var rivalries_default = {
 				"name": "Nutella",
 				"origin": "Ferrero · 1964",
 				"line": "Une cuillère. Puis le pot entier.",
+				"quip": "Team Nutella : tu as déjà mangé une tartine sans pain. Juste la cuillère. On a vu.",
 				"giphyIds": [],
 				"giphyQuery": "Nutella"
 			},
@@ -741,9 +750,12 @@ var rivalries_default = {
 				"name": "Confiture",
 				"origin": "Chez ta grand-mère",
 				"line": "Faite maison, étiquetée au feutre, datée de 2019.",
+				"quip": "Team confiture : tu as un pot qui date d’avant le Covid, et tu le trouves parfait.",
 				"giphyIds": [],
 				"giphyQuery": "jam toast"
-			}
+			},
+			"bothQuip": "Les deux sur la même tartine. Tu n’as peur de rien.",
+			"noneQuip": "Ni Nutella ni confiture. Tartine beurre, point. L’ascète du petit-déjeuner."
 		},
 		{
 			"id": "bouffe-coca-cola-pepsi",
@@ -752,6 +764,7 @@ var rivalries_default = {
 				"name": "Coca-Cola",
 				"origin": "Atlanta · 1886",
 				"line": "La recette est secrète. Le sucre, beaucoup moins.",
+				"quip": "Team Coca : quand le serveur demande « Pepsi, ça ira ? », ta journée est gâchée.",
 				"giphyIds": [],
 				"giphyQuery": "Coca-Cola"
 			},
@@ -759,9 +772,12 @@ var rivalries_default = {
 				"name": "Pepsi",
 				"origin": "Caroline du Nord · 1893",
 				"line": "L’éternel challenger. Il gagne les tests à l’aveugle, paraît-il.",
+				"quip": "Team Pepsi : tu as gagné un test à l’aveugle une fois, et tu en parles encore.",
 				"giphyIds": [],
 				"giphyQuery": "Pepsi"
-			}
+			},
+			"bothQuip": "Les deux. Pour toi, c’est du soda brun, et c’est très bien comme ça.",
+			"noneQuip": "Ni Coca ni Pepsi. Team Orangina, qu’on secoue avant d’ouvrir."
 		},
 		{
 			"id": "bouffe-cafe-the",
@@ -770,6 +786,7 @@ var rivalries_default = {
 				"name": "Café",
 				"origin": "Éthiopie, selon la légende",
 				"line": "Le carburant officiel des open spaces.",
+				"quip": "Team café : avant ta première tasse, il ne faut pas t’adresser la parole.",
 				"giphyIds": [],
 				"giphyQuery": "coffee"
 			},
@@ -777,9 +794,12 @@ var rivalries_default = {
 				"name": "Thé",
 				"origin": "Chine, selon la légende",
 				"line": "Pour ceux qui ont le temps de laisser infuser.",
+				"quip": "Team thé : tu as une théière, quatre boîtes de thé et un avis sur la température de l’eau.",
 				"giphyIds": [],
 				"giphyQuery": "tea cup"
-			}
+			},
+			"bothQuip": "Les deux. Café le matin, thé l’après-midi, insomnie le soir.",
+			"noneQuip": "Ni café ni thé. Tu tournes à quoi ? À l’eau tiède et à l’optimisme ?"
 		},
 		{
 			"id": "bouffe-sucre-sale",
@@ -788,6 +808,7 @@ var rivalries_default = {
 				"name": "Sucré",
 				"origin": "Team goûter",
 				"line": "Le dessert d’abord. La vie est courte.",
+				"quip": "Team sucré : tu sautes l’entrée pour garder de la place pour le dessert. Stratège.",
 				"giphyIds": [],
 				"giphyQuery": "dessert cake"
 			},
@@ -795,9 +816,12 @@ var rivalries_default = {
 				"name": "Salé",
 				"origin": "Team apéro",
 				"line": "Une chips. Puis le paquet entier.",
+				"quip": "Team salé : à l’apéro, les cacahuètes sont finies avant que tout le monde soit assis.",
 				"giphyIds": [],
 				"giphyQuery": "chips snack"
-			}
+			},
+			"bothQuip": "Les deux. Caramel au beurre salé : tu as trouvé la faille.",
+			"noneQuip": "Ni sucré ni salé. Tu manges quoi, exactement ? De l’air ?"
 		},
 		{
 			"id": "bouffe-ketchup-mayonnaise",
@@ -806,6 +830,7 @@ var rivalries_default = {
 				"name": "Ketchup",
 				"origin": "États-Unis · 1876",
 				"line": "Va sur tout. Surtout là où il ne devrait pas.",
+				"quip": "Team ketchup : tu en mets sur les pâtes, et tu ne laisses personne te juger.",
 				"giphyIds": [],
 				"giphyQuery": "ketchup"
 			},
@@ -813,9 +838,12 @@ var rivalries_default = {
 				"name": "Mayonnaise",
 				"origin": "Port-Mahon · 1756, paraît-il",
 				"line": "Montée à la main, ratée une fois sur deux.",
+				"quip": "Team mayo : tu trempes tes frites jusqu’au coude.",
 				"giphyIds": [],
 				"giphyQuery": "mayonnaise"
-			}
+			},
+			"bothQuip": "Les deux. Mélangés. Tu réinventes la sauce cocktail à chaque repas.",
+			"noneQuip": "Ni ketchup ni mayo. Team samouraï : toi, il faut que ça pique."
 		},
 		{
 			"id": "bouffe-frites-puree",
@@ -824,6 +852,7 @@ var rivalries_default = {
 				"name": "Frites",
 				"origin": "Belgique ou France, on se dispute encore",
 				"line": "Croustillantes dehors, fondantes dedans, disputées partout.",
+				"quip": "Team frites : tu piques celles des autres en disant « je goûte juste ».",
 				"giphyIds": [],
 				"giphyQuery": "french fries"
 			},
@@ -831,9 +860,12 @@ var rivalries_default = {
 				"name": "Purée",
 				"origin": "La cantine, pour toujours",
 				"line": "Le doudou de la gastronomie.",
+				"quip": "Team purée : tu fais un volcan avec la sauce au milieu. Toujours.",
 				"giphyIds": [],
 				"giphyQuery": "mashed potatoes"
-			}
+			},
+			"bothQuip": "Les deux. Des frites trempées dans la purée. On ne dira rien à personne.",
+			"noneQuip": "Ni frites ni purée. Tu viens de fâcher toutes les pommes de terre du pays."
 		},
 		{
 			"id": "bouffe-mcdonalds-burger-king",
@@ -842,6 +874,7 @@ var rivalries_default = {
 				"name": "McDonald’s",
 				"origin": "Californie · 1940",
 				"line": "Le M jaune, et des frites froides en trois minutes.",
+				"quip": "Team McDo : tu connais le menu par cœur, et tu passes quand même dix minutes devant la borne.",
 				"giphyIds": [],
 				"giphyQuery": "McDonalds fries"
 			},
@@ -849,9 +882,12 @@ var rivalries_default = {
 				"name": "Burger King",
 				"origin": "Miami · 1954",
 				"line": "Grillé à la flamme, couronné en carton.",
+				"quip": "Team Burger King : tu traverses la ville pour un Whopper. Le McDo d’en bas, tu ne le regardes même pas.",
 				"giphyIds": [],
 				"giphyQuery": "Burger King"
-			}
+			},
+			"bothQuip": "Les deux. Ta fidélité, c’est le drive le plus proche.",
+			"noneQuip": "Ni McDo ni Burger King. Tu fais tes burgers toi-même, et tu le fais savoir."
 		},
 		{
 			"id": "bouffe-raclette-fondue",
@@ -860,6 +896,7 @@ var rivalries_default = {
 				"name": "Raclette",
 				"origin": "Valais",
 				"line": "Un appareil, huit poêlons, zéro légume.",
+				"quip": "Team raclette : il fait 28 °C dehors, et tu as sorti l’appareil quand même.",
 				"giphyIds": [],
 				"giphyQuery": "raclette cheese"
 			},
@@ -867,9 +904,12 @@ var rivalries_default = {
 				"name": "Fondue",
 				"origin": "Suisse",
 				"line": "Qui perd son pain dans le caquelon paie sa tournée.",
+				"quip": "Team fondue : tu as déjà fait le tour de la table pour repêcher ton pain. Et payé la tournée.",
 				"giphyIds": [],
 				"giphyQuery": "cheese fondue"
-			}
+			},
+			"bothQuip": "Les deux. Ton médecin est au courant ?",
+			"noneQuip": "Ni raclette ni fondue. Les Savoyards te regardent avec beaucoup de peine."
 		},
 		{
 			"id": "bouffe-crepe-gaufre",
@@ -878,6 +918,7 @@ var rivalries_default = {
 				"name": "Crêpe",
 				"origin": "Bretagne",
 				"line": "Fine, pliée en quatre, et toujours une de trop.",
+				"quip": "Team crêpe : la première est toujours ratée, et c’est toi qui la manges.",
 				"giphyIds": [],
 				"giphyQuery": "crepe"
 			},
@@ -885,9 +926,12 @@ var rivalries_default = {
 				"name": "Gaufre",
 				"origin": "Belgique",
 				"line": "Des petits carreaux conçus pour retenir le sucre glace.",
+				"quip": "Team gaufre : tu as du sucre glace jusque dans les sourcils.",
 				"giphyIds": [],
 				"giphyQuery": "waffle"
-			}
+			},
+			"bothQuip": "Les deux. Tu es la personne qu’on veut avec soi à la fête foraine.",
+			"noneQuip": "Ni crêpe ni gaufre. La Chandeleur, pour toi, c’est un jour comme un autre. Triste."
 		},
 		{
 			"id": "bouffe-chocolat-noir-chocolat-au-lait",
@@ -896,6 +940,7 @@ var rivalries_default = {
 				"name": "Chocolat noir",
 				"origin": "Rayon « adultes »",
 				"line": "Amer, élégant, plein d’antioxydants. Il te le rappelle.",
+				"quip": "Team chocolat noir : 85 % de cacao, et 100 % de condescendance.",
 				"giphyIds": [],
 				"giphyQuery": "dark chocolate"
 			},
@@ -903,9 +948,12 @@ var rivalries_default = {
 				"name": "Chocolat au lait",
 				"origin": "Rayon « réconfort »",
 				"line": "Doux, régressif, et parfaitement assumé.",
+				"quip": "Team chocolat au lait : tu manges la tablette entière en disant « juste un carré ».",
 				"giphyIds": [],
 				"giphyQuery": "milk chocolate bar"
-			}
+			},
+			"bothQuip": "Les deux. Le noir pour la frime, le lait pour le réconfort.",
+			"noneQuip": "Ni noir ni lait. Team chocolat blanc. Ce n’est pas du chocolat, mais on t’aime quand même."
 		},
 		{
 			"id": "bouffe-pates-riz",
@@ -914,6 +962,7 @@ var rivalries_default = {
 				"name": "Pâtes",
 				"origin": "Italie",
 				"line": "Au pesto, à la carbonara, ou à deux heures du matin.",
+				"quip": "Team pâtes : à deux heures du matin, une casserole d’eau, c’est ton plan de secours.",
 				"giphyIds": [],
 				"giphyQuery": "pasta spaghetti"
 			},
@@ -921,9 +970,12 @@ var rivalries_default = {
 				"name": "Riz",
 				"origin": "Asie",
 				"line": "Le fidèle compagnon de tous les plats en sauce.",
+				"quip": "Team riz : tu as un cuiseur à riz, et tu en parles comme d’un membre de la famille.",
 				"giphyIds": [],
 				"giphyQuery": "rice bowl"
-			}
+			},
+			"bothQuip": "Les deux. Ton budget courses te remercie.",
+			"noneQuip": "Ni pâtes ni riz. Les féculents, c’est fini pour toi ? On ne te reconnaît plus."
 		},
 		{
 			"id": "bouffe-kebab-burger",
@@ -932,6 +984,7 @@ var rivalries_default = {
 				"name": "Kebab",
 				"origin": "Berlin · années 1970",
 				"line": "Salade, tomate, oignon. Et la sauce qui coule sur le poignet.",
+				"quip": "Team kebab : « salade, tomate, oignon » est la seule phrase que tu récites sans réfléchir.",
 				"giphyIds": [],
 				"giphyQuery": "kebab doner"
 			},
@@ -939,9 +992,12 @@ var rivalries_default = {
 				"name": "Burger",
 				"origin": "États-Unis",
 				"line": "Deux pains, un steak, aucune chance de rester propre.",
+				"quip": "Team burger : tu écrases ton burger avant de mordre dedans. Pour qu’il rentre.",
 				"giphyIds": [],
 				"giphyQuery": "burger"
-			}
+			},
+			"bothQuip": "Les deux. Un burger-kebab, ça existe ? Pour toi, ça devrait.",
+			"noneQuip": "Ni kebab ni burger. Les fins de soirée doivent être compliquées pour toi."
 		},
 		{
 			"id": "geek-mac-pc",
@@ -15064,6 +15120,7 @@ var rivalries_default = {
 				"name": "Croissant",
 				"origin": "La boulangerie",
 				"line": "Du beurre, une forme de lune, et des miettes partout.",
+				"quip": "Team croissant : tu le trempes dans ton café et tu repêches les morceaux à la cuillère.",
 				"giphyIds": [],
 				"giphyQuery": "croissant"
 			},
@@ -15071,9 +15128,12 @@ var rivalries_default = {
 				"name": "Pain au chocolat",
 				"origin": "La boulangerie aussi",
 				"line": "Deux barres de chocolat pour bien commencer.",
+				"quip": "Team pain au chocolat : tu manges le pain d’abord pour garder le chocolat pour la fin.",
 				"giphyIds": [],
 				"giphyQuery": "chocolate pastry"
-			}
+			},
+			"bothQuip": "Les deux. Le dimanche, tu prends un sac rien que pour toi.",
+			"noneQuip": "Ni croissant ni pain au chocolat. Ton boulanger s’inquiète pour toi."
 		},
 		{
 			"id": "bouffe-camembert-brie",
@@ -15082,6 +15142,7 @@ var rivalries_default = {
 				"name": "Camembert",
 				"origin": "Normandie",
 				"line": "Coulant, odorant, et rond.",
+				"quip": "Team camembert : il est dans le frigo, et tout le monde le sait. Tout le monde.",
 				"giphyIds": [],
 				"giphyQuery": "camembert cheese"
 			},
@@ -15089,9 +15150,12 @@ var rivalries_default = {
 				"name": "Brie",
 				"origin": "Île-de-France",
 				"line": "Coulant aussi, mais en plus grand.",
+				"quip": "Team brie : tu prends toujours la pointe. Toujours. On t’a vu.",
 				"giphyIds": [],
 				"giphyQuery": "brie cheese"
-			}
+			},
+			"bothQuip": "Les deux. Ton plateau de fromages ressemble à un buffet de mariage.",
+			"noneQuip": "Ni camembert ni brie. Les fromages qui coulent, ça te fait peur ?"
 		},
 		{
 			"id": "bouffe-comte-emmental",
@@ -15100,6 +15164,7 @@ var rivalries_default = {
 				"name": "Comté",
 				"origin": "Le Jura",
 				"line": "Fruité, affiné, et toujours trop vite fini.",
+				"quip": "Team comté : tu dis « vingt-quatre mois d’affinage » avec un air de connaisseur.",
 				"giphyIds": [],
 				"giphyQuery": "comte cheese"
 			},
@@ -15107,9 +15172,12 @@ var rivalries_default = {
 				"name": "Emmental",
 				"origin": "La Suisse et la France",
 				"line": "Des trous, et du fil sur la pizza.",
+				"quip": "Team emmental : tu as toujours un sachet de râpé dans le frigo. Pour tout.",
 				"giphyIds": [],
 				"giphyQuery": "swiss cheese holes"
-			}
+			},
+			"bothQuip": "Les deux. Tu manges ton fromage debout, au-dessus de l’évier.",
+			"noneQuip": "Ni comté ni emmental. Team raclette, encore et toujours."
 		},
 		{
 			"id": "bouffe-biere-vin",
@@ -15118,6 +15186,7 @@ var rivalries_default = {
 				"name": "Bière",
 				"origin": "La brasserie",
 				"line": "Mousse, houblon, et chips à côté.",
+				"quip": "Team bière : pour toi, une bonne soirée, ça mousse.",
 				"giphyIds": [],
 				"giphyQuery": "beer cheers"
 			},
@@ -15125,9 +15194,12 @@ var rivalries_default = {
 				"name": "Vin",
 				"origin": "La cave",
 				"line": "Un verre, un plateau, et des avis d’expert.",
+				"quip": "Team vin : tu fais tourner ton verre avant de boire. Même le jus de raisin.",
 				"giphyIds": [],
 				"giphyQuery": "wine glass"
-			}
+			},
+			"bothQuip": "Les deux. Bière puis vin, ou vin puis bière ? Le dicton, tu ne t’en souviens jamais.",
+			"noneQuip": "Ni bière ni vin. Team diabolo menthe, et c’est très bien."
 		},
 		{
 			"id": "bouffe-vin-rouge-vin-blanc",
@@ -15136,6 +15208,7 @@ var rivalries_default = {
 				"name": "Vin rouge",
 				"origin": "La cave",
 				"line": "Le fromage, la viande, et les taches sur la nappe.",
+				"quip": "Team vin rouge : tu as déjà fait une tache sur une nappe blanche. Et sur toi.",
 				"giphyIds": [],
 				"giphyQuery": "red wine"
 			},
@@ -15143,9 +15216,12 @@ var rivalries_default = {
 				"name": "Vin blanc",
 				"origin": "La cave aussi",
 				"line": "Les huîtres, le poisson, et la terrasse.",
+				"quip": "Team vin blanc : bien frais, en terrasse, et l’après-midi vient de disparaître.",
 				"giphyIds": [],
 				"giphyQuery": "white wine"
-			}
+			},
+			"bothQuip": "Les deux. Et le rosé, il compte pour du beurre ?",
+			"noneQuip": "Ni rouge ni blanc. Team rosé, assume."
 		},
 		{
 			"id": "bouffe-champagne-prosecco",
@@ -15154,6 +15230,7 @@ var rivalries_default = {
 				"name": "Champagne",
 				"origin": "La Champagne",
 				"line": "Des bulles, et l’impression d’une fête.",
+				"quip": "Team champagne : tu as un avis sur la taille des bulles.",
 				"giphyIds": [],
 				"giphyQuery": "champagne pop"
 			},
@@ -15161,9 +15238,12 @@ var rivalries_default = {
 				"name": "Prosecco",
 				"origin": "L’Italie",
 				"line": "Des bulles aussi, pour moins cher.",
+				"quip": "Team prosecco : mêmes bulles, moins cher, et personne ne voit la différence. Sauf toi.",
 				"giphyIds": [],
 				"giphyQuery": "prosecco"
-			}
+			},
+			"bothQuip": "Les deux. Tu fais la fête avec ce qu’il y a dans le frigo.",
+			"noneQuip": "Ni champagne ni prosecco. Le cidre te salue chaleureusement."
 		},
 		{
 			"id": "bouffe-pastis-rose",
@@ -15172,6 +15252,7 @@ var rivalries_default = {
 				"name": "Pastis",
 				"origin": "Le Sud",
 				"line": "Jaune, anisé, et la pétanque à côté.",
+				"quip": "Team pastis : tu doses l’eau à l’œil. Avec une précision de chimiste.",
 				"giphyIds": [],
 				"giphyQuery": "pastis"
 			},
@@ -15179,9 +15260,12 @@ var rivalries_default = {
 				"name": "Rosé",
 				"origin": "La Provence",
 				"line": "Bien frais, en terrasse, tout l’été.",
+				"quip": "Team rosé : du 1er mai au 30 septembre, c’est ta boisson officielle.",
 				"giphyIds": [],
 				"giphyQuery": "rose wine"
-			}
+			},
+			"bothQuip": "Les deux. Ton été est très chargé.",
+			"noneQuip": "Ni pastis ni rosé. Le Sud t’accueille quand même, mais il est vexé."
 		},
 		{
 			"id": "bouffe-fromage-dessert",
@@ -15191,6 +15275,7 @@ var rivalries_default = {
 				"name": "Fromage",
 				"origin": "Le plateau",
 				"line": "On finit le pain, puis on en reprend pour finir le fromage.",
+				"quip": "Team fromage : tu reprends du pain pour finir ton fromage, puis du fromage pour finir ton pain.",
 				"giphyIds": [],
 				"giphyQuery": "cheese platter"
 			},
@@ -15198,9 +15283,12 @@ var rivalries_default = {
 				"name": "Dessert",
 				"origin": "La pâtisserie",
 				"line": "On a toujours une deuxième place pour le dessert.",
+				"quip": "Team dessert : tu as regardé la carte des desserts avant celle des plats.",
 				"giphyIds": [],
 				"giphyQuery": "dessert"
-			}
+			},
+			"bothQuip": "Les deux. Évidemment. On n’est pas des bêtes.",
+			"noneQuip": "Ni fromage ni dessert. Tu pars avant la fin du repas, toi ?"
 		},
 		{
 			"id": "bouffe-uf-a-la-coque-uf-au-plat",
@@ -15209,6 +15297,7 @@ var rivalries_default = {
 				"name": "Œuf à la coque",
 				"origin": "Le coquetier",
 				"line": "Des mouillettes, et un jaune qui coule.",
+				"quip": "Team œuf à la coque : tes mouillettes sont coupées au millimètre.",
 				"giphyIds": [],
 				"giphyQuery": "soft boiled egg"
 			},
@@ -15216,9 +15305,12 @@ var rivalries_default = {
 				"name": "Œuf au plat",
 				"origin": "La poêle",
 				"line": "Un soleil dans l’assiette.",
+				"quip": "Team œuf au plat : si le jaune est crevé, ta journée est fichue.",
 				"giphyIds": [],
 				"giphyQuery": "fried egg"
-			}
+			},
+			"bothQuip": "Les deux. Les poules te remercient pour ta fidélité.",
+			"noneQuip": "Ni coque ni plat. Team œufs brouillés. Le chaos, quoi."
 		},
 		{
 			"id": "bouffe-steak-saignant-steak-bien-cuit",
@@ -15228,6 +15320,7 @@ var rivalries_default = {
 				"name": "Steak saignant",
 				"origin": "La boucherie",
 				"line": "Rouge au cœur, et fier de l’être.",
+				"quip": "Team saignant : pour toi, il suffit de montrer la viande à la poêle.",
 				"giphyIds": [],
 				"giphyQuery": "rare steak"
 			},
@@ -15235,9 +15328,12 @@ var rivalries_default = {
 				"name": "Steak bien cuit",
 				"origin": "La poêle",
 				"line": "Cuit, et sans négociation.",
+				"quip": "Team bien cuit : le serveur a soupiré. Le chef aussi.",
 				"giphyIds": [],
 				"giphyQuery": "well done steak"
-			}
+			},
+			"bothQuip": "Les deux. À point, c’est ça ? La Suisse du steak, c’est toi.",
+			"noneQuip": "Ni saignant ni bien cuit. Team végé, et la planète te dit merci."
 		},
 		{
 			"id": "bouffe-pizza-tacos-francais",
@@ -15246,6 +15342,7 @@ var rivalries_default = {
 				"name": "Pizza",
 				"origin": "Naples",
 				"line": "Une pâte fine et du fromage qui file.",
+				"quip": "Team pizza : tu laisses les croûtes. On t’a vu, et on désapprouve.",
 				"giphyIds": [],
 				"giphyQuery": "pizza"
 			},
@@ -15253,9 +15350,12 @@ var rivalries_default = {
 				"name": "Tacos français",
 				"origin": "Lyon et Grenoble",
 				"line": "Des frites dedans, de la sauce fromagère partout.",
+				"quip": "Team tacos : des frites dans un sandwich, et tu as trouvé ça génial. Parce que ça l’est.",
 				"giphyIds": [],
 				"giphyQuery": "french tacos"
-			}
+			},
+			"bothQuip": "Les deux. Ton foie vient de prendre rendez-vous.",
+			"noneQuip": "Ni pizza ni tacos. Tu as mangé un vrai repas avec des légumes ? Bravo."
 		},
 		{
 			"id": "bouffe-sushi-ramen",
@@ -15264,6 +15364,7 @@ var rivalries_default = {
 				"name": "Sushi",
 				"origin": "Le Japon",
 				"line": "Du riz, du poisson, et des baguettes maladroites.",
+				"quip": "Team sushi : tu tiens tes baguettes comme un pro… jusqu’au dernier maki.",
 				"giphyIds": [],
 				"giphyQuery": "sushi"
 			},
@@ -15271,9 +15372,12 @@ var rivalries_default = {
 				"name": "Ramen",
 				"origin": "Le Japon aussi",
 				"line": "Un bouillon brûlant et des nouilles à aspirer.",
+				"quip": "Team ramen : tu aspires tes nouilles bruyamment, et tu dis que c’est culturel.",
 				"giphyIds": [],
 				"giphyQuery": "ramen"
-			}
+			},
+			"bothQuip": "Les deux. Tu commandes japonais trois fois par semaine. Au moins.",
+			"noneQuip": "Ni sushi ni ramen. Le poisson cru et le bouillon, très peu pour toi."
 		},
 		{
 			"id": "bouffe-moutarde-de-dijon-moutarde-a-l-ancienne",
@@ -15282,6 +15386,7 @@ var rivalries_default = {
 				"name": "Moutarde de Dijon",
 				"origin": "La Bourgogne",
 				"line": "Forte, lisse, et elle monte au nez.",
+				"quip": "Team Dijon : tu en mets jusqu’à ce que ton nez pleure. C’est le but.",
 				"giphyIds": [],
 				"giphyQuery": "mustard"
 			},
@@ -15289,9 +15394,12 @@ var rivalries_default = {
 				"name": "Moutarde à l’ancienne",
 				"origin": "La Bourgogne aussi",
 				"line": "Des grains, et du caractère.",
+				"quip": "Team à l’ancienne : tu aimes les grains. Tu as aussi des vinyles, sûrement.",
 				"giphyIds": [],
 				"giphyQuery": "grainy mustard"
-			}
+			},
+			"bothQuip": "Les deux. Un pot de chaque dans le frigo, comme une personne très organisée.",
+			"noneQuip": "Ni l’une ni l’autre. Tes saucisses sont bien tristes."
 		},
 		{
 			"id": "bouffe-glace-vanille-glace-chocolat",
@@ -15300,6 +15408,7 @@ var rivalries_default = {
 				"name": "Glace vanille",
 				"origin": "Le congélateur",
 				"line": "Un classique, à la gousse noire.",
+				"quip": "Team vanille : on t’a dit que c’était un parfum basique. Tu as souri.",
 				"giphyIds": [],
 				"giphyQuery": "vanilla ice cream"
 			},
@@ -15307,9 +15416,12 @@ var rivalries_default = {
 				"name": "Glace chocolat",
 				"origin": "Le congélateur aussi",
 				"line": "Un classique, à la cuillère.",
+				"quip": "Team chocolat : tu prends deux boules. Au chocolat. Évidemment.",
 				"giphyIds": [],
 				"giphyQuery": "chocolate ice cream"
-			}
+			},
+			"bothQuip": "Les deux. Le cornet bicolore, la grande classe.",
+			"noneQuip": "Ni vanille ni chocolat. Pistache ? Fraise ? Tu vis dangereusement."
 		},
 		{
 			"id": "bouffe-glace-en-cornet-glace-en-pot",
@@ -15318,6 +15430,7 @@ var rivalries_default = {
 				"name": "Glace en cornet",
 				"origin": "Le marchand de glaces",
 				"line": "Elle coule sur la main en trente secondes.",
+				"quip": "Team cornet : tu lèches en rond, vite, comme une cellule de crise.",
 				"giphyIds": [],
 				"giphyQuery": "ice cream cone"
 			},
@@ -15325,9 +15438,12 @@ var rivalries_default = {
 				"name": "Glace en pot",
 				"origin": "Le canapé",
 				"line": "Une cuillère, et la série du soir.",
+				"quip": "Team pot : la cuillère, la série, le canapé. Rien ne peut t’arrêter.",
 				"giphyIds": [],
 				"giphyQuery": "ice cream tub"
-			}
+			},
+			"bothQuip": "Les deux. Le cornet dehors, le pot dedans. Tu as tout prévu.",
+			"noneQuip": "Ni cornet ni pot. Tu manges ta glace comment ? Avec les mains ?"
 		},
 		{
 			"id": "bouffe-tarte-aux-pommes-tarte-au-citron",
@@ -15336,6 +15452,7 @@ var rivalries_default = {
 				"name": "Tarte aux pommes",
 				"origin": "Mamie",
 				"line": "Des pommes en rosace, et la cannelle.",
+				"quip": "Team tarte aux pommes : tu demandes toujours si elle est faite maison. Elle l’est rarement.",
 				"giphyIds": [],
 				"giphyQuery": "apple pie"
 			},
@@ -15343,9 +15460,12 @@ var rivalries_default = {
 				"name": "Tarte au citron",
 				"origin": "La pâtisserie",
 				"line": "Acidulée, meringuée, et dorée au chalumeau.",
+				"quip": "Team tarte au citron : tu manges la meringue en premier. Puis tu regrettes.",
 				"giphyIds": [],
 				"giphyQuery": "lemon tart"
-			}
+			},
+			"bothQuip": "Les deux. Une part de chaque, pour comparer. Pour la science.",
+			"noneQuip": "Ni pommes ni citron. Team tarte au chocolat ? On comprend."
 		},
 		{
 			"id": "bouffe-eclair-religieuse",
@@ -15354,6 +15474,7 @@ var rivalries_default = {
 				"name": "Éclair",
 				"origin": "La pâtisserie",
 				"line": "Un long chou, et du chocolat dessus.",
+				"quip": "Team éclair : tu le manges en trois bouchées, et la crème finit sur ton t-shirt.",
 				"giphyIds": [],
 				"giphyQuery": "eclair pastry"
 			},
@@ -15361,9 +15482,12 @@ var rivalries_default = {
 				"name": "Religieuse",
 				"origin": "La pâtisserie aussi",
 				"line": "Deux choux l’un sur l’autre, et une collerette.",
+				"quip": "Team religieuse : tu croques la tête en premier. Sans pitié.",
 				"giphyIds": [],
 				"giphyQuery": "religieuse pastry"
-			}
+			},
+			"bothQuip": "Les deux. À la pâtisserie, on connaît ton prénom.",
+			"noneQuip": "Ni éclair ni religieuse. Les choux à la crème, ce n’est pas ton truc. Dommage."
 		},
 		{
 			"id": "bouffe-macaron-madeleine",
@@ -15372,6 +15496,7 @@ var rivalries_default = {
 				"name": "Macaron",
 				"origin": "Paris",
 				"line": "Coloré, fragile, et cher à la pièce.",
+				"quip": "Team macaron : tu payes 2,50 € la bouchée sans sourciller.",
 				"giphyIds": [],
 				"giphyQuery": "macarons"
 			},
@@ -15379,9 +15504,12 @@ var rivalries_default = {
 				"name": "Madeleine",
 				"origin": "Commercy",
 				"line": "Une bosse dorée et des souvenirs d’enfance.",
+				"quip": "Team madeleine : tu en trempes une dans ton thé et tu te mets à écrire trois mille pages.",
 				"giphyIds": [],
 				"giphyQuery": "madeleine"
-			}
+			},
+			"bothQuip": "Les deux. Tu fais le tour des pâtisseries comme d’autres font les musées.",
+			"noneQuip": "Ni macaron ni madeleine. Proust est très déçu."
 		},
 		{
 			"id": "bouffe-galette-des-rois-brioche-des-rois",
@@ -15391,6 +15519,7 @@ var rivalries_default = {
 				"name": "Galette des rois",
 				"origin": "La moitié nord",
 				"line": "Frangipane, fève, et couronne en carton.",
+				"quip": "Team galette : tu as déjà triché pour avoir la fève. Ne mens pas.",
 				"giphyIds": [],
 				"giphyQuery": "galette des rois"
 			},
@@ -15398,9 +15527,12 @@ var rivalries_default = {
 				"name": "Brioche des rois",
 				"origin": "La moitié sud",
 				"line": "Des fruits confits, du sucre, et la fève aussi.",
+				"quip": "Team brioche des rois : les fruits confits ne te font pas peur. Respect.",
 				"giphyIds": [],
 				"giphyQuery": "king cake brioche"
-			}
+			},
+			"bothQuip": "Les deux. Pour toi, l’Épiphanie dure jusqu’à fin février.",
+			"noneQuip": "Ni galette ni brioche. Les rois, très peu pour toi. Vive la République."
 		},
 		{
 			"id": "bouffe-buche-glacee-buche-patissiere",
@@ -15409,6 +15541,7 @@ var rivalries_default = {
 				"name": "Bûche glacée",
 				"origin": "Le congélateur",
 				"line": "Fraîche, après un repas de cinq heures.",
+				"quip": "Team bûche glacée : après cinq heures de repas, il te reste de la place. Le froid aide.",
 				"giphyIds": [],
 				"giphyQuery": "ice cream cake"
 			},
@@ -15416,9 +15549,12 @@ var rivalries_default = {
 				"name": "Bûche pâtissière",
 				"origin": "La boulangerie",
 				"line": "Crème au beurre, et petit nain en plastique.",
+				"quip": "Team bûche pâtissière : tu gardes les petits nains en plastique. Tu en as une collection.",
 				"giphyIds": [],
 				"giphyQuery": "yule log cake"
-			}
+			},
+			"bothQuip": "Les deux. Noël, c’est une fois par an. Deux bûches aussi.",
+			"noneQuip": "Ni l’une ni l’autre. Tu as dormi pendant le dessert de Noël, avoue."
 		},
 		{
 			"id": "bouffe-chips-nature-chips-au-paprika",
@@ -15427,6 +15563,7 @@ var rivalries_default = {
 				"name": "Chips nature",
 				"origin": "Le paquet",
 				"line": "Le sel, et rien d’autre.",
+				"quip": "Team nature : tu aimes les choses simples. Et ton canapé reste propre.",
 				"giphyIds": [],
 				"giphyQuery": "potato chips"
 			},
@@ -15434,9 +15571,12 @@ var rivalries_default = {
 				"name": "Chips au paprika",
 				"origin": "Le paquet rouge",
 				"line": "Les doigts orange, et la satisfaction.",
+				"quip": "Team paprika : tes doigts orange signent tous les objets que tu touches.",
 				"giphyIds": [],
 				"giphyQuery": "paprika chips"
-			}
+			},
+			"bothQuip": "Les deux. Un paquet de chaque, et le film peut commencer.",
+			"noneQuip": "Ni nature ni paprika. Barbecue ? Vinaigre ? On peut en parler."
 		},
 		{
 			"id": "bouffe-pop-corn-sucre-pop-corn-sale",
@@ -15445,6 +15585,7 @@ var rivalries_default = {
 				"name": "Pop-corn sucré",
 				"origin": "Le cinéma",
 				"line": "Caramélisé, et collé aux dents.",
+				"quip": "Team sucré : le film est fini, et il te reste du caramel collé aux molaires.",
 				"giphyIds": [],
 				"giphyQuery": "caramel popcorn"
 			},
@@ -15452,9 +15593,12 @@ var rivalries_default = {
 				"name": "Pop-corn salé",
 				"origin": "Le cinéma aussi",
 				"line": "Beurré, et collé aux doigts.",
+				"quip": "Team salé : au bout de dix minutes de film, tu as soif. Et tu l’avais prévu.",
 				"giphyIds": [],
 				"giphyQuery": "salted popcorn"
-			}
+			},
+			"bothQuip": "Les deux. Mélangés dans le même seau. Tu as tout compris au cinéma.",
+			"noneQuip": "Ni sucré ni salé. Tu fais du bruit avec quoi, pendant le film ?"
 		},
 		{
 			"id": "bouffe-cereales-d-abord-lait-d-abord",
@@ -15464,6 +15608,7 @@ var rivalries_default = {
 				"name": "Céréales d’abord",
 				"origin": "Le bol",
 				"line": "Les céréales, puis le lait. Normal.",
+				"quip": "Team céréales d’abord : tu es une personne normale. Bravo.",
 				"giphyIds": [],
 				"giphyQuery": "cereal pouring"
 			},
@@ -15471,9 +15616,12 @@ var rivalries_default = {
 				"name": "Lait d’abord",
 				"origin": "Le bol aussi",
 				"line": "Le lait, puis les céréales. Rebelle.",
+				"quip": "Team lait d’abord : il y a des gens qui veulent juste voir le monde brûler.",
 				"giphyIds": [],
 				"giphyQuery": "milk pouring"
-			}
+			},
+			"bothQuip": "Les deux ? En même temps ? Tu verses de quelle main ?",
+			"noneQuip": "Ni l’un ni l’autre. Tu manges tes céréales à sec, devant le placard."
 		},
 		{
 			"id": "bouffe-pates-al-dente-pates-bien-cuites",
@@ -15482,6 +15630,7 @@ var rivalries_default = {
 				"name": "Pâtes al dente",
 				"origin": "L’Italie",
 				"line": "Fermes sous la dent, comme il faut.",
+				"quip": "Team al dente : tu lances une pâte contre le mur pour vérifier la cuisson.",
 				"giphyIds": [],
 				"giphyQuery": "al dente pasta"
 			},
@@ -15489,9 +15638,12 @@ var rivalries_default = {
 				"name": "Pâtes bien cuites",
 				"origin": "La cantine",
 				"line": "Fondantes, et un peu collées.",
+				"quip": "Team bien cuites : en Italie, ton nom est sur une liste.",
 				"giphyIds": [],
 				"giphyQuery": "overcooked pasta"
-			}
+			},
+			"bothQuip": "Les deux. Tu ne regardes jamais le minuteur, et tu assumes.",
+			"noneQuip": "Ni al dente ni bien cuites. Tes pâtes, tu les croques crues ?"
 		},
 		{
 			"id": "bouffe-croque-monsieur-croque-madame",
@@ -15500,6 +15652,7 @@ var rivalries_default = {
 				"name": "Croque-monsieur",
 				"origin": "Le café",
 				"line": "Jambon, fromage, et pain grillé.",
+				"quip": "Team croque-monsieur : simple, efficace, et le fromage qui brûle le palais.",
 				"giphyIds": [],
 				"giphyQuery": "croque monsieur"
 			},
@@ -15507,9 +15660,12 @@ var rivalries_default = {
 				"name": "Croque-madame",
 				"origin": "Le café aussi",
 				"line": "Le même, avec un œuf au plat dessus.",
+				"quip": "Team croque-madame : un œuf en plus. Tu ne fais jamais les choses à moitié.",
 				"giphyIds": [],
 				"giphyQuery": "croque madame"
-			}
+			},
+			"bothQuip": "Les deux. Au café, tu commandes deux croques et tu dis que l’autre est pour un ami.",
+			"noneQuip": "Ni l’un ni l’autre. Team croque chèvre-miel, c’est ça ?"
 		},
 		{
 			"id": "bouffe-tartiflette-aligot",
@@ -15518,6 +15674,7 @@ var rivalries_default = {
 				"name": "Tartiflette",
 				"origin": "La Savoie",
 				"line": "Reblochon, pommes de terre, lardons, et sieste.",
+				"quip": "Team tartiflette : tu as déjà fait la sieste à 14 h dans un restaurant d’altitude.",
 				"giphyIds": [],
 				"giphyQuery": "tartiflette"
 			},
@@ -15525,9 +15682,12 @@ var rivalries_default = {
 				"name": "Aligot",
 				"origin": "L’Aubrac",
 				"line": "Une purée qui file sur un mètre.",
+				"quip": "Team aligot : tu as tiré ta fourchette jusqu’au plafond. Pour voir.",
 				"giphyIds": [],
 				"giphyQuery": "aligot cheese pull"
-			}
+			},
+			"bothQuip": "Les deux. Le fromage fondu, c’est ton groupe sanguin.",
+			"noneQuip": "Ni tartiflette ni aligot. Les montagnes sont tristes pour toi."
 		},
 		{
 			"id": "bouffe-cassoulet-choucroute",
@@ -15536,6 +15696,7 @@ var rivalries_default = {
 				"name": "Cassoulet",
 				"origin": "Castelnaudary",
 				"line": "Haricots, saucisse, confit, et du temps.",
+				"quip": "Team cassoulet : après une assiette, plus personne ne veut s’asseoir à côté de toi.",
 				"giphyIds": [],
 				"giphyQuery": "cassoulet"
 			},
@@ -15543,9 +15704,12 @@ var rivalries_default = {
 				"name": "Choucroute",
 				"origin": "L’Alsace",
 				"line": "Chou, saucisses, et bière.",
+				"quip": "Team choucroute : trois sortes de saucisses, et tu appelles ça un plat de légumes.",
 				"giphyIds": [],
 				"giphyQuery": "choucroute"
-			}
+			},
+			"bothQuip": "Les deux. Ton estomac vient de démissionner.",
+			"noneQuip": "Ni cassoulet ni choucroute. Tu manges léger en hiver ? Comment ?"
 		},
 		{
 			"id": "bouffe-bouillabaisse-moules-frites",
@@ -15554,6 +15718,7 @@ var rivalries_default = {
 				"name": "Bouillabaisse",
 				"origin": "Marseille",
 				"line": "Des poissons, de la rouille, et des croûtons.",
+				"quip": "Team bouillabaisse : tu as des avis très tranchés sur la rouille. Et tu les partages.",
 				"giphyIds": [],
 				"giphyQuery": "bouillabaisse"
 			},
@@ -15561,9 +15726,12 @@ var rivalries_default = {
 				"name": "Moules-frites",
 				"origin": "La Belgique et le Nord",
 				"line": "Une montagne de moules, et des frites à côté.",
+				"quip": "Team moules-frites : tu te sers d’une coquille comme d’une pince. Comme un pro.",
 				"giphyIds": [],
 				"giphyQuery": "mussels and fries"
-			}
+			},
+			"bothQuip": "Les deux. Marseille et Lille t’adoptent en même temps.",
+			"noneQuip": "Ni bouillabaisse ni moules-frites. Les fruits de mer, tu t’en méfies. Prudence."
 		},
 		{
 			"id": "bouffe-ratatouille-couscous",
@@ -15572,6 +15740,7 @@ var rivalries_default = {
 				"name": "Ratatouille",
 				"origin": "La Provence",
 				"line": "Des légumes du soleil, mijotés longtemps.",
+				"quip": "Team ratatouille : impossible d’en manger sans penser au rat de Pixar.",
 				"giphyIds": [],
 				"giphyQuery": "ratatouille dish"
 			},
@@ -15579,9 +15748,12 @@ var rivalries_default = {
 				"name": "Couscous",
 				"origin": "Le Maghreb",
 				"line": "La semoule, les légumes, et la famille autour.",
+				"quip": "Team couscous : chez toi, on en fait pour douze, même quand on est quatre.",
 				"giphyIds": [],
 				"giphyQuery": "couscous"
-			}
+			},
+			"bothQuip": "Les deux. Tu manges des légumes, mais avec beaucoup d’enthousiasme.",
+			"noneQuip": "Ni ratatouille ni couscous. Les légumes te font peur, avoue."
 		},
 		{
 			"id": "bouffe-kouign-amann-far-breton",
@@ -15590,6 +15762,7 @@ var rivalries_default = {
 				"name": "Kouign-amann",
 				"origin": "La Bretagne",
 				"line": "Du beurre, du sucre, et encore du beurre.",
+				"quip": "Team kouign-amann : ton cardiologue lit ce message par-dessus ton épaule.",
 				"giphyIds": [],
 				"giphyQuery": "kouign amann"
 			},
@@ -15597,9 +15770,12 @@ var rivalries_default = {
 				"name": "Far breton",
 				"origin": "La Bretagne aussi",
 				"line": "Des pruneaux, ou pas, selon la famille.",
+				"quip": "Team far breton : avec ou sans pruneaux, tu as un avis, et il est définitif.",
 				"giphyIds": [],
 				"giphyQuery": "far breton"
-			}
+			},
+			"bothQuip": "Les deux. Ton beurre vient de Bretagne, c’est sûr.",
+			"noneQuip": "Ni kouign-amann ni far. La Bretagne vient de fermer ses frontières."
 		},
 		{
 			"id": "bouffe-beurre-doux-beurre-sale",
@@ -15608,6 +15784,7 @@ var rivalries_default = {
 				"name": "Beurre doux",
 				"origin": "Le nord de la Loire",
 				"line": "Doux, et sans débat. Enfin presque.",
+				"quip": "Team beurre doux : tu viens de fâcher une région entière.",
 				"giphyIds": [],
 				"giphyQuery": "butter"
 			},
@@ -15615,9 +15792,12 @@ var rivalries_default = {
 				"name": "Beurre salé",
 				"origin": "La Bretagne",
 				"line": "Il y a du sel. Évidemment.",
+				"quip": "Team beurre salé : tu en mets partout. Même dans les gâteaux. Surtout dans les gâteaux.",
 				"giphyIds": [],
 				"giphyQuery": "salted butter"
-			}
+			},
+			"bothQuip": "Les deux. Tu as deux beurriers. Tu es une personne compliquée.",
+			"noneQuip": "Ni doux ni salé. Team huile d’olive, et la Bretagne pleure."
 		},
 		{
 			"id": "bouffe-eau-plate-eau-gazeuse",
@@ -15626,6 +15806,7 @@ var rivalries_default = {
 				"name": "Eau plate",
 				"origin": "La carafe",
 				"line": "Simple, et parfaite.",
+				"quip": "Team eau plate : la carafe du restaurant te suffit. Le serveur est déçu.",
 				"giphyIds": [],
 				"giphyQuery": "water glass"
 			},
@@ -15633,9 +15814,12 @@ var rivalries_default = {
 				"name": "Eau gazeuse",
 				"origin": "La bouteille verte",
 				"line": "Des bulles, même sans fête.",
+				"quip": "Team eau gazeuse : tu essaies de roter avec élégance. Tu essaies.",
 				"giphyIds": [],
 				"giphyQuery": "sparkling water"
-			}
+			},
+			"bothQuip": "Les deux. Une bouteille de chaque au restaurant. Grand train de vie.",
+			"noneQuip": "Ni plate ni gazeuse. Tu bois quoi ? Rien ? Pense à t’hydrater."
 		},
 		{
 			"id": "bouffe-jus-d-orange-avec-pulpe-jus-d-orange-sans-pulpe",
@@ -15644,6 +15828,7 @@ var rivalries_default = {
 				"name": "Jus d’orange avec pulpe",
 				"origin": "La bouteille",
 				"line": "Des morceaux, et de la texture.",
+				"quip": "Team avec pulpe : tu mâches ton jus d’orange. Assume.",
 				"giphyIds": [],
 				"giphyQuery": "orange juice pulp"
 			},
@@ -15651,9 +15836,12 @@ var rivalries_default = {
 				"name": "Jus d’orange sans pulpe",
 				"origin": "La bouteille aussi",
 				"line": "Lisse, et rien qui accroche.",
+				"quip": "Team sans pulpe : un morceau dans ta bouche, et ta matinée est ruinée.",
 				"giphyIds": [],
 				"giphyQuery": "orange juice"
-			}
+			},
+			"bothQuip": "Les deux. Tu n’as jamais remarqué la différence, c’est ça ?",
+			"noneQuip": "Ni l’un ni l’autre. Team jus de pomme, le grand oublié."
 		},
 		{
 			"id": "bouffe-fraise-framboise",
@@ -15662,6 +15850,7 @@ var rivalries_default = {
 				"name": "Fraise",
 				"origin": "Le jardin",
 				"line": "Rouge, sucrée, et la Chantilly.",
+				"quip": "Team fraise : la Chantilly est obligatoire. Une montagne de Chantilly.",
 				"giphyIds": [],
 				"giphyQuery": "strawberries"
 			},
@@ -15669,9 +15858,12 @@ var rivalries_default = {
 				"name": "Framboise",
 				"origin": "La haie",
 				"line": "Petite, acidulée, et sur les doigts.",
+				"quip": "Team framboise : tu en mets une au bout de chaque doigt avant de les manger. On t’a vu.",
 				"giphyIds": [],
 				"giphyQuery": "raspberries"
-			}
+			},
+			"bothQuip": "Les deux. Ta tarte aux fruits rouges est un champ de bataille.",
+			"noneQuip": "Ni fraise ni framboise. Les fruits rouges te boudent."
 		},
 		{
 			"id": "bouffe-banane-verte-banane-bien-mure",
@@ -15680,6 +15872,7 @@ var rivalries_default = {
 				"name": "Banane verte",
 				"origin": "Le régime",
 				"line": "Ferme, un peu acide, et ça croque.",
+				"quip": "Team banane verte : tu croques tes bananes avant qu’elles soient prêtes. La patience, ce n’est pas ton fort.",
 				"giphyIds": [],
 				"giphyQuery": "green banana"
 			},
@@ -15687,9 +15880,12 @@ var rivalries_default = {
 				"name": "Banane bien mûre",
 				"origin": "La corbeille",
 				"line": "Tachetée, sucrée, et fondante.",
+				"quip": "Team banane bien mûre : les taches noires ne te font pas peur. Au contraire.",
 				"giphyIds": [],
 				"giphyQuery": "ripe banana"
-			}
+			},
+			"bothQuip": "Les deux. Tu achètes un régime entier et tu manges selon l’humeur.",
+			"noneQuip": "Ni verte ni mûre. Tu en fais un banana bread, c’est ça ?"
 		},
 		{
 			"id": "bouffe-chantilly-creme-anglaise",
@@ -15698,6 +15894,7 @@ var rivalries_default = {
 				"name": "Chantilly",
 				"origin": "Le siphon",
 				"line": "Légère, sucrée, et sur tout.",
+				"quip": "Team Chantilly : tu en mets directement dans ta bouche avec la bombe. Quand personne ne regarde.",
 				"giphyIds": [],
 				"giphyQuery": "whipped cream"
 			},
@@ -15705,9 +15902,214 @@ var rivalries_default = {
 				"name": "Crème anglaise",
 				"origin": "La casserole",
 				"line": "Vanillée, et sur le gâteau au chocolat.",
+				"quip": "Team crème anglaise : tu finis le reste à même la casserole.",
 				"giphyIds": [],
 				"giphyQuery": "custard sauce"
-			}
+			},
+			"bothQuip": "Les deux. Sur le même gâteau. Ton dessert nage.",
+			"noneQuip": "Ni Chantilly ni crème anglaise. Tes gâteaux sont bien secs."
+		},
+		{
+			"id": "bouffe-carbonara-avec-creme-sans-creme",
+			"category": "bouffe",
+			"question": "La carbonara : avec ou sans crème ?",
+			"a": {
+				"name": "Avec crème",
+				"origin": "La France, sans complexe",
+				"line": "Onctueuse, généreuse, et totalement interdite à Rome.",
+				"quip": "Team avec crème : tu viens de déclencher un incident diplomatique avec l’Italie.",
+				"giphyIds": [],
+				"giphyQuery": "carbonara"
+			},
+			"b": {
+				"name": "Sans crème",
+				"origin": "Rome, intraitable",
+				"line": "Des œufs, du pecorino, du guanciale. Point final.",
+				"quip": "Team sans crème : tu as déjà corrigé quelqu’un en plein repas. On ne t’a pas réinvité.",
+				"giphyIds": [],
+				"giphyQuery": "pasta carbonara"
+			},
+			"bothQuip": "Les deux. Tu changes de recette selon qui est à table. Le sens politique.",
+			"noneQuip": "Ni avec ni sans crème. Tu manges tes pâtes au beurre, tranquille."
+		},
+		{
+			"id": "bouffe-huitres-escargots",
+			"category": "bouffe",
+			"a": {
+				"name": "Huîtres",
+				"origin": "Le bassin d’Arcachon",
+				"line": "Un citron, une fourchette minuscule, et un goût de mer.",
+				"quip": "Team huîtres : tu avales des choses encore vivantes au réveillon, et tu appelles ça la fête.",
+				"giphyIds": [],
+				"giphyQuery": "oysters"
+			},
+			"b": {
+				"name": "Escargots",
+				"origin": "La Bourgogne",
+				"line": "Du beurre persillé, et une pince qui glisse.",
+				"quip": "Team escargots : pour toi, l’escargot n’est qu’une excuse pour manger du beurre à l’ail.",
+				"giphyIds": [],
+				"giphyQuery": "escargot"
+			},
+			"bothQuip": "Les deux. Ton repas de Noël fait fuir tous les invités étrangers.",
+			"noneQuip": "Ni huîtres ni escargots. Le réveillon, tu le passes au foie gras, c’est ça ?"
+		},
+		{
+			"id": "bouffe-un-fruit-un-legume",
+			"category": "bouffe",
+			"question": "La tomate : fruit ou légume ?",
+			"a": {
+				"name": "Un fruit",
+				"origin": "La botanique",
+				"line": "Elle a des pépins, c’est un fruit. La science a parlé.",
+				"quip": "Team fruit : tu as raison, et tu adores ça. On ne t’invite plus beaucoup aux dîners.",
+				"giphyIds": [],
+				"giphyQuery": "tomato"
+			},
+			"b": {
+				"name": "Un légume",
+				"origin": "La cuisine",
+				"line": "On ne met pas de tomate dans une salade de fruits. Fin du débat.",
+				"quip": "Team légume : la science a tort, la cuisine a raison. Tu tiens bon.",
+				"giphyIds": [],
+				"giphyQuery": "vegetables"
+			},
+			"bothQuip": "Les deux. Tu es la personne qui répond « ça dépend » à toutes les questions.",
+			"noneQuip": "Ni fruit ni légume. Pour toi, la tomate, c’est du ketchup en devenir."
+		},
+		{
+			"id": "bouffe-le-quignon-la-mie",
+			"category": "bouffe",
+			"question": "Dans la baguette : le quignon ou la mie ?",
+			"a": {
+				"name": "Le quignon",
+				"origin": "Le bout de la baguette",
+				"line": "Croustillant, et mangé avant d’arriver à la maison.",
+				"quip": "Team quignon : ta baguette n’arrive jamais entière à la maison. Jamais.",
+				"giphyIds": [],
+				"giphyQuery": "baguette"
+			},
+			"b": {
+				"name": "La mie",
+				"origin": "Le cœur de la baguette",
+				"line": "Moelleuse, et parfaite pour faire des boulettes à table.",
+				"quip": "Team mie : tu creuses la baguette et tu laisses la croûte. Toute la famille est furieuse.",
+				"giphyIds": [],
+				"giphyQuery": "fresh bread"
+			},
+			"bothQuip": "Les deux. La baguette entière, en fait. Tu en achètes deux.",
+			"noneQuip": "Ni quignon ni mie. Team biscottes. On a mal pour toi."
+		},
+		{
+			"id": "bouffe-coquillettes-jambon-pates-bolognaise",
+			"category": "bouffe",
+			"a": {
+				"name": "Coquillettes-jambon",
+				"origin": "Le dimanche soir",
+				"line": "Du beurre, du gruyère, et le goût de l’enfance.",
+				"quip": "Team coquillettes-jambon : c’est ton plat préféré depuis tes six ans, et rien n’a changé.",
+				"giphyIds": [],
+				"giphyQuery": "comfort food pasta"
+			},
+			"b": {
+				"name": "Pâtes bolognaise",
+				"origin": "Bologne, à peu près",
+				"line": "Une sauce qui mijote, et des taches sur le t-shirt blanc.",
+				"quip": "Team bolo : ta sauce mijote quatre heures, et tu l’annonces à tout le monde.",
+				"giphyIds": [],
+				"giphyQuery": "spaghetti bolognese"
+			},
+			"bothQuip": "Les deux. Ton menu de la semaine tient en deux lignes.",
+			"noneQuip": "Ni coquillettes ni bolo. Tu cuisines vraiment, toi ? Respect."
+		},
+		{
+			"id": "bouffe-jambon-beurre-sandwich-triangle",
+			"category": "bouffe",
+			"a": {
+				"name": "Jambon-beurre",
+				"origin": "La boulangerie",
+				"line": "Une demi-baguette, du jambon, du beurre. La perfection.",
+				"quip": "Team jambon-beurre : tu sais que le beurre doit dépasser. C’est la règle.",
+				"giphyIds": [],
+				"giphyQuery": "sandwich"
+			},
+			"b": {
+				"name": "Sandwich triangle",
+				"origin": "La station-service",
+				"line": "Pain de mie, emballage plastique, et une date limite optimiste.",
+				"quip": "Team sandwich triangle : la pause sur l’aire d’autoroute, c’est ton moment préféré du voyage.",
+				"giphyIds": [],
+				"giphyQuery": "triangle sandwich"
+			},
+			"bothQuip": "Les deux. Le midi, tu ne fais pas la différence. Ton estomac non plus.",
+			"noneQuip": "Ni jambon-beurre ni triangle. Une salade le midi ? Courage."
+		},
+		{
+			"id": "bouffe-je-le-prends-je-le-laisse",
+			"category": "bouffe",
+			"question": "Le dernier morceau du plat : tu le prends ou tu le laisses ?",
+			"a": {
+				"name": "Je le prends",
+				"origin": "Ton assiette",
+				"line": "Personne n’en voulait, de toute façon. Si ?",
+				"quip": "Team je le prends : tu as attendu que tout le monde regarde ailleurs. Stratégie.",
+				"giphyIds": [],
+				"giphyQuery": "last slice"
+			},
+			"b": {
+				"name": "Je le laisse",
+				"origin": "La politesse française",
+				"line": "Il restera là, tout seul, jusqu’à la vaisselle.",
+				"quip": "Team je le laisse : tu y penses encore. Il est toujours là. Il t’attend.",
+				"giphyIds": [],
+				"giphyQuery": "awkward"
+			},
+			"bothQuip": "Les deux. Tu le coupes en deux, puis en quatre, puis en huit.",
+			"noneQuip": "Ni l’un ni l’autre. Tu le proposes aux autres pendant dix minutes."
+		},
+		{
+			"id": "bouffe-apero-dinatoire-vrai-repas",
+			"category": "bouffe",
+			"a": {
+				"name": "Apéro dînatoire",
+				"origin": "Le salon",
+				"line": "Des chips, des olives, et on ne passe jamais à table.",
+				"quip": "Team apéro dînatoire : à 23 h, tu réalises que tu as dîné de cacahuètes.",
+				"giphyIds": [],
+				"giphyQuery": "party snacks"
+			},
+			"b": {
+				"name": "Vrai repas",
+				"origin": "La table",
+				"line": "Une entrée, un plat, un dessert, et tout le monde assis.",
+				"quip": "Team vrai repas : à l’apéro, tu demandes toujours « on passe à table quand ? ».",
+				"giphyIds": [],
+				"giphyQuery": "family dinner"
+			},
+			"bothQuip": "Les deux. Trois heures d’apéro, puis le repas. Ton foie est un héros.",
+			"noneQuip": "Ni l’un ni l’autre. Tu dînes debout, devant le frigo ouvert."
+		},
+		{
+			"id": "bouffe-gruyere-rape-parmesan",
+			"category": "bouffe",
+			"a": {
+				"name": "Gruyère râpé",
+				"origin": "Le sachet",
+				"line": "Une poignée sur les pâtes. Puis une autre.",
+				"quip": "Team gruyère râpé : tu en manges directement dans le sachet. Personne ne doit le savoir.",
+				"giphyIds": [],
+				"giphyQuery": "grated cheese"
+			},
+			"b": {
+				"name": "Parmesan",
+				"origin": "L’Italie",
+				"line": "Râpé au dernier moment, avec un air important.",
+				"quip": "Team parmesan : tu dis « Parmigiano Reggiano » avec l’accent. Même au supermarché.",
+				"giphyIds": [],
+				"giphyQuery": "parmesan"
+			},
+			"bothQuip": "Les deux sur les mêmes pâtes. Ça s’appelle un gratin, en fait.",
+			"noneQuip": "Ni gruyère ni parmesan. Tes pâtes sont toutes nues, et elles ont froid."
 		},
 		{
 			"id": "geek-python-javascript",
@@ -18943,10 +19345,10 @@ var rivalries_default = {
 };
 var ui_texts_fr_default = {
 	site: {
-		"title": "484 · Lequel tu préfères ?",
+		"title": "484 · T’es team quoi ?",
 		"description": "Team Batman ou team Superman ? Des centaines de rivalités écrites à la main : choisis ton camp, et découvre si le reste du monde est d’accord.",
 		"logo": "484",
-		"name": "Lequel tu préfères ?",
+		"name": "T’es team quoi ?",
 		"socialLabel": "Ailleurs sur Internet",
 		"skipToContent": "Aller au contenu",
 		"motion": {
@@ -19309,7 +19711,7 @@ var ui_texts_fr_default = {
 			"cta": "GitHub"
 		}
 	],
-	pages: /* @__PURE__ */ JSON.parse("{\"mentions\":{\"title\":\"Mentions légales\",\"description\":\"Éditeur, hébergeur et propriété intellectuelle du site {domain}.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Éditeur du site\",\"blocks\":[\"{domain} est un site personnel, édité à titre non professionnel par un particulier.\",\"Conformément à la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique (LCEN), l’éditeur a choisi de préserver son anonymat. Ses coordonnées ont été communiquées à l’hébergeur, qui les tient à la disposition des autorités.\",\"Directeur de la publication : l’éditeur du site, joignable à {email}.\"]},{\"title\":\"Hébergeur\",\"blocks\":[[\"o2switch, SAS au capital de 100 000 €\",\"Chemin des Pardiaux, 63000 Clermont-Ferrand, France\",\"Téléphone : 04 44 44 60 40\",\"RCS Clermont-Ferrand, SIRET 510 909 807 00032\",\"Site : [www.o2switch.fr](https://www.o2switch.fr)\"]]},{\"title\":\"Propriété intellectuelle\",\"blocks\":[\"Les textes du site (questions, répliques et remarques) sont originaux.\",\"Les personnages, œuvres, marques et personnalités cités dans les rivalités appartiennent à leurs propriétaires respectifs. Ils sont mentionnés à titre humoristique et informatif, sans affiliation ni partenariat d’aucune sorte.\",\"Les GIF animés sont fournis par [GIPHY](https://giphy.com). Leurs droits appartiennent à leurs auteurs.\",\"Icônes : [Font Awesome Free](https://fontawesome.com), sous licence CC BY 4.0. Polices : Anton, Space Grotesk et Space Mono, sous licence SIL Open Font License.\"]},{\"title\":\"Signaler un contenu\",\"blocks\":[\"Une rivalité, une réplique ou un GIF te semble déplacé, ou porte atteinte à tes droits ? Écris à {email} en indiquant l’adresse de la page : le contenu sera examiné et, si besoin, retiré rapidement.\"]},{\"title\":\"Données personnelles et cookies\",\"blocks\":[\"Le site ne dépose aucun cookie et ne mesure pas l’audience. Tout est expliqué dans la [politique de confidentialité](/confidentialite).\"]}]},\"privacy\":{\"title\":\"Confidentialité\",\"description\":\"Aucun cookie, aucune mesure d’audience : ce que {domain} fait, et ne fait pas, de tes données.\",\"updated\":\"Dernière mise à jour : 22 novembre 2026\",\"sections\":[{\"title\":\"En bref\",\"blocks\":[[\"Aucun cookie, aucune publicité, aucune mesure d’audience, aucun compte.\",\"Tes votes sont anonymes : le site ne garde que des compteurs par rivalité.\",\"Le bouton « Mauvais GIF ? » n’envoie que la team et le GIF concernés.\",\"Ta progression reste dans ton navigateur et n’est jamais envoyée.\",\"Deux services tiers, pour les GIF seulement : GIPHY et, pour quelques-uns, Tenor (Google).\"]]},{\"title\":\"Responsable du traitement\",\"blocks\":[\"L’éditeur du site (voir les [mentions légales](/mentions-legales)), joignable à {email}.\"]},{\"title\":\"Les votes\",\"blocks\":[\"Quand tu choisis une team, ton navigateur envoie au serveur la rivalité, la team choisie (ou « aucun des deux ») et la catégorie en cours. Rien d’autre : ni identifiant, ni cookie.\",\"Le serveur ajoute une voix au compteur de la rivalité. Il ne garde jamais la team que tu as choisie : personne ne peut retrouver ton vote, pas même l’éditeur.\"]},{\"title\":\"Les signalements de GIF\",\"blocks\":[\"Quand tu cliques sur « Mauvais GIF ? », ton navigateur envoie au serveur la rivalité, la team et l’identifiant du GIF affiché. Rien d’autre : ni identifiant, ni cookie.\",\"Le serveur ajoute un signalement au compteur de ce GIF, sans garder la trace de qui l’a signalé. Ces compteurs servent uniquement à choisir de meilleurs GIF : un GIF trop signalé est remplacé automatiquement.\"]},{\"title\":\"Protection contre les abus\",\"blocks\":[\"Pour qu’un robot ne puisse pas fausser les pourcentages, le nombre de votes et de signalements est limité par visiteur. Le serveur calcule pour cela une empreinte de ton adresse IP, mélangée à une clé secrète et à la date du jour (hachage SHA-256). L’adresse IP elle-même n’est jamais enregistrée.\",\"Cette empreinte change chaque jour et ne permet pas de retrouver l’adresse d’origine. Pour qu’un même visiteur ne compte qu’une fois par jour, le serveur la garde aussi à côté des débats tranchés et des GIF signalés dans la journée (jamais à côté de la team choisie).\",\"Toutes les empreintes de la veille sont effacées automatiquement.\",\"Base légale : l’intérêt légitime de l’éditeur à protéger le service (article 6.1.f du RGPD).\"]},{\"title\":\"Journaux de l’hébergeur\",\"blocks\":[\"Comme tout hébergeur, o2switch enregistre des journaux techniques (adresse IP, date, page demandée, navigateur) pour assurer la sécurité et le bon fonctionnement de ses serveurs. Ils sont conservés selon sa politique et ses obligations légales, puis supprimés. L’éditeur ne s’en sert pas pour suivre les visiteurs.\"]},{\"title\":\"Ce qui reste dans ton navigateur\",\"blocks\":[\"Le site garde deux informations dans le stockage local de ton navigateur :\",[\"ta progression (débats tranchés, tes teams, ta catégorie), pour reprendre la partie là où tu l’as laissée ;\",\"ta préférence d’animations, si tu as utilisé l’interrupteur en haut de page.\"],\"Ces informations ne quittent jamais ton appareil. Elles servent uniquement des fonctions que tu demandes toi-même : à ce titre, elles ne nécessitent pas de consentement (article 82 de la loi Informatique et Libertés). Pour les effacer, supprime les données du site dans les réglages de ton navigateur.\"]},{\"title\":\"Les GIF, fournis par GIPHY et Tenor\",\"blocks\":[\"Les GIF de GIPHY, une société américaine, sont demandés directement par ton navigateur, comme GIPHY l’exige des sites web : ton navigateur interroge le service de GIPHY, puis télécharge les vidéos depuis ses serveurs.\",\"GIPHY reçoit alors ton adresse IP, des informations techniques sur ton navigateur et ce qui est demandé : le nom de la team affichée (pour la recherche) ou le numéro du GIF choisi. Tes votes, eux, ne lui sont jamais transmis. Ni le service de GIPHY ni ses serveurs d’images ne déposent de cookie (vérifié le 22 novembre 2026).\",\"Quelques GIF, choisis à la main par l’éditeur, viennent de Tenor, un service de Google. Ton navigateur les télécharge depuis les serveurs d’images de Tenor, qui reçoivent de la même façon ton adresse IP et des informations techniques. Ces serveurs ne déposent aucun cookie (vérifié le 22 novembre 2026).\",\"Certaines images sont rangées sur le site lui-même : elles ne passent par aucun service tiers.\",\"Pour en savoir plus : la [politique de confidentialité de GIPHY](https://giphy.com/privacy) et les [règles de confidentialité de Google](https://policies.google.com/privacy).\"]},{\"title\":\"Polices de caractères\",\"blocks\":[\"Les polices sont hébergées sur le serveur du site : aucune requête n’est envoyée à Google Fonts ni à un autre service.\"]},{\"title\":\"Tes droits\",\"blocks\":[\"Tu disposes d’un droit d’accès, de rectification, d’effacement, de limitation et d’opposition. Comme le site ne conserve aucune donnée permettant de t’identifier, il n’est en pratique pas possible de retrouver des informations à ton sujet (article 11 du RGPD).\",\"Pour toute question, écris à {email}. Tu peux aussi adresser une réclamation à la [CNIL](https://www.cnil.fr/fr/plaintes).\"]},{\"title\":\"Modifications\",\"blocks\":[\"Si le fonctionnement du site change, par exemple avec l’ajout d’une mesure d’audience, cette page sera mise à jour avant la mise en service.\"]}]},\"accessibility\":{\"title\":\"Accessibilité\",\"description\":\"Déclaration d’accessibilité de {domain} : état de conformité au RGAA, résultats des tests et contact.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Engagement\",\"blocks\":[\"L’éditeur s’efforce de rendre {domain} accessible à toutes et à tous, en suivant le référentiel général d’amélioration de l’accessibilité ([RGAA 4.1.2](https://accessibilite.numerique.gouv.fr/)). Un site personnel n’y est pas obligé par la loi : c’est un choix.\"]},{\"title\":\"État de conformité\",\"blocks\":[\"{domain} est partiellement conforme au RGAA 4.1.2. Aucun audit complet n’a encore été réalisé par un organisme indépendant : les résultats ci-dessous viennent d’une auto-évaluation.\"]},{\"title\":\"Résultats des tests\",\"blocks\":[\"Auto-évaluation réalisée en novembre 2026 sur les pages types : accueil, jeu, page d’un débat, liste des débats, catégorie, Hall of Fame et pages d’information. Points vérifiés :\",[\"audit automatique avec axe-core sur chaque page type, sans erreur restante ;\",\"navigation complète au clavier, avec un focus toujours visible ; le jeu se joue aussi avec les flèches ;\",\"contrastes des textes et des composants ;\",\"structure des titres, langue de la page, liens d’évitement et intitulés des boutons ;\",\"respect du réglage « réduire les animations » du système, et interrupteur d’animations sur chaque page, qui fige aussi les GIF ;\",\"affichage jusqu’à 360 pixels de large et zoom à 200 %.\"]]},{\"title\":\"Contenus non accessibles\",\"blocks\":[[\"Les GIF sont décoratifs et ne sont pas décrits : ils illustrent la team, dont le nom est toujours écrit et annoncé à côté.\",\"Les tests avec des lecteurs d’écran (NVDA, VoiceOver) n’ont pas encore été menés.\"]]},{\"title\":\"Établissement de cette déclaration\",\"blocks\":[[\"Déclaration établie le 21 novembre 2026.\",\"Technologies utilisées : HTML, CSS et JavaScript.\",\"Outils : axe-core, Lighthouse, Playwright (Chromium) et navigation au clavier.\"]]},{\"title\":\"Retour d’information et contact\",\"blocks\":[\"Si tu n’arrives pas à accéder à un contenu ou à un service, écris à {email} : une solution te sera proposée.\"]},{\"title\":\"Voies de recours\",\"blocks\":[\"Si tu as signalé un défaut d’accessibilité sans obtenir de réponse satisfaisante, tu peux saisir le [Défenseur des droits](https://formulaire.defenseurdesdroits.fr/), ou lui écrire gratuitement, sans affranchissement : Défenseur des droits, Libre réponse 71120, 75342 Paris CEDEX 07.\"]}]},\"about\":{\"title\":\"À propos\",\"description\":\"484, c’est un jeu de débats : {rivalries} rivalités « Team X ou team Y ? » écrites à la main, et le pourcentage des autres visiteurs après chaque vote.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Le principe\",\"blocks\":[\"484 · Lequel tu préfères ? pose des questions sans importance, mais très sérieusement. Batman ou Superman ? Pain au chocolat ou chocolatine ? [Team Edward ou team Jacob ?](/debat/ecrans-edward-jacob) Tu choisis ton camp, et tu découvres aussitôt quel pourcentage des visiteurs a fait le même choix que toi.\"]},{\"title\":\"Les rivalités\",\"blocks\":[\"Le site compte {rivalries} rivalités écrites et relues à la main, réparties en {categories} catégories et {universes} univers : les écrans, la pop culture, la vraie vie et l’imaginaire. Elles sont toutes rangées dans [la liste des débats](/debats).\",\"La règle : pas de méchanceté, pas de vulgarité. On se moque des débats, jamais des gens.\"]},{\"title\":\"Les pourcentages\",\"blocks\":[\"Chaque vote est compté de façon anonyme : un compteur par rivalité, rien de plus. Les pourcentages affichés sont ceux de tous les visiteurs depuis l’ouverture du site.\",\"Les débats les plus serrés, les plus écrasants et les plus votés sont classés dans le [Hall of Fame](/hall-of-fame).\"]},{\"title\":\"Partager un débat\",\"blocks\":[\"Chaque débat a sa propre adresse : le bouton de partage l’envoie à qui tu veux, et ton ami tombe directement sur la même question.\"]},{\"title\":\"Qui est derrière ?\",\"blocks\":[\"Un développeur web qui aurait pu faire un portfolio sérieux, et qui a préféré ça. Ses autres projets sont [par ici](/projets). Une idée de rivalité, une remarque ? Écris à {email}.\"]}]}}"),
+	pages: /* @__PURE__ */ JSON.parse("{\"mentions\":{\"title\":\"Mentions légales\",\"description\":\"Éditeur, hébergeur et propriété intellectuelle du site {domain}.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Éditeur du site\",\"blocks\":[\"{domain} est un site personnel, édité à titre non professionnel par un particulier.\",\"Conformément à la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique (LCEN), l’éditeur a choisi de préserver son anonymat. Ses coordonnées ont été communiquées à l’hébergeur, qui les tient à la disposition des autorités.\",\"Directeur de la publication : l’éditeur du site, joignable à {email}.\"]},{\"title\":\"Hébergeur\",\"blocks\":[[\"o2switch, SAS au capital de 100 000 €\",\"Chemin des Pardiaux, 63000 Clermont-Ferrand, France\",\"Téléphone : 04 44 44 60 40\",\"RCS Clermont-Ferrand, SIRET 510 909 807 00032\",\"Site : [www.o2switch.fr](https://www.o2switch.fr)\"]]},{\"title\":\"Propriété intellectuelle\",\"blocks\":[\"Les textes du site (questions, répliques et remarques) sont originaux.\",\"Les personnages, œuvres, marques et personnalités cités dans les rivalités appartiennent à leurs propriétaires respectifs. Ils sont mentionnés à titre humoristique et informatif, sans affiliation ni partenariat d’aucune sorte.\",\"Les GIF animés sont fournis par [GIPHY](https://giphy.com). Leurs droits appartiennent à leurs auteurs.\",\"Icônes : [Font Awesome Free](https://fontawesome.com), sous licence CC BY 4.0. Polices : Anton, Space Grotesk et Space Mono, sous licence SIL Open Font License.\"]},{\"title\":\"Signaler un contenu\",\"blocks\":[\"Une rivalité, une réplique ou un GIF te semble déplacé, ou porte atteinte à tes droits ? Écris à {email} en indiquant l’adresse de la page : le contenu sera examiné et, si besoin, retiré rapidement.\"]},{\"title\":\"Données personnelles et cookies\",\"blocks\":[\"Le site ne dépose aucun cookie et ne mesure pas l’audience. Tout est expliqué dans la [politique de confidentialité](/confidentialite).\"]}]},\"privacy\":{\"title\":\"Confidentialité\",\"description\":\"Aucun cookie, aucune mesure d’audience : ce que {domain} fait, et ne fait pas, de tes données.\",\"updated\":\"Dernière mise à jour : 22 novembre 2026\",\"sections\":[{\"title\":\"En bref\",\"blocks\":[[\"Aucun cookie, aucune publicité, aucune mesure d’audience, aucun compte.\",\"Tes votes sont anonymes : le site ne garde que des compteurs par rivalité.\",\"Le bouton « Mauvais GIF ? » n’envoie que la team et le GIF concernés.\",\"Ta progression reste dans ton navigateur et n’est jamais envoyée.\",\"Deux services tiers, pour les GIF seulement : GIPHY et, pour quelques-uns, Tenor (Google).\"]]},{\"title\":\"Responsable du traitement\",\"blocks\":[\"L’éditeur du site (voir les [mentions légales](/mentions-legales)), joignable à {email}.\"]},{\"title\":\"Les votes\",\"blocks\":[\"Quand tu choisis une team, ton navigateur envoie au serveur la rivalité, la team choisie (ou « aucun des deux ») et la catégorie en cours. Rien d’autre : ni identifiant, ni cookie.\",\"Le serveur ajoute une voix au compteur de la rivalité. Il ne garde jamais la team que tu as choisie : personne ne peut retrouver ton vote, pas même l’éditeur.\"]},{\"title\":\"Les signalements de GIF\",\"blocks\":[\"Quand tu cliques sur « Mauvais GIF ? », ton navigateur envoie au serveur la rivalité, la team et l’identifiant du GIF affiché. Rien d’autre : ni identifiant, ni cookie.\",\"Le serveur ajoute un signalement au compteur de ce GIF, sans garder la trace de qui l’a signalé. Ces compteurs servent uniquement à choisir de meilleurs GIF : un GIF trop signalé est remplacé automatiquement.\"]},{\"title\":\"Protection contre les abus\",\"blocks\":[\"Pour qu’un robot ne puisse pas fausser les pourcentages, le nombre de votes et de signalements est limité par visiteur. Le serveur calcule pour cela une empreinte de ton adresse IP, mélangée à une clé secrète et à la date du jour (hachage SHA-256). L’adresse IP elle-même n’est jamais enregistrée.\",\"Cette empreinte change chaque jour et ne permet pas de retrouver l’adresse d’origine. Pour qu’un même visiteur ne compte qu’une fois par jour, le serveur la garde aussi à côté des débats tranchés et des GIF signalés dans la journée (jamais à côté de la team choisie).\",\"Toutes les empreintes de la veille sont effacées automatiquement.\",\"Base légale : l’intérêt légitime de l’éditeur à protéger le service (article 6.1.f du RGPD).\"]},{\"title\":\"Journaux de l’hébergeur\",\"blocks\":[\"Comme tout hébergeur, o2switch enregistre des journaux techniques (adresse IP, date, page demandée, navigateur) pour assurer la sécurité et le bon fonctionnement de ses serveurs. Ils sont conservés selon sa politique et ses obligations légales, puis supprimés. L’éditeur ne s’en sert pas pour suivre les visiteurs.\"]},{\"title\":\"Ce qui reste dans ton navigateur\",\"blocks\":[\"Le site garde deux informations dans le stockage local de ton navigateur :\",[\"ta progression (débats tranchés, tes teams, ta catégorie), pour reprendre la partie là où tu l’as laissée ;\",\"ta préférence d’animations, si tu as utilisé l’interrupteur en haut de page.\"],\"Ces informations ne quittent jamais ton appareil. Elles servent uniquement des fonctions que tu demandes toi-même : à ce titre, elles ne nécessitent pas de consentement (article 82 de la loi Informatique et Libertés). Pour les effacer, supprime les données du site dans les réglages de ton navigateur.\"]},{\"title\":\"Les GIF, fournis par GIPHY et Tenor\",\"blocks\":[\"Les GIF de GIPHY, une société américaine, sont demandés directement par ton navigateur, comme GIPHY l’exige des sites web : ton navigateur interroge le service de GIPHY, puis télécharge les vidéos depuis ses serveurs.\",\"GIPHY reçoit alors ton adresse IP, des informations techniques sur ton navigateur et ce qui est demandé : le nom de la team affichée (pour la recherche) ou le numéro du GIF choisi. Tes votes, eux, ne lui sont jamais transmis. Ni le service de GIPHY ni ses serveurs d’images ne déposent de cookie (vérifié le 22 novembre 2026).\",\"Quelques GIF, choisis à la main par l’éditeur, viennent de Tenor, un service de Google. Ton navigateur les télécharge depuis les serveurs d’images de Tenor, qui reçoivent de la même façon ton adresse IP et des informations techniques. Ces serveurs ne déposent aucun cookie (vérifié le 22 novembre 2026).\",\"Certaines images sont rangées sur le site lui-même : elles ne passent par aucun service tiers.\",\"Pour en savoir plus : la [politique de confidentialité de GIPHY](https://giphy.com/privacy) et les [règles de confidentialité de Google](https://policies.google.com/privacy).\"]},{\"title\":\"Polices de caractères\",\"blocks\":[\"Les polices sont hébergées sur le serveur du site : aucune requête n’est envoyée à Google Fonts ni à un autre service.\"]},{\"title\":\"Tes droits\",\"blocks\":[\"Tu disposes d’un droit d’accès, de rectification, d’effacement, de limitation et d’opposition. Comme le site ne conserve aucune donnée permettant de t’identifier, il n’est en pratique pas possible de retrouver des informations à ton sujet (article 11 du RGPD).\",\"Pour toute question, écris à {email}. Tu peux aussi adresser une réclamation à la [CNIL](https://www.cnil.fr/fr/plaintes).\"]},{\"title\":\"Modifications\",\"blocks\":[\"Si le fonctionnement du site change, par exemple avec l’ajout d’une mesure d’audience, cette page sera mise à jour avant la mise en service.\"]}]},\"accessibility\":{\"title\":\"Accessibilité\",\"description\":\"Déclaration d’accessibilité de {domain} : état de conformité au RGAA, résultats des tests et contact.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Engagement\",\"blocks\":[\"L’éditeur s’efforce de rendre {domain} accessible à toutes et à tous, en suivant le référentiel général d’amélioration de l’accessibilité ([RGAA 4.1.2](https://accessibilite.numerique.gouv.fr/)). Un site personnel n’y est pas obligé par la loi : c’est un choix.\"]},{\"title\":\"État de conformité\",\"blocks\":[\"{domain} est partiellement conforme au RGAA 4.1.2. Aucun audit complet n’a encore été réalisé par un organisme indépendant : les résultats ci-dessous viennent d’une auto-évaluation.\"]},{\"title\":\"Résultats des tests\",\"blocks\":[\"Auto-évaluation réalisée en novembre 2026 sur les pages types : accueil, jeu, page d’un débat, liste des débats, catégorie, Hall of Fame et pages d’information. Points vérifiés :\",[\"audit automatique avec axe-core sur chaque page type, sans erreur restante ;\",\"navigation complète au clavier, avec un focus toujours visible ; le jeu se joue aussi avec les flèches ;\",\"contrastes des textes et des composants ;\",\"structure des titres, langue de la page, liens d’évitement et intitulés des boutons ;\",\"interrupteur d’animations sur chaque page, qui coupe les animations et fige les GIF ; le choix est gardé d’une visite à l’autre. Animations et GIF sont activés par défaut, y compris quand le système demande de réduire les animations, car les GIF sont au cœur du jeu ;\",\"affichage jusqu’à 360 pixels de large et zoom à 200 %.\"]]},{\"title\":\"Contenus non accessibles\",\"blocks\":[[\"Les GIF sont décoratifs et ne sont pas décrits : ils illustrent la team, dont le nom est toujours écrit et annoncé à côté.\",\"Les tests avec des lecteurs d’écran (NVDA, VoiceOver) n’ont pas encore été menés.\"]]},{\"title\":\"Établissement de cette déclaration\",\"blocks\":[[\"Déclaration établie le 21 novembre 2026.\",\"Technologies utilisées : HTML, CSS et JavaScript.\",\"Outils : axe-core, Lighthouse, Playwright (Chromium) et navigation au clavier.\"]]},{\"title\":\"Retour d’information et contact\",\"blocks\":[\"Si tu n’arrives pas à accéder à un contenu ou à un service, écris à {email} : une solution te sera proposée.\"]},{\"title\":\"Voies de recours\",\"blocks\":[\"Si tu as signalé un défaut d’accessibilité sans obtenir de réponse satisfaisante, tu peux saisir le [Défenseur des droits](https://formulaire.defenseurdesdroits.fr/), ou lui écrire gratuitement, sans affranchissement : Défenseur des droits, Libre réponse 71120, 75342 Paris CEDEX 07.\"]}]},\"about\":{\"title\":\"À propos\",\"description\":\"484, c’est un jeu de débats : {rivalries} rivalités « Team X ou team Y ? » écrites à la main, et le pourcentage des autres visiteurs après chaque vote.\",\"updated\":\"Dernière mise à jour : 21 novembre 2026\",\"sections\":[{\"title\":\"Le principe\",\"blocks\":[\"484 · T’es team quoi ? pose des questions sans importance, mais très sérieusement. Batman ou Superman ? Pain au chocolat ou chocolatine ? [Team Edward ou team Jacob ?](/debat/ecrans-edward-jacob) Tu choisis ton camp, et tu découvres aussitôt quel pourcentage des visiteurs a fait le même choix que toi.\"]},{\"title\":\"Les rivalités\",\"blocks\":[\"Le site compte {rivalries} rivalités écrites et relues à la main, réparties en {categories} catégories et {universes} univers : les écrans, la pop culture, la vraie vie et l’imaginaire. Elles sont toutes rangées dans [la liste des débats](/debats).\",\"La règle : pas de méchanceté, pas de vulgarité. On se moque des débats, jamais des gens.\"]},{\"title\":\"Les pourcentages\",\"blocks\":[\"Chaque vote est compté de façon anonyme : un compteur par rivalité, rien de plus. Les pourcentages affichés sont ceux de tous les visiteurs depuis l’ouverture du site.\",\"Les débats les plus serrés, les plus écrasants et les plus votés sont classés dans le [Hall of Fame](/hall-of-fame).\"]},{\"title\":\"Partager un débat\",\"blocks\":[\"Chaque débat a sa propre adresse : le bouton de partage l’envoie à qui tu veux, et ton ami tombe directement sur la même question.\"]},{\"title\":\"Qui est derrière ?\",\"blocks\":[\"Un développeur web qui aurait pu faire un portfolio sérieux, et qui a préféré ça. Ses autres projets sont [par ici](/projets). Une idée de rivalité, une remarque ? Écris à {email}.\"]}]}}"),
 	og: { "cta": "Choisis ton camp sur {domain}" },
 	breadcrumb: {
 		"label": "Fil d’Ariane",

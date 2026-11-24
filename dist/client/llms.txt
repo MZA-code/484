@@ -1,4 +1,4 @@
-# 484 · Lequel tu préfères ?
+# 484 · T’es team quoi ?
 
 > Team Batman ou team Superman ? Des centaines de rivalités écrites à la main : choisis ton camp, et découvre si le reste du monde est d’accord.
 
@@ -6,14 +6,14 @@ Jeu de débats en français : chaque page pose une question « Team X ou team
 
 ## Pages principales
 
-- [Tous les débats](https://team484.fr/debats): 1 009 rivalités « Team X ou team Y ? » rangées par catégorie : héros, bouffe, jeux vidéo, musique, autos, animaux… Choisis ton terrain.
-- [À propos](https://team484.fr/a-propos): 484, c’est un jeu de débats : 1 009 rivalités « Team X ou team Y ? » écrites à la main, et le pourcentage des autres visiteurs après chaque vote.
+- [Tous les débats](https://team484.fr/debats): 1 018 rivalités « Team X ou team Y ? » rangées par catégorie : héros, bouffe, jeux vidéo, musique, autos, animaux… Choisis ton terrain.
+- [À propos](https://team484.fr/a-propos): 484, c’est un jeu de débats : 1 018 rivalités « Team X ou team Y ? » écrites à la main, et le pourcentage des autres visiteurs après chaque vote.
 - [Hall of Fame](https://team484.fr/hall-of-fame): Le verdict mondial, voté par tous les visiteurs qui avaient sûrement mieux à faire.
 
 ## Catégories
 
 - [Héros et vilains](https://team484.fr/categorie/heros): Des capes, des masques, et des egos surdimensionnés. (59 débats)
-- [Bouffe qui divise](https://team484.fr/categorie/bouffe): Ces débats ont gâché plus de repas de famille que la politique. (50 débats)
+- [Bouffe qui divise](https://team484.fr/categorie/bouffe): Ces débats ont gâché plus de repas de famille que la politique. (59 débats)
 - [Tech et geek](https://team484.fr/categorie/geek): Les guerres saintes de l’informatique. Aucun survivant. (50 débats)
 - [Jeux vidéo](https://team484.fr/categorie/jeux): Manette en main, amitiés en jeu. (50 débats)
 - [Ciné et séries](https://team484.fr/categorie/ecrans): Pop-corn, canapé, et des avis très tranchés. (50 débats)
