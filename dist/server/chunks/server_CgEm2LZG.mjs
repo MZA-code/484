@@ -159,6 +159,7 @@ var rivalries_default = {
 			"tagline": "Des capes, des masques, et des egos surdimensionnés.",
 			"icon": "mask",
 			"giphyQuery": "superhero pose",
+			"giphyIds": ["5cZbRBLhW4tc4"],
 			"finish": {
 				"line": "Mission accomplie. Tu peux enlever ta cape, personne ne regarde.",
 				"giphyQuery": "superhero celebration"
@@ -203,6 +204,7 @@ var rivalries_default = {
 			"tagline": "Pop-corn, canapé, et des avis très tranchés.",
 			"icon": "film",
 			"giphyQuery": "popcorn movie night",
+			"giphyIds": ["Sb7WSbjHFNIL6"],
 			"finish": {
 				"line": "Générique de fin. Tu peux rallumer la lumière et ramasser le pop-corn.",
 				"giphyQuery": "movie theater applause"
@@ -214,6 +216,7 @@ var rivalries_default = {
 			"tagline": "Ils sont inséparables. Toi, tu vas devoir choisir.",
 			"icon": "user-group",
 			"giphyQuery": "best friends duo",
+			"giphyIds": ["afWj3IJLPU8W4"],
 			"finish": {
 				"line": "Tu as séparé tous les duos. Il va y avoir des rancunes.",
 				"giphyQuery": "best friends fight funny"
@@ -247,6 +250,7 @@ var rivalries_default = {
 			"tagline": "Le samedi matin, devant la télé, en pyjama. Choisis ton camp.",
 			"icon": "tv",
 			"giphyQuery": "classic cartoon",
+			"giphyIds": ["5IT69msgpaOcg"],
 			"finish": {
 				"line": "C’est fini, comme le dernier générique du mercredi après-midi.",
 				"giphyQuery": "that's all folks"
@@ -258,6 +262,7 @@ var rivalries_default = {
 			"tagline": "Des répliques que ton oncle cite encore à chaque repas.",
 			"icon": "clapperboard",
 			"giphyQuery": "cinema popcorn",
+			"giphyIds": ["bOaCDNQR76IOk"],
 			"finish": {
 				"line": "Fin. Comme dans un film d’auteur : sans prévenir, et tu restes sur ta faim.",
 				"giphyQuery": "standing ovation"
@@ -302,6 +307,7 @@ var rivalries_default = {
 			"tagline": "Des débats plus tendus qu’une finale aux tirs au but.",
 			"icon": "futbol",
 			"giphyQuery": "sports fan cheering",
+			"giphyIds": ["hryis7A55UXZNCUTNA"],
 			"finish": {
 				"line": "Coup de sifflet final. Victoire aux tirs au but, évidemment.",
 				"giphyQuery": "goal celebration"
@@ -313,6 +319,7 @@ var rivalries_default = {
 			"tagline": "Le miroir n’a jamais menti. Toi, peut-être.",
 			"icon": "shirt",
 			"giphyQuery": "fashion runway",
+			"giphyIds": ["iqdvmjxie4Zby"],
 			"finish": {
 				"line": "Défilé terminé. Tu peux retirer tes talons, ou tes chaussettes-claquettes.",
 				"giphyQuery": "runway walk sassy"
