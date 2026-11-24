@@ -1,5 +1,5 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { a as jsonResponse, n as getVoteService, o as rejectWrite, t as clientIp } from "./runtime_4A-Ovy--.mjs";
+import { a as jsonResponse, n as getVoteService, o as rejectWrite, t as clientIp } from "./runtime_U_WUrUBH.mjs";
 // src/pages/api/vote.ts
 var vote_exports = /* @__PURE__ */ __exportAll({
 	POST: () => POST,

@@ -1,6 +1,6 @@
 import { i as setOnSetGetEnv, n as getEnv$1, t as createInvalidVariablesError } from "./runtime_BNfvQd4R.mjs";
 import { z } from "zod";
-import { faBolt, faBriefcase, faCarSide, faClapperboard, faComments, faCompactDisc, faCompass, faCrown, faDragon, faEarthEurope, faEye, faFilm, faFire, faFutbol, faGamepad, faGuitar, faHandFist, faHashtag, faHeart, faHouse, faLaptopCode, faLock, faMask, faMedal, faMugHot, faPaw, faPeopleGroup, faPizzaSlice, faScaleBalanced, faShirt, faShuffle, faStar, faTrophy, faTv, faUserGroup, faVideo, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faBolt, faBriefcase, faCarSide, faClapperboard, faComments, faCompactDisc, faCompass, faCrown, faDragon, faEarthEurope, faEye, faFilm, faFire, faForward, faFutbol, faGamepad, faGuitar, faHandFist, faHandshake, faHashtag, faHeart, faHouse, faLaptopCode, faLock, faMask, faMedal, faMugHot, faPaw, faPeopleGroup, faPizzaSlice, faScaleBalanced, faShareNodes, faShirt, faShuffle, faStar, faTrophy, faTv, faUserGroup, faVideo, faWandMagicSparkles } from "@fortawesome/free-solid-svg-icons";
 // node_modules/astro/dist/env/validators.js
 function getEnvFieldType(options) {
 	const optional = options.optional ? options.default !== void 0 ? false : true : false;
@@ -382,6 +382,7 @@ var rivalries_default = {
 				"name": "Batman",
 				"origin": "DC · 1939",
 				"line": "Pas de super-pouvoir, juste un excellent comptable.",
+				"quip": "Team Batman : tu as un plan B, un plan C, et un dossier secret sur chacun de tes amis.",
 				"giphyIds": [],
 				"giphyQuery": "Batman"
 			},
@@ -389,9 +390,12 @@ var rivalries_default = {
 				"name": "Superman",
 				"origin": "DC · 1938",
 				"line": "Invincible, sauf face à un caillou vert.",
+				"quip": "Team Superman : pour toi, une paire de lunettes suffit comme déguisement. Et ça marche.",
 				"giphyIds": [],
 				"giphyQuery": "Superman"
-			}
+			},
+			"bothQuip": "Les deux ? Toi, tu attends le film où ils se réconcilient parce que leurs mères s’appellent Martha.",
+			"noneQuip": "Ni Batman ni Superman. Team Robin, c’est ça ? Courage."
 		},
 		{
 			"id": "heros-marvel-dc",
@@ -400,6 +404,7 @@ var rivalries_default = {
 				"name": "Marvel",
 				"origin": "Comics · 1939",
 				"line": "Des héros qui ont des problèmes de loyer.",
+				"quip": "Team Marvel : tu restes jusqu’à la toute fin du générique. Toujours. Même quand il n’y a rien.",
 				"giphyIds": [],
 				"giphyQuery": "Marvel Avengers"
 			},
@@ -407,9 +412,12 @@ var rivalries_default = {
 				"name": "DC",
 				"origin": "Comics · 1934",
 				"line": "Des dieux qui ont des problèmes de cape.",
+				"quip": "Team DC : tu aimes tes héros sombres, tristes, et filmés sous la pluie.",
 				"giphyIds": [],
 				"giphyQuery": "Justice League DC"
-			}
+			},
+			"bothQuip": "Marvel et DC. Tu as vu tous les films. Tous. On s’inquiète un peu.",
+			"noneQuip": "Ni Marvel ni DC. Tu as une vie sociale, toi."
 		},
 		{
 			"id": "heros-iron-man-captain-america",
@@ -418,6 +426,7 @@ var rivalries_default = {
 				"name": "Iron Man",
 				"origin": "Marvel · 1963",
 				"line": "Génie, milliardaire, et pas du tout modeste.",
+				"quip": "Team Iron Man : face à un problème, tu achètes une armure plus grosse.",
 				"giphyIds": [],
 				"giphyQuery": "Iron Man Tony Stark"
 			},
@@ -425,9 +434,12 @@ var rivalries_default = {
 				"name": "Captain America",
 				"origin": "Marvel · 1941",
 				"line": "Congelé soixante-dix ans, toujours aussi poli.",
+				"quip": "Team Captain America : tu dis « langage ! » quand quelqu’un jure à table.",
 				"giphyIds": [],
 				"giphyQuery": "Captain America"
-			}
+			},
+			"bothQuip": "Les deux ? Tu aurais voulu que Civil War finisse par un câlin.",
+			"noneQuip": "Ni Tony ni Steve. Team Bucky, avoue."
 		},
 		{
 			"id": "heros-jedi-sith",
@@ -436,6 +448,7 @@ var rivalries_default = {
 				"name": "Les Jedi",
 				"origin": "Star Wars",
 				"line": "La Force, la sagesse, et de très longues robes beiges.",
+				"quip": "Team Jedi : tu vas méditer sur ce choix. Puis méditer sur ta méditation.",
 				"giphyIds": [],
 				"giphyQuery": "Jedi lightsaber"
 			},
@@ -443,9 +456,12 @@ var rivalries_default = {
 				"name": "Les Sith",
 				"origin": "Star Wars",
 				"line": "Le côté obscur, des sabres rouges, et des cookies.",
+				"quip": "Team Sith : ton sabre est rouge, tes intentions aussi.",
 				"giphyIds": [],
 				"giphyQuery": "Sith Darth Sidious"
-			}
+			},
+			"bothQuip": "Les deux. Tu cherches l’équilibre dans la Force. Anakin aussi, et on a vu le résultat.",
+			"noneQuip": "Ni Jedi ni Sith. Tu es contrebandier dans l’âme, et tu as tiré le premier."
 		},
 		{
 			"id": "heros-dark-vador-voldemort",
@@ -454,6 +470,7 @@ var rivalries_default = {
 				"name": "Dark Vador",
 				"origin": "Star Wars · 1977",
 				"line": "Respire fort, parle fort, père absent.",
+				"quip": "Team Dark Vador : tu étrangles les gens à distance quand ils oublient leur clignotant.",
 				"giphyIds": [],
 				"giphyQuery": "Darth Vader"
 			},
@@ -461,9 +478,12 @@ var rivalries_default = {
 				"name": "Voldemort",
 				"origin": "Harry Potter · 1997",
 				"line": "Pas de nez, pas d’amis, beaucoup d’horcruxes.",
+				"quip": "Team Voldemort : on ne dira pas ton choix à voix haute. Par précaution.",
 				"giphyIds": [],
 				"giphyQuery": "Voldemort"
-			}
+			},
+			"bothQuip": "Les deux méchants. Dans chaque film, tu soutiens l’équipe d’en face.",
+			"noneQuip": "Ni Vador ni Voldemort. Tu attends un méchant qui a un nez ET des poumons."
 		},
 		{
 			"id": "heros-joker-thanos",
@@ -472,6 +492,7 @@ var rivalries_default = {
 				"name": "Le Joker",
 				"origin": "DC · 1940",
 				"line": "« Pourquoi tant de sérieux ? »",
+				"quip": "Team Joker : tu ris à des blagues que personne d’autre ne comprend. On a remarqué.",
 				"giphyIds": [],
 				"giphyQuery": "Joker Batman"
 			},
@@ -479,9 +500,12 @@ var rivalries_default = {
 				"name": "Thanos",
 				"origin": "Marvel · 1973",
 				"line": "Un claquement de doigts, et la moitié de l’univers en moins.",
+				"quip": "Team Thanos : pour toi, ranger sa chambre, c’est en jeter la moitié. Parfaitement équilibré.",
 				"giphyIds": [],
 				"giphyQuery": "Thanos snap"
-			}
+			},
+			"bothQuip": "Les deux. Ton groupe d’amis doit être… intéressant.",
+			"noneQuip": "Ni le Joker ni Thanos. Tu préfères les méchants qui oublient juste de répondre aux messages."
 		},
 		{
 			"id": "heros-spider-man-deadpool",
@@ -490,6 +514,7 @@ var rivalries_default = {
 				"name": "Spider-Man",
 				"origin": "Marvel · 1962",
 				"line": "Un grand pouvoir, un petit salaire de photographe.",
+				"quip": "Team Spider-Man : un grand pouvoir implique une grande responsabilité. Comme rappeler ta tante.",
 				"giphyIds": [],
 				"giphyQuery": "Spider-Man"
 			},
@@ -497,9 +522,12 @@ var rivalries_default = {
 				"name": "Deadpool",
 				"origin": "Marvel · 1991",
 				"line": "Parle à la caméra, se régénère, ne s’excuse jamais.",
+				"quip": "Team Deadpool : tu as lu cette phrase en te disant qu’elle te parlait directement. Elle te parle directement.",
 				"giphyIds": [],
 				"giphyQuery": "Deadpool"
-			}
+			},
+			"bothQuip": "Les deux. Tu veux le film où Deadpool ne laisse pas Spider-Man en placer une.",
+			"noneQuip": "Ni l’un ni l’autre. Les araignées te font peur, et les chimichangas aussi."
 		},
 		{
 			"id": "heros-wolverine-hulk",
@@ -508,6 +536,7 @@ var rivalries_default = {
 				"name": "Wolverine",
 				"origin": "Marvel · 1974",
 				"line": "Des griffes, des rouflaquettes, et un sale caractère.",
+				"quip": "Team Wolverine : tu appelles « bub » les gens que tu n’aimes pas. Donc tout le monde.",
 				"giphyIds": [],
 				"giphyQuery": "Wolverine X-Men"
 			},
@@ -515,9 +544,12 @@ var rivalries_default = {
 				"name": "Hulk",
 				"origin": "Marvel · 1962",
 				"line": "Toujours en colère. Le pantalon tient, on ne sait pas comment.",
+				"quip": "Team Hulk : HULK APPROUVE. HULK PAS CASSER TÉLÉPHONE. CETTE FOIS.",
 				"giphyIds": [],
 				"giphyQuery": "Hulk smash"
-			}
+			},
+			"bothQuip": "Les deux. Les griffes contre la peau verte. Spoiler : le mobilier perd.",
+			"noneQuip": "Ni Wolverine ni Hulk. Tu règles tes conflits par mail, avec « cordialement »."
 		},
 		{
 			"id": "heros-goku-vegeta",
@@ -526,6 +558,7 @@ var rivalries_default = {
 				"name": "Goku",
 				"origin": "Dragon Ball · 1984",
 				"line": "Sauve l’univers entre deux repas.",
+				"quip": "Team Goku : tu manges trente bols de riz et tu appelles ça un en-cas.",
 				"giphyIds": [],
 				"giphyQuery": "Goku Dragon Ball"
 			},
@@ -533,9 +566,12 @@ var rivalries_default = {
 				"name": "Vegeta",
 				"origin": "Dragon Ball · 1988",
 				"line": "Prince d’une planète qui n’existe plus. Et il le fait savoir.",
+				"quip": "Team Vegeta : ton niveau de fierté est de plus de 9 000.",
 				"giphyIds": [],
 				"giphyQuery": "Vegeta Dragon Ball"
-			}
+			},
+			"bothQuip": "Les deux. Tu fais la fusion. Tu connais même la danse ? Montre.",
+			"noneQuip": "Ni Goku ni Vegeta. Team Krilin. Il en faut, du courage."
 		},
 		{
 			"id": "heros-naruto-sasuke",
@@ -544,6 +580,7 @@ var rivalries_default = {
 				"name": "Naruto",
 				"origin": "Naruto · 1999",
 				"line": "Veut devenir Hokage. Le répète toutes les cinq minutes.",
+				"quip": "Team Naruto : tu ne lâches jamais rien, et tu le cries très fort. Dattebayo !",
 				"giphyIds": [],
 				"giphyQuery": "Naruto Uzumaki"
 			},
@@ -551,9 +588,12 @@ var rivalries_default = {
 				"name": "Sasuke",
 				"origin": "Naruto · 1999",
 				"line": "Boude pendant des centaines d’épisodes.",
+				"quip": "Team Sasuke : toi aussi, tu as une coiffure qui défie la gravité et des problèmes de famille.",
 				"giphyIds": [],
 				"giphyQuery": "Sasuke Uchiha"
-			}
+			},
+			"bothQuip": "Les deux. Tu as regardé tout l’arc où Naruto court après Sasuke. Tout. Respect.",
+			"noneQuip": "Ni Naruto ni Sasuke. Team Kakashi, qui arrive en retard avec un livre douteux."
 		},
 		{
 			"id": "heros-gandalf-dumbledore",
@@ -562,6 +602,7 @@ var rivalries_default = {
 				"name": "Gandalf",
 				"origin": "Le Hobbit · 1937",
 				"line": "« Vous ne passerez pas ! »",
+				"quip": "Team Gandalf : tu n’arrives jamais en retard. Ni en avance. Tu arrives précisément à l’heure prévue.",
 				"giphyIds": [],
 				"giphyQuery": "Gandalf you shall not pass"
 			},
@@ -569,9 +610,12 @@ var rivalries_default = {
 				"name": "Dumbledore",
 				"origin": "Harry Potter · 1997",
 				"line": "Sage, puissant, et très avare d’explications.",
+				"quip": "Team Dumbledore : tu donnes cent points à ta maison pour une raison franchement discutable.",
 				"giphyIds": [],
 				"giphyQuery": "Dumbledore"
-			}
+			},
+			"bothQuip": "Les deux. Tu fais confiance aux vieux barbus qui ne t’expliquent jamais rien.",
+			"noneQuip": "Ni Gandalf ni Dumbledore. Toi aussi, tu aurais appelé les aigles dès le début."
 		},
 		{
 			"id": "heros-sherlock-holmes-hercule-poirot",
@@ -580,6 +624,7 @@ var rivalries_default = {
 				"name": "Sherlock Holmes",
 				"origin": "Arthur Conan Doyle · 1887",
 				"line": "Un violon, une pipe, et aucun ami. Sauf un.",
+				"quip": "Team Sherlock : élémentaire. Tu as deviné le coupable dès la bande-annonce.",
 				"giphyIds": [],
 				"giphyQuery": "Sherlock Holmes"
 			},
@@ -587,9 +632,12 @@ var rivalries_default = {
 				"name": "Hercule Poirot",
 				"origin": "Agatha Christie · 1920",
 				"line": "Les petites cellules grises, et une moustache impeccable.",
+				"quip": "Team Poirot : tu réunis toute la famille au salon pour annoncer qui a fini le fromage.",
 				"giphyIds": [],
 				"giphyQuery": "Hercule Poirot"
-			}
+			},
+			"bothQuip": "Les deux. À chaque repas de famille, tu soupçonnes tout le monde.",
+			"noneQuip": "Ni Holmes ni Poirot. Team inspecteur Gadget, c’est ça ?"
 		},
 		{
 			"id": "heros-robin-des-bois-zorro",
@@ -598,6 +646,7 @@ var rivalries_default = {
 				"name": "Robin des Bois",
 				"origin": "Légende anglaise",
 				"line": "Vole aux riches, donne aux pauvres, porte des collants.",
+				"quip": "Team Robin des Bois : tu partages ton compte Netflix avec toute la famille. Les riches paieront.",
 				"giphyIds": [],
 				"giphyQuery": "Robin Hood Disney"
 			},
@@ -605,9 +654,12 @@ var rivalries_default = {
 				"name": "Zorro",
 				"origin": "Johnston McCulley · 1919",
 				"line": "Signe tous ses exploits d’un Z. Très discret.",
+				"quip": "Team Zorro : tu signes tes post-it d’un Z. Personne ne sait que c’est toi.",
 				"giphyIds": [],
 				"giphyQuery": "Zorro"
-			}
+			},
+			"bothQuip": "Les deux. Collants ET cape. Tu ne crains pas le ridicule, et ça, c’est héroïque.",
+			"noneQuip": "Ni Robin des Bois ni Zorro. Tu respectes la propriété privée et le Code civil. Admirable."
 		},
 		{
 			"id": "heros-james-bond-oss-117",
@@ -616,6 +668,7 @@ var rivalries_default = {
 				"name": "James Bond",
 				"origin": "Ian Fleming · 1953",
 				"line": "Au service de Sa Majesté, et des marques de voitures.",
+				"quip": "Team James Bond : tu commandes « au shaker, pas à la cuillère » même au distributeur de café.",
 				"giphyIds": [],
 				"giphyQuery": "James Bond 007"
 			},
@@ -623,9 +676,12 @@ var rivalries_default = {
 				"name": "OSS 117",
 				"origin": "Jean Bruce · 1949",
 				"line": "« Comment est votre blanquette ? »",
+				"quip": "Team OSS 117 : tu as un avis sur tout, et il est toujours très mal renseigné.",
 				"giphyIds": ["D37UOXknYbTcQ"],
 				"giphyQuery": "OSS 117 Jean Dujardin"
-			}
+			},
+			"bothQuip": "Les deux. Bond pour les gadgets, OSS pour les répliques. Le bon goût.",
+			"noneQuip": "Ni Bond ni OSS 117. Team Johnny English, assume."
 		},
 		{
 			"id": "bouffe-pain-au-chocolat-chocolatine",
@@ -4495,7 +4551,8 @@ var rivalries_default = {
 				"origin": "Troupe · 1974",
 				"line": "Les Bronzés, le Père Noël, et un sens du malaise.",
 				"giphyIds": [],
-				"giphyQuery": "Le Splendid troupe"
+				"giphyQuery": "Le Splendid troupe",
+				"gifUrls": ["https://media.tenor.com/fanugSI18boAAAAC/les-bronz%C3%A9s-font-du-ski.gif"]
 			},
 			"b": {
 				"name": "Les Robins des Bois",
@@ -4561,7 +4618,8 @@ var rivalries_default = {
 				"origin": "Luc Besson · 1990",
 				"line": "Une tueuse au service de l’État.",
 				"giphyIds": [],
-				"giphyQuery": "Nikita film"
+				"giphyQuery": "Nikita film",
+				"gifUrls": ["https://media.tenor.com/ypQZHwfll6gAAAAC/innocent-blood-innocent-blood-gifs.gif"]
 			}
 		},
 		{
@@ -4609,7 +4667,7 @@ var rivalries_default = {
 				"name": "Les Randonneurs",
 				"origin": "Philippe Harel · 1997",
 				"line": "Une randonnée en Corse, et pas les plus sportifs.",
-				"giphyIds": [],
+				"giphyIds": ["7p0qZOxUe5cIM"],
 				"giphyQuery": "Les Randonneurs"
 			},
 			"b": {
@@ -4778,7 +4836,8 @@ var rivalries_default = {
 				"origin": "Claude Zidi · 1984",
 				"line": "Deux flics, beaucoup d’arrangements.",
 				"giphyIds": [],
-				"giphyQuery": "Les Ripoux"
+				"giphyQuery": "Les Ripoux",
+				"gifUrls": ["https://media.tenor.com/PvqrX4XSoSQAAAAC/thierry-lhermitte-thierry.gif"]
 			},
 			"b": {
 				"name": "Les Spécialistes",
@@ -7036,7 +7095,8 @@ var rivalries_default = {
 				"line": "Des disques en plastique, dans les paquets de chips.",
 				"giphyIds": [],
 				"giphyQuery": "Tazos",
-				"giphyKeywords": ["pog"]
+				"giphyKeywords": ["pog"],
+				"gifUrls": ["https://media.tenor.com/XLablfraQxIAAAAC/pokemon-pogs.gif"]
 			},
 			"b": {
 				"name": "Cartes Pokémon",
@@ -10242,14 +10302,14 @@ var rivalries_default = {
 				"name": "Casque intégral",
 				"origin": "La tête entière",
 				"line": "Tout protégé, et la visière qui s’embue.",
-				"giphyIds": [],
+				"giphyIds": ["RAIwEdpdMYk8KyuXXj"],
 				"giphyQuery": "full face helmet"
 			},
 			"b": {
 				"name": "Casque jet",
 				"origin": "Le visage à l’air",
 				"line": "Le vent sur les joues, et les moucherons aussi.",
-				"giphyIds": [],
+				"giphyIds": ["ECxBqbjG4gxLRR0jX9"],
 				"giphyQuery": "open face helmet"
 			}
 		},
@@ -12978,8 +13038,9 @@ var rivalries_default = {
 				"name": "Basilic",
 				"origin": "Harry Potter",
 				"line": "Un serpent géant, et un regard mortel.",
-				"giphyIds": [],
-				"giphyQuery": "basilisk"
+				"giphyIds": ["3ohc1084yp9eOuTmIo"],
+				"giphyQuery": "harry potter",
+				"giphyKeywords": ["snake fighting"]
 			},
 			"b": {
 				"name": "Acromentule",
@@ -13669,7 +13730,7 @@ var rivalries_default = {
 				"name": "Aigle",
 				"origin": "Les montagnes",
 				"line": "Il voit un lapin à trois kilomètres.",
-				"giphyIds": [],
+				"giphyIds": ["AD57MmRuoSype48CXD"],
 				"giphyQuery": "eagle"
 			}
 		},
@@ -14006,6 +14067,7 @@ var rivalries_default = {
 				"name": "Wonder Woman",
 				"origin": "DC · 1941",
 				"line": "Un lasso de vérité, et des bracelets pare-balles.",
+				"quip": "Team Wonder Woman : avec toi, impossible de mentir. Le lasso n’est jamais loin.",
 				"giphyIds": [],
 				"giphyQuery": "Wonder Woman"
 			},
@@ -14013,9 +14075,12 @@ var rivalries_default = {
 				"name": "Captain Marvel",
 				"origin": "Marvel · 1968",
 				"line": "Des poings photoniques, et un chat qui n’en est pas un.",
+				"quip": "Team Captain Marvel : tu pousses un vaisseau spatial à mains nues. Un lundi matin, c’est rien.",
 				"giphyIds": [],
 				"giphyQuery": "Captain Marvel"
-			}
+			},
+			"bothQuip": "Les deux. Tu veux le film où elles font équipe. Nous aussi.",
+			"noneQuip": "Ni l’une ni l’autre. Le multivers te propose d’autres options."
 		},
 		{
 			"id": "heros-thor-loki",
@@ -14024,6 +14089,7 @@ var rivalries_default = {
 				"name": "Thor",
 				"origin": "Marvel · 1962",
 				"line": "Un marteau, des éclairs, et des cheveux parfaits.",
+				"quip": "Team Thor : tu fais plus confiance à ton marteau qu’à ton plan.",
 				"giphyIds": [],
 				"giphyQuery": "Thor hammer"
 			},
@@ -14031,9 +14097,12 @@ var rivalries_default = {
 				"name": "Loki",
 				"origin": "Marvel · 1962",
 				"line": "Dieu de la malice, avec toujours un plan de trop.",
+				"quip": "Team Loki : tu as déjà trahi quelqu’un juste pour voir sa tête. Ne mens pas. Bon, mens, c’est ton truc.",
 				"giphyIds": [],
 				"giphyQuery": "Loki"
-			}
+			},
+			"bothQuip": "Les deux. Tu adores les fratries qui se poignardent mais s’aiment quand même.",
+			"noneQuip": "Ni Thor ni Loki. Team Odin, qui fait la sieste quand on a besoin de lui."
 		},
 		{
 			"id": "heros-black-panther-black-widow",
@@ -14042,6 +14111,7 @@ var rivalries_default = {
 				"name": "Black Panther",
 				"origin": "Marvel · 1966",
 				"line": "« Wakanda pour toujours ! »",
+				"quip": "Team Black Panther : tu dis au revoir en croisant les bras sur la poitrine, et tu ne t’en excuses pas.",
 				"giphyIds": [],
 				"giphyQuery": "Black Panther"
 			},
@@ -14049,9 +14119,12 @@ var rivalries_default = {
 				"name": "Black Widow",
 				"origin": "Marvel · 1964",
 				"line": "Espionne, et toujours un coup d’avance.",
+				"quip": "Team Black Widow : tu sais déjà tout sur la personne qui lit par-dessus ton épaule.",
 				"giphyIds": [],
 				"giphyQuery": "Black Widow"
-			}
+			},
+			"bothQuip": "Les deux. Avec toi, le noir va avec tout.",
+			"noneQuip": "Ni l’un ni l’autre. Team Hawkeye, celui que tout le monde oublie."
 		},
 		{
 			"id": "heros-aquaman-flash",
@@ -14060,6 +14133,7 @@ var rivalries_default = {
 				"name": "Aquaman",
 				"origin": "DC · 1941",
 				"line": "Il parle aux poissons. Les poissons l’écoutent.",
+				"quip": "Team Aquaman : tu prends des douches de quarante-cinq minutes. Pour l’entraînement.",
 				"giphyIds": [],
 				"giphyQuery": "Aquaman"
 			},
@@ -14067,9 +14141,12 @@ var rivalries_default = {
 				"name": "Flash",
 				"origin": "DC · 1940",
 				"line": "Le plus rapide de tous, et pourtant toujours en retard.",
+				"quip": "Team Flash : tu as fini de lire cette phrase avant qu’elle s’affiche.",
 				"giphyIds": [],
 				"giphyQuery": "The Flash running"
-			}
+			},
+			"bothQuip": "Les deux. Courir sur l’eau, ça coche les deux cases. Bien joué.",
+			"noneQuip": "Ni Aquaman ni Flash. Tu as le mal de mer et tu marches lentement. Ça se respecte."
 		},
 		{
 			"id": "heros-hellboy-le-punisher",
@@ -14078,6 +14155,7 @@ var rivalries_default = {
 				"name": "Hellboy",
 				"origin": "Dark Horse · 1993",
 				"line": "Des cornes limées et un faible pour les chats.",
+				"quip": "Team Hellboy : tu adores les chats et les pancakes. Démon, peut-être, mais démon gourmand.",
 				"giphyIds": [],
 				"giphyQuery": "Hellboy"
 			},
@@ -14085,9 +14163,12 @@ var rivalries_default = {
 				"name": "Le Punisher",
 				"origin": "Marvel · 1974",
 				"line": "Une tête de mort sur le t-shirt, et zéro humour.",
+				"quip": "Team Punisher : ton t-shirt à tête de mort, c’est ta tenue du dimanche.",
 				"giphyIds": [],
 				"giphyQuery": "Punisher"
-			}
+			},
+			"bothQuip": "Les deux. Tes soirées doivent être calmes. Non ?",
+			"noneQuip": "Ni Hellboy ni le Punisher. Tu préfères les héros qui sourient de temps en temps."
 		},
 		{
 			"id": "heros-magneto-professeur-x",
@@ -14096,6 +14177,7 @@ var rivalries_default = {
 				"name": "Magneto",
 				"origin": "Marvel · 1963",
 				"line": "Le maître du métal, et un casque contre la télépathie.",
+				"quip": "Team Magneto : les portiques d’aéroport, très peu pour toi.",
 				"giphyIds": [],
 				"giphyQuery": "Magneto"
 			},
@@ -14103,9 +14185,12 @@ var rivalries_default = {
 				"name": "Professeur X",
 				"origin": "Marvel · 1963",
 				"line": "Un fauteuil roulant, et toutes tes pensées.",
+				"quip": "Team Professeur X : tu sais déjà ce que tu vas voter au prochain duel. Nous aussi, du coup.",
 				"giphyIds": [],
 				"giphyQuery": "Professor X"
-			}
+			},
+			"bothQuip": "Les deux. Tu veux qu’ils refassent une partie d’échecs en vieux amis. C’est beau.",
+			"noneQuip": "Ni Magneto ni Xavier. Tu portes un casque en alu, juste au cas où ?"
 		},
 		{
 			"id": "heros-lex-luthor-le-bouffon-vert",
@@ -14114,6 +14199,7 @@ var rivalries_default = {
 				"name": "Lex Luthor",
 				"origin": "DC · 1940",
 				"line": "Un génie chauve, très jaloux d’un Kryptonien.",
+				"quip": "Team Lex Luthor : toi aussi, tu as un ennemi juré qui ne sait même pas que tu existes.",
 				"giphyIds": [],
 				"giphyQuery": "Lex Luthor"
 			},
@@ -14121,9 +14207,12 @@ var rivalries_default = {
 				"name": "Le Bouffon vert",
 				"origin": "Marvel · 1964",
 				"line": "Un planeur, et des citrouilles explosives.",
+				"quip": "Team Bouffon vert : chez toi, Halloween dure toute l’année.",
 				"giphyIds": [],
 				"giphyQuery": "Green Goblin"
-			}
+			},
+			"bothQuip": "Les deux. Les méchants milliardaires, c’est ton genre de héros.",
+			"noneQuip": "Ni Lex ni le Bouffon. Les milliardaires, tu t’en méfies. On note."
 		},
 		{
 			"id": "heros-harley-quinn-catwoman",
@@ -14132,6 +14221,7 @@ var rivalries_default = {
 				"name": "Harley Quinn",
 				"origin": "DC · 1992",
 				"line": "Une batte de baseball et des couettes bicolores.",
+				"quip": "Team Harley Quinn : chez toi, une batte de baseball, c’est un accessoire de mode.",
 				"giphyIds": [],
 				"giphyQuery": "Harley Quinn"
 			},
@@ -14139,9 +14229,12 @@ var rivalries_default = {
 				"name": "Catwoman",
 				"origin": "DC · 1940",
 				"line": "Voleuse de bijoux, avec neuf vies.",
+				"quip": "Team Catwoman : tu fais tomber des objets des étagères en regardant les gens dans les yeux.",
 				"giphyIds": [],
 				"giphyQuery": "Catwoman"
-			}
+			},
+			"bothQuip": "Les deux. Gotham n’est pas assez grand pour vous trois.",
+			"noneQuip": "Ni Harley ni Catwoman. Batman te remercie, il avait assez de travail."
 		},
 		{
 			"id": "heros-le-sphinx-le-pingouin",
@@ -14150,6 +14243,7 @@ var rivalries_default = {
 				"name": "Le Sphinx",
 				"origin": "DC · 1948",
 				"line": "Des énigmes partout, même sur son costume.",
+				"quip": "Team Sphinx : tu envoies tes messages sous forme de rébus. Tes amis n’en peuvent plus.",
 				"giphyIds": [],
 				"giphyQuery": "Riddler"
 			},
@@ -14157,9 +14251,12 @@ var rivalries_default = {
 				"name": "Le Pingouin",
 				"origin": "DC · 1941",
 				"line": "Un parapluie, un monocle, un haut-de-forme.",
+				"quip": "Team Pingouin : tu sors toujours avec un parapluie. Même au soleil. Surtout au soleil.",
 				"giphyIds": [],
 				"giphyQuery": "Penguin Batman"
-			}
+			},
+			"bothQuip": "Les deux. Tu collectionnes les méchants de seconde zone de Gotham. On respecte.",
+			"noneQuip": "Ni le Sphinx ni le Pingouin. Pourquoi ? C’est une énigme."
 		},
 		{
 			"id": "heros-daredevil-ant-man",
@@ -14168,6 +14265,7 @@ var rivalries_default = {
 				"name": "Daredevil",
 				"origin": "Marvel · 1964",
 				"line": "Aveugle, mais il voit tout venir.",
+				"quip": "Team Daredevil : tu entends ton voisin réchauffer sa pizza trois étages plus bas.",
 				"giphyIds": [],
 				"giphyQuery": "Daredevil"
 			},
@@ -14175,9 +14273,12 @@ var rivalries_default = {
 				"name": "Ant-Man",
 				"origin": "Marvel · 1962",
 				"line": "Minuscule, mais redoutable.",
+				"quip": "Team Ant-Man : au concert, tu te faufiles toujours au premier rang.",
 				"giphyIds": [],
 				"giphyQuery": "Ant-Man"
-			}
+			},
+			"bothQuip": "Les deux. L’un ne voit pas, l’autre ne se voit pas. Pour se donner rendez-vous, bon courage.",
+			"noneQuip": "Ni Daredevil ni Ant-Man. Tu préfères les héros de taille normale qui voient bien. Logique."
 		},
 		{
 			"id": "heros-doctor-strange-la-sorciere-rouge",
@@ -14186,6 +14287,7 @@ var rivalries_default = {
 				"name": "Doctor Strange",
 				"origin": "Marvel · 1963",
 				"line": "Une cape qui a sa propre volonté.",
+				"quip": "Team Doctor Strange : tu as vu 14 000 605 futurs. Dans un seul, tu choisis l’autre.",
 				"giphyIds": [],
 				"giphyQuery": "Doctor Strange"
 			},
@@ -14193,9 +14295,12 @@ var rivalries_default = {
 				"name": "La Sorcière rouge",
 				"origin": "Marvel · 1964",
 				"line": "De la magie du chaos, et une puissance folle.",
+				"quip": "Team Sorcière rouge : quand ça ne va pas, tu réécris la réalité en sitcom.",
 				"giphyIds": [],
 				"giphyQuery": "Scarlet Witch"
-			}
+			},
+			"bothQuip": "Les deux. Le multivers de la folie te va comme un gant.",
+			"noneQuip": "Ni Strange ni Wanda. La magie, le chaos, très peu pour toi."
 		},
 		{
 			"id": "heros-les-avengers-la-justice-league",
@@ -14204,6 +14309,7 @@ var rivalries_default = {
 				"name": "Les Avengers",
 				"origin": "Marvel · 1963",
 				"line": "Les héros de la Terre, quand ils arrivent à s’entendre.",
+				"quip": "Team Avengers : tes réunions de famille aussi finissent en bagarre générale à l’aéroport.",
 				"giphyIds": [],
 				"giphyQuery": "Avengers assemble"
 			},
@@ -14211,9 +14317,12 @@ var rivalries_default = {
 				"name": "La Justice League",
 				"origin": "DC · 1960",
 				"line": "Les dieux de l’Olympe, version cape.",
+				"quip": "Team Justice League : tu as vu la version de quatre heures. En entier.",
 				"giphyIds": [],
 				"giphyQuery": "Justice League"
-			}
+			},
+			"bothQuip": "Les deux. Tu attends le crossover depuis tes dix ans. Il ne viendra pas.",
+			"noneQuip": "Ni les Avengers ni la Justice League. Tu préfères les héros qui bossent seuls, comme ton pharmacien."
 		},
 		{
 			"id": "heros-les-x-men-les-gardiens-de-la-galaxie",
@@ -14222,6 +14331,7 @@ var rivalries_default = {
 				"name": "Les X-Men",
 				"origin": "Marvel · 1963",
 				"line": "Une école pour mutants, et beaucoup de drames.",
+				"quip": "Team X-Men : tu attends toujours ta lettre d’admission chez le professeur Xavier.",
 				"giphyIds": [],
 				"giphyQuery": "X-Men"
 			},
@@ -14229,9 +14339,12 @@ var rivalries_default = {
 				"name": "Les Gardiens de la Galaxie",
 				"origin": "Marvel · 2008",
 				"line": "Un raton laveur, un arbre, et une cassette audio.",
+				"quip": "Team Gardiens : tu as déjà dansé devant ton miroir sur une cassette des années 70. Avoue.",
 				"giphyIds": [],
 				"giphyQuery": "Guardians of the Galaxy"
-			}
+			},
+			"bothQuip": "Les deux. Tu adores les familles bizarres et recomposées.",
+			"noneQuip": "Ni les X-Men ni les Gardiens. Le travail d’équipe, ce n’est pas trop ton truc."
 		},
 		{
 			"id": "heros-groot-rocket",
@@ -14240,6 +14353,7 @@ var rivalries_default = {
 				"name": "Groot",
 				"origin": "Marvel · 1960",
 				"line": "« Je s’appelle Groot. »",
+				"quip": "Team Groot : je s’appelle Groot. (Traduction : excellent choix.)",
 				"giphyIds": [],
 				"giphyQuery": "Groot"
 			},
@@ -14247,9 +14361,12 @@ var rivalries_default = {
 				"name": "Rocket",
 				"origin": "Marvel · 1976",
 				"line": "Un raton laveur. Enfin, ne le lui dis pas.",
+				"quip": "Team Rocket : tu veux le bras mécanique de quelqu’un. Juste pour rire.",
 				"giphyIds": [],
 				"giphyQuery": "Rocket Raccoon"
-			}
+			},
+			"bothQuip": "Les deux. Un arbre et un raton laveur : la meilleure colocation de la galaxie.",
+			"noneQuip": "Ni Groot ni Rocket. Allergique aux poils et au pollen ? Ça se comprend."
 		},
 		{
 			"id": "heros-luffy-saitama",
@@ -14258,6 +14375,7 @@ var rivalries_default = {
 				"name": "Luffy",
 				"origin": "One Piece · 1997",
 				"line": "Un chapeau de paille, et un corps en caoutchouc.",
+				"quip": "Team Luffy : tu veux devenir le roi de quelque chose. Peu importe quoi.",
 				"giphyIds": [],
 				"giphyQuery": "Luffy"
 			},
@@ -14265,9 +14383,12 @@ var rivalries_default = {
 				"name": "Saitama",
 				"origin": "One Punch Man · 2009",
 				"line": "Un seul coup de poing, et c’est fini.",
+				"quip": "Team Saitama : tu as tout gagné, et tu t’ennuies un peu. Ce duel ne va pas t’aider.",
 				"giphyIds": [],
 				"giphyQuery": "Saitama One Punch"
-			}
+			},
+			"bothQuip": "Les deux. Un chapeau de paille sur un crâne chauve. Pourquoi pas.",
+			"noneQuip": "Ni Luffy ni Saitama. Tu n’as pas fini One Piece non plus, hein."
 		},
 		{
 			"id": "heros-sauron-saroumane",
@@ -14276,6 +14397,7 @@ var rivalries_default = {
 				"name": "Sauron",
 				"origin": "Tolkien · 1954",
 				"line": "Un œil, une tour, et beaucoup de mauvaises intentions.",
+				"quip": "Team Sauron : tu surveilles tout, tout le temps. Même ce vote.",
 				"giphyIds": [],
 				"giphyQuery": "Eye of Sauron"
 			},
@@ -14283,9 +14405,12 @@ var rivalries_default = {
 				"name": "Saroumane",
 				"origin": "Tolkien · 1954",
 				"line": "Le magicien blanc qui a mal tourné.",
+				"quip": "Team Saroumane : tu as déjà quitté un groupe de discussion avec fracas. Plusieurs fois.",
 				"giphyIds": [],
 				"giphyQuery": "Saruman"
-			}
+			},
+			"bothQuip": "Les deux. Tu aimes les tours très hautes et les plans très mauvais.",
+			"noneQuip": "Ni Sauron ni Saroumane. Team Gollum. Mon précieux vote."
 		},
 		{
 			"id": "heros-le-capitaine-crochet-jafar",
@@ -14294,6 +14419,7 @@ var rivalries_default = {
 				"name": "Le Capitaine Crochet",
 				"origin": "Peter Pan · 1904",
 				"line": "Un crochet, et une peur bleue des crocodiles.",
+				"quip": "Team Capitaine Crochet : le tic-tac de ton réveil te met très mal à l’aise.",
 				"giphyIds": [],
 				"giphyQuery": "Captain Hook"
 			},
@@ -14301,9 +14427,12 @@ var rivalries_default = {
 				"name": "Jafar",
 				"origin": "Aladdin · 1992",
 				"line": "Un perroquet, un sceptre, et de grandes ambitions.",
+				"quip": "Team Jafar : ton perroquet a plus de répartie que toi, et tu l’acceptes.",
 				"giphyIds": [],
 				"giphyQuery": "Jafar"
-			}
+			},
+			"bothQuip": "Les deux. Les méchants Disney à chapeau, c’est ton péché mignon.",
+			"noneQuip": "Ni Crochet ni Jafar. Tu préfères Peter Pan et Aladdin. Comme tout le monde, quoi."
 		},
 		{
 			"id": "heros-scar-cruella",
@@ -14312,6 +14441,7 @@ var rivalries_default = {
 				"name": "Scar",
 				"origin": "Le Roi lion · 1994",
 				"line": "« Soyez prêtes ! »",
+				"quip": "Team Scar : tu as déjà poussé quelqu’un d’une falaise pour un héritage. Au Monopoly.",
 				"giphyIds": [],
 				"giphyQuery": "Scar Lion King"
 			},
@@ -14319,9 +14449,12 @@ var rivalries_default = {
 				"name": "Cruella",
 				"origin": "Les 101 Dalmatiens · 1961",
 				"line": "Une passion inquiétante pour les manteaux à taches.",
+				"quip": "Team Cruella : tu regardes les chiots en imaginant un manteau. Arrête ça tout de suite.",
 				"giphyIds": [],
 				"giphyQuery": "Cruella de Vil"
-			}
+			},
+			"bothQuip": "Les deux. Tu soutiens tous les méchants Disney. Ta place est dans l’ombre, avec eux.",
+			"noneQuip": "Ni Scar ni Cruella. Les animaux te remercient."
 		},
 		{
 			"id": "heros-dark-maul-le-general-grievous",
@@ -14330,6 +14463,7 @@ var rivalries_default = {
 				"name": "Dark Maul",
 				"origin": "Star Wars · 1999",
 				"line": "Un sabre double, et très peu de dialogues.",
+				"quip": "Team Dark Maul : tu parles peu, mais tu fais forte impression.",
 				"giphyIds": [],
 				"giphyQuery": "Darth Maul"
 			},
@@ -14337,9 +14471,12 @@ var rivalries_default = {
 				"name": "Le général Grievous",
 				"origin": "Star Wars · 2005",
 				"line": "Quatre bras, quatre sabres, et une toux.",
+				"quip": "Team Grievous : tu collectionnes les sabres laser comme d’autres les capsules de café.",
 				"giphyIds": [],
 				"giphyQuery": "General Grievous"
-			}
+			},
+			"bothQuip": "Les deux. Tu préfères les méchants de la prélogie. C’est rare, on respecte.",
+			"noneQuip": "Ni Maul ni Grievous. Hello there. Toi aussi, tu attends Obi-Wan."
 		},
 		{
 			"id": "heros-obi-wan-kenobi-yoda",
@@ -14348,6 +14485,7 @@ var rivalries_default = {
 				"name": "Obi-Wan Kenobi",
 				"origin": "Star Wars · 1977",
 				"line": "« Hello there. »",
+				"quip": "Team Obi-Wan : toi, tu as toujours le terrain en hauteur.",
 				"giphyIds": [],
 				"giphyQuery": "Obi-Wan Kenobi"
 			},
@@ -14355,9 +14493,12 @@ var rivalries_default = {
 				"name": "Yoda",
 				"origin": "Star Wars · 1980",
 				"line": "Petit, vert, et une grammaire très originale.",
+				"quip": "Team Yoda : bon choix tu as fait. Fier de toi je suis.",
 				"giphyIds": [],
 				"giphyQuery": "Yoda"
-			}
+			},
+			"bothQuip": "Les deux. Les maîtres Jedi sages et un peu passifs-agressifs, ton truc c’est.",
+			"noneQuip": "Ni Obi-Wan ni Yoda. Tu préfères les profs qui expliquent clairement les choses."
 		},
 		{
 			"id": "heros-neo-morpheus",
@@ -14366,6 +14507,7 @@ var rivalries_default = {
 				"name": "Neo",
 				"origin": "Matrix · 1999",
 				"line": "La pilule rouge, et des ralentis.",
+				"quip": "Team Neo : tu esquives tes responsabilités au ralenti.",
 				"giphyIds": [],
 				"giphyQuery": "Neo Matrix"
 			},
@@ -14373,9 +14515,12 @@ var rivalries_default = {
 				"name": "Morpheus",
 				"origin": "Matrix · 1999",
 				"line": "Il te laisse choisir la pilule.",
+				"quip": "Team Morpheus : et si je te disais… que tu as fait le bon choix ?",
 				"giphyIds": [],
 				"giphyQuery": "Morpheus pills"
-			}
+			},
+			"bothQuip": "Les deux. Pilule rouge ET pilule bleue. Ça va, le mal de tête ?",
+			"noneQuip": "Ni Neo ni Morpheus. Team agent Smith. Et Smith. Et Smith."
 		},
 		{
 			"id": "heros-john-mcclane-jack-bauer",
@@ -14384,6 +14529,7 @@ var rivalries_default = {
 				"name": "John McClane",
 				"origin": "Piège de cristal · 1988",
 				"line": "Pieds nus, en débardeur, il sauve tout le monde.",
+				"quip": "Team John McClane : pour toi, Piège de cristal est un film de Noël. Et tu as raison.",
 				"giphyIds": [],
 				"giphyQuery": "John McClane"
 			},
@@ -14391,9 +14537,12 @@ var rivalries_default = {
 				"name": "Jack Bauer",
 				"origin": "24 heures chrono · 2001",
 				"line": "Vingt-quatre heures, et pas une pause.",
+				"quip": "Team Jack Bauer : tu n’as pas mangé, pas dormi, et pas fait pipi depuis vingt-quatre heures.",
 				"giphyIds": [],
 				"giphyQuery": "Jack Bauer"
-			}
+			},
+			"bothQuip": "Les deux. Ton Noël idéal ressemble à une prise d’otages.",
+			"noneQuip": "Ni McClane ni Bauer. Tu préfères les héros qui prennent leur week-end."
 		},
 		{
 			"id": "heros-macgyver-l-agence-tous-risques",
@@ -14402,6 +14551,7 @@ var rivalries_default = {
 				"name": "MacGyver",
 				"origin": "Série télé · 1985",
 				"line": "Un couteau suisse, un trombone, et le tour est joué.",
+				"quip": "Team MacGyver : tu répares la machine à café avec un élastique et ta carte Vitale.",
 				"giphyIds": [],
 				"giphyQuery": "MacGyver"
 			},
@@ -14409,9 +14559,12 @@ var rivalries_default = {
 				"name": "L’Agence tous risques",
 				"origin": "Série télé · 1983",
 				"line": "« J’adore quand un plan se déroule sans accroc. »",
+				"quip": "Team Agence tous risques : tu refuses de prendre l’avion. Comme Barracuda.",
 				"giphyIds": [],
 				"giphyQuery": "A-Team"
-			}
+			},
+			"bothQuip": "Les deux. Avec toi, un plan se déroule toujours sans accroc. Ou avec un trombone.",
+			"noneQuip": "Ni MacGyver ni l’Agence. Tu appelles un dépanneur. Le bon sens."
 		},
 		{
 			"id": "heros-le-marsupilami-gaston-lagaffe",
@@ -14420,6 +14573,7 @@ var rivalries_default = {
 				"name": "Le Marsupilami",
 				"origin": "Franquin · 1952",
 				"line": "« Houba houba ! »",
+				"quip": "Team Marsupilami : houba houba. C’est tout. C’est assez.",
 				"giphyIds": [],
 				"giphyQuery": "Marsupilami"
 			},
@@ -14427,9 +14581,12 @@ var rivalries_default = {
 				"name": "Gaston Lagaffe",
 				"origin": "Franquin · 1957",
 				"line": "« M’enfin ! »",
+				"quip": "Team Gaston : tu as déjà fait exploser quelque chose au bureau. Une imprimante, au moins.",
 				"giphyIds": [],
 				"giphyQuery": "Gaston Lagaffe"
-			}
+			},
+			"bothQuip": "Les deux. Franquin te remercie de là-haut.",
+			"noneQuip": "Ni le Marsupilami ni Gaston. Rogntudju !"
 		},
 		{
 			"id": "heros-spirou-blake-et-mortimer",
@@ -14438,6 +14595,7 @@ var rivalries_default = {
 				"name": "Spirou",
 				"origin": "Rob-Vel · 1938",
 				"line": "Un groom, un écureuil, et des aventures.",
+				"quip": "Team Spirou : tu porterais un uniforme de groom en toute circonstance. Même à un mariage.",
 				"giphyIds": [],
 				"giphyQuery": "Spirou"
 			},
@@ -14445,9 +14603,12 @@ var rivalries_default = {
 				"name": "Blake et Mortimer",
 				"origin": "Edgar P. Jacobs · 1946",
 				"line": "La marque jaune, et des complots.",
+				"quip": "Team Blake et Mortimer : pour toi, une bonne BD, c’est dix lignes de texte par case.",
 				"giphyIds": [],
 				"giphyQuery": "Blake and Mortimer"
-			}
+			},
+			"bothQuip": "Les deux. Ta collection de BD est rangée par ordre chronologique. Évidemment.",
+			"noneQuip": "Ni Spirou ni Blake et Mortimer. Tes BD, ce sont des mangas, c’est ça ?"
 		},
 		{
 			"id": "heros-iznogoud-les-dalton",
@@ -14456,6 +14617,7 @@ var rivalries_default = {
 				"name": "Iznogoud",
 				"origin": "Goscinny et Tabary · 1962",
 				"line": "Il veut être calife à la place du calife.",
+				"quip": "Team Iznogoud : tu veux être chef à la place du chef. Ton chef lit ce site, au fait.",
 				"giphyIds": [],
 				"giphyQuery": "Iznogoud"
 			},
@@ -14463,9 +14625,12 @@ var rivalries_default = {
 				"name": "Les Dalton",
 				"origin": "Morris · 1951",
 				"line": "Quatre frères, rangés du plus petit au plus grand.",
+				"quip": "Team Dalton : dans ta famille aussi, on se range par taille sur les photos.",
 				"giphyIds": [],
 				"giphyQuery": "Daltons"
-			}
+			},
+			"bothQuip": "Les deux. Les méchants qui ratent tout, ce sont les meilleurs.",
+			"noneQuip": "Ni Iznogoud ni les Dalton. Tu as un faible pour les gens qui réussissent. Original."
 		},
 		{
 			"id": "heros-arsene-lupin-le-comte-de-monte-cristo",
@@ -14474,6 +14639,7 @@ var rivalries_default = {
 				"name": "Arsène Lupin",
 				"origin": "Maurice Leblanc · 1905",
 				"line": "Le gentleman cambrioleur.",
+				"quip": "Team Arsène Lupin : tu rends toujours ce que tu empruntes. Avec un petit mot élégant.",
 				"giphyIds": [],
 				"giphyQuery": "Arsene Lupin"
 			},
@@ -14481,9 +14647,12 @@ var rivalries_default = {
 				"name": "Le Comte de Monte-Cristo",
 				"origin": "Alexandre Dumas · 1844",
 				"line": "La vengeance, servie très froide.",
+				"quip": "Team Monte-Cristo : tu tiens une liste. Une très longue liste. Et tu as tout ton temps.",
 				"giphyIds": [],
 				"giphyQuery": "Count of Monte Cristo"
-			}
+			},
+			"bothQuip": "Les deux. La classe et la rancune : un profil intéressant.",
+			"noneQuip": "Ni Lupin ni Monte-Cristo. Tu as la conscience tranquille. Pour l’instant."
 		},
 		{
 			"id": "heros-hercule-achille",
@@ -14492,6 +14661,7 @@ var rivalries_default = {
 				"name": "Hercule",
 				"origin": "Disney · 1997",
 				"line": "Un demi-dieu, et un coach satyre.",
+				"quip": "Team Hercule : de zéro à héros, en un seul vote.",
 				"giphyIds": [],
 				"giphyQuery": "Hercules Disney"
 			},
@@ -14499,9 +14669,12 @@ var rivalries_default = {
 				"name": "Achille",
 				"origin": "L’Iliade",
 				"line": "Invincible, sauf au talon.",
+				"quip": "Team Achille : tu fais très attention à tes talons dans les escaliers. On a vu.",
 				"giphyIds": [],
 				"giphyQuery": "Achilles"
-			}
+			},
+			"bothQuip": "Les deux. Tu adores les héros grecs bien musclés et un peu bêtes.",
+			"noneQuip": "Ni Hercule ni Achille. Les dieux de l’Olympe en prennent note. Ils sont rancuniers."
 		},
 		{
 			"id": "heros-ulysse-jason",
@@ -14510,6 +14683,7 @@ var rivalries_default = {
 				"name": "Ulysse",
 				"origin": "L’Odyssée",
 				"line": "Dix ans pour rentrer chez lui.",
+				"quip": "Team Ulysse : toi aussi, tu mets dix ans à rentrer d’une soirée.",
 				"giphyIds": ["vd7zIvHKK8MBI3izXj"],
 				"giphyQuery": "Odysseus"
 			},
@@ -14517,9 +14691,12 @@ var rivalries_default = {
 				"name": "Jason",
 				"origin": "Les Argonautes",
 				"line": "Une toison d’or, et un bateau plein de héros.",
+				"quip": "Team Jason : une toison d’or ? Tu aurais pu acheter un plaid, mais bon.",
 				"giphyIds": [],
 				"giphyQuery": "Jason Argonauts"
-			}
+			},
+			"bothQuip": "Les deux. De longs voyages en bateau avec des copains : ton idée des vacances.",
+			"noneQuip": "Ni Ulysse ni Jason. Tu préfères les vacances sans monstre marin."
 		},
 		{
 			"id": "heros-ripley-sarah-connor",
@@ -14528,6 +14705,7 @@ var rivalries_default = {
 				"name": "Ripley",
 				"origin": "Alien · 1979",
 				"line": "Seule face à l’Alien, et toujours debout.",
+				"quip": "Team Ripley : tu vérifies toujours les conduits d’aération avant de dormir.",
 				"giphyIds": [],
 				"giphyQuery": "Ripley Alien"
 			},
@@ -14535,9 +14713,12 @@ var rivalries_default = {
 				"name": "Sarah Connor",
 				"origin": "Terminator · 1984",
 				"line": "De serveuse à guerrière, en deux films.",
+				"quip": "Team Sarah Connor : tu te méfies des aspirateurs robots. Avec raison.",
 				"giphyIds": [],
 				"giphyQuery": "Sarah Connor"
-			}
+			},
+			"bothQuip": "Les deux. Avec toi, les extraterrestres et les robots n’ont aucune chance.",
+			"noneQuip": "Ni Ripley ni Sarah Connor. Tu ne passerais pas la première scène, hein ?"
 		},
 		{
 			"id": "heros-katniss-everdeen-hermione-granger",
@@ -14546,6 +14727,7 @@ var rivalries_default = {
 				"name": "Katniss Everdeen",
 				"origin": "Hunger Games · 2008",
 				"line": "Un arc, une tresse, et une révolution.",
+				"quip": "Team Katniss : tu te portes volontaire pour tout. Même pour la vaisselle.",
 				"giphyIds": [],
 				"giphyQuery": "Katniss"
 			},
@@ -14553,9 +14735,12 @@ var rivalries_default = {
 				"name": "Hermione Granger",
 				"origin": "Harry Potter · 1997",
 				"line": "Elle a tout lu, et elle te l’a dit.",
+				"quip": "Team Hermione : tu as lu les conditions d’utilisation de ce site. Toutes.",
 				"giphyIds": [],
 				"giphyQuery": "Hermione"
-			}
+			},
+			"bothQuip": "Les deux. Tu veux la révolution, mais seulement après avoir révisé.",
+			"noneQuip": "Ni Katniss ni Hermione. Les héroïnes trop parfaites, ça t’agace un peu."
 		},
 		{
 			"id": "heros-severus-rogue-hagrid",
@@ -14564,6 +14749,7 @@ var rivalries_default = {
 				"name": "Severus Rogue",
 				"origin": "Harry Potter · 1997",
 				"line": "« Toujours. »",
+				"quip": "Team Rogue : toujours.",
 				"giphyIds": [],
 				"giphyQuery": "Snape"
 			},
@@ -14571,9 +14757,12 @@ var rivalries_default = {
 				"name": "Hagrid",
 				"origin": "Harry Potter · 1997",
 				"line": "« T’es un sorcier, Harry. »",
+				"quip": "Team Hagrid : tu ramènes des bêtes dangereuses à la maison et tu leur donnes des petits noms.",
 				"giphyIds": [],
 				"giphyQuery": "Hagrid"
-			}
+			},
+			"bothQuip": "Les deux. Tu as pleuré deux fois dans la saga. Au moins.",
+			"noneQuip": "Ni Rogue ni Hagrid. Team Rusard. Tu aimes le règlement."
 		},
 		{
 			"id": "heros-tarzan-mowgli",
@@ -14582,6 +14771,7 @@ var rivalries_default = {
 				"name": "Tarzan",
 				"origin": "Edgar Rice Burroughs · 1912",
 				"line": "Élevé par des singes, et il crie très fort.",
+				"quip": "Team Tarzan : tu cries au réveil. Tes voisins aussi, maintenant.",
 				"giphyIds": [],
 				"giphyQuery": "Tarzan"
 			},
@@ -14589,9 +14779,12 @@ var rivalries_default = {
 				"name": "Mowgli",
 				"origin": "Rudyard Kipling · 1894",
 				"line": "Élevé par des loups, et il chante avec un ours.",
+				"quip": "Team Mowgli : il en faut peu pour être heureux. Ce vote, par exemple.",
 				"giphyIds": [],
 				"giphyQuery": "Mowgli"
-			}
+			},
+			"bothQuip": "Les deux. Ton plan de vie : tout plaquer et partir vivre dans les arbres.",
+			"noneQuip": "Ni Tarzan ni Mowgli. Tu préfères le canapé à la jungle. Sage décision."
 		},
 		{
 			"id": "heros-peter-pan-le-petit-prince",
@@ -14600,6 +14793,7 @@ var rivalries_default = {
 				"name": "Peter Pan",
 				"origin": "J. M. Barrie · 1904",
 				"line": "Ne veut pas grandir.",
+				"quip": "Team Peter Pan : tu as encore ton doudou. Il est quelque part, on le sait.",
 				"giphyIds": [],
 				"giphyQuery": "Peter Pan"
 			},
@@ -14607,9 +14801,12 @@ var rivalries_default = {
 				"name": "Le Petit Prince",
 				"origin": "Saint-Exupéry · 1943",
 				"line": "« Dessine-moi un mouton. »",
+				"quip": "Team Petit Prince : tu dessines des boas qui ressemblent à des chapeaux, et personne ne comprend.",
 				"giphyIds": [],
 				"giphyQuery": "Little Prince"
-			}
+			},
+			"bothQuip": "Les deux. Tu refuses de grandir, mais tu as des choses à dire aux adultes.",
+			"noneQuip": "Ni Peter Pan ni le Petit Prince. Tu as grandi. Félicitations, ou condoléances."
 		},
 		{
 			"id": "heros-cendrillon-blanche-neige",
@@ -14618,6 +14815,7 @@ var rivalries_default = {
 				"name": "Cendrillon",
 				"origin": "Disney · 1950",
 				"line": "Une pantoufle de verre, et un couvre-feu à minuit.",
+				"quip": "Team Cendrillon : tu quittes toujours les soirées à minuit pile. Et tu perds une chaussure.",
 				"giphyIds": [],
 				"giphyQuery": "Cinderella"
 			},
@@ -14625,9 +14823,12 @@ var rivalries_default = {
 				"name": "Blanche-Neige",
 				"origin": "Disney · 1937",
 				"line": "Sept colocataires, et une pomme suspecte.",
+				"quip": "Team Blanche-Neige : sept colocs, et c’est toujours toi qui fais la vaisselle.",
 				"giphyIds": [],
 				"giphyQuery": "Snow White"
-			}
+			},
+			"bothQuip": "Les deux. Tu attends le prince charmant, mais seulement s’il fait le ménage.",
+			"noneQuip": "Ni Cendrillon ni Blanche-Neige. Team belle-mère. On ne juge pas. Enfin, un peu."
 		},
 		{
 			"id": "heros-le-chat-botte-le-petit-chaperon-rouge",
@@ -14636,6 +14837,7 @@ var rivalries_default = {
 				"name": "Le Chat botté",
 				"origin": "Perrault · 1697",
 				"line": "Des bottes, et beaucoup de baratin.",
+				"quip": "Team Chat botté : tu t’incrustes à des soirées où tu ne connais personne. Et ça marche.",
 				"giphyIds": [],
 				"giphyQuery": "Puss in Boots"
 			},
@@ -14643,9 +14845,210 @@ var rivalries_default = {
 				"name": "Le Petit Chaperon rouge",
 				"origin": "Perrault · 1697",
 				"line": "Une galette, un petit pot de beurre, et un loup.",
+				"quip": "Team Petit Chaperon rouge : tu prends toujours le chemin le plus long. Et ça finit mal.",
 				"giphyIds": [],
 				"giphyQuery": "Red Riding Hood"
-			}
+			},
+			"bothQuip": "Les deux. Un chat qui baratine et une gamine qui fait confiance aux loups. Tu crois en tout le monde.",
+			"noneQuip": "Ni le Chat botté ni le Chaperon. Team loup, c’est ça ?"
+		},
+		{
+			"id": "heros-jack-sparrow-le-capitaine-haddock",
+			"category": "heros",
+			"a": {
+				"name": "Jack Sparrow",
+				"origin": "Pirates des Caraïbes · 2003",
+				"line": "Une boussole qui n’indique pas le nord, et une démarche très particulière.",
+				"quip": "Team Jack Sparrow : tu as perdu ton bateau, ta boussole et ton rhum. Mais pas ton style.",
+				"giphyIds": [],
+				"giphyQuery": "jack sparrow"
+			},
+			"b": {
+				"name": "Le Capitaine Haddock",
+				"origin": "Hergé · 1941",
+				"line": "Mille millions de mille sabords, et un faible pour le whisky.",
+				"quip": "Team Haddock : tu as un juron pour chaque occasion. Même pour les occasions calmes.",
+				"giphyIds": [],
+				"giphyQuery": "captain haddock"
+			},
+			"bothQuip": "Les deux capitaines. Ton bateau sent le rhum ET le whisky.",
+			"noneQuip": "Ni Sparrow ni Haddock. Le mal de mer, moussaillon ?"
+		},
+		{
+			"id": "heros-columbo-l-inspecteur-clouseau",
+			"category": "heros",
+			"a": {
+				"name": "Columbo",
+				"origin": "Série télé · 1968",
+				"line": "Un vieil imper, un cigare, et « juste une dernière question ».",
+				"quip": "Team Columbo : tu pars, tu reviens, et tu poses encore une petite question. Tout le monde adore.",
+				"giphyIds": [],
+				"giphyQuery": "columbo"
+			},
+			"b": {
+				"name": "L’inspecteur Clouseau",
+				"origin": "La Panthère rose · 1963",
+				"line": "Il ne trouve rien, mais il casse tout.",
+				"quip": "Team Clouseau : tu as résolu l’affaire. Par accident, mais tu l’as résolue.",
+				"giphyIds": [],
+				"giphyQuery": "inspector clouseau"
+			},
+			"bothQuip": "Les deux. Un imper froissé et une moustache maladroite : la meilleure brigade jamais réunie.",
+			"noneQuip": "Ni Columbo ni Clouseau. L’affaire reste non résolue. Comme tes chaussettes perdues."
+		},
+		{
+			"id": "heros-picsou-ebenezer-scrooge",
+			"category": "heros",
+			"a": {
+				"name": "Picsou",
+				"origin": "Disney · 1947",
+				"line": "Plonge dans sa piscine de pièces d’or tous les matins.",
+				"quip": "Team Picsou : ton premier sou, tu l’as encore. Encadré.",
+				"giphyIds": [],
+				"giphyQuery": "scrooge mcduck"
+			},
+			"b": {
+				"name": "Ebenezer Scrooge",
+				"origin": "Charles Dickens · 1843",
+				"line": "Déteste Noël, jusqu’à la visite de trois fantômes.",
+				"quip": "Team Scrooge : tu dis « sornettes ! » dès qu’on te parle de Noël en novembre.",
+				"giphyIds": [],
+				"giphyQuery": "ebenezer scrooge"
+			},
+			"bothQuip": "Les deux radins. Ce vote était gratuit, tu as bien vérifié ?",
+			"noneQuip": "Ni Picsou ni Scrooge. Toi, tu laisses des pourboires. Bravo."
+		},
+		{
+			"id": "heros-zeus-odin",
+			"category": "heros",
+			"a": {
+				"name": "Zeus",
+				"origin": "Mythologie grecque",
+				"line": "Le roi de l’Olympe, et la foudre pour tout règlement de compte.",
+				"quip": "Team Zeus : tu règles tes disputes en lançant la foudre. Ou des assiettes.",
+				"giphyIds": [],
+				"giphyQuery": "zeus"
+			},
+			"b": {
+				"name": "Odin",
+				"origin": "Mythologie nordique",
+				"line": "Un seul œil, deux corbeaux, et beaucoup de sagesse.",
+				"quip": "Team Odin : deux corbeaux te rapportent tous les potins du quartier. Tes voisins sont prévenus.",
+				"giphyIds": [],
+				"giphyQuery": "odin"
+			},
+			"bothQuip": "Les deux. Les Grecs et les Vikings au même banquet. Ça va être tendu.",
+			"noneQuip": "Ni Zeus ni Odin. Team Râ ? Team Jupiter ? Les dieux attendent ta réponse."
+		},
+		{
+			"id": "heros-mister-freeze-la-torche-humaine",
+			"category": "heros",
+			"a": {
+				"name": "Mister Freeze",
+				"origin": "DC · 1959",
+				"line": "Un pistolet à glace, et des jeux de mots givrés.",
+				"quip": "Team Mister Freeze : tu mets la clim à fond en plein mois de janvier.",
+				"giphyIds": [],
+				"giphyQuery": "mr freeze"
+			},
+			"b": {
+				"name": "La Torche humaine",
+				"origin": "Marvel · 1961",
+				"line": "« Flamme on ! » Et tout prend feu.",
+				"quip": "Team Torche humaine : tu ne rates jamais un barbecue. Ni un départ de feu.",
+				"giphyIds": [],
+				"giphyQuery": "human torch"
+			},
+			"bothQuip": "Les deux. Chaud, froid, chaud, froid : tu as la douche de notre immeuble.",
+			"noneQuip": "Ni Freeze ni la Torche. Tu préfères la température ambiante. Raisonnable."
+		},
+		{
+			"id": "heros-jean-valjean-javert",
+			"category": "heros",
+			"a": {
+				"name": "Jean Valjean",
+				"origin": "Victor Hugo · 1862",
+				"line": "Dix-neuf ans de bagne pour un pain, et toujours gentil.",
+				"quip": "Team Valjean : tu as déjà pris le dernier croissant de la boulangerie. Et tu le regrettes encore.",
+				"giphyIds": [],
+				"giphyQuery": "jean valjean"
+			},
+			"b": {
+				"name": "Javert",
+				"origin": "Victor Hugo · 1862",
+				"line": "Un policier qui ne lâche jamais. Jamais.",
+				"quip": "Team Javert : tu as déjà dénoncé quelqu’un qui doublait dans la file du supermarché.",
+				"giphyIds": [],
+				"giphyQuery": "javert"
+			},
+			"bothQuip": "Les deux. Tu as lu les 1 900 pages. Toutes. Respect.",
+			"noneQuip": "Ni Valjean ni Javert. Team Thénardier, mais tu ne le crieras pas sur les toits."
+		},
+		{
+			"id": "heros-d-artagnan-cyrano-de-bergerac",
+			"category": "heros",
+			"a": {
+				"name": "D’Artagnan",
+				"origin": "Alexandre Dumas · 1844",
+				"line": "Un pour tous, tous pour un, et lui devant.",
+				"quip": "Team d’Artagnan : tu arrives en ville, tu provoques trois personnes en duel, et ce sont tes amis pour la vie.",
+				"giphyIds": [],
+				"giphyQuery": "musketeers"
+			},
+			"b": {
+				"name": "Cyrano de Bergerac",
+				"origin": "Edmond Rostand · 1897",
+				"line": "Un nez, des vers, et des lettres d’amour pour les autres.",
+				"quip": "Team Cyrano : tu écris les messages d’anniversaire de tous tes amis. Et ils font un tabac.",
+				"giphyIds": [],
+				"giphyQuery": "cyrano de bergerac"
+			},
+			"bothQuip": "Les deux. Des épées, des plumes et du panache. C’est très français, tout ça.",
+			"noneQuip": "Ni d’Artagnan ni Cyrano. Tu n’aimes pas les duels. Sur un site de duels. Audacieux."
+		},
+		{
+			"id": "heros-le-grand-schtroumpf-panoramix",
+			"category": "heros",
+			"a": {
+				"name": "Le Grand Schtroumpf",
+				"origin": "Peyo · 1958",
+				"line": "Une barbe blanche, un bonnet rouge, et cent Schtroumpfs à gérer.",
+				"quip": "Team Grand Schtroumpf : tu gères un village entier et personne ne t’écoute. Tu es parent, c’est ça ?",
+				"giphyIds": [],
+				"giphyQuery": "papa smurf"
+			},
+			"b": {
+				"name": "Panoramix",
+				"origin": "Goscinny et Uderzo · 1959",
+				"line": "Une serpe d’or, du gui, et une potion qui règle tout.",
+				"quip": "Team Panoramix : toi aussi, tu refuses la potion à ceux qui sont tombés dedans petits.",
+				"giphyIds": [],
+				"giphyQuery": "asterix druid"
+			},
+			"bothQuip": "Les deux. Les plus belles barbes de la BD, et les plus sages.",
+			"noneQuip": "Ni le Grand Schtroumpf ni Panoramix. Les vieux sages barbus, très peu pour toi."
+		},
+		{
+			"id": "heros-bob-morane-indiana-jones",
+			"category": "heros",
+			"a": {
+				"name": "Bob Morane",
+				"origin": "Henri Vernes · 1953",
+				"line": "L’aventurier, celui de la chanson.",
+				"quip": "Team Bob Morane : tu chantes « L’aventurier » à chaque karaoké. Tout le monde le sait.",
+				"giphyIds": [],
+				"giphyQuery": "adventurer"
+			},
+			"b": {
+				"name": "Indiana Jones",
+				"origin": "Les Aventuriers de l’arche perdue · 1981",
+				"line": "Un fouet, un chapeau, et une peur bleue des serpents.",
+				"quip": "Team Indiana Jones : tu cours toujours plus vite que les rochers qui roulent. Pour l’instant.",
+				"giphyIds": [],
+				"giphyQuery": "indiana jones"
+			},
+			"bothQuip": "Les deux aventuriers. Tes vacances idéales : un temple maudit et un bon chapeau.",
+			"noneQuip": "Ni Bob Morane ni Indy. Ta grande aventure, c’est le rayon bricolage le samedi."
 		},
 		{
 			"id": "bouffe-croissant-pain-au-chocolat",
@@ -15619,7 +16022,7 @@ var rivalries_default = {
 				"name": "Ordinateur fixe",
 				"origin": "Le bureau",
 				"line": "Puissant, évolutif, et il ne bouge pas.",
-				"giphyIds": [],
+				"giphyIds": ["IX2sn8cnqDyRq"],
 				"giphyQuery": "desktop computer"
 			}
 		},
@@ -16478,7 +16881,7 @@ var rivalries_default = {
 				"name": "Undertale",
 				"origin": "Toby Fox · 2015",
 				"line": "Un jeu où l’on peut épargner tout le monde.",
-				"giphyIds": [],
+				"giphyIds": ["PiBkxZr38ZR72"],
 				"giphyQuery": "Undertale"
 			},
 			"b": {
@@ -16496,8 +16899,9 @@ var rivalries_default = {
 				"name": "Celeste",
 				"origin": "Maddy Thorson · 2018",
 				"line": "Grimper une montagne, et mourir mille fois.",
-				"giphyIds": [],
-				"giphyQuery": "Celeste game"
+				"giphyIds": ["663pSPtq388hq9UjNd"],
+				"giphyQuery": "Celeste",
+				"giphyKeywords": ["indie"]
 			},
 			"b": {
 				"name": "Cuphead",
@@ -17000,15 +17404,15 @@ var rivalries_default = {
 				"name": "Regarder la bande-annonce",
 				"origin": "YouTube",
 				"line": "Tu connais l’histoire avant d’entrer.",
-				"giphyIds": [],
-				"giphyQuery": "movie trailer"
+				"giphyIds": ["RHiD0K65NxxLO"],
+				"giphyQuery": "movie popcorn"
 			},
 			"b": {
 				"name": "Ne rien savoir",
 				"origin": "La salle",
 				"line": "La surprise totale, dès le début.",
-				"giphyIds": [],
-				"giphyQuery": "surprised audience"
+				"giphyIds": ["wYyTHMm50f4Dm"],
+				"giphyQuery": "nope"
 			}
 		},
 		{
@@ -17756,14 +18160,15 @@ var rivalries_default = {
 				"name": "Rox",
 				"origin": "Rox et Rouky · 1981",
 				"line": "Un renard.",
-				"giphyIds": [],
-				"giphyQuery": "fox cub"
+				"giphyIds": ["v8pACm7D82olW"],
+				"giphyQuery": "fox",
+				"giphyKeywords": ["disney"]
 			},
 			"b": {
 				"name": "Rouky",
 				"origin": "Rox et Rouky · 1981",
 				"line": "Un chien de chasse.",
-				"giphyIds": [],
+				"giphyIds": ["exxEYlubCNRQs"],
 				"giphyQuery": "hound puppy"
 			}
 		},
@@ -19003,6 +19408,7 @@ z.object({
 	lastQuipKey: z.string().nullable()
 });
 var ICON_NAMES = Object.keys({
+	ban: faBan,
 	bolt: faBolt,
 	briefcase: faBriefcase,
 	"car-side": faCarSide,
@@ -19016,10 +19422,12 @@ var ICON_NAMES = Object.keys({
 	eye: faEye,
 	film: faFilm,
 	fire: faFire,
+	forward: faForward,
 	futbol: faFutbol,
 	gamepad: faGamepad,
 	guitar: faGuitar,
 	"hand-fist": faHandFist,
+	handshake: faHandshake,
 	hashtag: faHashtag,
 	heart: faHeart,
 	house: faHouse,
@@ -19032,6 +19440,7 @@ var ICON_NAMES = Object.keys({
 	"people-group": faPeopleGroup,
 	"pizza-slice": faPizzaSlice,
 	"scale-balanced": faScaleBalanced,
+	"share-nodes": faShareNodes,
 	shirt: faShirt,
 	shuffle: faShuffle,
 	star: faStar,
@@ -19150,6 +19559,8 @@ var TeamSchema = z.object({
 	name: text.max(60, "doit rester court (60 caractères maximum)"),
 	origin: text.max(80, "doit rester courte (80 caractères maximum)"),
 	line: text.max(120, "doit rester courte (120 caractères maximum)"),
+	/** Remarque affichée quand on choisit cette team ; sinon une remarque générique (ui-texts). */
+	quip: text.max(140, "doit rester courte (140 caractères maximum)").optional(),
 	giphyIds: z.array(text),
 	giphyQuery: text,
 	/**
@@ -19174,7 +19585,10 @@ var RivalrySchema = z.object({
 	/** Question sur mesure ; sinon « Team A ou team B ? ». */
 	question: text.max(120, "doit rester courte (120 caractères maximum)").optional(),
 	a: TeamSchema,
-	b: TeamSchema
+	b: TeamSchema,
+	/** Remarques sur mesure pour « Les deux » et « Aucun des deux » ; sinon les génériques. */
+	bothQuip: text.max(140, "doit rester courte (140 caractères maximum)").optional(),
+	noneQuip: text.max(140, "doit rester courte (140 caractères maximum)").optional()
 });
 var pairKey = (a, b) => [a, b].map((n) => n.trim().toLowerCase()).sort().join(" | ");
 /** Un univers regroupe plusieurs catégories (« Écrans », « Pop culture »…). */
