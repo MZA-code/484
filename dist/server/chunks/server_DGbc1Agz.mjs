@@ -26555,7 +26555,11 @@ var ui_texts_fr_default = {
 		"pagesTitle": "Pages principales",
 		"categoriesTitle": "Catégories",
 		"infoTitle": "Informations",
-		"debatesCount": "{n} débats"
+		"debatesCount": "{n} débats",
+		"fullLinkLabel": "Toutes les rivalités en texte",
+		"fullLinkAbout": "La liste complète des {rivalries} rivalités, catégorie par catégorie, avec les deux camps et leur réplique (llms-full.txt).",
+		"fullTitle": "Toutes les rivalités de 484",
+		"fullIntro": "Chaque ligne est un débat « Team X ou team Y ? » : la question, le lien vers sa page, puis les deux camps avec leur origine et leur réplique. Sur la page, le visiteur vote et découvre le pourcentage des autres visiteurs."
 	}
 };
 /** Espaces qu'on remplace : espace normale, insécable, fine insécable, fine. */
@@ -27218,7 +27222,11 @@ var UiTextsSchema = z.object({
 		pagesTitle: text,
 		categoriesTitle: text,
 		infoTitle: text,
-		debatesCount: template("n")
+		debatesCount: template("n"),
+		fullLinkLabel: text,
+		fullLinkAbout: template("rivalries"),
+		fullTitle: text,
+		fullIntro: text
 	}),
 	debatesPage: z.object({
 		title: text,
