@@ -391,3 +391,8 @@ L'écran « Catégorie terminée » de la 1.7.0 était trop plat. Il devient une
 - **Remarques sur mesure** pour Jeux vidéo, Ciné et séries, Duos à départager, Musique, Dessins animés, Ciné français, Internet et memes, Mots de chez nous, Nostalgie années 90, Sport et Mode et looks (14 catégories sur 20 en tout). Ton : drôle, jamais méchant ; aucune phrase n’accorde « tu » au masculin ou au féminin (le genre du visiteur est inconnu) ; pour les personnes réelles, on reste sur leurs exploits et leurs gimmicks, sans vie privée ni santé.
 - **88 nouveaux duels** (8 par catégorie) : 1 114 duels au total. Leurs teams n’ont pas encore de GIF choisi.
 - Restent à écrire : Vie quotidienne, Autos et motos, Dilemmes absurdes, Superpouvoirs, Monstres et créatures, Animaux.
+
+## D41 — Remarques écrites pour les six dernières catégories (version 1.9.3)
+
+- **Remarques sur mesure** pour Vie quotidienne, Autos et motos, Dilemmes absurdes, Superpouvoirs, Monstres et créatures et Animaux : les 20 catégories ont désormais une phrase par choix (team A, team B, les deux, aucun des deux) pour chaque duel. Mêmes règles que D40 : drôle sans être méchant, aucun accord de « tu » au masculin ou au féminin, pour les marques on reste sur leurs symboles et leurs clichés bon enfant.
+- **48 nouveaux duels** (8 par catégorie) : 1 162 duels au total. Aucun nom de team n’est repris d’un duel existant. Leurs teams n’ont pas encore de GIF choisi.
