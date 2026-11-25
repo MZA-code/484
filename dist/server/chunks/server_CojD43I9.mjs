@@ -3836,7 +3836,8 @@ var rivalries_default = {
 				"line": "Une guitare, une moustache, et des chansons pour la route.",
 				"quip": "Team Cabrel : tu as déjà chanté « Je l’aime à mourir » au coin du feu. Tout le monde a suivi.",
 				"giphyIds": [],
-				"giphyQuery": "acoustic guitar"
+				"giphyQuery": "acoustic guitar",
+				"gifUrls": ["https://media.tenor.com/zU7KNksPHnsAAAAC/francis-francis-cabrel.gif"]
 			},
 			"b": {
 				"name": "Jean-Jacques Goldman",
@@ -3844,7 +3845,8 @@ var rivalries_default = {
 				"line": "Des tubes pour tout le monde, puis le silence.",
 				"quip": "Team Goldman : tu attends son retour depuis des années. Tu y crois encore.",
 				"giphyIds": [],
-				"giphyQuery": "concert crowd"
+				"giphyQuery": "concert crowd",
+				"gifUrls": ["https://media.tenor.com/vyeHfh0BH9YAAAAC/jean-jacque-goldman-chanteur.gif"]
 			},
 			"bothQuip": "Les deux. La chanson française qui rassemble tout le monde. Même ta tante.",
 			"noneQuip": "Ni Cabrel ni Goldman. La chanson française des années 80, demande à tes parents."
@@ -3858,7 +3860,7 @@ var rivalries_default = {
 				"origin": "Devant la scène",
 				"line": "Debout, serré, en sueur. Le bonheur.",
 				"quip": "Team fosse : tu arrives quatre heures avant pour être devant. Tes jambes s’en souviennent.",
-				"giphyIds": [],
+				"giphyIds": ["GEwLfjxIxE9UY"],
 				"giphyQuery": "concert crowd jumping"
 			},
 			"b": {
@@ -3880,7 +3882,7 @@ var rivalries_default = {
 				"origin": "Matt Groening · 1989",
 				"line": "Plus de trente saisons et ils ont toujours le même âge.",
 				"quip": "Team Simpson : les Simpson l’avaient prédit. Quoi ? Tout. Ils prédisent tout.",
-				"giphyIds": [],
+				"giphyIds": ["HXA35MkhMTsuA"],
 				"giphyQuery": "The Simpsons"
 			},
 			"b": {
@@ -3888,7 +3890,7 @@ var rivalries_default = {
 				"origin": "Seth MacFarlane · 1999",
 				"line": "Des digressions, un chien qui parle, un bébé qui complote.",
 				"quip": "Team Griffin : tu fais des digressions au milieu de tes histoires. Ça me rappelle la fois où…",
-				"giphyIds": [],
+				"giphyIds": ["te8J1t6B53nMwTFYSC"],
 				"giphyQuery": "Family Guy"
 			},
 			"bothQuip": "Les deux. Les pères de famille catastrophiques en dessin animé, c’est ton truc.",
@@ -3902,7 +3904,7 @@ var rivalries_default = {
 				"origin": "Warner · 1949",
 				"line": "Bip bip. Et il est déjà loin.",
 				"quip": "Team Bip Bip : bip bip. Et tu es déjà loin.",
-				"giphyIds": [],
+				"giphyIds": ["yhRhIgnJIRD0I"],
 				"giphyQuery": "Road Runner"
 			},
 			"b": {
@@ -3910,7 +3912,7 @@ var rivalries_default = {
 				"origin": "Warner · 1949",
 				"line": "Client fidèle de la marque ACME.",
 				"quip": "Team Vil Coyote : tu commandes des trucs bizarres en ligne. Aucun ne marche.",
-				"giphyIds": [],
+				"giphyIds": ["09ouMZQbfW6SUwan14"],
 				"giphyQuery": "Wile E Coyote"
 			},
 			"bothQuip": "Les deux. Toute ton enfance, tu as espéré que le coyote gagne. Une seule fois.",
@@ -3924,7 +3926,7 @@ var rivalries_default = {
 				"origin": "Warner · 1942",
 				"line": "« J’ai cru voir un rominet ! »",
 				"quip": "Team Titi : derrière ton air innocent, tu es redoutable. On a vu.",
-				"giphyIds": [],
+				"giphyIds": ["sGASP13VEBqla"],
 				"giphyQuery": "Tweety bird"
 			},
 			"b": {
@@ -3932,7 +3934,7 @@ var rivalries_default = {
 				"origin": "Warner · 1945",
 				"line": "Toujours affamé, jamais rassasié.",
 				"quip": "Team Grosminet : tu postillonnes un peu en parlant, et tu as toujours faim.",
-				"giphyIds": [],
+				"giphyIds": ["l49K2rm0Hjg7PmbUA"],
 				"giphyQuery": "Sylvester cat"
 			},
 			"bothQuip": "Les deux. « J’ai cru voir un rominet ! » Tu l’as dit au moins une fois cette année.",
@@ -3946,7 +3948,7 @@ var rivalries_default = {
 				"origin": "Warner · 1940",
 				"line": "« Quoi de neuf, docteur ? »",
 				"quip": "Team Bugs Bunny : « Quoi de neuf, docteur ? » en croquant une carotte. Ta réplique de tous les jours.",
-				"giphyIds": [],
+				"giphyIds": ["QAsHga1AB6dIGUsui6"],
 				"giphyQuery": "Bugs Bunny"
 			},
 			"b": {
@@ -3954,7 +3956,7 @@ var rivalries_default = {
 				"origin": "Warner · 1937",
 				"line": "Un canard qui postillonne et qui perd toujours.",
 				"quip": "Team Daffy Duck : tu perds toujours, et c’est toujours la faute des autres. C’est méprisable.",
-				"giphyIds": [],
+				"giphyIds": ["sfZ0KuMFjmYuwunWKK"],
 				"giphyQuery": "Daffy Duck"
 			},
 			"bothQuip": "Les deux. Les Looney Tunes, c’est ta culture générale.",
@@ -3968,7 +3970,7 @@ var rivalries_default = {
 				"origin": "Disney · 1928",
 				"line": "Le patron de l’empire, en short rouge.",
 				"quip": "Team Mickey : le short rouge et un empire. Tu as le sens des affaires.",
-				"giphyIds": [],
+				"giphyIds": ["l2JhL0Gpfbvs4Y07K"],
 				"giphyQuery": "Mickey Mouse"
 			},
 			"b": {
@@ -3976,7 +3978,7 @@ var rivalries_default = {
 				"origin": "Disney · 1934",
 				"line": "Râle tout le temps, et personne ne comprend ce qu’il dit.",
 				"quip": "Team Donald : tu râles tout le temps, et personne ne comprend ce que tu dis. Le matin, en tout cas.",
-				"giphyIds": [],
+				"giphyIds": ["38U60fvIfokjC"],
 				"giphyQuery": "Donald Duck angry"
 			},
 			"bothQuip": "Les deux. Le patron et le râleur : ton bureau, en somme.",
@@ -3990,7 +3992,7 @@ var rivalries_default = {
 				"origin": "Anime · 1997",
 				"line": "Attrapez-les tous.",
 				"quip": "Team Pokémon : tes cartes sont encore dans un classeur. Le Dracaufeu brillant, sous pochette.",
-				"giphyIds": [],
+				"giphyIds": ["amrNGnZUeWhZC"],
 				"giphyQuery": "Pokemon anime"
 			},
 			"b": {
@@ -3998,7 +4000,7 @@ var rivalries_default = {
 				"origin": "Anime · 1999",
 				"line": "Ils évoluent aussi, mais en criant plus fort.",
 				"quip": "Team Digimon : tu as hurlé « Digivolution ! » dans la cour de récré. Plusieurs fois.",
-				"giphyIds": [],
+				"giphyIds": ["UOvFfXGINpmN2"],
 				"giphyQuery": "Digimon"
 			},
 			"bothQuip": "Les deux. La guerre de la cour de récré, tu l’as faite des deux côtés.",
@@ -4012,7 +4014,7 @@ var rivalries_default = {
 				"origin": "Akira Toriyama · 1984",
 				"line": "Sept boules, un dragon, et des cris qui durent trois épisodes.",
 				"quip": "Team Dragon Ball : tu as chargé un Kamehameha dans ta chambre. Pendant trois épisodes.",
-				"giphyIds": [],
+				"giphyIds": ["v5ftsU3bztQ6k"],
 				"giphyQuery": "Dragon Ball"
 			},
 			"b": {
@@ -4020,7 +4022,7 @@ var rivalries_default = {
 				"origin": "Eiichiro Oda · 1997",
 				"line": "Un chapeau de paille et plus de mille épisodes.",
 				"quip": "Team One Piece : plus de mille épisodes, et pas une minute de regret. Courage pour la suite.",
-				"giphyIds": [],
+				"giphyIds": ["4eTuzu8xIEqdDfPu9J"],
 				"giphyQuery": "One Piece Luffy"
 			},
 			"bothQuip": "Les deux. Des cheveux qui défient la gravité et des chapeaux de paille.",
@@ -4042,7 +4044,7 @@ var rivalries_default = {
 				"origin": "Tokyo · 1985",
 				"line": "Des esprits, du vent dans les herbes, et des repas qui donnent faim.",
 				"quip": "Team Ghibli : les repas des films te donnent plus faim que les vrais.",
-				"giphyIds": [],
+				"giphyIds": ["x5HlLDaLMZNVS"],
 				"giphyQuery": "Studio Ghibli"
 			},
 			"bothQuip": "Les deux. Ton enfance tient en chansons et en esprits de la forêt.",
@@ -4056,7 +4058,7 @@ var rivalries_default = {
 				"origin": "Mon voisin Totoro · 1988",
 				"line": "Une grosse boule de poils qui attend le bus.",
 				"quip": "Team Totoro : tu attends le bus sous la pluie avec un grand sourire. Comme lui.",
-				"giphyIds": [],
+				"giphyIds": ["bL6i8KRLAcSsw"],
 				"giphyQuery": "Totoro"
 			},
 			"b": {
@@ -4064,7 +4066,7 @@ var rivalries_default = {
 				"origin": "Mon voisin Totoro · 1988",
 				"line": "Un bus. Un chat. Douze pattes.",
 				"quip": "Team Chatbus : douze pattes, un sourire immense, et une destination magique. Ton transport idéal.",
-				"giphyIds": [],
+				"giphyIds": ["KEVODnr6kaJws"],
 				"giphyQuery": "Catbus Totoro"
 			},
 			"bothQuip": "Les deux. « Mon voisin Totoro », c’est ton film doudou.",
@@ -4078,7 +4080,7 @@ var rivalries_default = {
 				"origin": "Go Nagai · 1975",
 				"line": "« Fulguropoing ! »",
 				"quip": "Team Goldorak : tu as crié « Fulguropoing ! » en lançant ton poing vers ton frère ou ta sœur.",
-				"giphyIds": [],
+				"giphyIds": ["zgLXAKDKlhMtYDTB4b"],
 				"giphyQuery": "Grendizer"
 			},
 			"b": {
@@ -4086,7 +4088,7 @@ var rivalries_default = {
 				"origin": "Leiji Matsumoto · 1977",
 				"line": "Une cape, une balafre, et un vaisseau à tête de mort.",
 				"quip": "Team Albator : il y a une cape noire au fond de ton placard. Pour les soirées spatiales.",
-				"giphyIds": [],
+				"giphyIds": ["hYj1wQaGXdEYsfi2S1"],
 				"giphyQuery": "Captain Harlock"
 			},
 			"bothQuip": "Les deux. Ton enfance : des robots géants et des pirates de l’espace.",
@@ -4108,7 +4110,7 @@ var rivalries_default = {
 				"origin": "États-Unis · 1981",
 				"line": "Un câlin, et un arc-en-ciel sur le ventre.",
 				"quip": "Team Bisounours : tu fais des câlins à tout le monde. Même à ceux qui n’en veulent pas.",
-				"giphyIds": [],
+				"giphyIds": ["TKHxX9AP58hpDcdD6b"],
 				"giphyQuery": "Care Bears"
 			},
 			"bothQuip": "Les deux. Bleu ou arc-en-ciel : ton enfance était très colorée.",
@@ -4122,7 +4124,7 @@ var rivalries_default = {
 				"origin": "Hanna-Barbera · 1969",
 				"line": "Mène l’enquête pour des biscuits.",
 				"quip": "Team Scooby-Doo : à la fin, tu arraches le masque du méchant. C’était le concierge.",
-				"giphyIds": [],
+				"giphyIds": ["l9JQYgbbNxbig"],
 				"giphyQuery": "Scooby Doo"
 			},
 			"b": {
@@ -4130,7 +4132,7 @@ var rivalries_default = {
 				"origin": "DIC · 1983",
 				"line": "« Go go gadgeto ! »",
 				"quip": "Team Inspecteur Gadget : « Go go gadgeto parapluie ! » Et rien ne s’ouvre.",
-				"giphyIds": [],
+				"giphyIds": ["iWSKAbdZ6O1Fu"],
 				"giphyQuery": "Inspector Gadget"
 			},
 			"bothQuip": "Les deux. Les enquêteurs maladroits, c’est ta passion.",
@@ -4144,7 +4146,7 @@ var rivalries_default = {
 				"origin": "Série animée · 1981",
 				"line": "L’Odyssée, dans l’espace, avec un robot.",
 				"quip": "Team Ulysse 31 : les yeux de Zeus te font encore un peu peur.",
-				"giphyIds": [],
+				"giphyIds": ["14L2F3Fcwrv0s"],
 				"giphyQuery": "Ulysses 31"
 			},
 			"b": {
@@ -4189,7 +4191,7 @@ var rivalries_default = {
 				"origin": "Série animée · 1987",
 				"line": "Quatre tortues, des pizzas, et les égouts.",
 				"quip": "Team Tortues Ninja : tu commandes des pizzas en criant « Cowabunga ! ».",
-				"giphyIds": [],
+				"giphyIds": ["1ZbnufnHeW0W4"],
 				"giphyQuery": "Teenage Mutant Ninja Turtles"
 			},
 			"b": {
@@ -4197,7 +4199,7 @@ var rivalries_default = {
 				"origin": "Les Maîtres de l’univers · 1983",
 				"line": "« Par le pouvoir du crâne ancestral ! »",
 				"quip": "Team Musclor : tu brandis ta cuillère en criant « Par le pouvoir du crâne ancestral ! ».",
-				"giphyIds": [],
+				"giphyIds": ["M7gtacN7aPNsc"],
 				"giphyQuery": "He-Man"
 			},
 			"bothQuip": "Les deux. Ta chambre était pleine de figurines. Elle l’est peut-être encore.",
@@ -4211,7 +4213,7 @@ var rivalries_default = {
 				"origin": "Marathon · 2001",
 				"line": "Trois espionnes et des gadgets déguisés en sèche-cheveux.",
 				"quip": "Team Totally Spies : ton sèche-cheveux est aussi un laser. Officiellement.",
-				"giphyIds": [],
+				"giphyIds": ["tzMAiFxRNLtII"],
 				"giphyQuery": "Totally Spies"
 			},
 			"b": {
@@ -4219,7 +4221,7 @@ var rivalries_default = {
 				"origin": "Cartoon Network · 1998",
 				"line": "Du sucre, des épices, et l’ingrédient X.",
 				"quip": "Team Supers Nanas : sucre, épices et ingrédient X. Ta recette secrète.",
-				"giphyIds": [],
+				"giphyIds": ["UdnRoDDuL5Ws8"],
 				"giphyQuery": "Powerpuff Girls"
 			},
 			"bothQuip": "Les deux. Les héroïnes qui sauvent le monde après l’école, ce sont tes modèles.",
@@ -4255,7 +4257,7 @@ var rivalries_default = {
 				"origin": "Nickelodeon · 1991",
 				"line": "Des bébés qui en savent plus que les adultes.",
 				"quip": "Team Razmoket : tu te souviens de tout ce que tu as fait à un an. C’est inquiétant.",
-				"giphyIds": [],
+				"giphyIds": ["lRv7XL9l5xuFO"],
 				"giphyQuery": "Rugrats"
 			},
 			"b": {
@@ -4263,7 +4265,7 @@ var rivalries_default = {
 				"origin": "Nickelodeon · 1991",
 				"line": "Un journal intime, un chien, et beaucoup d’angoisse.",
 				"quip": "Team Doug : un journal intime et beaucoup d’angoisses. Comme Doug.",
-				"giphyIds": [],
+				"giphyIds": ["l0DAHeToykuYLXLOg"],
 				"giphyQuery": "Doug Funnie"
 			},
 			"bothQuip": "Les deux. Nickelodeon, c’était ta deuxième maison.",
