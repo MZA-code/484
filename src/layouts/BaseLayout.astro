@@ -73,17 +73,6 @@ const usesTenor = rivalries.some(
         // Stockage indisponible : on garde le choix par défaut.
       }
       document.documentElement.dataset.motion = motion === 'reduced' ? 'reduced' : 'full';
-      // Mode admin (voir src/lib/admin.ts) : #admin=<jeton> l'active, #admin=off le coupe.
-      try {
-        const match = /^#admin=(.+)$/.exec(location.hash);
-        if (match) {
-          if (match[1] === 'off') localStorage.removeItem('484:admin');
-          else localStorage.setItem('484:admin', decodeURIComponent(match[1]));
-          history.replaceState(null, '', location.pathname + location.search);
-        }
-      } catch {
-        // Stockage indisponible : pas de mode admin sur cet appareil.
-      }
     </script>
     <slot name="head" />
   </head>

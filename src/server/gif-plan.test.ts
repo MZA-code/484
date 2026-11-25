@@ -32,11 +32,10 @@ describe('GIF plan of a team', () => {
     expect(giphy.maxAge).toBe(3600);
   });
 
-  it('tells the browser what to search, how to validate it and what to skip', () => {
+  it('tells the browser what to search and how to validate it', () => {
     const { plan, maxAge } = teamGifPlan(team(), {
       apiKey: 'web-key',
       mood: { giphyIds: ['m1'], giphyQuery: 'difficult choice' },
-      rejected: new Set(['bad1']),
       random: first,
     });
     expect(plan).toEqual({
@@ -47,7 +46,6 @@ describe('GIF plan of a team', () => {
       query: 'Batman dark knight',
       keywords: ['batman', 'batman dark knight'],
       words: ['batman', 'dark', 'knight'],
-      rejected: ['bad1'],
       mood: { id: 'm1', query: 'difficult choice' },
     });
     expect(maxAge).toBe(3600);

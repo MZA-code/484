@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin des GIF · 484</title>
+    <style>
+      :root {
+        --bg: #121212;
+        --panel: #1b1b1b;
+        --line: #333;
+        --fg: #f5f1e8;
+        --muted: #b9b3a8;
+        --yellow: #ffd23f;
+        --green: #66e08a;
+        --red: #ff5a4e;
+        --pink: #ff6fa8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          14px/1.4 system-ui,
+          sans-serif;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        padding: 7px 12px;
+        border: 0;
+        background: var(--fg);
+        color: var(--bg);
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button.ghost {
+        background: none;
+        color: var(--fg);
+        outline: 1px solid var(--line);
+      }
+      button:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      input,
+      select,
+      textarea {
+        padding: 7px 9px;
+        background: #0d0d0d;
+        border: 1px solid #444;
+      }
+      kbd {
+        padding: 0 4px;
+        border: 1px solid #555;
+        font-size: 12px;
+      }
+
+      /* ─── Barre du haut ─── */
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      header h1 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .stat {
+        color: var(--muted);
+      }
+      .stat strong {
+        color: var(--fg);
+      }
+      #quota {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      #quota .blocked {
+        color: var(--red);
+        font-weight: 600;
+      }
+      #quota .timer {
+        font-variant-numeric: tabular-nums;
+      }
+      #quota button {
+        padding: 2px 8px;
+        font-size: 12px;
+      }
+      .publish {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-left: auto;
+      }
+      .publish button {
+        background: var(--yellow);
+      }
+
+      /* ─── Mise en page ─── */
+      main {
+        display: grid;
+        grid-template-columns: 340px 1fr;
+        min-height: 0;
+      }
+      aside {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        min-height: 0;
+        border-right: 1px solid var(--line);
+      }
+      .filters {
+        display: grid;
+        gap: 8px;
+        padding: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .chips button {
+        padding: 4px 9px;
+        background: none;
+        color: var(--muted);
+        outline: 1px solid var(--line);
+        font-weight: 400;
+      }
+      .chips button[aria-pressed='true'] {
+        background: var(--fg);
+        color: var(--bg);
+      }
+      #list {
+        margin: 0;
+        padding: 0;
+        overflow-y: auto;
+        list-style: none;
+      }
+      #list li {
+        display: grid;
+        grid-template-columns: 10px 1fr;
+        gap: 10px;
+        align-items: center;
+        padding: 7px 12px;
+        border-bottom: 1px solid #222;
+        cursor: pointer;
+      }
+      #list li:hover {
+        background: #1f1f1f;
+      }
+      #list li[aria-selected='true'] {
+        background: #2a2a2a;
+        box-shadow: inset 3px 0 var(--yellow);
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #555;
+      }
+      .dot.ok {
+        background: var(--green);
+      }
+      .dot.bad {
+        background: var(--red);
+      }
+      .row-name {
+        font-weight: 600;
+      }
+      .row-sub {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .count {
+        padding: 6px 12px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      /* ─── Fiche d'une team ─── */
+      #editor {
+        overflow-y: auto;
+        padding: 16px 22px 60px;
+      }
+      .empty {
+        color: var(--muted);
+      }
+      .team-head {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: baseline;
+      }
+      .team-head h2 {
+        margin: 0;
+        font-size: 26px;
+      }
+      .tag {
+        padding: 2px 7px;
+        font-size: 12px;
+        background: #333;
+      }
+      .tag.red {
+        background: var(--red);
+        color: var(--bg);
+      }
+      .tag.pink {
+        background: var(--pink);
+        color: var(--bg);
+      }
+      .team-meta {
+        margin: 4px 0 0;
+        color: var(--muted);
+      }
+      .nav {
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+      }
+      section {
+        margin-top: 22px;
+      }
+      section h3 {
+        margin: 0 0 8px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 10px;
+      }
+      .tile {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        background: #000;
+        color: var(--fg);
+        font-weight: 400;
+        text-align: left;
+        outline: 3px solid transparent;
+      }
+      .tile video,
+      .tile img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        background: #222;
+      }
+      .tile .cap {
+        display: flex;
+        gap: 6px;
+        padding: 4px 6px;
+        font-size: 11px;
+        background: var(--panel);
+      }
+      .tile .cap .t {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--muted);
+      }
+      .tile.on {
+        outline-color: var(--yellow);
+      }
+      .tile .num {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        padding: 0 5px;
+        background: rgba(0, 0, 0, 0.75);
+        font-size: 12px;
+      }
+      .tile .check {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        display: none;
+        padding: 0 6px;
+        background: var(--yellow);
+        color: var(--bg);
+        font-weight: 700;
+      }
+      .tile.on .check {
+        display: block;
+      }
+      .tile .remove {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        padding: 2px 8px;
+        background: var(--red);
+        color: var(--bg);
+      }
+      .ok {
+        color: var(--green);
+      }
+      .near {
+        color: var(--yellow);
+      }
+      .ko {
+        color: var(--red);
+      }
+      .searchbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .searchbar input[type='search'] {
+        flex: 1;
+        min-width: 240px;
+      }
+      .searchbar label {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        color: var(--muted);
+      }
+      textarea {
+        width: 100%;
+        min-height: 64px;
+        font:
+          13px ui-monospace,
+          monospace;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: end;
+      }
+      .field {
+        display: grid;
+        gap: 4px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .field input {
+        width: 320px;
+      }
+      .help {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      details summary {
+        cursor: pointer;
+        color: var(--muted);
+      }
+
+      /* ─── Messages ─── */
+      #toast {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        max-width: 560px;
+        padding: 10px 14px;
+        background: var(--fg);
+        color: var(--bg);
+        font-weight: 600;
+        white-space: pre-line;
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+      }
+      #toast.show {
+        opacity: 1;
+      }
+      #toast.error {
+        background: var(--red);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Admin des GIF · 484</h1>
+      <span class="stat" id="stats"></span>
+      <span class="stat" id="quota"></span>
+      <div class="publish">
+        <span class="stat" id="pending"></span>
+        <button id="publish" type="button" disabled>Publier</button>
+      </div>
+    </header>
+    <main>
+      <aside>
+        <div class="filters">
+          <input id="q" type="search" placeholder="Chercher une team, une rivalité… ( / )" />
+          <select id="category"></select>
+          <div class="chips" id="chips"></div>
+        </div>
+        <div style="display: grid; grid-template-rows: auto 1fr; min-height: 0">
+          <div class="count" id="count"></div>
+          <ul id="list" role="listbox" aria-label="Teams"></ul>
+        </div>
+      </aside>
+      <div id="editor"><p class="empty">Choisis une team dans la liste.</p></div>
+    </main>
+    <div id="toast" role="status"></div>
+
+    <script>
+      // ─── État ───
+      const state = {
+        teams: [],
+        categories: [],
+        byKey: new Map(),
+        filter: localStorage.getItem('admin:filter') || 'todo',
+        category: localStorage.getItem('admin:category') || '',
+        query: '',
+        selected: null,
+        visible: [],
+        results: [],
+        searchText: '',
+        offset: 0,
+        changed: new Set(),
+        publish: { branch: '', changed: [], images: [] },
+        autoSearch: localStorage.getItem('admin:auto') !== 'off',
+        hasKey: true,
+      };
+      const FILTERS = [
+        ['todo', 'À faire'],
+        ['reported', 'Signalées'],
+        ['french', 'Œuvres françaises'],
+        ['curated', 'Avec GIF choisi'],
+        ['changed', 'Non publiées'],
+        ['all', 'Toutes'],
+      ];
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+      const norm = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+      // ─── Appels au serveur local ───
+      async function api(path, body) {
+        const res = await fetch(path, {
+          method: body ? 'POST' : 'GET',
+          headers: body ? { 'content-type': 'application/json' } : {},
+          body: body ? JSON.stringify(body) : undefined,
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          const error = new Error(data.error || `Erreur ${res.status}`);
+          error.data = data;
+          throw error;
+        }
+        return data;
+      }
+
+      let toastTimer;
+      function toast(message, error = false) {
+        const el = $('toast');
+        el.textContent = message;
+        el.className = `show${error ? ' error' : ''}`;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => (el.className = ''), error ? 8000 : 2200);
+      }
+
+      // ─── Liste ───
+      function matchesFilter(t) {
+        switch (state.filter) {
+          case 'todo':
+            return !t.curated;
+          case 'reported':
+            return t.reports > 0;
+          case 'french':
+            return t.french && !t.curated;
+          case 'curated':
+            return t.curated;
+          case 'changed':
+            return state.publish.changed.includes(t.key);
+          default:
+            return true;
+        }
+      }
+
+      function renderList() {
+        const q = norm(state.query.trim());
+        state.visible = state.teams.filter(
+          (t) =>
+            matchesFilter(t) &&
+            (!state.category || t.category === state.category) &&
+            (!q || norm(`${t.name} ${t.opponent} ${t.origin} ${t.rivalryId}`).includes(q)),
+        );
+        if (state.filter === 'reported') state.visible.sort((a, b) => b.reports - a.reports);
+        $('count').textContent = `${state.visible.length} team(s)`;
+        $('list').innerHTML = state.visible
+          .map((t) => {
+            const dot = t.curated ? 'ok' : t.reports > 0 ? 'bad' : '';
+            return `<li role="option" data-key="${esc(t.key)}" aria-selected="${t.key === state.selected}">
+              <span class="dot ${dot}"></span>
+              <span><span class="row-name">${esc(t.name)}</span>${t.reports ? ` <span class="ko">⚠ ${t.reports}</span>` : ''}
+              <span class="row-sub">contre ${esc(t.opponent)} · ${esc(catLabel(t.category))}</span></span>
+            </li>`;
+          })
+          .join('');
+      }
+
+      const catLabel = (id) => state.categories.find((c) => c.id === id)?.label ?? id;
+
+      function renderStats() {
+        const curated = state.teams.filter((t) => t.curated).length;
+        $('stats').innerHTML =
+          `<strong>${curated}</strong> / ${state.teams.length} teams avec un GIF choisi`;
+      }
+
+      // ─── Quota Giphy : compteur et compte à rebours ───
+      const clock = (ms) => {
+        const total = Math.max(0, Math.ceil(ms / 1000));
+        const h = Math.floor(total / 3600);
+        const m = String(Math.floor((total % 3600) / 60)).padStart(h ? 2 : 1, '0');
+        const sec = String(total % 60).padStart(2, '0');
+        return h ? `${h}:${m}:${sec}` : `${m}:${sec}`;
+      };
+      const isBlocked = () => Boolean(state.quota?.blockedUntil > Date.now());
+
+      function renderQuota(quota) {
+        if (quota) state.quota = quota;
+        const q = state.quota;
+        if (!q) return;
+        const el = $('quota');
+        if (!state.hasKey) {
+          el.innerHTML = '<span class="ko">Pas de clé Giphy : recherche désactivée</span>';
+          return;
+        }
+        el.title =
+          'Recherches de cette page dans la dernière heure, avec la clé de dev du .env (npm run dev l’utilise aussi).';
+        // Les recherches de plus d'une heure sortent du compte.
+        q.calls = (q.calls ?? []).filter((t) => t > Date.now() - 3_600_000);
+        q.used = q.calls.length;
+        q.nextFreeAt = q.calls.length ? q.calls[0] + 3_600_000 : null;
+        const left = q.limit - q.used;
+        const count = `Giphy : <strong class="${left < 15 ? 'ko' : ''}">${q.used}</strong> / ${q.limit} cette heure`;
+        if (isBlocked()) {
+          el.innerHTML = `<span class="blocked">⏳ Quota atteint · recherches de retour dans <span class="timer">~${clock(q.blockedUntil - Date.now())}</span></span>
+            <span>(${q.used} / ${q.limit})</span>
+            <button class="ghost" type="button" id="retry">Réessayer maintenant</button>`;
+          $('retry').onclick = () => runSearch(0, { force: true });
+        } else {
+          const next =
+            q.used && q.nextFreeAt
+              ? ` · prochaine place libre dans <span class="timer">${clock(q.nextFreeAt - Date.now())}</span>`
+              : '';
+          el.innerHTML = count + next;
+        }
+        const searchState = $('search-state');
+        if (searchState && !state.results.length) searchState.textContent = emptySearchText();
+      }
+
+      function emptySearchText() {
+        if (!state.hasKey) return 'Recherche désactivée : pas de clé Giphy dans .env.';
+        if (isBlocked())
+          return `Quota Giphy atteint : recherches de retour dans ~${clock(state.quota.blockedUntil - Date.now())}. Les liens collés marchent toujours.`;
+        return 'Lance une recherche (Entrée).';
+      }
+
+      // Une seconde par tour : le compte à rebours avance, et à la fin la recherche se relance.
+      let wasBlocked = false;
+      setInterval(() => {
+        if (!state.quota) return;
+        const blocked = isBlocked();
+        renderQuota();
+        if (wasBlocked && !blocked) {
+          toast('Les recherches Giphy sont de retour.');
+          const t = state.byKey.get(state.selected);
+          if (t && !state.results.length && state.autoSearch) runSearch(0);
+        }
+        wasBlocked = blocked;
+      }, 1000);
+
+      function renderPublish() {
+        const { branch, changed, images } = state.publish;
+        const parts = [];
+        if (changed.length) parts.push(`${changed.length} team(s) modifiée(s)`);
+        if (images.length) parts.push(`${images.length} image(s)`);
+        $('pending').textContent = parts.length
+          ? `${parts.join(', ')} à publier${branch && branch !== 'main' ? ` · branche ${branch} : passe sur main pour publier` : ''}`
+          : 'Tout est publié';
+        $('publish').disabled = !parts.length || branch !== 'main';
+      }
+
+      // ─── Fiche d'une team ───
+      function select(key, { search = true } = {}) {
+        state.selected = key;
+        state.results = [];
+        state.offset = 0;
+        const t = state.byKey.get(key);
+        state.searchText = t?.giphyQuery ?? '';
+        renderList();
+        renderEditor();
+        document
+          .querySelector('#list [aria-selected="true"]')
+          ?.scrollIntoView({ block: 'nearest' });
+        clearTimeout(autoTimer);
+        // Recherche automatique, après une courte pause : parcourir la liste ne coûte rien.
+        if (search && state.autoSearch && t && state.hasKey)
+          autoTimer = setTimeout(() => runSearch(0), 600);
+      }
+      let autoTimer;
+
+      function move(step) {
+        const i = state.visible.findIndex((t) => t.key === state.selected);
+        const next = state.visible[Math.max(0, Math.min(state.visible.length - 1, i + step))];
+        if (next) select(next.key);
+      }
+
+      function mediaHtml(m) {
+        if (m.mp4)
+          return `<video src="${esc(m.mp4)}" poster="${esc(m.img || '')}" autoplay muted loop playsinline></video>`;
+        return `<img src="${esc(m.img || '')}" alt="" />`;
+      }
+
+      function renderEditor() {
+        const t = state.byKey.get(state.selected);
+        if (!t) {
+          $('editor').innerHTML = '<p class="empty">Choisis une team dans la liste.</p>';
+          return;
+        }
+        const chosenIds = new Set(t.chosen.filter((m) => m.kind === 'giphy').map((m) => m.value));
+        const kindLabel = { giphy: 'Giphy', tenor: 'Tenor', image: 'Image du site' };
+        const chosen = t.chosen.length
+          ? `<div class="grid">${t.chosen
+              .map(
+                (m, i) => `<div class="tile">${mediaHtml(m)}
+                  <button class="remove" type="button" data-remove="${i}" title="Retirer">✕</button>
+                  <span class="cap"><span>${kindLabel[m.kind]}</span><span class="t">${esc(m.kind === 'giphy' ? m.value : '')}</span></span></div>`,
+              )
+              .join('')}</div>`
+          : '<p class="empty">Aucun GIF choisi : le site prend le premier résultat validé de sa recherche automatique, sinon le GIF d’ambiance de la catégorie.</p>';
+        const results = state.results.length
+          ? `<div class="grid">${state.results
+              .map((r, i) => {
+                const label =
+                  r.match === 'exact'
+                    ? '<span class="ok">✓ exact</span>'
+                    : r.match === 'near'
+                      ? '<span class="near">≈ mot</span>'
+                      : '<span class="ko">✗</span>';
+                const reported = t.reportedGifs[r.id]
+                  ? ` <span class="ko">⚠ signalé ${t.reportedGifs[r.id]}×</span>`
+                  : '';
+                return `<button type="button" class="tile${chosenIds.has(r.id) ? ' on' : ''}" data-pick="${esc(r.id)}" title="${esc(r.title)}">
+                  ${mediaHtml(r)}${i < 9 ? `<span class="num">${i + 1}</span>` : ''}<span class="check">✓</span>
+                  <span class="cap">${label}${reported}<span class="t">${esc(r.title)}</span></span></button>`;
+              })
+              .join('')}</div>
+              <p class="row" style="margin-top: 10px"><button class="ghost" type="button" id="more">25 de plus</button></p>`
+          : `<p class="empty" id="search-state">${esc(emptySearchText())}</p>`;
+
+        $('editor').innerHTML = `
+          <div class="team-head">
+            <h2>${esc(t.name)}</h2>
+            ${t.curated ? '<span class="tag">GIF choisi</span>' : ''}
+            ${t.french ? '<span class="tag pink">œuvre française</span>' : ''}
+            ${t.reports ? `<span class="tag red">${t.reports} signalement(s)</span>` : ''}
+            <span class="nav">
+              <button class="ghost" type="button" id="prev" title="Team précédente (↑ ou K)">↑ Précédente</button>
+              <button class="ghost" type="button" id="next" title="Team suivante (↓ ou J)">Suivante ↓</button>
+            </span>
+          </div>
+          <p class="team-meta">${esc(t.origin)} — « ${esc(t.line)} » · contre <strong>${esc(t.opponent)}</strong> · ${esc(catLabel(t.category))} ·
+            <a href="https://team484.fr/debat/${esc(t.rivalryId)}" target="_blank" rel="noopener" style="color: var(--muted)">voir le débat en ligne</a></p>
+          ${
+            t.twins.length
+              ? `<p class="team-meta">Aussi dans ${t.twins
+                  .map(
+                    (w) =>
+                      `<a href="#" data-goto="${esc(w.key)}">contre ${esc(w.opponent)}</a> (${esc(catLabel(w.category))})`,
+                  )
+                  .join(', ')} : mêmes GIF, ajoutés ou retirés partout à la fois.</p>`
+              : ''
+          }
+
+          <section>
+            <h3>GIF choisis (${t.chosen.length}) — le site en tire un au hasard</h3>
+            ${chosen}
+          </section>
+
+          <section>
+            <h3>Chercher sur Giphy — clic sur un GIF pour l’ajouter ou le retirer (touches 1 à 9)</h3>
+            <form class="searchbar" id="search-form">
+              <input type="search" id="search" value="${esc(state.searchText)}" aria-label="Recherche Giphy" />
+              <button type="submit" ${state.hasKey ? '' : 'disabled'}>Chercher</button>
+              <button class="ghost" type="button" id="use-query" title="Le site utilisera cette recherche quand aucun GIF n’est choisi">Utiliser pour le site</button>
+              <label><input type="checkbox" id="auto" ${state.autoSearch ? 'checked' : ''} /> Chercher dès qu’on ouvre une team</label>
+            </form>
+            ${results}
+          </section>
+
+          <section>
+            <h3>Coller des liens</h3>
+            <textarea id="links" placeholder="Un par ligne : lien Tenor (https://media.tenor.com/…/x.gif), lien Giphy, adresse d’une image, ou fichier du PC (clic droit → « Copier en tant que chemin »)"></textarea>
+            <p class="row" style="margin-top: 8px"><button type="button" id="add-links">Ajouter</button></p>
+            <p class="help">Les images (lien ou fichier) sont copiées sur le site, réduites et converties. Un lien refusé est gardé dans liens-refuses.txt.</p>
+          </section>
+
+          <section>
+            <details>
+              <summary>Recherche automatique du site (quand aucun GIF n’est choisi)</summary>
+              <div class="row" style="margin-top: 10px">
+                <label class="field">Recherche Giphy<input id="query" value="${esc(t.giphyQuery)}" /></label>
+                <label class="field">Mots-clés qui valident un résultat (virgules)
+                  <input id="keywords" value="${esc((t.giphyKeywords || []).join(', '))}" placeholder="${esc(t.defaultKeywords.join(', '))}" /></label>
+                <button type="button" id="save-settings">Enregistrer</button>
+              </div>
+              <p class="help">Mots-clés vides = valeurs par défaut (en gris).</p>
+            </details>
+          </section>`;
+        bindEditor(t);
+      }
+
+      function bindEditor(t) {
+        $('prev').onclick = () => move(-1);
+        document.querySelectorAll('[data-goto]').forEach(
+          (el) =>
+            (el.onclick = (e) => {
+              e.preventDefault();
+              select(el.dataset.goto);
+            }),
+        );
+        $('next').onclick = () => move(1);
+        $('search-form').onsubmit = (e) => {
+          e.preventDefault();
+          state.searchText = $('search').value.trim();
+          runSearch(0);
+        };
+        $('search').oninput = (e) => (state.searchText = e.target.value);
+        $('auto').onchange = (e) => {
+          state.autoSearch = e.target.checked;
+          localStorage.setItem('admin:auto', state.autoSearch ? 'on' : 'off');
+        };
+        $('use-query').onclick = () =>
+          save(t, { giphyQuery: $('search').value }, 'Recherche du site enregistrée');
+        $('add-links').onclick = () => {
+          const links = $('links').value;
+          if (links.trim()) save(t, { links }, 'Liens ajoutés');
+        };
+        $('save-settings').onclick = () =>
+          save(
+            t,
+            { giphyQuery: $('query').value, giphyKeywords: $('keywords').value },
+            'Réglages enregistrés',
+          );
+        if ($('more')) $('more').onclick = () => runSearch(state.offset + 25);
+        document
+          .querySelectorAll('[data-pick]')
+          .forEach((el) => (el.onclick = () => togglePick(el.dataset.pick)));
+        document
+          .querySelectorAll('[data-remove]')
+          .forEach((el) => (el.onclick = () => removeChosen(Number(el.dataset.remove))));
+      }
+
+      // ─── Actions ───
+      async function runSearch(offset, { force = false } = {}) {
+        const t = state.byKey.get(state.selected);
+        const q = (state.searchText || t?.giphyQuery || '').trim();
+        if (!t || !q) return;
+        const key = t.key;
+        const el = $('search-state');
+        if (el) el.textContent = 'Recherche…';
+        try {
+          const data = await api(
+            `/api/search?q=${encodeURIComponent(q)}&offset=${offset}&key=${encodeURIComponent(key)}${force ? '&force=1' : ''}`,
+          );
+          if (state.selected !== key) return;
+          state.results = offset ? [...state.results, ...data.results] : data.results;
+          state.offset = offset;
+          renderQuota(data.quota);
+          if (!data.results.length && !offset)
+            toast('Aucun résultat. Essaie d’autres mots (en anglais, ça marche souvent mieux).');
+          renderEditor();
+        } catch (error) {
+          if (error.data?.quota) {
+            // Quota atteint : le compte à rebours s'affiche en haut et à la place des résultats.
+            renderQuota(error.data.quota);
+            if (force)
+              toast('Toujours bloqué par Giphy. Nouvel essai à la fin du compte à rebours.', true);
+            return;
+          }
+          if (state.selected === key && $('search-state'))
+            $('search-state').textContent = error.message;
+          toast(error.message, true);
+        }
+      }
+
+      async function save(t, change, message) {
+        try {
+          const data = await api('/api/team', { key: t.key, change });
+          Object.assign(t, data.team);
+          for (const twin of data.twins) Object.assign(state.byKey.get(twin.key) ?? {}, twin);
+          state.publish = data.publish;
+          renderStats();
+          renderPublish();
+          renderList();
+          renderEditor();
+          if (data.problems.length)
+            toast(
+              `Pas utilisé(s), gardé(s) dans liens-refuses.txt :\n${data.problems.join('\n')}`,
+              true,
+            );
+          else toast(`${message} ✓`);
+        } catch (error) {
+          toast(error.message, true);
+        }
+      }
+
+      function togglePick(id) {
+        const t = state.byKey.get(state.selected);
+        const ids = t.chosen.filter((m) => m.kind === 'giphy').map((m) => m.value);
+        const next = ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id];
+        save(t, { giphyIds: next }, ids.includes(id) ? 'Retiré' : 'Ajouté');
+      }
+
+      function removeChosen(index) {
+        const t = state.byKey.get(state.selected);
+        const m = t.chosen[index];
+        if (!m) return;
+        const of = (kind) => t.chosen.filter((x) => x.kind === kind && x !== m).map((x) => x.value);
+        const change = {
+          giphy: { giphyIds: of('giphy') },
+          tenor: { gifUrls: of('tenor') },
+          image: { images: of('image') },
+        }[m.kind];
+        save(t, change, 'Retiré');
+      }
+
+      let confirmTimer;
+      $('publish').onclick = async () => {
+        const btn = $('publish');
+        if (btn.dataset.confirm !== 'yes') {
+          btn.dataset.confirm = 'yes';
+          btn.textContent = 'Confirmer : commit + push';
+          clearTimeout(confirmTimer);
+          confirmTimer = setTimeout(() => {
+            btn.dataset.confirm = '';
+            btn.textContent = 'Publier';
+          }, 5000);
+          return;
+        }
+        btn.dataset.confirm = '';
+        btn.textContent = 'Publication…';
+        btn.disabled = true;
+        try {
+          const data = await api('/api/publish', {});
+          state.publish = data;
+          toast(
+            `Publié : « ${data.message} ».\nQuand le Deploy GitHub est vert, dans cPanel → Terminal :\ncd ~/team484 && git pull && touch tmp/restart.txt`,
+          );
+        } catch (error) {
+          toast(error.message, true);
+        }
+        btn.textContent = 'Publier';
+        renderPublish();
+        renderList();
+      };
+
+      // ─── Filtres et clavier ───
+      $('chips').innerHTML = FILTERS.map(
+        ([id, label]) =>
+          `<button type="button" data-filter="${id}" aria-pressed="${id === state.filter}">${label}</button>`,
+      ).join('');
+      $('chips').onclick = (e) => {
+        const id = e.target.dataset?.filter;
+        if (!id) return;
+        state.filter = id;
+        localStorage.setItem('admin:filter', id);
+        document
+          .querySelectorAll('[data-filter]')
+          .forEach((b) => b.setAttribute('aria-pressed', b.dataset.filter === id));
+        renderList();
+      };
+      $('q').oninput = (e) => {
+        state.query = e.target.value;
+        renderList();
+      };
+      $('category').onchange = (e) => {
+        state.category = e.target.value;
+        localStorage.setItem('admin:category', state.category);
+        renderList();
+      };
+      $('list').onclick = (e) => {
+        const li = e.target.closest('li');
+        if (li) select(li.dataset.key);
+      };
+      document.addEventListener('keydown', (e) => {
+        const typing = ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName);
+        if (e.key === 'Escape' && typing) return document.activeElement.blur();
+        if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
+        if (e.key === 'ArrowDown' || e.key === 'j') move(1);
+        else if (e.key === 'ArrowUp' || e.key === 'k') move(-1);
+        else if (e.key === '/') $('q').focus();
+        else if (e.key === 's') $('search')?.focus();
+        else if (/^[1-9]$/.test(e.key) && state.results[Number(e.key) - 1])
+          togglePick(state.results[Number(e.key) - 1].id);
+        else return;
+        e.preventDefault();
+      });
+
+      // ─── Démarrage ───
+      (async () => {
+        try {
+          const data = await api('/api/data');
+          state.teams = data.teams;
+          state.categories = data.categories;
+          state.byKey = new Map(data.teams.map((t) => [t.key, t]));
+          state.publish = data.publish;
+          state.hasKey = data.hasKey;
+          $('category').innerHTML =
+            '<option value="">Toutes les catégories</option>' +
+            data.categories
+              .map((c) => `<option value="${esc(c.id)}">${esc(c.label)}</option>`)
+              .join('');
+          $('category').value = state.category;
+          renderStats();
+          renderQuota(data.quota);
+          renderPublish();
+          renderList();
+          if (state.visible[0]) select(state.visible[0].key, { search: false });
+        } catch (error) {
+          toast(`Impossible de charger les teams : ${error.message}`, true);
+        }
+      })();
+    </script>
+  </body>
+</html>

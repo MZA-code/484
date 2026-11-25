@@ -16,7 +16,6 @@ import { formatText } from '../../lib/format';
 import { useReducedMotion } from '../../lib/motion';
 import { AchievementIcon } from './AchievementIcon';
 import { Finished, type Suggestion } from './Finished';
-import { GifReport } from './GifReport';
 import { preloadGif, teamGifKey } from './gifs';
 import { Panels } from './Panels';
 import { Result } from './Result';
@@ -219,12 +218,6 @@ export default function Debate({
           exit={exit}
           label={t.team}
           onChoose={choose}
-        />
-        <GifReport
-          gifKey={teamGifKey(rivalry.id, side)}
-          name={rivalry[side].name}
-          texts={t.gifReport}
-          hidden={exit !== null}
         />
       </div>
     );

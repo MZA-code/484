@@ -11,9 +11,6 @@
 import { useEffect, useState } from 'preact/hooks';
 import { giphyClientFor, type TeamGifPlan } from '../../lib/giphy';
 
-/** Abonnés au rafraîchissement d'un GIF (voir refreshGif). */
-const refreshListeners = new Set<(gifKey: string) => void>();
-
 export interface GifInfo {
   id: string;
   mp4: string;
@@ -39,13 +36,12 @@ async function resolve(plan: TeamGifPlan | null): Promise<GifInfo | null> {
   return giphyClientFor(plan.key).teamGif(plan);
 }
 
-/** GIF d'une team, choisi une seule fois par visite (`reload` : redemander au site). */
-export function gifInfo(gifKey: string, reload = false): Promise<GifInfo | null> {
-  let pending = reload ? undefined : infos.get(gifKey);
+/** GIF d'une team, choisi une seule fois par visite. */
+function gifInfo(gifKey: string): Promise<GifInfo | null> {
+  let pending = infos.get(gifKey);
   if (!pending) {
     const url = `/api/gif/${gifKey.split('/').map(encodeURIComponent).join('/')}`;
-    // `reload` contourne aussi le cache du navigateur (une heure) : le site a changé de GIF.
-    pending = fetch(url, reload ? { cache: 'reload' } : undefined)
+    pending = fetch(url)
       .then((r) => (r.ok ? (r.json() as Promise<TeamGifPlan>) : null))
       .then(resolve)
       .catch(() => null);
@@ -56,27 +52,6 @@ export function gifInfo(gifKey: string, reload = false): Promise<GifInfo | null>
     });
   }
   return pending;
-}
-
-/** Redemande le GIF d'une team (après un signalement en mode admin) et met à jour l'affichage. */
-export function refreshGif(gifKey: string): void {
-  void gifInfo(gifKey, true);
-  refreshListeners.forEach((listener) => listener(gifKey));
-}
-
-/** Change à chaque rafraîchissement du GIF de cette team : à mettre dans les dépendances. */
-export function useGifVersion(gifKey: string): number {
-  const [version, setVersion] = useState(0);
-  useEffect(() => {
-    const listener = (key: string) => {
-      if (key === gifKey) setVersion((v) => v + 1);
-    };
-    refreshListeners.add(listener);
-    return () => {
-      refreshListeners.delete(listener);
-    };
-  }, [gifKey]);
-  return version;
 }
 
 /** Précharge une vidéo avec un lecteur caché, à son adresse d'origine. */
@@ -117,7 +92,6 @@ export interface GifState {
 
 /** Média à afficher pour un prétendant : vidéo, ou image fixe si les animations sont réduites. */
 export function useGif(gifKey: string, stillOnly: boolean): GifState {
-  const version = useGifVersion(gifKey);
   const [state, setState] = useState<GifState>({ media: null, settled: false });
   useEffect(() => {
     let cancelled = false;
@@ -139,6 +113,6 @@ export function useGif(gifKey: string, stillOnly: boolean): GifState {
     return () => {
       cancelled = true;
     };
-  }, [gifKey, stillOnly, version]);
+  }, [gifKey, stillOnly]);
   return state;
 }

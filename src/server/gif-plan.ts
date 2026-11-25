@@ -1,7 +1,7 @@
 /**
  * Ce que le navigateur doit afficher ou demander à Giphy pour une team (voir src/lib/giphy.ts).
  * Le serveur n'appelle jamais Giphy : il tire au sort parmi les GIF choisis à la main, et
- * transmet la recherche, les mots-clés, les GIF écartés et le GIF d'ambiance de la catégorie.
+ * transmet la recherche, les mots-clés et le GIF d'ambiance de la catégorie.
  */
 import type { Team } from '../data/schema';
 import { keywordsFor, queryWords } from '../lib/gif-match';
@@ -38,7 +38,6 @@ export function teamGifPlan(
   options: {
     apiKey: string | undefined;
     mood?: CategoryMood | undefined;
-    rejected?: ReadonlySet<string>;
     random?: () => number;
   },
 ): PlannedGif {
@@ -63,7 +62,6 @@ export function teamGifPlan(
       query: team.giphyQuery,
       keywords: keywordsFor(team),
       words,
-      rejected: [...(options.rejected ?? [])],
       mood: options.mood ? moodPlan(options.mood, random) : undefined,
     },
     maxAge: handPicked > 0 ? maxAge : 3600,

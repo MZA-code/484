@@ -49,8 +49,6 @@ export interface TeamGiphyPlan {
   keywords: string[];
   /** Mots significatifs de la recherche (validation plus large) ; vide = pas de validation large. */
   words: string[];
-  /** GIF écartés par les signalements « Mauvais GIF ? ». */
-  rejected: string[];
   /** GIF d'ambiance de la catégorie, en dernier recours. */
   mood?: MoodPlan | undefined;
 }
@@ -130,7 +128,7 @@ export function thumbnailOf(gif: Gif): Pick<Gif, 'id' | 'mp4' | 'webp' | 'still'
 /** Résultats demandés par recherche : de quoi en trouver un qui passe la validation. */
 export const SEARCH_LIMIT = 25;
 
-/** Candidats validés retenus par recherche (le premier non écarté est affiché). */
+/** Candidats validés retenus par recherche (le premier est affiché) et GIF d’ambiance possibles. */
 export const MAX_CANDIDATES = 5;
 
 /** Index stable (0 ≤ i < n) tiré d'un texte : même team, même choix. */
@@ -218,17 +216,13 @@ export function createGiphyClient({
       return quotaExceeded;
     },
 
-    /**
-     * GIF d'une team. Les GIF choisis à la main ne sont jamais écartés automatiquement :
-     * ils apparaissent dans `npm run gif-audit`.
-     */
+    /** GIF d'une team : le choisi à la main, sinon le meilleur résultat validé, sinon l'ambiance. */
     async teamGif(plan: TeamGiphyPlan): Promise<Gif | null> {
       if (plan.id) {
         const gif = await byId(plan.id);
         if (gif) return gif;
       }
-      const rejected = new Set(plan.rejected);
-      const found = (await candidates(plan)).find((gif) => !rejected.has(gif.id));
+      const [found] = await candidates(plan);
       if (found) return found;
 
       const mood = plan.mood;
@@ -238,7 +232,7 @@ export function createGiphyClient({
         if (gif) return gif;
       }
       // Toujours le même GIF d'ambiance pour une team donnée, mais pas le même pour toutes.
-      const moods = (await moodGifs(mood.query)).filter((gif) => !rejected.has(gif.id));
+      const moods = await moodGifs(mood.query);
       return moods[stableIndex(plan.name, moods.length)] ?? null;
     },
 

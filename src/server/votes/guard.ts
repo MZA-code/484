@@ -1,5 +1,5 @@
 /**
- * Filtre des requêtes qui écrivent (vote, signalement de GIF), avant même la limite de débit.
+ * Filtre des requêtes qui écrivent (les votes), avant même la limite de débit.
  *
  * Il écarte les abus les plus simples : formulaire posté depuis un autre site, script qui
  * n'imite pas un navigateur, en-tête X-Forwarded-For inventé pour changer d'adresse IP.

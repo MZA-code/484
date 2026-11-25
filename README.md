@@ -42,8 +42,7 @@ Le site suit le réglage « réduire les animations » du système : avec ce ré
 | `npm run build`          | Build de production dans `dist/`                                  |
 | `npm start`              | Lance le build de production (serveur Node autonome)              |
 | `npm run play`           | Mode console : jouer dans le terminal                             |
-| `npm run curate`         | Outil de curation des GIF (page locale)                           |
-| `npm run gif-audit`      | GIF à curer en priorité (signalés, œuvres françaises) + page      |
+| `npm run gif-admin`      | Page d'admin des GIF, en local : voir, choisir, publier           |
 | `npm run content:review` | Fiche de relecture des rivalités (`docs/relecture-rivalites.md`)  |
 | `npm run content:check`  | Vérifie les JSON de `content/` et affiche un résumé               |
 | `npm run lint`           | ESLint                                                            |
@@ -91,7 +90,7 @@ Le site suit le réglage « réduire les animations » du système : avec ce ré
 
 ### Comment le site choisit le GIF d'une team
 
-**Qui appelle Giphy ?** Le navigateur, directement : c'est la règle de GIPHY pour une application web (pas de serveur intermédiaire, aucune réponse ni adresse gardée en cache, adresses utilisées telles quelles). La route `/api/gif/<rivalité>/<a|b>` ne fait que préparer un « plan » : le GIF choisi à la main tiré au sort, ou la recherche avec ses mots-clés de validation, les GIF écartés par les signalements et le GIF d'ambiance de la catégorie. Le navigateur l'exécute avec `src/lib/giphy.ts`. La clé Giphy du site part donc dans ce plan : une clé web est publique par nature. Après un « quota dépassé », le navigateur n'appelle plus Giphy jusqu'à la fin de la visite.
+**Qui appelle Giphy ?** Le navigateur, directement : c'est la règle de GIPHY pour une application web (pas de serveur intermédiaire, aucune réponse ni adresse gardée en cache, adresses utilisées telles quelles). La route `/api/gif/<rivalité>/<a|b>` ne fait que préparer un « plan » : le GIF choisi à la main tiré au sort, ou la recherche avec ses mots-clés de validation et le GIF d'ambiance de la catégorie. Le navigateur l'exécute avec `src/lib/giphy.ts`. La clé Giphy du site part donc dans ce plan : une clé web est publique par nature. Après un « quota dépassé », le navigateur n'appelle plus Giphy jusqu'à la fin de la visite.
 
 L'ordre est toujours le même, sans exception :
 
@@ -122,13 +121,13 @@ Sans `giphyKeywords`, les mots-clés sont le nom de la team sans son article («
 
 ### Liens Tenor : quand Giphy n'a rien
 
-Giphy connaît mal les œuvres françaises (Eddy Mitchell, la 7e compagnie…), que Tenor a souvent. L'API Tenor est fermée aux sites extérieurs depuis le 30 juin 2026 : pas de recherche automatique, mais on peut **coller un lien** choisi sur tenor.com (clic droit sur le GIF, « Copier l'adresse de l'image ») dans la page de curation, champ « Liens Tenor ou Giphy ». Il est rangé dans `gifUrls` :
+Giphy connaît mal les œuvres françaises (Eddy Mitchell, la 7e compagnie…), que Tenor a souvent. L'API Tenor est fermée aux sites extérieurs depuis le 30 juin 2026 : pas de recherche automatique, mais on peut **coller un lien** choisi sur tenor.com (clic droit sur le GIF, « Copier l'adresse de l'image ») dans la page d'admin, champ « Coller des liens ». Il est rangé dans `gifUrls` :
 
 ```json
 "gifUrls": ["https://media.tenor.com/4Pm3OjjE7BEAAAAC/eddy-mitchell-claude-moine.gif"]
 ```
 
-- Seules les images `https://media.tenor.com/…` (et `media1.tenor.com/m/…`) sont acceptées ; le fichier refuse tout autre lien. Dans la page de curation, un lien non reconnu n'empêche pas d'enregistrer les autres : il est signalé et recopié dans `liens-refuses.txt` (ignoré par git).
+- Seules les images `https://media.tenor.com/…` (et `media1.tenor.com/m/…`) sont acceptées ; le fichier refuse tout autre lien. Dans la page d'admin, un lien non reconnu n'empêche pas d'enregistrer les autres : il est signalé et recopié dans `liens-refuses.txt` (ignoré par git).
 - Le lien est rangé sous une forme unique (version `AAAAC`). Le site en sert la **vidéo MP4 légère** (`AAAPo`) et un **aperçu fixe** (`AAAAe`) pour les animations réduites, déduits du lien (`src/server/gif-links.ts`). Le GIF d'origine, parfois plusieurs Mo, n'est jamais chargé.
 - Le GIF reste hébergé chez Tenor ; si Google change ses adresses, la carte garde son cadre rayé.
 - Un lien Giphy collé dans le même champ est converti en identifiant et rangé dans `giphyIds`.
@@ -136,7 +135,7 @@ Giphy connaît mal les œuvres françaises (Eddy Mitchell, la 7e compagnie…), 
 
 ### Images rangées sur le site : quand il n'y a aucun GIF
 
-Pour une team qu'aucun service de GIF ne connaît (Tazos, Les Ripoux…), on colle dans le même champ de la page de curation le lien d'une image (clic droit, « Copier l'adresse de l'image ») ou le chemin d'un fichier du poste (« Copier en tant que chemin »). À l'enregistrement, `scripts/lib/team-images.ts` :
+Pour une team qu'aucun service de GIF ne connaît (Tazos, Les Ripoux…), on colle dans le même champ de la page d'admin le lien d'une image (clic droit, « Copier l'adresse de l'image ») ou le chemin d'un fichier du poste (« Copier en tant que chemin »). À l'enregistrement, `scripts/lib/team-images.ts` :
 
 - télécharge ou lit l'image, vérifie que c'en est une (25 Mo au plus) ;
 - la réduit à 480 px de large en WebP dans `public/images/teams/<team>-<empreinte>.webp` ;
@@ -149,50 +148,24 @@ Pour une team qu'aucun service de GIF ne connaît (Tazos, Les Ripoux…), on col
 
 L'image est servie par le site lui-même : aucun service tiers, rien à changer dans la page Confidentialité. L'API renvoie `mp4: ""` et l'image dans `webp` ; la carte l'affiche alors en image. Un test vérifie que chaque image listée existe dans `public/`, avec sa version fixe. Les images sont recopiées sur le site : préférer celles qu'on a le droit d'utiliser.
 
-### Signalements « Mauvais GIF ? »
+### La page d'admin : `npm run gif-admin`
 
-Sous chaque carte, un bouton discret « Mauvais GIF ? » envoie `POST /api/gif-report { teamId, gifId }`. Le serveur ajoute un signalement au compteur de ce GIF dans la base SQLite des votes (tables `gif_reports` et `report_limits`) : jamais d'IP, seulement l'empreinte quotidienne déjà utilisée pour les votes. Limite : 3 signalements d'affilée, puis 1 par minute, 30 par jour et par visiteur. Un visiteur ne compte qu'**une fois par jour pour un même GIF**.
-
-**Remplacement automatique.** La recherche retient jusqu'à 5 GIF validés par team. Dès qu'un GIF trouvé par la recherche atteint **3 signalements** (`GIF_REJECT_THRESHOLD`, donc 3 visiteurs différents, ou 3 jours), le plan le transmet comme écarté et le navigateur prend le suivant de la liste. Si les 5 sont écartés, la carte garde le cadre rayé. Les GIF choisis à la main (`giphyIds`) ne sont jamais écartés automatiquement : ils apparaissent dans `npm run gif-audit`, et c'est toi qui décides. Le navigateur garde la réponse une heure : un remplacement se voit au plus tard une heure après.
-
-Pour lire les signalements du site en ligne depuis ton poste, choisis un jeton (une longue chaîne aléatoire) et mets-le **aux deux endroits** :
-
-- sur le serveur : variable `GIF_REPORT_TOKEN` dans cPanel (application Node), puis redémarrer l'application ;
-- en local : `GIF_REPORT_TOKEN=…` dans `.env`.
-
-Sans jeton sur le serveur, la liste n'est pas consultable (404).
-
-### Mode admin : écarter un GIF d'un clic
-
-Pour l'éditeur seulement. Sur chaque appareil (PC, téléphone), ouvrir une fois :
-
-```
-https://team484.fr/#admin=<GIF_REPORT_TOKEN>
-```
-
-Le navigateur garde le jeton (stockage local) et l'efface de la barre d'adresse ; comme il est après le `#`, il n'est jamais envoyé au serveur dans l'URL ni écrit dans ses journaux. Ensuite, « Mauvais GIF ? » envoie le jeton dans l'en-tête `x-484-admin` : pas de limite de débit, et le GIF est écarté tout de suite (il compte pour `GIF_REJECT_THRESHOLD` signalements). La carte affiche aussitôt le GIF suivant, et le bouton reste disponible pour l'écarter aussi. Pour couper le mode admin : `https://team484.fr/#admin=off`.
-
-### L'audit : `npm run gif-audit`
+Pour l'éditeur seulement, sur son PC : la page n'est jamais mise en ligne et n'écoute que sur `127.0.0.1`.
 
 ```sh
-npm run gif-audit -- --reports https://team484.fr   # signalements du site en ligne
-npm run gif-audit                                   # signalements de la base locale (data/votes.sqlite)
-npm run gif-audit -- --list                         # la liste seule, sans page ni appel à Giphy
-npm run gif-audit -- --limit 40                     # plus de teams dans la page (défaut : 25)
-npm run gif-audit -- --full                         # liste aussi les teams sans GIF jamais signalées
+npm run gif-admin                  # ouvre http://localhost:4850 dans le navigateur
+npm run gif-admin -- --no-open     # sans ouvrir le navigateur
 ```
 
-Le script affiche :
+- **À gauche**, toutes les teams, avec une recherche et des filtres : « À faire » (aucun GIF choisi), « Signalées » (archive des anciens signalements, `data/signalements-en-ligne.json`), « Œuvres françaises » (catégorie `cinefr`, ou une origine citée dans `FRENCH_MARKERS` de `scripts/lib/french-works.ts`), « Avec GIF choisi », « Non publiées », « Toutes ».
+- **À droite**, la team choisie : ses GIF choisis (✕ pour en retirer un), une recherche Giphy de 25 résultats (un clic, ou les touches 1 à 9, pour ajouter ou retirer ; « 25 de plus »), un champ pour coller des liens (Tenor, Giphy, image du web ou fichier du poste) et les réglages de la recherche automatique du site (`giphyQuery`, `giphyKeywords`). Chaque résultat indique si le site l'aurait accepté tout seul (« ✓ exact », « ≈ mot ») et s'il avait été signalé.
+- **Chaque changement est enregistré aussitôt** dans `content/rivalries.json` (validé, mis en forme par Prettier).
+- **Clavier** : ↓/↑ (ou J/K) team suivante ou précédente, `/` recherche dans la liste, `S` recherche Giphy, Échap pour sortir d'un champ.
+- **« Publier »** (sur la branche `main` seulement) : commit de `content/rivalries.json` et des nouvelles images de `public/images/teams/`, et seulement eux, puis push. Il reste la mise à jour dans cPanel.
 
-1. les teams **sans `giphyIds`**, les plus signalées d'abord ;
-2. les teams dont l'**origine cite une œuvre française** (catégorie `cinefr`, ou un auteur, une série, une chaîne de la liste `FRENCH_MARKERS` de `scripts/lib/audit.ts`, à compléter au besoin) ;
-3. les teams dont un **GIF choisi à la main a été signalé**.
+Quota : une recherche Giphy = un appel. Les GIF déjà choisis s'affichent sans appel à l'API (adresse du média déduite de l'identifiant), et une recherche déjà faite pendant la session ne coûte rien. La recherche se lance à l'ouverture d'une team, après une courte pause (case à décocher pour ne chercher que sur Entrée). La page utilise `GIPHY_API_KEY` du `.env` local : une clé de dev, à part de celle du serveur, pour ne pas puiser dans le quota du site en ligne. En haut de la page, un compteur montre les recherches de la dernière heure (gardées dans `data/gif-admin-quota.json`, il survit à un redémarrage). Quand Giphy refuse, un compte à rebours remplace le compteur : la page ne rappelle plus Giphy avant la fin, puis relance la recherche toute seule. « Réessayer maintenant » force un essai. Le délai est estimé : la plus ancienne recherche de l'heure si la page a rempli le quota, sinon 5 minutes, car `npm run dev` puise dans le même quota.
 
-Puis il ouvre une page locale (<http://localhost:4843>) avec **6 propositions Giphy par team**, dans cet ordre de priorité. Chaque proposition indique si elle passerait la validation par mots-clés (« ✓ mots-clés ») et si elle a déjà été signalée. Tu peux relancer une recherche, modifier les mots-clés, cocher un ou plusieurs GIF, puis **« Enregistrer dans rivalries.json »** : le fichier est validé, mis en forme et réécrit. Il reste à committer et à déployer.
-
-Quota : chaque team de la page coûte une recherche Giphy (clé gratuite : environ 100 par heure). Avance par lots de 25.
-
-`npm run curate` ouvre la même page, sans la priorisation : `--category bouffe` pour une catégorie, `--all` pour inclure les teams déjà curées.
+Il n'y a plus de bouton « Mauvais GIF ? » sur le site (supprimé dans la version 1.10.0, décision D44) : les GIF se choisissent ici.
 
 ## Achievements
 
@@ -210,12 +183,12 @@ La liste est dans `content/ui-texts.fr.json` (`achievements.list`) : identifiant
 
 ## Protection contre les robots et le spam
 
-Votes et signalements passent par les mêmes barrières, dans cet ordre :
+Les votes passent par ces barrières, dans cet ordre :
 
 1. **Filtre de requête** (`src/server/votes/guard.ts`) : en-tête `Origin` obligatoire et égal au site, corps JSON, et `User-Agent` d'un vrai navigateur (curl, Python, navigateurs pilotés et robots déclarés sont refusés).
-2. **Adresse IP fiable** : derrière le proxy d'o2switch (`TRUST_PROXY=true`), on lit l'adresse ajoutée **à droite** de `X-Forwarded-For` par le proxy lui-même. Celles de gauche peuvent être inventées par le visiteur, et ne servent jamais. Diagnostic : `GET /api/health?ip` avec l'en-tête `Authorization: Bearer <GIF_REPORT_TOKEN>`.
-3. **Limite de débit** par empreinte d'IP du jour : votes 5 d'affilée puis 1 par seconde, 600 par jour ; signalements 3 d'affilée puis 1 par minute, 30 par jour.
-4. **Un vote par rivalité, et un signalement par GIF, par visiteur et par jour.** Les suivants reçoivent les chiffres, mais ne comptent pas.
+2. **Adresse IP fiable** : derrière le proxy d'o2switch (`TRUST_PROXY=true`), on lit l'adresse ajoutée **à droite** de `X-Forwarded-For` par le proxy lui-même. Celles de gauche peuvent être inventées par le visiteur, et ne servent jamais. Diagnostic : `GET /api/health?ip` avec l'en-tête `Authorization: Bearer <GIF_REPORT_TOKEN>` (le jeton garde son nom d'origine, celui des anciens signalements de GIF).
+3. **Limite de débit** par empreinte d'IP du jour : 5 votes d'affilée puis 1 par seconde, 600 par jour.
+4. **Un vote par rivalité, par visiteur et par jour.** Les suivants reçoivent les chiffres, mais ne comptent pas.
 
 Limite assumée : un réseau de robots qui imite un navigateur et change d'adresse IP peut encore voter. Contre cela, il faudrait un test anti-robot (type Cloudflare Turnstile), qui ajoute un service tiers.
 
@@ -224,7 +197,7 @@ Limite assumée : un réseau de robots qui imite un navigateur et change d'adres
 ```
 content/            Tous les textes et les rivalités (JSON), modifiables sans toucher au code
 docs/               Brief d'origine et décisions techniques (decisions.md)
-scripts/            Outils en ligne de commande (mode console, vérification du contenu)
+scripts/            Outils en ligne de commande (mode console, vérification du contenu, admin des GIF)
 src/engine/         Moteur du jeu : TypeScript pur, sans dépendance au framework, entièrement testé
 src/data/           Schémas Zod et chargement des contenus (validation + typographie)
 src/lib/            Utilitaires : typographie française, couleurs des cartes, textes à trous

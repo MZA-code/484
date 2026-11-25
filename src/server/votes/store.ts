@@ -5,10 +5,9 @@
  * - rivalry_votes(rivalry_id, a_votes, b_votes, none_votes, both_votes) : les votes de chaque
  *   rivalité (« aucun des deux » et « les deux » compris)
  * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
- * - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
- * - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
- * - vote_seen, gif_report_seen : qui (empreinte du jour) a déjà voté pour une rivalité ou signalé
- *   un GIF aujourd'hui ; un visiteur ne compte qu'une fois par jour. Effacées chaque jour.
+ * - vote_seen : qui (empreinte du jour) a déjà voté pour une rivalité aujourd'hui ; un visiteur
+ *   ne compte qu'une fois par jour. Effacée chaque jour.
+ * Les tables des signalements « Mauvais GIF ? » (migrations 3 et 4) ont été supprimées (migration 7).
  *
  * L'interface `VoteStore` isole le reste du code de SQLite (passage à MySQL possible).
  */
@@ -16,7 +15,7 @@ import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import type { RivalryCounts } from './ranking';
-import { REPORT_RATE, takeToken, type Bucket } from './rate-limit';
+import { takeToken, type Bucket } from './rate-limit';
 
 export type Team = 'a' | 'b';
 /** Choix d'un vote : une des deux teams, « aucun des deux » ou « les deux ». */
@@ -46,43 +45,8 @@ export type VoteOutcome =
   | { status: 'duplicate'; pair: PairResult }
   | { status: 'rate-limited'; reason: 'burst' | 'daily'; pair: PairResult };
 
-export interface GifReportInput {
-  rivalryId: string;
-  team: Team;
-  gifId: string;
-  ipHash: string;
-  day: string;
-  nowMs: number;
-  /**
-   * Signalement de l'éditeur (mode admin) : ni limite de débit ni dédoublonnage,
-   * et il compte pour `weight` signalements d'un coup.
-   */
-  trusted?: { weight: number };
-}
-
-export type GifReportOutcome =
-  | { status: 'counted' }
-  /** Ce visiteur a déjà signalé ce GIF aujourd'hui : rien n'est ajouté. */
-  | { status: 'duplicate' }
-  | { status: 'rate-limited'; reason: 'burst' | 'daily' };
-
-/** Signalements cumulés d'un GIF d'une team. */
-export interface GifReportRow {
-  rivalryId: string;
-  team: Team;
-  gifId: string;
-  reports: number;
-  /** Date du dernier signalement (ISO). */
-  lastReport: string;
-}
-
 export interface VoteStore {
   recordVote(input: VoteInput): VoteOutcome;
-  recordGifReport(input: GifReportInput): GifReportOutcome;
-  /** Tous les signalements, les plus signalés d'abord. */
-  gifReports(): GifReportRow[];
-  /** GIF d'une team signalés au moins `minReports` fois. */
-  reportedGifIds(rivalryId: string, team: Team, minReports: number): string[];
   /** Votes par rivalité, filtrés sur un préfixe d'identifiant (« bouffe- ») ou tous. */
   rivalryCounts(idPrefix: string | null): RivalryCounts[];
   close(): void;
@@ -158,6 +122,10 @@ const MIGRATIONS = [
   `ALTER TABLE rivalry_votes ADD COLUMN none_votes INTEGER NOT NULL DEFAULT 0;`,
   // 6. « Les deux » : un quatrième compteur par rivalité.
   `ALTER TABLE rivalry_votes ADD COLUMN both_votes INTEGER NOT NULL DEFAULT 0;`,
+  // 7. Fin des signalements « Mauvais GIF ? » : les GIF se choisissent en local (npm run gif-admin).
+  `DROP TABLE IF EXISTS gif_reports;
+   DROP TABLE IF EXISTS report_limits;
+   DROP TABLE IF EXISTS gif_report_seen;`,
 ];
 
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
@@ -190,31 +158,6 @@ export function openSqliteStore(file: string): VoteStore {
     purgeVoteSeen: db.prepare('DELETE FROM vote_seen WHERE day < ?'),
     seeVote: db.prepare(
       'INSERT OR IGNORE INTO vote_seen (rivalry_id, ip_hash, day) VALUES (?, ?, ?)',
-    ),
-    purgeReportSeen: db.prepare('DELETE FROM gif_report_seen WHERE day < ?'),
-    seeReport: db.prepare(
-      `INSERT OR IGNORE INTO gif_report_seen (rivalry_id, team, gif_id, ip_hash, day)
-       VALUES (?, ?, ?, ?, ?)`,
-    ),
-    reportedIds: db.prepare(
-      'SELECT gif_id AS gifId FROM gif_reports WHERE rivalry_id = ? AND team = ? AND reports >= ?',
-    ),
-    getReportBucket: db.prepare(
-      'SELECT tokens, updated_ms AS updatedMs, count FROM report_limits WHERE ip_hash = ?',
-    ),
-    putReportBucket: db.prepare(
-      `INSERT INTO report_limits (ip_hash, day, tokens, updated_ms, count) VALUES (?, ?, ?, ?, ?)
-       ON CONFLICT(ip_hash) DO UPDATE SET tokens = excluded.tokens, updated_ms = excluded.updated_ms, count = excluded.count`,
-    ),
-    purgeReports: db.prepare('DELETE FROM report_limits WHERE day < ?'),
-    report: db.prepare(
-      `INSERT INTO gif_reports (rivalry_id, team, gif_id, reports, last_ms) VALUES (?, ?, ?, ?, ?)
-       ON CONFLICT(rivalry_id, team, gif_id)
-       DO UPDATE SET reports = reports + excluded.reports, last_ms = excluded.last_ms`,
-    ),
-    reports: db.prepare(
-      `SELECT rivalry_id AS rivalryId, team, gif_id AS gifId, reports, last_ms AS lastMs
-       FROM gif_reports ORDER BY reports DESC, last_ms DESC`,
     ),
     voteA: db.prepare(
       `INSERT INTO rivalry_votes (rivalry_id, a_votes) VALUES (?, 1)
@@ -250,7 +193,6 @@ export function openSqliteStore(file: string): VoteStore {
   };
 
   let lastPurgeDay = '';
-  let lastReportPurgeDay = '';
 
   function pairResult(rivalryId: string, choice: Choice): PairResult {
     const row = q.one.get(rivalryId) as
@@ -294,54 +236,6 @@ export function openSqliteStore(file: string): VoteStore {
         db.exec('ROLLBACK');
         throw error;
       }
-    },
-
-    recordGifReport({ rivalryId, team, gifId, ipHash, day, nowMs, trusted }) {
-      if (trusted) {
-        q.report.run(rivalryId, team, gifId, trusted.weight, nowMs);
-        return { status: 'counted' };
-      }
-      db.exec('BEGIN IMMEDIATE');
-      try {
-        if (lastReportPurgeDay !== day) {
-          q.purgeReports.run(day);
-          q.purgeReportSeen.run(day);
-          lastReportPurgeDay = day;
-        }
-        const bucket = q.getReportBucket.get(ipHash) as Bucket | undefined;
-        const taken = takeToken(bucket, nowMs, REPORT_RATE);
-        q.putReportBucket.run(
-          ipHash,
-          day,
-          taken.next.tokens,
-          taken.next.updatedMs,
-          taken.next.count,
-        );
-        const first =
-          taken.allowed && Number(q.seeReport.run(rivalryId, team, gifId, ipHash, day).changes) > 0;
-        if (first) q.report.run(rivalryId, team, gifId, 1, nowMs);
-        db.exec('COMMIT');
-        if (!taken.allowed) return { status: 'rate-limited', reason: taken.reason };
-        return first ? { status: 'counted' } : { status: 'duplicate' };
-      } catch (error) {
-        db.exec('ROLLBACK');
-        throw error;
-      }
-    },
-
-    gifReports() {
-      const rows = q.reports.all() as unknown as (Omit<GifReportRow, 'lastReport'> & {
-        lastMs: number;
-      })[];
-      return rows.map(({ lastMs, ...row }) => ({
-        ...row,
-        lastReport: new Date(lastMs).toISOString(),
-      }));
-    },
-
-    reportedGifIds(rivalryId, team, minReports) {
-      const rows = q.reportedIds.all(rivalryId, team, minReports) as unknown as { gifId: string }[];
-      return rows.map((r) => r.gifId);
     },
 
     rivalryCounts(idPrefix) {

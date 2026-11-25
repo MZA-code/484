@@ -3,7 +3,6 @@ import { keywordsFor, matchesKeywords, normalizeText, queryWords } from './gif-m
 import {
   createGiphyClient,
   GiphyError,
-  MAX_CANDIDATES,
   SEARCH_LIMIT,
   stableIndex,
   thumbnailOf,
@@ -42,7 +41,6 @@ const plan = (query: string, extra: Partial<TeamGiphyPlan> = {}): TeamGiphyPlan 
   query,
   keywords: keywordsFor({ name: query, giphyQuery: query }),
   words: queryWords(query),
-  rejected: [],
   ...extra,
 });
 
@@ -207,29 +205,16 @@ describe('giphy client (browser)', () => {
     expect((await client(giphy).teamGif(plan('Batman', { id: 'gone' })))?.id).toBe('s1');
   });
 
-  it('skips the GIFs rejected by reports', async () => {
-    const giphy = fakeFetch(() => ({
-      body: { data: [giphyObject('s1', 'Batman'), giphyObject('s2', 'Batman returns')] },
-    }));
-    expect((await client(giphy).teamGif(plan('Batman', { rejected: ['s1'] })))?.id).toBe('s2');
-  });
-
-  it('keeps at most a few candidates', async () => {
-    const data = Array.from({ length: 10 }, (_, i) => giphyObject(`b${i}`, 'Batman'));
-    const giphy = fakeFetch(() => ({ body: { data } }));
-    const rejected = data.slice(0, MAX_CANDIDATES).map((d) => d.id);
-    expect(await client(giphy).teamGif(plan('Batman', { rejected }))).toBeNull();
-  });
-
   it('prefers whole keywords, then meaningful words of the query', async () => {
     const giphy = fakeFetch(() => ({
       body: { data: [giphyObject('w1', 'Dark knight rises'), giphyObject('k1', 'Batman')] },
     }));
     const p = plan('Batman dark knight', { keywords: ['batman'] });
     expect((await client(giphy).teamGif(p))?.id).toBe('k1');
-    expect((await client(giphy).teamGif({ ...p, rejected: ['k1'] }))?.id).toBe('w1');
+    // Sans mot-clé entier, le mot à mot de la recherche valide le résultat.
+    expect((await client(giphy).teamGif({ ...p, keywords: ['robin'] }))?.id).toBe('w1');
     // Sans validation large (mots-clés écrits à la main), le mot à mot n'est pas utilisé.
-    expect(await client(giphy).teamGif({ ...p, words: [], rejected: ['k1'] })).toBeNull();
+    expect(await client(giphy).teamGif({ ...p, keywords: ['robin'], words: [] })).toBeNull();
   });
 
   it('uses the category mood GIF as a last resort, spread over the teams', async () => {
@@ -249,9 +234,6 @@ describe('giphy client (browser)', () => {
     expect(gif?.id).toMatch(/^mood\d$/);
     // Même team, même GIF ; le GIF hors sujet de la recherche n'est jamais utilisé.
     expect((await client(giphy).teamGif(genius))?.id).toBe(gif?.id);
-    // Les GIF d'ambiance trop signalés sont écartés eux aussi.
-    const again = await client(giphy).teamGif({ ...genius, rejected: [gif?.id as string] });
-    expect(again?.id).not.toBe(gif?.id);
   });
 
   it('prefers the hand-picked mood GIF drawn by the server', async () => {

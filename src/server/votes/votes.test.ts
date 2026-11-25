@@ -4,8 +4,8 @@ import { join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { afterEach, describe, expect, it } from 'vitest';
 import { rankRivalries } from './ranking';
-import { dayOf, hashIp, RATE, REPORT_RATE, takeToken } from './rate-limit';
-import { createVoteService, GIF_REJECT_THRESHOLD, HALL_TTL_MS } from './service';
+import { dayOf, hashIp, RATE, takeToken } from './rate-limit';
+import { createVoteService, HALL_TTL_MS } from './service';
 import { openSqliteStore, type VoteStore } from './store';
 
 // ─── Classements ────────────────────────────────────────────────────────────
@@ -361,116 +361,6 @@ describe('vote service', () => {
   });
 });
 
-describe('gif reports', () => {
-  const report = { teamId: 'heros-batman-superman/a', gifId: 'xT0xeJpnrWC4XWblEk' };
-
-  it('counts reports per GIF, never who sent them', () => {
-    const { service, store } = setup();
-    expect(service.reportGif(report, '1.1.1.1')).toEqual({ status: 200, body: { counted: true } });
-    service.reportGif(report, '2.2.2.2');
-    service.reportGif({ ...report, teamId: 'bouffe-chat-chien/b', gifId: 'other1' }, '3.3.3.3');
-    expect(store.gifReports()).toEqual([
-      expect.objectContaining({
-        rivalryId: 'heros-batman-superman',
-        team: 'a',
-        gifId: 'xT0xeJpnrWC4XWblEk',
-        reports: 2,
-      }),
-      expect.objectContaining({ rivalryId: 'bouffe-chat-chien', team: 'b', reports: 1 }),
-    ]);
-    expect(JSON.stringify(store.gifReports())).not.toContain('1.1.1.1');
-  });
-
-  it('rejects malformed or unknown teams and GIF ids', () => {
-    const { service } = setup();
-    for (const body of [
-      null,
-      {},
-      { ...report, teamId: 'heros-batman-superman' },
-      { ...report, teamId: 'heros-batman-superman/c' },
-      { ...report, gifId: '../../etc' },
-      { ...report, gifId: '' },
-    ]) {
-      expect(service.reportGif(body, 'ip').status).toBe(400);
-    }
-    expect(service.reportGif({ ...report, teamId: 'pirates-x/a' }, 'ip').body).toEqual({
-      error: 'unknown-rivalry',
-    });
-  });
-
-  it('rate-limits reports separately from votes, and more strictly', () => {
-    const { service, store, tick } = setup();
-    const statuses = Array.from(
-      { length: REPORT_RATE.burst + 1 },
-      () => service.reportGif(report, '9.9.9.9').status,
-    );
-    expect(statuses).toEqual([...Array<number>(REPORT_RATE.burst).fill(200), 429]);
-    // Les votes du même visiteur ne sont pas touchés.
-    expect(service.vote(batman, '9.9.9.9').status).toBe(200);
-    tick(60_000);
-    expect(service.reportGif(report, '9.9.9.9').status).toBe(200);
-    // Un seul signalement compté : c'est toujours le même visiteur, le même jour.
-    expect(store.gifReports()[0]?.reports).toBe(1);
-  });
-
-  it('counts a GIF report once per visitor and per day', () => {
-    const { service, store, tick } = setup();
-    expect(service.reportGif(report, '1.1.1.1').body).toEqual({ counted: true });
-    expect(service.reportGif(report, '1.1.1.1')).toEqual({
-      status: 200,
-      body: { counted: false, reason: 'duplicate' },
-    });
-    service.reportGif(report, '2.2.2.2');
-    tick(24 * 3600_000);
-    service.reportGif(report, '1.1.1.1');
-    expect(store.gifReports()[0]?.reports).toBe(3);
-  });
-
-  it('rejects a GIF only once enough distinct visitors reported it', () => {
-    const { service } = setup();
-    const ips = Array.from({ length: GIF_REJECT_THRESHOLD }, (_, i) => `10.0.0.${i}`);
-    ips.slice(0, -1).forEach((ip) => service.reportGif(report, ip));
-    // Le même visiteur qui insiste ne suffit pas.
-    service.reportGif(report, ips[0] as string);
-    expect(service.rejectedGifs('heros-batman-superman', 'a').size).toBe(0);
-    service.reportGif(report, ips.at(-1) as string);
-    expect(service.rejectedGifs('heros-batman-superman', 'a')).toEqual(new Set([report.gifId]));
-    // Les autres teams ne sont pas touchées.
-    expect(service.rejectedGifs('heros-batman-superman', 'b').size).toBe(0);
-    expect(service.rejectedGifs('pirates-x', 'a').size).toBe(0);
-  });
-
-  it('lets the editor (admin mode) reject a GIF at once, without any limit', () => {
-    const { service } = setup();
-    // Bien au-delà de la limite d'un visiteur, toujours depuis la même adresse.
-    for (let i = 0; i < REPORT_RATE.daily + 5; i++) {
-      const gifId = `gif${i}`;
-      expect(service.reportGif({ ...report, gifId }, '9.9.9.9', true)).toEqual({
-        status: 200,
-        body: { counted: true, rejected: true },
-      });
-      expect(service.rejectedGifs('heros-batman-superman', 'a').has(gifId)).toBe(true);
-    }
-    // Un visiteur ordinaire reste limité, lui.
-    const statuses = Array.from(
-      { length: REPORT_RATE.burst + 1 },
-      (_, i) => service.reportGif({ ...report, gifId: `v${i}` }, '9.9.9.9').status,
-    );
-    expect(statuses.at(-1)).toBe(429);
-  });
-
-  it('lists reports only with the right token', () => {
-    const { service } = setup();
-    service.reportGif(report, '1.1.1.1');
-    expect(service.gifReports('Bearer secret', undefined).status).toBe(404);
-    expect(service.gifReports(null, 'secret').status).toBe(401);
-    expect(service.gifReports('Bearer wrong!', 'secret').status).toBe(401);
-    const ok = service.gifReports('Bearer secret', 'secret');
-    expect(ok.status).toBe(200);
-    expect((ok.body as { reports: unknown[] }).reports).toHaveLength(1);
-  });
-});
-
 describe('sqlite file', () => {
   const dirs: string[] = [];
   afterEach(() => {
@@ -542,13 +432,7 @@ describe('sqlite file', () => {
       }[]
     ).map((t) => t.name);
     check.close();
-    expect(tables.sort()).toEqual([
-      'gif_report_seen',
-      'gif_reports',
-      'rate_limits',
-      'report_limits',
-      'rivalry_votes',
-      'vote_seen',
-    ]);
+    // Les tables des signalements de GIF ont disparu (migration 7).
+    expect(tables.sort()).toEqual(['rate_limits', 'rivalry_votes', 'vote_seen']);
   });
 });

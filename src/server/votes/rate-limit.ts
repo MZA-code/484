@@ -28,13 +28,6 @@ export const RATE: Rate = {
   daily: 600,
 };
 
-/** Signalements de GIF : 3 d'affilée, puis 1 par minute, 30 par jour. Personne n'en fait plus. */
-export const REPORT_RATE: Rate = {
-  burst: 3,
-  refillPerMs: 1 / 60_000,
-  daily: 30,
-};
-
 /** Jour UTC « AAAA-MM-JJ ». */
 export function dayOf(nowMs: number): string {
   return new Date(nowMs).toISOString().slice(0, 10);

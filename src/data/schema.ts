@@ -382,17 +382,6 @@ export const UiTextsSchema = z.object({
       replayAll: text,
       replayHint: text,
     }),
-    /** Bouton « Mauvais GIF ? » sous chaque carte. */
-    gifReport: z.object({
-      button: text,
-      /** Nom accessible : commence par le texte visible (WCAG 2.5.3). */
-      label: template('name'),
-      thanks: quipList,
-      limited: text,
-      error: text,
-      /** Mode admin : le GIF est écarté et remplacé sous tes yeux. */
-      admin: text,
-    }),
   }),
   quips: z.object({ high: quipList, mid: quipList, low: quipList, neutral: quipList }),
   /** Achievements : objectifs à débloquer (voir src/engine/achievements.ts). */
