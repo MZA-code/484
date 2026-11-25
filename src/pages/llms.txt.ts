@@ -38,6 +38,11 @@ export const GET: APIRoute = ({ site, url }) => {
     ),
     link(ui.pages.about.title, '/a-propos', plain(ui.pages.about.description)),
     link(ui.hallOfFame.title, '/hall-of-fame', ui.hallOfFame.intro),
+    link(
+      t.fullLinkLabel,
+      '/llms-full.txt',
+      formatText(t.fullLinkAbout, { rivalries: proseVars.rivalries }),
+    ),
     '',
     `## ${t.categoriesTitle}`,
     '',

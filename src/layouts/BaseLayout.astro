@@ -8,7 +8,7 @@ import { version } from '../../package.json';
 import { rivalries, ui } from '../data/content';
 import { formatText } from '../lib/format';
 import { OG_HEIGHT, OG_WIDTH, ogImagePath } from '../lib/og-path';
-import { serializeJsonLd } from '../lib/seo';
+import { canonicalPath, serializeJsonLd } from '../lib/seo';
 
 interface Props {
   /** Titre de l'onglet, avant « · 484 · T’es team quoi ? ». Absent sur l'accueil. */
@@ -29,8 +29,7 @@ const {
 const fullTitle = title ? `${title} · ${ui.site.title}` : ui.site.title;
 const links = [ui.links.github, ui.links.linkedin].filter((link) => link.url !== '');
 // Adresse canonique, sans paramètres : c'est elle qui circule quand on partage la page.
-const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const canonical = new URL(path, Astro.site ?? Astro.url).href;
+const canonical = new URL(canonicalPath(Astro.url.pathname), Astro.site ?? Astro.url).href;
 const imageUrl = new URL(image, Astro.site ?? Astro.url).href;
 
 /** Des GIF viennent-ils de Tenor (liens choisis à la main) ? Alors on le mentionne. */

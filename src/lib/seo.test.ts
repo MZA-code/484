@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   absoluteUrl,
   breadcrumbJsonLd,
+  canonicalPath,
+  debateJsonLd,
   itemListJsonLd,
   relatedRivalries,
   serializeJsonLd,
@@ -39,6 +41,33 @@ describe('structured data', () => {
       { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://team484.fr/' },
       { '@type': 'ListItem', position: 2, name: 'Débat', item: 'https://team484.fr/debat/x' },
     ]);
+  });
+
+  it('drops the trailing slash of the current page, like the canonical URL', () => {
+    const data = breadcrumbJsonLd([{ name: 'Débat' }], '/debat/x/', SITE);
+    expect(data.itemListElement[0]?.item).toBe('https://team484.fr/debat/x');
+    expect(canonicalPath('/')).toBe('/');
+  });
+
+  it('describes a debate page with both teams', () => {
+    const team = (name: string) => ({ name, origin: 'Quelque part', line: 'Une réplique.' });
+    const data = debateJsonLd(
+      {
+        question: 'Team A ou team B ?',
+        description: 'Choisis ton camp.',
+        path: '/debat/x',
+        category: 'Animaux',
+        a: team('A'),
+        b: team('B'),
+      },
+      SITE,
+    );
+    expect(data.url).toBe('https://team484.fr/debat/x');
+    expect(data.about).toEqual([
+      { '@type': 'Thing', name: 'A', description: 'Quelque part. Une réplique.' },
+      { '@type': 'Thing', name: 'B', description: 'Quelque part. Une réplique.' },
+    ]);
+    expect(data.isPartOf.url).toBe('https://team484.fr/');
   });
 
   it('builds an item list', () => {

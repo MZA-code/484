@@ -396,3 +396,9 @@ L'écran « Catégorie terminée » de la 1.7.0 était trop plat. Il devient une
 
 - **Remarques sur mesure** pour Vie quotidienne, Autos et motos, Dilemmes absurdes, Superpouvoirs, Monstres et créatures et Animaux : les 20 catégories ont désormais une phrase par choix (team A, team B, les deux, aucun des deux) pour chaque duel. Mêmes règles que D40 : drôle sans être méchant, aucun accord de « tu » au masculin ou au féminin, pour les marques on reste sur leurs symboles et leurs clichés bon enfant.
 - **48 nouveaux duels** (8 par catégorie) : 1 162 duels au total. Aucun nom de team n’est repris d’un duel existant. Leurs teams n’ont pas encore de GIF choisi.
+
+## D42 — Référencement pour les assistants IA (version 1.9.4)
+
+- **`/llms-full.txt`** : toutes les rivalités en Markdown, catégorie par catégorie (question, lien, les deux camps avec origine et réplique), cité dans `llms.txt`. Les remarques révélées après le vote n’y figurent pas : elles restent la surprise du jeu.
+- **Données structurées des débats** : chaque page de débat décrit la question, la catégorie et les deux camps (`WebPage` + `about`), en plus du fil d’Ariane.
+- **Fil d’Ariane** : la dernière adresse n’a plus de `/` final, comme l’adresse canonique.

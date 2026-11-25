@@ -495,6 +495,10 @@ export const UiTextsSchema = z.object({
     categoriesTitle: text,
     infoTitle: text,
     debatesCount: template('n'),
+    fullLinkLabel: text,
+    fullLinkAbout: template('rivalries'),
+    fullTitle: text,
+    fullIntro: text,
   }),
   debatesPage: z.object({
     title: text,

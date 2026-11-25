@@ -11,7 +11,7 @@ import { categoryById, categoryPath, debatePath, questionOf, rivalriesOf } from 
 import { teamColors } from '../../lib/color';
 import { formatText } from '../../lib/format';
 import { ogImagePath } from '../../lib/og-path';
-import { relatedRivalries } from '../../lib/seo';
+import { debateJsonLd, relatedRivalries } from '../../lib/seo';
 
 export function getStaticPaths() {
   return rivalries.map((r) => ({ params: { id: r.id }, props: { rivalry: r } }));
@@ -40,11 +40,25 @@ const related = relatedRivalries(rivalry, rivalries, RELATED_COUNT).map((r) => (
   question: questionOf(r),
 }));
 const categoryCount = rivalriesOf(rivalry.category).length;
+const jsonLd = [
+  debateJsonLd(
+    {
+      question,
+      description,
+      path: debatePath(rivalry.id),
+      category: categoryLabel,
+      a: rivalry.a,
+      b: rivalry.b,
+    },
+    Astro.site ?? Astro.url,
+  ),
+];
 ---
 
 <DebatePage
   title={question}
   description={description}
+  jsonLd={jsonLd}
   initialRivalry={rivalry.id}
   image={ogImagePath(rivalry.id)}
   staticDebate={{

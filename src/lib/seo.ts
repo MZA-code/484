@@ -46,8 +46,51 @@ export function breadcrumbJsonLd(
       '@type': 'ListItem',
       position: i + 1,
       name: crumb.name,
-      item: absoluteUrl(crumb.path ?? currentPath, site),
+      item: absoluteUrl(crumb.path ?? canonicalPath(currentPath), site),
     })),
+  };
+}
+
+/** Chemin canonique : sans barre finale (« /debat/x/ » → « /debat/x »), sauf l'accueil. */
+export function canonicalPath(path: string): string {
+  return path.replace(/\/+$/, '') || '/';
+}
+
+export interface DebateTeam {
+  name: string;
+  origin: string;
+  line: string;
+}
+
+/**
+ * Page d'un débat au format schema.org (WebPage) : la question, les deux camps (`about`)
+ * avec leur réplique, la catégorie et le site dont la page fait partie.
+ */
+export function debateJsonLd(
+  debate: {
+    question: string;
+    description: string;
+    path: string;
+    category: string;
+    a: DebateTeam;
+    b: DebateTeam;
+  },
+  site: URL | string,
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: debate.question,
+    description: debate.description,
+    url: absoluteUrl(debate.path, site),
+    inLanguage: 'fr-FR',
+    genre: debate.category,
+    about: [debate.a, debate.b].map((team) => ({
+      '@type': 'Thing',
+      name: team.name,
+      description: `${team.origin}. ${team.line}`,
+    })),
+    isPartOf: { '@type': 'WebSite', url: absoluteUrl('/', site) },
   };
 }
 
