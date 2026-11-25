@@ -1,69 +1,9 @@
-import { a as universes, n as categories, r as rivalries, t as getSecret } from "./server_DGbc1Agz.mjs";
+import { a as universes, n as categories, r as rivalries, t as getSecret } from "./server_J3KJHNKu.mjs";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { z } from "zod";
 import { createHash, timingSafeEqual } from "node:crypto";
 import { DatabaseSync } from "node:sqlite";
-// src/server/votes/guard.ts
-/** Outils en ligne de commande, bibliothèques HTTP, navigateurs pilotés, robots déclarés. */
-var AUTOMATED_AGENT = /curl|wget|python|httpie|go-http|java\/|okhttp|axios|node-fetch|undici|libwww|scrapy|aiohttp|headless|phantomjs|puppeteer|playwright|selenium|\bbot\b|bot\/|crawler|spider/i;
-/** L'hôte demandé par le navigateur (Host, ou X-Forwarded-Host derrière un proxy). */
-function requestedHost(headers, requestUrl) {
-	return headers.get("x-forwarded-host") ?? headers.get("host") ?? new URL(requestUrl).host;
-}
-function isSameSite(origin, headers, requestUrl) {
-	if (origin === null) return false;
-	try {
-		return new URL(origin).host === requestedHost(headers, requestUrl);
-	} catch {
-		return false;
-	}
-}
-/**
-* null si la requête peut passer, sinon le refus à renvoyer.
-* - Origin obligatoire et identique au site : tous les navigateurs l'envoient sur un POST.
-* - Corps JSON : un formulaire HTML d'un autre site ne peut pas en envoyer sans autorisation.
-* - Navigateur : User-Agent présent, et pas celui d'un outil d'automatisation connu.
-*/
-function checkWriteRequest(headers, requestUrl) {
-	if (!isSameSite(headers.get("origin"), headers, requestUrl)) return {
-		status: 403,
-		error: "forbidden-origin"
-	};
-	if (!(headers.get("content-type")?.toLowerCase() ?? "").startsWith("application/json")) return {
-		status: 415,
-		error: "json-required"
-	};
-	const agent = headers.get("user-agent") ?? "";
-	if (!agent || AUTOMATED_AGENT.test(agent)) return {
-		status: 403,
-		error: "automated-client"
-	};
-	return null;
-}
-/**
-* Nombre de proxys de confiance devant le serveur, depuis TRUST_PROXY :
-* « true » = 1, un nombre = ce nombre, autre chose = 0 (pas de proxy).
-*/
-function trustedHops(setting) {
-	if (setting === "true") return 1;
-	const n = Number(setting);
-	return Number.isInteger(n) && n > 0 ? n : 0;
-}
-/**
-* Adresse réelle du visiteur.
-*
-* Chaque proxy AJOUTE à droite de X-Forwarded-For l'adresse de qui lui parle. Les adresses de
-* gauche viennent donc du visiteur lui-même, qui peut en inventer autant qu'il veut. Avec
-* `hops` proxys de confiance, la bonne adresse est la `hops`-ième en partant de la droite :
-* c'est celle qu'a écrite notre propre proxy, impossible à falsifier.
-*/
-function pickClientIp(forwardedFor, direct, hops) {
-	if (hops <= 0) return direct;
-	const chain = (forwardedFor ?? "").split(",").map((part) => part.trim()).filter(Boolean);
-	if (chain.length === 0) return direct;
-	return chain[Math.max(0, chain.length - hops)] ?? direct;
-}
 var ranked = (r) => {
 	const total = r.aVotes + r.bVotes + r.noneVotes + r.bothVotes;
 	if (!total) return {
@@ -124,12 +64,6 @@ var RATE = {
 	/** Largement assez pour un humain (une partie de 600 débats d'affilée), pas pour un robot. */
 	daily: 600
 };
-/** Signalements de GIF : 3 d'affilée, puis 1 par minute, 30 par jour. Personne n'en fait plus. */
-var REPORT_RATE = {
-	burst: 3,
-	refillPerMs: 1 / 6e4,
-	daily: 30
-};
 /** Jour UTC « AAAA-MM-JJ ». */
 function dayOf(nowMs) {
 	return new Date(nowMs).toISOString().slice(0, 10);
@@ -180,12 +114,6 @@ var VoteBody = z.object({
 		"both"
 	]),
 	category: z.string().min(1).max(60)
-});
-var GifReportBody = z.object({
-	/** « rivalité/a » ou « rivalité/b », comme la route /api/gif. */
-	teamId: z.string().regex(/^[a-z0-9-]{1,160}\/[ab]$/),
-	/** Identifiant Giphy : lettres et chiffres. */
-	gifId: z.string().regex(/^[A-Za-z0-9]{1,64}$/)
 });
 /** Comparaison en temps constant : la durée ne trahit pas le jeton attendu. */
 function sameToken(given, expected) {
@@ -257,77 +185,6 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 				}
 			};
 		},
-		/**
-		* « Mauvais GIF ? » : un signalement de plus pour ce GIF de cette team.
-		* En mode admin (`admin`), pas de limite, et le GIF est écarté tout de suite.
-		*/
-		reportGif(raw, ip, admin = false) {
-			const parsed = GifReportBody.safeParse(raw);
-			if (!parsed.success) return {
-				status: 400,
-				body: { error: "invalid-body" }
-			};
-			const [rivalryId, team] = parsed.data.teamId.split("/");
-			if (!categoryOf.has(rivalryId)) return {
-				status: 400,
-				body: { error: "unknown-rivalry" }
-			};
-			const nowMs = now();
-			const day = dayOf(nowMs);
-			const outcome = store.recordGifReport({
-				rivalryId,
-				team,
-				gifId: parsed.data.gifId,
-				ipHash: hashIp(ip, salt, day),
-				day,
-				nowMs,
-				...admin ? { trusted: { weight: 3 } } : {}
-			});
-			if (outcome.status === "counted") return {
-				status: 200,
-				body: admin ? {
-					counted: true,
-					rejected: true
-				} : { counted: true }
-			};
-			if (outcome.status === "duplicate") return {
-				status: 200,
-				body: {
-					counted: false,
-					reason: "duplicate"
-				}
-			};
-			return {
-				status: 429,
-				body: {
-					counted: false,
-					reason: outcome.reason
-				}
-			};
-		},
-		/** GIF de cette team écartés par les signalements (à remplacer par le suivant). */
-		rejectedGifs(rivalryId, team) {
-			if (!categoryOf.has(rivalryId)) return /* @__PURE__ */ new Set();
-			return new Set(store.reportedGifIds(rivalryId, team, 3));
-		},
-		/**
-		* Liste des signalements pour `npm run gif-audit`, protégée par un jeton.
-		* Sans jeton configuré côté serveur, la liste n'existe pas (404).
-		*/
-		gifReports(authorization, token) {
-			if (!token) return {
-				status: 404,
-				body: { error: "not-found" }
-			};
-			if (!sameToken(authorization?.replace(/^Bearer\s+/i, "") ?? "", token)) return {
-				status: 401,
-				body: { error: "unauthorized" }
-			};
-			return {
-				status: 200,
-				body: { reports: store.gifReports().filter((r) => categoryOf.has(r.rivalryId)) }
-			};
-		},
 		hallOfFame(categoryParam) {
 			const category = categoryParam || "mix";
 			if (!isCategory(category)) return {
@@ -362,6 +219,66 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 		}
 	};
 }
+// src/server/votes/guard.ts
+/** Outils en ligne de commande, bibliothèques HTTP, navigateurs pilotés, robots déclarés. */
+var AUTOMATED_AGENT = /curl|wget|python|httpie|go-http|java\/|okhttp|axios|node-fetch|undici|libwww|scrapy|aiohttp|headless|phantomjs|puppeteer|playwright|selenium|\bbot\b|bot\/|crawler|spider/i;
+/** L'hôte demandé par le navigateur (Host, ou X-Forwarded-Host derrière un proxy). */
+function requestedHost(headers, requestUrl) {
+	return headers.get("x-forwarded-host") ?? headers.get("host") ?? new URL(requestUrl).host;
+}
+function isSameSite(origin, headers, requestUrl) {
+	if (origin === null) return false;
+	try {
+		return new URL(origin).host === requestedHost(headers, requestUrl);
+	} catch {
+		return false;
+	}
+}
+/**
+* null si la requête peut passer, sinon le refus à renvoyer.
+* - Origin obligatoire et identique au site : tous les navigateurs l'envoient sur un POST.
+* - Corps JSON : un formulaire HTML d'un autre site ne peut pas en envoyer sans autorisation.
+* - Navigateur : User-Agent présent, et pas celui d'un outil d'automatisation connu.
+*/
+function checkWriteRequest(headers, requestUrl) {
+	if (!isSameSite(headers.get("origin"), headers, requestUrl)) return {
+		status: 403,
+		error: "forbidden-origin"
+	};
+	if (!(headers.get("content-type")?.toLowerCase() ?? "").startsWith("application/json")) return {
+		status: 415,
+		error: "json-required"
+	};
+	const agent = headers.get("user-agent") ?? "";
+	if (!agent || AUTOMATED_AGENT.test(agent)) return {
+		status: 403,
+		error: "automated-client"
+	};
+	return null;
+}
+/**
+* Nombre de proxys de confiance devant le serveur, depuis TRUST_PROXY :
+* « true » = 1, un nombre = ce nombre, autre chose = 0 (pas de proxy).
+*/
+function trustedHops(setting) {
+	if (setting === "true") return 1;
+	const n = Number(setting);
+	return Number.isInteger(n) && n > 0 ? n : 0;
+}
+/**
+* Adresse réelle du visiteur.
+*
+* Chaque proxy AJOUTE à droite de X-Forwarded-For l'adresse de qui lui parle. Les adresses de
+* gauche viennent donc du visiteur lui-même, qui peut en inventer autant qu'il veut. Avec
+* `hops` proxys de confiance, la bonne adresse est la `hops`-ième en partant de la droite :
+* c'est celle qu'a écrite notre propre proxy, impossible à falsifier.
+*/
+function pickClientIp(forwardedFor, direct, hops) {
+	if (hops <= 0) return direct;
+	const chain = (forwardedFor ?? "").split(",").map((part) => part.trim()).filter(Boolean);
+	if (chain.length === 0) return direct;
+	return chain[Math.max(0, chain.length - hops)] ?? direct;
+}
 // src/server/votes/store.ts
 /**
 * Stockage des votes dans SQLite (module `node:sqlite` intégré à Node, rien à installer).
@@ -370,10 +287,9 @@ function createVoteService({ store, salt, rivalries, categoryIds, universes = []
 * - rivalry_votes(rivalry_id, a_votes, b_votes, none_votes, both_votes) : les votes de chaque
 *   rivalité (« aucun des deux » et « les deux » compris)
 * - rate_limits(ip_hash, day, tokens, updated_ms, count) : empreintes d'IP, jamais d'IP en clair
-* - gif_reports(rivalry_id, team, gif_id, reports, last_ms) : signalements « Mauvais GIF ? »
-* - report_limits : comme rate_limits, pour les signalements (limite séparée, plus stricte)
-* - vote_seen, gif_report_seen : qui (empreinte du jour) a déjà voté pour une rivalité ou signalé
-*   un GIF aujourd'hui ; un visiteur ne compte qu'une fois par jour. Effacées chaque jour.
+* - vote_seen : qui (empreinte du jour) a déjà voté pour une rivalité aujourd'hui ; un visiteur
+*   ne compte qu'une fois par jour. Effacée chaque jour.
+* Les tables des signalements « Mauvais GIF ? » (migrations 3 et 4) ont été supprimées (migration 7).
 *
 * L'interface `VoteStore` isole le reste du code de SQLite (passage à MySQL possible).
 */
@@ -440,7 +356,10 @@ var MIGRATIONS = [
    ) STRICT;
    CREATE INDEX gif_report_seen_day ON gif_report_seen(day);`,
 	`ALTER TABLE rivalry_votes ADD COLUMN none_votes INTEGER NOT NULL DEFAULT 0;`,
-	`ALTER TABLE rivalry_votes ADD COLUMN both_votes INTEGER NOT NULL DEFAULT 0;`
+	`ALTER TABLE rivalry_votes ADD COLUMN both_votes INTEGER NOT NULL DEFAULT 0;`,
+	`DROP TABLE IF EXISTS gif_reports;
+   DROP TABLE IF EXISTS report_limits;
+   DROP TABLE IF EXISTS gif_report_seen;`
 ];
 /** Échappe `%` et `_` pour un LIKE sur préfixe. */
 var likePrefix = (prefix) => `${prefix.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
@@ -462,19 +381,6 @@ function openSqliteStore(file) {
 		purge: db.prepare("DELETE FROM rate_limits WHERE day < ?"),
 		purgeVoteSeen: db.prepare("DELETE FROM vote_seen WHERE day < ?"),
 		seeVote: db.prepare("INSERT OR IGNORE INTO vote_seen (rivalry_id, ip_hash, day) VALUES (?, ?, ?)"),
-		purgeReportSeen: db.prepare("DELETE FROM gif_report_seen WHERE day < ?"),
-		seeReport: db.prepare(`INSERT OR IGNORE INTO gif_report_seen (rivalry_id, team, gif_id, ip_hash, day)
-       VALUES (?, ?, ?, ?, ?)`),
-		reportedIds: db.prepare("SELECT gif_id AS gifId FROM gif_reports WHERE rivalry_id = ? AND team = ? AND reports >= ?"),
-		getReportBucket: db.prepare("SELECT tokens, updated_ms AS updatedMs, count FROM report_limits WHERE ip_hash = ?"),
-		putReportBucket: db.prepare(`INSERT INTO report_limits (ip_hash, day, tokens, updated_ms, count) VALUES (?, ?, ?, ?, ?)
-       ON CONFLICT(ip_hash) DO UPDATE SET tokens = excluded.tokens, updated_ms = excluded.updated_ms, count = excluded.count`),
-		purgeReports: db.prepare("DELETE FROM report_limits WHERE day < ?"),
-		report: db.prepare(`INSERT INTO gif_reports (rivalry_id, team, gif_id, reports, last_ms) VALUES (?, ?, ?, ?, ?)
-       ON CONFLICT(rivalry_id, team, gif_id)
-       DO UPDATE SET reports = reports + excluded.reports, last_ms = excluded.last_ms`),
-		reports: db.prepare(`SELECT rivalry_id AS rivalryId, team, gif_id AS gifId, reports, last_ms AS lastMs
-       FROM gif_reports ORDER BY reports DESC, last_ms DESC`),
 		voteA: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, a_votes) VALUES (?, 1)
        ON CONFLICT(rivalry_id) DO UPDATE SET a_votes = a_votes + 1`),
 		voteB: db.prepare(`INSERT INTO rivalry_votes (rivalry_id, b_votes) VALUES (?, 1)
@@ -494,7 +400,6 @@ function openSqliteStore(file) {
        FROM rivalry_votes WHERE rivalry_id LIKE ? ESCAPE '\\'`)
 	};
 	let lastPurgeDay = "";
-	let lastReportPurgeDay = "";
 	function pairResult(rivalryId, choice) {
 		const counts = q.one.get(rivalryId) ?? {
 			aVotes: 0,
@@ -551,42 +456,6 @@ function openSqliteStore(file) {
 				throw error;
 			}
 		},
-		recordGifReport({ rivalryId, team, gifId, ipHash, day, nowMs, trusted }) {
-			if (trusted) {
-				q.report.run(rivalryId, team, gifId, trusted.weight, nowMs);
-				return { status: "counted" };
-			}
-			db.exec("BEGIN IMMEDIATE");
-			try {
-				if (lastReportPurgeDay !== day) {
-					q.purgeReports.run(day);
-					q.purgeReportSeen.run(day);
-					lastReportPurgeDay = day;
-				}
-				const taken = takeToken(q.getReportBucket.get(ipHash), nowMs, REPORT_RATE);
-				q.putReportBucket.run(ipHash, day, taken.next.tokens, taken.next.updatedMs, taken.next.count);
-				const first = taken.allowed && Number(q.seeReport.run(rivalryId, team, gifId, ipHash, day).changes) > 0;
-				if (first) q.report.run(rivalryId, team, gifId, 1, nowMs);
-				db.exec("COMMIT");
-				if (!taken.allowed) return {
-					status: "rate-limited",
-					reason: taken.reason
-				};
-				return first ? { status: "counted" } : { status: "duplicate" };
-			} catch (error) {
-				db.exec("ROLLBACK");
-				throw error;
-			}
-		},
-		gifReports() {
-			return q.reports.all().map(({ lastMs, ...row }) => ({
-				...row,
-				lastReport: new Date(lastMs).toISOString()
-			}));
-		},
-		reportedGifIds(rivalryId, team, minReports) {
-			return q.reportedIds.all(rivalryId, team, minReports).map((r) => r.gifId);
-		},
 		rivalryCounts(idPrefix) {
 			return idPrefix ? q.prefix.all(likePrefix(idPrefix)) : q.all.all();
 		},
@@ -634,14 +503,6 @@ function directAddress(clientAddress) {
 function clientIp(request, clientAddress) {
 	return pickClientIp(request.headers.get("x-forwarded-for"), directAddress(clientAddress), trustedHops(getSecret("TRUST_PROXY")));
 }
-/** En-tête qui porte le jeton du mode admin (voir src/lib/admin.ts). */
-var ADMIN_HEADER = "x-484-admin";
-/** La requête vient-elle de l'éditeur (jeton GIF_REPORT_TOKEN dans l'en-tête admin) ? */
-function isAdminRequest(request) {
-	const token = getSecret("GIF_REPORT_TOKEN");
-	const given = request.headers.get(ADMIN_HEADER);
-	return Boolean(token && given && sameToken(given, token));
-}
 /** Filtre anti-abus des routes qui écrivent : null si la requête passe, sinon la réponse de refus. */
 function rejectWrite(request) {
 	const rejection = checkWriteRequest(request.headers, request.url);
@@ -666,4 +527,4 @@ var jsonResponse = (body, status, cacheControl = "no-store") => new Response(JSO
 		"cache-control": cacheControl
 	}
 });
-export { jsonResponse as a, sameToken as c, isAdminRequest as i, getVoteService as n, rejectWrite as o, ipDiagnostic as r, HALL_TTL_MS as s, clientIp as t };
+export { rejectWrite as a, jsonResponse as i, getVoteService as n, HALL_TTL_MS as o, ipDiagnostic as r, sameToken as s, clientIp as t };

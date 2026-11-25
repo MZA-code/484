@@ -1,4 +1,4 @@
-import { o as teamImage, s as tenorGif, t as getSecret } from "./server_DGbc1Agz.mjs";
+import { o as teamImage, s as tenorGif, t as getSecret } from "./server_J3KJHNKu.mjs";
 import { rmSync } from "node:fs";
 // src/lib/gif-match.ts
 /** Minuscules, sans accents ; tout ce qui n'est ni lettre ni chiffre devient une espace. */
@@ -91,7 +91,6 @@ function teamGifPlan(team, options) {
 			query: team.giphyQuery,
 			keywords: keywordsFor(team),
 			words,
-			rejected: [...options.rejected ?? []],
 			mood: options.mood ? moodPlan(options.mood, random) : void 0
 		},
 		maxAge: handPicked > 0 ? maxAge : 3600

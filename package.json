@@ -1,6 +1,6 @@
 {
   "name": "484-duels",
-  "version": "1.9.4",
+  "version": "1.10.0",
   "private": true,
   "description": "T’es team quoi ? Duels infinis entre icônes de la pop culture.",
   "type": "module",
@@ -22,8 +22,7 @@
     "play": "tsx scripts/play.ts",
     "content:check": "tsx scripts/check-content.ts",
     "content:review": "tsx scripts/review-rivalries.ts",
-    "curate": "tsx scripts/curate-gifs.ts",
-    "gif-audit": "tsx scripts/gif-audit.ts",
+    "gif-admin": "tsx scripts/gif-admin.ts",
     "verify": "npm run lint && npm run format:check && npm run check && npm run test && npm run build"
   },
   "dependencies": {
