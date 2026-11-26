@@ -1,6 +1,6 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { n as categories, r as rivalries } from "./server_CojD43I9.mjs";
-import { a as teamGifPlan, n as gifJson, r as giphyOffline, t as getGiphyKey } from "./giphy-runtime_VZv0wX5t.mjs";
+import { n as categories, r as rivalries } from "./server_DrxCRZVd.mjs";
+import { a as teamGifPlan, n as gifJson, r as giphyOffline, t as getGiphyKey } from "./giphy-runtime_BQTzSexe.mjs";
 import { t as placeholderGif } from "./gif-placeholder_Dn6FuSqm.mjs";
 // src/pages/api/gif/[rivalry]/[team].ts
 var _team__exports = /* @__PURE__ */ __exportAll({

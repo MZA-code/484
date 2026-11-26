@@ -3868,7 +3868,7 @@ var rivalries_default = {
 				"origin": "Sur les côtés",
 				"line": "Assis, au calme, avec vue sur toute la scène.",
 				"quip": "Team gradins : une vue sur toute la scène, et un siège rien qu’à toi. La sagesse.",
-				"giphyIds": [],
+				"giphyIds": ["G7SrOL9FgOqrICbB9N"],
 				"giphyQuery": "concert seats"
 			},
 			"bothQuip": "Les deux. La fosse pour les tubes, les gradins pour souffler.",
@@ -4279,7 +4279,7 @@ var rivalries_default = {
 				"origin": "Warner · 1992",
 				"line": "Gotham, la nuit, et un générique génial.",
 				"quip": "Team Batman, la série animée : le meilleur générique de tous les temps. Tu le fredonnes, là.",
-				"giphyIds": [],
+				"giphyIds": ["Ft23xmPuh3MhG"],
 				"giphyQuery": "Batman animated series"
 			},
 			"b": {
@@ -4287,7 +4287,7 @@ var rivalries_default = {
 				"origin": "Marvel · 1994",
 				"line": "Le tisseur, version années 90.",
 				"quip": "Team Spider-Man, la série animée : son générique rock est gravé dans ton cerveau.",
-				"giphyIds": [],
+				"giphyIds": ["l46Cnk4ZRTlfeI32o"],
 				"giphyQuery": "Spider-Man animated series 1994"
 			},
 			"bothQuip": "Les deux. Tes mercredis après-midi étaient sauvés par des super-héros.",
@@ -4301,7 +4301,7 @@ var rivalries_default = {
 				"origin": "Nickelodeon · 2005",
 				"line": "Quatre éléments, et une flèche sur le crâne.",
 				"quip": "Team Aang : tu as une flèche bleue imaginaire sur le crâne. Et la sagesse qui va avec.",
-				"giphyIds": [],
+				"giphyIds": ["5cnEDRXsyAss8"],
 				"giphyQuery": "Avatar Aang"
 			},
 			"b": {
@@ -4309,7 +4309,7 @@ var rivalries_default = {
 				"origin": "Nickelodeon · 2012",
 				"line": "Plus âgée, plus rapide, plus têtue.",
 				"quip": "Team Korra : plus âgée, plus têtue, plus forte. Toi aussi, peut-être.",
-				"giphyIds": [],
+				"giphyIds": ["lSgllMylIxtAAXTgPd"],
 				"giphyQuery": "Legend of Korra"
 			},
 			"bothQuip": "Les deux. Les quatre éléments, tu les maîtrises tous. Au moins dans ta tête.",
@@ -4323,7 +4323,7 @@ var rivalries_default = {
 				"origin": "Matt Groening · 1999",
 				"line": "L’an 3000, et toujours des livreurs mal payés.",
 				"quip": "Team Futurama : devant chaque nouveau gadget, tu dis « Tais-toi et prends mon argent ».",
-				"giphyIds": [],
+				"giphyIds": ["ANbD1CCdA3iI8"],
 				"giphyQuery": "Futurama"
 			},
 			"b": {
@@ -4331,7 +4331,7 @@ var rivalries_default = {
 				"origin": "Comedy Central · 1997",
 				"line": "Quatre gamins, beaucoup de gros mots.",
 				"quip": "Team South Park : tu as un humour qu’on ne peut pas montrer à ta mère.",
-				"giphyIds": [],
+				"giphyIds": ["NaxKt9aSzAspO"],
 				"giphyQuery": "South Park"
 			},
 			"bothQuip": "Les deux. L’humour pour adultes en dessin animé, tu l’as découvert trop tôt.",
@@ -4345,7 +4345,7 @@ var rivalries_default = {
 				"origin": "Disney · 2012",
 				"line": "Des mystères, des codes secrets, un été bizarre.",
 				"quip": "Team Gravity Falls : tu as déchiffré tous les codes secrets du générique. Avec un crayon.",
-				"giphyIds": [],
+				"giphyIds": ["g04PUUOvsPDaM"],
 				"giphyQuery": "Gravity Falls"
 			},
 			"b": {
@@ -4353,7 +4353,7 @@ var rivalries_default = {
 				"origin": "Cartoon Network · 2010",
 				"line": "Un chien élastique et un garçon au bonnet.",
 				"quip": "Team Adventure Time : « Mathématique ! » Tu le dis encore.",
-				"giphyIds": [],
+				"giphyIds": ["4vuEKNHmiHLwY"],
 				"giphyQuery": "Adventure Time"
 			},
 			"bothQuip": "Les deux. Les dessins animés bizarres et géniaux des années 2010.",
@@ -4367,7 +4367,7 @@ var rivalries_default = {
 				"origin": "Disney · 1970",
 				"line": "Tout le monde veut devenir un chat.",
 				"quip": "Team Aristochats : tu chantes « Tout le monde veut devenir un cat » en jouant du jazz imaginaire.",
-				"giphyIds": [],
+				"giphyIds": ["6nz2wWbvEixYA"],
 				"giphyQuery": "Aristocats"
 			},
 			"b": {
@@ -4375,7 +4375,7 @@ var rivalries_default = {
 				"origin": "Disney · 1961",
 				"line": "Beaucoup de taches, et Cruella.",
 				"quip": "Team Dalmatiens : tu as compté les taches. Toutes. Sur les cent un.",
-				"giphyIds": [],
+				"giphyIds": ["YxXK5uo3TDY0U"],
 				"giphyQuery": "101 Dalmatians"
 			},
 			"bothQuip": "Les deux. Les chats chics et les chiens tachetés : ta maison idéale.",
@@ -4389,7 +4389,7 @@ var rivalries_default = {
 				"origin": "Disney · 1994",
 				"line": "« Hakuna matata. »",
 				"quip": "Team Roi lion : tu as envie de soulever chaque nouveau-né de la famille en haut d’un rocher.",
-				"giphyIds": [],
+				"giphyIds": ["Nm4eUOt3074Ck"],
 				"giphyQuery": "Lion King"
 			},
 			"b": {
@@ -4397,7 +4397,7 @@ var rivalries_default = {
 				"origin": "Disney · 1967",
 				"line": "Il en faut peu pour être heureux.",
 				"quip": "Team Livre de la jungle : il en faut peu pour être heureux. Tu as tout compris.",
-				"giphyIds": [],
+				"giphyIds": ["ducK0J86HooyEn4jRo"],
 				"giphyQuery": "Jungle Book Baloo"
 			},
 			"bothQuip": "Les deux. Des animaux qui chantent : c’est ta philosophie de vie.",
@@ -4411,7 +4411,7 @@ var rivalries_default = {
 				"origin": "Disney · 1992",
 				"line": "Un tapis, une lampe, trois vœux.",
 				"quip": "Team Aladdin : tu as déjà frotté une théière. Au cas où.",
-				"giphyIds": [],
+				"giphyIds": ["d8YBM0IgPszle"],
 				"giphyQuery": "Aladdin Disney"
 			},
 			"b": {
@@ -4419,7 +4419,7 @@ var rivalries_default = {
 				"origin": "Disney · 1991",
 				"line": "Une bibliothèque immense, et un chandelier bavard.",
 				"quip": "Team La Belle et la Bête : tu rêves d’une bibliothèque immense et d’un chandelier qui parle.",
-				"giphyIds": [],
+				"giphyIds": ["vYRd6mLEbQLeg"],
 				"giphyQuery": "Beauty and the Beast Disney"
 			},
 			"bothQuip": "Les deux. Tes trois vœux : une bibliothèque, un tapis volant, et un génie.",
@@ -4433,7 +4433,7 @@ var rivalries_default = {
 				"origin": "Disney · 1998",
 				"line": "Sauve la Chine, déguisée en soldat.",
 				"quip": "Team Mulan : tu ferais tout pour ta famille. Même partir à la guerre en cachette.",
-				"giphyIds": [],
+				"giphyIds": ["Ypqx7556UkNqg"],
 				"giphyQuery": "Mulan Disney"
 			},
 			"b": {
@@ -4441,7 +4441,7 @@ var rivalries_default = {
 				"origin": "Disney · 2016",
 				"line": "Traverse l’océan avec un coq pas très malin.",
 				"quip": "Team Vaiana : tu pars à l’aventure sans plan, avec un coq pas très malin. Courage.",
-				"giphyIds": [],
+				"giphyIds": ["2UoRoVLT7f9nN5SEDp"],
 				"giphyQuery": "Moana"
 			},
 			"bothQuip": "Les deux. Les héroïnes qui sauvent tout le monde, ce sont tes modèles.",
@@ -4455,7 +4455,7 @@ var rivalries_default = {
 				"origin": "La Reine des neiges · 2013",
 				"line": "« Libérée, délivrée. »",
 				"quip": "Team Elsa : tu as chanté « Libérée, délivrée » à tue-tête dans la voiture. Avoue.",
-				"giphyIds": [],
+				"giphyIds": ["3o6fJ0KIn7yy4DlBM4"],
 				"giphyQuery": "Elsa Frozen"
 			},
 			"b": {
@@ -4463,7 +4463,7 @@ var rivalries_default = {
 				"origin": "La Reine des neiges · 2013",
 				"line": "Tombe amoureuse en une chanson.",
 				"quip": "Team Anna : tu tombes sous le charme en une chanson, et tu fonces.",
-				"giphyIds": [],
+				"giphyIds": ["k6r8LtoDv6ikPcZH1t"],
 				"giphyQuery": "Anna Frozen"
 			},
 			"bothQuip": "Les deux. Les sœurs les plus célèbres du monde. Ta playlist ne s’en remet pas.",
@@ -4477,7 +4477,7 @@ var rivalries_default = {
 				"origin": "Blue Sky · 2002",
 				"line": "Un écureuil, un gland, et une obsession.",
 				"quip": "Team Âge de glace : tu as une obsession, comme Scrat et son gland. Ne dis pas laquelle.",
-				"giphyIds": [],
+				"giphyIds": ["vVKf0YastPrC067QwV"],
 				"giphyQuery": "Ice Age Scrat"
 			},
 			"b": {
@@ -4485,7 +4485,7 @@ var rivalries_default = {
 				"origin": "DreamWorks · 2005",
 				"line": "Des animaux du zoo, et des pingouins très organisés.",
 				"quip": "Team Madagascar : « Souriez et saluez, les gars. » Tu le dis en entrant en réunion.",
-				"giphyIds": [],
+				"giphyIds": ["Ch31IjylFWM8M"],
 				"giphyQuery": "Madagascar penguins"
 			},
 			"bothQuip": "Les deux. Les animaux en vacances forcées, ton genre de film.",
@@ -4499,7 +4499,7 @@ var rivalries_default = {
 				"origin": "Pixar · 2001",
 				"line": "Ils font peur aux enfants. Pour l’électricité.",
 				"quip": "Team Monstres et Cie : tu vérifies encore sous ton lit. Au cas où.",
-				"giphyIds": [],
+				"giphyIds": ["YLtGyfDnTksKY"],
 				"giphyQuery": "Monsters Inc"
 			},
 			"b": {
@@ -4507,7 +4507,7 @@ var rivalries_default = {
 				"origin": "Pixar · 2003",
 				"line": "« Continue de nager. »",
 				"quip": "Team Nemo : « Continue de nager. » Ta devise de tous les lundis.",
-				"giphyIds": [],
+				"giphyIds": ["iGz6qKJG58HlK"],
 				"giphyQuery": "Finding Nemo Dory"
 			},
 			"bothQuip": "Les deux. Pixar a fait pleurer ton enfance, et ça continue.",
@@ -4521,7 +4521,7 @@ var rivalries_default = {
 				"origin": "Pixar · 2004",
 				"line": "« Pas de cape ! »",
 				"quip": "Team Indestructibles : « Pas de cape ! » Tu le dis dès que quelqu’un met une écharpe.",
-				"giphyIds": [],
+				"giphyIds": ["cituf0Vb5FYSk"],
 				"giphyQuery": "The Incredibles"
 			},
 			"b": {
@@ -4529,7 +4529,7 @@ var rivalries_default = {
 				"origin": "Pixar · 2007",
 				"line": "Un rat chef cuisinier, à Paris.",
 				"quip": "Team Ratatouille : tu cuisines avec quelqu’un qui te tire les cheveux. Au sens figuré.",
-				"giphyIds": [],
+				"giphyIds": ["MFrmVfqNgvoFb93zfY"],
 				"giphyQuery": "Ratatouille"
 			},
 			"bothQuip": "Les deux. Les super-héros et la grande cuisine : ton week-end idéal.",
@@ -4543,7 +4543,7 @@ var rivalries_default = {
 				"origin": "Aardman · 2000",
 				"line": "Des poules qui préparent la grande évasion.",
 				"quip": "Team Chicken Run : tu as un plan d’évasion pour chaque réunion trop longue.",
-				"giphyIds": [],
+				"giphyIds": ["8mWtt0cixdPn2wQd0n"],
 				"giphyQuery": "Chicken Run"
 			},
 			"b": {
@@ -4551,7 +4551,7 @@ var rivalries_default = {
 				"origin": "Aardman · 2007",
 				"line": "Un mouton plus malin que le fermier.",
 				"quip": "Team Shaun : tu as toujours un temps d’avance sur ton chef. Comme Shaun sur le fermier.",
-				"giphyIds": [],
+				"giphyIds": ["SgwPtMD47PV04"],
 				"giphyQuery": "Shaun the Sheep"
 			},
 			"bothQuip": "Les deux. La pâte à modeler, c’est ta matière préférée.",
@@ -4565,7 +4565,7 @@ var rivalries_default = {
 				"origin": "Moi, moche et méchant · 2010",
 				"line": "Jaunes, en salopette, fous de bananes.",
 				"quip": "Team Minions : tu dis « Banana ! » avec un accent bizarre. Et ça te fait rire.",
-				"giphyIds": [],
+				"giphyIds": ["BQAk13taTaKYw"],
 				"giphyQuery": "Minions"
 			},
 			"b": {
@@ -4573,7 +4573,7 @@ var rivalries_default = {
 				"origin": "Ubisoft · 2006",
 				"line": "« Bwaaaah ! »",
 				"quip": "Team Lapins Crétins : « BWAAAAH ! » C’est ta réponse à tout.",
-				"giphyIds": [],
+				"giphyIds": ["6Hn8knm8wxQ9a"],
 				"giphyQuery": "Rabbids"
 			},
 			"bothQuip": "Les deux. Les petites créatures qui crient, c’est ton humour.",
@@ -4610,7 +4610,7 @@ var rivalries_default = {
 				"origin": "Royaume-Uni · 2004",
 				"line": "Saute dans les flaques de boue. Toujours.",
 				"quip": "Team Peppa Pig : tu sautes dans les flaques de boue. Encore aujourd’hui.",
-				"giphyIds": [],
+				"giphyIds": ["lKQlXQm5bBlMXoCCTX"],
 				"giphyQuery": "Peppa Pig"
 			},
 			"b": {
@@ -4619,7 +4619,8 @@ var rivalries_default = {
 				"line": "Un petit pingouin qui découvre la vie, tranquillement.",
 				"quip": "Team T’choupi : tu découvres la vie tranquillement. Et c’est très bien comme ça.",
 				"giphyIds": [],
-				"giphyQuery": "Tchoupi penguin"
+				"giphyQuery": "Tchoupi penguin",
+				"gifUrls": ["https://media.tenor.com/YAgDuU12psMAAAAC/tchoupicrave-tchoupi-bicrave.gif"]
 			},
 			"bothQuip": "Les deux. Tu les as vus cent fois avec des enfants. Tu connais les répliques.",
 			"noneQuip": "Ni Peppa ni T’choupi. Pas d’enfants dans ton entourage, c’est ça ?"
@@ -4632,7 +4633,7 @@ var rivalries_default = {
 				"origin": "Nickelodeon · 2013",
 				"line": "Six chiots, et un budget illimité.",
 				"quip": "Team Pat’ Patrouille : « Aucune mission n’est trop dure, aucun chiot n’est trop petit. » Tu le sais par cœur.",
-				"giphyIds": [],
+				"giphyIds": ["Z8wxB5I34Wl9Rx0ilC"],
 				"giphyQuery": "Paw Patrol"
 			},
 			"b": {
@@ -4640,7 +4641,7 @@ var rivalries_default = {
 				"origin": "Série animée · 2015",
 				"line": "Super-héros la nuit, élèves fatigués le jour.",
 				"quip": "Team Pyjamasques : la nuit, tu sauves le monde. Le jour, tu dors en réunion.",
-				"giphyIds": [],
+				"giphyIds": ["bte2HRRblJAzMMSGE6"],
 				"giphyQuery": "PJ Masks"
 			},
 			"bothQuip": "Les deux. Tu as vu tous les épisodes. Avec ou sans enfants, on ne juge pas.",
@@ -4654,7 +4655,7 @@ var rivalries_default = {
 				"origin": "Jim Davis · 1978",
 				"line": "Déteste les lundis, adore les lasagnes.",
 				"quip": "Team Garfield : le lundi, tu ne parles à personne avant midi.",
-				"giphyIds": [],
+				"giphyIds": ["9S8lAbQSF96Vi"],
 				"giphyQuery": "Garfield"
 			},
 			"b": {
@@ -4662,7 +4663,7 @@ var rivalries_default = {
 				"origin": "Charles Schulz · 1950",
 				"line": "Dort sur le toit de sa niche.",
 				"quip": "Team Snoopy : tu rêves de dormir sur le toit de ta niche. Enfin, de ton lit.",
-				"giphyIds": [],
+				"giphyIds": ["l3q2XXYxkdxzjMC9G"],
 				"giphyQuery": "Snoopy"
 			},
 			"bothQuip": "Les deux. Le chat paresseux et le chien rêveur : ta mascotte idéale.",
@@ -4699,7 +4700,7 @@ var rivalries_default = {
 				"origin": "Annette Tison et Talus Taylor · 1970",
 				"line": "Change de forme, mais reste rose.",
 				"quip": "Team Barbapapa : tu changes de forme selon la situation. Hop hop hop.",
-				"giphyIds": [],
+				"giphyIds": ["jVN78wGferoUsebKBA"],
 				"giphyQuery": "Barbapapa"
 			},
 			"b": {
@@ -4722,7 +4723,7 @@ var rivalries_default = {
 				"origin": "DreamWorks · 2008",
 				"line": "Un panda, des raviolis, et le kung-fu.",
 				"quip": "Team Kung Fu Panda : tu fais du kung-fu entre deux raviolis. Le guerrier dragon, c’est toi.",
-				"giphyIds": [],
+				"giphyIds": ["P8gqZQp6fG111SJmEn"],
 				"giphyQuery": "Kung Fu Panda"
 			},
 			"b": {
@@ -4730,7 +4731,7 @@ var rivalries_default = {
 				"origin": "DreamWorks · 2010",
 				"line": "Un Viking, et son dragon noir, Krokmou.",
 				"quip": "Team Dragons : tu rêves d’un Krokmou. Ton chat fait l’affaire.",
-				"giphyIds": [],
+				"giphyIds": ["5SsG3AVUUpLOM"],
 				"giphyQuery": "How to Train Your Dragon Toothless"
 			},
 			"bothQuip": "Les deux. Les héros maladroits qui sauvent tout le monde, ta catégorie préférée.",
@@ -4744,7 +4745,7 @@ var rivalries_default = {
 				"origin": "Nickelodeon · 1996",
 				"line": "Une tête en forme de ballon de rugby.",
 				"quip": "Team Hé Arnold ! : tu as un grand cœur. Et une tête bizarre, d’après certains.",
-				"giphyIds": [],
+				"giphyIds": ["xUNd9DsWb4lHIUC7EA"],
 				"giphyQuery": "Hey Arnold"
 			},
 			"b": {
@@ -4752,7 +4753,7 @@ var rivalries_default = {
 				"origin": "MTV · 1997",
 				"line": "Blasée, lucide, et des lunettes rondes.",
 				"quip": "Team Daria : blasée, lucide, et tu lèves les yeux au ciel avant même qu’on parle.",
-				"giphyIds": [],
+				"giphyIds": ["HoM16cP7vaYU"],
 				"giphyQuery": "Daria"
 			},
 			"bothQuip": "Les deux. Les ados des années 90, ta génération ou presque.",
@@ -4766,7 +4767,7 @@ var rivalries_default = {
 				"origin": "Cartoon Network · 2005",
 				"line": "Une montre, dix aliens.",
 				"quip": "Team Ben 10 : tu tournes le cadran de ta montre en espérant devenir un alien.",
-				"giphyIds": [],
+				"giphyIds": ["rxov59Taz0hMozzKWY"],
 				"giphyQuery": "Ben 10"
 			},
 			"b": {
@@ -4774,7 +4775,7 @@ var rivalries_default = {
 				"origin": "Nickelodeon · 2004",
 				"line": "Moitié ado, moitié fantôme.",
 				"quip": "Team Danny Fantôme : moitié ado, moitié fantôme. Le lundi matin, surtout fantôme.",
-				"giphyIds": [],
+				"giphyIds": ["ZKKt34cKvKmsw"],
 				"giphyQuery": "Danny Phantom"
 			},
 			"bothQuip": "Les deux. Les héros ados aux pouvoirs bizarres, tes préférés.",
@@ -4789,7 +4790,8 @@ var rivalries_default = {
 				"line": "Sauver le monde virtuel après les cours.",
 				"quip": "Team Code Lyoko : tu as sauvé le monde virtuel après les cours. Puis tu as fait tes devoirs.",
 				"giphyIds": [],
-				"giphyQuery": "Code Lyoko"
+				"giphyQuery": "Code Lyoko",
+				"gifUrls": ["https://media.tenor.com/6skbih-rKqUAAAAC/yumi-code-lyoko.gif"]
 			},
 			"b": {
 				"name": "Wakfu",
@@ -4810,7 +4812,7 @@ var rivalries_default = {
 				"origin": "Naoko Takeuchi · 1992",
 				"line": "« Au nom de la Lune, je vais te punir ! »",
 				"quip": "Team Sailor Moon : « Au nom de la Lune, je vais te punir ! » Tu le dis encore.",
-				"giphyIds": [],
+				"giphyIds": ["KuNcXA0bmPdyE"],
 				"giphyQuery": "Sailor Moon"
 			},
 			"b": {
@@ -4818,7 +4820,7 @@ var rivalries_default = {
 				"origin": "CLAMP · 1996",
 				"line": "Des cartes magiques et une meilleure amie couturière.",
 				"quip": "Team Sakura : un classeur de cartes magiques, et une amie qui coud tes costumes.",
-				"giphyIds": [],
+				"giphyIds": ["SOLtybDbSzA5i"],
 				"giphyQuery": "Cardcaptor Sakura"
 			},
 			"bothQuip": "Les deux. Les héroïnes magiques des années 90, tu les as toutes regardées.",
@@ -4832,7 +4834,7 @@ var rivalries_default = {
 				"origin": "Ritsuko Kawai · 1997",
 				"line": "Un hamster, des graines de tournesol, des copains.",
 				"quip": "Team Hamtaro : tu stockes des graines de tournesol dans tes joues. Au sens figuré.",
-				"giphyIds": [],
+				"giphyIds": ["TrSqUougSkFO0"],
 				"giphyQuery": "Hamtaro"
 			},
 			"b": {
@@ -4840,7 +4842,7 @@ var rivalries_default = {
 				"origin": "Fujiko F. Fujio · 1969",
 				"line": "Un chat-robot avec une poche magique.",
 				"quip": "Team Doraemon : tu rêves d’une poche magique qui sort n’importe quoi. Comme ton sac.",
-				"giphyIds": [],
+				"giphyIds": ["l4EoZ1rJtDfypcna8"],
 				"giphyQuery": "Doraemon"
 			},
 			"bothQuip": "Les deux. Un hamster et un chat-robot : ton enfance japonaise.",
@@ -4855,7 +4857,8 @@ var rivalries_default = {
 				"line": "Détective de génie, dragueur catastrophique.",
 				"quip": "Team Nicky Larson : détective de génie, dragueur catastrophique. Sans commentaire.",
 				"giphyIds": [],
-				"giphyQuery": "City Hunter"
+				"giphyQuery": "City Hunter",
+				"gifUrls": ["https://media.tenor.com/0OIn-yCG_64AAAAC/city-hunter-ryo-saeba.gif"]
 			},
 			"b": {
 				"name": "Cobra",
@@ -4863,7 +4866,8 @@ var rivalries_default = {
 				"line": "Un rayon psychique caché dans le bras gauche.",
 				"quip": "Team Cobra : un bras qui tire des rayons et un cigare. Tu fais des rêves bizarres.",
 				"giphyIds": [],
-				"giphyQuery": "Space Adventure Cobra"
+				"giphyQuery": "Space Adventure Cobra",
+				"gifUrls": ["https://media.tenor.com/1dXaqBRGaHwAAAAC/space-adventure-cobra-cobra.gif"]
 			},
 			"bothQuip": "Les deux. Les héros des années 80, avec des muscles et des répliques.",
 			"noneQuip": "Ni l’un ni l’autre. Les héros dragueurs des années 80 ont mal vieilli. On est d’accord."
@@ -4876,7 +4880,7 @@ var rivalries_default = {
 				"origin": "Masami Kurumada · 1986",
 				"line": "Des armures, des constellations, et beaucoup de cris.",
 				"quip": "Team Chevaliers du Zodiaque : tu as crié « Météores de Pégase ! » en boxant le vide.",
-				"giphyIds": [],
+				"giphyIds": ["cJ4F4bymeqBO"],
 				"giphyQuery": "Saint Seiya"
 			},
 			"b": {
@@ -4884,7 +4888,7 @@ var rivalries_default = {
 				"origin": "Buronson et Tetsuo Hara · 1983",
 				"line": "« Tu ne le sais pas encore, mais tu es déjà mort. »",
 				"quip": "Team Ken le Survivant : « Tu ne le sais pas encore, mais tu es déjà mort. » Tu le dis aux moustiques.",
-				"giphyIds": [],
+				"giphyIds": ["sdF2Y8sxPk36g"],
 				"giphyQuery": "Fist of the North Star"
 			},
 			"bothQuip": "Les deux. Le Club Dorothée t’a transmis des valeurs. Discutables, mais des valeurs.",
@@ -4899,7 +4903,8 @@ var rivalries_default = {
 				"line": "Pleure beaucoup, se relève toujours.",
 				"quip": "Team Candy : tu pleures beaucoup, et tu te relèves toujours. Admirable.",
 				"giphyIds": [],
-				"giphyQuery": "Candy Candy"
+				"giphyQuery": "Candy Candy",
+				"gifUrls": ["https://media.tenor.com/zmLzoy_FfmsAAAAC/anohito-candycandy.gif"]
 			},
 			"b": {
 				"name": "Princesse Sarah",
@@ -4907,7 +4912,8 @@ var rivalries_default = {
 				"line": "Riche, puis pauvre, puis riche. Courage.",
 				"quip": "Team Princesse Sarah : riche, pauvre, puis riche. Tu as survécu à tout.",
 				"giphyIds": [],
-				"giphyQuery": "Princess Sarah anime"
+				"giphyQuery": "Princess Sarah anime",
+				"gifUrls": ["https://media.tenor.com/r9Pl_8k0UA0AAAAC/princess-sarah-anime.gif"]
 			},
 			"bothQuip": "Les deux. Deux dessins animés, deux paquets de mouchoirs, une seule semaine.",
 			"noneQuip": "Ni l’une ni l’autre. Les héroïnes qui pleurent tout le temps, ce n’est pas ton truc."
@@ -4920,7 +4926,7 @@ var rivalries_default = {
 				"origin": "Yoichi Takahashi · 1981",
 				"line": "Un terrain de foot de dix kilomètres de long.",
 				"quip": "Team Olive et Tom : tu as traversé un terrain de dix kilomètres en trois épisodes.",
-				"giphyIds": [],
+				"giphyIds": ["jYeQ5l11m9wCeUccFB"],
 				"giphyQuery": "Captain Tsubasa"
 			},
 			"b": {
@@ -4943,7 +4949,7 @@ var rivalries_default = {
 				"origin": "Disney · 1942",
 				"line": "Apprend à marcher sur la glace. Puis le drame.",
 				"quip": "Team Bambi : tu as appris à marcher sur la glace. Puis le drame. Ça te hante encore.",
-				"giphyIds": [],
+				"giphyIds": ["HWgx3EEyEvJcs"],
 				"giphyQuery": "Bambi"
 			},
 			"b": {
@@ -4951,7 +4957,7 @@ var rivalries_default = {
 				"origin": "Disney · 1941",
 				"line": "De grandes oreilles, et un grand destin.",
 				"quip": "Team Dumbo : de grandes oreilles, un grand destin. Tu crois en toi, et tu as raison.",
-				"giphyIds": [],
+				"giphyIds": ["2lzhUOZsRY86Y"],
 				"giphyQuery": "Dumbo"
 			},
 			"bothQuip": "Les deux. Disney a brisé ton cœur d’enfant. Deux fois.",
@@ -4965,7 +4971,7 @@ var rivalries_default = {
 				"origin": "Henry Selick · 2009",
 				"line": "Une autre mère, avec des boutons à la place des yeux.",
 				"quip": "Team Coraline : tu ne fais confiance à personne qui a des boutons à la place des yeux. Personne.",
-				"giphyIds": [],
+				"giphyIds": ["PcGMeFVvmCgIkxpIwz"],
 				"giphyQuery": "Coraline"
 			},
 			"b": {
@@ -4973,7 +4979,7 @@ var rivalries_default = {
 				"origin": "Henry Selick · 1993",
 				"line": "Halloween veut faire Noël. Ça se passe moyennement.",
 				"quip": "Team Monsieur Jack : tu décores pour Halloween et pour Noël en même temps. Tes voisins sont perdus.",
-				"giphyIds": [],
+				"giphyIds": ["ZEdr5TG293Mxa"],
 				"giphyQuery": "Nightmare Before Christmas Jack"
 			},
 			"bothQuip": "Les deux. Henry Selick, c’est ton réalisateur. L’image par image, ton style.",
@@ -4988,7 +4994,8 @@ var rivalries_default = {
 				"line": "Une mèche, mille questions, et « c’est pô juste ! ».",
 				"quip": "Team Titeuf : « C’est pô juste ! » Tu le dis encore quand tu perds au Monopoly.",
 				"giphyIds": [],
-				"giphyQuery": "kid cartoon"
+				"giphyQuery": "kid cartoon",
+				"gifUrls": ["https://media.tenor.com/itpIO0Gkk3EAAAAC/jevois-jevoisjevois.gif"]
 			},
 			"b": {
 				"name": "Kid Paddle",
@@ -4996,7 +5003,8 @@ var rivalries_default = {
 				"line": "Des jeux vidéo, des monstres, et une imagination débordante.",
 				"quip": "Team Kid Paddle : tu vois des monstres partout. Surtout dans ta salle de bains.",
 				"giphyIds": [],
-				"giphyQuery": "gamer kid"
+				"giphyQuery": "gamer kid",
+				"gifUrls": ["https://media.tenor.com/sRSeFonI3kMAAAAC/midam-parc-spirou.gif"]
 			},
 			"bothQuip": "Les deux. Tes BD d’enfance sont devenues des dessins animés, et tu as tout vu.",
 			"noneQuip": "Ni Titeuf ni Kid Paddle. Team Boule et Bill, la bonne vieille BD."
@@ -5009,7 +5017,7 @@ var rivalries_default = {
 				"origin": "La Petite Sirène · 1989",
 				"line": "Une voix, une fourchette pour se coiffer, et l’envie de partir.",
 				"quip": "Team Ariel : tu as déjà essayé de te coiffer avec une fourchette. Une fois, pour voir.",
-				"giphyIds": [],
+				"giphyIds": ["cjI4nRSSGPDonzu3oT"],
 				"giphyQuery": "little mermaid"
 			},
 			"b": {
@@ -5017,7 +5025,7 @@ var rivalries_default = {
 				"origin": "Raiponce · 2010",
 				"line": "Vingt mètres de cheveux, et une poêle à frire.",
 				"quip": "Team Raiponce : ta poêle à frire, c’est aussi ton arme. Et tu sais t’en servir.",
-				"giphyIds": [],
+				"giphyIds": ["W5yshKbH5wrwA"],
 				"giphyQuery": "rapunzel"
 			},
 			"bothQuip": "Les deux. Les princesses qui veulent voir le monde, ce sont tes préférées.",
@@ -5032,7 +5040,7 @@ var rivalries_default = {
 				"origin": "Le canapé, à tue-tête",
 				"line": "Toutes les paroles, en entier, avec la chorégraphie.",
 				"quip": "Team je chante : tu connais des génériques de 1987 par cœur. Mais pas ton code de carte bancaire.",
-				"giphyIds": [],
+				"giphyIds": ["y2B9WU8Yl0rIs"],
 				"giphyQuery": "singing"
 			},
 			"b": {
@@ -5040,7 +5048,7 @@ var rivalries_default = {
 				"origin": "La télécommande",
 				"line": "On veut l’épisode, pas la chanson.",
 				"quip": "Team je passe : tu as raté les plus belles chansons de ton enfance. Et tu ne le sais même pas.",
-				"giphyIds": [],
+				"giphyIds": ["12n7TxQhunrsis"],
 				"giphyQuery": "fast forward"
 			},
 			"bothQuip": "Les deux. Tu chantes le premier, tu passes les suivants. Par efficacité.",
@@ -5062,7 +5070,7 @@ var rivalries_default = {
 				"origin": "Shrek 2 · 2004",
 				"line": "Un chapeau, des bottes, et des yeux qui implorent.",
 				"quip": "Team Chat potté : tu fais ses yeux suppliants pour avoir la dernière part de gâteau. Et ça marche.",
-				"giphyIds": [],
+				"giphyIds": ["3qKgxpEgnEU78GK1L6"],
 				"giphyQuery": "puss in boots"
 			},
 			"bothQuip": "Les deux. L’ogre grognon et le chat charmeur : tu les veux dans ta bande.",
@@ -5076,7 +5084,7 @@ var rivalries_default = {
 				"origin": "Pixar · 1995",
 				"line": "Des jouets qui vivent dès qu’on ne regarde pas.",
 				"quip": "Team Toy Story : tu ne jettes jamais un jouet. Au cas où il aurait des sentiments.",
-				"giphyIds": [],
+				"giphyIds": ["PssxFbeKxKAESH1XVx"],
 				"giphyQuery": "toy story"
 			},
 			"b": {
@@ -5084,7 +5092,7 @@ var rivalries_default = {
 				"origin": "Pixar · 2006",
 				"line": "Des voitures qui parlent, et la route 66.",
 				"quip": "Team Cars : tu dis « Ka-tchow ! » en faisant le plein. Même au diesel.",
-				"giphyIds": [],
+				"giphyIds": ["FlMKnQfoIDvpK"],
 				"giphyQuery": "cars pixar"
 			},
 			"bothQuip": "Les deux. Pixar a rempli ta chambre de jouets et de petites voitures.",
@@ -5098,7 +5106,7 @@ var rivalries_default = {
 				"origin": "Les Simpson · 1989",
 				"line": "Un skate, une fronde, et « Ay caramba ! ».",
 				"quip": "Team Bart : tu as déjà fait une blague au téléphone. Peut-être même hier.",
-				"giphyIds": [],
+				"giphyIds": ["4oMoIbIQrvCjm"],
 				"giphyQuery": "bart simpson"
 			},
 			"b": {
@@ -5106,7 +5114,7 @@ var rivalries_default = {
 				"origin": "Les Simpson · 1989",
 				"line": "Un saxophone, de bonnes notes, et toujours raison.",
 				"quip": "Team Lisa : tu as raison, tout le temps. Et personne ne t’écoute. C’est dur.",
-				"giphyIds": [],
+				"giphyIds": ["3o6MbtCkEuvvUlxxoA"],
 				"giphyQuery": "lisa simpson"
 			},
 			"bothQuip": "Les deux. La bêtise et l’intelligence, dans la même famille. Comme la tienne.",
@@ -5120,7 +5128,7 @@ var rivalries_default = {
 				"origin": "Le crayon",
 				"line": "Dessiné à la main, image par image.",
 				"quip": "Team 2D : tu dis « c’était mieux à la main », avec beaucoup de nostalgie.",
-				"giphyIds": [],
+				"giphyIds": ["YwAgyCddum3K0"],
 				"giphyQuery": "hand drawn animation"
 			},
 			"b": {
@@ -5128,7 +5136,7 @@ var rivalries_default = {
 				"origin": "L’ordinateur",
 				"line": "Des poils qui bougent un par un, et des reflets partout.",
 				"quip": "Team 3D : tu admires chaque poil de chaque personnage. Il y en a des millions.",
-				"giphyIds": [],
+				"giphyIds": ["BcsP48Gi2cqLS"],
 				"giphyQuery": "3d animation"
 			},
 			"bothQuip": "Les deux. Un bon dessin animé reste un bon dessin animé, au crayon ou à l’ordinateur.",
@@ -5143,7 +5151,8 @@ var rivalries_default = {
 				"line": "Un éléphant roi, en costume vert.",
 				"quip": "Team Babar : tu as un costume vert pour les grandes occasions. Ou tu y as pensé.",
 				"giphyIds": [],
-				"giphyQuery": "elephant"
+				"giphyQuery": "elephant",
+				"gifUrls": ["https://media.tenor.com/i_gmEEBaUlIAAAAC/babar-babar-the-elephant.gif"]
 			},
 			"b": {
 				"name": "Petit Ours Brun",
@@ -5151,7 +5160,8 @@ var rivalries_default = {
 				"line": "Il se brosse les dents, prend son bain, et fait des bêtises.",
 				"quip": "Team Petit Ours Brun : tu ne veux toujours pas aller te coucher. Encore aujourd’hui.",
 				"giphyIds": [],
-				"giphyQuery": "teddy bear"
+				"giphyQuery": "teddy bear",
+				"gifUrls": ["https://media.tenor.com/Gfwd97O1PeoAAAAC/petit-ours-brun.gif"]
 			},
 			"bothQuip": "Les deux. Tes histoires du soir avaient des oreilles rondes.",
 			"noneQuip": "Ni Babar ni Petit Ours Brun. Tes histoires du soir faisaient plus peur, c’est ça ?"
@@ -6321,14 +6331,15 @@ var rivalries_default = {
 				"line": "Sur un malentendu, ça peut marcher.",
 				"quip": "Team Jean-Claude Dusse : tu tentes ta chance, même quand c’est mal parti. Sur un malentendu…",
 				"giphyIds": [],
-				"giphyQuery": "awkward flirt"
+				"giphyQuery": "awkward flirt",
+				"gifUrls": ["https://media.tenor.com/IDr3wgDncPMAAAAC/michel-blanc-jean-claude-dusse.gif"]
 			},
 			"b": {
 				"name": "Popeye",
 				"origin": "Les Bronzés · 1978",
 				"line": "Le moniteur de voile, très sûr de son charme.",
 				"quip": "Team Popeye : ton charme, tu y crois très fort. Plus fort que tout le monde.",
-				"giphyIds": [],
+				"giphyIds": ["90PPv7eqekhrO"],
 				"giphyQuery": "beach"
 			},
 			"bothQuip": "Les deux. Le Club Med de 1978, tu y retournerais demain.",
@@ -6365,7 +6376,7 @@ var rivalries_default = {
 				"origin": "Michel Hazanavicius · 2006",
 				"line": "Des espions, des poulets, et une blanquette.",
 				"quip": "Team Le Caire : tu chantes « Bambino » en arabe très approximatif. Avec un aplomb total.",
-				"giphyIds": [],
+				"giphyIds": ["3o7bufRpr472fizpHa"],
 				"giphyQuery": "oss 117"
 			},
 			"b": {
@@ -6374,7 +6385,8 @@ var rivalries_default = {
 				"line": "Le Brésil, des complots, et toujours aussi peu de tact.",
 				"quip": "Team Rio : tu gardes le costume par 40 °C, et ça ne te dérange pas.",
 				"giphyIds": [],
-				"giphyQuery": "rio de janeiro"
+				"giphyQuery": "rio de janeiro",
+				"gifUrls": ["https://media.tenor.com/yKX7Db2-Iu8AAAAC/obrigado-oss117.gif"]
 			},
 			"bothQuip": "Les deux. Hubert Bonisseur de La Bath : tes deux missions préférées.",
 			"noneQuip": "Ni l’un ni l’autre. Les espions qui se trompent sur tout, très peu pour toi."
@@ -6387,7 +6399,7 @@ var rivalries_default = {
 				"origin": "Gérard Oury · 1973",
 				"line": "Une danse, une usine de chewing-gum, et des papillotes.",
 				"quip": "Team Rabbi Jacob : tu as appris la danse. Toi aussi. Tout le monde l’a apprise.",
-				"giphyIds": [],
+				"giphyIds": ["27EbORLGRmOi4dLm27"],
 				"giphyQuery": "dance"
 			},
 			"b": {
@@ -6396,7 +6408,8 @@ var rivalries_default = {
 				"line": "Une 2 CV en morceaux, et une Cadillac pleine de surprises.",
 				"quip": "Team Le Corniaud : devant chaque voiture en panne, tu dis « elle va marcher beaucoup moins bien, forcément ».",
 				"giphyIds": [],
-				"giphyQuery": "car crash"
+				"giphyQuery": "car crash",
+				"gifUrls": ["https://media.tenor.com/TvZZIB6mjDEAAAAC/bourvil.gif"]
 			},
 			"bothQuip": "Les deux. Gérard Oury et de Funès, ta paire préférée.",
 			"noneQuip": "Ni l’un ni l’autre. Les classiques de de Funès, à revoir d’urgence."
@@ -6411,7 +6424,8 @@ var rivalries_default = {
 				"line": "Des maquettes en allumettes, et une bonne volonté catastrophique.",
 				"quip": "Team Pignon : tu as construit une tour Eiffel en allumettes. Et tu en parles à tout le monde.",
 				"giphyIds": [],
-				"giphyQuery": "matchstick model"
+				"giphyQuery": "matchstick model",
+				"gifUrls": ["https://media.tenor.com/mIDS6MKwGAUAAAAC/diner-cons.gif"]
 			},
 			"b": {
 				"name": "Pierre Brochant",
@@ -6419,7 +6433,8 @@ var rivalries_default = {
 				"line": "Un lumbago, un dîner annulé, et une très mauvaise soirée.",
 				"quip": "Team Brochant : tu as voulu te moquer de quelqu’un. Ça s’est retourné contre toi.",
 				"giphyIds": [],
-				"giphyQuery": "back pain"
+				"giphyQuery": "back pain",
+				"gifUrls": ["https://media.tenor.com/Zpr62bGqE48AAAAC/dinerdecon-con.gif"]
 			},
 			"bothQuip": "Les deux. Le gentil et l’arrogant : le duo qui fait rire depuis 1998.",
 			"noneQuip": "Ni Pignon ni Brochant. Team Cheval, le contrôleur des impôts."
@@ -6433,14 +6448,15 @@ var rivalries_default = {
 				"line": "Des discours, des larmes, et des remerciements à la maman.",
 				"quip": "Team César : tu regardes la cérémonie jusqu’au bout. Même les remerciements de l’ingénieur du son.",
 				"giphyIds": [],
-				"giphyQuery": "award ceremony"
+				"giphyQuery": "award ceremony",
+				"gifUrls": ["https://media.tenor.com/L98ZfHVS-90AAAAC/prix-ceremony.gif"]
 			},
 			"b": {
 				"name": "Les Oscars",
 				"origin": "Los Angeles · 1929",
 				"line": "Le tapis rouge, les stars, et parfois la mauvaise enveloppe.",
 				"quip": "Team Oscars : tu as veillé jusqu’à 5 h du matin pour voir qui gagnait. La journée a été longue.",
-				"giphyIds": [],
+				"giphyIds": ["26gsclwvSJNZ2TrRS"],
 				"giphyQuery": "oscars"
 			},
 			"bothQuip": "Les deux. Les remises de prix, c’est ton sport d’hiver.",
@@ -6454,7 +6470,7 @@ var rivalries_default = {
 				"origin": "Intouchables · 2011",
 				"line": "Un rire immense, et Hollywood dans la foulée.",
 				"quip": "Team Omar Sy : ton rire fait se retourner toute la rue. Et ça fait du bien.",
-				"giphyIds": [],
+				"giphyIds": ["nP68vWNLiNmnqAeyGB"],
 				"giphyQuery": "omar sy"
 			},
 			"b": {
@@ -6462,7 +6478,7 @@ var rivalries_default = {
 				"origin": "Bienvenue chez les Ch’tis · 2008",
 				"line": "Une moustache, un accent du Nord, et des rôles par centaines.",
 				"quip": "Team Kad Merad : tu as joué tous les rôles. Même celui que personne ne voulait.",
-				"giphyIds": [],
+				"giphyIds": ["cYBb9LWHWw4YgFEd8z"],
 				"giphyQuery": "kad merad"
 			},
 			"bothQuip": "Les deux. Les deux plus grands sourires du cinéma français.",
@@ -6478,7 +6494,8 @@ var rivalries_default = {
 				"line": "Le premier, avec les moustaches et le gros budget.",
 				"quip": "Team Contre César : ton premier Astérix au cinéma. On n’oublie jamais le premier.",
 				"giphyIds": [],
-				"giphyQuery": "asterix"
+				"giphyQuery": "asterix",
+				"gifUrls": ["https://media.tenor.com/katM18BhyQYAAAAC/asterix-and-obelix-roman-attack.gif"]
 			},
 			"b": {
 				"name": "Mission Cléopâtre",
@@ -6486,7 +6503,8 @@ var rivalries_default = {
 				"line": "Des répliques que tout le monde cite encore.",
 				"quip": "Team Mission Cléopâtre : tu as promis de construire un palais en trois mois. Bon, un meuble en kit.",
 				"giphyIds": [],
-				"giphyQuery": "cleopatra"
+				"giphyQuery": "cleopatra",
+				"gifUrls": ["https://media.tenor.com/89L6GTR0cgQAAAAC/soeurdelune-edouard-baer.gif"]
 			},
 			"bothQuip": "Les deux. Astérix au cinéma, tu as tout vu. Même les moins bons.",
 			"noneQuip": "Ni l’un ni l’autre. Les Gaulois au cinéma, très peu pour toi."
@@ -6500,7 +6518,7 @@ var rivalries_default = {
 				"origin": "Comme dans « gare »",
 				"line": "Le « G » de « graphique ». Logique.",
 				"quip": "Team GIF : tu corriges les gens qui disent « JIF ». Même son inventeur.",
-				"giphyIds": [],
+				"giphyIds": ["a5viI92PAF89q"],
 				"giphyQuery": "GIF"
 			},
 			"b": {
@@ -6508,7 +6526,7 @@ var rivalries_default = {
 				"origin": "Comme dans « girafe »",
 				"line": "C’est ce que voulait son inventeur. Personne n’écoute.",
 				"quip": "Team JIF : tu respectes la volonté de l’inventeur. Tu es bien la seule personne.",
-				"giphyIds": [],
+				"giphyIds": ["kJSBJN6RPgHpS"],
 				"giphyQuery": "jif peanut butter"
 			},
 			"bothQuip": "Les deux. GIF ou JIF selon l’humeur. Le chaos te va bien.",
@@ -6522,7 +6540,7 @@ var rivalries_default = {
 				"origin": "Rick Astley · 1987",
 				"line": "Tu ne l’as pas vu venir. Encore.",
 				"quip": "Team Rickroll : tu as piégé tes amis avec un lien. Ils ne te font plus confiance.",
-				"giphyIds": [],
+				"giphyIds": ["UoTiYh27n5nnmVjAi6"],
 				"giphyQuery": "Rick Astley rickroll"
 			},
 			"b": {
@@ -6530,7 +6548,7 @@ var rivalries_default = {
 				"origin": "YouTube · 2011",
 				"line": "Un chat-gâteau qui laisse un arc-en-ciel derrière lui.",
 				"quip": "Team Nyan Cat : tu as écouté la musique dix heures d’affilée. Ton cerveau s’en souvient.",
-				"giphyIds": [],
+				"giphyIds": ["BSx6mzbW1ew7K"],
 				"giphyQuery": "Nyan Cat"
 			},
 			"bothQuip": "Les deux. Les mèmes de 2007 à 2011 : ta préhistoire.",
@@ -6575,7 +6593,8 @@ var rivalries_default = {
 				"line": "Les anniversaires de gens que tu as perdus de vue.",
 				"quip": "Team Facebook : tu souhaites bon anniversaire à des gens que tu n’as pas vus depuis 2009.",
 				"giphyIds": [],
-				"giphyQuery": "Facebook like"
+				"giphyQuery": "Facebook like",
+				"gifUrls": ["https://media.tenor.com/3KAREOsEJaEAAAAC/facebook-mark-zuckerberg.gif"]
 			},
 			"bothQuip": "Les deux. Ta famille sur l’un, tes disputes sur l’autre.",
 			"noneQuip": "Ni l’un ni l’autre. Les réseaux sociaux de tes parents, très peu pour toi."
@@ -6588,7 +6607,7 @@ var rivalries_default = {
 				"origin": "Californie · 2010",
 				"line": "Des filtres, des brunchs et des couchers de soleil.",
 				"quip": "Team Instagram : ton brunch a été photographié sous quatre angles avant d’être mangé.",
-				"giphyIds": [],
+				"giphyIds": ["l41YmiCZ8HXvVl5M4"],
 				"giphyQuery": "Instagram filter"
 			},
 			"b": {
@@ -6596,7 +6615,7 @@ var rivalries_default = {
 				"origin": "Californie · 2011",
 				"line": "Des photos qui disparaissent. En théorie.",
 				"quip": "Team Snapchat : tu as des oreilles de chien sur la moitié de tes photos.",
-				"giphyIds": [],
+				"giphyIds": ["BOqXGAVEZO9Ta"],
 				"giphyQuery": "Snapchat ghost"
 			},
 			"bothQuip": "Les deux. Ton téléphone n’a plus de mémoire.",
@@ -6610,7 +6629,7 @@ var rivalries_default = {
 				"origin": "Japon · 2013",
 				"line": "Much meme. Very wow.",
 				"quip": "Team Doge : such choix. Very team. Wow.",
-				"giphyIds": [],
+				"giphyIds": ["qrwthQPPQrtEk"],
 				"giphyQuery": "Doge shiba"
 			},
 			"b": {
@@ -6618,7 +6637,7 @@ var rivalries_default = {
 				"origin": "Arizona · 2012",
 				"line": "Ne sourit jamais. Gagne quand même.",
 				"quip": "Team Grumpy Cat : tu ne souris jamais sur les photos. Et tu as du succès quand même.",
-				"giphyIds": [],
+				"giphyIds": ["8CFKqeK9vks3C"],
 				"giphyQuery": "Grumpy Cat"
 			},
 			"bothQuip": "Les deux. Les animaux mèmes sont tes meilleurs amis.",
@@ -6632,7 +6651,7 @@ var rivalries_default = {
 				"origin": "KC Green · 2013",
 				"line": "Tout va bien. Tout brûle.",
 				"quip": "Team « This is fine » : tout brûle autour de toi, et tu bois ton café. Tout va bien.",
-				"giphyIds": [],
+				"giphyIds": ["NTur7XlVDUdqM"],
 				"giphyQuery": "this is fine dog"
 			},
 			"b": {
@@ -6640,7 +6659,7 @@ var rivalries_default = {
 				"origin": "Photo de stock · 2015",
 				"line": "Regarde ailleurs, et Internet en a fait une saga.",
 				"quip": "Team petit ami distrait : tu regardes toujours ailleurs. Surtout quand on te parle.",
-				"giphyIds": [],
+				"giphyIds": ["6gSFHyU1mb1LAVw5aT"],
 				"giphyQuery": "distracted boyfriend meme"
 			},
 			"bothQuip": "Les deux. Ta vie est un mème. Un peu inquiétant, mais drôle.",
@@ -6654,7 +6673,7 @@ var rivalries_default = {
 				"origin": "Internet · 2001",
 				"line": "Tu cherchais un détail, tu lis sur les manchots à trois heures du matin.",
 				"quip": "Team Wikipédia : tu as commencé sur Napoléon, et fini sur les pieuvres. En deux heures.",
-				"giphyIds": [],
+				"giphyIds": ["mADzY6J0QjniQl9gs5"],
 				"giphyQuery": "Wikipedia"
 			},
 			"b": {
@@ -6662,7 +6681,7 @@ var rivalries_default = {
 				"origin": "Californie · 1998",
 				"line": "Toutes les réponses, et quelques pubs au passage.",
 				"quip": "Team Google : tu tapes tes questions en entier, avec « s’il te plaît ». Il répond quand même.",
-				"giphyIds": [],
+				"giphyIds": ["3o7WTtt6AbwJMgNB72"],
 				"giphyQuery": "Google search"
 			},
 			"bothQuip": "Les deux. Google pour trouver, Wikipédia pour te perdre.",
@@ -6676,7 +6695,7 @@ var rivalries_default = {
 				"origin": "Les formulaires",
 				"line": "Coche les feux de signalisation. Encore.",
 				"quip": "Team CAPTCHA : tu as cliqué sur tous les feux. Et on te demande encore si tu es un robot.",
-				"giphyIds": [],
+				"giphyIds": ["wpwi83rYEYPOH7aYhD"],
 				"giphyQuery": "captcha robot"
 			},
 			"b": {
@@ -6684,7 +6703,7 @@ var rivalries_default = {
 				"origin": "L’écran de connexion",
 				"line": "Le nouveau ne peut pas être l’ancien.",
 				"quip": "Team mot de passe oublié : le nouveau ne peut pas être l’ancien. Tu ne te souvenais pas de l’ancien.",
-				"giphyIds": [],
+				"giphyIds": ["lvBUOQhEaJtPP0sR3n"],
 				"giphyQuery": "forgot password"
 			},
 			"bothQuip": "Les deux. Prouver que tu existes, c’est ton quotidien.",
@@ -6698,7 +6717,7 @@ var rivalries_default = {
 				"origin": "Ton clavier",
 				"line": "La base de toute carrière.",
 				"quip": "Team Ctrl+C, Ctrl+V : ta carrière tient sur deux touches. Et ça marche.",
-				"giphyIds": [],
+				"giphyIds": ["x2Rn617S9o1jDZrZXf"],
 				"giphyQuery": "copy paste"
 			},
 			"b": {
@@ -6706,7 +6725,7 @@ var rivalries_default = {
 				"origin": "Ton clavier",
 				"line": "Le bouton qu’on voudrait dans la vraie vie.",
 				"quip": "Team Ctrl+Z : tu as essayé de faire Ctrl+Z dans la vraie vie. Ça n’a pas marché.",
-				"giphyIds": [],
+				"giphyIds": ["vClUiaIwe8eUEZw2jJ"],
 				"giphyQuery": "undo"
 			},
 			"bothQuip": "Les deux. Copier, coller, annuler : ta journée de travail.",
@@ -6720,7 +6739,7 @@ var rivalries_default = {
 				"origin": "YouTube",
 				"line": "Font tomber des objets et règnent sur le Web.",
 				"quip": "Team chats d’Internet : tu as regardé trente fois un chat faire tomber un verre.",
-				"giphyIds": [],
+				"giphyIds": ["2zlSwREmLmiQw"],
 				"giphyQuery": "cat knocking things off table"
 			},
 			"b": {
@@ -6728,7 +6747,7 @@ var rivalries_default = {
 				"origin": "YouTube",
 				"line": "Font des têtes surprises et attendrissent tout le monde.",
 				"quip": "Team chiens d’Internet : les vidéos de chiens qui retrouvent leur maître te font pleurer. À chaque fois.",
-				"giphyIds": [],
+				"giphyIds": ["9yWpTngwnLgbJ9XGub"],
 				"giphyQuery": "surprised dog"
 			},
 			"bothQuip": "Les deux. Ton fil d’actualité est un refuge animalier.",
@@ -6765,7 +6784,7 @@ var rivalries_default = {
 				"origin": "Streaming · 2007",
 				"line": "« Êtes-vous toujours en train de regarder ? »",
 				"quip": "Team Netflix : « Êtes-vous toujours en train de regarder ? » Oui. Ne juge pas.",
-				"giphyIds": [],
+				"giphyIds": ["JnvHE3lTHPr3WrSsrl"],
 				"giphyQuery": "Netflix"
 			},
 			"b": {
@@ -6773,7 +6792,7 @@ var rivalries_default = {
 				"origin": "Streaming · 2019",
 				"line": "Des princesses, Star Wars et Marvel au même endroit.",
 				"quip": "Team Disney+ : tu as revu tous les Marvel dans l’ordre chronologique. Deux fois.",
-				"giphyIds": [],
+				"giphyIds": ["QxwnBM8MkgAdqqng5S"],
 				"giphyQuery": "Disney Plus"
 			},
 			"bothQuip": "Les deux abonnements. Et tu regardes toujours la même série.",
@@ -6787,7 +6806,7 @@ var rivalries_default = {
 				"origin": "Seattle · 1994",
 				"line": "Livré demain, même ce dont tu n’avais pas besoin.",
 				"quip": "Team Amazon : tu as commandé un truc à 2 h du matin. Tu ne sais plus quoi. Ça arrive demain.",
-				"giphyIds": [],
+				"giphyIds": ["1g2JyW7p6mtZc6bOEY"],
 				"giphyQuery": "Amazon package delivery"
 			},
 			"b": {
@@ -6795,7 +6814,7 @@ var rivalries_default = {
 				"origin": "France · 2006",
 				"line": "« Toujours disponible ? »",
 				"quip": "Team Leboncoin : « Toujours disponible ? » Tu l’as écrit à vingt personnes cette semaine.",
-				"giphyIds": [],
+				"giphyIds": ["cKbQypSQFdTRxdTjYs"],
 				"giphyQuery": "garage sale"
 			},
 			"bothQuip": "Les deux. Tu achètes neuf, tu revends d’occasion. L’économie circulaire.",
@@ -6818,7 +6837,7 @@ var rivalries_default = {
 				"origin": "Internet · 2013",
 				"line": "Le bureau, avec des notifications en plus.",
 				"quip": "Team Slack : ta pastille rouge ne disparaît jamais. Jamais.",
-				"giphyIds": [],
+				"giphyIds": ["u3DLBjcK3AP9udcc33"],
 				"giphyQuery": "Slack notification"
 			},
 			"bothQuip": "Les deux. Les notifications du travail et des loisirs, mélangées. Courage.",
@@ -6832,7 +6851,7 @@ var rivalries_default = {
 				"origin": "Internet · 2011",
 				"line": "Regarder des gens jouer. Et c’est génial.",
 				"quip": "Team Twitch : tu regardes quelqu’un jouer pendant six heures. Et c’est génial.",
-				"giphyIds": [],
+				"giphyIds": ["2oOd2QY8TKarXCEvNh"],
 				"giphyQuery": "Twitch streamer"
 			},
 			"b": {
@@ -6840,7 +6859,7 @@ var rivalries_default = {
 				"origin": "Ton salon · années 1950",
 				"line": "Un programme imposé, et le zapping libre.",
 				"quip": "Team télé : quarante minutes de zapping, et tu ne regardes rien. La liberté.",
-				"giphyIds": [],
+				"giphyIds": ["oQPswLDhl15PG"],
 				"giphyQuery": "vintage television"
 			},
 			"bothQuip": "Les deux. Twitch sur le téléphone, la télé en fond. Ton cerveau est multitâche.",
@@ -6854,7 +6873,7 @@ var rivalries_default = {
 				"origin": "Sous la vidéo",
 				"line": "« Qui écoute encore ça en 2025 ? »",
 				"quip": "Team commentaires YouTube : tu as déjà écrit « Qui écoute encore ça en 2025 ? ». Avoue.",
-				"giphyIds": [],
+				"giphyIds": ["xU1It9DbxSfR6PFW8c"],
 				"giphyQuery": "youtube comments"
 			},
 			"b": {
@@ -6862,7 +6881,7 @@ var rivalries_default = {
 				"origin": "Sur la carte",
 				"line": "Une étoile, parce qu’il pleuvait.",
 				"quip": "Team avis Google : tu as mis une étoile à un restaurant parce que le parking était loin.",
-				"giphyIds": [],
+				"giphyIds": ["duUKE0wo9t21xuA401"],
 				"giphyQuery": "one star review"
 			},
 			"bothQuip": "Les deux. Tu lis les commentaires avant la vidéo, et les avis avant de manger.",
@@ -6876,7 +6895,7 @@ var rivalries_default = {
 				"origin": "Internet · 2005",
 				"line": "Chuck Norris a compté jusqu’à l’infini. Deux fois.",
 				"quip": "Team Chuck Norris : Chuck Norris a voté pour toi. Tu n’avais pas le choix.",
-				"giphyIds": [],
+				"giphyIds": ["AhwuGl0MPNzyg"],
 				"giphyQuery": "Chuck Norris"
 			},
 			"b": {
@@ -6884,7 +6903,7 @@ var rivalries_default = {
 				"origin": "Interviews · années 2000",
 				"line": "« Aware. »",
 				"quip": "Team Van Damme : tu es « aware ». Complètement aware.",
-				"giphyIds": [],
+				"giphyIds": ["kDWPAQBfATe3C"],
 				"giphyQuery": "Jean-Claude Van Damme"
 			},
 			"bothQuip": "Les deux. Les légendes d’Internet, tu les cites toutes.",
@@ -6898,7 +6917,7 @@ var rivalries_default = {
 				"origin": "Le café du coin",
 				"line": "Le vrai luxe des temps modernes.",
 				"quip": "Team Wi-Fi gratuit : tu choisis tes cafés pour le Wi-Fi. Pas pour le café.",
-				"giphyIds": [],
+				"giphyIds": ["8cH8I4uGzRtlS6qKHV"],
 				"giphyQuery": "free wifi"
 			},
 			"b": {
@@ -6906,7 +6925,7 @@ var rivalries_default = {
 				"origin": "Ton téléphone, le matin",
 				"line": "Un état qui ne dure jamais.",
 				"quip": "Team batterie à 100 % : le matin, tu te sens invincible. Jusqu’à 10 h.",
-				"giphyIds": [],
+				"giphyIds": ["jRsGLuA3jdgta96q9A"],
 				"giphyQuery": "phone battery full"
 			},
 			"bothQuip": "Les deux. Un Wi-Fi gratuit et une prise électrique : ton paradis.",
@@ -6920,7 +6939,7 @@ var rivalries_default = {
 				"origin": "Tous les sites",
 				"line": "Accepter, refuser, ou paramétrer pendant dix minutes.",
 				"quip": "Team bannière cookies : tu cliques sur « Paramétrer » et tu décoches tout. Pendant dix minutes.",
-				"giphyIds": [],
+				"giphyIds": ["RbjFhdSXhfKU3mNo9P"],
 				"giphyQuery": "cookies"
 			},
 			"b": {
@@ -6928,7 +6947,7 @@ var rivalries_default = {
 				"origin": "YouTube",
 				"line": "« Ignorer dans 5 secondes. »",
 				"quip": "Team pub avant la vidéo : tu fixes le compte à rebours de cinq secondes comme un lion sa proie.",
-				"giphyIds": [],
+				"giphyIds": ["Lk0g2YEvGtb4LiuP53"],
 				"giphyQuery": "skip ad"
 			},
 			"bothQuip": "Les deux. Internet te fait perdre deux minutes par page. Tu as compté.",
@@ -6943,7 +6962,7 @@ var rivalries_default = {
 				"origin": "Les conditions d’utilisation",
 				"line": "Il y a forcément quelqu’un qui le fait.",
 				"quip": "Team je lis tout : tu as lu les conditions d’utilisation. Tu es la seule personne au monde.",
-				"giphyIds": [],
+				"giphyIds": ["WoWm8YzFQJg5i"],
 				"giphyQuery": "reading terms and conditions"
 			},
 			"b": {
@@ -6951,7 +6970,7 @@ var rivalries_default = {
 				"origin": "Les conditions d’utilisation",
 				"line": "Tu as peut-être cédé ton âme. Pas grave.",
 				"quip": "Team j’accepte direct : tu as peut-être cédé ton premier enfant à une appli de lampe torche.",
-				"giphyIds": [],
+				"giphyIds": ["4066c9WUqrW65YOQV0"],
 				"giphyQuery": "I agree button"
 			},
 			"bothQuip": "Les deux. Tu lis le début, puis tu acceptes. Comme tout le monde.",
@@ -6973,7 +6992,7 @@ var rivalries_default = {
 				"origin": "Ta boîte mail",
 				"line": "La discrétion. Ou le coup bas.",
 				"quip": "Team copie cachée : tu mets ton chef en copie cachée. Tu sais ce que tu fais.",
-				"giphyIds": [],
+				"giphyIds": ["6XIZU6ptZuBA9irTbz"],
 				"giphyQuery": "secret email"
 			},
 			"bothQuip": "Les deux. Ta boîte mail est un terrain miné.",
@@ -6987,7 +7006,7 @@ var rivalries_default = {
 				"origin": "Ta messagerie",
 				"line": "Tu sais qu’il a lu. Il sait que tu sais.",
 				"quip": "Team accusé activé : tu as vu qu’il a lu. Il sait que tu as vu. Personne ne répond.",
-				"giphyIds": [],
+				"giphyIds": ["1pcswFtv8E8q0QVxrM"],
 				"giphyQuery": "seen message"
 			},
 			"b": {
@@ -6995,7 +7014,7 @@ var rivalries_default = {
 				"origin": "Ta messagerie",
 				"line": "Le doute, pour l’éternité.",
 				"quip": "Team accusé désactivé : tu lis en paix, et tu réponds dans trois jours. Le luxe.",
-				"giphyIds": [],
+				"giphyIds": ["QBd2kLB5qDmysEXre9"],
 				"giphyQuery": "waiting for reply"
 			},
 			"bothQuip": "Les deux. Activé pour les autres, désactivé pour toi. Malin.",
@@ -7009,7 +7028,7 @@ var rivalries_default = {
 				"origin": "Ta messagerie",
 				"line": "Cinq minutes d’audio pour dire « oui ».",
 				"quip": "Team notes vocales : cinq minutes d’audio pour dire « oui ». Et tu écoutes celles des autres en ×2.",
-				"giphyIds": [],
+				"giphyIds": ["8WWFh7AgEkYB1eyYdC"],
 				"giphyQuery": "voice message"
 			},
 			"b": {
@@ -7017,7 +7036,7 @@ var rivalries_default = {
 				"origin": "Ta messagerie",
 				"line": "Lus en trois secondes, réponse en trois jours.",
 				"quip": "Team messages écrits : tu as lu le message en trois secondes. Tu réponds dans trois jours.",
-				"giphyIds": [],
+				"giphyIds": ["g20bxYU6uKsiQR5BIC"],
 				"giphyQuery": "texting"
 			},
 			"bothQuip": "Les deux. Tu envoies des vocaux, et tu demandes aux autres d’écrire. On a vu.",
@@ -7031,7 +7050,7 @@ var rivalries_default = {
 				"origin": "L’anglais",
 				"line": "International et sobre.",
 				"quip": "Team LOL : tu ris en anglais. International, sobre et efficace.",
-				"giphyIds": [],
+				"giphyIds": ["l0ExayQDzrI2xOb8A"],
 				"giphyQuery": "lol laughing"
 			},
 			"b": {
@@ -7039,7 +7058,7 @@ var rivalries_default = {
 				"origin": "Le français",
 				"line": "Mort de rire. Vraiment ?",
 				"quip": "Team MDR : tu meurs de rire dix fois par jour. Vraiment ?",
-				"giphyIds": [],
+				"giphyIds": ["GnYcrL6w4uWsDSvKEO"],
 				"giphyQuery": "laughing hard"
 			},
 			"bothQuip": "Les deux. LOL au travail, MDR avec les amis.",
@@ -7061,7 +7080,7 @@ var rivalries_default = {
 				"origin": "Le groupe WhatsApp de la famille",
 				"line": "Des fleurs, des paillettes, et beaucoup d’amour.",
 				"quip": "Team « Bon mercredi » : tu envoies des fleurs à paillettes dans le groupe de la famille. Tous les mercredis.",
-				"giphyIds": [],
+				"giphyIds": ["OKwthVf8KY2oRSQ5Zv"],
 				"giphyQuery": "good morning flowers"
 			},
 			"bothQuip": "Les deux. Tu fais vivre les traditions d’Internet. Ta tante est fière de toi.",
@@ -7075,7 +7094,7 @@ var rivalries_default = {
 				"origin": "Internet · 2009",
 				"line": "Garder son calme, sur tous les mugs du monde.",
 				"quip": "Team « Keep calm » : tu as un mug « Keep calm ». Et tu ne gardes jamais ton calme.",
-				"giphyIds": [],
+				"giphyIds": ["mGA8C6mifu5ji"],
 				"giphyQuery": "keep calm"
 			},
 			"b": {
@@ -7083,7 +7102,7 @@ var rivalries_default = {
 				"origin": "Game of Thrones · 2011",
 				"line": "Pour annoncer n’importe quoi.",
 				"quip": "Team « Winter is coming » : tu l’annonces dès le 1er octobre. Et le 2. Et le 3.",
-				"giphyIds": [],
+				"giphyIds": ["oxLsWbH1rvy2A"],
 				"giphyQuery": "winter is coming"
 			},
 			"bothQuip": "Les deux. Les citations sur les mugs, c’est ta décoration.",
@@ -7097,7 +7116,7 @@ var rivalries_default = {
 				"origin": "Internet · 2014",
 				"line": "Un seau d’eau glacée, pour la bonne cause.",
 				"quip": "Team Ice Bucket Challenge : tu as pris un seau d’eau glacée sur la tête. Pour la bonne cause.",
-				"giphyIds": [],
+				"giphyIds": ["5xtDarlpiVpmK9s7q2Q"],
 				"giphyQuery": "ice bucket challenge"
 			},
 			"b": {
@@ -7105,7 +7124,7 @@ var rivalries_default = {
 				"origin": "Internet · 2013",
 				"line": "Trente secondes, un casque, puis le chaos.",
 				"quip": "Team Harlem Shake : tu as dansé n’importe comment avec un casque sur la tête. Il y a une vidéo.",
-				"giphyIds": [],
+				"giphyIds": ["l3UcqlhoysuPY7s7S"],
 				"giphyQuery": "Harlem Shake"
 			},
 			"bothQuip": "Les deux. Tu as fait tous les défis d’Internet. Ta famille a les vidéos.",
@@ -7119,7 +7138,7 @@ var rivalries_default = {
 				"origin": "Psy · 2012",
 				"line": "La première vidéo à un milliard de vues.",
 				"quip": "Team Gangnam Style : tu fais encore la danse du cheval aux mariages.",
-				"giphyIds": [],
+				"giphyIds": ["ctUQZSROdSmeA"],
 				"giphyQuery": "Gangnam Style"
 			},
 			"b": {
@@ -7127,7 +7146,7 @@ var rivalries_default = {
 				"origin": "Luis Fonsi · 2017",
 				"line": "Le record suivant, en plus lent.",
 				"quip": "Team Despacito : tu chantes en espagnol sans connaître un mot. Des-pa-ci-to.",
-				"giphyIds": [],
+				"giphyIds": ["3ogwFIB0S58mOmhGCc"],
 				"giphyQuery": "Despacito"
 			},
 			"bothQuip": "Les deux. Les tubes à un milliard de vues, tu les connais par cœur. Malgré toi.",
@@ -7141,7 +7160,7 @@ var rivalries_default = {
 				"origin": "Internet · 2007",
 				"line": "Un chat en t-shirt qui joue du clavier.",
 				"quip": "Team Keyboard Cat : dès qu’une réunion rate, tu joues la musique de sortie dans ta tête.",
-				"giphyIds": [],
+				"giphyIds": ["10RhccNxPSaglW"],
 				"giphyQuery": "Keyboard Cat"
 			},
 			"b": {
@@ -7149,7 +7168,7 @@ var rivalries_default = {
 				"origin": "Internet · 2007",
 				"line": "Ce n’est même pas un écureuil. C’est un chien de prairie.",
 				"quip": "Team Dramatic Chipmunk : tu tournes lentement la tête vers la caméra quand quelqu’un dit une bêtise.",
-				"giphyIds": [],
+				"giphyIds": ["oPu2IgQHwb3Qk"],
 				"giphyQuery": "dramatic chipmunk"
 			},
 			"bothQuip": "Les deux. Les mèmes de 2007 : ton humour vintage.",
@@ -7163,7 +7182,7 @@ var rivalries_default = {
 				"origin": "Internet · 2008",
 				"line": "Un sourire, une provocation.",
 				"quip": "Team Trollface : tu provoques juste pour voir la réaction. Problem ?",
-				"giphyIds": [],
+				"giphyIds": ["UY3tY8CCGuRnHH6H69"],
 				"giphyQuery": "trollface"
 			},
 			"b": {
@@ -7171,7 +7190,7 @@ var rivalries_default = {
 				"origin": "Internet · 2010",
 				"line": "Un visage, et toute la solitude du monde.",
 				"quip": "Team Forever Alone : tu as fêté la Saint-Valentin avec une pizza. Et c’était très bien.",
-				"giphyIds": [],
+				"giphyIds": ["gtoONZQegPnPy"],
 				"giphyQuery": "forever alone"
 			},
 			"bothQuip": "Les deux. Les mèmes dessinés de 2010 : ton patrimoine.",
@@ -7185,7 +7204,7 @@ var rivalries_default = {
 				"origin": "Le Web",
 				"line": "La page a perdu son débat.",
 				"quip": "Team erreur 404 : la page a disparu. Comme ta motivation du lundi.",
-				"giphyIds": [],
+				"giphyIds": ["PIBuZutkhuKqV09TEf"],
 				"giphyQuery": "404 error"
 			},
 			"b": {
@@ -7193,7 +7212,7 @@ var rivalries_default = {
 				"origin": "Windows",
 				"line": "Un problème a été rencontré. Encore.",
 				"quip": "Team écran bleu : un problème a été rencontré. Tu le sais. Tu l’as vécu.",
-				"giphyIds": [],
+				"giphyIds": ["YDj8Ot6mIbJYs"],
 				"giphyQuery": "blue screen of death"
 			},
 			"bothQuip": "Les deux. L’informatique et toi, c’est compliqué.",
@@ -7207,7 +7226,7 @@ var rivalries_default = {
 				"origin": "L’immeuble",
 				"line": "Le mot de passe, c’est « 12345678 ».",
 				"quip": "Team Wi-Fi du voisin : tu connais le mot de passe. Il ne sait pas que tu sais.",
-				"giphyIds": [],
+				"giphyIds": ["8cH8I4uGzRtlS6qKHV"],
 				"giphyQuery": "wifi signal"
 			},
 			"b": {
@@ -7216,7 +7235,8 @@ var rivalries_default = {
 				"line": "Ton forfait pleure en silence.",
 				"quip": "Team partage de connexion : ton forfait pleure, ton téléphone chauffe. Mais tu es en ligne.",
 				"giphyIds": [],
-				"giphyQuery": "phone hotspot"
+				"giphyQuery": "phone hotspot",
+				"gifUrls": ["https://media.tenor.com/GR2jZZWD5XsAAAAC/phone-texting.gif"]
 			},
 			"bothQuip": "Les deux. Tu trouves toujours une connexion. Une personne pleine de ressources.",
 			"noneQuip": "Ni l’un ni l’autre. Hors ligne, et en paix."
@@ -7230,7 +7250,8 @@ var rivalries_default = {
 				"line": "Un héritage de dix millions, contre tes coordonnées bancaires.",
 				"quip": "Team prince héritier : tu attends toujours tes dix millions. Ils arrivent, ils arrivent.",
 				"giphyIds": [],
-				"giphyQuery": "scam email"
+				"giphyQuery": "scam email",
+				"gifUrls": ["https://media.tenor.com/2ib3OtldbuAAAAAC/delete-realhousewives.gif"]
 			},
 			"b": {
 				"name": "Le colis en attente",
@@ -7238,7 +7259,8 @@ var rivalries_default = {
 				"line": "Votre colis attend. Il attend toujours.",
 				"quip": "Team colis en attente : ton colis attend. Il attend toujours. Tu n’as rien commandé.",
 				"giphyIds": [],
-				"giphyQuery": "package delivery waiting"
+				"giphyQuery": "package delivery waiting",
+				"gifUrls": ["https://media.tenor.com/SyUU2_CI9d8AAAAC/op-delivery-factory-box.gif"]
 			},
 			"bothQuip": "Les deux. Ta boîte de spam est plus remplie que ta boîte de réception.",
 			"noneQuip": "Ni l’un ni l’autre. Tu ne cliques jamais sur rien. La fierté de la cybersécurité."
@@ -7251,7 +7273,7 @@ var rivalries_default = {
 				"origin": "InnerSloth · 2018",
 				"line": "« Imposteur ! »",
 				"quip": "Team Among Us : tu accuses quelqu’un sans la moindre preuve. Juste une intuition. Imposteur !",
-				"giphyIds": [],
+				"giphyIds": ["0tyOasM1BTUtdyf4nt"],
 				"giphyQuery": "Among Us"
 			},
 			"b": {
@@ -7259,7 +7281,7 @@ var rivalries_default = {
 				"origin": "Mediatonic · 2020",
 				"line": "Des bonbons sur pattes qui tombent.",
 				"quip": "Team Fall Guys : tu tombes, tu te relèves, tu retombes. Ta vie, en somme.",
-				"giphyIds": [],
+				"giphyIds": ["24yRU2sFZZdzasi6rv"],
 				"giphyQuery": "Fall Guys"
 			},
 			"bothQuip": "Les deux. Les jeux de 2020 qui t’ont tenu compagnie.",
@@ -7274,7 +7296,7 @@ var rivalries_default = {
 				"origin": "Ton lit, minuit",
 				"line": "Il est deux heures. Tu ne sais pas comment.",
 				"quip": "Team encore une vidéo : il est 2 h. Tu ne sais pas comment. Tu sais faire des sushis, maintenant.",
-				"giphyIds": [],
+				"giphyIds": ["6grUrzlqvKXr6mlPru"],
 				"giphyQuery": "scrolling phone bed"
 			},
 			"b": {
@@ -7282,7 +7304,7 @@ var rivalries_default = {
 				"origin": "Ton lit, minuit",
 				"line": "Le téléphone posé loin, et la sagesse.",
 				"quip": "Team dodo : téléphone loin, lumière éteinte, sagesse totale. On t’admire.",
-				"giphyIds": [],
+				"giphyIds": ["mkhMTALnrYRLnuoe5P"],
 				"giphyQuery": "sleeping"
 			},
 			"bothQuip": "Les deux. Tu poses le téléphone, puis tu le reprends. Trois fois.",
@@ -7296,7 +7318,7 @@ var rivalries_default = {
 				"origin": "Internet · 2020",
 				"line": "Le réseau social vocal qui a fait pschitt.",
 				"quip": "Team Clubhouse : tu y étais. Pendant trois semaines. Comme tout le monde.",
-				"giphyIds": [],
+				"giphyIds": ["o1YuwnczQIcc3ZGlbq"],
 				"giphyQuery": "podcast microphone"
 			},
 			"b": {
@@ -7304,7 +7326,7 @@ var rivalries_default = {
 				"origin": "Internet · 2020",
 				"line": "Deux minutes pour poster, toujours au mauvais moment.",
 				"quip": "Team BeReal : la notification tombe toujours quand tu es aux toilettes. Toujours.",
-				"giphyIds": [],
+				"giphyIds": ["NLNhucTxUifn7SivaY"],
 				"giphyQuery": "selfie camera"
 			},
 			"bothQuip": "Les deux. Les réseaux sociaux qui ont fait pschitt, tu les as tous essayés.",
@@ -7318,7 +7340,7 @@ var rivalries_default = {
 				"origin": "Internet · 2021",
 				"line": "Cinq lettres, six essais, une obsession.",
 				"quip": "Team Wordle : tu partages tes petits carrés verts tous les matins. On a compris.",
-				"giphyIds": [],
+				"giphyIds": ["QtCzztEsQsbU2KDrSo"],
 				"giphyQuery": "Wordle"
 			},
 			"b": {
@@ -7342,7 +7364,7 @@ var rivalries_default = {
 				"origin": "Niantic · 2016",
 				"line": "Tout le monde dans les parcs, téléphone à la main.",
 				"quip": "Team Pokémon GO : tu as marché dix kilomètres pour un Pokémon rare. Il s’est enfui.",
-				"giphyIds": [],
+				"giphyIds": ["vsyKKf1t22nmw"],
 				"giphyQuery": "Pokemon Go"
 			},
 			"b": {
@@ -7350,7 +7372,7 @@ var rivalries_default = {
 				"origin": "Internet · 2000",
 				"line": "Une chasse au trésor, avec un GPS.",
 				"quip": "Team geocaching : tu as fouillé un buisson avec un GPS. Les passants s’interrogent.",
-				"giphyIds": [],
+				"giphyIds": ["xT8qB8oFGOF8U13fCo"],
 				"giphyQuery": "treasure hunt"
 			},
 			"bothQuip": "Les deux. Tu marches beaucoup. Mais jamais sans ton téléphone.",
@@ -7364,7 +7386,7 @@ var rivalries_default = {
 				"origin": "Internet · 2019",
 				"line": "Une femme qui crie, un chat qui s’en fiche.",
 				"quip": "Team « Woman yelling at a cat » : tu cries, et en face, tout le monde s’en fiche. Comme le chat.",
-				"giphyIds": [],
+				"giphyIds": ["lmpodvl3rescffYXe4"],
 				"giphyQuery": "woman yelling at cat"
 			},
 			"b": {
@@ -7372,7 +7394,7 @@ var rivalries_default = {
 				"origin": "Internet · 2015",
 				"line": "Non à ça. Oui à ça.",
 				"quip": "Team Drake : non à ça, oui à ça. Toutes tes décisions passent par ce mème.",
-				"giphyIds": [],
+				"giphyIds": ["3o85xosW6qQsCsZ3Ve"],
 				"giphyQuery": "Drake hotline bling"
 			},
 			"bothQuip": "Les deux. Tes conversations se font entièrement en mèmes.",
@@ -7386,7 +7408,7 @@ var rivalries_default = {
 				"origin": "Internet · 2010",
 				"line": "Des chuchotements qui donnent des frissons.",
 				"quip": "Team ASMR : tu t’endors avec des chuchotements. Ton voisin aussi, à travers le mur.",
-				"giphyIds": [],
+				"giphyIds": ["1lesvFYnFFhoeFZHEC"],
 				"giphyQuery": "ASMR"
 			},
 			"b": {
@@ -7394,7 +7416,7 @@ var rivalries_default = {
 				"origin": "Internet",
 				"line": "Du sable coloré coupé en tranches.",
 				"quip": "Team vidéos satisfaisantes : tu as regardé du sable coupé en tranches pendant une heure.",
-				"giphyIds": [],
+				"giphyIds": ["ckXVR5RsKS9qmpSyTS"],
 				"giphyQuery": "oddly satisfying"
 			},
 			"bothQuip": "Les deux. Ton cerveau a besoin de calme, et tu le sais.",
@@ -7416,7 +7438,7 @@ var rivalries_default = {
 				"origin": "YouTube",
 				"line": "Regarder quelqu’un regarder une vidéo.",
 				"quip": "Team vidéos de réaction : tu regardes quelqu’un regarder une vidéo. Sans regarder la vidéo.",
-				"giphyIds": [],
+				"giphyIds": ["5sH6Ofqbw3b3HK7Fkg"],
 				"giphyQuery": "reaction face"
 			},
 			"bothQuip": "Les deux. Tu regardes les autres vivre. C’est reposant.",
@@ -7430,7 +7452,7 @@ var rivalries_default = {
 				"origin": "Ton navigateur",
 				"line": "Personne ne saura. À part ton fournisseur d’accès.",
 				"quip": "Team navigation privée : personne ne saura. Sauf toi. Et ton fournisseur d’accès.",
-				"giphyIds": [],
+				"giphyIds": ["M65L7CU6m1HliXFz4J"],
 				"giphyQuery": "incognito"
 			},
 			"b": {
@@ -7438,7 +7460,7 @@ var rivalries_default = {
 				"origin": "Ton navigateur",
 				"line": "Toutes tes recherches de trois heures du matin, archivées.",
 				"quip": "Team historique complet : tes recherches de 3 h du matin sont archivées. Courage.",
-				"giphyIds": [],
+				"giphyIds": ["B7o99rIuystY4"],
 				"giphyQuery": "browser history"
 			},
 			"bothQuip": "Les deux. On ne posera pas de questions.",
@@ -7452,7 +7474,7 @@ var rivalries_default = {
 				"origin": "Années 1990",
 				"line": "Des bruits stridents et une image qui charge ligne par ligne.",
 				"quip": "Team modem 56k : le bruit du modem est gravé dans ta mémoire. Tu l’entends, là.",
-				"giphyIds": [],
+				"giphyIds": ["QWkuGmMgphvmE"],
 				"giphyQuery": "dial up modem"
 			},
 			"b": {
@@ -7482,7 +7504,7 @@ var rivalries_default = {
 				"origin": "Internet · 2005",
 				"line": "Une communauté pour tout. Vraiment tout.",
 				"quip": "Team Reddit : trois heures sur une discussion consacrée aux cuillères. Et c’était passionnant.",
-				"giphyIds": [],
+				"giphyIds": ["XqGrT9gr69KzuLsUEp"],
 				"giphyQuery": "Reddit"
 			},
 			"bothQuip": "Les deux. Les discussions sans fin, c’est ton habitat naturel.",
@@ -7496,7 +7518,7 @@ var rivalries_default = {
 				"origin": "Ton clavier",
 				"line": "Deux points, un tiret, une parenthèse. L’élégance.",
 				"quip": "Team émoticônes : deux points, un tiret, une parenthèse. Tu as de la classe. :-)",
-				"giphyIds": [],
+				"giphyIds": ["eOpLBnEYt7xg5yvLq5"],
 				"giphyQuery": "smiley face text"
 			},
 			"b": {
@@ -7504,7 +7526,7 @@ var rivalries_default = {
 				"origin": "Ton téléphone",
 				"line": "Un dessin pour chaque émotion, et trop de cœurs.",
 				"quip": "Team emojis : tu réponds uniquement en emojis. Personne ne comprend. 🙃",
-				"giphyIds": [],
+				"giphyIds": ["99NDYpVN7DnQQ"],
 				"giphyQuery": "emoji"
 			},
 			"bothQuip": "Les deux. :-) et 😀 dans le même message. Une transition en douceur.",
@@ -7586,7 +7608,7 @@ var rivalries_default = {
 				"origin": "Bras tendu",
 				"line": "Le bon angle, au quinzième essai.",
 				"quip": "Team selfie : quinze essais pour le bon angle. Et le paysage derrière ? Flou.",
-				"giphyIds": [],
+				"giphyIds": ["vl0lKGwLlElII9z2C0"],
 				"giphyQuery": "selfie"
 			},
 			"b": {
@@ -7594,7 +7616,7 @@ var rivalries_default = {
 				"origin": "Le belvédère",
 				"line": "Ça rendait mieux en vrai.",
 				"quip": "Team paysage : « ça rendait mieux en vrai ». Tu le dis à chaque fois, et c’est vrai.",
-				"giphyIds": [],
+				"giphyIds": ["sW1sX7WbBsKdi"],
 				"giphyQuery": "landscape photo"
 			},
 			"bothQuip": "Les deux. Toi devant le paysage : le meilleur des deux mondes.",
@@ -7609,7 +7631,7 @@ var rivalries_default = {
 				"origin": "Ta messagerie",
 				"line": "Rapide, efficace, et parfois vexant.",
 				"quip": "Team pouce : tu réponds 👍 à tout. Même à « il faut qu’on parle ».",
-				"giphyIds": [],
+				"giphyIds": ["JwjBy94VzDd6"],
 				"giphyQuery": "thumbs up"
 			},
 			"b": {
@@ -7617,7 +7639,7 @@ var rivalries_default = {
 				"origin": "Ta messagerie aussi",
 				"line": "Un sujet, un verbe, et de la politesse.",
 				"quip": "Team phrase : sujet, verbe, complément et formule de politesse. Même pour répondre à ta sœur.",
-				"giphyIds": [],
+				"giphyIds": ["CzbiCJTYOzHTW"],
 				"giphyQuery": "typing"
 			},
 			"bothQuip": "Les deux. Le pouce au travail, les phrases à la famille. Ou l’inverse.",
@@ -7631,7 +7653,7 @@ var rivalries_default = {
 				"origin": "L’appli photo",
 				"line": "Une peau parfaite, et la lumière d’un coucher de soleil à midi.",
 				"quip": "Team filtre : sur tes photos, il fait toujours beau. Même en novembre.",
-				"giphyIds": [],
+				"giphyIds": ["LfwrtgBwV2U5G"],
 				"giphyQuery": "photo filter"
 			},
 			"b": {
@@ -7639,7 +7661,7 @@ var rivalries_default = {
 				"origin": "La vraie vie",
 				"line": "Tel quel. Même sous la lumière du néon.",
 				"quip": "Team #nofilter : tu postes la vraie lumière du néon de la cuisine. Une audace rare.",
-				"giphyIds": [],
+				"giphyIds": ["Q9QsfTnozaa2tUaYcY"],
 				"giphyQuery": "no filter"
 			},
 			"bothQuip": "Les deux. Un léger filtre, et tu écris #nofilter. On ne dira rien.",
@@ -7654,7 +7676,7 @@ var rivalries_default = {
 				"origin": "Ta messagerie",
 				"line": "Un pavé bien construit, avec des paragraphes.",
 				"quip": "Team long message : tu envoies des pavés, avec une introduction et une conclusion.",
-				"giphyIds": [],
+				"giphyIds": ["EYeIOLDoDZKl8KvPJz"],
 				"giphyQuery": "long text"
 			},
 			"b": {
@@ -7662,7 +7684,7 @@ var rivalries_default = {
 				"origin": "Ta messagerie aussi",
 				"line": "Bzz. Bzz. Bzz. Bzz. Bzz.",
 				"quip": "Team dix messages : le téléphone de ton ami vibre dix fois d’affilée. Il croit à une urgence.",
-				"giphyIds": [],
+				"giphyIds": ["1oJKxy0ypYpQbK4b5n"],
 				"giphyQuery": "phone buzzing"
 			},
 			"bothQuip": "Les deux. Un long message, puis neuf petits pour corriger les fautes.",
@@ -7677,7 +7699,7 @@ var rivalries_default = {
 				"origin": "Ton téléphone",
 				"line": "Trois cent quarante messages non lus, et la paix.",
 				"quip": "Team sourdine : 340 messages non lus dans le groupe de la famille. Tu en liras un. Peut-être.",
-				"giphyIds": [],
+				"giphyIds": ["xUPJPquMcphgOYsONW"],
 				"giphyQuery": "mute"
 			},
 			"b": {
@@ -7685,7 +7707,7 @@ var rivalries_default = {
 				"origin": "Ton téléphone aussi",
 				"line": "Chaque photo de chat, chaque blague du tonton.",
 				"quip": "Team je lis tout : tu as réagi à chaque photo du tonton. Il t’adore.",
-				"giphyIds": [],
+				"giphyIds": ["jUXVCSeg08XBP3VALC"],
 				"giphyQuery": "reading phone"
 			},
 			"bothQuip": "Les deux. En sourdine, mais tu lis tout en cachette.",
@@ -7745,7 +7767,7 @@ var rivalries_default = {
 				"origin": "La table du restaurant",
 				"line": "Par politesse. Ou par mystère.",
 				"quip": "Team écran retourné : tu poses ton téléphone face cachée. Par politesse. Ou pour une autre raison.",
-				"giphyIds": [],
+				"giphyIds": ["Jsc06QkQb6pqOohIZP"],
 				"giphyQuery": "phone on table"
 			},
 			"b": {
@@ -7753,7 +7775,7 @@ var rivalries_default = {
 				"origin": "La table du restaurant aussi",
 				"line": "Rien à cacher, et toutes les notifications en vue.",
 				"quip": "Team écran visible : rien à cacher. Ou tu attends un message important. Depuis trois heures.",
-				"giphyIds": [],
+				"giphyIds": ["nmE8YkDIaB1OE"],
 				"giphyQuery": "notifications"
 			},
 			"bothQuip": "Les deux. Ça dépend de qui est assis à côté.",
@@ -7768,7 +7790,7 @@ var rivalries_default = {
 				"origin": "Le réglage par défaut",
 				"line": "Comme l’auteur l’a voulu.",
 				"quip": "Team vitesse normale : tu respectes le rythme de chacun. Même des gens qui parlent lentement.",
-				"giphyIds": [],
+				"giphyIds": ["rY6oYt4OaF59C"],
 				"giphyQuery": "watching video"
 			},
 			"b": {
@@ -7776,7 +7798,7 @@ var rivalries_default = {
 				"origin": "Le réglage ×2",
 				"line": "Deux fois plus de contenu, en deux fois moins de temps.",
 				"quip": "Team accéléré : tout en ×2. Quand quelqu’un te parle en vrai, tu cherches le bouton.",
-				"giphyIds": [],
+				"giphyIds": ["3o6fJe0eVhz0DxrOGQ"],
 				"giphyQuery": "fast forward"
 			},
 			"bothQuip": "Les deux. Normale pour les films, ×2 pour les tutos. Efficace.",
@@ -25079,7 +25101,7 @@ var rivalries_default = {
 				"origin": "Jim Davis · 1978",
 				"line": "Les lasagnes, le canapé, et une haine profonde des lundis.",
 				"quip": "Team Garfield : tu détestes les lundis et tu adores les lasagnes. Rien à ajouter.",
-				"giphyIds": [],
+				"giphyIds": ["9S8lAbQSF96Vi"],
 				"giphyQuery": "garfield"
 			},
 			"b": {
