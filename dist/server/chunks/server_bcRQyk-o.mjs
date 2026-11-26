@@ -26733,7 +26733,7 @@ function tenorGifId(url) {
 	const parts = tenorParts(url);
 	return parts ? `tenor${parts.base.replace(/[^A-Za-z0-9]/g, "")}` : null;
 }
-/** Les versions légères d'un GIF Tenor, au format renvoyé par /api/gif. */
+/** Les versions légères d'un GIF Tenor, au format renvoyé par /api/gif-plans. */
 function tenorGif(url) {
 	const parts = tenorParts(url);
 	if (!parts) return null;
@@ -26754,7 +26754,7 @@ var TEAM_IMAGE = /^\/images\/teams\/([a-z0-9-]+-([0-9a-f]{8}))(\.anim)?\.webp$/;
 function isTeamImage(path) {
 	return TEAM_IMAGE.test(path);
 }
-/** Une image de team, au format renvoyé par /api/gif : pas de vidéo, l'image et son aperçu fixe. */
+/** Une image de team, au format renvoyé par /api/gif-plans : pas de vidéo, l'image et son aperçu fixe. */
 function teamImage(path) {
 	const match = TEAM_IMAGE.exec(path);
 	if (!match) return null;

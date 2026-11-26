@@ -1,4 +1,4 @@
-import { o as teamImage, s as tenorGif, t as getSecret } from "./server_DrxCRZVd.mjs";
+import { o as teamImage, s as tenorGif, t as getSecret } from "./server_bcRQyk-o.mjs";
 import { rmSync } from "node:fs";
 // src/lib/gif-match.ts
 /** Minuscules, sans accents ; tout ce qui n'est ni lettre ni chiffre devient une espace. */
@@ -98,7 +98,7 @@ function teamGifPlan(team, options) {
 }
 // src/server/giphy-runtime.ts
 /**
-* Clé Giphy du site, transmise au navigateur dans les plans de /api/gif et /api/category-gif :
+* Clé Giphy du site, transmise au navigateur dans les plans de /api/gif-plans, /api/category-gifs et /api/finish-gif :
 * c'est le navigateur qui appelle Giphy (règle de GIPHY pour le web, voir src/lib/giphy.ts).
 */
 var oldCacheRemoved = false;
@@ -108,7 +108,15 @@ var oldCacheRemoved = false;
 * Jamais activé en production (la variable n'existe pas dans cPanel).
 */
 function giphyOffline() {
-	return getSecret("GIPHY_OFFLINE") === "true";
+	const mode = getSecret("GIPHY_OFFLINE");
+	return mode === "true" || mode === "sans-gif";
+}
+/**
+* Mode sans Giphy ni GIF de remplacement (`npm run dev:sans-giphy -- --sans-gif`) : les cartes
+* sans GIF choisi hors Giphy s'affichent comme quand le quota de la clé beta est épuisé.
+*/
+function placeholdersOff() {
+	return getSecret("GIPHY_OFFLINE") === "sans-gif";
 }
 /** undefined si la clé Giphy n'est pas configurée, ou en mode sans Giphy. */
 function getGiphyKey() {
@@ -128,4 +136,4 @@ var gifJson = (body, status, cacheControl) => new Response(JSON.stringify(body),
 		"cache-control": cacheControl
 	}
 });
-export { teamGifPlan as a, moodPlan as i, gifJson as n, giphyOffline as r, getGiphyKey as t };
+export { moodPlan as a, placeholdersOff as i, gifJson as n, teamGifPlan as o, giphyOffline as r, getGiphyKey as t };

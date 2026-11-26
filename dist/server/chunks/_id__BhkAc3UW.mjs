@@ -1,7 +1,7 @@
 import { t as __exportAll } from "./rolldown-runtime_BJohB4LM.mjs";
-import { a as universes, i as ui, n as categories } from "./server_DrxCRZVd.mjs";
+import { a as universes, i as ui, n as categories } from "./server_bcRQyk-o.mjs";
 import { t as placeholderGif } from "./gif-placeholder_Dn6FuSqm.mjs";
-import { i as moodPlan, n as gifJson, r as giphyOffline, t as getGiphyKey } from "./giphy-runtime_BQTzSexe.mjs";
+import { a as moodPlan, i as placeholdersOff, n as gifJson, r as giphyOffline, t as getGiphyKey } from "./giphy-runtime_DmJtWuEO.mjs";
 // src/pages/api/finish-gif/[id].ts
 var _id__exports = /* @__PURE__ */ __exportAll({
 	GET: () => GET,
@@ -27,7 +27,7 @@ var finishOf = new Map([
 var GET = ({ params }) => {
 	const finish = finishOf.get(params.id ?? "");
 	if (!finish) return gifJson({ error: "unknown-category" }, 404, "public, max-age=3600");
-	if (giphyOffline()) {
+	if (giphyOffline() && !placeholdersOff()) {
 		const gif = placeholderGif(finish.label, `finish-${params.id ?? ""}`);
 		return gifJson({
 			kind: "gif",
