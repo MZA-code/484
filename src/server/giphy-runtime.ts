@@ -1,5 +1,5 @@
 /**
- * Clé Giphy du site, transmise au navigateur dans les plans de /api/gif et /api/category-gif :
+ * Clé Giphy du site, transmise au navigateur dans les plans de /api/gif-plans, /api/category-gifs et /api/finish-gif :
  * c'est le navigateur qui appelle Giphy (règle de GIPHY pour le web, voir src/lib/giphy.ts).
  */
 import { rmSync } from 'node:fs';
@@ -13,7 +13,16 @@ let oldCacheRemoved = false;
  * Jamais activé en production (la variable n'existe pas dans cPanel).
  */
 export function giphyOffline(): boolean {
-  return getSecret('GIPHY_OFFLINE') === 'true';
+  const mode = getSecret('GIPHY_OFFLINE');
+  return mode === 'true' || mode === 'sans-gif';
+}
+
+/**
+ * Mode sans Giphy ni GIF de remplacement (`npm run dev:sans-giphy -- --sans-gif`) : les cartes
+ * sans GIF choisi hors Giphy s'affichent comme quand le quota de la clé beta est épuisé.
+ */
+export function placeholdersOff(): boolean {
+  return getSecret('GIPHY_OFFLINE') === 'sans-gif';
 }
 
 /** undefined si la clé Giphy n'est pas configurée, ou en mode sans Giphy. */

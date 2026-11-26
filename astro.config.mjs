@@ -17,11 +17,11 @@ export default defineConfig({
     // Secrets lus au démarrage du serveur (fichier .env ou variables d'environnement),
     // jamais intégrés au code envoyé au navigateur.
     schema: {
-      // Clé Giphy du site : envoyée au navigateur par /api/gif, qui appelle Giphy lui-même
+      // Clé Giphy du site : envoyée au navigateur par /api/gif-plans, qui appelle Giphy lui-même
       // (règle de GIPHY pour le web). Une clé web est publique par nature.
       GIPHY_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
       // « true » : mode développement sans Giphy (npm run dev:sans-giphy), GIF de remplacement,
-      // aucun appel à l'API. Jamais en production.
+      // aucun appel à l'API ; « sans-gif » : idem, sans GIF de remplacement. Jamais en production.
       GIPHY_OFFLINE: envField.string({ context: 'server', access: 'secret', default: 'false' }),
       OG_CACHE_DIR: envField.string({ context: 'server', access: 'secret', default: 'data/og' }),
       VOTE_HASH_SALT: envField.string({ context: 'server', access: 'secret', optional: true }),

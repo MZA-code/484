@@ -1,15 +1,96 @@
 /**
  * Chargement et préchargement des GIF côté navigateur.
  *
- * Le site dit quoi afficher (/api/gif renvoie un plan) ; pour Giphy, c'est le navigateur qui
- * appelle l'API directement et affiche les adresses telles quelles (règles de GIPHY, voir
+ * Le site dit quoi afficher (/api/gif-plans renvoie des plans) ; pour Giphy, c'est le navigateur
+ * qui appelle l'API directement et affiche les adresses telles quelles (règles de GIPHY, voir
  * src/lib/giphy.ts). Pour qu'un duel s'enchaîne sans attente, la vidéo du prochain challenger
  * est préchargée par un lecteur caché : le navigateur la garde dans son cache HTTP habituel.
- * En cas d'échec à n'importe quelle étape, on renvoie null : la carte garde son cadre rayé,
+ * En cas d'échec à n'importe quelle étape, on renvoie null : la carte garde son cadre sans GIF,
  * et le jeu continue.
+ *
+ * Quota (D45) : la clé beta de GIPHY permet 100 appels par heure pour tout le site. Les plans
+ * des prochains duels sont donc demandés au site par lots (prefetchDuels), et tous les GIF
+ * choisis à la main d'un lot partent vers Giphy en un seul appel. Seules les recherches (teams
+ * sans GIF choisi) coûtent un appel chacune, et seulement pour le duel affiché et le suivant.
  */
 import { useEffect, useState } from 'preact/hooks';
 import { giphyClientFor, type TeamGifPlan } from '../../lib/giphy';
+
+/** Plans par requête au site (24 duels ; le site en accepte 60). */
+const PLANS_PER_REQUEST = 48;
+/** Duels à venir préparés d'un coup, et seuil sous lequel on prépare le lot suivant. */
+const AHEAD_BATCH = 24;
+const AHEAD_MIN = 6;
+
+/** Plan de chaque team, demandé une fois par visite. */
+const plans = new Map<string, Promise<TeamGifPlan | null>>();
+let waitingPlans: Map<
+  string,
+  { resolve: (plan: TeamGifPlan | null) => void; reject: () => void }
+> | null = null;
+
+/** Plan d'une team ; les demandes faites d'un coup partent au site en une seule requête. */
+function planOf(gifKey: string): Promise<TeamGifPlan | null> {
+  const known = plans.get(gifKey);
+  if (known) return known;
+  const promise = new Promise<TeamGifPlan | null>((resolve, reject) => {
+    if (!waitingPlans) {
+      waitingPlans = new Map();
+      setTimeout(() => void flushPlans(), 0);
+    }
+    waitingPlans.set(gifKey, { resolve, reject });
+  });
+  plans.set(gifKey, promise);
+  // Site injoignable : on pourra redemander plus tard.
+  promise.catch(() => {
+    if (plans.get(gifKey) === promise) plans.delete(gifKey);
+  });
+  return promise;
+}
+
+async function flushPlans(): Promise<void> {
+  const batch = waitingPlans;
+  waitingPlans = null;
+  if (!batch) return;
+  const keys = [...batch.keys()];
+  for (let i = 0; i < keys.length; i += PLANS_PER_REQUEST) {
+    const chunk = keys.slice(i, i + PLANS_PER_REQUEST);
+    try {
+      const response = await fetch(`/api/gif-plans?teams=${encodeURIComponent(chunk.join(','))}`);
+      if (!response.ok) throw new Error(`gif-plans ${response.status}`);
+      const body = (await response.json()) as { plans?: Record<string, TeamGifPlan | null> };
+      chunk.forEach((key) => batch.get(key)?.resolve(body.plans?.[key] ?? null));
+    } catch {
+      chunk.forEach((key) => batch.get(key)?.reject());
+    }
+  }
+}
+
+const duelKeys = (rivalryId: string) => [teamGifKey(rivalryId, 'a'), teamGifKey(rivalryId, 'b')];
+
+/**
+ * Prépare les prochains duels (le premier est celui affiché) : quand il en reste moins de
+ * AHEAD_MIN de prêts, les plans des AHEAD_BATCH suivants sont demandés au site en une requête,
+ * puis leurs GIF choisis à la main à Giphy en un seul appel. Rien n'est affiché.
+ */
+export function prefetchDuels(rivalryIds: readonly string[]): void {
+  const ready = rivalryIds
+    .slice(0, AHEAD_MIN)
+    .every((id) => duelKeys(id).every((k) => plans.has(k)));
+  if (ready) return;
+  const keys = rivalryIds
+    .slice(0, AHEAD_BATCH)
+    .flatMap(duelKeys)
+    .filter((k) => !plans.has(k));
+  void Promise.all(keys.map((k) => planOf(k).catch(() => null))).then((list) => {
+    const idsByKey = new Map<string, string[]>();
+    for (const plan of list) {
+      if (plan?.kind !== 'giphy' || !plan.id) continue;
+      idsByKey.set(plan.key, [...(idsByKey.get(plan.key) ?? []), plan.id]);
+    }
+    idsByKey.forEach((ids, key) => giphyClientFor(key).prefetch(ids));
+  });
+}
 
 export interface GifInfo {
   id: string;
@@ -36,19 +117,18 @@ async function resolve(plan: TeamGifPlan | null): Promise<GifInfo | null> {
   return giphyClientFor(plan.key).teamGif(plan);
 }
 
-/** GIF d'une team, choisi une seule fois par visite. */
+/**
+ * GIF d'une team, choisi une seule fois par visite. « Rien trouvé » est gardé (redemander
+ * coûterait un appel pour rien) ; un échec (site injoignable, Giphy en erreur) ne l'est pas.
+ */
 function gifInfo(gifKey: string): Promise<GifInfo | null> {
   let pending = infos.get(gifKey);
   if (!pending) {
-    const url = `/api/gif/${gifKey.split('/').map(encodeURIComponent).join('/')}`;
-    pending = fetch(url)
-      .then((r) => (r.ok ? (r.json() as Promise<TeamGifPlan>) : null))
-      .then(resolve)
-      .catch(() => null);
+    const attempt = planOf(gifKey).then(resolve);
+    pending = attempt.catch(() => null);
     infos.set(gifKey, pending);
-    // Un échec ne doit pas être définitif : on pourra réessayer plus tard.
-    void pending.then((info) => {
-      if (!info) infos.delete(gifKey);
+    attempt.catch(() => {
+      if (infos.get(gifKey) === pending) infos.delete(gifKey);
     });
   }
   return pending;

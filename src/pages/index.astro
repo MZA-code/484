@@ -123,13 +123,16 @@ const sections = universes.map((u) => ({
 </BaseLayout>
 
 <script>
-  import { giphyClientFor, thumbnailOf, type CategoryGiphyPlan } from '../lib/giphy';
+  import { giphyClientFor, thumbnailOf, type CategoryGiphyPlans } from '../lib/giphy';
   import { MOTION_EVENT, prefersReducedMotion } from '../lib/motion-pref';
 
   /**
    * Vignettes animées des catégories : chargées seulement à l'approche de l'écran, en image
    * fixe si les animations sont réduites. Le site dit quoi demander, le navigateur appelle
    * Giphy lui-même (règles de GIPHY). En cas d'échec, l'icône reste : rien ne casse.
+   *
+   * Quota (D45) : une seule requête au site pour toutes les catégories, et un seul appel à Giphy
+   * pour tous les GIF choisis à la main ; seule une catégorie sans GIF choisi coûte une recherche.
    */
   interface Thumbnail {
     mp4: string;
@@ -170,6 +173,25 @@ const sections = universes.map((u) => ({
     frame.append(media);
   }
 
+  /**
+   * Plans de toutes les vignettes, demandés une fois ; à l'arrivée, tous les GIF choisis à la
+   * main partent vers Giphy en un seul appel, même ceux des vignettes encore loin de l'écran.
+   */
+  let plansRequest: Promise<CategoryGiphyPlans | null> | undefined;
+  function allPlans(): Promise<CategoryGiphyPlans | null> {
+    plansRequest ??= fetch('/api/category-gifs')
+      .then((r) => (r.ok ? (r.json() as Promise<CategoryGiphyPlans>) : null))
+      .then((all) => {
+        if (all) {
+          const ids = Object.values(all.plans).flatMap((p) => (p.id ? [p.id] : []));
+          giphyClientFor(all.key).prefetch(ids);
+        }
+        return all;
+      })
+      .catch(() => null);
+    return plansRequest;
+  }
+
   async function load(frame: HTMLElement) {
     const timer = window.setTimeout(() => frame.classList.add('is-loading'), LOADER_DELAY_MS);
     // Pas de GIF (Giphy indisponible, quota atteint, rien trouvé) : on retire l'indicateur.
@@ -178,11 +200,10 @@ const sections = universes.map((u) => ({
       frame.classList.remove('is-loading');
     };
     try {
-      const id = encodeURIComponent(frame.dataset['categoryGif'] ?? '');
-      const response = await fetch(`/api/category-gif/${id}`);
-      if (!response.ok) return giveUp();
-      const plan = (await response.json()) as CategoryGiphyPlan;
-      const found = await giphyClientFor(plan.key).categoryGif(plan);
+      const all = await allPlans();
+      const plan = all?.plans[frame.dataset['categoryGif'] ?? ''];
+      if (!all || !plan) return giveUp();
+      const found = await giphyClientFor(all.key).categoryGif(plan);
       const gif = found ? thumbnailOf(found) : null;
       if (!gif?.mp4 || !gif.still) return giveUp();
       thumbnails.set(frame, gif);

@@ -90,7 +90,9 @@ Le site suit le réglage « réduire les animations » du système : avec ce ré
 
 ### Comment le site choisit le GIF d'une team
 
-**Qui appelle Giphy ?** Le navigateur, directement : c'est la règle de GIPHY pour une application web (pas de serveur intermédiaire, aucune réponse ni adresse gardée en cache, adresses utilisées telles quelles). La route `/api/gif/<rivalité>/<a|b>` ne fait que préparer un « plan » : le GIF choisi à la main tiré au sort, ou la recherche avec ses mots-clés de validation et le GIF d'ambiance de la catégorie. Le navigateur l'exécute avec `src/lib/giphy.ts`. La clé Giphy du site part donc dans ce plan : une clé web est publique par nature. Après un « quota dépassé », le navigateur n'appelle plus Giphy jusqu'à la fin de la visite.
+**Qui appelle Giphy ?** Le navigateur, directement : c'est la règle de GIPHY pour une application web (pas de serveur intermédiaire, aucune réponse ni adresse gardée en cache, adresses utilisées telles quelles). La route `/api/gif-plans?teams=<rivalité>/<a|b>,…` ne fait que préparer des « plans » (une vingtaine de duels d'un coup) : le GIF choisi à la main tiré au sort, ou la recherche avec ses mots-clés de validation et le GIF d'ambiance de la catégorie. Le navigateur l'exécute avec `src/lib/giphy.ts`. La clé Giphy du site part donc dans ce plan : une clé web est publique par nature. Après un « quota dépassé », le navigateur n'appelle plus Giphy jusqu'à la fin de la visite.
+
+**Quota : clé beta, 100 appels par heure pour tout le site** (clé de production refusée par GIPHY le 26/11/2026, voir D45). Tous les GIF choisis à la main d'un lot de duels (ou de tout l'accueil) partent vers Giphy en un seul appel (`/v1/gifs?ids=…`) ; seule une recherche (team ou vignette sans GIF choisi) coûte un appel à elle seule. Quand le quota est épuisé, les cartes deviennent des « cartons » (fond encre, nom en grand) : `npm run dev:sans-giphy -- --sans-gif` pour les voir en local.
 
 L'ordre est toujours le même, sans exception :
 
@@ -103,7 +105,7 @@ L'ordre est toujours le même, sans exception :
 
 Un résultat de recherche non validé n'est jamais présenté comme la team : au pire, la carte montre un GIF d'ambiance de sa catégorie.
 
-Ce même GIF d'ambiance sert de vignette aux cartes des catégories sur l'accueil (`GET /api/category-gif/<catégorie>` donne quoi demander, le navigateur demande à Giphy la version réduite, une quinzaine de Ko). Les vignettes ne se chargent qu'à l'approche de l'écran, en image fixe si les animations sont réduites ; tant qu'elles chargent, ou si Giphy ne répond pas, l'icône de la catégorie reste affichée. Pour changer la vignette d'une catégorie : modifier son `giphyQuery`, ou lui donner des `giphyIds` dans `content/rivalries.json`.
+Ce même GIF d'ambiance sert de vignette aux cartes des catégories sur l'accueil (`GET /api/category-gifs` donne quoi demander pour toutes les catégories, le navigateur demande à Giphy la version réduite, une quinzaine de Ko). Les vignettes ne se chargent qu'à l'approche de l'écran, en image fixe si les animations sont réduites ; tant qu'elles chargent, ou si Giphy ne répond pas, l'icône de la catégorie reste affichée. Pour changer la vignette d'une catégorie : filtre « Accueil » de `npm run gif-admin` (ou `giphyQuery` / `giphyIds` dans `content/rivalries.json`).
 
 Les mots-clés se règlent avec le champ facultatif `giphyKeywords` :
 

@@ -1,6 +1,6 @@
 /**
- * Cadre 16:9 du GIF. Le cadre rayé avec le nom reste dessous : il se voit tant que
- * le GIF charge, et pour toujours si le GIF échoue.
+ * Cadre 16:9 du GIF. Le cadre rayé avec le nom reste dessous : il se voit tant que le GIF
+ * charge. S'il n'y a pas de GIF (clé Giphy beta à court de quota, D45), il devient un carton.
  *
  * Indicateur de chargement : seulement si l'attente dure (plus de LOADER_DELAY_MS) et qu'un GIF
  * est vraiment en route. Si le site répond « pas de GIF » (Giphy à court de quota, aucun
@@ -35,9 +35,12 @@ export function GifFrame({ gifKey, name, stillOnly }: Props) {
 
   // En attente : réponse du site pas encore reçue, ou GIF reçu mais pas encore affichable.
   const waiting = !ready && !failed && (!settled || media !== null);
+  // Pas de GIF pour cette carte (quota Giphy atteint, rien trouvé, média en erreur) : le cadre
+  // devient un carton, comme au cinéma muet, plutôt qu'un cadre rayé qui a l'air d'attendre.
+  const empty = (settled && media === null) || failed;
 
   return (
-    <span class="team-media" aria-hidden="true">
+    <span class={`team-media${empty ? ' is-empty' : ''}`} aria-hidden="true">
       <span class="team-media-name">{name}</span>
       {slow && waiting && (
         <span class="gif-loader">

@@ -5,6 +5,8 @@
  * les GIF choisis à la main (retirer d'un clic), une recherche Giphy (ajouter d'un clic), des
  * liens à coller (Tenor, Giphy, image du web ou du poste) et les réglages de la recherche
  * automatique du site. Chaque changement est enregistré aussitôt dans content/rivalries.json.
+ * Filtre « Accueil » : les vignettes des catégories (GIF d'ambiance de l'accueil). Un GIF choisi
+ * pour chacune = un seul appel à Giphy pour tout l'accueil (clé beta, D45).
  * Le bouton « Publier » commite ces fichiers et les pousse sur GitHub (branche main).
  *
  *   npm run gif-admin                 ouvre la page dans le navigateur
@@ -138,6 +140,7 @@ function teamView(ref: TeamRef, all: readonly TeamRef[]) {
   const { team } = ref;
   const reported = reports.get(ref.key);
   return {
+    kind: 'team' as const,
     key: ref.key,
     rivalryId: ref.rivalryId,
     side: ref.side,
@@ -163,14 +166,75 @@ function teamView(ref: TeamRef, all: readonly TeamRef[]) {
   };
 }
 
+// ─── Vignettes de l'accueil (GIF d'ambiance des catégories) ────────────────
+
+interface RawCategory {
+  id: string;
+  label: string;
+  giphyQuery: string;
+  giphyIds?: string[];
+}
+
+const CATEGORY_PREFIX = 'categorie:';
+const categoriesOf = (raw: RawFile) => raw.categories as RawCategory[];
+
+/** Une catégorie, sous la même forme qu'une team, pour la même fiche dans la page. */
+function categoryView(c: RawCategory) {
+  const ids = c.giphyIds ?? [];
+  return {
+    kind: 'category' as const,
+    key: `${CATEGORY_PREFIX}${c.id}`,
+    rivalryId: '',
+    side: '',
+    category: c.id,
+    name: c.label,
+    origin: '',
+    line: '',
+    opponent: '',
+    giphyQuery: c.giphyQuery,
+    giphyKeywords: null,
+    defaultKeywords: [],
+    chosen: ids.map(giphyMedia),
+    curated: ids.length > 0,
+    french: false,
+    reports: 0,
+    reportedGifs: {},
+    twins: [],
+  };
+}
+
+function findCategory(raw: RawFile, key: string): RawCategory {
+  const category = categoriesOf(raw).find((c) => `${CATEGORY_PREFIX}${c.id}` === key);
+  if (!category) throw new HttpError(404, `Catégorie inconnue : ${key}`);
+  return category;
+}
+
+const GIPHY_ID = /^[A-Za-z0-9]{1,64}$/;
+
+/** Vignette d'une catégorie : GIF Giphy choisis à la main et recherche de secours seulement. */
+async function saveCategory(key: string, change: TeamChange) {
+  const raw = readRaw();
+  const category = findCategory(raw, key);
+  if (change.giphyIds) {
+    const ids = [...new Set(change.giphyIds.filter((id) => GIPHY_ID.test(id)))];
+    if (ids.length) category.giphyIds = ids;
+    else delete category.giphyIds;
+  }
+  const query = change.giphyQuery?.trim();
+  if (query) category.giphyQuery = query;
+  await writeRaw(raw);
+  return { team: categoryView(category), twins: [], problems: [] };
+}
+
 function allData() {
   const raw = readRaw();
-  const categories = (raw.categories as { id: string; label: string }[]).map((c) => ({
-    id: c.id,
-    label: c.label,
-  }));
+  const categories = categoriesOf(raw).map((c) => ({ id: c.id, label: c.label }));
   const all = teamsOf(raw);
-  return { categories, teams: all.map((t) => teamView(t, all)), hasKey: API_KEY !== '' };
+  return {
+    categories,
+    teams: [...categoriesOf(raw).map(categoryView), ...all.map((t) => teamView(t, all))],
+    hasKey: API_KEY !== '',
+  };
 }
 
 // ─── Giphy ──────────────────────────────────────────────────────────────────
@@ -317,7 +381,10 @@ async function saveTeam(key: string, change: TeamChange) {
 
 // ─── Publication ────────────────────────────────────────────────────────────
 
-/** Teams (« rivalité/a ») dont les GIF ou la recherche diffèrent de la dernière version commitée. */
+/**
+ * Teams (« rivalité/a ») et vignettes (« categorie:x ») dont les GIF ou la recherche diffèrent de
+ * la dernière version commitée.
+ */
 function changedTeams(): string[] {
   let committed: RawFile;
   try {
@@ -328,9 +395,17 @@ function changedTeams(): string[] {
   const before = new Map(teamsOf(committed).map((t) => [t.key, t.team]));
   const fingerprint = (t: RawTeam | undefined) =>
     t ? JSON.stringify([t.giphyIds, t.gifUrls, t.images, t.giphyQuery, t.giphyKeywords]) : '';
-  return teamsOf(readRaw())
+  const now = readRaw();
+  const teams = teamsOf(now)
     .filter((t) => fingerprint(t.team) !== fingerprint(before.get(t.key)))
     .map((t) => t.key);
+  const beforeCategories = new Map(categoriesOf(committed).map((c) => [c.id, c]));
+  const print = (c: RawCategory | undefined) =>
+    c ? JSON.stringify([c.giphyIds, c.giphyQuery]) : '';
+  const categories = categoriesOf(now)
+    .filter((c) => print(c) !== print(beforeCategories.get(c.id)))
+    .map((c) => `${CATEGORY_PREFIX}${c.id}`);
+  return [...categories, ...teams];
 }
 
 function publishStatus() {
@@ -354,7 +429,13 @@ function publish() {
   if (status.changed.length === 0 && status.images.length === 0) {
     throw new HttpError(409, 'Rien à publier.');
   }
-  const message = `content: GIF choisis à la main (${status.changed.length} team${status.changed.length > 1 ? 's' : ''})`;
+  const homes = status.changed.filter((k) => k.startsWith(CATEGORY_PREFIX)).length;
+  const teams = status.changed.length - homes;
+  const parts = [
+    ...(teams ? [`${teams} team${teams > 1 ? 's' : ''}`] : []),
+    ...(homes ? [`${homes} vignette${homes > 1 ? 's' : ''} de l’accueil`] : []),
+  ];
+  const message = `content: GIF choisis à la main (${parts.join(', ') || 'images'})`;
   git(['add', '--', RIVALRIES_PATH, IMAGES_PATH]);
   // Seulement ces fichiers, même si d'autres changements sont prêts dans git.
   git(['commit', '-m', message, '--', RIVALRIES_PATH, IMAGES_PATH]);
@@ -429,7 +510,10 @@ const server = createServer(async (req, res) => {
         key: string;
         change: TeamChange;
       };
-      json(res, 200, { ...(await saveTeam(key, change)), publish: publishStatus() });
+      const saved = key.startsWith(CATEGORY_PREFIX)
+        ? await saveCategory(key, change)
+        : await saveTeam(key, change);
+      json(res, 200, { ...saved, publish: publishStatus() });
     } else if (req.method === 'POST' && url.pathname === '/api/publish') {
       json(res, 200, publish());
     } else {

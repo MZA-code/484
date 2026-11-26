@@ -16,7 +16,7 @@ import { formatText } from '../../lib/format';
 import { useReducedMotion } from '../../lib/motion';
 import { AchievementIcon } from './AchievementIcon';
 import { Finished, type Suggestion } from './Finished';
-import { preloadGif, teamGifKey } from './gifs';
+import { prefetchDuels, preloadGif, teamGifKey } from './gifs';
 import { Panels } from './Panels';
 import { Result } from './Result';
 import { TeamCard } from './TeamCard';
@@ -115,8 +115,10 @@ export default function Debate({
     [data],
   );
 
-  // Préchargement : les GIF de la rivalité en cours et de la suivante, pour un enchaînement sans attente.
+  // Préchargement : les plans et GIF choisis à la main des prochains duels, par lots (quota de
+  // Giphy), puis les GIF de la rivalité en cours et de la suivante, pour enchaîner sans attente.
   useEffect(() => {
+    prefetchDuels(state.current ? [state.current, ...state.queue] : state.queue);
     for (const id of [state.current, state.queue[0]]) {
       if (!id) continue;
       preloadGif(teamGifKey(id, 'a'), reducedMotion);

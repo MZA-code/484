@@ -3,7 +3,7 @@
  * pas de serveur intermédiaire, aucune réponse ni adresse de média gardée en cache, adresses
  * utilisées telles que Giphy les renvoie (voir docs/decisions.md, D32).
  *
- * Le serveur du site décide seulement *quoi* demander (un « plan », voir /api/gif) : GIF choisi
+ * Le serveur du site décide seulement *quoi* demander (un « plan », voir /api/gif-plans) : GIF choisi
  * à la main, recherche et mots-clés de validation, GIF écartés par les signalements, GIF
  * d'ambiance de la catégorie. Le navigateur fait les appels et applique la même règle :
  * 1. le GIF choisi à la main tiré au sort par le serveur ;
@@ -35,7 +35,7 @@ export interface Gif {
   small?: { mp4: string; webp: string; still: string };
 }
 
-/** Ce qu'il faut demander à Giphy pour une team (préparé par /api/gif). */
+/** Ce qu'il faut demander à Giphy pour une team (préparé par /api/gif-plans). */
 export interface TeamGiphyPlan {
   kind: 'giphy';
   /** Clé de l'API Giphy pour le web : publique par nature, elle part dans chaque appel. */
@@ -59,13 +59,21 @@ export interface MoodPlan {
   query: string;
 }
 
-/** Réponse de /api/gif : un GIF tout prêt (lien Tenor, image du site), ou quoi demander à Giphy. */
+/** Plan d'une team (/api/gif-plans) : un GIF tout prêt (lien Tenor, image du site), ou quoi demander à Giphy. */
 export type TeamGifPlan = { kind: 'gif'; gif: Gif } | TeamGiphyPlan;
 
-/** Réponse de /api/category-gif : quoi demander à Giphy pour la vignette d'une catégorie. */
+/** Réponse de /api/finish-gif : quoi demander à Giphy pour l'écran de fin d'une catégorie. */
 export interface CategoryGiphyPlan extends MoodPlan {
   kind: 'giphy';
   key: string;
+}
+
+/** Réponse de /api/category-gifs : quoi demander à Giphy pour toutes les vignettes de l'accueil. */
+export interface CategoryGiphyPlans {
+  kind: 'giphy';
+  key: string;
+  /** Par identifiant de catégorie. */
+  plans: Record<string, MoodPlan>;
 }
 
 export class GiphyError extends Error {
@@ -131,6 +139,12 @@ export const SEARCH_LIMIT = 25;
 /** Candidats validés retenus par recherche (le premier est affiché) et GIF d’ambiance possibles. */
 export const MAX_CANDIDATES = 5;
 
+/**
+ * Identifiants demandés en un seul appel au plus (`/v1/gifs?ids=…`). La clé beta de GIPHY permet
+ * 100 appels par heure pour tout le site : un appel pour plusieurs GIF, et non un par GIF (D45).
+ */
+export const IDS_PER_CALL = 50;
+
 /** Index stable (0 ≤ i < n) tiré d'un texte : même team, même choix. */
 export function stableIndex(text: string, n: number): number {
   let hash = 0;
@@ -166,16 +180,58 @@ export function createGiphyClient({
     return response.json();
   }
 
+  /**
+   * GIF demandés par identifiant pendant la visite : un même GIF n'est demandé qu'une fois, et
+   * ceux demandés au même moment partent ensemble, en un seul appel (voir IDS_PER_CALL).
+   * Rien n'est gardé au-delà de la visite (règle de GIPHY : pas de cache).
+   */
+  const gifsById = new Map<string, Promise<Gif | null>>();
+  interface Waiter {
+    resolve: (gif: Gif | null) => void;
+    reject: (error: unknown) => void;
+  }
+  let waiting: Map<string, Waiter> | null = null;
+
   /** Un GIF par son identifiant ; null s'il a disparu de Giphy. */
-  async function byId(id: string): Promise<Gif | null> {
-    try {
-      const body = (await call(`/${encodeURIComponent(id)}`, {})) as { data?: GiphyObject };
-      return toGif(body.data);
-    } catch (error) {
-      if (error instanceof GiphyError && (error.status === 404 || error.status === 400)) {
-        return null;
+  function byId(id: string): Promise<Gif | null> {
+    const known = gifsById.get(id);
+    if (known) return known;
+    const promise = new Promise<Gif | null>((resolve, reject) => {
+      if (!waiting) {
+        waiting = new Map();
+        // Le lot part au tour suivant : les demandes faites d'un coup partent ensemble.
+        setTimeout(() => void flush(), 0);
       }
-      throw error;
+      waiting.set(id, { resolve, reject });
+    });
+    gifsById.set(id, promise);
+    // Un échec (quota, réseau) n'est pas gardé : on pourra redemander plus tard.
+    promise.catch(() => {
+      if (gifsById.get(id) === promise) gifsById.delete(id);
+    });
+    return promise;
+  }
+
+  async function flush(): Promise<void> {
+    const batch = waiting;
+    waiting = null;
+    if (!batch) return;
+    const ids = [...batch.keys()];
+    for (let i = 0; i < ids.length; i += IDS_PER_CALL) {
+      const chunk = ids.slice(i, i + IDS_PER_CALL);
+      try {
+        const body = (await call('', { ids: chunk.join(',') })) as { data?: GiphyObject[] };
+        const found = new Map((body.data ?? []).map((raw) => [raw.id, raw]));
+        // Un identifiant absent de la réponse : GIF disparu de Giphy.
+        chunk.forEach((id) => batch.get(id)?.resolve(toGif(found.get(id))));
+      } catch (error) {
+        const gone = error instanceof GiphyError && (error.status === 404 || error.status === 400);
+        chunk.forEach((id) => {
+          const waiter = batch.get(id);
+          if (gone) waiter?.resolve(null);
+          else waiter?.reject(error);
+        });
+      }
     }
   }
 
@@ -211,6 +267,15 @@ export function createGiphyClient({
   }
 
   return {
+    /**
+     * Demande d'avance des GIF choisis à la main (prochains duels, vignettes de l'accueil) : un
+     * seul appel pour tout le lot ; les cartes les trouvent ensuite sans nouvel appel.
+     */
+    prefetch(ids: readonly string[]): void {
+      if (quotaExceeded) return;
+      ids.forEach((id) => void byId(id).catch(() => null));
+    },
+
     /** Vrai après un « quota dépassé » : plus aucun appel pendant cette visite. */
     get quotaExceeded() {
       return quotaExceeded;

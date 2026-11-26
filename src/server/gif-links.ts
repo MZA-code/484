@@ -56,7 +56,7 @@ export function tenorGifId(url: string): string | null {
   return parts ? `tenor${parts.base.replace(/[^A-Za-z0-9]/g, '')}` : null;
 }
 
-/** Les versions légères d'un GIF Tenor, au format renvoyé par /api/gif. */
+/** Les versions légères d'un GIF Tenor, au format renvoyé par /api/gif-plans. */
 export function tenorGif(url: string): Gif | null {
   const parts = tenorParts(url);
   if (!parts) return null;
@@ -113,7 +113,7 @@ export function teamImageId(path: string): string | null {
   return match ? `img${match[2]}` : null;
 }
 
-/** Une image de team, au format renvoyé par /api/gif : pas de vidéo, l'image et son aperçu fixe. */
+/** Une image de team, au format renvoyé par /api/gif-plans : pas de vidéo, l'image et son aperçu fixe. */
 export function teamImage(path: string): Gif | null {
   const match = TEAM_IMAGE.exec(path);
   if (!match) return null;

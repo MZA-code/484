@@ -443,6 +443,7 @@
         hasKey: true,
       };
       const FILTERS = [
+        ['home', 'Accueil'],
         ['todo', 'À faire'],
         ['reported', 'Signalées'],
         ['french', 'Œuvres françaises'],
@@ -480,7 +481,12 @@
       }
 
       // ─── Liste ───
+      const isHome = (t) => t.kind === 'category';
+
       function matchesFilter(t) {
+        // Les vignettes de l'accueil n'apparaissent que dans « Accueil » et « Non publiées ».
+        if (state.filter === 'home') return isHome(t);
+        if (isHome(t) && state.filter !== 'changed') return false;
         switch (state.filter) {
           case 'todo':
             return !t.curated;
@@ -506,14 +512,17 @@
             (!q || norm(`${t.name} ${t.opponent} ${t.origin} ${t.rivalryId}`).includes(q)),
         );
         if (state.filter === 'reported') state.visible.sort((a, b) => b.reports - a.reports);
-        $('count').textContent = `${state.visible.length} team(s)`;
+        $('count').textContent =
+          state.filter === 'home'
+            ? `${state.visible.length} vignette(s) de l’accueil`
+            : `${state.visible.length} team(s)`;
         $('list').innerHTML = state.visible
           .map((t) => {
             const dot = t.curated ? 'ok' : t.reports > 0 ? 'bad' : '';
             return `<li role="option" data-key="${esc(t.key)}" aria-selected="${t.key === state.selected}">
               <span class="dot ${dot}"></span>
               <span><span class="row-name">${esc(t.name)}</span>${t.reports ? ` <span class="ko">⚠ ${t.reports}</span>` : ''}
-              <span class="row-sub">contre ${esc(t.opponent)} · ${esc(catLabel(t.category))}</span></span>
+              <span class="row-sub">${isHome(t) ? 'vignette de l’accueil' : `contre ${esc(t.opponent)} · ${esc(catLabel(t.category))}`}</span></span>
             </li>`;
           })
           .join('');
@@ -522,9 +531,12 @@
       const catLabel = (id) => state.categories.find((c) => c.id === id)?.label ?? id;
 
       function renderStats() {
-        const curated = state.teams.filter((t) => t.curated).length;
+        const teams = state.teams.filter((t) => !isHome(t));
+        const homes = state.teams.filter(isHome);
+        const curated = teams.filter((t) => t.curated).length;
         $('stats').innerHTML =
-          `<strong>${curated}</strong> / ${state.teams.length} teams avec un GIF choisi`;
+          `<strong>${curated}</strong> / ${teams.length} teams avec un GIF choisi · ` +
+          `accueil : <strong>${homes.filter((t) => t.curated).length}</strong> / ${homes.length}`;
       }
 
       // ─── Quota Giphy : compteur et compte à rebours ───
@@ -639,6 +651,7 @@
           $('editor').innerHTML = '<p class="empty">Choisis une team dans la liste.</p>';
           return;
         }
+        if (isHome(t)) return renderHomeEditor(t);
         const chosenIds = new Set(t.chosen.filter((m) => m.kind === 'giphy').map((m) => m.value));
         const kindLabel = { giphy: 'Giphy', tenor: 'Tenor', image: 'Image du site' };
         const chosen = t.chosen.length
@@ -732,6 +745,73 @@
         bindEditor(t);
       }
 
+      /** Résultats de recherche cliquables (fiche d'une team ou d'une vignette). */
+      function resultsHtml(t, { labels }) {
+        const chosenIds = new Set(t.chosen.filter((m) => m.kind === 'giphy').map((m) => m.value));
+        if (!state.results.length)
+          return `<p class="empty" id="search-state">${esc(emptySearchText())}</p>`;
+        return `<div class="grid">${state.results
+          .map((r, i) => {
+            const label = !labels
+              ? ''
+              : r.match === 'exact'
+                ? '<span class="ok">✓ exact</span>'
+                : r.match === 'near'
+                  ? '<span class="near">≈ mot</span>'
+                  : '<span class="ko">✗</span>';
+            return `<button type="button" class="tile${chosenIds.has(r.id) ? ' on' : ''}" data-pick="${esc(r.id)}" title="${esc(r.title)}">
+              ${mediaHtml(r)}${i < 9 ? `<span class="num">${i + 1}</span>` : ''}<span class="check">✓</span>
+              <span class="cap">${label}<span class="t">${esc(r.title)}</span></span></button>`;
+          })
+          .join('')}</div>
+          <p class="row" style="margin-top: 10px"><button class="ghost" type="button" id="more">25 de plus</button></p>`;
+      }
+
+      /**
+       * Fiche d'une vignette de l'accueil : GIF Giphy seulement (l'accueil n'affiche que Giphy).
+       * Avec un GIF choisi pour chaque catégorie, tout l'accueil ne coûte qu'un appel à Giphy.
+       */
+      function renderHomeEditor(t) {
+        const chosen = t.chosen.length
+          ? `<div class="grid">${t.chosen
+              .map(
+                (m, i) => `<div class="tile">${mediaHtml(m)}
+                  <button class="remove" type="button" data-remove="${i}" title="Retirer">✕</button>
+                  <span class="cap"><span>Giphy</span><span class="t">${esc(m.value)}</span></span></div>`,
+              )
+              .join('')}</div>`
+          : '<p class="empty">Aucun GIF choisi : l’accueil lance une recherche Giphy pour cette vignette, à chaque visite (un appel de plus sur le quota de 100 par heure).</p>';
+        $('editor').innerHTML = `
+          <div class="team-head">
+            <h2>${esc(t.name)}</h2>
+            <span class="tag">vignette de l’accueil</span>
+            ${t.curated ? '<span class="tag">GIF choisi</span>' : ''}
+            <span class="nav">
+              <button class="ghost" type="button" id="prev" title="Précédente (↑ ou K)">↑ Précédente</button>
+              <button class="ghost" type="button" id="next" title="Suivante (↓ ou J)">Suivante ↓</button>
+            </span>
+          </div>
+          <p class="team-meta">GIF d’ambiance de la catégorie, en petit sur l’accueil (et en dernier recours pour une team sans GIF) ·
+            <a href="https://team484.fr/" target="_blank" rel="noopener" style="color: var(--muted)">voir l’accueil en ligne</a></p>
+
+          <section>
+            <h3>GIF choisis (${t.chosen.length}) — l’accueil en tire un au hasard</h3>
+            ${chosen}
+          </section>
+
+          <section>
+            <h3>Chercher sur Giphy — clic sur un GIF pour l’ajouter ou le retirer (touches 1 à 9)</h3>
+            <form class="searchbar" id="search-form">
+              <input type="search" id="search" value="${esc(state.searchText)}" aria-label="Recherche Giphy" />
+              <button type="submit" ${state.hasKey ? '' : 'disabled'}>Chercher</button>
+              <button class="ghost" type="button" id="use-query" title="L’accueil utilisera cette recherche quand aucun GIF n’est choisi">Utiliser pour le site</button>
+              <label><input type="checkbox" id="auto" ${state.autoSearch ? 'checked' : ''} /> Chercher dès qu’on ouvre une fiche</label>
+            </form>
+            ${resultsHtml(t, { labels: false })}
+          </section>`;
+        bindEditor(t);
+      }
+
       function bindEditor(t) {
         $('prev').onclick = () => move(-1);
         document.querySelectorAll('[data-goto]').forEach(
@@ -754,16 +834,18 @@
         };
         $('use-query').onclick = () =>
           save(t, { giphyQuery: $('search').value }, 'Recherche du site enregistrée');
-        $('add-links').onclick = () => {
-          const links = $('links').value;
-          if (links.trim()) save(t, { links }, 'Liens ajoutés');
-        };
-        $('save-settings').onclick = () =>
-          save(
-            t,
-            { giphyQuery: $('query').value, giphyKeywords: $('keywords').value },
-            'Réglages enregistrés',
-          );
+        if ($('add-links'))
+          $('add-links').onclick = () => {
+            const links = $('links').value;
+            if (links.trim()) save(t, { links }, 'Liens ajoutés');
+          };
+        if ($('save-settings'))
+          $('save-settings').onclick = () =>
+            save(
+              t,
+              { giphyQuery: $('query').value, giphyKeywords: $('keywords').value },
+              'Réglages enregistrés',
+            );
         if ($('more')) $('more').onclick = () => runSearch(state.offset + 25);
         document
           .querySelectorAll('[data-pick]')

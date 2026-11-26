@@ -3,6 +3,7 @@ import { keywordsFor, matchesKeywords, normalizeText, queryWords } from './gif-m
 import {
   createGiphyClient,
   GiphyError,
+  IDS_PER_CALL,
   SEARCH_LIMIT,
   stableIndex,
   thumbnailOf,
@@ -58,8 +59,14 @@ function fakeFetch(handler: (url: URL) => { status?: number; body?: unknown }) {
 
 const client = (giphy: ReturnType<typeof fakeFetch>) =>
   createGiphyClient({ apiKey: KEY, fetch: giphy.fetch });
-const byPath = (url: URL) => ({
-  body: { data: giphyObject(url.pathname.split('/').pop() as string) },
+/** Réponse de `/v1/gifs?ids=a,b` : les GIF demandés (sauf ceux dont l'identifiant commence par « gone »). */
+const byIds = (url: URL) => ({
+  body: {
+    data: (url.searchParams.get('ids') ?? '')
+      .split(',')
+      .filter((id) => id && !id.startsWith('gone'))
+      .map((id) => giphyObject(id)),
+  },
 });
 
 describe('toGif', () => {
@@ -191,18 +198,57 @@ describe('giphy client (browser)', () => {
   });
 
   it('asks first for the hand-picked GIF drawn by the server, without searching', async () => {
-    const giphy = fakeFetch(byPath);
+    const giphy = fakeFetch(byIds);
     expect((await client(giphy).teamGif(plan('Batman', { id: 'pick1' })))?.id).toBe('pick1');
-    expect(giphy.calls.map((u) => u.pathname)).toEqual(['/v1/gifs/pick1']);
+    expect(giphy.calls.map((u) => `${u.pathname}?${u.searchParams.get('ids')}`)).toEqual([
+      '/v1/gifs?pick1',
+    ]);
+  });
+
+  it('asks Giphy once for all the hand-picked GIFs requested at the same time', async () => {
+    const giphy = fakeFetch(byIds);
+    const c = client(giphy);
+    const gifs = await Promise.all(
+      ['p1', 'p2', 'p3'].map((id) => c.teamGif(plan('Batman', { id }))),
+    );
+    expect(gifs.map((g) => g?.id)).toEqual(['p1', 'p2', 'p3']);
+    expect(giphy.calls).toHaveLength(1);
+    expect(giphy.calls[0]?.searchParams.get('ids')).toBe('p1,p2,p3');
+  });
+
+  it('splits a long list of ids into several calls', async () => {
+    const giphy = fakeFetch(byIds);
+    const ids = Array.from({ length: IDS_PER_CALL + 1 }, (_, i) => `id${i}`);
+    const c = client(giphy);
+    await Promise.all(ids.map((id) => c.categoryGif({ id, query: 'x' })));
+    expect(giphy.calls).toHaveLength(2);
+  });
+
+  it('prefetches hand-picked GIFs in one call, then shows them without calling again', async () => {
+    const giphy = fakeFetch(byIds);
+    const c = client(giphy);
+    c.prefetch(['p1', 'p2']);
+    expect((await c.teamGif(plan('Batman', { id: 'p2' })))?.id).toBe('p2');
+    expect((await c.categoryGif({ id: 'p1', query: 'x' }))?.id).toBe('p1');
+    expect(giphy.calls).toHaveLength(1);
+  });
+
+  it('asks again for a hand-picked GIF after a failed call', async () => {
+    let fail = true;
+    const giphy = fakeFetch((url) => (fail ? { status: 500 } : byIds(url)));
+    const c = client(giphy);
+    await expect(c.teamGif(plan('Batman', { id: 'p1' }))).rejects.toThrow(GiphyError);
+    fail = false;
+    expect((await c.categoryGif({ id: 'p1', query: 'x' }))?.id).toBe('p1');
   });
 
   it('falls back to the search when a hand-picked GIF has disappeared', async () => {
     const giphy = fakeFetch((url) =>
       url.pathname.endsWith('/search')
         ? { body: { data: [giphyObject('s1', 'Batman')] } }
-        : { status: 404, body: {} },
+        : byIds(url),
     );
-    expect((await client(giphy).teamGif(plan('Batman', { id: 'gone' })))?.id).toBe('s1');
+    expect((await client(giphy).teamGif(plan('Batman', { id: 'gone1' })))?.id).toBe('s1');
   });
 
   it('prefers whole keywords, then meaningful words of the query', async () => {
@@ -238,7 +284,7 @@ describe('giphy client (browser)', () => {
 
   it('prefers the hand-picked mood GIF drawn by the server', async () => {
     const giphy = fakeFetch((url) =>
-      url.pathname.endsWith('/search') ? { body: { data: [] } } : byPath(url),
+      url.pathname.endsWith('/search') ? { body: { data: [] } } : byIds(url),
     );
     const p = plan('nothing', { mood: { id: 'moodpick', query: 'ignored' } });
     expect((await client(giphy).teamGif(p))?.id).toBe('moodpick');
@@ -248,7 +294,7 @@ describe('giphy client (browser)', () => {
     const giphy = fakeFetch((url) =>
       url.pathname.endsWith('/search')
         ? { body: { data: [giphyObject('mood0', 'Choice'), giphyObject('mood1', 'Choice')] } }
-        : byPath(url),
+        : byIds(url),
     );
     expect((await client(giphy).categoryGif({ query: 'difficult choice' }))?.id).toBe('mood0');
     expect((await client(giphy).categoryGif({ id: 'pick', query: 'x' }))?.id).toBe('pick');

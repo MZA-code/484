@@ -14,7 +14,12 @@ import { MIXED_CATEGORY } from '../../../engine';
 import type { CategoryGiphyPlan } from '../../../lib/giphy';
 import { placeholderGif } from '../../../server/gif-placeholder';
 import { moodPlan } from '../../../server/gif-plan';
-import { getGiphyKey, gifJson as json, giphyOffline } from '../../../server/giphy-runtime';
+import {
+  getGiphyKey,
+  gifJson as json,
+  giphyOffline,
+  placeholdersOff,
+} from '../../../server/giphy-runtime';
 
 export const prerender = false;
 
@@ -40,7 +45,7 @@ const finishOf = new Map<string, { label: string; giphyQuery: string; giphyIds?:
 export const GET: APIRoute = ({ params }) => {
   const finish = finishOf.get(params.id ?? '');
   if (!finish) return json({ error: 'unknown-category' }, 404, 'public, max-age=3600');
-  if (giphyOffline()) {
+  if (giphyOffline() && !placeholdersOff()) {
     const gif = placeholderGif(finish.label, `finish-${params.id ?? ''}`);
     return json({ kind: 'gif', gif }, 200, 'no-store');
   }
