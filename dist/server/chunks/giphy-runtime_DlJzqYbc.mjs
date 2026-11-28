@@ -1,4 +1,4 @@
-import { o as teamImage, s as tenorGif, t as getSecret } from "./server_bcRQyk-o.mjs";
+import { o as teamImage, s as tenorGif, t as getSecret } from "./server_V4_M7Gc7.mjs";
 import { rmSync } from "node:fs";
 // src/lib/gif-match.ts
 /** Minuscules, sans accents ; tout ce qui n'est ni lettre ni chiffre devient une espace. */

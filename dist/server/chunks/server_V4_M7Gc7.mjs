@@ -9100,7 +9100,7 @@ var rivalries_default = {
 				"origin": "Sony · 1979",
 				"line": "Une cassette, et un crayon pour la rembobiner.",
 				"quip": "Team Walkman : tu as rembobiné une cassette avec un crayon. Tu sais encore le faire.",
-				"giphyIds": [],
+				"giphyIds": ["svuQfscqzTCNaKqhLW"],
 				"giphyQuery": "Walkman cassette"
 			},
 			"b": {
@@ -9108,7 +9108,7 @@ var rivalries_default = {
 				"origin": "Sony · 1984",
 				"line": "Un CD, qui saute au moindre pas.",
 				"quip": "Team Discman : tu marchais sur la pointe des pieds pour que le CD ne saute pas.",
-				"giphyIds": [],
+				"giphyIds": ["loWuQfYrNMOycG6dDt"],
 				"giphyQuery": "Discman"
 			},
 			"bothQuip": "Les deux. Ton sac de collège pesait trois kilos de musique.",
@@ -9123,7 +9123,8 @@ var rivalries_default = {
 				"line": "Des dessins animés à la chaîne, et Les Musclés.",
 				"quip": "Team Club Dorothée : tu connais encore les chansons de Dorothée par cœur.",
 				"giphyIds": [],
-				"giphyQuery": "Club Dorothee"
+				"giphyQuery": "Club Dorothee",
+				"gifUrls": ["https://media.tenor.com/xX6HhPDfO1UAAAAC/club-doroth%C3%A9e-cartoon.gif"]
 			},
 			"b": {
 				"name": "Les Minikeums",
@@ -9131,7 +9132,8 @@ var rivalries_default = {
 				"line": "Des marionnettes qui présentent les dessins animés.",
 				"quip": "Team Minikeums : les marionnettes du mercredi matin, c’était toute ta semaine.",
 				"giphyIds": [],
-				"giphyQuery": "puppets show"
+				"giphyQuery": "puppets show",
+				"gifUrls": ["https://media.tenor.com/a_A8HH69DCEAAAAC/minikeums-puppets.gif"]
 			},
 			"bothQuip": "Les deux. Tes mercredis étaient planifiés de 7 h à midi.",
 			"noneQuip": "Ni l’un ni l’autre. Les émissions jeunesse des années 90, ce n’est pas ta génération."
@@ -9144,7 +9146,7 @@ var rivalries_default = {
 				"origin": "Londres · 1994",
 				"line": "Cinq Spice et du girl power.",
 				"quip": "Team Spice Girls : tu savais quelle Spice tu étais. Tu le sais encore.",
-				"giphyIds": [],
+				"giphyIds": ["PoGjMSWqt4RHHunrmy"],
 				"giphyQuery": "Spice Girls"
 			},
 			"b": {
@@ -9152,7 +9154,7 @@ var rivalries_default = {
 				"origin": "Orlando · 1993",
 				"line": "Cinq garçons et des chorégraphies synchronisées.",
 				"quip": "Team Backstreet Boys : tu as fait la chorégraphie d’« Everybody » dans ta chambre. Avec conviction.",
-				"giphyIds": [],
+				"giphyIds": ["pQOTFDeZ599XG"],
 				"giphyQuery": "Backstreet Boys"
 			},
 			"bothQuip": "Les deux. Girls bands et boys bands : ta playlist de 1997.",
@@ -9166,7 +9168,7 @@ var rivalries_default = {
 				"origin": "Bandai · 1996",
 				"line": "Mort de faim pendant le cours de maths.",
 				"quip": "Team Tamagotchi : le tien est mort de faim pendant le cours de maths. Tu t’en remets à peine.",
-				"giphyIds": [],
+				"giphyIds": ["4oZpTY30l6XtK"],
 				"giphyQuery": "Tamagotchi"
 			},
 			"b": {
@@ -9174,7 +9176,7 @@ var rivalries_default = {
 				"origin": "Tiger · 1998",
 				"line": "Parle la nuit, sans raison, sans bouton off.",
 				"quip": "Team Furby : il parlait la nuit, sans bouton pour l’éteindre. Tu en as encore des frissons.",
-				"giphyIds": [],
+				"giphyIds": ["lSDTrPAeHiV2m6N8x6"],
 				"giphyQuery": "Furby"
 			},
 			"bothQuip": "Les deux. Les animaux électroniques t’ont appris le sens des responsabilités.",
@@ -9188,7 +9190,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Des capsules en carton, et un kini pour tout gagner.",
 				"quip": "Team Pogs : tu as tout gagné avec ton kini. Et tout perdu le lendemain.",
-				"giphyIds": [],
+				"giphyIds": ["l03JEBWJxxUoCC7Yvl"],
 				"giphyQuery": "pogs"
 			},
 			"b": {
@@ -9196,7 +9198,7 @@ var rivalries_default = {
 				"origin": "La cour de récré",
 				"line": "Des agates, des calots, et des procès.",
 				"quip": "Team billes : ton calot préféré, tu l’as gardé. Il est dans un tiroir.",
-				"giphyIds": [],
+				"giphyIds": ["YFI6jh4bNBBSdzGsWS"],
 				"giphyQuery": "marbles"
 			},
 			"bothQuip": "Les deux. La cour de récré était ton casino.",
@@ -9211,7 +9213,8 @@ var rivalries_default = {
 				"line": "Un monde entier dans une boîte à poudre.",
 				"quip": "Team Polly Pocket : tu as perdu la petite Polly dans la moquette. Elle y est encore.",
 				"giphyIds": [],
-				"giphyQuery": "Polly Pocket"
+				"giphyQuery": "Polly Pocket",
+				"gifUrls": ["https://media.tenor.com/ndsBd9csuPkAAAAC/rooism.gif"]
 			},
 			"b": {
 				"name": "Micro Machines",
@@ -9219,7 +9222,8 @@ var rivalries_default = {
 				"line": "Des voitures minuscules, et une pub qui parlait très vite.",
 				"quip": "Team Micro Machines : tu sais encore réciter la pub à toute vitesse. Essaie.",
 				"giphyIds": [],
-				"giphyQuery": "Micro Machines"
+				"giphyQuery": "Micro Machines",
+				"gifUrls": ["https://media.tenor.com/GZEp58DqBQ4AAAAC/micro-machines.gif"]
 			},
 			"bothQuip": "Les deux. Des jouets minuscules, et des pièces perdues dans toute la chambre.",
 			"noneQuip": "Ni l’un ni l’autre. Les mini-jouets finissaient dans l’aspirateur."
@@ -9233,7 +9237,8 @@ var rivalries_default = {
 				"line": "Les musiciens les plus énergiques du petit écran.",
 				"quip": "Team Les Musclés : tu chantes leurs chansons sans savoir pourquoi.",
 				"giphyIds": [],
-				"giphyQuery": "90s band"
+				"giphyQuery": "90s band",
+				"gifUrls": ["https://media.tenor.com/yuLn1oU0hmYAAAAC/clubdorothee-lesmuscles.gif"]
 			},
 			"b": {
 				"name": "Hélène et les Garçons",
@@ -9241,7 +9246,8 @@ var rivalries_default = {
 				"line": "La cafétéria de la fac, et des histoires d’amour.",
 				"quip": "Team Hélène et les Garçons : tu rêvais de la cafétéria de la fac. Et de ses histoires d’amour.",
 				"giphyIds": [],
-				"giphyQuery": "90s sitcom"
+				"giphyQuery": "90s sitcom",
+				"gifUrls": ["https://media.tenor.com/aSroip-JHgcAAAAC/h%C3%A9l%C3%A8ne-et-les-gar%C3%A7ons-club-doroth%C3%A9e.gif"]
 			},
 			"bothQuip": "Les deux. La télé de ton enfance avait un générique pour chaque goûter.",
 			"noneQuip": "Ni l’un ni l’autre. Cette télé-là, tu y as échappé. Ou tu fais semblant."
@@ -9254,7 +9260,7 @@ var rivalries_default = {
 				"origin": "NBC · 1990",
 				"line": "Un ado de Philadelphie chez son oncle très riche.",
 				"quip": "Team Prince de Bel-Air : tu connais le générique par cœur. En entier. En anglais.",
-				"giphyIds": [],
+				"giphyIds": ["WmkqburJqXziM"],
 				"giphyQuery": "Fresh Prince of Bel Air"
 			},
 			"b": {
@@ -9262,7 +9268,7 @@ var rivalries_default = {
 				"origin": "NBC · 1989",
 				"line": "Le lycée, Zack Morris, et un téléphone énorme.",
 				"quip": "Team Sauvés par le gong : tu voulais un téléphone gros comme une brique, comme Zack Morris.",
-				"giphyIds": [],
+				"giphyIds": ["9apHMoIrxGX72"],
 				"giphyQuery": "Saved by the Bell"
 			},
 			"bothQuip": "Les deux. Les séries américaines des années 90 : ton cours d’anglais à toi.",
@@ -9276,7 +9282,7 @@ var rivalries_default = {
 				"origin": "NBC · 1989",
 				"line": "Des sauveteurs qui courent au ralenti.",
 				"quip": "Team Alerte à Malibu : tu as déjà couru au ralenti sur une plage. Ne nie pas.",
-				"giphyIds": [],
+				"giphyIds": ["TEsHBsigscRKE"],
 				"giphyQuery": "Baywatch"
 			},
 			"b": {
@@ -9284,7 +9290,7 @@ var rivalries_default = {
 				"origin": "The WB · 1997",
 				"line": "Des cours le jour, des vampires la nuit.",
 				"quip": "Team Buffy : les cours le jour, les missions secrètes la nuit. Fatigant.",
-				"giphyIds": [],
+				"giphyIds": ["l2Sq0CrkNYP0Dgoow"],
 				"giphyQuery": "Buffy the Vampire Slayer"
 			},
 			"bothQuip": "Les deux. Le maillot rouge et le pieu en bois : ton costume idéal.",
@@ -9298,7 +9304,7 @@ var rivalries_default = {
 				"origin": "France Télécom · 1982",
 				"line": "3615, et la facture qui suit.",
 				"quip": "Team Minitel : 3615 quelque chose, et une facture qui a fait crier tes parents.",
-				"giphyIds": [],
+				"giphyIds": ["3wRzjTVD1s3rdE9JNd"],
 				"giphyQuery": "Minitel"
 			},
 			"b": {
@@ -9306,7 +9312,7 @@ var rivalries_default = {
 				"origin": "Le bureau",
 				"line": "Une feuille qui sort en couinant.",
 				"quip": "Team fax : le cri du fax, tu l’entends encore la nuit.",
-				"giphyIds": [],
+				"giphyIds": ["NyrOYfZlUSLCw"],
 				"giphyQuery": "fax machine"
 			},
 			"bothQuip": "Les deux. Avant Internet, tu avais déjà Internet. À peu près.",
@@ -9320,7 +9326,7 @@ var rivalries_default = {
 				"origin": "Nokia · 2000",
 				"line": "Indestructible, et Snake dedans.",
 				"quip": "Team Nokia 3310 : indestructible, avec Snake dedans. Il marche peut-être encore, dans un tiroir.",
-				"giphyIds": [],
+				"giphyIds": ["shohQj1Ju9fJC"],
 				"giphyQuery": "Nokia 3310"
 			},
 			"b": {
@@ -9329,7 +9335,8 @@ var rivalries_default = {
 				"line": "Des messages en chiffres, à décoder.",
 				"quip": "Team Tatoo : tu décodais des messages en chiffres. Un vrai talent d’espion.",
 				"giphyIds": [],
-				"giphyQuery": "pager beeper"
+				"giphyQuery": "pager beeper",
+				"gifUrls": ["https://media.tenor.com/Jk23kizt56wAAAAC/law-and-order-true-crime-beeper.gif"]
 			},
 			"bothQuip": "Les deux. Ton premier téléphone et ton premier code secret.",
 			"noneQuip": "Ni l’un ni l’autre. Ton premier téléphone avait déjà un écran tactile. Quelle jeunesse."
@@ -9342,7 +9349,7 @@ var rivalries_default = {
 				"origin": "Années 80-90",
 				"line": "Rembobiner avant de rendre.",
 				"quip": "Team VHS : « Rembobinez avant de rendre. » Tu le faisais. Toujours.",
-				"giphyIds": [],
+				"giphyIds": ["pWsz9pgd1X1Re"],
 				"giphyQuery": "VHS tape"
 			},
 			"b": {
@@ -9350,7 +9357,7 @@ var rivalries_default = {
 				"origin": "1996",
 				"line": "Des bonus, et des menus interminables.",
 				"quip": "Team DVD : vingt minutes dans les menus et les bonus. Puis le film.",
-				"giphyIds": [],
+				"giphyIds": ["l1J9Ck2MapfKRMT3q"],
 				"giphyQuery": "DVD"
 			},
 			"bothQuip": "Les deux. Ta collection a changé de format, et tu as tout racheté.",
@@ -9365,7 +9372,8 @@ var rivalries_default = {
 				"line": "Une heure à choisir la cassette du samedi soir.",
 				"quip": "Team vidéoclub : une heure pour choisir la cassette du samedi soir. Le plus beau moment de la semaine.",
 				"giphyIds": [],
-				"giphyQuery": "video store"
+				"giphyQuery": "video store",
+				"gifUrls": ["https://media.tenor.com/lyRLzXTcXRAAAAAC/johnny5-number5.gif"]
 			},
 			"b": {
 				"name": "Canal+ crypté",
@@ -9373,7 +9381,8 @@ var rivalries_default = {
 				"line": "Plisser les yeux devant une image brouillée.",
 				"quip": "Team Canal+ crypté : tu as plissé les yeux devant une image brouillée. Longtemps.",
 				"giphyIds": [],
-				"giphyQuery": "static tv"
+				"giphyQuery": "static tv",
+				"gifUrls": ["https://media.tenor.com/d2l9_MCccjoAAAAC/deco-decodificador.gif"]
 			},
 			"bothQuip": "Les deux. Le samedi soir, c’était cassette ou image brouillée.",
 			"noneQuip": "Ni l’un ni l’autre. Tu attendais le film du dimanche soir. La patience."
@@ -9386,7 +9395,7 @@ var rivalries_default = {
 				"origin": "Fox · 1993",
 				"line": "Cinq ados, des combinaisons, et un robot géant.",
 				"quip": "Team Power Rangers : tu savais quelle couleur tu étais. Rouge, évidemment.",
-				"giphyIds": [],
+				"giphyIds": ["peMsofRVIS4WQ"],
 				"giphyQuery": "Power Rangers"
 			},
 			"b": {
@@ -9395,7 +9404,8 @@ var rivalries_default = {
 				"line": "L’original japonais, encore plus coloré.",
 				"quip": "Team Bioman : l’original japonais, plus coloré. L’œil du connaisseur.",
 				"giphyIds": [],
-				"giphyQuery": "Bioman sentai"
+				"giphyQuery": "Bioman sentai",
+				"gifUrls": ["https://media.tenor.com/7DQ0SI1MSX0AAAAC/choudenshi-bioman.gif"]
 			},
 			"bothQuip": "Les deux. Ta cour de récré était un combat de super-héros en couleurs.",
 			"noneQuip": "Ni l’un ni l’autre. Les combinaisons en lycra, très peu pour toi."
@@ -9408,7 +9418,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Elles clignotent à chaque pas.",
 				"quip": "Team chaussures à lumières : tu clignotais à chaque pas. On te voyait de loin.",
-				"giphyIds": [],
+				"giphyIds": ["QYKUq1cdfmUVO"],
 				"giphyQuery": "light up shoes"
 			},
 			"b": {
@@ -9416,7 +9426,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Des semelles de dix centimètres.",
 				"quip": "Team Buffalo : dix centimètres de semelle. Tu voyais le monde de plus haut.",
-				"giphyIds": [],
+				"giphyIds": ["WLwH0EaNqeRpAfrKP9"],
 				"giphyQuery": "platform shoes"
 			},
 			"bothQuip": "Les deux. Tes pieds étaient le spectacle de la cour.",
@@ -9430,7 +9440,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Un pantalon taille 48 sur un ado taille 36.",
 				"quip": "Team baggy : un pantalon taille 48 sur un ado taille 36. Tu marchais en le retenant.",
-				"giphyIds": [],
+				"giphyIds": ["pUKIkouWehLb2"],
 				"giphyQuery": "baggy jeans"
 			},
 			"b": {
@@ -9438,7 +9448,7 @@ var rivalries_default = {
 				"origin": "Années 2000",
 				"line": "Très, très bas.",
 				"quip": "Team taille basse : très, très bas. On sait tous ce qu’on voyait.",
-				"giphyIds": [],
+				"giphyIds": ["Ycws1fn4dBwDKVvKJB"],
 				"giphyQuery": "low rise jeans"
 			},
 			"bothQuip": "Les deux. Des années 90 aux années 2000, ton jean a beaucoup voyagé.",
@@ -9462,7 +9472,7 @@ var rivalries_default = {
 				"origin": "Japon · 1996",
 				"line": "Le Dracaufeu holographique, le Graal.",
 				"quip": "Team cartes Pokémon : ton Dracaufeu holographique vaut peut-être une fortune. Il dort dans un classeur.",
-				"giphyIds": [],
+				"giphyIds": ["QYn97FfN2QNd4wtGQw"],
 				"giphyQuery": "Charizard card"
 			},
 			"bothQuip": "Les deux. Ta collection prenait une étagère entière.",
@@ -9476,7 +9486,7 @@ var rivalries_default = {
 				"origin": "Ernő Rubik · 1974",
 				"line": "Mélangé en trois secondes, résolu jamais.",
 				"quip": "Team Rubik’s Cube : tu l’as résolu une fois. En décollant les autocollants.",
-				"giphyIds": [],
+				"giphyIds": ["MFmT0MyjKpZtBdUQwH"],
 				"giphyQuery": "Rubik's Cube"
 			},
 			"b": {
@@ -9484,7 +9494,7 @@ var rivalries_default = {
 				"origin": "Milton Bradley · 1978",
 				"line": "Des couleurs, des bips, et une mémoire mise à l’épreuve.",
 				"quip": "Team Simon : tu répétais les couleurs jusqu’à ce que la machine gagne. Elle gagnait toujours.",
-				"giphyIds": [],
+				"giphyIds": ["Xx2IyZ26PdmZOcJytZ"],
 				"giphyQuery": "Simon game"
 			},
 			"bothQuip": "Les deux. Les casse-têtes des années 80 : ta vraie école.",
@@ -9499,14 +9509,15 @@ var rivalries_default = {
 				"line": "Mario, Zelda, et des cartouches qu’on soufflait.",
 				"quip": "Team Super Nintendo : tu soufflais dans les cartouches. Ça marchait. On ne sait pas pourquoi.",
 				"giphyIds": [],
-				"giphyQuery": "Super Nintendo"
+				"giphyQuery": "Super Nintendo",
+				"gifUrls": ["https://media.tenor.com/mP88pPwSRdIAAAAC/super-nintendo-snes.gif"]
 			},
 			"b": {
 				"name": "Mega Drive",
 				"origin": "Sega · 1988",
 				"line": "Sonic, et des pubs qui provoquaient Nintendo.",
 				"quip": "Team Mega Drive : « Sega, c’est plus fort que toi. » Tu y croyais.",
-				"giphyIds": [],
+				"giphyIds": ["VEwN3OpVHE7GE"],
 				"giphyQuery": "Sega Genesis"
 			},
 			"bothQuip": "Les deux. La guerre des consoles, tu l’as faite chez ton cousin.",
@@ -9520,7 +9531,7 @@ var rivalries_default = {
 				"origin": "Nintendo · 1996",
 				"line": "Une manette à trois poignées.",
 				"quip": "Team Nintendo 64 : la manette à trois poignées. Tu tenais celle du milieu, comme tout le monde.",
-				"giphyIds": [],
+				"giphyIds": ["2XflxzpdOlPiYAMp1Cg"],
 				"giphyQuery": "Nintendo 64"
 			},
 			"b": {
@@ -9542,7 +9553,7 @@ var rivalries_default = {
 				"origin": "James Cameron · 1997",
 				"line": "Un bateau, un iceberg, et une porte assez grande pour deux.",
 				"quip": "Team Titanic : tu l’as vu plusieurs fois au cinéma. Tu as pleuré à chaque fois.",
-				"giphyIds": [],
+				"giphyIds": ["tk39314j32wGk"],
 				"giphyQuery": "Titanic movie"
 			},
 			"b": {
@@ -9550,7 +9561,7 @@ var rivalries_default = {
 				"origin": "Steven Spielberg · 1993",
 				"line": "Des dinosaures, et un verre d’eau qui tremble.",
 				"quip": "Team Jurassic Park : tu regardes encore les verres d’eau avec méfiance.",
-				"giphyIds": [],
+				"giphyIds": ["hu1TLAaubiak9S4GT6"],
 				"giphyQuery": "Jurassic Park"
 			},
 			"bothQuip": "Les deux. Les années 90 au cinéma : des bateaux et des dinosaures.",
@@ -9564,7 +9575,7 @@ var rivalries_default = {
 				"origin": "Barry Sonnenfeld · 1997",
 				"line": "Deux costumes noirs et un neuralyseur.",
 				"quip": "Team Men in Black : tu as des lunettes de soleil, et tu fais oublier des choses aux gens.",
-				"giphyIds": [],
+				"giphyIds": ["R7m04yMaGWVeE"],
 				"giphyQuery": "Men in Black"
 			},
 			"b": {
@@ -9572,7 +9583,7 @@ var rivalries_default = {
 				"origin": "Roland Emmerich · 1996",
 				"line": "Des aliens, et un grand discours du président.",
 				"quip": "Team Independence Day : tu fais un grand discours avant chaque match de foot entre amis.",
-				"giphyIds": [],
+				"giphyIds": ["l0HlQrLACNLlLStYA"],
 				"giphyQuery": "Independence Day"
 			},
 			"bothQuip": "Les deux. Les aliens de 1996 et 1997, tu les as tous vus.",
@@ -9586,7 +9597,7 @@ var rivalries_default = {
 				"origin": "ABC · 1996",
 				"line": "Une ado sorcière, et un chat qui parle.",
 				"quip": "Team Sabrina : tu voulais un chat qui parle. Tu le veux encore.",
-				"giphyIds": [],
+				"giphyIds": ["3ohzdLtKoMRelWYKSk"],
 				"giphyQuery": "Sabrina Salem"
 			},
 			"b": {
@@ -9594,7 +9605,7 @@ var rivalries_default = {
 				"origin": "The WB · 1998",
 				"line": "Trois sœurs sorcières à San Francisco.",
 				"quip": "Team Charmed : le pouvoir des trois, tu y crois. Avec tes sœurs ou tes amis.",
-				"giphyIds": [],
+				"giphyIds": ["VMMzEcvf88jPW"],
 				"giphyQuery": "Charmed"
 			},
 			"bothQuip": "Les deux. Les sorcières à la télé, c’était ta grande passion.",
@@ -9609,7 +9620,8 @@ var rivalries_default = {
 				"line": "Trois garçons, des abdos, et « Partir un jour ».",
 				"quip": "Team 2Be3 : « Partir un jour » était ton hymne. Tu le chantes encore.",
 				"giphyIds": [],
-				"giphyQuery": "90s boy band"
+				"giphyQuery": "90s boy band",
+				"gifUrls": ["https://media.tenor.com/wNELmOpLvvsAAAAC/2be3-2-be-3.gif"]
 			},
 			"b": {
 				"name": "L5",
@@ -9617,7 +9629,8 @@ var rivalries_default = {
 				"line": "Cinq filles nées d’un télé-crochet.",
 				"quip": "Team L5 : tu as regardé Popstars, et tu as voté. Pour toutes.",
 				"giphyIds": [],
-				"giphyQuery": "girl band"
+				"giphyQuery": "girl band",
+				"images": ["/images/teams/l5-7b187086.anim.webp"]
 			},
 			"bothQuip": "Les deux. Les groupes français de cette époque : ta playlist secrète.",
 			"noneQuip": "Ni l’un ni l’autre. Les groupes nés à la télé t’ont toujours fait sourire."
@@ -9630,7 +9643,7 @@ var rivalries_default = {
 				"origin": "France 2 · 1990",
 				"line": "Des clés, des énigmes, et le père Fouras.",
 				"quip": "Team Fort Boyard : tu connais les énigmes du père Fouras. Tu en inventes, même.",
-				"giphyIds": [],
+				"giphyIds": ["fqmtm3tm8DAfah8zYF"],
 				"giphyQuery": "Fort Boyard"
 			},
 			"b": {
@@ -9639,7 +9652,8 @@ var rivalries_default = {
 				"line": "Des vachettes, de la mousse, et des fous rires.",
 				"quip": "Team Intervilles : des vachettes, de la mousse, et des fous rires. Ton été à la télé.",
 				"giphyIds": [],
-				"giphyQuery": "Intervilles"
+				"giphyQuery": "Intervilles",
+				"gifUrls": ["https://media.tenor.com/LOLu99zLScMAAAAC/top-vachette.gif"]
 			},
 			"bothQuip": "Les deux. Ton été, c’était les clés du Fort et les vachettes.",
 			"noneQuip": "Ni l’un ni l’autre. Les jeux d’été à la télé, tu étais dehors. Bravo."
@@ -9653,7 +9667,8 @@ var rivalries_default = {
 				"line": "Lagaf’, des cadeaux, et beaucoup de bruit.",
 				"quip": "Team Bigdil : tu adorais le bruit. Beaucoup de bruit.",
 				"giphyIds": [],
-				"giphyQuery": "game show"
+				"giphyQuery": "game show",
+				"gifUrls": ["https://media.tenor.com/xq1W-BtokTEAAAAC/lagaf-bipbip.gif"]
 			},
 			"b": {
 				"name": "Le Juste Prix",
@@ -9661,7 +9676,8 @@ var rivalries_default = {
 				"line": "« Le juste prix ! »",
 				"quip": "Team Le Juste Prix : au supermarché, tu estimes le prix de tout. Et tu as souvent raison.",
 				"giphyIds": [],
-				"giphyQuery": "The Price is Right"
+				"giphyQuery": "The Price is Right",
+				"gifUrls": ["https://media.tenor.com/VMrK5Uoe9lwAAAAC/juste-prix-tyrolienne.gif"]
 			},
 			"bothQuip": "Les deux. Les jeux télé ont été ta vraie école de calcul.",
 			"noneQuip": "Ni l’un ni l’autre. Les jeux télé, tu zappais."
@@ -9674,7 +9690,7 @@ var rivalries_default = {
 				"origin": "Années 80-90",
 				"line": "On enregistrait la radio en coupant l’animateur.",
 				"quip": "Team cassette : tu enregistrais la radio en coupant l’animateur. Avec un timing parfait.",
-				"giphyIds": [],
+				"giphyIds": ["22SgVxm6x4gJLKWf7v"],
 				"giphyQuery": "cassette tape"
 			},
 			"b": {
@@ -9682,7 +9698,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Brillant, et rayé dès le premier jour.",
 				"quip": "Team CD : rayé dès le premier jour. Tu soufflais dessus, comme sur les cartouches.",
-				"giphyIds": [],
+				"giphyIds": ["XyP0AQHgyXb60MeOPC"],
 				"giphyQuery": "compact disc"
 			},
 			"bothQuip": "Les deux. Tes compilations sont passées de la cassette au CD gravé.",
@@ -9697,7 +9713,8 @@ var rivalries_default = {
 				"line": "Une veste couverte de badges.",
 				"quip": "Team pin’s : ta veste en jean, couverte de badges, pesait deux kilos.",
 				"giphyIds": [],
-				"giphyQuery": "pins collection"
+				"giphyQuery": "pins collection",
+				"images": ["/images/teams/pin-s-e6b18715.webp"]
 			},
 			"b": {
 				"name": "Scoubidous",
@@ -9705,7 +9722,8 @@ var rivalries_default = {
 				"line": "Des fils en plastique et des porte-clés.",
 				"quip": "Team scoubidous : tu as fait des porte-clés pour toute la famille. Ils les ont gardés.",
 				"giphyIds": [],
-				"giphyQuery": "scoubidou"
+				"giphyQuery": "scoubidou",
+				"gifUrls": ["https://media.tenor.com/m9BbX0lwRJoAAAAC/braids-friendship-bracelets.gif"]
 			},
 			"bothQuip": "Les deux. Les modes de la cour de récré, tu les as toutes suivies.",
 			"noneQuip": "Ni l’un ni l’autre. Les modes de la cour, tu les regardais de loin."
@@ -9718,7 +9736,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Des bottes indestructibles.",
 				"quip": "Team Doc Martens : tes bottes sont indestructibles. Elles te survivront.",
-				"giphyIds": [],
+				"giphyIds": ["136BhatDxf2Q4U"],
 				"giphyQuery": "Doc Martens"
 			},
 			"b": {
@@ -9726,7 +9744,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Des baskets en toile, toujours délacées.",
 				"quip": "Team Converse : toujours délacées, jamais lavées. Le style.",
-				"giphyIds": [],
+				"giphyIds": ["lFAhN2yVyca2Y"],
 				"giphyQuery": "Converse"
 			},
 			"bothQuip": "Les deux. Tu avais les deux, et une chemise à carreaux.",
@@ -9741,14 +9759,15 @@ var rivalries_default = {
 				"line": "Le téléphone qui ne marchait que près d’une borne.",
 				"quip": "Team Bi-Bop : tu téléphonais collé à la borne. Le futur, déjà.",
 				"giphyIds": [],
-				"giphyQuery": "old mobile phone"
+				"giphyQuery": "old mobile phone",
+				"images": ["/images/teams/bi-bop-07da15c8.webp"]
 			},
 			"b": {
 				"name": "Téléphone à cadran",
 				"origin": "Le salon",
 				"line": "Composer un numéro prenait une minute.",
 				"quip": "Team cadran : composer un numéro prenait une minute. Avec des 9, deux minutes.",
-				"giphyIds": [],
+				"giphyIds": ["8FfoUVX6ULvxPLyJeV"],
 				"giphyQuery": "rotary phone"
 			},
 			"bothQuip": "Les deux. Tu as connu le monde d’avant le portable. Une pièce de musée vivante.",
@@ -9762,7 +9781,7 @@ var rivalries_default = {
 				"origin": "Fox · 1997",
 				"line": "Un cabinet d’avocats et un bébé qui danse.",
 				"quip": "Team Ally McBeal : tu as vu le bébé qui danse. Tu le vois encore parfois.",
-				"giphyIds": [],
+				"giphyIds": ["26ufgJqEB3TtLAq8U"],
 				"giphyQuery": "Ally McBeal dancing baby"
 			},
 			"b": {
@@ -9770,7 +9789,7 @@ var rivalries_default = {
 				"origin": "NBC · 1994",
 				"line": "Les urgences de Chicago, et George Clooney en blouse.",
 				"quip": "Team Urgences : tu as appris des mots médicaux en regardant George Clooney.",
-				"giphyIds": [],
+				"giphyIds": ["2y9Dua2mzFiBq"],
 				"giphyQuery": "ER tv show"
 			},
 			"bothQuip": "Les deux. Les avocats et les médecins des années 90 : ton éducation.",
@@ -9784,7 +9803,7 @@ var rivalries_default = {
 				"origin": "David Lynch · 1990",
 				"line": "« Qui a tué Laura Palmer ? »",
 				"quip": "Team Twin Peaks : tu te demandes encore qui a tué Laura Palmer. Même en connaissant la réponse.",
-				"giphyIds": [],
+				"giphyIds": ["7PwOZJLNYUkU"],
 				"giphyQuery": "Twin Peaks"
 			},
 			"b": {
@@ -9793,7 +9812,8 @@ var rivalries_default = {
 				"line": "Il peut devenir n’importe qui.",
 				"quip": "Team Le Caméléon : tu changes de personnalité selon les gens. Un vrai talent.",
 				"giphyIds": [],
-				"giphyQuery": "The Pretender"
+				"giphyQuery": "The Pretender",
+				"gifUrls": ["https://media.tenor.com/OjssewuoQIAAAAAC/jarod-cameleon-s%C3%A9rie-reflechi.gif"]
 			},
 			"bothQuip": "Les deux. Les mystères des années 90 te hantent encore.",
 			"noneQuip": "Ni l’un ni l’autre. Les mystères sans fin, ça t’énerve."
@@ -9806,7 +9826,7 @@ var rivalries_default = {
 				"origin": "Fox · 1990",
 				"line": "Des ados de Beverly Hills, et des rouflaquettes.",
 				"quip": "Team Beverly Hills : tu as eu des rouflaquettes. Ou un poster de Dylan.",
-				"giphyIds": [],
+				"giphyIds": ["SN2q7P4zLr3UI"],
 				"giphyQuery": "Beverly Hills 90210"
 			},
 			"b": {
@@ -9814,7 +9834,7 @@ var rivalries_default = {
 				"origin": "The WB · 1998",
 				"line": "Des ados qui parlent comme des philosophes.",
 				"quip": "Team Dawson : à quinze ans, tu parlais comme un philosophe. Comme eux.",
-				"giphyIds": [],
+				"giphyIds": ["3oz8xUK8V7suY7W9SE"],
 				"giphyQuery": "Dawson's Creek"
 			},
 			"bothQuip": "Les deux. Les ados américains qui ont l’air d’avoir trente ans : ta référence.",
@@ -9829,7 +9849,8 @@ var rivalries_default = {
 				"line": "Charly, Lulu, et le classement des ventes.",
 				"quip": "Team Hit Machine : Charly et Lulu le samedi matin. Tu connaissais tout le classement.",
 				"giphyIds": [],
-				"giphyQuery": "90s pop dance"
+				"giphyQuery": "90s pop dance",
+				"gifUrls": ["https://media.tenor.com/1jFg75YMYXoAAAAC/explosion-de-joie-boris.gif"]
 			},
 			"b": {
 				"name": "Top 50",
@@ -9837,7 +9858,8 @@ var rivalries_default = {
 				"line": "Le classement de la semaine, chanson par chanson.",
 				"quip": "Team Top 50 : tu notais le classement de la semaine dans un cahier.",
 				"giphyIds": [],
-				"giphyQuery": "music charts"
+				"giphyQuery": "music charts",
+				"gifUrls": ["https://media.tenor.com/BHPw3qxFUkYAAAAC/canal-plus-canal.gif"]
 			},
 			"bothQuip": "Les deux. Les classements de la musique, tu les suivais comme le foot.",
 			"noneQuip": "Ni l’un ni l’autre. Les classements ne t’intéressaient pas. Tes goûts, tu les avais."
@@ -9851,7 +9873,8 @@ var rivalries_default = {
 				"line": "Des chutes, et des rires enregistrés.",
 				"quip": "Team Vidéo Gag : les chutes à la télé te font encore rire. Les tiennes aussi.",
 				"giphyIds": [],
-				"giphyQuery": "funny fail"
+				"giphyQuery": "funny fail",
+				"images": ["/images/teams/video-gag-5b753232.webp"]
 			},
 			"b": {
 				"name": "Surprise sur prise",
@@ -9859,7 +9882,8 @@ var rivalries_default = {
 				"line": "Des caméras cachées, et Marcel Béliveau.",
 				"quip": "Team Surprise sur prise : tu soupçonnes encore des caméras cachées partout.",
 				"giphyIds": [],
-				"giphyQuery": "hidden camera"
+				"giphyQuery": "hidden camera",
+				"images": ["/images/teams/surprise-sur-prise-c6607f64.webp"]
 			},
 			"bothQuip": "Les deux. Le rire des années 90 : tomber, et se faire piéger.",
 			"noneQuip": "Ni l’un ni l’autre. Les gens qui tombent ne te font pas rire. Un cœur sensible."
@@ -9872,7 +9896,7 @@ var rivalries_default = {
 				"origin": "Los del Río · 1993",
 				"line": "Une chorégraphie que tout le monde connaît.",
 				"quip": "Team Macarena : tu connais encore la chorégraphie. Tu viens de la faire dans ta tête.",
-				"giphyIds": [],
+				"giphyIds": ["L1tMsd4Pl0QUM"],
 				"giphyQuery": "Macarena"
 			},
 			"b": {
@@ -9881,7 +9905,8 @@ var rivalries_default = {
 				"line": "Une danse très, très rapprochée.",
 				"quip": "Team Lambada : une danse très rapprochée. Jamais avec tes parents, heureusement.",
 				"giphyIds": [],
-				"giphyQuery": "Lambada"
+				"giphyQuery": "Lambada",
+				"gifUrls": ["https://media.tenor.com/fs4Y6MFWEA4AAAAC/lambada-dance-danse-girl-miniskirt-white.gif"]
 			},
 			"bothQuip": "Les deux. Ton dernier mariage s’en souvient.",
 			"noneQuip": "Ni l’un ni l’autre. Les danses de l’été, tu gardais ta chaise."
@@ -9894,7 +9919,7 @@ var rivalries_default = {
 				"origin": "Danemark · 1997",
 				"line": "Une poupée en plastique et un tube mondial.",
 				"quip": "Team Aqua : « Barbie Girl » est dans ta tête. Maintenant. Désolé.",
-				"giphyIds": [],
+				"giphyIds": ["ooWAEAx2QgP60"],
 				"giphyQuery": "Aqua Barbie Girl"
 			},
 			"b": {
@@ -9902,7 +9927,7 @@ var rivalries_default = {
 				"origin": "Italie · 1998",
 				"line": "Tout est bleu. Tout.",
 				"quip": "Team Eiffel 65 : tout est bleu. Ta maison, ta voiture, ton humeur.",
-				"giphyIds": [],
+				"giphyIds": ["ljSSxlYrMA7ss"],
 				"giphyQuery": "Eiffel 65 Blue"
 			},
 			"bothQuip": "Les deux. Les tubes eurodance de 1998, tu les connais par cœur.",
@@ -9916,7 +9941,7 @@ var rivalries_default = {
 				"origin": "L’été",
 				"line": "Des chansons dans le car, et des lettres aux parents.",
 				"quip": "Team colos : des chansons dans le car, et une lettre aux parents par semaine.",
-				"giphyIds": [],
+				"giphyIds": ["xT1Ra4pzewEzZmUUGQ"],
 				"giphyQuery": "summer camp"
 			},
 			"b": {
@@ -9925,7 +9950,8 @@ var rivalries_default = {
 				"line": "Des confitures, et la télé à 20 heures.",
 				"quip": "Team vacances chez mamie : les confitures, la télé à 20 h, et le lit qui grince.",
 				"giphyIds": [],
-				"giphyQuery": "grandma"
+				"giphyQuery": "grandma",
+				"gifUrls": ["https://media.tenor.com/z-g5N8NDcWEAAAAC/beach-spinning-around.gif"]
 			},
 			"bothQuip": "Les deux. Juillet en colo, août chez mamie. L’été parfait.",
 			"noneQuip": "Ni l’un ni l’autre. Tes vacances, c’était à la maison. Le calme."
@@ -9939,7 +9965,8 @@ var rivalries_default = {
 				"line": "Le chocolat dès le petit-déjeuner.",
 				"quip": "Team Chocapic : le chocolat au petit-déjeuner, et le lait marron au fond du bol.",
 				"giphyIds": [],
-				"giphyQuery": "cereal chocolate"
+				"giphyQuery": "cereal chocolate",
+				"gifUrls": ["https://media.tenor.com/j_0CDzZ8oSkAAAAC/fort-chocolat.gif"]
 			},
 			"b": {
 				"name": "Miel Pops",
@@ -9947,7 +9974,8 @@ var rivalries_default = {
 				"line": "Le miel, et une abeille qui chante.",
 				"quip": "Team Miel Pops : tu chantes la chanson de l’abeille. Tu la chantes, là.",
 				"giphyIds": [],
-				"giphyQuery": "honey cereal"
+				"giphyQuery": "honey cereal",
+				"gifUrls": ["https://media.tenor.com/ZdKz5Fid8tgAAAAC/mielpops-twerk.gif"]
 			},
 			"bothQuip": "Les deux. Tu mélangeais les deux dans le même bol. Révolutionnaire.",
 			"noneQuip": "Ni l’un ni l’autre. Des tartines au petit-déjeuner. À l’ancienne."
@@ -9960,7 +9988,7 @@ var rivalries_default = {
 				"origin": "Ferrero · 1974",
 				"line": "Du chocolat, un jouet, et un dilemme.",
 				"quip": "Team Kinder Surprise : tu as monté des jouets minuscules sans rien comprendre à la notice.",
-				"giphyIds": [],
+				"giphyIds": ["WTXHRAy36R6ta"],
 				"giphyQuery": "Kinder Surprise"
 			},
 			"b": {
@@ -9969,7 +9997,8 @@ var rivalries_default = {
 				"line": "Un chewing-gum rose, et un tatouage.",
 				"quip": "Team Malabar : le tatouage tenait plus longtemps que le goût.",
 				"giphyIds": [],
-				"giphyQuery": "bubble gum"
+				"giphyQuery": "bubble gum",
+				"gifUrls": ["https://media.tenor.com/djQY8LoipbsAAAAC/eating-chewing-gum.gif"]
 			},
 			"bothQuip": "Les deux. Ta tirelire finissait chez le buraliste.",
 			"noneQuip": "Ni l’un ni l’autre. Les bonbons du buraliste, tu n’avais pas le droit."
@@ -9982,7 +10011,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Des genouillères, et des chutes en ville.",
 				"quip": "Team rollers : genouillères, coudières, et des chutes quand même.",
-				"giphyIds": [],
+				"giphyIds": ["rFMFTowZwvMEs9lQ0U"],
 				"giphyQuery": "rollerblading"
 			},
 			"b": {
@@ -9990,7 +10019,7 @@ var rivalries_default = {
 				"origin": "La rampe",
 				"line": "Un ollie raté, et on recommence.",
 				"quip": "Team skate : tu as raté ton ollie cent fois. Et tu as recommencé.",
-				"giphyIds": [],
+				"giphyIds": ["oBEUg7opRlyik"],
 				"giphyQuery": "skateboard"
 			},
 			"bothQuip": "Les deux. Tes genoux se souviennent des années 90.",
@@ -10004,7 +10033,7 @@ var rivalries_default = {
 				"origin": "Danemark · 1958",
 				"line": "Une brique, et une douleur sous le pied.",
 				"quip": "Team Lego : tu as marché sur une brique pieds nus. Tu t’en souviens encore.",
-				"giphyIds": [],
+				"giphyIds": ["SYeAP17mD2FOIR2CzR"],
 				"giphyQuery": "Lego"
 			},
 			"b": {
@@ -10012,7 +10041,7 @@ var rivalries_default = {
 				"origin": "Allemagne · 1974",
 				"line": "Des petits bonshommes au sourire éternel.",
 				"quip": "Team Playmobil : des petits bonshommes au sourire éternel. Ils sont au grenier.",
-				"giphyIds": [],
+				"giphyIds": ["ckleyc2rJee0oizGbq"],
 				"giphyQuery": "Playmobil"
 			},
 			"bothQuip": "Les deux. Ton village Playmobil avait des maisons en Lego.",
@@ -10026,7 +10055,7 @@ var rivalries_default = {
 				"origin": "Mattel · 1959",
 				"line": "Mille métiers, un seul sourire.",
 				"quip": "Team Barbie : mille métiers, un seul sourire, et des chaussures perdues partout.",
-				"giphyIds": [],
+				"giphyIds": ["yLJ8EtrKGDhVTcVZcb"],
 				"giphyQuery": "Barbie"
 			},
 			"b": {
@@ -10034,7 +10063,7 @@ var rivalries_default = {
 				"origin": "Kenner · 1992",
 				"line": "Des animaux miniatures à grosse tête.",
 				"quip": "Team Petshop : des animaux à grosse tête, et une collection complète.",
-				"giphyIds": [],
+				"giphyIds": ["0FhbUopUZWvF7H39F0"],
 				"giphyQuery": "Littlest Pet Shop"
 			},
 			"bothQuip": "Les deux. Ta chambre était une ville en plastique.",
@@ -10048,7 +10077,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "« Vous avez du courrier ! »",
 				"quip": "Team AOL : « Vous avez du courrier ! » Tu l’entends encore.",
-				"giphyIds": [],
+				"giphyIds": ["1aejdvBiVkJsk"],
 				"giphyQuery": "AOL dial up"
 			},
 			"b": {
@@ -10057,7 +10086,8 @@ var rivalries_default = {
 				"line": "Internet en 56k, et la facture de téléphone.",
 				"quip": "Team Wanadoo : Internet en 56k, et une facture de téléphone qui a fait hurler la maison.",
 				"giphyIds": [],
-				"giphyQuery": "internet 90s"
+				"giphyQuery": "internet 90s",
+				"images": ["/images/teams/wanadoo-76d93a06.webp"]
 			},
 			"bothQuip": "Les deux. Tu recevais leurs CD d’installation dans la boîte aux lettres. Par dizaines.",
 			"noneQuip": "Ni l’un ni l’autre. Toi, tu as connu Internet directement en haut débit. Le luxe."
@@ -10070,7 +10100,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Une encyclopédie entière sur un disque.",
 				"quip": "Team cédéroms : toute une encyclopédie sur un disque. Ou des heures sur Adibou.",
-				"giphyIds": [],
+				"giphyIds": ["lYZjoIy0UOEJa"],
 				"giphyQuery": "CD-ROM"
 			},
 			"b": {
@@ -10078,7 +10108,7 @@ var rivalries_default = {
 				"origin": "Années 80-90",
 				"line": "1,44 Mo, et l’icône « Enregistrer ».",
 				"quip": "Team disquettes : 1,44 Mo. Tu découpais tes fichiers en dix morceaux pour les transporter.",
-				"giphyIds": [],
+				"giphyIds": ["l2QE3oVEP88zGMTPa"],
 				"giphyQuery": "floppy disk"
 			},
 			"bothQuip": "Les deux. Ton bureau débordait de supports de stockage.",
@@ -10092,7 +10122,7 @@ var rivalries_default = {
 				"origin": "France · 1986",
 				"line": "Des autocollants délicieusement dégoûtants.",
 				"quip": "Team Crados : plus c’était dégoûtant, plus tu aimais. Tu les collais partout.",
-				"giphyIds": [],
+				"giphyIds": ["r607JPaRrYuOY"],
 				"giphyQuery": "Garbage Pail Kids"
 			},
 			"b": {
@@ -10100,7 +10130,7 @@ var rivalries_default = {
 				"origin": "Le foot",
 				"line": "Un album, et l’échange des doubles.",
 				"quip": "Team Panini : « Je l’ai, je l’ai, je l’ai pas. » Tu échangeais les doubles comme un trader.",
-				"giphyIds": [],
+				"giphyIds": ["UTZ6FNz0d8w636GMbS"],
 				"giphyQuery": "Panini stickers"
 			},
 			"bothQuip": "Les deux. Ton cartable était couvert d’autocollants.",
@@ -10114,7 +10144,7 @@ var rivalries_default = {
 				"origin": "Années 90",
 				"line": "Des synthés, un rappeur, une chanteuse.",
 				"quip": "Team eurodance : des synthés, un rappeur, une chanteuse. Tu dansais dans ta chambre.",
-				"giphyIds": [],
+				"giphyIds": ["5UJyoBqHtHmU0"],
 				"giphyQuery": "eurodance"
 			},
 			"b": {
@@ -10122,7 +10152,7 @@ var rivalries_default = {
 				"origin": "Seattle · années 90",
 				"line": "Des chemises à carreaux et des cheveux gras.",
 				"quip": "Team grunge : chemise à carreaux, cheveux gras, et l’air triste. Le style.",
-				"giphyIds": [],
+				"giphyIds": ["rWNYw8eu0UKKA"],
 				"giphyQuery": "grunge"
 			},
 			"bothQuip": "Les deux. Les années 90, tu les as vécues des deux côtés.",
@@ -10137,14 +10167,15 @@ var rivalries_default = {
 				"line": "Des livres pour se faire peur sous la couette.",
 				"quip": "Team Chair de poule : tu lisais sous la couette, à la lampe torche. Et tu avais peur.",
 				"giphyIds": [],
-				"giphyQuery": "Goosebumps"
+				"giphyQuery": "Goosebumps",
+				"gifUrls": ["https://media.tenor.com/6aJyMQ8Mb_MAAAAC/dummy-slappy.gif"]
 			},
 			"b": {
 				"name": "Le Club des Cinq",
 				"origin": "Enid Blyton · 1942",
 				"line": "Quatre enfants, un chien, et des mystères.",
 				"quip": "Team Club des Cinq : tu cherchais des mystères au fond du jardin. Avec ton chien.",
-				"giphyIds": [],
+				"giphyIds": ["Ur7dCiOgm74YYt87Zr"],
 				"giphyQuery": "Famous Five"
 			},
 			"bothQuip": "Les deux. La bibliothèque de l’école, tu l’as dévorée.",
@@ -10158,7 +10189,7 @@ var rivalries_default = {
 				"origin": "Air France · 1976",
 				"line": "Paris-New York en trois heures et demie.",
 				"quip": "Team Concorde : Paris-New York en trois heures et demie. Tu en rêves encore.",
-				"giphyIds": [],
+				"giphyIds": ["3fk6hIuZ4jTTHCGB0e"],
 				"giphyQuery": "Concorde"
 			},
 			"b": {
@@ -10167,7 +10198,8 @@ var rivalries_default = {
 				"line": "Le train le plus rapide du pays.",
 				"quip": "Team TGV : le train le plus rapide du pays, et un café hors de prix.",
 				"giphyIds": [],
-				"giphyQuery": "TGV train"
+				"giphyQuery": "TGV train",
+				"gifUrls": ["https://media.tenor.com/pjCe4UnGPBMAAAAC/tgv-tgv-tuesday.gif"]
 			},
 			"bothQuip": "Les deux. La vitesse à la française, ta fierté nationale.",
 			"noneQuip": "Ni l’un ni l’autre. Tu préfères la voiture. Et ses bouchons."
@@ -10180,7 +10212,7 @@ var rivalries_default = {
 				"origin": "Le salon",
 				"line": "« Vous êtes bien chez… »",
 				"quip": "Team répondeur : « Vous êtes bien chez… » Tu as enregistré ton message dix fois.",
-				"giphyIds": [],
+				"giphyIds": ["pWk2sdg1ZsmDX0OgNv"],
 				"giphyQuery": "answering machine"
 			},
 			"b": {
@@ -10188,7 +10220,7 @@ var rivalries_default = {
 				"origin": "La rue",
 				"line": "Une carte à puce et un froid glacial.",
 				"quip": "Team cabine téléphonique : une carte à puce, un froid glacial, et trois minutes d’appel.",
-				"giphyIds": [],
+				"giphyIds": ["02ST5L62Lqfyve3z20"],
 				"giphyQuery": "phone booth"
 			},
 			"bothQuip": "Les deux. Avant le portable, tu laissais des messages partout.",
@@ -10203,14 +10235,15 @@ var rivalries_default = {
 				"line": "Une souris aux grands pieds, sur tous les blocs-notes.",
 				"quip": "Team Diddl : tes feuilles Diddl étaient rangées dans un classeur. Pas question d’échanger.",
 				"giphyIds": [],
-				"giphyQuery": "cartoon mouse"
+				"giphyQuery": "cartoon mouse",
+				"gifUrls": ["https://media.tenor.com/1ekCeSUACxYAAAAC/hello.gif"]
 			},
 			"b": {
 				"name": "Hello Kitty",
 				"origin": "Sanrio · 1974",
 				"line": "Un nœud rouge, et pas de bouche.",
 				"quip": "Team Hello Kitty : une trousse, un cartable et un réveil Hello Kitty. Au minimum.",
-				"giphyIds": [],
+				"giphyIds": ["k7krKoq214ef7zsGG6"],
 				"giphyQuery": "hello kitty"
 			},
 			"bothQuip": "Les deux. Ta papeterie était la plus mignonne de la classe.",
@@ -10225,7 +10258,8 @@ var rivalries_default = {
 				"line": "Clic, clic, clic, et toujours la mauvaise couleur.",
 				"quip": "Team stylo quatre couleurs : tu as essayé d’appuyer sur deux couleurs à la fois. Ça coinçait.",
 				"giphyIds": [],
-				"giphyQuery": "pen click"
+				"giphyQuery": "pen click",
+				"images": ["/images/teams/stylo-quatre-couleurs-512068f7.anim.webp"]
 			},
 			"b": {
 				"name": "Gomme parfumée",
@@ -21457,7 +21491,7 @@ var rivalries_default = {
 				"origin": "Le bureau",
 				"line": "Une fenêtre à la fois, et la concentration.",
 				"quip": "Team un écran : une seule chose à la fois. Tu es la personne la plus calme du bureau.",
-				"giphyIds": [],
+				"giphyIds": ["OwZ3T7Clv1xNpJJPyh"],
 				"giphyQuery": "single monitor"
 			},
 			"b": {
@@ -23512,7 +23546,7 @@ var rivalries_default = {
 				"origin": "James Cameron · 1997",
 				"line": "« Je suis le roi du monde ! »",
 				"quip": "Team Titanic : tu as écarté les bras à l’avant d’un ferry. Avoue.",
-				"giphyIds": [],
+				"giphyIds": ["tk39314j32wGk"],
 				"giphyQuery": "Titanic king of the world"
 			},
 			"b": {
@@ -24226,7 +24260,7 @@ var rivalries_default = {
 				"origin": "Steven Spielberg · 1993",
 				"line": "Des dinosaures, et un verre d’eau qui tremble.",
 				"quip": "Team Jurassic Park : un verre d’eau qui tremble, et tu cherches la sortie.",
-				"giphyIds": [],
+				"giphyIds": ["hu1TLAaubiak9S4GT6"],
 				"giphyQuery": "jurassic park"
 			},
 			"bothQuip": "Les deux. Spielberg t’a appris à avoir peur de tout. La mer, la forêt, les verres d’eau.",
@@ -24624,7 +24658,7 @@ var rivalries_default = {
 				"origin": "Mattel · 1959",
 				"line": "Mille métiers, et la vedette.",
 				"quip": "Team Barbie : mille métiers, et toujours la bonne tenue pour chacun.",
-				"giphyIds": [],
+				"giphyIds": ["yLJ8EtrKGDhVTcVZcb"],
 				"giphyQuery": "Barbie doll"
 			},
 			"bothQuip": "Les deux. La maison de rêve, et la décapotable rose.",
@@ -24734,7 +24768,7 @@ var rivalries_default = {
 				"origin": "Éric et Ramzy · 1994",
 				"line": "Le grand aussi, et encore plus absurde.",
 				"quip": "Team Ramzy : l’absurde total, sans filet, et sans aucun regret.",
-				"giphyIds": [],
+				"giphyIds": ["7BiQdoNGbvD0LchzBr"],
 				"giphyQuery": "Ramzy"
 			},
 			"bothQuip": "Les deux. Tu as vu « La Tour Montparnasse infernale » plus de dix fois.",
@@ -25066,7 +25100,8 @@ var rivalries_default = {
 				"line": "Le pince-sans-rire, en costume impeccable.",
 				"quip": "Team Fred : tu dis des énormités sans jamais sourire. Personne ne sait si tu plaisantes.",
 				"giphyIds": [],
-				"giphyQuery": "fred testot"
+				"giphyQuery": "fred testot",
+				"gifUrls": ["https://media.tenor.com/9RQMYV8J-h4AAAAC/fred-testot-omar-et-fred.gif"]
 			},
 			"bothQuip": "Les deux. Les sketchs du « SAV », tu les connais par cœur.",
 			"noneQuip": "Ni Omar ni Fred. Les sketchs à deux, tu préfères les monologues."
